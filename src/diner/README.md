@@ -1,3 +1,3 @@
-BigSpoon Dinner Iphone App setup instructions
+BigSpoon Diner Iphone App Setup Instructions
 ------
 
