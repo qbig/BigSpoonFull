@@ -29,3 +29,9 @@ Host 3216-final
 2. `virtualenv env` (make sure you are at the same folder where this README file is in)
 3. `source env/bin/activate`
 4. `pip install -r bigspoon/reqs/dev.txt`
+
+### bash alias
+
+Put blow code in your ~/.bashrc file:
+`BIGSPOON_BACKEND=(Path to your backend folder)`
+`alias workon_bg='cd $BIGSPOON_BACKEND; source env/bin/activate;'`
