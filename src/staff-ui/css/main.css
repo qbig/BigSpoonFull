@@ -222,7 +222,7 @@ textarea {
 
 
 body {
-    background: url("http://eatfeastly.com/media/bg/how-it-works-bg.png");
+    background: url("../img/bg.png");
 }
 
 .wrapper {
@@ -236,7 +236,7 @@ body {
     padding: 10px 0px;
     float: left;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 20px;
     border: none;
 }
 
