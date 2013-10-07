@@ -1,0 +1,6 @@
+-r common.txt
+-r test.txt
+# For debug
+django-debug-toolbar>=0.9.4,<1.0
+ipdb>=0.7,<1.0
+django-extensions>=1.1.1,<1.2

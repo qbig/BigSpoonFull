@@ -100,3 +100,4 @@ build/
 ###################################################
 # for python virtualenv
 env/
+bg_dev.db

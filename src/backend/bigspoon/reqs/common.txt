@@ -1,0 +1,5 @@
+django>=1.5,<1.6
+# database migration
+South>=0.8.2,<0.9
+# REST
+djangorestframework>=2.3.8,<2.4
