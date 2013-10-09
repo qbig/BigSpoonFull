@@ -1,4 +1,4 @@
-BigSpoon Django Backend setup instructions
+BigSpoon Django Backend Setup Instructions
 ------
 
 ### ssh config
@@ -12,6 +12,7 @@ Host 3216-final
 
 ### server environment variables
 
+needed on production server but not on local dev environment
 + `DJANGO_SETTINGS_MODULE`
 + `EMAIL_HOST`
 + `EMAIL_HOST_PASSWORD`
@@ -25,8 +26,8 @@ Host 3216-final
 
 ### setup virtualenv and install requirements
 
-1. Install [`virtualenv`](http://www.virtualenv.org/en/latest/#installation) for python
-2. `virtualenv env` (make sure you are at the same folder where this README file is in)
+1. install [`virtualenv`](http://www.virtualenv.org/en/latest/#installation) for python
+2. `virtualenv env` (make sure you are at the same folder where this README file is at)
 3. `source env/bin/activate`
 4. `pip install -r bigspoon/reqs/dev.txt`
 
@@ -35,3 +36,13 @@ Host 3216-final
 Put blow code in your ~/.bashrc file:
 `BIGSPOON_BACKEND=(Path to your backend folder)`
 `alias workon_bg='cd $BIGSPOON_BACKEND; source env/bin/activate;'`
+
+### start server locally
+Make sure you are at folder where `manage.py` file is in
+Migrate Database:
+`python manage.py syncdb`
+`python manage.py migrate`
+Start normal server:
+`python manage.py runserver` - running at localhost:8000
+Start gevent socket server:
+`python run.py` - running at localhost:9000
