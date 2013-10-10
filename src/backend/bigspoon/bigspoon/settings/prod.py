@@ -3,8 +3,6 @@
 
 from os import environ
 
-from S3 import CallingFormat
-
 from common import *
 
 
@@ -63,6 +61,8 @@ INSTALLED_APPS += (
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
+from S3 import CallingFormat
+
 AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
