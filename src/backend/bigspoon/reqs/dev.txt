@@ -4,3 +4,6 @@
 django-debug-toolbar>=0.9.4,<1.0
 ipdb>=0.7,<1.0
 django-extensions>=1.1.1,<1.2
+# deploy tool
+Fabric>=1.8,<2.0
+requests>=2.0.0,<2.1

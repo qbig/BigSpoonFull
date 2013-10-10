@@ -1,7 +1,6 @@
 """Common settings and globals."""
 
 
-from datetime import timedelta
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
 
@@ -202,6 +201,12 @@ THIRD_PARTY_APPS = (
 
     # Django rest framework:
     'rest_framework',
+
+    # Django object level permission:
+    'guardian',
+
+    # Django thumbs
+    'django_thumbs',
 )
 
 LOCAL_APPS = (
@@ -225,8 +230,8 @@ LOGGING = {
         },
     },
     'filters': {
-    'require_debug_false': {
-        '()': 'django.utils.log.RequireDebugFalse'
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
         }
     },
     'handlers': {
@@ -287,3 +292,17 @@ COMPRESS_JS_FILTERS = [
 ########## REST FRAMEWORK CONFIGURATION
 
 ########## END REST FRAMEWORK CONFIGURATION
+
+########## GUARDIAN CONFIGURATION
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+)
+ANONYMOUS_USER_ID = -1
+ANONYMOUS_DEFAULT_USERNAME_VALUE = 'Anonymous'
+########## END GUARDIAN CONFIGURATION
+
+########## USER MODEL CONFIGURATION
+AUTH_USER_MODEL = 'bg_inventory.User'
+LOGIN_REDIRECT_URL = '/'
+########## END USER MODEL CONFIGURATION
