@@ -27,11 +27,11 @@ body {
 
 hr {
     display: block;
+    margin: 1em 0;
+    padding: 0;
     height: 1px;
     border: 0;
     border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
 }
 
 img {
@@ -39,9 +39,9 @@ img {
 }
 
 fieldset {
-    border: 0;
     margin: 0;
     padding: 0;
+    border: 0;
 }
 
 textarea {
@@ -50,9 +50,9 @@ textarea {
 
 .chromeframe {
     margin: 0.2em 0;
+    padding: 0.2em 0;
     background: #ccc;
     color: #000;
-    padding: 0.2em 0;
 }
 
 /* ==========================================================================
@@ -75,17 +75,17 @@ textarea {
    ========================================================================== */
 
 .ir {
-    background-color: transparent;
-    border: 0;
     overflow: hidden;
+    border: 0;
+    background-color: transparent;
     *text-indent: -9999px;
 }
 
 .ir:before {
-    content: "";
     display: block;
     width: 0;
     height: 150%;
+    content: "";
 }
 
 .hidden {
@@ -94,24 +94,24 @@ textarea {
 }
 
 .visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
     position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    padding: 0;
     width: 1px;
+    height: 1px;
+    border: 0;
 }
 
 .visuallyhidden.focusable:active,
 .visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
     position: static;
+    overflow: visible;
+    clip: auto;
+    margin: 0;
     width: auto;
+    height: auto;
 }
 
 .invisible {
@@ -120,8 +120,8 @@ textarea {
 
 .clearfix:before,
 .clearfix:after {
-    content: " ";
     display: table;
+    content: " ";
 }
 
 .clearfix:after {
@@ -139,8 +139,8 @@ textarea {
 @media print {
     * {
         background: transparent !important;
-        color: #000 !important; /* Black prints faster: h5bp.com/s */
         box-shadow: none !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
         text-shadow: none !important;
     }
 
@@ -210,14 +210,14 @@ textarea {
 
 /* Custom Fonts */
 @font-face {
-    font-family: 'Ostrich Sans';
     font-weight: bold;
-    src: url("../fonts/ostrich-black.ttf")
+    font-family: 'Ostrich Sans';
+    src: url("../fonts/ostrich-black.ttf");
 }
 
 @font-face {
     font-family: 'Scholar';
-    src: url("../fonts/texgyreschola-regular.otf")
+    src: url("../fonts/texgyreschola-regular.otf");
 }
 
 
@@ -226,56 +226,56 @@ body {
 }
 
 .wrapper {
+    margin: 0 auto;
     min-width: 800px;
     max-width: 960px;
-    margin: 0 auto;
     border-radius: 5px;
 }
 
 #container {
-    padding: 10px 0px;
     float: left;
-    width: 100%;
     margin: 0 20px;
+    padding: 10px 0px;
+    width: 100%;
     border: none;
 }
 
 /* Top Navigation */
 nav {
-    width: 100%;
     display: inline;
-    background: #fff;
     float: left;
+    width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.2);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.2);
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.2);
 }
 
 nav h1{
-    font-size: 36px;
-    font-family: "Ostrich Sans";
-    font-weight: bold;
     display: inline;
     vertical-align: middle;
+    font-weight: bold;
+    font-size: 36px;
+    font-family: "Ostrich Sans";
 }
 
 nav ul li{
+    display: inline;
     height: 100%;
-    font-family: "Scholar";
-    font-size: 18px;
-    line-height:36px;
     color: #585858;
     list-style-type: none;
-    display: inline;
+    font-size: 18px;
+    font-family: "Scholar";
+    line-height:36px;
 }
 
 nav ul li a {
-    padding: 24px 30px;
-    text-decoration:none;
-    color: #585858;
     margin: 0 -2.5px;
+    padding: 24px 30px;
     border: 1px solid #ddd;
+    color: #585858;
+    text-decoration:none;
 }
 
 nav ul li h1 a {
@@ -305,25 +305,25 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 
 /* Order Items */
 .item {
-    width: 250px;
-    min-height: 200px;
-    padding-bottom: 20px;
     float: left;
     margin: 5px;
+    padding-bottom: 20px;
+    min-height: 200px;
+    width: 250px;
+    border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
-    border-radius: 5px;
 }
 
 .item span.time {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
     display:block;
     padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
     color: #fff;
 }
 
@@ -336,10 +336,10 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item h3 {
-    padding-left: 20px;
-    color: rgb(85,85,85);
     margin-top: 0px;
     margin-bottom: 0px;
+    padding-left: 20px;
+    color: rgb(85,85,85);
 }
 
 .item img {
@@ -347,11 +347,11 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item h4 {
-    font-size: 14px;
     display: inline-block;
-    padding-left: 20px;
     margin:0px;
+    padding-left: 20px;
     color: rgba(85,85,85,0.8);
+    font-size: 14px;
 }
 
 .order {
@@ -360,9 +360,9 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .order li {
-    list-style-type: none;
     padding: 5px 20px;
     color: #333;
+    list-style-type: none;
 }
 
 .order li:nth-child(even){
@@ -371,8 +371,8 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .order li:nth-child(odd){
-    background: #fcf6ef;
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    background: #fcf6ef;
 }
 
 .order li:last-child {
@@ -380,21 +380,21 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item a.acknowledge {
-    width: 120px;
     margin: 0 55px;
-    font-size: 14px;
-    text-align:center;
-    text-decoration:none;
     padding: 10px 20px;
+    width: 120px;
     border-radius: 5px;
     background-color: #61C0B9;
     color: white;
+    text-align:center;
+    text-decoration:none;
     text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size: 14px;
 }
 
 .item .icon{
-    margin-bottom: 10px;
     display: block;
+    margin-bottom: 10px;
     height: 150px;
 }
 
@@ -405,8 +405,8 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 /* Menu main & Menu Items */
 #main {
     float: left;
-    width: 100%;
     margin: 0 auto;
+    width: 100%;
     border: none;
 }
 
@@ -416,31 +416,31 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 #main .wrapper-no-bg {
-    width: 860px;
     margin: 0 auto;
     margin-top: 10px;
+    width: 860px;
     background: none;
 }
 
 #main h1 {
-    color: #333;
     padding: 20px;
     padding-bottom:0px;
+    color: #333;
 }
 
 #main a.add, #main a.save {
-    margin: 20px;
     display:inline-block;
     float: right;
-    width: auto;
-    font-size: 14px;
-    text-align:center;
-    text-decoration:none;
+    margin: 20px;
     padding: 10px 20px;
+    width: auto;
     border-radius: 5px;
     background-color: #008cdd;
     color: white;
+    text-align:center;
+    text-decoration:none;
     text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size: 14px;
 }
 
 #main a.save {
@@ -466,23 +466,23 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 .user-info input, .menu-item input {
     padding: 10px;
     border: 0px;
-    border-radius: 5px;
     border-bottom: 1px solid #fff;
-    color: #555;
+    border-radius: 5px;
     background-color: #ebebeb;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
-    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
-    transition: all 0.2s linear;
-    -moz-transition: all 0.2s linear;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+    color: #555;
     -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
     -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
 
 .menu-item input.description {
-    height: 80px;
     width: 300px;
+    height: 80px;
 }
 
 .menu-item input.price {
@@ -491,43 +491,43 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 
 /* Table styles */
 .table {
-    width: 300px;
-    min-height: 200px;
-    padding-bottom: 20px;
     float: left;
     margin: 5px;
+    padding-bottom: 20px;
+    min-height: 200px;
+    width: 300px;
+    border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
-    border-radius: 5px;
 }
 
 .table h3 {
-    font-family: "Scholar";
-    font-size: 32px;
     margin-top: 10px;
     margin-bottom: 10px;
-    text-align:center;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
     color: rgb(85,85,85);
+    text-align:center;
+    font-size: 32px;
+    font-family: "Scholar";
 }
 
 .table h4 {
-    padding-left: 20px;
     margin: 0px;
+    padding-left: 20px;
     color: rgba(85,85,85,0.8);
 }
 
 .user {
-    height: 50px;
     display:block;
+    height: 50px;
 }
 
 .user h4 {
-    font-size: 14px;
     display: inline-block;
     padding-top: 15px;
+    font-size: 14px;
 }
 
 .user img {
@@ -542,10 +542,10 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 
 .user-info {
     display:inline-block;
-    padding: 20px;
-    border-radius: 5px;
-    width: 800px;
     margin: 10px auto 20px;
+    padding: 20px;
+    width: 800px;
+    border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -553,16 +553,16 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .past-orders {
-    width: 360px;
-    float: left;
     display: block;
+    float: left;
     margin-right: 30px;
+    width: 360px;
 }
 
 .user-preferences {
-    width: 400px;
     display: block;
     float: left;
+    width: 400px;
 }
 
 .user-info .user img {
@@ -583,10 +583,10 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .user-info .user-stats {
-    width: auto;
     display: block;
-    height: 60px;
     padding-bottom: 20px;
+    width: auto;
+    height: 60px;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
 }
 
@@ -595,27 +595,27 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .user-info .visits, .user-info .spent{
+    display: inline;
+    float: left;
     margin-right: 10px;
     padding: 10px;
-    color: #fff;
-    background: #0C4;
     border-radius: 5px;
-    float: left;
-    display: inline;
+    background: #0C4;
+    color: #fff;
 }
 
 .user-info .feedback, .user-info .favourites, .user-info .vegetarian, .user-info .allergies {
-    margin-top: 0px;
     display: inline-block;
-    height: 80px;
-    width: 360px;
-    background: #fcf6ef;
+    margin-top: 0px;
     padding:20px;
+    width: 360px;
+    height: 80px;
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    background: #fcf6ef;
 }
 
 .user-info input.notes {
-    height: 80px;
     width: 380px;
+    height: 80px;
 }
