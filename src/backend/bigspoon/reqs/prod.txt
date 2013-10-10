@@ -1,6 +1,8 @@
 -r common.txt
 # Database
-PyMySQL>=0.6,<0.7
+# PyMySQL>=0.6,<0.7
+# TODO: change to PyMySQL when it's ready
+MySQL-python>=1.2.4,<1.2.5
 dj-database-url>=0.2.1,<0.3
 # AWS S3
 django-storages>=1.1.4,<1.2
