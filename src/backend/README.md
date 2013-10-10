@@ -42,7 +42,5 @@ Make sure you are at folder where `manage.py` file is in
 Migrate Database:
 `python manage.py syncdb`
 `python manage.py migrate`
-Start normal server:
+Start server (running with socketio):
 `python manage.py runserver` - running at localhost:8000
-Start gevent socket server:
-`python run.py` - running at localhost:9000
