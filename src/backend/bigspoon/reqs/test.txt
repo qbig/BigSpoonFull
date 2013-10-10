@@ -8,6 +8,3 @@ selenium>=2.33.0,<3.0
 # For code style
 flake8>=2.0,<3.0
 autopep8>=0.9.1,<1.0
-# For documentation
-docutils>=0.10,<1.0
-Pygments>=1.6,<2.0
