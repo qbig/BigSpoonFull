@@ -13,13 +13,16 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
-import os
+from gevent import monkey
+monkey.patch_all()  # this *must* run first
+
 try:
     import pymysql
     pymysql.install_as_MySQLdb()
 except ImportError:
     pass
 
+import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bigspoon.settings.dev")
 
 # This application object is used by any WSGI server configured to use this

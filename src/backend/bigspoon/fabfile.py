@@ -6,11 +6,11 @@ BigSpoon CS3216 Final Project - Group 7
 import requests
 import time
 
-from fabric.api import *
-from fabric.colors import *
+from fabric.api import run, env, sudo, hosts, cd
+from fabric.colors import cyan, yellow, green, white, red
 
 
-PROJECT_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/bigspoon/'
+WORK_HOME = '/home/ec2-user/webapps/2013-final-project-7/src/backend/bigspoon/'
 ENV_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/env/'
 RUN_WITH_ENV = 'source '+ENV_PATH+'bin/activate && '
 AWS_IP = '122.248.199.242'
@@ -32,13 +32,16 @@ def sanity_check(host, urls):
             return 1
             break
 
+
 def restart_nginx():
     print(yellow('Restart Ngnix ...'))
     sudo("service nginx restart")
 
+
 def restart_supervisord():
     print(yellow('Restart Supervisor ...'))
     sudo("service supervisord restart")
+
 
 def install_requirements():
     print(yellow('Install requirements ...'))
@@ -48,7 +51,6 @@ def install_requirements():
 def create_db():
     print(yellow('Create new database ...'))
     run(RUN_WITH_ENV+'python manage.py flush')
-    run(RUN_WITH_ENV+'python manage.py syncdb')
     run(RUN_WITH_ENV+'python manage.py migrate')
 
 
@@ -65,9 +67,10 @@ def collect_assets():
 @hosts(SERVER)
 def deploy(*args):
     print(cyan('->  Connected to server'))
-    with cd('%s' % PROJECT_PATH):
+    with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
         run("git remote update && git reset --hard origin/master")
+        install_requirements()
         if args:
             if 'newdb' in args:
                 create_db()

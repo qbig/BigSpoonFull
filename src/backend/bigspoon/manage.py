@@ -1,11 +1,15 @@
 #!/usr/bin/env python
-import os
-import sys
+from gevent import monkey
+monkey.patch_all()  # this *must* run first
+
 try:
     import pymysql
     pymysql.install_as_MySQLdb()
 except ImportError:
     pass
+
+import os
+import sys
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bigspoon.settings.dev")
