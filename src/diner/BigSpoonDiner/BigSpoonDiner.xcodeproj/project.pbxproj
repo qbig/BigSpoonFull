@@ -204,6 +204,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = nus.cs3217;
 				TargetAttributes = {
+					49F107DE180886D600D2C8DD = {
+						DevelopmentTeam = W76H98A34A;
+					};
 					49F10802180886D600D2C8DD = {
 						TestTargetID = 49F107DE180886D600D2C8DD;
 					};
@@ -384,10 +387,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
 				INFOPLIST_FILE = "BigSpoonDiner/BigSpoonDiner-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -397,10 +403,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
 				INFOPLIST_FILE = "BigSpoonDiner/BigSpoonDiner-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -466,6 +475,7 @@
 				49F10816180886D600D2C8DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49F10817180886D600D2C8DD /* Build configuration list for PBXNativeTarget "BigSpoonDinerTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +484,7 @@
 				49F10819180886D600D2C8DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
