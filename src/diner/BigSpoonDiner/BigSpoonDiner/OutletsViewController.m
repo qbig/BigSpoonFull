@@ -65,7 +65,11 @@
 
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     
+    //URLImageView *imageView = [[URLImageView alloc] init];
+    //[imageView startLoading: [outlet.imgURL absoluteString]];
     
+    UIImageView *outletPhoto = (UIImageView *)[cell viewWithTag:100];
+    outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
 
 	UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
 	nameLabel.text = outlet.name;
@@ -78,13 +82,7 @@
     
     UILabel *operatingHoursLabel = (UILabel *)[cell viewWithTag:104];
 	operatingHoursLabel.text = outlet.operatingHours;
-    
-    URLImageView *imageView = [[URLImageView alloc] init];
-    [imageView startLoading: [outlet.imgURL absoluteString]];
-    
-    UIImageView *outletPhoto = (UIImageView *)[cell viewWithTag:100];
-    outletPhoto.image = imageView.image;
-    
+
     return cell;
 }
 
