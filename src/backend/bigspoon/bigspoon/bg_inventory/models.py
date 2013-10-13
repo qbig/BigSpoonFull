@@ -2,8 +2,44 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django_thumbs.db.models import ImageWithThumbsField
+from django.utils.text import slugify
 
 from bg_inventory.managers import UserManager
+
+
+# helper methods
+def _image_upload_path(instance, filename):
+    return instance.get_upload_path(filename)
+
+
+def _thumbnail_sizes(instance):
+    return instance.get_thumbnail_size()
+
+
+def _image_helptext(instance):
+    return instance.get_image_helptext()
+
+
+# model class
+class BasicImage(models.Model):
+    """
+    Basic Image Model for store images
+    """
+    caption = models.CharField(
+        _('caption'),
+        max_length=300,
+        blank=True,
+        help_text=_('image caption')
+    )
+    image = ImageWithThumbsField(
+        upload_to=_image_upload_path,
+        sizes=_thumbnail_sizes,
+        help_text=_image_helptext
+    )
+
+    def __unicode__(self):
+        return "%s - %s" % (self.caption, self.image)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -76,3 +112,48 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
+
+
+class RestaurantIcon(BasicImage):
+    class Meta:
+        proxy = True
+
+    def get_upload_path(self, filename):
+        fname, dot, extension = filename.rpartition('.')
+        slug = slugify(fname)
+        return '%s.%s' % (slug, extension)
+
+    def get_thumbnail_size():
+        return ((200, 200),)
+
+    def get_image_helptext():
+        return _('restaurant icon')
+
+
+class Restaurant(models.Model):
+    """
+    Stores restaurant information
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=128,
+        unique=True,
+        help_text=_('restaurant name')
+    )
+    desc = models.TextField(
+        _('description'),
+        blank=False,
+        null=True,
+        help_text=_('restaurant description')
+    )
+    icon = models.ForeignKey(RestaurantIcon)
+
+    def __unicode__(self):
+        """
+        Returns the restaurant name
+        """
+        return slugify(self.name)
+
+    class Meta:
+        verbose_name = _('restaurant')
+        verbose_name_plural = _('restaurants')
