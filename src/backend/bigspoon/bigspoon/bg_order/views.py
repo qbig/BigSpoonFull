@@ -1,19 +1,19 @@
-from django.shortcuts import render_to_response
+from django.views.generic import TemplateView
 
-def main(request):
-    return render_to_response('bg_order/main.html')
+class MainView(TemplateView):
+    template_name = "bg_order/main.html"
 
-def menu(request):
-    return render_to_response('bg_order/menu.html')
+class MenuView(TemplateView):
+    template_name = "bg_order/menu.html"
 
-def tables(request):
-    return render_to_response('bg_order/tables.html')
+class TableView(TemplateView):
+    template_name = "bg_order/tables.html"
 
-def user(request):
-    return render_to_response('bg_order/user.html')
+class UserView(TemplateView):
+    template_name = "bg_order/user.html"
 
-def history(request):
-    return render_to_response('bg_order/history.html')
+class HistoryView(TemplateView):
+    template_name = "bg_order/history.html"
 
-def report(request):
-    return render_to_response('bg_order/report.html')
+class ReportView(TemplateView):
+    template_name = "bg_order/report.html"

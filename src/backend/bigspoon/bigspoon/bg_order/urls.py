@@ -1,10 +1,12 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls.defaults import patterns
+from bg_order.views import MainView, MenuView, TableView, UserView, \
+    HistoryView, ReportView
 
-urlpatterns = patterns('bigspoon.bg_order.views',
-    url(r'^main/$', 'main'),
-    url(r'^menu/$', 'menu'),
-    url(r'^tables/$', 'tables'),
-    url(r'^user/$', 'user'),
-    url(r'^history/$', 'history'),
-    url(r'^report/$', 'report'),
+urlpatterns = patterns('',
+    (r'^main/$', MainView.as_view()),
+    (r'^menu/$', MenuView.as_view()),
+    (r'^tables/$', TableView.as_view()),
+    (r'^user/$', UserView.as_view()),
+    (r'^history/$', HistoryView.as_view()),
+    (r'^report/$', ReportView.as_view()),
 )
