@@ -59,29 +59,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView
+    OutletCell *cell = (OutletCell *)[tableView
                              dequeueReusableCellWithIdentifier:@"OutletCell"];
     
 
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+    // If the cells are not sub-classes, we can use tags to retrieve the element in the cell:
+	//UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
     
-    //URLImageView *imageView = [[URLImageView alloc] init];
-    //[imageView startLoading: [outlet.imgURL absoluteString]];
+    // For optimization purpose:
+    // URLImageView *imageView = [[URLImageView alloc] init];
+    // [imageView startLoading: [outlet.imgURL absoluteString]];
     
-    UIImageView *outletPhoto = (UIImageView *)[cell viewWithTag:100];
-    outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
-
-	UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
-	nameLabel.text = outlet.name;
+    cell.outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
+    
+	cell.name.text = outlet.name;
 	
-    UILabel *addressLabel = (UILabel *)[cell viewWithTag:102];
-	addressLabel.text = outlet.address;
+	cell.address.text = outlet.address;
     
-    UILabel *phoneNumberLabel = (UILabel *)[cell viewWithTag:103];
-	phoneNumberLabel.text = outlet.phoneNumber;
+	cell.phoneNumber.text = outlet.phoneNumber;
     
-    UILabel *operatingHoursLabel = (UILabel *)[cell viewWithTag:104];
-	operatingHoursLabel.text = outlet.operatingHours;
+	cell.operatingHours.text = outlet.operatingHours;
 
     return cell;
 }
