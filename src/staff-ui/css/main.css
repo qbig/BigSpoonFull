@@ -210,7 +210,7 @@ textarea {
 
 /* Custom Fonts */
 @font-face {
-    font-weight: bold;
+    font-weight: bold;	
     font-family: 'Ostrich Sans';
     src: url("../fonts/ostrich-black.ttf");
 }
