@@ -111,3 +111,7 @@ build/
 env/
 migrations/
 bg_dev.db
+
+# for django-compressor
+src/backend/bigspoon/bigspoon/static/CACHE/
+

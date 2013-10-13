@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block content %}
+
+    <div class="item">
+        <span class="urgent time"><i class="icon-time"></i> ordered 2:14 mins ago</span>
+        <a href="user.html"><img src="https://graph.facebook.com/yos.riady/picture" /></a>
+        <h3>Table T01</h3>
+        <h4>Edmund Yong</h4>
+
+        <!-- Left color coded timing, list of orders, acknowledge button -->
+        <ul class="order">
+            <li>Sambal prawns</li>
+            <li>Spicy ikan bilis</li>
+            <li>Tomato salad</li>
+            <li>Fries</li>
+        </ul>
+
+        <a class="acknowledge" href="#"><i class="icon-check-empty"></i> Acknowledge</a>
+    </div>
+    <div class="item">
+        <span class="early time"><i class="icon-time"></i> ordered 0:14 mins ago</span>
+        <img src="https://graph.facebook.com/yos.riady/picture" />
+        <h3>Table T02</h3>
+        <h4>Tan Aik Leng</h4>
+
+        <!-- Left color coded timing, list of orders, acknowledge button -->
+        <ul class="order">
+            <li>Tandoori Chicken</li>
+            <li>Penang Laksa</li>
+            <li>Root beer</li>
+        </ul>
+
+        <a class="acknowledge" href="#"><i class="icon-check-empty"></i> Acknowledge</a>
+
+    </div>
+<!--     <div class="item">
+        <span class="early time"><i class="icon-time"></i> ordered 0:09 mins ago</span>
+        <a href="user.html"><img src="https://graph.facebook.com/yos.riady/picture" /></a>
+        <h3>Table T01</h3>
+        <h4>Edmund Yong</h4>
+
+        <img class="icon" src="img/bill.png" />
+
+        <a class="acknowledge" href="#"><i class="icon-check-empty"></i> Acknowledge</a>
+    </div> -->
+
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+
+    <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
+    <script src="{% static "js/main.js"%}"></script>
+{% endblock %}
