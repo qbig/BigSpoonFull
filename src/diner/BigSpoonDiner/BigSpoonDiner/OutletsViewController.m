@@ -61,18 +61,29 @@
 {
     UITableViewCell *cell = [tableView
                              dequeueReusableCellWithIdentifier:@"OutletCell"];
-	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+    
 
-	UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
+	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+    
+    
+
+	UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
 	nameLabel.text = outlet.name;
 	
-    UILabel *gameLabel = (UILabel *)[cell viewWithTag:101];
-	gameLabel.text = player.name;
-	UIImageView * ratingImageView = (UIImageView *)
+    UILabel *addressLabel = (UILabel *)[cell viewWithTag:102];
+	addressLabel.text = outlet.address;
     
-    [cell viewWithTag:102];
-	ratingImageView.image = [self ];
-    return cell;
+    UILabel *phoneNumberLabel = (UILabel *)[cell viewWithTag:103];
+	phoneNumberLabel.text = outlet.phoneNumber;
+    
+    UILabel *operatingHoursLabel = (UILabel *)[cell viewWithTag:104];
+	operatingHoursLabel.text = outlet.operatingHours;
+    
+    URLImageView *imageView = [[URLImageView alloc] init];
+    [imageView startLoading: [outlet.imgURL absoluteString]];
+    
+    UIImageView *outletPhoto = (UIImageView *)[cell viewWithTag:100];
+    outletPhoto.image = imageView.image;
     
     return cell;
 }

@@ -10,6 +10,7 @@
 		4999A2071809518C00270B0B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4999A2061809518C00270B0B /* FacebookSDK.framework */; };
 		4999A20E180A506100270B0B /* OutletsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A20D180A506100270B0B /* OutletsViewController.m */; };
 		4999A212180A50EC00270B0B /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A211180A50EC00270B0B /* Outlet.m */; };
+		4999A216180A744100270B0B /* URLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A215180A744100270B0B /* URLImageView.m */; };
 		49F107E3180886D600D2C8DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E2180886D600D2C8DD /* Foundation.framework */; };
 		49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E4180886D600D2C8DD /* CoreGraphics.framework */; };
 		49F107E7180886D600D2C8DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E6180886D600D2C8DD /* UIKit.framework */; };
@@ -41,6 +42,8 @@
 		4999A20D180A506100270B0B /* OutletsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletsViewController.m; sourceTree = "<group>"; };
 		4999A210180A50EC00270B0B /* Outlet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Outlet.h; sourceTree = "<group>"; };
 		4999A211180A50EC00270B0B /* Outlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Outlet.m; sourceTree = "<group>"; };
+		4999A214180A744100270B0B /* URLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLImageView.h; sourceTree = "<group>"; };
+		4999A215180A744100270B0B /* URLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLImageView.m; sourceTree = "<group>"; };
 		49F107DF180886D600D2C8DD /* BigSpoonDiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSpoonDiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F107E2180886D600D2C8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49F107E4180886D600D2C8DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +106,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		4999A213180A741D00270B0B /* UtilityClasses */ = {
+			isa = PBXGroup;
+			children = (
+				4999A214180A744100270B0B /* URLImageView.h */,
+				4999A215180A744100270B0B /* URLImageView.m */,
+			);
+			name = UtilityClasses;
+			sourceTree = "<group>";
+		};
 		49F107D6180886D600D2C8DD = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +149,7 @@
 		49F107E8180886D600D2C8DD /* BigSpoonDiner */ = {
 			isa = PBXGroup;
 			children = (
+				4999A213180A741D00270B0B /* UtilityClasses */,
 				4999A20F180A50C300270B0B /* Models */,
 				4999A208180A4FCA00270B0B /* ViewControllers */,
 				49F107F1180886D600D2C8DD /* AppDelegate.h */,
@@ -277,6 +290,7 @@
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsViewController.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
+				4999A216180A744100270B0B /* URLImageView.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

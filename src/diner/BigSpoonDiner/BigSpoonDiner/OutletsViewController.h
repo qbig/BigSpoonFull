@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Outlet.h"
+#import "URLImageView.h"
 
 @interface OutletsViewController : UITableViewController
 
