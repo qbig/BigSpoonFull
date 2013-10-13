@@ -11,3 +11,9 @@ def tables(request):
 
 def user(request):
     return render_to_response('bg_order/user.html')
+
+def history(request):
+    return render_to_response('bg_order/history.html')
+
+def report(request):
+    return render_to_response('bg_order/report.html')
