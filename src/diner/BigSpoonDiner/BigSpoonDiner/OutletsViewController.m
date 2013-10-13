@@ -14,6 +14,9 @@
 
 @implementation OutletsViewController
 
+@synthesize outletsArray;
+
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -44,24 +47,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [self.outletsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView
+                             dequeueReusableCellWithIdentifier:@"OutletCell"];
+	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+
+	UILabel *nameLabel = (UILabel *)[cell viewWithTag:100];
+	nameLabel.text = outlet.name;
+	
+    UILabel *gameLabel = (UILabel *)[cell viewWithTag:101];
+	gameLabel.text = player.name;
+	UIImageView * ratingImageView = (UIImageView *)
     
-    // Configure the cell...
+    [cell viewWithTag:102];
+	ratingImageView.image = [self ];
+    return cell;
     
     return cell;
 }

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Outlet.h"
 
 @interface OutletsViewController : UITableViewController
 

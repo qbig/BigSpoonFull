@@ -8,14 +8,50 @@
 
 #import "AppDelegate.h"
 
-@implementation AppDelegate
+@implementation AppDelegate{
+    // Load outlets when we load the app
+    NSMutableArray *outletsArray;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self loadOutlets];
+    
     return YES;
 }
-							
+
+- (void)loadOutlets{
+    outletsArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
+	Outlet *newOutlet = [[Outlet alloc] init];
+    
+    // Make ajax calls to the server and get the list of outlets
+    
+    newOutlet.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-ash4/c224.41.513.513/s160x160/995724_4913971178302_368545087_n.jpg"];
+    newOutlet.name = @"Food For Thought";
+    newOutlet.address = @"#3-05 Habourfront Tower";
+    newOutlet.phoneNumber = @"8796 0493";
+    newOutlet.operatingHours = @"9:30am - 12:00am";
+    [outletsArray addObject:newOutlet];
+    
+    newOutlet.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-frc1/s160x160/598607_386531284728364_311542061_a.jpg"];
+    newOutlet.name = @"Si Chuan Beef Noodle";
+    newOutlet.address = @"#2-08 Serangoon Rd";
+    newOutlet.phoneNumber = @"9879 8569";
+    newOutlet.operatingHours = @"8:30am - 9:00am";
+    [outletsArray addObject:newOutlet];
+    
+    newOutlet.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-frc1/c29.29.363.363/s160x160/999357_391637284290743_2024655580_n.jpg"];
+    newOutlet.name = @"Strictly Pancakes";
+    newOutlet.address = @"#3-05 Vivo City";
+    newOutlet.phoneNumber = @"9785 0960";
+    newOutlet.operatingHours = @"12:00am - 2:00am";
+    [outletsArray addObject:newOutlet];
+    
+    OutletsViewController *outletViewController = (OutletsViewController *)self.window.rootViewController;
+    outletViewController.outletsArray = outletsArray;
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -16,7 +16,6 @@
 
 @synthesize address;    
 @synthesize phoneNumber;
-@synthesize timeOpen;
-@synthesize timeClose;
+@synthesize operatingHours;
 
 @end

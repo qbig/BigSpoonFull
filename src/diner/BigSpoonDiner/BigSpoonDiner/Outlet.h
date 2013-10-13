@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *phoneNumber;
-@property (nonatomic, strong) NSDate *timeOpen;
-@property (nonatomic, strong) NSDate *timeClose;
+@property (nonatomic, strong) NSString *operatingHours;
 
 @end
