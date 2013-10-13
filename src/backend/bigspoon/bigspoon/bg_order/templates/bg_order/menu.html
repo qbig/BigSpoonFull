@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block content %}
+
+<div class="wrapper">
+    <a class="add" href="#"><i class="icon-plus"></i> Add menu item</a>
+    <h1>Breakfast Menu</h1>
+
+    <div class="menu-item">
+        <img src = "{% static "img/placeholder.png" %}"/>
+        <input class="description" type="textarea" placeholder="Dish description here">
+        <input class="price" type="text" placeholder="$8">
+        <!-- Should probably use slider or counter input for price -->
+        <a class="save" href="#"><i class="icon-save"></i> Save</a>
+    </div>
+
+    <div class="menu-item">
+        <img src = "{% static "img/placeholder.png" %}"/>
+        <input class="description" type="textarea" placeholder="Dish description here">
+        <input class="price" type="text" placeholder="$8">
+        <!-- Should probably use slider or counter input for price -->
+        <a class="save" href="#"><i class="icon-save"></i> Save</a>
+    </div>
+
+</div>
+
+{% endblock %}
