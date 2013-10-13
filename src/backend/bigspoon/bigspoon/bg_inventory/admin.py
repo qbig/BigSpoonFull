@@ -5,6 +5,8 @@ from guardian.admin import GuardedModelAdmin
 
 User = get_user_model()
 
+from bg_inventory.models import Restaurant
+
 
 class UserAdmin(GuardedModelAdmin):
     fieldsets = (
@@ -17,4 +19,9 @@ class UserAdmin(GuardedModelAdmin):
             'last_login', 'date_joined')}),
     )
 
+
+class RestaurantAdmin(GuardedModelAdmin):
+    pass
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Restaurant, RestaurantAdmin)

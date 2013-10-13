@@ -109,4 +109,5 @@ build/
 ###################################################
 # for python virtualenv
 env/
+migrations/
 bg_dev.db
