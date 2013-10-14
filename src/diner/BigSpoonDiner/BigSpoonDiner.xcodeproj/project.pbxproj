@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49044D1E180AD5AB0006F567 /* OutletCell.m */; };
+		491641FF180C58BB00080B87 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FD180C58BB00080B87 /* gear.png */; };
+		49164200180C58BB00080B87 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FE180C58BB00080B87 /* home.png */; };
+		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
+		49164204180C590C00080B87 /* photo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164202180C590C00080B87 /* photo_icon.png */; };
+		497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 497DD71B180C5B8600316138 /* bottom_buttons.png */; };
 		4999A2071809518C00270B0B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4999A2061809518C00270B0B /* FacebookSDK.framework */; };
 		4999A20E180A506100270B0B /* OutletsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A20D180A506100270B0B /* OutletsViewController.m */; };
 		4999A212180A50EC00270B0B /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A211180A50EC00270B0B /* Outlet.m */; };
@@ -41,6 +46,11 @@
 /* Begin PBXFileReference section */
 		49044D1D180AD5AB0006F567 /* OutletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletCell.h; sourceTree = "<group>"; };
 		49044D1E180AD5AB0006F567 /* OutletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletCell.m; sourceTree = "<group>"; };
+		491641FD180C58BB00080B87 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		491641FE180C58BB00080B87 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		49164201180C590C00080B87 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
+		49164202180C590C00080B87 /* photo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_icon.png; sourceTree = "<group>"; };
+		497DD71B180C5B8600316138 /* bottom_buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_buttons.png; sourceTree = "<group>"; };
 		4999A2061809518C00270B0B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4999A20C180A506100270B0B /* OutletsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletsViewController.h; sourceTree = "<group>"; };
 		4999A20D180A506100270B0B /* OutletsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletsViewController.m; sourceTree = "<group>"; };
@@ -125,6 +135,11 @@
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				497DD71B180C5B8600316138 /* bottom_buttons.png */,
+				49164201180C590C00080B87 /* list_icon.png */,
+				49164202180C590C00080B87 /* photo_icon.png */,
+				491641FD180C58BB00080B87 /* gear.png */,
+				491641FE180C58BB00080B87 /* home.png */,
 				49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */,
 			);
 			name = Images;
@@ -283,6 +298,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */,
+				497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */,
+				49164203180C590C00080B87 /* list_icon.png in Resources */,
+				491641FF180C58BB00080B87 /* gear.png in Resources */,
+				49164204180C590C00080B87 /* photo_icon.png in Resources */,
+				49164200180C58BB00080B87 /* home.png in Resources */,
 				49F107FE180886D600D2C8DD /* Images.xcassets in Resources */,
 				49F107ED180886D600D2C8DD /* InfoPlist.strings in Resources */,
 				49F107F6180886D600D2C8DD /* Main.storyboard in Resources */,
