@@ -12,7 +12,7 @@ from fabric.colors import cyan, yellow, green, white, red
 
 WORK_HOME = '/home/ec2-user/webapps/2013-final-project-7/src/backend/bigspoon/'
 ENV_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/env/'
-RUN_WITH_ENV = 'source '+ENV_PATH+'bin/activate && '
+RUN_WITH_ENV = 'source ' + ENV_PATH + 'bin/activate && '
 AWS_IP = '122.248.199.242'
 SERVER = [AWS_IP]
 env.user = 'ec2-user'
@@ -26,9 +26,9 @@ def sanity_check(host, urls):
         time.sleep(1)
         status = requests.get(host+url).status_code
         if status == 200:
-            print(white(host+url+'....')+green('OK'))
+            print(white(host+url+' ...')+green('OK'))
         else:
-            print(white(host+url+'....')+red('ERROR'))
+            print(white(host+url+' ...')+red('ERROR'))
             return 1
             break
 
@@ -56,6 +56,8 @@ def create_db():
 
 def migrate_db():
     print(yellow('Migrate database ...'))
+    run(RUN_WITH_ENV+'python manage.py schemamigration --auto bg_order')
+    run(RUN_WITH_ENV+'python manage.py schemamigration --auto bg_inventory')
     run(RUN_WITH_ENV+'python manage.py migrate')
 
 
@@ -82,7 +84,10 @@ def deploy(*args):
         if args:
             if 'nginx' in args:
                 restart_nginx()
-        sanity_check_status = sanity_check('http://'+AWS_IP, ['/admin'])
+        sanity_check_status = sanity_check(
+            'http://'+AWS_IP,
+            ['/admin', '/main', '/menu']
+        )
         if sanity_check_status == 1:
             print(red('\n-> Deployment error! wgx731 :('))
         else:
