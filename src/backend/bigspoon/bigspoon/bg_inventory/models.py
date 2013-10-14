@@ -25,7 +25,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=255,
         unique=True,
         db_index=True,
-        help_text=_('email as user primary id'),
+        help_text=_('email as user identifier'),
+    )
+    username = models.CharField(
+        _('username'),
+        max_length=30,
+        db_index=True,
+        blank=False,
+        null=False,
+        help_text=_('username for internal use'),
     )
     first_name = models.CharField(
         _('first name'),
@@ -56,6 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 
@@ -92,8 +101,7 @@ class Restaurant(models.Model):
     """
     name = models.CharField(
         _('name'),
-        max_length=128,
-        unique=True,
+        max_length=255,
         help_text=_('restaurant name')
     )
     icon = ImageWithThumbsField(
@@ -125,8 +133,7 @@ class Outlet(models.Model):
     restaurant = models.ForeignKey(Restaurant)
     name = models.CharField(
         _('name'),
-        max_length=128,
-        unique=True,
+        max_length=255,
         help_text=_('outlet name')
     )
     desc = models.TextField(
@@ -154,14 +161,14 @@ class Table(models.Model):
     outlet = models.ForeignKey(Outlet)
     name = models.CharField(
         _('name'),
-        max_length=128,
+        max_length=255,
         unique=True,
         help_text=_('table name')
     )
     qrcode = models.CharField(
         _('qrcode'),
         max_length=255,
-        help_text=_('table qrcode identifier')
+        help_text=_('table attached qrcode')
     )
 
     def __unicode__(self):
@@ -175,6 +182,34 @@ class Table(models.Model):
         verbose_name_plural = _('tables')
 
 
+class Category(models.Model):
+    """
+    Stores dish category information
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=255,
+        unique=True,
+        help_text=_('category name')
+    )
+    desc = models.TextField(
+        _('description'),
+        blank=False,
+        null=True,
+        help_text=_('category description')
+    )
+
+    def __unicode__(self):
+        """
+        Returns the category name
+        """
+        return self.name
+
+    class Meta:
+        verbose_name = _('category')
+        verbose_name_plural = _('categories')
+
+
 class Dish(models.Model):
     """
     Stores outlet dish information
@@ -182,9 +217,15 @@ class Dish(models.Model):
     outlet = models.ForeignKey(Outlet)
     name = models.CharField(
         _('name'),
-        max_length=128,
-        unique=True,
+        max_length=255,
         help_text=_('outlet dish name')
+    )
+    pos = models.CharField(
+        _('pos'),
+        max_length=255,
+        blank=False,
+        null=True,
+        help_text=_('outlet dish pos id')
     )
     desc = models.TextField(
         _('description'),
@@ -192,23 +233,28 @@ class Dish(models.Model):
         null=True,
         help_text=_('outlet dish description')
     )
-    start_time = models.DateTimeField(
+    start_time = models.TimeField(
         _('start time'),
         blank=False,
-        help_text=_('dish start serving time'),
+        null=False,
+        help_text=_('dish start time'),
     )
-    end_time = models.DateTimeField(
-        _('start time'),
+    end_time = models.TimeField(
+        _('end time'),
         blank=False,
-        help_text=_('dish end serving time'),
+        null=False,
+        help_text=_('dish end time'),
     )
-    price = models.FloatField()
-    category = models.ManyToManyField()
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+    )
     photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
         sizes=((640, 400),),
-        help_text=_('restaurant icon')
+        help_text=_('dish photo')
     )
+    categories = models.ManyToManyField(Category)
 
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
@@ -217,7 +263,7 @@ class Dish(models.Model):
 
     def __unicode__(self):
         """
-        Returns the table name
+        Returns the dish name
         """
         return self.name
 
@@ -231,13 +277,16 @@ class Rating(models.Model):
     Stores dish rating information
     """
     dish = models.ForeignKey(Dish)
-    score = models.FloatField()
+    score = models.DecimalField(
+        max_digits=2,
+        decimal_places=1,
+    )
 
     def __unicode__(self):
         """
-        Returns the dish name
+        Returns the dish name and score
         """
-        return self.dish.name
+        return "%s - %d" % (self.dish.name, self.score)
 
     class Meta:
         verbose_name = _('rating')
@@ -249,14 +298,22 @@ class Review(models.Model):
     Stores dish rating information
     """
     outlet = models.ForeignKey(Outlet)
-    score = models.FloatField()
-    review = models.TextField()
+    score = models.DecimalField(
+        max_digits=2,
+        decimal_places=1,
+    )
+    feedback = models.TextField(
+        _('feedback'),
+        blank=False,
+        null=True,
+        help_text=_('user feedback for outlet')
+    )
 
     def __unicode__(self):
         """
-        Returns the outlet name
+        Returns the outlet name and score
         """
-        return self.outlet.name
+        return "%s - %d" % (self.outlet.name, self.score)
 
     class Meta:
         verbose_name = _('review')
@@ -269,13 +326,18 @@ class Note(models.Model):
     """
     user = models.ForeignKey(User)
     outlet = models.ForeignKey(Outlet)
-    note = models.TextField()
+    feedback = models.TextField(
+        _('note'),
+        blank=False,
+        null=True,
+        help_text=_('note for user from outlet manager')
+    )
 
     def __unicode__(self):
         """
         Returns the outlet name and user name
         """
-        return self.outlet.name + self.user.name
+        return "%s's note for %s" % (self.outlet.name, self.user.email)
 
     class Meta:
         verbose_name = _('note')

@@ -110,6 +110,7 @@ build/
 # for python virtualenv
 env/
 migrations/
+src/backend/bigspoon/bigspoon/media/
 bg_dev.db
 
 # for django-compressor
