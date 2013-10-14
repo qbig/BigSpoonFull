@@ -10,8 +10,9 @@
 #import "Outlet.h"
 #import "URLImageView.h"
 #import "OutletCell.h"
+#import "MenuViewController.h"
 
-@interface OutletsViewController : UITableViewController
+@interface OutletsViewController : UITableViewController <MenuViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 

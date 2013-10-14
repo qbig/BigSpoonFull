@@ -143,6 +143,12 @@
     
 }
 
+- (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
+    NSLog(@"Hellooo");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -182,7 +188,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -190,8 +196,13 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"FromOutletsToMenu"]) {
+		MenuViewController *menuViewController = segue.destinationViewController;
+		menuViewController.delegate = self;
+	} else{
+        NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
+    }
 }
 
- */
 
 @end

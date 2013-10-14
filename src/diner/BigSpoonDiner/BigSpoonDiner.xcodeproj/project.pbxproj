@@ -18,6 +18,7 @@
 		4999A212180A50EC00270B0B /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A211180A50EC00270B0B /* Outlet.m */; };
 		4999A216180A744100270B0B /* URLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A215180A744100270B0B /* URLImageView.m */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
+		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
 		49F107E3180886D600D2C8DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E2180886D600D2C8DD /* Foundation.framework */; };
 		49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E4180886D600D2C8DD /* CoreGraphics.framework */; };
 		49F107E7180886D600D2C8DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E6180886D600D2C8DD /* UIKit.framework */; };
@@ -59,6 +60,8 @@
 		4999A214180A744100270B0B /* URLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLImageView.h; sourceTree = "<group>"; };
 		4999A215180A744100270B0B /* URLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLImageView.m; sourceTree = "<group>"; };
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
+		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		49F107DF180886D600D2C8DD /* BigSpoonDiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSpoonDiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F107E2180886D600D2C8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49F107E4180886D600D2C8DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -108,6 +111,8 @@
 			children = (
 				4999A20C180A506100270B0B /* OutletsViewController.h */,
 				4999A20D180A506100270B0B /* OutletsViewController.m */,
+				49CB796B180C631300F530C5 /* MenuViewController.h */,
+				49CB796C180C631300F530C5 /* MenuViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -328,6 +333,7 @@
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsViewController.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
+				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
 				4999A216180A744100270B0B /* URLImageView.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
 			);
