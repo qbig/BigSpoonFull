@@ -199,6 +199,11 @@
     if ([segue.identifier isEqualToString:@"FromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
 		menuViewController.delegate = self;
+        
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
+        menuViewController.outlet = outlet;
+        
 	} else{
         NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
     }
