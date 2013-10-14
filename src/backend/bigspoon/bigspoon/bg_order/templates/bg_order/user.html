@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block content %}
+
+<div class="wrapper-no-bg">
+<div class="user-info">
+
+    <span class='user'>
+        <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
+        <h3>Edmund Yong</h3>
+    </span>
+
+    <span class='user-stats'>
+        <p class='visits'><i class="icon-user"></i> 5 visits</p>
+        <p class='spent'><i class="icon-dollar"></i> $255 spent</p>
+    </span>
+
+    <!-- order history -->
+    <div class="past-orders">
+        <h3><i class="icon-time"></i> Past Orders</h3>
+        <h5>October 19</h5>
+        <ul class="order">
+            <li>Tandoori Chicken</li>
+            <li>Penang Laksa</li>
+            <li>Root beer</li>
+        </ul>
+
+        <h5>August 9</h5>
+        <ul class="order">
+            <li>Tandoori Chicken</li>
+            <li>Penang Laksa</li>
+            <li>Root beer</li>
+        </ul>
+    </div>
+
+    <div class="user-preferences">
+        <h4><i class="icon-frown"></i> Allergies</h4><p class="allergies">Scallops, pickles</p>
+
+        <h4><i class="icon-warning-sign"></i> Vegetarian</h4><p class="vegetarian">No</p>
+
+        <h4><i class="icon-heart"></i> Favourite items</h4><p class="favourites">Pasta, seafood</p>
+
+        <!-- last feedback -->
+        <h4><i class="icon-star"></i> Feedback</h4>
+        <p class="feedback">Last visit was good. Food is great.</p>
+
+        <!-- manager notes -->
+        <h4><i class="icon-file-alt"></i> Notes</h4>
+        <input class="notes" type="textarea" placeholder="Likes to sit near windows"/>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

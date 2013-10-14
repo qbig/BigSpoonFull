@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="table">
+        <h3>Table T01</h3>
+
+        <span class='user'>
+            <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
+            <h4>Edmund Yong's orders</h4>
+        </span>
+        <ul class="order">
+            <li>Sambal prawns</li>
+            <li>Spicy ikan bilis</li>
+            <li>Tomato salad</li>
+            <li>Fries</li>
+        </ul>
+
+        <span class='user'>
+            <h4>Tan Aik Leng's orders</h4>
+            <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
+        </span>
+        <ul class="order">
+            <li>Tandoori Chicken</li>
+            <li>Penang Laksa</li>
+            <li>Root beer</li>
+        </ul>
+    </div>
+
+    <div class="table">
+
+
+    </div>
+
+    <div class="table">
+
+
+    </div>
+</div>
+
+{% endblock %}
