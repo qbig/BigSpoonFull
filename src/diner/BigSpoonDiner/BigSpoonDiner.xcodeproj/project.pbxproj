@@ -19,6 +19,9 @@
 		4999A216180A744100270B0B /* URLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A215180A744100270B0B /* URLImageView.m */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
 		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
+		49CB7970180C68C500F530C5 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* AuthViewController.m */; };
+		49CB7972180C6C4000F530C5 /* icon_256px_unfilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */; };
+		49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB7974180C6D9400F530C5 /* LoginViewController.m */; };
 		49F107E3180886D600D2C8DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E2180886D600D2C8DD /* Foundation.framework */; };
 		49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E4180886D600D2C8DD /* CoreGraphics.framework */; };
 		49F107E7180886D600D2C8DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E6180886D600D2C8DD /* UIKit.framework */; };
@@ -62,6 +65,11 @@
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		49CB796E180C68C500F530C5 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		49CB796F180C68C500F530C5 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_256px_unfilled.png; sourceTree = "<group>"; };
+		49CB7973180C6D9400F530C5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		49CB7974180C6D9400F530C5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		49F107DF180886D600D2C8DD /* BigSpoonDiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSpoonDiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F107E2180886D600D2C8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49F107E4180886D600D2C8DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -113,6 +121,10 @@
 				4999A20D180A506100270B0B /* OutletsViewController.m */,
 				49CB796B180C631300F530C5 /* MenuViewController.h */,
 				49CB796C180C631300F530C5 /* MenuViewController.m */,
+				49CB796E180C68C500F530C5 /* AuthViewController.h */,
+				49CB796F180C68C500F530C5 /* AuthViewController.m */,
+				49CB7973180C6D9400F530C5 /* LoginViewController.h */,
+				49CB7974180C6D9400F530C5 /* LoginViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -140,6 +152,7 @@
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */,
 				497DD71B180C5B8600316138 /* bottom_buttons.png */,
 				49164201180C590C00080B87 /* list_icon.png */,
 				49164202180C590C00080B87 /* photo_icon.png */,
@@ -309,6 +322,7 @@
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,
 				49164200180C58BB00080B87 /* home.png in Resources */,
 				49F107FE180886D600D2C8DD /* Images.xcassets in Resources */,
+				49CB7972180C6C4000F530C5 /* icon_256px_unfilled.png in Resources */,
 				49F107ED180886D600D2C8DD /* InfoPlist.strings in Resources */,
 				49F107F6180886D600D2C8DD /* Main.storyboard in Resources */,
 			);
@@ -329,10 +343,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49CB7970180C68C500F530C5 /* AuthViewController.m in Sources */,
 				49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsViewController.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
+				49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */,
 				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
 				4999A216180A744100270B0B /* URLImageView.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
@@ -471,6 +487,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
 				INFOPLIST_FILE = "BigSpoonDiner/BigSpoonDiner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -491,6 +508,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
 				INFOPLIST_FILE = "BigSpoonDiner/BigSpoonDiner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
