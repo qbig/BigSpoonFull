@@ -5,12 +5,13 @@ from guardian.admin import GuardedModelAdmin
 
 User = get_user_model()
 
-from bg_inventory.models import Restaurant
+from bg_inventory.models import Restaurant, Outlet, Table,\
+    Category, Dish, Rating, Review, Note
 
 
-class UserAdmin(GuardedModelAdmin):
+class UserAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'username', 'password')}),
         (_('Personal info'), {'fields': (
             'first_name', 'last_name')}),
         (_('Permissions'), {'fields': (
@@ -23,5 +24,41 @@ class UserAdmin(GuardedModelAdmin):
 class RestaurantAdmin(GuardedModelAdmin):
     pass
 
+
+class OutletAdmin(GuardedModelAdmin):
+    raw_id_fields = ('restaurant',)
+
+
+class TableAdmin(GuardedModelAdmin):
+    raw_id_fields = ('outlet',)
+
+
+class CategoryAdmin(GuardedModelAdmin):
+    pass
+
+
+class DishAdmin(GuardedModelAdmin):
+    raw_id_fields = ('outlet', 'categories')
+
+
+class RatingAdmin(GuardedModelAdmin):
+    raw_id_fields = ('dish',)
+
+
+class ReviewAdmin(GuardedModelAdmin):
+    raw_id_fields = ('outlet',)
+
+
+class NoteAdmin(GuardedModelAdmin):
+    raw_id_fields = ('outlet', 'user')
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Restaurant, RestaurantAdmin)
+admin.site.register(Outlet, OutletAdmin)
+admin.site.register(Table, TableAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Dish, DishAdmin)
+admin.site.register(Rating, RatingAdmin)
+admin.site.register(Review, ReviewAdmin)
+admin.site.register(Note, NoteAdmin)

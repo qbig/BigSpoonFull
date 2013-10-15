@@ -21,7 +21,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+
     }
     return self;
 }
@@ -29,6 +29,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self loadOutletsFromServer];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -59,32 +61,92 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView
+    
+    OutletCell *cell = (OutletCell *)[tableView
                              dequeueReusableCellWithIdentifier:@"OutletCell"];
     
 
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+    // If the cells are not sub-classes, we can use tags to retrieve the element in the cell:
+	//UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
     
-    //URLImageView *imageView = [[URLImageView alloc] init];
-    //[imageView startLoading: [outlet.imgURL absoluteString]];
+    // For optimization purpose:
+    // URLImageView *imageView = [[URLImageView alloc] init];
+    // [imageView startLoading: [outlet.imgURL absoluteString]];
     
-    UIImageView *outletPhoto = (UIImageView *)[cell viewWithTag:100];
-    outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
-
-	UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
-	nameLabel.text = outlet.name;
-	
-    UILabel *addressLabel = (UILabel *)[cell viewWithTag:102];
-	addressLabel.text = outlet.address;
+    cell.outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
     
-    UILabel *phoneNumberLabel = (UILabel *)[cell viewWithTag:103];
-	phoneNumberLabel.text = outlet.phoneNumber;
+	cell.name.text = outlet.name;
     
-    UILabel *operatingHoursLabel = (UILabel *)[cell viewWithTag:104];
-	operatingHoursLabel.text = outlet.operatingHours;
+	cell.address.text = outlet.address;
+    
+	cell.phoneNumber.text = outlet.phoneNumber;
+    
+	cell.operatingHours.text = outlet.operatingHours;
 
     return cell;
 }
+
+- (void) loadOutletsFromServer{
+    
+    NSLog(@"Loading outlets from server...");
+
+    self.outletsArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
+    
+    // Make ajax calls to the server and get the list of outlets
+    // And make the following into a for loop:
+    
+    Outlet *newOutlet = [[Outlet alloc] init];
+    
+    newOutlet.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-prn1/c142.91.546.546/s160x160/47854_556693471032572_2024581657_n.jpg"];
+    newOutlet.name = @"Food For Thought";
+    newOutlet.address = @"#3-05 Habourfront Tower";
+    newOutlet.phoneNumber = @"8796 0493";
+    newOutlet.operatingHours = @"9:30am - 12:00am";
+    [self.outletsArray addObject:newOutlet];
+    
+    Outlet *newOutlet2 = [[Outlet alloc] init];
+    
+    newOutlet2.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-frc1/c29.29.363.363/s160x160/999357_391637284290743_2024655580_n.jpg"];
+    newOutlet2.name = @"Si Chuan Beef Noodle";
+    newOutlet2.address = @"#2-08 Serangoon Rd";
+    newOutlet2.phoneNumber = @"9879 8569";
+    newOutlet2.operatingHours = @"8:30am - 9:00am";
+    [self.outletsArray addObject:newOutlet2];
+    
+    Outlet *newOutlet3 = [[Outlet alloc] init];
+    
+    newOutlet3.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-frc1/s160x160/598607_386531284728364_311542061_a.jpg"];
+    newOutlet3.name = @"Strictly Pancakes";
+    newOutlet3.address = @"#3-05 Vivo City";
+    newOutlet3.phoneNumber = @"9785 0960";
+    newOutlet3.operatingHours = @"12:00am - 2:00am";
+    [self.outletsArray addObject:newOutlet3];
+    
+    Outlet *newOutlet4 = [[Outlet alloc] init];
+    
+    newOutlet4.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-ash3/c48.48.604.604/s160x160/561871_10151561141968038_385738663_n.jpg"];
+    newOutlet4.name = @"Indian Food Awesome";
+    newOutlet4.address = @"306 Hello World";
+    newOutlet4.phoneNumber = @"9785 5487";
+    newOutlet4.operatingHours = @"8:00am - 2:00am";
+    [self.outletsArray addObject:newOutlet4];
+    
+    Outlet *newOutlet5 = [[Outlet alloc] init];
+    
+    newOutlet5.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-ash4/c132.0.828.828/s160x160/999396_10151861384788793_1043357523_n.jpg"];
+    newOutlet5.name = @"Food Style";
+    newOutlet5.address = @"#03-05 Array Plazz";
+    newOutlet5.phoneNumber = @"9863 5487";
+    newOutlet5.operatingHours = @"11:00am - 2:00am";
+    [self.outletsArray addObject:newOutlet5];
+    
+}
+
+- (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -125,7 +187,7 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a story board-based application, you will often want to do a little preparation before navigation
@@ -133,8 +195,18 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"FromOutletsToMenu"]) {
+		MenuViewController *menuViewController = segue.destinationViewController;
+		menuViewController.delegate = self;
+        
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
+        menuViewController.outlet = outlet;
+        
+	} else{
+        NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
+    }
 }
 
- */
 
 @end
