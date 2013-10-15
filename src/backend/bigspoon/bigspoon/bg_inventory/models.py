@@ -343,3 +343,13 @@ class Note(models.Model):
     class Meta:
         verbose_name = _('note')
         verbose_name_plural = _('notes')
+
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

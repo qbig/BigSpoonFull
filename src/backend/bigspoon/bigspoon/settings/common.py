@@ -215,6 +215,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'bg_inventory',
     'bg_order',
+    'bg_api',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
