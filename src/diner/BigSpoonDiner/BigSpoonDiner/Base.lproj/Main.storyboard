@@ -178,10 +178,10 @@
             </objects>
             <point key="canvasLocation" x="79" y="221"/>
         </scene>
-        <!--Outlets View Controller - Outlets-->
+        <!--Outlets Table View Controller - Outlets-->
         <scene sceneID="Aj7-bl-XUx">
             <objects>
-                <tableViewController storyboardIdentifier="outletViewControllerID" title="Outlets" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SaX-nl-uiI" customClass="OutletsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="outletViewControllerID" title="Outlets" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SaX-nl-uiI" customClass="OutletsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="dzt-CF-04m">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -391,10 +391,10 @@ Snacks</string>
             </objects>
             <point key="canvasLocation" x="1572" y="1093"/>
         </scene>
-        <!--Menu Table View Controller-->
+        <!--MenuTableViewController-->
         <scene sceneID="OaT-xB-Mu9">
             <objects>
-                <tableViewController id="KE0-Fp-4U7" customClass="MenuTableViewController" sceneMemberID="viewController">
+                <tableViewController id="KE0-Fp-4U7" userLabel="MenuTableViewController" customClass="MenuTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
                         <rect key="frame" x="0.0" y="0.0" width="305" height="454"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -494,7 +494,7 @@ Snacks</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pV2-Pz-y2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2206" y="1150"/>
+            <point key="canvasLocation" x="2100" y="1150"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">
