@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_nav.html" %}
 
 {% load staticfiles %}
 {% load compress %}
@@ -7,18 +7,20 @@
 
 <div class="wrapper">
     <a class="add" href="#"><i class="icon-plus"></i> Add menu item</a>
-    <h1>Breakfast Menu</h1>
+    <h1>Menu</h1>
 
     {% for dish in object_list %}
         <div class="menu-item">
+            <form action="" method="post">{% csrf_token %}
             <img src = "{{ dish.photo.url }}"/>
             <span>
                 <input class="name" type="text" placeholder="Dish name here" value="{{ dish.name }}"> <input class="price" type="text" placeholder="$8" value="{{ dish.price }}">
             </span>
             <span>
-                <input class="description" type="textarea" placeholder="Dish description here" value="{{ dish.desc }}">
-                <a class="save" href="#"><i class="icon-save"></i> Save</a>
+                <textarea class="description" rows="3" placeholder="Dish description here">{{ dish.desc }}</textarea>
+                <input class="save" type="submit" value="Save" />
             </span>
+            </form>
 
         </div>
     {% empty %}

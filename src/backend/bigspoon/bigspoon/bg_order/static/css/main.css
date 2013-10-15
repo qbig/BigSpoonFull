@@ -428,7 +428,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     color: #333;
 }
 
-#main a.add, #main a.save {
+#main a.add, #main input.save {
     display:inline-block;
     float: right;
     margin: 20px;
@@ -443,12 +443,12 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     font-size: 14px;
 }
 
-#main a.save {
+#main input.save {
     float:none;
     background-color: #61C0B9;
 }
 
-#main a.save:hover, #main a.save:active, #main a.save:focus {
+#main input.save:hover, #main input.save:active, #main input.save:focus {
     background-color: #008cdd;
 }
 
@@ -464,6 +464,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 .menu-item img{
     float: left;
     overflow: hidden;
+    min-width: 300px;
     height: 200px;
 }
 
@@ -473,7 +474,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     padding: 10px 10px 0px;
 }
 
-.user-info input, .menu-item input {
+.user-info input, .menu-item input, .menu-item textarea{
     padding: 10px;
     border: 0px;
     border-bottom: 1px solid #fff;
@@ -494,9 +495,8 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     width: 300px;
 }
 
-.menu-item input.description {
+.menu-item textarea.description {
     width: 360px;
-    height: 80px;
 }
 
 .menu-item input.price {
