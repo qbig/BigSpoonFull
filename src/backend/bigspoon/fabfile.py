@@ -86,7 +86,7 @@ def deploy(*args):
                 restart_nginx()
         sanity_check_status = sanity_check(
             'http://'+AWS_IP,
-            ['/admin', '/main', '/menu']
+            ['/admin', '/staff/main', '/staff/menu']
         )
         if sanity_check_status == 1:
             print(red('\n-> Deployment error! wgx731 :('))
