@@ -89,7 +89,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.74901962280273438" green="0.93725496530532837" blue="0.94117653369903564" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.92549026012420654" green="0.92941182851791382" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVX-3W-w7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -171,7 +171,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.92549026010000002" green="0.92941182850000004" blue="0.97647064920000004" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -515,25 +515,6 @@ Snacks</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dh7-Q7-3fC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="621" y="1093"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="kQf-io-c5b">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="oV2-Kn-6pS" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5fd-Yg-3b0"/>
-                        <viewControllerLayoutGuide type="bottom" id="Kgx-Jy-wBv"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1AD-zE-QPp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kaD-lH-gPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2405" y="1783"/>
         </scene>
     </scenes>
     <resources>
