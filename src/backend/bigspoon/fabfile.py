@@ -26,9 +26,9 @@ def sanity_check(host, urls):
         time.sleep(1)
         status = requests.get(host+url).status_code
         if status == 200:
-            print(white(host+url+' ...')+green('OK'))
+            print(white(host+url+' ... ')+green('OK'))
         else:
-            print(white(host+url+' ...')+red('ERROR'))
+            print(white(host+url+' ... ')+red('ERROR'))
             return 1
             break
 
