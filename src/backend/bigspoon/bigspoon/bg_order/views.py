@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, FormView
+from django.views.generic import TemplateView, ListView, FormView,UpdateView
 from bg_inventory.models import Dish
 
 

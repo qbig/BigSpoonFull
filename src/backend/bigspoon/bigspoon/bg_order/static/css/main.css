@@ -464,6 +464,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 .menu-item img{
     float: left;
     overflow: hidden;
+    max-width: 300px;
     height: 200px;
 }
 
@@ -473,7 +474,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     padding: 10px 10px 0px;
 }
 
-.user-info input, .menu-item input {
+.user-info input, .menu-item input, .menu-item textarea{
     padding: 10px;
     border: 0px;
     border-bottom: 1px solid #fff;
@@ -494,9 +495,8 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     width: 300px;
 }
 
-.menu-item input.description {
+.menu-item textarea.description {
     width: 360px;
-    height: 80px;
 }
 
 .menu-item input.price {
