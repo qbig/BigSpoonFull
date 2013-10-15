@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from bg_inventory.models import User, Table, Dish
 
@@ -19,7 +20,7 @@ class Request(models.Model):
         choices=REQUEST_CHOICES,
     )
     is_active = models.BooleanField(
-        default=true,
+        default=True,
     )
     created = models.DateTimeField(
         auto_now_add=True,
@@ -47,8 +48,8 @@ class Meal(models.Model):
     """
     diner = models.ForeignKey(User)
     table = models.ForeignKey(Table)
-    is_active = models.BooleanField(default=true)
-    is_paid = models.BooleanField(default=false)
+    is_active = models.BooleanField(default=True)
+    is_paid = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "(%s) %s | Active/Paid: %s/%s" % (self.table.name, \

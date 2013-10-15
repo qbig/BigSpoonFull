@@ -1,7 +1,15 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, FormView
+
+class StaffLogin(FormView):
+    pass
 
 class MainView(TemplateView):
     template_name = "bg_order/main.html"
+
+# class MainView(ListView):
+#     model = Order
+#     template_name = "bg_order/main.html"
+#     context_object_name = 'order'
 
 class MenuView(TemplateView):
     template_name = "bg_order/menu.html"
