@@ -28,6 +28,8 @@ class Request(models.Model):
     )
     finished = models.DateTimeField(
         help_text=_('Request finish time'),
+        blank=True,
+        null=True,
     )
 
     def __unicode__(self):
@@ -75,8 +77,15 @@ class Order(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    bill_time = models.DateTimeField(help_text=_('Time paid'))
-    process_time = models.TimeField(help_text=_('Total processing time'))
+    bill_time = models.DateTimeField(
+        help_text=_('Time paid'),
+        blank=True,
+        null=True,
+    )
+    process_time = models.TimeField(help_text=_('Total processing time'),
+        blank=True,
+        null=True,
+    )
 
     def __unicode__(self):
         return "(%s) %s | %s x%s" % (self.meal.table.name, \
