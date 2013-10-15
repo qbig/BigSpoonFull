@@ -9,7 +9,7 @@ from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note
 
 
-class UserAdmin(admin.AdminModel):
+class UserAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'username', 'password')}),
         (_('Personal info'), {'fields': (
