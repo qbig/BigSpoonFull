@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, url
-from bg_order.views import MainView, MenuView, TableView, UserView, \
-    HistoryView, ReportView
+from bg_order.views import MainView, MenuView, TableView, UserView,\
+    HistoryView, ReportView, StaffLoginView
 
-urlpatterns = patterns(
-    '',
+urlpatterns = patterns('',
+    url(r'^login/$', StaffLoginView.as_view()),
     url(r'^main/$', MainView.as_view(), name='staff_main'),
     url(r'^menu/$', MenuView.as_view(), name='staff_menu'),
     url(r'^tables/$', TableView.as_view(), name='staff_table'),

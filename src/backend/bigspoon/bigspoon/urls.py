@@ -14,6 +14,7 @@ urlpatterns = patterns(
 
     # app sites:
     url(r'^staff/', include('bigspoon.bg_order.urls')),
+    url(r'^api/', include('bigspoon.bg_api.urls')),
 )
 
 if settings.DEBUG:

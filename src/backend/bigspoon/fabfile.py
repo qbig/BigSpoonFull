@@ -26,9 +26,9 @@ def sanity_check(host, urls):
         time.sleep(1)
         status = requests.get(host+url).status_code
         if status == 200:
-            print(white(host+url+' ...')+green('OK'))
+            print(white(host+url+' ... ')+green('OK'))
         else:
-            print(white(host+url+' ...')+red('ERROR'))
+            print(white(host+url+' ... ')+red('ERROR'))
             return 1
             break
 
@@ -64,6 +64,7 @@ def migrate_db():
 def collect_assets():
     print(yellow('Prepare assets ...'))
     run(RUN_WITH_ENV+'python manage.py collectstatic -c')
+    run(RUN_WITH_ENV+'python manage.py compress')
 
 
 @hosts(SERVER)
@@ -86,7 +87,7 @@ def deploy(*args):
                 restart_nginx()
         sanity_check_status = sanity_check(
             'http://'+AWS_IP,
-            ['/admin', '/main', '/menu']
+            ['/admin', '/staff/main', '/staff/menu']
         )
         if sanity_check_status == 1:
             print(red('\n-> Deployment error! wgx731 :('))
