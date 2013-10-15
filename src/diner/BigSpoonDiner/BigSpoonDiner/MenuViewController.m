@@ -86,4 +86,11 @@
     NSLog(@"beverageButtonPressed");
 
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    NSLog(@"Asked, hay!");
+    return 4;
+}
 @end

@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/Outlet.m"
-            timestampString = "403330674.138976"
+            timestampString = "403502090.422837"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "operatingHours"
-            landmarkType = "19">
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "-initWithImgURL:Name:Address:PhoneNumber:OperationgHours:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

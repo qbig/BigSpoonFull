@@ -18,4 +18,16 @@
 @synthesize phoneNumber;
 @synthesize operatingHours;
 
+- (id) initWithImgURL:(NSURL *)u Name:(NSString *)n Address:(NSString *)a PhoneNumber:(NSString *)p OperationgHours:(NSString *)o{
+    self = [super init];
+    if (self) {
+        self.imgURL = u;
+        self.name = n;
+        self.address = a;
+        self.phoneNumber = p;
+        self.operatingHours = o;
+    }
+    return self;
+}
+
 @end
