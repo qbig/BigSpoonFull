@@ -327,7 +327,7 @@ class Note(models.Model):
     """
     user = models.ForeignKey(User)
     outlet = models.ForeignKey(Outlet)
-    feedback = models.TextField(
+    note = models.TextField(
         _('note'),
         blank=False,
         null=True,
