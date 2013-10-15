@@ -18,4 +18,6 @@
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *operatingHours;
 
+- (id) initWithImgURL: (NSURL *) u Name: (NSString *) n Address: (NSString *) a PhoneNumber: (NSString *) p OperationgHours: (NSString *) o;
+
 @end

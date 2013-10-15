@@ -144,7 +144,6 @@
 }
 
 - (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
-    NSLog(@"Hellooo");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
