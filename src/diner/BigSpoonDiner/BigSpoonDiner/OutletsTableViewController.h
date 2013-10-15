@@ -12,7 +12,7 @@
 #import "OutletCell.h"
 #import "MenuViewController.h"
 
-@interface OutletsViewController : UITableViewController <MenuViewControllerDelegate>
+@interface OutletsTableViewController : UITableViewController <MenuViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 

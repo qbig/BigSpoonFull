@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "OutletsViewController.h"
+#import "OutletsTableViewController.h"
 
-@interface OutletsViewController ()
+@interface OutletsTableViewController ()
 
 @end
 
-@implementation OutletsViewController
+@implementation OutletsTableViewController
 
 @synthesize outletsArray;
 
@@ -94,7 +94,8 @@
     self.outletsArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
     
     // Make ajax calls to the server and get the list of outlets
-    // And make the following into a for loop:
+    // And call the ajax callback: - (void)addOutlet:(Outlet *)Outlet
+    // We could use  [self.tableView reloadData] but it looks nicer to insert the new row with an animation. 
     
     Outlet *newOutlet = [[Outlet alloc] init];
     
@@ -142,6 +143,20 @@
     [self.outletsArray addObject:newOutlet5];
     
 }
+
+// Ajax callback to add one more new item in the table:
+- (void)addOutlet:(Outlet *)Outlet
+{
+	[self.outletsArray addObject:Outlet];
+	NSIndexPath *indexPath =
+    [NSIndexPath indexPathForRow:[self.outletsArray count] - 1
+                       inSection:0];
+    
+	[self.tableView insertRowsAtIndexPaths:
+     [NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 
 - (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
     [self dismissViewControllerAnimated:YES completion:nil];
