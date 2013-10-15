@@ -213,7 +213,10 @@ class Dish(models.Model):
     """
     Stores outlet dish information
     """
-    outlet = models.ForeignKey(Outlet)
+    outlet = models.ForeignKey(
+        Outlet,
+        related_name='dishes',
+    )
     name = models.CharField(
         _('name'),
         max_length=255,
