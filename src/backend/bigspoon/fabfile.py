@@ -64,10 +64,8 @@ def migrate_db():
 def collect_assets():
     print(yellow('Prepare assets ...'))
     run(RUN_WITH_ENV+'python manage.py collectstatic -c')
-
-def compress_assets():
-    print(yellow('Compress assets ...'))
     run(RUN_WITH_ENV+'python manage.py compress')
+
 
 @hosts(SERVER)
 def deploy(*args):
@@ -83,8 +81,6 @@ def deploy(*args):
                 migrate_db()
             if 'assets' in args:
                 collect_assets()
-            if 'compress' in args:
-                compress_assets()
         restart_supervisord()
         if args:
             if 'nginx' in args:
