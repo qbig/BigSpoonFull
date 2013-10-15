@@ -19,38 +19,54 @@ class UserAdmin(admin.ModelAdmin):
         (_('Important dates'), {'fields': (
             'last_login', 'date_joined')}),
     )
+    search_fields = ['email', 'username', 'first_name', 'last_name']
 
+
+"""
+Restaurant -> Outlet
+            + Categories -> Dish -> Rating
+            #Dish should be linked to restaurant first, rather than outlet.
+Outlet -> Table, Review, Note
+"""
 
 class RestaurantAdmin(GuardedModelAdmin):
+    search_fields = ['name']
     pass
 
 
 class OutletAdmin(GuardedModelAdmin):
     raw_id_fields = ('restaurant',)
+    search_fields = ['name', 'desc']
 
 
 class TableAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet',)
+    search_fields = ['name', 'desc']
 
 
 class CategoryAdmin(GuardedModelAdmin):
+    search_fields = ['name', 'desc']
     pass
 
 
 class DishAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet', 'categories')
+    search_fields = ['name', 'desc', 'pos', 'price'] #outlet, categories
 
 
 class RatingAdmin(GuardedModelAdmin):
     raw_id_fields = ('dish',)
+    search_fields = ['score'] #user, dish
 
 
 class ReviewAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet',)
+    search_fields = ['score', 'feedback'] #user, outlet
 
 
 class NoteAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet', 'user')
+    search_fields = ['note'] #user, outlet
 
 
 admin.site.register(User, UserAdmin)
