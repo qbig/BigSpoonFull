@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView, ListView, FormView
+from bg_inventory.models import Dish
 
 
 class StaffLoginView(FormView):
@@ -9,8 +10,13 @@ class MainView(TemplateView):
     template_name = "bg_order/main.html"
 
 
-class MenuView(TemplateView):
+class MenuView(ListView):
+    model = Dish
     template_name = "bg_order/menu.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuView, self).get_context_data(**kwargs)
+        return context
 
 
 class TableView(TemplateView):

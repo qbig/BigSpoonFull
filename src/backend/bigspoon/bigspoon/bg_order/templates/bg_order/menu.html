@@ -9,21 +9,21 @@
     <a class="add" href="#"><i class="icon-plus"></i> Add menu item</a>
     <h1>Breakfast Menu</h1>
 
-    <div class="menu-item">
-        <img src = "{% static "img/placeholder.png" %}"/>
-        <input class="description" type="textarea" placeholder="Dish description here">
-        <input class="price" type="text" placeholder="$8">
-        <!-- Should probably use slider or counter input for price -->
-        <a class="save" href="#"><i class="icon-save"></i> Save</a>
-    </div>
+    {% for dish in object_list %}
+        <div class="menu-item">
+            <img src = "{{ dish.photo.url }}"/>
+            <span>
+                <input class="name" type="text" placeholder="Dish name here" value="{{ dish.name }}"> <input class="price" type="text" placeholder="$8" value="{{ dish.price }}">
+            </span>
+            <span>
+                <input class="description" type="textarea" placeholder="Dish description here" value="{{ dish.desc }}">
+                <a class="save" href="#"><i class="icon-save"></i> Save</a>
+            </span>
 
-    <div class="menu-item">
-        <img src = "{% static "img/placeholder.png" %}"/>
-        <input class="description" type="textarea" placeholder="Dish description here">
-        <input class="price" type="text" placeholder="$8">
-        <!-- Should probably use slider or counter input for price -->
-        <a class="save" href="#"><i class="icon-save"></i> Save</a>
-    </div>
+        </div>
+    {% empty %}
+        <p>No menu items yet.</p>
+    {% endfor %}
 
 </div>
 
