@@ -6,58 +6,64 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
-        fields = ('url', 'email', 'first_name', 'last_name')
+        fields = ('email', 'first_name', 'last_name', 'password', 'auth_token')
+        read_only_fields = ('auth_token',)
 
 
-class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
+class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ('url', 'name', 'icon')
+        fields = ('name', 'icon')
+        read_only_fields = ('name', 'icon')
 
 
-class OutletSerializer(serializers.HyperlinkedModelSerializer):
+class OutletSerializer(serializers.ModelSerializer):
     class Meta:
         model = Outlet
-        fields = ('url', 'name', 'desc')
+        fields = ('name', 'desc')
+        read_only_fields = ('name', 'desc')
 
 
-class OutletTableSerializer(serializers.HyperlinkedModelSerializer):
+class OutletTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
-        fields = ('url', 'name')
+        fields = ('name', 'qrcode')
+        read_only_fields = ('name', 'qrcode')
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('url', 'name', 'desc')
+        fields = ('name', 'desc')
+        read_only_fields = ('name', 'desc')
 
 
-class DishSerializer(serializers.HyperlinkedModelSerializer):
+class DishSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dish
         fields = (
-            'url', 'name', 'pos', 'desc', 'start_time',
+            'name', 'pos', 'desc', 'start_time',
             'end_time', 'price', 'photo', 'categories'
         )
 
 
-class RatingSerializer(serializers.HyperlinkedModelSerializer):
+class RatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
-        fields = ('url', 'user', 'dish', 'score')
+        fields = ('user', 'dish', 'score')
 
 
-class ReviewSerializer(serializers.HyperlinkedModelSerializer):
+class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ('url', 'user', 'outlet', 'score', 'feedback')
+        fields = ('user', 'outlet', 'score', 'feedback')
 
 
-class NoteSerializer(serializers.HyperlinkedModelSerializer):
+class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ('url', 'user', 'outlet', 'note')
+        fields = ('user', 'outlet', 'note')
