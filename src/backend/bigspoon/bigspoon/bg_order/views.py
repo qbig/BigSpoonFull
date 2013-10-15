@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView, FormView
 
-class StaffLogin(FormView):
+class StaffLoginView(FormView):
     pass
 
 class MainView(TemplateView):

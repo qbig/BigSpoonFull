@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from bg_order.views import MainView, MenuView, TableView, UserView, \
-    HistoryView, ReportView
+    HistoryView, ReportView, StaffLoginView
 
 urlpatterns = patterns('',
     url(r'^login/$', StaffLoginView.as_view()),
