@@ -52,8 +52,11 @@ class Meal(models.Model):
     is_paid = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return "(%s) %s | Active/Paid: %s/%s" % (self.table.name, \
-            self.diner.first_name, self.active, self.paid)
+        meal_status = "Active" if self.is_active else "Inactive"
+        meal_payment = "Paid" if self.is_paid else "Unpaid"
+
+        return "(%s) %s | %s | %s" % (self.table.name, \
+            self.diner.first_name, meal_status, meal_payment)
 
     class Meta:
         verbose_name = _('meal')
