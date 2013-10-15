@@ -30,9 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         _('username'),
         max_length=30,
-        db_index=True,
-        blank=False,
-        null=False,
+        blank=True,
         help_text=_('username for internal use'),
     )
     first_name = models.CharField(
@@ -64,7 +62,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
 
@@ -80,6 +77,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         Returns the user email
         """
+        if self.username:
+            return self.username
         return self.email
 
     def __unicode__(self):
@@ -173,9 +172,9 @@ class Table(models.Model):
 
     def __unicode__(self):
         """
-        Returns the table name
+        Returns the outlet and table name
         """
-        return self.name
+        return '%s - %s' % (self.outlet.name, self.name)
 
     class Meta:
         verbose_name = _('table')
@@ -225,7 +224,7 @@ class Dish(models.Model):
         max_length=255,
         blank=False,
         null=True,
-        help_text=_('outlet dish pos id')
+        help_text=_('outlet pos system dish id')
     )
     desc = models.TextField(
         _('description'),
@@ -246,7 +245,7 @@ class Dish(models.Model):
         help_text=_('dish end time'),
     )
     price = models.DecimalField(
-        max_digits=10,
+        max_digits=6,
         decimal_places=2,
     )
     photo = ImageWithThumbsField(
@@ -276,6 +275,7 @@ class Rating(models.Model):
     """
     Stores dish rating information
     """
+    user = models.ForeignKey(User)
     dish = models.ForeignKey(Dish)
     score = models.DecimalField(
         max_digits=2,
@@ -284,9 +284,9 @@ class Rating(models.Model):
 
     def __unicode__(self):
         """
-        Returns the dish name and score
+        Returns the user and dish name
         """
-        return "%s - %d" % (self.dish.name, self.score)
+        return "%s - %s" % (self.user.email, self.dish.name)
 
     class Meta:
         verbose_name = _('rating')
@@ -297,6 +297,7 @@ class Review(models.Model):
     """
     Stores dish rating information
     """
+    user = models.ForeignKey(User)
     outlet = models.ForeignKey(Outlet)
     score = models.DecimalField(
         max_digits=2,
@@ -311,9 +312,9 @@ class Review(models.Model):
 
     def __unicode__(self):
         """
-        Returns the outlet name and score
+        Returns the user and outlet name
         """
-        return "%s - %d" % (self.outlet.name, self.score)
+        return "%s - %s" % (self.user.email, self.outlet.name)
 
     class Meta:
         verbose_name = _('review')
@@ -326,11 +327,11 @@ class Note(models.Model):
     """
     user = models.ForeignKey(User)
     outlet = models.ForeignKey(Outlet)
-    feedback = models.TextField(
+    note = models.TextField(
         _('note'),
         blank=False,
         null=True,
-        help_text=_('note for user from outlet manager')
+        help_text=_('outlet note for user')
     )
 
     def __unicode__(self):
@@ -342,3 +343,13 @@ class Note(models.Model):
     class Meta:
         verbose_name = _('note')
         verbose_name_plural = _('notes')
+
+from rest_framework.authtoken.models import Token
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+
+@receiver(post_save, sender=User)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
