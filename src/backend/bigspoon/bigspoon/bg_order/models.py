@@ -33,8 +33,9 @@ class Request(models.Model):
     )
 
     def __unicode__(self):
-        return "(%s) %s | Active: %s" % (self.table.name,\
-         self.diner.first_name, self.active)
+        request_status = "Active" if self.is_active else "Inactive"
+        return "(%s) %s | %s" % (self.table.name,\
+         self.diner.first_name, request_status)
 
     class Meta:
         verbose_name = _('request')
@@ -57,7 +58,7 @@ class Meal(models.Model):
         meal_status = "Active" if self.is_active else "Inactive"
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
-        return "(%s) %s | %s | %s" % (self.table.name, \
+        return "(%s - %s) %s | %s | %s" % (self.table.outlet.name, self.table.name, \
             self.diner.first_name, meal_status, meal_payment)
 
     class Meta:
@@ -88,8 +89,7 @@ class Order(models.Model):
     )
 
     def __unicode__(self):
-        return "(%s) %s | %s x%s" % (self.meal.table.name, \
-            self.meal.diner.first_name, self.dish.name, self.quantity)
+        return "(%s - %s) %s | %s x%s" % (self.meal.table.outlet.name, self.meal.table.name, self.meal.diner.first_name, self.dish.name, self.quantity)
 
     class Meta:
         verbose_name = _('order')
