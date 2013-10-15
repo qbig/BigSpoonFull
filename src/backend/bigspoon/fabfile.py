@@ -63,8 +63,8 @@ def migrate_db():
 
 def collect_assets():
     print(yellow('Prepare assets ...'))
-    run(RUN_WITH_ENV+'python manage.py compress')
     run(RUN_WITH_ENV+'python manage.py collectstatic -c')
+    run(RUN_WITH_ENV+'python manage.py compress')
 
 
 @hosts(SERVER)
