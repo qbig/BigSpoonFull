@@ -58,8 +58,7 @@ class Meal(models.Model):
         meal_status = "Active" if self.is_active else "Inactive"
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
-        return "(%s - %s) %s | %s | %s" % (self.table.outlet.name, self.table.name, \
-            self.diner.first_name, meal_status, meal_payment)
+        return "(%s - %s) | %s | %s" % (self.table.outlet.name, self.table.name, meal_status, meal_payment)
 
     class Meta:
         verbose_name = _('meal')
