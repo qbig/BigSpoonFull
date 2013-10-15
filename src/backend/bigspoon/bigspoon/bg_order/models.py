@@ -2,6 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from bg_inventory.models import User, Table, Dish
 
+
 class Request(models.Model):
     """
     Stores diner request information
@@ -34,8 +35,8 @@ class Request(models.Model):
 
     def __unicode__(self):
         request_status = "Active" if self.is_active else "Inactive"
-        return "(%s) %s | %s" % (self.table.name,\
-         self.diner.first_name, request_status)
+        return "(%s) %s | %s" % (self.table.name, self.diner.first_name,
+                                 request_status)
 
     class Meta:
         verbose_name = _('request')
@@ -58,7 +59,9 @@ class Meal(models.Model):
         meal_status = "Active" if self.is_active else "Inactive"
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
-        return "(%s - %s) | %s | %s" % (self.table.outlet.name, self.table.name, meal_status, meal_payment)
+        return "(%s - %s) | %s | %s" % (self.table.outlet.name,
+                                        self.table.name, meal_status,
+                                        meal_payment)
 
     class Meta:
         verbose_name = _('meal')
@@ -83,14 +86,16 @@ class Order(models.Model):
         null=True,
     )
     process_time = models.TimeField(help_text=_('Total processing time'),
-        blank=True,
-        null=True,
-    )
+                                    blank=True,
+                                    null=True,
+                                    )
 
     def __unicode__(self):
-        return "(%s - %s) %s | %s x%s" % (self.meal.table.outlet.name, self.meal.table.name, self.meal.diner.first_name, self.dish.name, self.quantity)
+        return "(%s - %s) %s | %s x%s" % (self.meal.table.outlet.name,
+                                          self.meal.table.name,
+                                          self.meal.diner.first_name,
+                                          self.dish.name, self.quantity)
 
     class Meta:
         verbose_name = _('order')
         verbose_name_plural = _('orders')
-
