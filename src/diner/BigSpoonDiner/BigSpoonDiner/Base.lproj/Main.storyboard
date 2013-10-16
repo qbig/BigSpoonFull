@@ -74,7 +74,7 @@
                                     <action selector="textFieldReturn:" destination="a1i-Wr-CeU" eventType="editingDidEndOnExit" id="SWq-du-evp"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_256px_unfilled.png" translatesAutoresizingMaskIntoConstraints="NO" id="Knv-Jw-qMO">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_256px_unfilled.png" translatesAutoresizingMaskIntoConstraints="NO" id="Knv-Jw-qMO" customClass="SCl">
                                 <rect key="frame" x="20" y="104" width="81" height="82"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -88,6 +88,10 @@
                                     <segue destination="ffF-mi-uHH" kind="modal" id="1dd-O3-Fjs"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ETG-My-DrL">
+                                <rect key="frame" x="156" y="327" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.92549026012420654" green="0.92941182851791382" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                     </view>
@@ -531,6 +535,6 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4OV-aI-hBG"/>
+        <segue reference="1dd-O3-Fjs"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,6 +11,7 @@
 // Load the list of outlets when we load the app
 #import "Outlet.h"
 #import "OutletsTableViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
