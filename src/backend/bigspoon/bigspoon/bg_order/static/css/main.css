@@ -428,7 +428,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     color: #333;
 }
 
-#main a.add, #main a.save {
+#main a.add, #main input.save {
     display:inline-block;
     float: right;
     margin: 20px;
@@ -443,16 +443,17 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     font-size: 14px;
 }
 
-#main a.save {
+#main input.save {
     float:none;
     background-color: #61C0B9;
 }
 
-#main a.save:hover, #main a.save:active, #main a.save:focus {
+#main input.save:hover, #main input.save:active, #main input.save:focus {
     background-color: #008cdd;
 }
 
 .menu-item {
+    height:200px;
     border-top: 1px dotted rgba(0, 0, 0, 0.2);
 }
 
@@ -461,9 +462,19 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .menu-item img{
+    float: left;
     overflow: hidden;
+    min-width: 300px;
+    height: 200px;
 }
-.user-info input, .menu-item input {
+
+.menu-item span{
+    display:inline-block;
+    float: left;
+    padding: 10px 10px 0px;
+}
+
+.user-info input, .menu-item input, .menu-item textarea{
     padding: 10px;
     border: 0px;
     border-bottom: 1px solid #fff;
@@ -480,13 +491,16 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
 
-.menu-item input.description {
+.menu-item input.name {
     width: 300px;
-    height: 80px;
+}
+
+.menu-item textarea.description {
+    width: 360px;
 }
 
 .menu-item input.price {
-    width: 50px;
+    width: 35px;
 }
 
 /* Table styles */
