@@ -6,7 +6,8 @@ from rest_framework.authentication import TokenAuthentication, \
 from rest_framework.permissions import AllowAny, DjangoObjectPermissions
 from rest_framework.response import Response
 
-from bg_api.serializers import UserSerializer, OutletSerializer
+from bg_api.serializers import UserSerializer, OutletListSerializer, \
+    OutletDetailSerializer
 from bg_inventory.models import Outlet
 
 User = get_user_model()
@@ -24,8 +25,8 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
         useremail = request.QUERY_PARAMS.get('email', None)
         if useremail:
             try:
-                User.objects.get(email=useremail)
-                return Response(status=status.HTTP_409_CONFLICT)
+                u = User.objects.get(email=useremail)
+                return Response({'token': u.auth_token.key})
             except User.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
@@ -35,12 +36,12 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
 class ListOutlet(generics.ListAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    serializer_class = OutletSerializer
+    serializer_class = OutletListSerializer
     model = Outlet
 
 
 class OutletDetail(generics.RetrieveAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    serializer_class = OutletSerializer
+    serializer_class = OutletDetailSerializer
     model = Outlet

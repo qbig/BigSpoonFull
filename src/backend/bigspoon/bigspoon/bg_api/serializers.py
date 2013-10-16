@@ -50,8 +50,15 @@ class DishSerializer(serializers.ModelSerializer):
         model = Dish
 
 
-class OutletSerializer(serializers.ModelSerializer):
+class OutletListSerializer(serializers.ModelSerializer):
     restaurant = RestaurantSerializer(many=False)
+
+    class Meta:
+        model = Outlet
+        read_only_fields = ('name', 'desc')
+
+
+class OutletDetailSerializer(serializers.ModelSerializer):
     dishes = DishSerializer(many=True)
 
     class Meta:
