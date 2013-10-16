@@ -8,6 +8,7 @@ dj-database-url>=0.2.1,<0.3
 # for issue with admin calandar icon
 # -e hg+https://bitbucket.org/david/django-storages@e27c8b61ab57e5afaf21cccfee005c980d89480f#egg=django_storages-dev
 django-storages>=1.1.4,<1.2
+django-s3-folder-storage>=0.1,<0.2
 boto>=2.9.5,<3.0
 # Assets compile
 cssmin>=0.1.4,<0.2
