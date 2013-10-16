@@ -60,9 +60,8 @@ INSTALLED_APPS += (
     's3_folder_storage',
 )
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # See: http://django-storages.readthedocs.org/en/latest/backends/amazon-S3.html#settings
-DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
-DEFAULT_S3_PATH = "media"
 STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
 STATIC_S3_PATH = "static"
 
@@ -84,8 +83,6 @@ AWS_HEADERS = {
 }
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
-MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
 STATIC_ROOT = "/%s/" % STATIC_S3_PATH
 STATIC_URL = 'https://s3.amazonaws.com/%s/static/' % AWS_STORAGE_BUCKET_NAME
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
