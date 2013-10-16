@@ -202,6 +202,9 @@ THIRD_PARTY_APPS = (
     # Django rest framework:
     'rest_framework',
 
+    # Django rest framework authtoken:
+    'rest_framework.authtoken',
+
     # Django object level permission:
     'guardian',
 
@@ -212,6 +215,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     'bg_inventory',
     'bg_order',
+    'bg_api',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

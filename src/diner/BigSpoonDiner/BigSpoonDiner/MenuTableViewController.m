@@ -1,20 +1,20 @@
 //
-//  OutletsViewController.m
+//  MenuTableViewController.m
 //  BigSpoonDiner
 //
-//  Created by Zhixing Yang on 13/10/13.
+//  Created by Zhixing Yang on 15/10/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "OutletsViewController.h"
+#import "MenuTableViewController.h"
 
-@interface OutletsViewController ()
+@interface MenuTableViewController ()
 
 @end
 
-@implementation OutletsViewController
+@implementation MenuTableViewController
 
-@synthesize outletsArray;
+@synthesize dishesArray;
 
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -29,6 +29,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self loadDishesFromServer];
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -48,40 +51,44 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.outletsArray count];
+    return [self.dishesArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OutletCell *cell = (OutletCell *)[tableView
-                             dequeueReusableCellWithIdentifier:@"OutletCell"];
+    MenuListCell *cell = (MenuListCell *)[tableView
+                                      dequeueReusableCellWithIdentifier:@"MenuListCell"];
     
-
-	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
-    // If the cells are not sub-classes, we can use tags to retrieve the element in the cell:
-	//UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
     
-    // For optimization purpose:
-    // URLImageView *imageView = [[URLImageView alloc] init];
-    // [imageView startLoading: [outlet.imgURL absoluteString]];
+	Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
     
-    cell.outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
+	cell.nameLabel.text = dish.name;
     
-	cell.name.text = outlet.name;
-	
-	cell.address.text = outlet.address;
+	cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
     
-	cell.phoneNumber.text = outlet.phoneNumber;
+	cell.descriptionLabel.text = dish.description;
     
-	cell.operatingHours.text = outlet.operatingHours;
-
     return cell;
+}
+
+- (void) loadDishesFromServer{
+
+    NSLog(@"Loading dishes from server...");
+    
+    self.dishesArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
+    Dish *newDish1 = [[Dish alloc] initWithName:@"Most Popular Dish" Description:@"Originated in Singapore, it's literally the best" Price:30 Ratings:5];
+    [self.dishesArray addObject:newDish1];
+    
+    
+    Dish *newDish2 = [[Dish alloc] initWithName:@"Second Popular Dish" Description:@"Simply delitious, it's literally the best" Price:30 Ratings:2];
+    [self.dishesArray addObject:newDish2];
 }
 
 /*

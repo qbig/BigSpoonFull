@@ -81,10 +81,16 @@ AWS_HEADERS = {
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = 'https://s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = 'https://s3.amazonaws.com/%s/media/' % AWS_STORAGE_BUCKET_NAME
+
 ########## END STORAGE CONFIGURATION
 
 
 ########## COMPRESSION CONFIGURATION
+COMPRESS_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+
+STATIC_URL = COMPRESS_URL
+
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE
 COMPRESS_OFFLINE = True
 
@@ -110,5 +116,5 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 
 ########## ALLOWED HOSTS CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['122.248.199.242']
+ALLOWED_HOSTS = ['122.248.199.242', 'ip-10-129-29-161.ap-southeast-1.compute.internal:8000']
 ########## END ALLOWED HOST CONFIGURATION
