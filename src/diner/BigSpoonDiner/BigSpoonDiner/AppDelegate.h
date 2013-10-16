@@ -11,6 +11,7 @@
 // Load the list of outlets when we load the app
 #import "Outlet.h"
 #import "OutletsViewController.h"
+#import "OrderHistoryViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

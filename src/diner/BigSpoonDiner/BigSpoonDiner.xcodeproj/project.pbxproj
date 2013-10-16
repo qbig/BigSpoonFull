@@ -25,6 +25,7 @@
 		49F10807180886D600D2C8DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E6180886D600D2C8DD /* UIKit.framework */; };
 		49F1080F180886D600D2C8DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49F1080D180886D600D2C8DD /* InfoPlist.strings */; };
 		49F10811180886D600D2C8DD /* BigSpoonDinerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F10810180886D600D2C8DD /* BigSpoonDinerTests.m */; };
+		E9B7A28C180BB751009B6BD1 /* OrderHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B7A28B180BB751009B6BD1 /* OrderHistoryViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,8 @@
 		49F1080C180886D600D2C8DD /* BigSpoonDinerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BigSpoonDinerTests-Info.plist"; sourceTree = "<group>"; };
 		49F1080E180886D600D2C8DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		49F10810180886D600D2C8DD /* BigSpoonDinerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BigSpoonDinerTests.m; sourceTree = "<group>"; };
+		E9B7A28A180BB751009B6BD1 /* OrderHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHistoryViewController.h; sourceTree = "<group>"; };
+		E9B7A28B180BB751009B6BD1 /* OrderHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHistoryViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +99,8 @@
 			children = (
 				4999A20C180A506100270B0B /* OutletsViewController.h */,
 				4999A20D180A506100270B0B /* OutletsViewController.m */,
+				E9B7A28A180BB751009B6BD1 /* OrderHistoryViewController.h */,
+				E9B7A28B180BB751009B6BD1 /* OrderHistoryViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 		49F107E8180886D600D2C8DD /* BigSpoonDiner */ = {
 			isa = PBXGroup;
 			children = (
+				E9B7A28D180BF3EC009B6BD1 /* Custom Views */,
 				4999A213180A741D00270B0B /* UtilityClasses */,
 				4999A20F180A50C300270B0B /* Models */,
 				4999A208180A4FCA00270B0B /* ViewControllers */,
@@ -193,6 +199,13 @@
 				49F1080D180886D600D2C8DD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E9B7A28D180BF3EC009B6BD1 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Custom Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +255,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = nus.cs3217;
 				TargetAttributes = {
+					49F107DE180886D600D2C8DD = {
+						DevelopmentTeam = W76H98A34A;
+					};
 					49F10802180886D600D2C8DD = {
 						TestTargetID = 49F107DE180886D600D2C8DD;
 					};
@@ -298,6 +314,7 @@
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				4999A216180A744100270B0B /* URLImageView.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
+				E9B7A28C180BB751009B6BD1 /* OrderHistoryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +445,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/XAMPP/xamppfiles/htdocs/2013-final-project-7/src/diner/BigSpoonDiner",
+					$SRCROOT/,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
@@ -448,7 +465,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SYSTEM_APPS_DIR)/XAMPP/xamppfiles/htdocs/2013-final-project-7/src/diner/BigSpoonDiner",
+					$SRCROOT/,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";

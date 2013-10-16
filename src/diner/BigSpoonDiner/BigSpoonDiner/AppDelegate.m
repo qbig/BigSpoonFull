@@ -16,7 +16,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [self loadOutlets];
+//    [self loadOutlets];
+//    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
     
     return YES;
 }
