@@ -112,7 +112,7 @@ class Restaurant(models.Model):
     def get_upload_path(self, filename):
         fname, dot, extension = filename.rpartition('.')
         slug = slugify(self.name)
-        return 'restaurant/icons/%s.%s' % (slug, extension)
+        return 'restaurant/icons/%s/%s.%s' % (self.id, slug, extension)
 
     def __unicode__(self):
         """
@@ -261,7 +261,8 @@ class Dish(models.Model):
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
         slug = slugify(self.name)
-        return 'restaurant/dishes/%s/%s.%s' % (self.outlet.name, slug, end)
+        return 'restaurant/dishes/%s/%s/%s.%s' % (
+            self.outlet.name, self.id, slug, end)
 
     def __unicode__(self):
         """
