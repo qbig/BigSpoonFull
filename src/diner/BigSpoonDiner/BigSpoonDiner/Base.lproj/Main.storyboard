@@ -124,6 +124,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="orderHistoryScrollView" destination="UCW-Ox-v3L" id="kNJ-aB-pk6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

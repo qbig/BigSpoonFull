@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PastOrderView.h"
+//#import "PastOrderView.h"
 
 @interface OrderHistoryViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
 
 @end
