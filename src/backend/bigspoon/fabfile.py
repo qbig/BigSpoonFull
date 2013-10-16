@@ -56,8 +56,7 @@ def create_db():
 
 def migrate_db():
     print(yellow('Migrate database ...'))
-    run(RUN_WITH_ENV+'python manage.py schemamigration --auto bg_order')
-    run(RUN_WITH_ENV+'python manage.py schemamigration --auto bg_inventory')
+    # TODO: find a way to generate migration scripts
     run(RUN_WITH_ENV+'python manage.py migrate')
 
 
