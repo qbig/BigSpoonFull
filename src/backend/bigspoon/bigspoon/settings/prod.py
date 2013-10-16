@@ -94,7 +94,7 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 
 ########## COMPRESSION CONFIGURATION
-COMPRESS_URL = STATIC_URL
+COMPRESS_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 
 # See: http://django_compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE
 COMPRESS_OFFLINE = True
