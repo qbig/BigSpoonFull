@@ -6,27 +6,33 @@
 {% block content %}
 
 <div class="wrapper">
-    <a class="add" href="#"><i class="icon-plus"></i> Add menu item</a>
+    <a class="add" href="/staff/menu/add/"><i class="icon-plus"></i> Add menu item</a>
     <h1>Menu</h1>
 
-    {% for dish in object_list %}
+  <form action="/staff/menu/" method="post">{% csrf_token %}
+    {{ formset.management_form }}
+
+    {% for form in formset %}
         <div class="menu-item">
-            <form action="" method="post">{% csrf_token %}
-            <img src = "{{ dish.photo.url }}"/>
+            {{form.id}}
+            <img src = "{{ form.instance.photo.url }}"/>
             <span>
-                <input class="name" type="text" placeholder="Dish name here" value="{{ dish.name }}"> <input class="price" type="text" placeholder="$8" value="{{ dish.price }}">
+                <p class="photo">{{form.photo.label}} {{form.photo}}</p>
+                <p class="name">{{form.name.label}} {{form.name}}</p>
+                <p class="price">{{form.price.label}} {{form.price}}</p>
+                <p class="pos">{{form.pos.label}} {{form.pos}}</p>
+                <p class="quantity">{{form.quantity.label}} {{form.quantity}}</p>
+                <p class="description">{{form.desc.label}} {{form.desc}}</p>
             </span>
-            <span>
-                <textarea class="description" rows="3" placeholder="Dish description here">{{ dish.desc }}</textarea>
-                <input class="save" type="submit" value="Save" />
-            </span>
-            </form>
 
         </div>
-    {% empty %}
-        <p>No menu items yet.</p>
     {% endfor %}
+
+    <input class="save" type="submit" value="Save" />
+  </form>
 
 </div>
 
+
 {% endblock %}
+
