@@ -1,5 +1,9 @@
 from django.views.generic import TemplateView, FormView
+from django.views.generic.edit import CreateView
+
+# from bg_order.forms import DishForm
 from bg_inventory.models import Dish
+from bg_inventory.forms import DishCreateForm
 
 from extra_views import ModelFormSetView
 
@@ -13,18 +17,40 @@ class MainView(TemplateView):
 
 
 class MenuView(ModelFormSetView):
-    model = Dish
-    # form_class = MenuDishForm
     template_name = "bg_order/menu.html"
+    model = Dish
+    fields = ['name', 'desc', 'price', 'photo']
+    extra = 0
+
+    def get_queryset(self):  # need to only get menu of outlet
+        # check current user, check permission
+        #
+        return super(MenuView, self).get_queryset()
+
+    def formset_valid(self, formset):
+        return super(MenuView, self).formset_valid(formset)
 
     def get_context_data(self, **kwargs):
-        context = super(MenuView, self).get_context_data(**kwargs)
-        return context
+        #context contains formset, object
+        temp = super(MenuView, self).get_context_data(**kwargs)
+        # import ipdb;ipdb.set_trace()
+        return temp
 
-    # By default this will populate the formset with all the instances of MyModel in the database. You can control this by overriding get_queryset
-    # def get_queryset(self):
-    #     slug = self.kwargs['slug']
-    #     return super(MyModelFormSetView, self).get_queryset().filter(slug=slug)
+    def get(self, request, *args, **kwargs):
+        temp = super(MenuView, self).get(request, *args, **kwargs)
+        # import ipdb;ipdb.set_trace();
+        return temp
+
+
+class MenuAddView(CreateView):
+    form_class = DishCreateForm
+    template_name = "bg_inventory/dish_form.html"
+    success_url="/staff/menu/"
+
+    #get outlet based on staff logged in
+    def form_invalid(self, form):
+        import ipdb;ipdb.set_trace();
+        return self;
 
 
 class TableView(TemplateView):

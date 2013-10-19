@@ -1,0 +1,29 @@
+{% extends "base_nav.html" %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block content %}
+
+<div class="wrapper">
+    <h1>Add Menu</h1>
+
+    <div class="menu-item">
+        <form action="/staff/menu/add/" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <span>
+                <p class="outlet">{{form.outlet.label}} {{form.outlet}}</p>
+                <p class="name">{{form.name.label}} {{form.name}}</p>
+                <p class="price">{{form.pos.label}} {{form.pos}}</p>
+                <p class="price">{{form.price.label}} {{form.price}}</p>
+                <p class="description">{{form.desc.label}} {{form.desc}}</p>
+                <p class="start_time">{{form.start_time.label}} {{form.start_time}}</p>
+                <p class="end_time">{{form.end_time.label}} {{form.end_time}}</p>
+                <p class="photo">{{form.photo.label}} {{form.photo}}</p>
+            </span>
+
+            <input type="submit" value="Add dish" />
+        </form>
+    </div>
+
+
+{% endblock %}

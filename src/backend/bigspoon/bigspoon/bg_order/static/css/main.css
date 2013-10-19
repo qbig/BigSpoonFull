@@ -453,7 +453,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .menu-item {
-    height:200px;
+    height:300px;
     border-top: 1px dotted rgba(0, 0, 0, 0.2);
 }
 
@@ -470,11 +470,16 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 
 .menu-item span{
     display:inline-block;
-    float: left;
     padding: 10px 10px 0px;
 }
 
-.user-info input, .menu-item input, .menu-item textarea{
+.menu-item span p.name, .menu-item span p.price {
+    float:left;
+
+}
+
+.user-info input, .menu-item p input, .menu-item textarea{
+    max-height:80px;
     padding: 10px;
     border: 0px;
     border-bottom: 1px solid #fff;
@@ -491,15 +496,15 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
 }
 
-.menu-item input.name {
+.menu-item p.name input{
     width: 300px;
 }
 
-.menu-item textarea.description {
+.menu-item p.description textarea{
     width: 360px;
 }
 
-.menu-item input.price {
+.menu-item p.price input{
     width: 35px;
 }
 
