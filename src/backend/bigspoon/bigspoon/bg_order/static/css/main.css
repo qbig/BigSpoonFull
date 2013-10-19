@@ -529,6 +529,10 @@ p.success {
     width: 35px;
 }
 
+.menu-item p.start_time input, p.end_time input, p.photo input{
+    margin-left:5px;
+}
+
 /* Table styles */
 .table {
     float: left;
@@ -658,4 +662,8 @@ p.success {
 .user-info input.notes {
     width: 380px;
     height: 80px;
+}
+
+form.menu-add {
+    padding: 40px 20px;
 }
