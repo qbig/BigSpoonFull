@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.http import Http404
+
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, \
@@ -7,8 +9,8 @@ from rest_framework.permissions import AllowAny, DjangoObjectPermissions
 from rest_framework.response import Response
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer
-from bg_inventory.models import Outlet
+    OutletDetailSerializer, ProfileSerializer
+from bg_inventory.models import Outlet, Profile
 
 User = get_user_model()
 
@@ -31,6 +33,20 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class UserProfile(generics.RetrieveAPIView):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = ProfileSerializer
+    model = Profile
+
+    def get_object(self):
+        try:
+            profile = self.request.user.profile
+            return profile
+        except Profile.DoesNotExist:
+            raise Http404
 
 
 class ListOutlet(generics.ListAPIView):

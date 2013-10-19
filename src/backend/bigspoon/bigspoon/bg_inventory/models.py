@@ -127,10 +127,21 @@ class Profile(models.Model):
     Stores user profile information (e.g. gender, favourite item)
     """
 
+    # gender types
+    GENDER_TYPES_DIC = {
+        'M': 'Male',
+        'F': 'Female',
+    }
     GENDER_TYPES = (
         ('M', 'Male'),
         ('F', 'Female'),
     )
+
+    # yes no choices
+    YES_NO_CHOICES_DIC = {
+        'Y': 'Yes',
+        'N': 'No',
+    }
     YES_NO_CHOICES = (
         ('Y', 'Yes'),
         ('N', 'No'),
