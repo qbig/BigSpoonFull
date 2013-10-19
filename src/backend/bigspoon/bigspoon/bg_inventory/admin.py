@@ -7,7 +7,7 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 User = get_user_model()
 
 from bg_inventory.models import Restaurant, Outlet, Table,\
-    Category, Dish, Rating, Review, Note
+    Category, Dish, Rating, Review, Note, Profile
 from bg_inventory.forms import BGUserCreationForm
 
 
@@ -43,6 +43,10 @@ Restaurant -> Outlet
             #Dish should be linked to restaurant first, rather than outlet.
 Outlet -> Table, Review, Note
 """
+
+
+class ProfileAdmin(GuardedModelAdmin):
+    raw_id_fields = ('user', 'favourite')
 
 
 class RestaurantAdmin(GuardedModelAdmin):
@@ -84,6 +88,7 @@ class NoteAdmin(GuardedModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Restaurant, RestaurantAdmin)
 admin.site.register(Outlet, OutletAdmin)
 admin.site.register(Table, TableAdmin)

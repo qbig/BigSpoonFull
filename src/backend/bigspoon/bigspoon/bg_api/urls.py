@@ -7,6 +7,8 @@ urlpatterns = patterns(
     '',
     # user
     url(r'^user$', views.CreateUser.as_view()),
+    # profile
+    url(r'^profile$', views.UserProfile.as_view()),
     # outlet
     url(r'^outlets$', views.ListOutlet.as_view()),
     url(r'^outlets/(?P<pk>[0-9]+)$', views.OutletDetail.as_view()),
