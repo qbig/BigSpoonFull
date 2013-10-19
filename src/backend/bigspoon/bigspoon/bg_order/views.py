@@ -1,14 +1,11 @@
-from django.views.generic import TemplateView, FormView
+from django.contrib import messages
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
 from bg_inventory.models import Dish
 from bg_inventory.forms import DishCreateForm
 
 from extra_views import ModelFormSetView
-
-
-class StaffLoginView(FormView):
-    pass
 
 
 class MainView(TemplateView):
@@ -21,18 +18,22 @@ class MenuView(ModelFormSetView):
     fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo']
     extra = 0
 
-    def get_queryset(self):  # need to only get menu of outlet
-        # check current user, check permission
-        #
+    def get_queryset(self):
+        # check current user, check permission and filter queryset!
         return super(MenuView, self).get_queryset()
 
     def formset_valid(self, formset):
+        # import ipdb;ipdb.set_trace();
+        print("Menu update form Valid")
+        messages.success(self.request, 'Dish details updated.')
         return super(MenuView, self).formset_valid(formset)
 
+    def formset_invalid(self, formset):
+        print("Menu update form invalid")
+        return super(MenuView, self).formset_invalid(formset)
+
     def get_context_data(self, **kwargs):
-        #context contains formset, object
         temp = super(MenuView, self).get_context_data(**kwargs)
-        # import ipdb;ipdb.set_trace()
         return temp
 
     def get(self, request, *args, **kwargs):
@@ -47,8 +48,13 @@ class MenuAddView(CreateView):
     success_url = "/staff/menu/"
 
     #get outlet based on staff logged in
-    def form_invalid(self, form):
-        return self
+    def formset_valid(self, formset):
+        print("Form Valid")
+        return super(MenuAddView, self).formset_valid(formset)
+
+    def formset_invalid(self, formset):
+        print("Form invalid")
+        return super(MenuAddView, self).formset_invalid(formset)
 
 
 class TableView(TemplateView):

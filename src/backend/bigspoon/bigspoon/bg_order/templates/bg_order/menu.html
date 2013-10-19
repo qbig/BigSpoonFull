@@ -15,20 +15,29 @@
     {% for form in formset %}
         <div class="menu-item">
             {{form.id}}
-            <img src = "{{ form.instance.photo.url }}"/>
+            <img src = "{{ form.instance.photo.url_640x400 }}"/>
             <span>
-                <p class="photo">{{form.photo.label}} {{form.photo}}</p>
-                <p class="name">{{form.name.label}} {{form.name}}</p>
-                <p class="price">{{form.price.label}} {{form.price}}</p>
+                <p class="name"><label>{{form.name.label}}</label> {{form.name}}</p>
+                <p class="price">{{form.price.label}} (S$) {{form.price}}</p>
                 <p class="pos">{{form.pos.label}} {{form.pos}}</p>
                 <p class="quantity">{{form.quantity.label}} {{form.quantity}}</p>
-                <p class="description">{{form.desc.label}} {{form.desc}}</p>
+                <p class="description">{{form.desc.label}} <br/>{{form.desc}}</p>
             </span>
 
         </div>
     {% endfor %}
 
     <input class="save" type="submit" value="Save" />
+    {% if formset.errors %}
+        <p class="error">{{ formset.errors }}</p>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <p class="success"> {{ message }} </p>
+        {% endfor %}
+    {% endif %}
+
   </form>
 
 </div>
