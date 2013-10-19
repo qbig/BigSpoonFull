@@ -119,8 +119,8 @@ ALLOWED_HOSTS = ['122.248.199.242', 'ip-10-129-29-161.ap-southeast-1.compute.int
 ########## REST FRAMEWORK CONFIGURATION
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONPRenderer',
         'rest_framework.renderers.UnicodeJSONRenderer',
+        'rest_framework.renderers.JSONPRenderer',
     ),
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
