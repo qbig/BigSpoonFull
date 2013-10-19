@@ -17,10 +17,12 @@
             {{form.id}}
             <img src = "{{ form.instance.photo.url }}"/>
             <span>
-                <p class="photo">{{form.photo}}</p>
-                <p class="name">{{form.name}}</p>
-                <p class="price">{{form.price}}</p>
-                <p class="description">{{form.desc}}</p>
+                <p class="photo">{{form.photo.label}} {{form.photo}}</p>
+                <p class="name">{{form.name.label}} {{form.name}}</p>
+                <p class="price">{{form.price.label}} {{form.price}}</p>
+                <p class="pos">{{form.pos.label}} {{form.pos}}</p>
+                <p class="quantity">{{form.quantity.label}} {{form.quantity}}</p>
+                <p class="description">{{form.desc.label}} {{form.desc}}</p>
             </span>
 
         </div>

@@ -1,7 +1,6 @@
 from django.views.generic import TemplateView, FormView
 from django.views.generic.edit import CreateView
 
-# from bg_order.forms import DishForm
 from bg_inventory.models import Dish
 from bg_inventory.forms import DishCreateForm
 
@@ -19,7 +18,7 @@ class MainView(TemplateView):
 class MenuView(ModelFormSetView):
     template_name = "bg_order/menu.html"
     model = Dish
-    fields = ['name', 'desc', 'price', 'photo']
+    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo']
     extra = 0
 
     def get_queryset(self):  # need to only get menu of outlet
@@ -45,12 +44,11 @@ class MenuView(ModelFormSetView):
 class MenuAddView(CreateView):
     form_class = DishCreateForm
     template_name = "bg_inventory/dish_form.html"
-    success_url="/staff/menu/"
+    success_url = "/staff/menu/"
 
     #get outlet based on staff logged in
     def form_invalid(self, form):
-        import ipdb;ipdb.set_trace();
-        return self;
+        return self
 
 
 class TableView(TemplateView):
