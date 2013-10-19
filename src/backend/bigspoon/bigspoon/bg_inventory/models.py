@@ -256,6 +256,10 @@ class Dish(models.Model):
         sizes=((640, 400),),
         help_text=_('dish photo')
     )
+    quantity = models.IntegerField(
+        default=0,
+        help_text=_('dish stock'),
+    )
     categories = models.ManyToManyField(Category)
 
     def get_upload_path(self, filename):
