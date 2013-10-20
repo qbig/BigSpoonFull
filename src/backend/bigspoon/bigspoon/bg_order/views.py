@@ -2,10 +2,10 @@ from django.contrib import messages
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
-from extra_views import ModelFormSetView
-
 from bg_inventory.models import Dish
 from bg_inventory.forms import DishCreateForm
+
+from extra_views import ModelFormSetView
 
 
 class MainView(TemplateView):

@@ -1,6 +1,5 @@
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from django.db import models
 from bg_inventory.models import User, Table, Dish
 
 

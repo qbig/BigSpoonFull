@@ -129,12 +129,13 @@ class NoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Note
+        read_only_fields = ('is_active', 'is_paid')
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        read_only_fields = ('created', 'modified')
+        read_only_fields = ('created', 'modified', 'bill_time', 'process_time')
 
 
 class MealSerializer(serializers.ModelSerializer):
@@ -147,3 +148,4 @@ class MealSerializer(serializers.ModelSerializer):
 class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
+        read_only_fields = ('is_active', 'created', 'finished')
