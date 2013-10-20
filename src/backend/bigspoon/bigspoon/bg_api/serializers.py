@@ -147,4 +147,3 @@ class MealSerializer(serializers.ModelSerializer):
 class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
-        read_only_fields = ('created')
