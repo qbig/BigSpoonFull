@@ -39,4 +39,9 @@ class BGUserCreationForm(forms.ModelForm):
 class DishCreateForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ['outlet', 'name', 'pos', 'start_time' , 'end_time' ,'desc', 'price', 'photo']
+        fields = ['outlet', 'name', 'pos', 'start_time', 'end_time', 'desc',
+                  'price', 'photo']
+        widgets = {
+            'start_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
+            'end_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
+        }
