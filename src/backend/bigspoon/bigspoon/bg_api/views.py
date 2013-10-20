@@ -9,8 +9,10 @@ from rest_framework.permissions import AllowAny, DjangoObjectPermissions
 from rest_framework.response import Response
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer, ProfileSerializer
+    OutletDetailSerializer, ProfileSerializer, OrderSerializer, \
+    MealSerializer, RequestSerializer
 from bg_inventory.models import Outlet, Profile
+from bg_order.models import Order, Meal, Request
 
 User = get_user_model()
 
@@ -61,3 +63,33 @@ class OutletDetail(generics.RetrieveAPIView):
     permission_classes = (DjangoObjectPermissions,)
     serializer_class = OutletDetailSerializer
     model = Outlet
+
+
+class OrderList(generics.ListCreateAPIView):
+    """
+    List all orders, or create a new order.
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class MealList(generics.ListCreateAPIView):
+    """
+    List all orders, or create a new order.
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    queryset = Meal.objects.all()
+    serializer_class = MealSerializer
+
+
+class RequestList(generics.ListCreateAPIView):
+    """
+    List all orders, or create a new order.
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer

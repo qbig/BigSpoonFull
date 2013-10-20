@@ -7,6 +7,10 @@ urlpatterns = patterns(
     '',
     # user
     url(r'^user$', views.CreateUser.as_view()),
+    # ordering
+    url(r'^order$', views.OrderList.as_view()),
+    url(r'^meal$', views.MealList.as_view()),
+    url(r'^request$', views.RequestList.as_view()),
     # profile
     url(r'^profile$', views.UserProfile.as_view()),
     # outlet

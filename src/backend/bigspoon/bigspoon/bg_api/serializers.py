@@ -2,12 +2,16 @@ from rest_framework import serializers
 from rest_framework.relations import RelatedField
 from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note, Profile
+from bg_order.models import Meal, Order, Request
+
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    meals = RelatedField(many=True)
+    requests = RelatedField(many=True)
 
     class Meta:
         model = User
@@ -125,3 +129,23 @@ class NoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Note
+        read_only_fields = ('is_active', 'is_paid')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        read_only_fields = ('created', 'modified', 'bill_time', 'process_time')
+
+
+class MealSerializer(serializers.ModelSerializer):
+    orders = RelatedField(many=True)
+
+    class Meta:
+        model = Meal
+
+
+class RequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Request
+        read_only_fields = ('is_active', 'created', 'finished')
