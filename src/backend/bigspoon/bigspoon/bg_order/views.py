@@ -4,8 +4,9 @@ from django.views.generic.edit import CreateView
 
 from extra_views import ModelFormSetView
 
-from bg_inventory.models import Dish
+from bg_inventory.models import Dish, Outlet
 from bg_inventory.forms import DishCreateForm
+from guardian.shortcuts import get_objects_for_user
 
 
 class MainView(TemplateView):
@@ -19,8 +20,10 @@ class MenuView(ModelFormSetView):
     extra = 0
 
     def get_queryset(self):
-        # check current user, check permission and filter queryset!
-        return super(MenuView, self).get_queryset()
+        #filter queryset based on user's permitted outlet
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        return super(MenuView, self).get_queryset().filter(outlet=outlet)
 
     def formset_valid(self, formset):
         # import ipdb;ipdb.set_trace();
