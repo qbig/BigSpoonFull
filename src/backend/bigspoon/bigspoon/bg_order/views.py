@@ -26,7 +26,6 @@ class MenuView(ModelFormSetView):
         return super(MenuView, self).get_queryset().filter(outlet=outlet)
 
     def formset_valid(self, formset):
-        # import ipdb;ipdb.set_trace();
         print("Menu update form Valid")
         messages.success(self.request, 'Dish details updated.')
         return super(MenuView, self).formset_valid(formset)
@@ -41,7 +40,6 @@ class MenuView(ModelFormSetView):
 
     def get(self, request, *args, **kwargs):
         temp = super(MenuView, self).get(request, *args, **kwargs)
-        # import ipdb;ipdb.set_trace();
         return temp
 
 
@@ -52,11 +50,11 @@ class MenuAddView(CreateView):
 
     #get outlet based on staff logged in
     def formset_valid(self, formset):
-        print("Form Valid")
+        print("Menu add Form Valid")
         return super(MenuAddView, self).formset_valid(formset)
 
     def formset_invalid(self, formset):
-        print("Form invalid")
+        print("Menu add Form invalid")
         return super(MenuAddView, self).formset_invalid(formset)
 
 
