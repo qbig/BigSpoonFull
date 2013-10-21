@@ -138,7 +138,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class MealSerializer(serializers.ModelSerializer):
-    orders = RelatedField(many=True)
+    orders = OrderSerializer(many=True)
 
     class Meta:
         model = Meal

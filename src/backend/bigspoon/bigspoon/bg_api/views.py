@@ -65,7 +65,7 @@ class OutletDetail(generics.RetrieveAPIView):
     model = Outlet
 
 
-class OrderList(generics.ListCreateAPIView):
+class CreateOrder(generics.CreateAPIView):
     """
     List all orders, or create a new order.
     """
@@ -85,7 +85,7 @@ class MealList(generics.ListCreateAPIView):
     serializer_class = MealSerializer
 
 
-class RequestList(generics.ListCreateAPIView):
+class CreateRequest(generics.CreateAPIView):
     """
     List all orders, or create a new order.
     """
