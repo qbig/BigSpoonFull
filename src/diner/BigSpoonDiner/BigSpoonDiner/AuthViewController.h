@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AuthViewController : UIViewController
+@interface AuthViewController : UIViewController <NSURLConnectionDelegate>
+
+- (IBAction)submitButtonPressed:(id)sender;
 
 @end

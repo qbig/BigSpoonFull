@@ -171,6 +171,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="submitButtonPressed:" destination="ffF-mi-uHH" eventType="touchUpInside" id="fsJ-6C-a0Q"/>
                                     <segue destination="jIA-Id-th3" kind="modal" id="XpI-Ib-r1l"/>
                                 </connections>
                             </button>
