@@ -1,13 +1,13 @@
 from django.contrib import messages
-from django.views.generic import TemplateView
-from django.views.generic import ListView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView
 
 from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet
+from bg_inventory.models import Dish, Outlet, Table
 from bg_order.models import Meal
+
 from bg_inventory.forms import DishCreateForm
 
 
@@ -73,8 +73,20 @@ class MenuAddView(CreateView):
         return temp
 
 
-class TableView(TemplateView):
+class TableView(ListView):
+    model = Table
     template_name = "bg_order/tables.html"
+
+    def get_queryset(self):
+        #filter queryset based on user's permitted outlet
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        return super(TableView, self).get_queryset().filter(outlet=outlet)
+
+    def get_context_data(self, **kwargs):
+        # import ipdb;ipdb.set_trace()
+        context = super(TableView, self).get_context_data(**kwargs)
+        return context
 
 
 class UserView(TemplateView):
