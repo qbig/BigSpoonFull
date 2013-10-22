@@ -31,15 +31,25 @@
         </ul>
     </div>
 
-    <div class="table">
-
-
-    </div>
+    {% for table in table_list %}
 
     <div class="table">
-
-
+        <h3>{{table.name}}</h3>
+        {% for meal in table.meals.all %}
+        <span class='user'>
+            <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
+            <h4>{{ meal.diner.get_full_name }}'s orders</h4>
+        </span>
+            <ul class="order">
+            {% for order in meal.orders.all %}
+                <li>{{order.dish.name}} {{order.dish.quantity}}</li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
     </div>
+
+    {% endfor %}
+
 </div>
 
 {% endblock %}
