@@ -56,6 +56,13 @@ class MenuAddView(CreateView):
         print("Menu add Form invalid")
         return super(MenuAddView, self).formset_invalid(formset)
 
+    def get(self, request, *args, **kwargs):
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        temp = super(MenuAddView, self).get(request, *args, **kwargs)
+        temp.context_data['form']['outlet'].field.initial = outlet
+        return temp
+
 
 class TableView(TemplateView):
     template_name = "bg_order/tables.html"

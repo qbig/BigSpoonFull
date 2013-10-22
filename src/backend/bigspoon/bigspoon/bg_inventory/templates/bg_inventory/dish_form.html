@@ -11,7 +11,7 @@
     <div class="menu-item">
         <form class="menu-add" action="/staff/menu/add/" method="post" enctype="multipart/form-data">{% csrf_token %}
             <span>
-                <p class="outlet">{{form.outlet.label}} {{form.outlet}}</p>
+                <p class="outlet">{{form.outlet.as_hidden}}</p>
                 <p class="name">{{form.name.label}} {{form.name}}</p>
                 <p class="price">{{form.pos.label}} {{form.pos}}</p>
                 <p class="price">{{form.price.label}} {{form.price}}</p>
