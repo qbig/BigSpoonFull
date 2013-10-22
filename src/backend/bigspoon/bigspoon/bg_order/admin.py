@@ -10,13 +10,14 @@ class RequestAdmin(admin.ModelAdmin):
 
 
 class MealAdmin(admin.ModelAdmin):
-    list_display = ['diner', 'table', 'is_active', 'is_paid']
+    list_display = ['diner', 'table', 'is_active', 'is_paid',
+                    'created', 'modified', 'bill_time']
     list_display_links = ('diner', 'table',)
 
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'meal', 'get_diner', 'dish',
-                    'quantity', 'created', 'modified', 'bill_time']
+                    'quantity']
     list_display_links = ('meal', 'dish', 'get_diner')
     list_filter = ('meal', 'dish',)
 

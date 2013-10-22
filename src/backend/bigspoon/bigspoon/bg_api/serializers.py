@@ -136,7 +136,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        read_only_fields = ('created', 'modified')
 
 
 class MealSerializer(serializers.ModelSerializer):
@@ -144,8 +143,10 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
+        read_only_fields = ('created', 'modified')
 
 
 class RequestSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Request

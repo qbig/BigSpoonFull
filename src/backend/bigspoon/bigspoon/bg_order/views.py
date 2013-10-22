@@ -1,22 +1,30 @@
 from django.contrib import messages
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView
 
 from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet
+from bg_inventory.models import Dish, Outlet, Table
+from bg_order.models import Meal
+
 from bg_inventory.forms import DishCreateForm
 
 
-class MainView(TemplateView):
+class MainView(ListView):
     template_name = "bg_order/main.html"
+    model = Meal
+
+    def get_queryset(self):
+        return get_objects_for_user(self.request.user,
+                                    "change_meal", Meal.objects.all())
 
 
 class MenuView(ModelFormSetView):
     template_name = "bg_order/menu.html"
     model = Dish
-    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo']
+    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo',
+              'start_time', 'end_time']
     extra = 0
 
     def get_queryset(self):
@@ -35,6 +43,7 @@ class MenuView(ModelFormSetView):
         return super(MenuView, self).formset_invalid(formset)
 
     def get_context_data(self, **kwargs):
+        # import ipdb;ipdb.set_trace();
         temp = super(MenuView, self).get_context_data(**kwargs)
         return temp
 
@@ -56,9 +65,28 @@ class MenuAddView(CreateView):
         print("Menu add Form invalid")
         return super(MenuAddView, self).formset_invalid(formset)
 
+    def get(self, request, *args, **kwargs):
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        temp = super(MenuAddView, self).get(request, *args, **kwargs)
+        temp.context_data['form']['outlet'].field.initial = outlet
+        return temp
 
-class TableView(TemplateView):
+
+class TableView(ListView):
+    model = Table
     template_name = "bg_order/tables.html"
+
+    def get_queryset(self):
+        #filter queryset based on user's permitted outlet
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        return super(TableView, self).get_queryset().filter(outlet=outlet)
+
+    def get_context_data(self, **kwargs):
+        # import ipdb;ipdb.set_trace()
+        context = super(TableView, self).get_context_data(**kwargs)
+        return context
 
 
 class UserView(TemplateView):
