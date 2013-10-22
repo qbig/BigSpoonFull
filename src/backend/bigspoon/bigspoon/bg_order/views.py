@@ -3,10 +3,10 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
 from extra_views import ModelFormSetView
+from guardian.shortcuts import get_objects_for_user
 
 from bg_inventory.models import Dish, Outlet
 from bg_inventory.forms import DishCreateForm
-from guardian.shortcuts import get_objects_for_user
 
 
 class MainView(TemplateView):
@@ -48,7 +48,6 @@ class MenuAddView(CreateView):
     template_name = "bg_inventory/dish_form.html"
     success_url = "/staff/menu/"
 
-    #get outlet based on staff logged in
     def formset_valid(self, formset):
         print("Menu add Form Valid")
         return super(MenuAddView, self).formset_valid(formset)

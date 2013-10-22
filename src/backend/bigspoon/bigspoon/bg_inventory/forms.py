@@ -2,7 +2,9 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
-from bg_inventory.models import Dish
+from guardian.shortcuts import get_objects_for_user
+
+from bg_inventory.models import Dish, Outlet
 
 User = get_user_model()
 
@@ -37,6 +39,17 @@ class BGUserCreationForm(forms.ModelForm):
 
 
 class DishCreateForm(forms.ModelForm):
+
+    def save(self, commit=True):
+        obj = super(DishCreateForm, self).save(commit=False)
+        # import ipdb;ipdb.set_trace();
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        obj.outlet = outlet
+        if commit:
+            obj.save()
+        return obj
+
     class Meta:
         model = Dish
         fields = ['outlet', 'name', 'pos', 'start_time', 'end_time', 'desc',
