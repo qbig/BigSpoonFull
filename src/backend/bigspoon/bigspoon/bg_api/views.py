@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.http import Http404
+
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, \
@@ -7,8 +9,10 @@ from rest_framework.permissions import AllowAny, DjangoObjectPermissions
 from rest_framework.response import Response
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer
-from bg_inventory.models import Outlet
+    OutletDetailSerializer, ProfileSerializer, OrderSerializer, \
+    MealSerializer, RequestSerializer
+from bg_inventory.models import Outlet, Profile
+from bg_order.models import Order, Meal, Request
 
 User = get_user_model()
 
@@ -33,6 +37,20 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+class UserProfile(generics.RetrieveAPIView):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = ProfileSerializer
+    model = Profile
+
+    def get_object(self):
+        try:
+            profile = self.request.user.profile
+            return profile
+        except Profile.DoesNotExist:
+            raise Http404
+
+
 class ListOutlet(generics.ListAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -45,3 +63,33 @@ class OutletDetail(generics.RetrieveAPIView):
     permission_classes = (DjangoObjectPermissions,)
     serializer_class = OutletDetailSerializer
     model = Outlet
+
+
+class CreateOrder(generics.CreateAPIView):
+    """
+    List all orders, or create a new order.
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+class MealList(generics.ListCreateAPIView):
+    """
+    List all orders, or create a new order.
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    queryset = Meal.objects.all()
+    serializer_class = MealSerializer
+
+
+class CreateRequest(generics.CreateAPIView):
+    """
+    List all orders, or create a new order.
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer

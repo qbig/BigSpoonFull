@@ -1,5 +1,6 @@
-from django.utils.translation import ugettext_lazy as _
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
 from bg_inventory.models import User, Table, Dish
 
 
@@ -14,8 +15,8 @@ class Request(models.Model):
         (WAITER, 'Ask for waiter'),
     )
 
-    diner = models.ForeignKey(User)
-    table = models.ForeignKey(Table)
+    diner = models.ForeignKey(User, related_name="requests")
+    table = models.ForeignKey(Table, related_name="requests")
     request_type = models.IntegerField(
         max_length=1,
         choices=REQUEST_CHOICES,
@@ -50,8 +51,8 @@ class Meal(models.Model):
     """
     Stores meal information. A Meal is a set of Orders.
     """
-    diner = models.ForeignKey(User)
-    table = models.ForeignKey(Table)
+    diner = models.ForeignKey(User, related_name="meals")
+    table = models.ForeignKey(Table, related_name="meals")
     is_active = models.BooleanField(default=True)
     is_paid = models.BooleanField(default=False)
 
@@ -72,8 +73,8 @@ class Order(models.Model):
     """
     Stores order information. An order is a quantity of a single dish.
     """
-    meal = models.ForeignKey(Meal)
-    dish = models.OneToOneField(Dish)
+    meal = models.ForeignKey(Meal, related_name="orders")
+    dish = models.ForeignKey(Dish, related_name="orders")
     quantity = models.IntegerField(
         default=0,
         help_text=_('Number of dishes ordered'),

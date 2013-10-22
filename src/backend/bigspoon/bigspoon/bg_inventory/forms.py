@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
+from bg_inventory.models import Dish
+
 User = get_user_model()
 
 
@@ -32,3 +34,14 @@ class BGUserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'username',)
+
+
+class DishCreateForm(forms.ModelForm):
+    class Meta:
+        model = Dish
+        fields = ['outlet', 'name', 'pos', 'start_time', 'end_time', 'desc',
+                  'price', 'photo']
+        widgets = {
+            'start_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
+            'end_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
+        }

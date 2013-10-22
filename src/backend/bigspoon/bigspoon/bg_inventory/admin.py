@@ -7,9 +7,13 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 User = get_user_model()
 
 from bg_inventory.models import Restaurant, Outlet, Table,\
-    Category, Dish, Rating, Review, Note
+    Category, Dish, Rating, Review, Note, Profile
 from bg_inventory.forms import BGUserCreationForm
 
+search_fields_of = {}
+search_fields_of["user"] = ['email', 'username', 'first_name', 'last_name']
+search_fields_of["common"] = ['name'] ## +['desc']
+search_fields_of["dish"] = search_fields_of["common"] + ['pos', 'price']
 
 class UserAdmin(AuthUserAdmin):
 
@@ -33,57 +37,73 @@ class UserAdmin(AuthUserAdmin):
     )
     list_display = ('email', 'username', 'is_staff', 'is_superuser',
                     'is_active')
-    search_fields = ['email', 'username', 'first_name', 'last_name']
+    search_fields = search_fields_of["user"]
     readonly_fields = ['last_login', 'date_joined']
 
 
 """
 Restaurant -> Outlet
             + Categories -> Dish -> Rating
-            #Dish should be linked to restaurant first, rather than outlet.
+            #Currently restaurant is just a global grouping for outlets.
+            #Dish should be linked to restaurant first, rather than outlet, since most outlets (in the same region) of the same restaurant will serve the same dishes.
 Outlet -> Table, Review, Note
 """
 
 
+class ProfileAdmin(GuardedModelAdmin):
+    raw_id_fields = ('user', 'favourite')
+
+
 class RestaurantAdmin(GuardedModelAdmin):
-    search_fields = ['name']
+    search_fields = list(search_fields_of["common"])
 
 
 class OutletAdmin(GuardedModelAdmin):
     raw_id_fields = ('restaurant',)
-    search_fields = ['name', 'desc']
+    search_fields = list(search_fields_of["common"])
+    search_fields += ['restaurant__'+x for x in search_fields_of["common"]]
 
 
 class TableAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet',)
-    search_fields = ['name', 'desc']
+    search_fields = list(search_fields_of["common"])
+    search_fields += ['outlet__'+x for x in search_fields_of["common"]]
 
 
 class CategoryAdmin(GuardedModelAdmin):
-    search_fields = ['name', 'desc']
+    search_fields = list(search_fields_of["common"])
 
 
 class DishAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet', 'categories')
-    search_fields = ['name', 'desc', 'pos', 'price']
+    search_fields = list(search_fields_of["common"])
+    search_fields += ['outlet__'+x for x in search_fields_of["common"]]
+    search_fields += ['categories__'+x for x in search_fields_of["common"]]
+    # search_fields += ['pos', 'price']
 
 
 class RatingAdmin(GuardedModelAdmin):
     raw_id_fields = ('dish',)
-    search_fields = ['score']
+    search_fields = ['dish__'+x for x in search_fields_of["common"]]
+    search_fields += ['user__'+x for x in search_fields_of["user"]]
+    # search_fields += ['score']
 
 
 class ReviewAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet',)
-    search_fields = ['score', 'feedback']
-
+    search_fields = ['outlet__'+x for x in search_fields_of["common"]]
+    search_fields += ['user__'+x for x in search_fields_of["user"]]
+    # search_fields += ['score', 'feedback']
 
 class NoteAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet', 'user')
-    search_fields = ['note']
+    search_fields = ['outlet__'+x for x in search_fields_of["common"]]
+    search_fields += ['user__'+x for x in search_fields_of["user"]]
+    # search_fields += ['note']
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Restaurant, RestaurantAdmin)
 admin.site.register(Outlet, OutletAdmin)
 admin.site.register(Table, TableAdmin)

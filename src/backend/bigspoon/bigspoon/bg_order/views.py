@@ -1,11 +1,12 @@
-from django.views.generic import TemplateView, FormView
-from bg_inventory.models import Dish
+from django.contrib import messages
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
 
 from extra_views import ModelFormSetView
 
-
-class StaffLoginView(FormView):
-    pass
+from bg_inventory.models import Dish, Outlet
+from bg_inventory.forms import DishCreateForm
+from guardian.shortcuts import get_objects_for_user
 
 
 class MainView(TemplateView):
@@ -13,18 +14,48 @@ class MainView(TemplateView):
 
 
 class MenuView(ModelFormSetView):
-    model = Dish
-    # form_class = MenuDishForm
     template_name = "bg_order/menu.html"
+    model = Dish
+    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo']
+    extra = 0
+
+    def get_queryset(self):
+        #filter queryset based on user's permitted outlet
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        return super(MenuView, self).get_queryset().filter(outlet=outlet)
+
+    def formset_valid(self, formset):
+        print("Menu update form Valid")
+        messages.success(self.request, 'Dish details updated.')
+        return super(MenuView, self).formset_valid(formset)
+
+    def formset_invalid(self, formset):
+        print("Menu update form invalid")
+        return super(MenuView, self).formset_invalid(formset)
 
     def get_context_data(self, **kwargs):
-        context = super(MenuView, self).get_context_data(**kwargs)
-        return context
+        temp = super(MenuView, self).get_context_data(**kwargs)
+        return temp
 
-    # By default this will populate the formset with all the instances of MyModel in the database. You can control this by overriding get_queryset
-    # def get_queryset(self):
-    #     slug = self.kwargs['slug']
-    #     return super(MyModelFormSetView, self).get_queryset().filter(slug=slug)
+    def get(self, request, *args, **kwargs):
+        temp = super(MenuView, self).get(request, *args, **kwargs)
+        return temp
+
+
+class MenuAddView(CreateView):
+    form_class = DishCreateForm
+    template_name = "bg_inventory/dish_form.html"
+    success_url = "/staff/menu/"
+
+    #get outlet based on staff logged in
+    def formset_valid(self, formset):
+        print("Menu add Form Valid")
+        return super(MenuAddView, self).formset_valid(formset)
+
+    def formset_invalid(self, formset):
+        print("Menu add Form invalid")
+        return super(MenuAddView, self).formset_invalid(formset)
 
 
 class TableView(TemplateView):

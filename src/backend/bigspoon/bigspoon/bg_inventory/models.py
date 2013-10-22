@@ -94,6 +94,102 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _('users')
 
 
+class Category(models.Model):
+    """
+    Stores dish category information
+    """
+    name = models.CharField(
+        _('name'),
+        max_length=255,
+        unique=True,
+        help_text=_('category name')
+    )
+    desc = models.TextField(
+        _('description'),
+        blank=False,
+        null=True,
+        help_text=_('category description')
+    )
+
+    def __unicode__(self):
+        """
+        Returns the category name
+        """
+        return self.name
+
+    class Meta:
+        verbose_name = _('category')
+        verbose_name_plural = _('categories')
+
+
+class Profile(models.Model):
+    """
+    Stores user profile information (e.g. gender, favourite item)
+    """
+
+    # gender types
+    GENDER_TYPES_DIC = {
+        'M': 'Male',
+        'F': 'Female',
+    }
+    GENDER_TYPES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+
+    # yes no choices
+    YES_NO_CHOICES_DIC = {
+        'Y': 'Yes',
+        'N': 'No',
+    }
+    YES_NO_CHOICES = (
+        ('Y', 'Yes'),
+        ('N', 'No'),
+    )
+
+    user = models.OneToOneField(
+        User,
+        help_text=_('user'),
+    )
+    gender = models.CharField(
+        _('gender'),
+        max_length=1,
+        choices=GENDER_TYPES,
+        help_text=_('user gender information'),
+    )
+    is_vegetarian = models.CharField(
+        _('vegeteration'),
+        max_length=1,
+        choices=YES_NO_CHOICES,
+        help_text=_('whether user is vegetarian'),
+    )
+    is_muslim = models.CharField(
+        _('muslim'),
+        max_length=1,
+        choices=YES_NO_CHOICES,
+        help_text=_('whether user is muslim'),
+    )
+    allergies = models.TextField(
+        _('allergies'),
+        help_text=_('user allergies (e.g. peanut)')
+    )
+    favourite = models.ManyToManyField(
+        Category,
+        help_text=_('user favourite categories'),
+        related_name='favourite_items',
+    )
+
+    def __unicode__(self):
+        """
+        Returns user name and gender
+        """
+        return "%s - %s" % (self.user, self.gender)
+
+    class Meta:
+        verbose_name = _('profile')
+        verbose_name_plural = _('profiles')
+
+
 class Restaurant(models.Model):
     """
     Stores restaurant information
@@ -181,34 +277,6 @@ class Table(models.Model):
         verbose_name_plural = _('tables')
 
 
-class Category(models.Model):
-    """
-    Stores dish category information
-    """
-    name = models.CharField(
-        _('name'),
-        max_length=255,
-        unique=True,
-        help_text=_('category name')
-    )
-    desc = models.TextField(
-        _('description'),
-        blank=False,
-        null=True,
-        help_text=_('category description')
-    )
-
-    def __unicode__(self):
-        """
-        Returns the category name
-        """
-        return self.name
-
-    class Meta:
-        verbose_name = _('category')
-        verbose_name_plural = _('categories')
-
-
 class Dish(models.Model):
     """
     Stores outlet dish information
@@ -255,6 +323,10 @@ class Dish(models.Model):
         upload_to=_image_upload_path,
         sizes=((640, 400),),
         help_text=_('dish photo')
+    )
+    quantity = models.IntegerField(
+        default=0,
+        help_text=_('dish stock'),
     )
     categories = models.ManyToManyField(Category)
 
@@ -354,6 +426,14 @@ from django.db.models.signals import post_save
 
 
 @receiver(post_save, sender=User)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
+def post_user_creation(sender, instance=None, created=False, **kwargs):
     if created:
+        # create token
         Token.objects.create(user=instance)
+        # create profile
+        Profile.objects.create(
+            user=instance,
+            is_muslim='N',
+            is_vegetarian='N',
+            gender='M',
+        )
