@@ -37,6 +37,7 @@ class BGUserCreationForm(forms.ModelForm):
 
 
 class DishCreateForm(forms.ModelForm):
+
     class Meta:
         model = Dish
         fields = ['outlet', 'name', 'pos', 'start_time', 'end_time', 'desc',

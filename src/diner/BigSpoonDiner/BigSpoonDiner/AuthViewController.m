@@ -11,6 +11,7 @@
 @interface AuthViewController ()
 {
     NSMutableData *_responseData;
+    int statusCode;
 }
 
 @end
@@ -23,6 +24,7 @@
 @synthesize lastNameLabel;
 @synthesize emailAddressLabel;
 @synthesize passwordLabel;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,30 +76,30 @@
     request.HTTPBody = jsonData;
     
     // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
+    [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 #pragma mark NSURLConnection Delegate Methods
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
     // A response has been received, this is where we initialize the instance var you created
     // so that we can append data to it in the didReceiveData method
     // Furthermore, this method is called each time there is a redirect so reinitializing it
     // also serves to clear it
     
+    statusCode = [response statusCode];
+    
+    //NSDictionary* headers = [response allHeaderFields];
+
+    NSLog(@"response code: %d",  statusCode);
+    
     _responseData = [[NSMutableData alloc] init];
+
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // Append the new data to the instance variable you declared
     [_responseData appendData:data];
-}
-
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -111,11 +113,10 @@
                           options:kNilOptions
                           error:&error];
     
-    //    for (id key in [json allKeys]){
-    //        NSString* obj =(NSString *) [json objectForKey: key];
-    //        // Do something with them
-    //        NSLog(obj);
-    //    }
+//        for (id key in [json allKeys]){
+//            NSString* obj =(NSString *) [json objectForKey: key];
+//            NSLog(obj);
+//        }
     
     NSString* email =[json objectForKey:@"email"];
     NSString* firstName = [json objectForKey:@"first_name"];
@@ -138,6 +139,12 @@
     NSLog(@"Auth_token: %@", auth_token);
     
     [self stopLoadingIndicators];
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {

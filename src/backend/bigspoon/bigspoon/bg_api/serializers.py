@@ -132,17 +132,10 @@ class NoteSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    dish = serializers.SerializerMethodField('get_dish')
+    dish = DishSerializer(many=False)
 
     class Meta:
         model = Order
-
-    def get_dish(self, obj):
-        return {
-            "name": obj.dish.name,
-            "desc": obj.dish.desc,
-            "price": obj.dish.price,
-        }
 
 
 class MealSerializer(serializers.ModelSerializer):
