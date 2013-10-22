@@ -688,6 +688,8 @@ p.success {
 
 form.menu-add {
     padding: 40px 240px;
+    padding-bottom:80px;
+    margin-bottom:100px;
 }
 
 .menu-add .pos input{
