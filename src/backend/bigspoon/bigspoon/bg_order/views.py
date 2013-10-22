@@ -1,16 +1,23 @@
 from django.contrib import messages
 from django.views.generic import TemplateView
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 
 from extra_views import ModelFormSetView
 
 from bg_inventory.models import Dish, Outlet
+from bg_order.models import Meal
 from bg_inventory.forms import DishCreateForm
 from guardian.shortcuts import get_objects_for_user
 
 
-class MainView(TemplateView):
+class MainView(ListView):
     template_name = "bg_order/main.html"
+    model = Meal
+
+    def get_queryset(self):
+        return get_objects_for_user(self.request.user,
+                                    "change_meal", Meal.objects.all())
 
 
 class MenuView(ModelFormSetView):
