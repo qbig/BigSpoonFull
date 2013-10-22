@@ -543,7 +543,7 @@ p.success {
 }
 
 .menu-item p.start_time input, .menu-item p.end_time input{
-    width: 100px;
+    width: 80px;
 }
 
 .menu-item p.price input, p.pos input, p.quantity input{
@@ -687,5 +687,30 @@ p.success {
 }
 
 form.menu-add {
-    padding: 40px 20px;
+    padding: 40px 240px;
+}
+
+.menu-add .pos input{
+    margin-left: 48px;
+}
+
+.menu-add .price {
+    margin-left: 60px;
+}
+
+.menu-item p.photo input {
+    margin-top:0px;
+    margin-left: 20px;
+}
+
+.menu-add .price #id_price {
+    margin-left: 20px;
+}
+
+#main .menu-add .save {
+    display:block;
+    margin:0 auto;
+    width: 200px;
+    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size:16px;
 }
