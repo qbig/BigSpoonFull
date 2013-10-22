@@ -106,6 +106,7 @@
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
     //parse out the json data
+    
     NSError* error;
     NSDictionary* json = [NSJSONSerialization
                           JSONObjectWithData:_responseData
@@ -118,27 +119,53 @@
 //            NSLog(obj);
 //        }
     
-    NSString* email =[json objectForKey:@"email"];
-    NSString* firstName = [json objectForKey:@"first_name"];
-    NSString* lastName = [json objectForKey:@"last_name"];
-    NSString* password = [json objectForKey:@"password"];
-    NSString* auth_token = [json objectForKey:@"auth_token"];
-
-    
-    User *user = [User sharedInstance];
-    user.firstName = firstName;
-    user.lastName = lastName;
-    user.email = email;
-    user.password = password;
-    user.auth_token = auth_token;
-    
-    NSLog(@"New user created:");
-    NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
-    NSLog(@"Email: %@", email);
-    NSLog(@"Pwd: %@", password);
-    NSLog(@"Auth_token: %@", auth_token);
-    
     [self stopLoadingIndicators];
+
+    switch (statusCode) {
+        
+        // 201 Created
+        case 201:{
+            
+            NSString* email =[json objectForKey:@"email"];
+            NSString* firstName = [json objectForKey:@"first_name"];
+            NSString* lastName = [json objectForKey:@"last_name"];
+            NSString* password = [json objectForKey:@"password"];
+            NSString* auth_token = [json objectForKey:@"auth_token"];
+            
+            
+            User *user = [User sharedInstance];
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.email = email;
+            user.password = password;
+            user.auth_token = auth_token;
+            
+            NSLog(@"New user created:");
+            NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
+            NSLog(@"Email: %@", email);
+            NSLog(@"Pwd: %@", password);
+            NSLog(@"Auth_token: %@", auth_token);
+            
+            [self performSegueWithIdentifier:@"SegueFromAuthToOutlet" sender:self];
+
+            
+            break;
+        }
+            
+        default:{
+            
+            id firstKey = [[json allKeys] firstObject];
+
+            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
+            
+            NSLog(@"Error occurred: %@", errorMessage);
+            
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [message show];
+
+            break;
+        }
+    }
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
