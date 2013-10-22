@@ -20,6 +20,10 @@ Team:
     └── staff-ui - staff app ui prototype
 </pre>
 
+Our project proposal and progress reports
+can be viewed in the /docs folder.
+
+
 ### instructions
 
 For setup of each sub-project, please see README.md in the corresponding sub-project folder.
