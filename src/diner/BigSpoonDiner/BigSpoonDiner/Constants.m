@@ -11,7 +11,8 @@
 @implementation Constants
 
 // Request URLs:
-NSString* const  USER_URL = @"http://122.248.199.242/api/v1/user";
+NSString* const  USER_SIGNUP = @"http://122.248.199.242/api/v1/user";
+NSString* const USER_LOGIN = @"http://122.248.199.242/api/v1/token-auth/";
 
 // Others:
 int const MAX_NUMBER_OF_TRIAL_RECONNECT = 3;

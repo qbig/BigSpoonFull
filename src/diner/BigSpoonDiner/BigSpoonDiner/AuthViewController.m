@@ -8,8 +8,7 @@
 
 #import "AuthViewController.h"
 
-@interface AuthViewController ()
-{
+@interface AuthViewController (){
     NSMutableData *_responseData;
     int statusCode;
 }
@@ -55,7 +54,7 @@
     [self showLoadingIndicators];
     
     // Create the request.
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:USER_URL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:USER_SIGNUP]];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     

@@ -28,7 +28,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To get started, simply log in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUE-xR-AXN">
-                                <rect key="frame" x="109" y="130" width="191" height="41"/>
+                                <rect key="frame" x="108" y="74" width="191" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -57,7 +57,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qcj-26-zEi">
-                                <rect key="frame" x="66" y="186" width="201" height="30"/>
+                                <rect key="frame" x="66" y="147" width="201" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
@@ -66,7 +66,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5MA-48-CfT">
-                                <rect key="frame" x="66" y="224" width="201" height="30"/>
+                                <rect key="frame" x="66" y="195" width="201" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
@@ -75,17 +75,17 @@
                                 </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_256px_unfilled.png" translatesAutoresizingMaskIntoConstraints="NO" id="Knv-Jw-qMO" customClass="SCl">
-                                <rect key="frame" x="20" y="104" width="81" height="82"/>
+                                <rect key="frame" x="20" y="74" width="81" height="82"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86u-ti-hRG">
-                                <rect key="frame" x="139" y="262" width="55" height="30"/>
+                                <rect key="frame" x="139" y="233" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Submit">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ffF-mi-uHH" kind="modal" id="1dd-O3-Fjs"/>
+                                    <action selector="submitButtonPressed:" destination="a1i-Wr-CeU" eventType="touchUpInside" id="d1l-FZ-yOb"/>
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ETG-My-DrL">
@@ -95,10 +95,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.92549026012420654" green="0.92941182851791382" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="ETG-My-DrL" id="uvk-ET-BJb"/>
+                        <outlet property="emailLabel" destination="qcj-26-zEi" id="V8L-PG-bdw"/>
+                        <outlet property="passwordField" destination="5MA-48-CfT" id="FJl-Ls-KBK"/>
+                        <outlet property="submitButton" destination="86u-ti-hRG" id="mct-7e-Htu"/>
+                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueOnSuccessfulLogin" id="YtG-TR-wQ2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVX-3W-w7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-410" y="221"/>
+            <point key="canvasLocation" x="-742" y="837"/>
         </scene>
         <!--Auth View Controller - AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
@@ -184,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="79" y="221"/>
+            <point key="canvasLocation" x="-97" y="409"/>
         </scene>
         <!--Outlets Table View Controller - Outlets-->
         <scene sceneID="Aj7-bl-XUx">
@@ -255,7 +262,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAk-Dc-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="472"/>
+            <point key="canvasLocation" x="1015" y="560"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="FoD-uc-8wx">
@@ -522,7 +529,7 @@ Snacks</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dh7-Q7-3fC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="621" y="1093"/>
+            <point key="canvasLocation" x="465" y="1103"/>
         </scene>
         <!--Order History View Controller-->
         <scene sceneID="ze2-eJ-tgg">
@@ -563,7 +570,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1103" y="1139"/>
+            <point key="canvasLocation" x="1021" y="1295"/>
         </scene>
     </scenes>
     <resources>
@@ -580,6 +587,7 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1dd-O3-Fjs"/>
+        <segue reference="YtG-TR-wQ2"/>
+        <segue reference="4OV-aI-hBG"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,7 +11,8 @@
 @interface Constants : NSObject
 
 // Request URLs:
-extern NSString* const  USER_URL;
+extern NSString* const  USER_SIGNUP;
+extern NSString* const  USER_LOGIN;
 
 // Others:
 extern int const MAX_NUMBER_OF_TRIAL_RECONNECT;
