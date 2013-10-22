@@ -2,9 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 
-from guardian.shortcuts import get_objects_for_user
-
-from bg_inventory.models import Dish, Outlet
+from bg_inventory.models import Dish
 
 User = get_user_model()
 

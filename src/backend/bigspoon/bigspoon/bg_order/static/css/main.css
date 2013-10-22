@@ -524,12 +524,34 @@ p.success {
     width: 380px;
 }
 
+.menu-item p.photo{
+    width: 400px;
+    margin-top:5px;
+}
+
+.menu-item p.photo a {
+    color: #777;
+    font-weight: normal;
+}
+
+.menu-item p.photo a:hover {
+    color: #333;
+}
+
+.menu-item p.photo input {
+    margin-top:10px;
+}
+
+.menu-item p.start_time input, .menu-item p.end_time input{
+    width: 100px;
+}
+
 .menu-item p.price input, p.pos input, p.quantity input{
     margin-left:5px;
     width: 35px;
 }
 
-.menu-item p.start_time input, p.end_time input, p.photo input{
+.menu-item p.start_time input, .menu-item p.end_time input, .menu-item p.photo input{
     margin-left:5px;
 }
 

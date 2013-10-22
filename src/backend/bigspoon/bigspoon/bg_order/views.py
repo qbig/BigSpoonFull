@@ -16,7 +16,8 @@ class MainView(TemplateView):
 class MenuView(ModelFormSetView):
     template_name = "bg_order/menu.html"
     model = Dish
-    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo']
+    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo',
+              'start_time', 'end_time']
     extra = 0
 
     def get_queryset(self):
@@ -35,6 +36,7 @@ class MenuView(ModelFormSetView):
         return super(MenuView, self).formset_invalid(formset)
 
     def get_context_data(self, **kwargs):
+        # import ipdb;ipdb.set_trace();
         temp = super(MenuView, self).get_context_data(**kwargs)
         return temp
 
