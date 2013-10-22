@@ -22,8 +22,13 @@
             </span>
 
             <input class="save" type="submit" value="Add dish" />
-        </form>
-    </div>
 
+        </form>
+
+        {% if form.errors %}
+            <p class="error">{{ form.errors }}</p>
+        {% endif %}
+
+    </div>
 
 {% endblock %}
