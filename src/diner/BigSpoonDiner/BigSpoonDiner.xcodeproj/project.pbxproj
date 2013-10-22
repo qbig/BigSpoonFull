@@ -12,6 +12,7 @@
 		49164200180C58BB00080B87 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FE180C58BB00080B87 /* home.png */; };
 		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
 		49164204180C590C00080B87 /* photo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164202180C590C00080B87 /* photo_icon.png */; };
+		49320E4018166CAE00F5C190 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49320E3F18166CAE00F5C190 /* Constants.m */; };
 		49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B0E180CECE200089254 /* MenuTableViewController.m */; };
 		49669B15180CED1D00089254 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B14180CED1D00089254 /* Dish.m */; };
 		49669B18180CED2D00089254 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B17180CED2D00089254 /* User.m */; };
@@ -62,6 +63,8 @@
 		491641FE180C58BB00080B87 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		49164201180C590C00080B87 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
 		49164202180C590C00080B87 /* photo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_icon.png; sourceTree = "<group>"; };
+		49320E3E18166CAE00F5C190 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		49320E3F18166CAE00F5C190 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		49669B0D180CECE200089254 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
 		49669B0E180CECE200089254 /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
 		49669B13180CED1D00089254 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
@@ -169,20 +172,6 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		4999A213180A741D00270B0B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4999A214180A744100270B0B /* URLImageView.h */,
-				49044D1D180AD5AB0006F567 /* OutletCell.h */,
-				49044D1E180AD5AB0006F567 /* OutletCell.m */,
-				4989729D180C8C9F0090DA75 /* MenuListCell.h */,
-				4989729E180C8C9F0090DA75 /* MenuListCell.m */,
-				49669B19180CF2A000089254 /* MenuPhotoCell.h */,
-				49669B1A180CF2A000089254 /* MenuPhotoCell.m */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,11 +223,12 @@
 			children = (
 				E9B7A28D180BF3EC009B6BD1 /* Custom Views */,
 				49CAFC50180BB9DE0058C900 /* Images */,
-				4999A213180A741D00270B0B /* Views */,
 				4999A20F180A50C300270B0B /* Models */,
 				4999A208180A4FCA00270B0B /* ViewControllers */,
 				49F107F1180886D600D2C8DD /* AppDelegate.h */,
 				49F107F2180886D600D2C8DD /* AppDelegate.m */,
+				49320E3E18166CAE00F5C190 /* Constants.h */,
+				49320E3F18166CAE00F5C190 /* Constants.m */,
 				49F107F4180886D600D2C8DD /* Main.storyboard */,
 				49F107FD180886D600D2C8DD /* Images.xcassets */,
 				49F107E9180886D600D2C8DD /* Supporting Files */,
@@ -278,6 +268,13 @@
 		E9B7A28D180BF3EC009B6BD1 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				4999A214180A744100270B0B /* URLImageView.h */,
+				49044D1D180AD5AB0006F567 /* OutletCell.h */,
+				49044D1E180AD5AB0006F567 /* OutletCell.m */,
+				4989729D180C8C9F0090DA75 /* MenuListCell.h */,
+				4989729E180C8C9F0090DA75 /* MenuListCell.m */,
+				49669B19180CF2A000089254 /* MenuPhotoCell.h */,
+				49669B1A180CF2A000089254 /* MenuPhotoCell.m */,
 				E9B7A29B180D3CA0009B6BD1 /* PastOrderView.h */,
 				E9B7A29C180D3CA0009B6BD1 /* PastOrderView.m */,
 				E9B7A29D180D3CA0009B6BD1 /* PastOrderView.xib */,
@@ -401,6 +398,7 @@
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
+				49320E4018166CAE00F5C190 /* Constants.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				49669B1B180CF2A000089254 /* MenuPhotoCell.m in Sources */,
 				49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */,

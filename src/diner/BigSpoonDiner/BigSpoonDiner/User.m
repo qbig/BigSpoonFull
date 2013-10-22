@@ -12,10 +12,10 @@
 
 @synthesize firstName;
 @synthesize lastName;
-@synthesize emal;
-
+@synthesize email;
+@synthesize password;
 @synthesize birthday;
-@synthesize accessToken;
+@synthesize auth_token;
 
 + (User *)sharedInstance
 {

@@ -100,10 +100,10 @@
             </objects>
             <point key="canvasLocation" x="-410" y="221"/>
         </scene>
-        <!--Auth View Controller-->
+        <!--Auth View Controller - AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
             <objects>
-                <viewController id="ffF-mi-uHH" customClass="AuthViewController" sceneMemberID="viewController">
+                <viewController title="AuthViewController" id="ffF-mi-uHH" customClass="AuthViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CfJ-qb-gsR"/>
                         <viewControllerLayoutGuide type="bottom" id="88J-kW-QT5"/>
@@ -148,15 +148,6 @@
                                     <action selector="textFieldReturn:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="6Zt-CF-tbG"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Re-enter Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qIy-D9-e3A">
-                                <rect key="frame" x="52" y="334" width="216" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
-                                <connections>
-                                    <action selector="textFieldReturn:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="rIG-WH-cgO"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Just one more step..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ycu-fN-gDt">
                                 <rect key="frame" x="52" y="124" width="216" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -165,19 +156,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9J-od-BFS">
-                                <rect key="frame" x="136" y="386" width="37" height="30"/>
+                                <rect key="frame" x="136" y="346" width="37" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="submitButtonPressed:" destination="ffF-mi-uHH" eventType="touchUpInside" id="fsJ-6C-a0Q"/>
-                                    <segue destination="jIA-Id-th3" kind="modal" id="XpI-Ib-r1l"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qF5-EY-w67">
+                                <rect key="frame" x="144" y="268" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.92549026010000002" green="0.92941182850000004" blue="0.97647064920000004" alpha="1" colorSpace="deviceRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="qF5-EY-w67" id="HRk-Y7-WMD"/>
+                        <outlet property="emailAddressLabel" destination="W8P-Yy-RSf" id="S5V-d4-G7J"/>
+                        <outlet property="firstNameLabel" destination="kfC-QY-8S8" id="Utv-QR-9CT"/>
+                        <outlet property="lastNameLabel" destination="bNC-Rw-s3B" id="Y8V-Ht-L09"/>
+                        <outlet property="passwordLabel" destination="Fry-53-SdK" id="VHh-LX-6j4"/>
+                        <outlet property="submitButton" destination="Q9J-od-BFS" id="trb-3u-oTF"/>
+                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromAuthToOutlet" id="ftm-WR-Pvq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

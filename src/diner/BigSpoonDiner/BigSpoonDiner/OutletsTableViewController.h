@@ -11,6 +11,7 @@
 #import "URLImageView.h"
 #import "OutletCell.h"
 #import "MenuViewController.h"
+#import "User.h"
 
 @interface OutletsTableViewController : UITableViewController <MenuViewControllerDelegate>
 
