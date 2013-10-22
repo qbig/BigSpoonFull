@@ -17,4 +17,15 @@
 @synthesize birthday;
 @synthesize accessToken;
 
++ (User *)sharedInstance
+{
+    static User *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[User alloc] init];
+        // Do any other initialisation stuff here
+    });
+    return sharedInstance;
+}
+
 @end

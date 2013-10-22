@@ -17,4 +17,6 @@
 @property (nonatomic, strong) NSDate *birthday;
 @property (nonatomic, strong) NSString *accessToken;
 
++ (User *)sharedInstance;
+
 @end
