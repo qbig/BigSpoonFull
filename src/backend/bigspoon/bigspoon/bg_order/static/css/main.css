@@ -252,7 +252,7 @@ nav {
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.2);
 }
 
-nav h1{
+nav h1, h1.logo{
     display: inline;
     vertical-align: middle;
     font-weight: bold;
@@ -439,7 +439,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     color: white;
     text-align:center;
     text-decoration:none;
-    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    /*text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;*/
     font-size: 14px;
 }
 
@@ -497,7 +497,7 @@ p.success {
     color: #fff;
 }
 
-.user-info input, .menu-item p input, .menu-item textarea{
+.login p input, .user-info input, .menu-item p input, .menu-item textarea{
     padding: 10px;
     max-height:80px;
     border: 0px;
@@ -709,10 +709,46 @@ form.menu-add {
     margin-left: 20px;
 }
 
-#main .menu-add .save {
+#main .menu-add .save, .login .login-btn {
     display:block;
     margin:0 auto;
     width: 200px;
     text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
     font-size:16px;
+}
+
+.login .login-btn {
+    margin-top: 40px;
+    padding: 10px 20px;
+    background-color: #008cdd;
+    color: white;
+    text-align:center;
+    text-decoration:none;
+    border-radius: 10px;
+}
+
+
+.login {
+    padding: 40px;
+    padding-top:10px;
+    border-radius: 5px;
+    width: 360px;
+    margin: 10px auto;
+    background: #fff;
+}
+
+h1.logo {
+    text-align:center;
+    font-size: 64px;
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+.login label {
+    font-weight: bold;
+    display: inline-block;
+    width: 100px;
+
 }
