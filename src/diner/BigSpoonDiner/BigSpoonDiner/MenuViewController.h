@@ -15,7 +15,9 @@
 - (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller;
 @end
 
-@interface MenuViewController : UIViewController
+
+@interface MenuViewController : UIViewController <NSURLConnectionDelegate>
+
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;

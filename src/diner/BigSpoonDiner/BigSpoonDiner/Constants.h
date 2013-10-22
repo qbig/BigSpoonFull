@@ -13,6 +13,8 @@
 // Request URLs:
 extern NSString* const  USER_SIGNUP;
 extern NSString* const  USER_LOGIN;
+extern NSString* const  LIST_OUTLETS;
+
 
 // Others:
 extern int const MAX_NUMBER_OF_TRIAL_RECONNECT;
