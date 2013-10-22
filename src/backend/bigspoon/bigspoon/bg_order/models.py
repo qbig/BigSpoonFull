@@ -55,6 +55,13 @@ class Meal(models.Model):
     table = models.ForeignKey(Table, related_name="meals")
     is_active = models.BooleanField(default=True)
     is_paid = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    bill_time = models.DateTimeField(
+        help_text=_('Time paid'),
+        blank=True,
+        null=True,
+    )
 
     def __unicode__(self):
         meal_status = "Active" if self.is_active else "Inactive"
@@ -79,17 +86,6 @@ class Order(models.Model):
         default=0,
         help_text=_('Number of dishes ordered'),
     )
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    bill_time = models.DateTimeField(
-        help_text=_('Time paid'),
-        blank=True,
-        null=True,
-    )
-    process_time = models.TimeField(help_text=_('Total processing time'),
-                                    blank=True,
-                                    null=True,
-                                    )
 
     def __unicode__(self):
         return "(%s - %s) %s | %s x%s" % (self.meal.table.outlet.name,
