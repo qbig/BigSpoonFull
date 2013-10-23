@@ -38,32 +38,11 @@ class MenuView(ModelFormSetView):
         messages.success(self.request, 'Dish details updated.')
         return super(MenuView, self).formset_valid(formset)
 
-    def formset_invalid(self, formset):
-        print("Menu update form invalid")
-        return super(MenuView, self).formset_invalid(formset)
-
-    def get_context_data(self, **kwargs):
-        # import ipdb;ipdb.set_trace();
-        temp = super(MenuView, self).get_context_data(**kwargs)
-        return temp
-
-    def get(self, request, *args, **kwargs):
-        temp = super(MenuView, self).get(request, *args, **kwargs)
-        return temp
-
 
 class MenuAddView(CreateView):
     form_class = DishCreateForm
     template_name = "bg_inventory/dish_form.html"
     success_url = "/staff/menu/"
-
-    def formset_valid(self, formset):
-        print("Menu add Form Valid")
-        return super(MenuAddView, self).formset_valid(formset)
-
-    def formset_invalid(self, formset):
-        print("Menu add Form invalid")
-        return super(MenuAddView, self).formset_invalid(formset)
 
     def get(self, request, *args, **kwargs):
         outlet = get_objects_for_user(self.request.user, "change_outlet",
@@ -81,12 +60,8 @@ class TableView(ListView):
         #filter queryset based on user's permitted outlet
         outlet = get_objects_for_user(self.request.user, "change_outlet",
                                       Outlet.objects.all())[0]
-        return super(TableView, self).get_queryset().filter(outlet=outlet)
-
-    def get_context_data(self, **kwargs):
-        # import ipdb;ipdb.set_trace()
-        context = super(TableView, self).get_context_data(**kwargs)
-        return context
+        return super(TableView, self).get_queryset().filter(outlet=outlet).\
+            prefetch_related('meal').prefetch_related('meal__order')
 
 
 class UserView(TemplateView):
