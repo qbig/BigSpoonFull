@@ -21,7 +21,7 @@ class MainView(ListView):
 
 
 class MenuView(ModelFormSetView):
-    template_name = "bg_order/menu.html"
+    template_name = "bg_inventory/menu.html"
     model = Dish
     fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo',
               'start_time', 'end_time', 'categories']
@@ -61,7 +61,7 @@ class TableView(ListView):
         outlet = get_objects_for_user(self.request.user, "change_outlet",
                                       Outlet.objects.all())[0]
         return super(TableView, self).get_queryset().filter(outlet=outlet).\
-            prefetch_related('meal').prefetch_related('meal__order')
+            prefetch_related('meals').prefetch_related('meals__orders')
 
 
 class UserView(TemplateView):
