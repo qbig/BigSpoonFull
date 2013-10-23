@@ -24,7 +24,7 @@ class MenuView(ModelFormSetView):
     template_name = "bg_order/menu.html"
     model = Dish
     fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo',
-              'start_time', 'end_time']
+              'start_time', 'end_time', 'categories']
     extra = 0
 
     def get_queryset(self):
