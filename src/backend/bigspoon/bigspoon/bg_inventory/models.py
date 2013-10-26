@@ -7,6 +7,9 @@ from django.utils.text import slugify
 
 from bg_inventory.managers import UserManager
 
+import urllib
+import hashlib
+
 
 # helper methods
 def _image_upload_path(instance, filename):
@@ -31,7 +34,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('username'),
         max_length=30,
         blank=True,
-        help_text=_('username for internal use'),
+        unique=True,
+        help_text=_('facebook username or facebook id'),
     )
     first_name = models.CharField(
         _('first name'),
@@ -51,12 +55,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('user joined time'),
     )
     is_staff = models.BooleanField(
-        _('staff status'), default=False,
+        _('staff status'),
+        default=False,
         help_text=_('Designates whether the user \
                     can log into django admin site.')
     )
     is_active = models.BooleanField(
-        _('active'), default=False,
+        _('active'),
+        default=False,
         help_text=_('Desingates whether the user \
                     is a valid user.')
     )
@@ -84,6 +90,21 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.username
         return self.email
 
+    # user attributes
+    @property
+    def avatar_url(self, sizetype='small'):
+        if (self.username):
+            return "https://graph.facebook.com/%s/picture?type=%s" % (
+                self.username, sizetype)
+        if sizetype == 'small':
+            s = 50
+        else:
+            s = 180
+        return "http://www.gravatar.com/avatar/%s?%s" % (
+            hashlib.md5(self.email.lower()).hexdigest(),
+            urllib.urlencode({'d': 'mm', 's': str(s)})
+        )
+
     def __unicode__(self):
         """
         Returns the user full name if any, else returns email
@@ -110,7 +131,6 @@ class Category(models.Model):
     desc = models.TextField(
         _('description'),
         blank=False,
-        null=True,
         help_text=_('category description')
     )
 
@@ -127,7 +147,7 @@ class Category(models.Model):
 
 class Profile(models.Model):
     """
-    Stores user profile information (e.g. gender, favourite item)
+    Stores user profile information (e.g. gender, favourite category)
     """
 
     # gender types
@@ -164,22 +184,24 @@ class Profile(models.Model):
         _('vegeteration'),
         max_length=1,
         choices=YES_NO_CHOICES,
+        default='N',
         help_text=_('whether user is vegetarian'),
     )
     is_muslim = models.CharField(
         _('muslim'),
         max_length=1,
         choices=YES_NO_CHOICES,
+        default='N',
         help_text=_('whether user is muslim'),
     )
     allergies = models.TextField(
         _('allergies'),
         help_text=_('user allergies (e.g. peanut)')
     )
-    favourite = models.ManyToManyField(
+    favourite_categories = models.ManyToManyField(
         Category,
         help_text=_('user favourite categories'),
-        related_name='favourite_items',
+        related_name='prefer_users',
     )
 
     def __unicode__(self):
@@ -228,17 +250,29 @@ class Outlet(models.Model):
     """
     Stores outlet information
     """
-    restaurant = models.ForeignKey(Restaurant)
+    restaurant = models.ForeignKey(
+        Restaurant,
+        help_text=_('belong to restaurant'),
+        related_name='outlets',
+    )
     name = models.CharField(
         _('name'),
         max_length=255,
         help_text=_('outlet name')
     )
-    desc = models.TextField(
-        _('description'),
+    phone = models.CharField(
+        _('phone'),
+        max_length=30,
+        help_text=_('outlet contact phone')
+    )
+    address = models.TextField(
+        _('address'),
+        help_text=_('outlet address')
+    )
+    opening = models.TextField(
+        _('open hours'),
         blank=False,
-        null=True,
-        help_text=_('outlet description')
+        help_text=_('outlet opening hours')
     )
 
     def __unicode__(self):
@@ -256,17 +290,16 @@ class Table(models.Model):
     """
     Stores outlet table information
     """
-    outlet = models.ForeignKey(Outlet)
+    outlet = models.ForeignKey(
+        Outlet,
+        help_text=_('belong to outlet'),
+        related_name='tables',
+    )
     name = models.CharField(
         _('name'),
         max_length=255,
         unique=True,
         help_text=_('table name')
-    )
-    qrcode = models.CharField(
-        _('qrcode'),
-        max_length=255,
-        help_text=_('table attached qrcode')
     )
 
     def __unicode__(self):
@@ -286,6 +319,7 @@ class Dish(models.Model):
     """
     outlet = models.ForeignKey(
         Outlet,
+        help_text=_('belong to outlet'),
         related_name='dishes',
     )
     name = models.CharField(
@@ -296,42 +330,39 @@ class Dish(models.Model):
     pos = models.CharField(
         _('pos'),
         max_length=255,
-        blank=False,
-        null=True,
+        db_index=True,
         help_text=_('outlet pos system dish id')
     )
     desc = models.TextField(
         _('description'),
-        blank=False,
-        null=True,
         help_text=_('outlet dish description')
     )
     start_time = models.TimeField(
         _('start time'),
-        blank=False,
-        null=False,
         help_text=_('dish start time'),
     )
     end_time = models.TimeField(
         _('end time'),
-        blank=False,
-        null=False,
         help_text=_('dish end time'),
     )
     price = models.DecimalField(
         max_digits=6,
         decimal_places=2,
     )
+    quantity = models.IntegerField(
+        default=0,
+        help_text=_('dish stock'),
+    )
     photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
         sizes=((640, 400),),
         help_text=_('dish photo')
     )
-    quantity = models.IntegerField(
-        default=0,
-        help_text=_('dish stock'),
+    categories = models.ManyToManyField(
+        Category,
+        help_text=_('belong to category'),
+        related_name='dishes',
     )
-    categories = models.ManyToManyField(Category)
 
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
@@ -354,8 +385,16 @@ class Rating(models.Model):
     """
     Stores dish rating information
     """
-    user = models.ForeignKey(User)
-    dish = models.ForeignKey(Dish)
+    user = models.ForeignKey(
+        User,
+        help_text=_('rate user'),
+        related_name='ratings',
+    )
+    dish = models.ForeignKey(
+        Dish,
+        help_text=_('rated dish'),
+        related_name='ratings',
+    )
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
@@ -376,17 +415,23 @@ class Review(models.Model):
     """
     Stores dish rating information
     """
-    user = models.ForeignKey(User)
-    outlet = models.ForeignKey(Outlet)
+    user = models.ForeignKey(
+        User,
+        help_text=_('review user'),
+        related_name='reviews',
+    )
+    outlet = models.ForeignKey(
+        Outlet,
+        help_text=_('reviewed outlet'),
+        related_name='reviews',
+    )
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
     )
     feedback = models.TextField(
         _('feedback'),
-        blank=False,
-        null=True,
-        help_text=_('user feedback for outlet')
+        help_text=_('feedback text')
     )
 
     def __unicode__(self):
@@ -404,13 +449,19 @@ class Note(models.Model):
     """
     Stores dish rating information
     """
-    user = models.ForeignKey(User)
-    outlet = models.ForeignKey(Outlet)
-    note = models.TextField(
-        _('note'),
-        blank=False,
-        null=True,
-        help_text=_('outlet note for user')
+    user = models.ForeignKey(
+        User,
+        help_text=_('note for user'),
+        related_name='notes',
+    )
+    outlet = models.ForeignKey(
+        Outlet,
+        help_text=_('note from outlet'),
+        related_name='notes',
+    )
+    content = models.TextField(
+        _('note content'),
+        help_text=_('note content text')
     )
 
     def __unicode__(self):
@@ -435,8 +486,4 @@ def post_user_creation(sender, instance=None, created=False, **kwargs):
         # create token
         Token.objects.create(user=instance)
         # create profile
-        Profile.objects.create(
-            user=instance,
-            is_muslim='N',
-            is_vegetarian='N',
-        )
+        Profile.objects.create(user=instance)
