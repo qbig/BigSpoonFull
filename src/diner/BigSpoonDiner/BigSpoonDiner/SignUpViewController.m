@@ -128,7 +128,6 @@
             NSString* email =[json objectForKey:@"email"];
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
-            NSString* password = [json objectForKey:@"password"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
             
             
@@ -141,10 +140,19 @@
             NSLog(@"New user created:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
-            NSLog(@"Pwd: %@", password);
             NSLog(@"Auth_token: %@", auth_token);
             
-            [self performSegueWithIdentifier:@"SegueFromAuthToOutlet" sender:self];
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            // Set
+            [prefs setObject:firstName forKey:@"firstName"];
+            [prefs setObject:lastName forKey:@"lastName"];
+            [prefs setObject:email forKey:@"email"];
+            [prefs synchronize];
+            [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
+
+            
+            [self performSegueWithIdentifier:@"SegueFromSingUpToOutlets" sender:self];
 
             
             break;

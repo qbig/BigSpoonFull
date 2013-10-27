@@ -249,7 +249,7 @@
                                     <outlet property="operatingHours" destination="ttJ-YK-cDL" id="c5B-Rj-P38"/>
                                     <outlet property="outletPhoto" destination="leB-4Q-EHN" id="riu-w9-Kjq"/>
                                     <outlet property="phoneNumber" destination="oSa-MY-BB2" id="dbv-hl-Rcv"/>
-                                    <segue destination="fn9-OW-D18" kind="modal" identifier="FromOutletsToMenu" id="6PQ-vE-KGr"/>
+                                    <segue destination="fn9-OW-D18" kind="modal" identifier="SegueFromOutletsToMenu" id="6PQ-vE-KGr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -352,7 +352,7 @@ Snacks</string>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bPu-xR-NBc" kind="modal" identifier="FromMenuListToOrderHistory" id="Qkp-q3-Lrn"/>
+                                    <segue destination="bPu-xR-NBc" kind="modal" identifier="SegueFromMenuListToOrderHistory" id="Qkp-q3-Lrn"/>
                                 </connections>
                             </button>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OY8-ew-AZo">
@@ -622,7 +622,7 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BRr-gL-kHC"/>
         <segue reference="4OV-aI-hBG"/>
+        <segue reference="ew3-Pm-EPj"/>
     </inferredMetricsTieBreakers>
 </document>

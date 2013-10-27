@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import "Constants.h"
+#import "SSKeychain.h"
 
 @interface SignUpViewController : UIViewController <NSURLConnectionDelegate>
 

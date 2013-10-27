@@ -26,16 +26,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"haha");
 	// Do any additional setup after loading the view.
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    NSLog(@"haha2");
-
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+   
+    // Comment this line to enable the saving of user data:
     // [prefs setObject:nil forKey:@"firstName"];
     
     NSString *firstName = [prefs stringForKey:@"firstName"];
