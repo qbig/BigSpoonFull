@@ -179,3 +179,7 @@ class CreateRequest(generics.ListCreateAPIView):
     permission_classes = (DjangoObjectPermissions,)
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
+
+
+class AskForBillView(generics.GenericAPIView):
+    pass

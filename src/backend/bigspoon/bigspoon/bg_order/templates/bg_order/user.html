@@ -14,16 +14,12 @@
     </span>
 
     <span class='user-stats'>
-
-        {% if user.gender == 'M' %}
+        {% if user.profile.gender == 'M' %}
         <p class='visits'><i class="icon-male"></i></p>
-        {% elif user.gender == 'F' %}
+        {% elif user.profile.gender == 'F' %}
         <p class='visits'><i class="icon-female"></i></p>
         {% else %}
-
         {% endif %}
-
-
         <p class='visits'><i class="icon-user"></i> {{user.meals.count}} visits</p>
         <p class='spent'><i class="icon-dollar"></i> {{user.get_total_spending}} spent</p>
     </span>
@@ -50,7 +46,7 @@
             {{user.profile.allergies}}
         </p>
 
-        <h4><i class="icon-warning-sign"></i> Vegetarian</h4><p class="vegetarian">
+        <h4><i class="icon-warning-sign"></i> Dietary requirements</h4><p class="vegetarian">
         {% if user.profile.vegetarian %}
             Vegetarian
         {% endif %}
