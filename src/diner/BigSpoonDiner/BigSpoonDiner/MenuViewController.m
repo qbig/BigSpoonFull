@@ -31,7 +31,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
-    MenuTableViewController *menuTableViewController = self.container;
+    //MenuTableViewController *menuTableViewController = [self.container ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +86,11 @@
 		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
 		orderHistoryViewController.delegate = self;
         
-	} else{
+	} else if ([segue.identifier isEqualToString:@"SegueFromContainerToDishList"]){
+        MenuTableViewController *menuTableViewController = segue.destinationViewController;
+        menuTableViewController.outlet = self.outlet;
+        menuTableViewController.delegate = self;
+    } else{
         NSLog(@"Segure in the menuViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
@@ -95,4 +99,11 @@
     NSLog(@"cancelled");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+// Delegate:
+
+- (void) DishOrdered:(Dish *)dish{
+    NSLog(@"New Dish Ordered!");
+}
+
 @end

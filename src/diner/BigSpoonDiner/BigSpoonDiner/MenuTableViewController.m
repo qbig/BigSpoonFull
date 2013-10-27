@@ -18,7 +18,7 @@
 @implementation MenuTableViewController
 
 @synthesize dishesArray;
-
+@synthesize outlet;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -86,8 +86,13 @@
     NSLog(@"Loading dishes from server...");
     
     self.dishesArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
+    NSString *appendURL = [NSString stringWithFormat:@"/%d", self.outlet.outletID];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LIST_OUTLETS]];
+    NSString *requestURL = [LIST_OUTLETS stringByAppendingString:appendURL];
+    
+    NSLog(@"asdfasdfasdfas %@", requestURL);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestURL]];
     request.HTTPMethod = @"GET";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
@@ -96,7 +101,7 @@
 }
 
 // Ajax callback to add one more new item in the table:
-- (void)addOutlet:(Dish *)dish
+- (void)addDish:(Dish *)dish
 {
 	[self.dishesArray addObject:dish];
 	NSIndexPath *indexPath =
@@ -108,7 +113,124 @@
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+#pragma mark NSURLConnection Delegate Methods
 
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
+    // A response has been received, this is where we initialize the instance var you created
+    // so that we can append data to it in the didReceiveData method
+    // Furthermore, this method is called each time there is a redirect so reinitializing it
+    // also serves to clear it
+    
+    statusCode = [response statusCode];
+    
+    //NSDictionary* headers = [response allHeaderFields];
+    
+    NSLog(@"response code: %d",  statusCode);
+    
+    _responseData = [[NSMutableData alloc] init];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    // Append the new data to the instance variable you declared
+    [_responseData appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    // The request is complete and data has been received
+    // You can parse the stuff in your instance variable now
+    //parse out the json data
+    
+    NSError* error;
+    NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
+                                                                         options:kNilOptions
+                                                                           error:&error];
+    
+    //        for (id key in [json allKeys]){
+    //            NSString* obj =(NSString *) [json objectForKey: key];
+    //            NSLog(obj);
+    //        }
+    
+    switch (statusCode) {
+            
+        // 200 Okay
+        case 200:{
+            
+            NSArray *dishes = (NSArray *)[json objectForKey:@"dishes"];
+            
+            for (NSDictionary *newDish in dishes) {
+                
+                NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
+                NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail"];
+               
+                NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
+                
+                NSArray *categories = (NSArray *)[newDish objectForKey:@"categories"];
+                NSMutableArray *categoryIDs = [[NSMutableArray alloc]init];
+                
+                for (NSDictionary *newCategory in categories) {
+                    int integerValue = [[newCategory objectForKey:@"id"] intValue];
+                    [categoryIDs addObject: [[NSNumber alloc] initWithInt: integerValue]];
+                }
+                
+                int ID = [[newDish objectForKey:@"id"] intValue];
+                NSString* name = [newDish objectForKey:@"name"];
+                int pos = [[newDish objectForKey:@"pos"] intValue];
+                NSString* desc = [newDish objectForKey:@"desc"];
+                
+                NSString* startTime = [newDish objectForKey:@"start_time"];
+                NSString* endTime = [newDish objectForKey:@"end_time"];
+                
+                int price = [[newDish objectForKey:@"price"] intValue];
+                int quantity = [[newDish objectForKey:@"quantity"] intValue];
+                
+                Dish *newDishObject = [[Dish alloc]initWithName:name
+                                                    Description:desc
+                                                          Price:price
+                                                        Ratings:5
+                                                             ID:ID
+                                                    categories:categories
+                                                         imgURL:imgURL
+                                                            pos:pos
+                                                      startTime:startTime
+                                                        endTime:endTime
+                                                       quantity:quantity
+                                       ];
+                
+                [self addDish:newDishObject];
+                
+            }
+            
+            break;
+        }
+            
+        default:{
+            
+            id firstKey = [[json allKeys] firstObject];
+            
+            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
+            
+            NSLog(@"Error occurred: %@", errorMessage);
+            
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [message show];
+            
+            break;
+        }
+    }
+}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    // The request has failed for some reason!
+    // Check the error var
+    NSLog(@"NSURLCoonection encounters error at creating users.");
+}
 
 /*
 // Override to support conditional editing of the table view.

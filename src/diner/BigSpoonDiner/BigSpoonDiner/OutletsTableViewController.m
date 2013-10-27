@@ -157,11 +157,13 @@
                 NSString *thumbnail = (NSString *)[icon objectForKey:@"thumbnail"];
                 NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
                 
-                int ID = (int)[newOutlet objectForKey:@"id"];
+                int ID = [[newOutlet objectForKey:@"id"] intValue];
                 NSString* name = [newOutlet objectForKey:@"name"];
                 NSString* phone = [newOutlet objectForKey:@"phone"];
                 NSString* address = [newOutlet objectForKey:@"address"];
                 NSString* opening = [newOutlet objectForKey:@"opening"];
+                
+                NSLog(@"Outlet id: %d", ID);
                 
                 Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
                                                                    Name: name

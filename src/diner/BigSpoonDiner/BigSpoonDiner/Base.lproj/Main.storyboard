@@ -319,7 +319,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="KE0-Fp-4U7" kind="embed" id="uZC-64-nPd"/>
+                                    <segue destination="KE0-Fp-4U7" kind="embed" identifier="SegueFromContainerToDishList" id="uZC-64-nPd"/>
                                 </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bottom_buttons.png" translatesAutoresizingMaskIntoConstraints="NO" id="rzZ-R2-gh1">
