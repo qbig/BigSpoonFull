@@ -46,7 +46,7 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
 
     def post(self, request, *args, **kwargs):
         response = self.create(request, *args, **kwargs)
-        if (response.data['password']):
+        if 'password' in response.data.keys():
             del response.data['password']
         return response
 

@@ -99,5 +99,40 @@ class HistoryView(TemplateView):
     template_name = "bg_order/history.html"
 
 
-class ReportView(TemplateView):
+class ReportView(ListView):
+    model = Meal
     template_name = "bg_order/report.html"
+
+    # def get_queryset(self):
+    #     outlets = get_objects_for_user(
+    #         self.request.user,
+    #         "change_outlet",
+    #         Outlet.objects.all()
+    #     )
+    #     return super(ReportView, self).get_queryset()\
+    #         .prefetch_related('diner', 'orders', 'table')\
+    #         .filter(table__outlet__in=outlets)
+
+
+    def get(self, request, *args, **kwargs):
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        temp = super(ReportView, self).get(request, *args, **kwargs)
+            # /
+            # .prefetch_related('diner', 'orders', 'table')\
+            # .filter(table__outlet__in=outlets)
+        # temp.context_data['form']['outlet'].field.initial = outlet
+        # import ipdb; ipdb.set_trace();
+        return temp
+
+    # def get_queryset(self):
+    #     #filter queryset based on user's permitted outlet
+    #     outlets = get_objects_for_user(
+    #         self.request.user,
+    #         "change_outlet",
+    #         Outlet.objects.all()
+    #     )
+    #     return super(ReportView, self).get_queryset()\
+    #         .filter(outlet__in=outlets)\
+    #         .prefetch_related('meals', 'meals__orders')
+
