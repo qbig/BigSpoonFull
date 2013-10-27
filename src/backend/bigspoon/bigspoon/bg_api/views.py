@@ -181,5 +181,21 @@ class CreateRequest(generics.ListCreateAPIView):
     serializer_class = RequestSerializer
 
 
-class AskForBillView(generics.GenericAPIView):
-    pass
+class AskForBill(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealDetailSerializer
+    model = Meal
+
+    def post(self, request, *args, **kwargs):
+        table = Table.objects.get(id=int(request.DATA['table']))
+        diner = request.user
+        meal = Meal.objects.filter(table=table, diner=diner,
+                                   is_paid=False)[0]
+        if meal:
+            meal.status = Meal.ASK_BILL
+            meal.save()
+            return Response({"meal_id": meal.id, }, status=status.HTTP_200_OK)
+
+        return Response({"error": "Meal not found", },
+                        status=status.HTTP_400_BAD_REQUEST)
