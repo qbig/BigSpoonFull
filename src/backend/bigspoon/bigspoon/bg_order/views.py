@@ -21,9 +21,9 @@ class MainView(ListView):
             "change_outlet",
             Outlet.objects.all()
         )
-        return super(MenuView, self).get_queryset()\
-            .prefetch_related('outlet', 'categories')\
-            .filter(outlet__in=outlets)
+        return super(MainView, self).get_queryset()\
+            .prefetch_related('diner', 'orders', 'table')\
+            .filter(table__outlet__in=outlets)
 
 
 class MenuView(ModelFormSetView):
@@ -54,6 +54,13 @@ class MenuAddView(CreateView):
     form_class = DishCreateForm
     template_name = "bg_inventory/dish_form.html"
     success_url = "/staff/menu/"
+
+    # def post(self, request, *args, **kwargs):
+    #     outlet = get_objects_for_user(self.request.user, "change_outlet",
+    #                                   Outlet.objects.all())[0]
+    #     temp = super(MenuAddView, self).post(request, *args, **kwargs)
+    #     temp.context_data['form']['outlet'].field.initial = outlet
+    #     return temp
 
     def get(self, request, *args, **kwargs):
         outlet = get_objects_for_user(self.request.user, "change_outlet",

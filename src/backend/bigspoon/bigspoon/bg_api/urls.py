@@ -9,8 +9,8 @@ urlpatterns = patterns(
     url(r'^user$', views.CreateUser.as_view()),
     url(r'^login$', views.LoginUser.as_view()),
     # ordering
-    url(r'^order$', views.CreateOrder.as_view()),
-    url(r'^meal$', views.MealList.as_view()),
+    url(r'^meal$', views.CreateMeal.as_view()),
+    url(r'^meal/(?P<pk>[0-9]+)$', views.MealDetail.as_view()),
     url(r'^request$', views.CreateRequest.as_view()),
     # profile
     url(r'^profile$', views.UserProfile.as_view()),
