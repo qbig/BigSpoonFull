@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.conf.urls.defaults import patterns
 from guardian.admin import GuardedModelAdmin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
@@ -9,29 +10,20 @@ User = get_user_model()
 from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note, Profile
 from bg_inventory.forms import BGUserCreationForm
+from bg_inventory.utils import import_dish_csv
+
 
 search_fields_of = {}
 search_fields_of["user"] = ['email', 'username', 'first_name', 'last_name']
 search_fields_of["common"] = ['name']
 search_fields_of["dish"] = search_fields_of["common"] + ['pos', 'price']
 
-"""
-Restaurant -> Outlet
-            + Categories -> Dish -> Rating
-            #Currently restaurant is just a global grouping for outlets.
-            #Dish should be linked to restaurant first, rather than outlet, since most outlets (in the same region) of the same restaurant will serve the same dishes.
-Outlet -> Table, Review, Note
-"""
-
-
 
 class UserAdmin(AuthUserAdmin):
-
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': (
-                'email', 'username', 'password1', 'password2')
+            'fields': ('email', 'username', 'password1', 'password2')
         }),
     )
     add_form = BGUserCreationForm
@@ -52,7 +44,7 @@ class UserAdmin(AuthUserAdmin):
 
 
 class ProfileAdmin(GuardedModelAdmin):
-    raw_id_fields = ('user', 'favourite')
+    raw_id_fields = ('user', 'favourite_categories')
 
 
 class RestaurantAdmin(GuardedModelAdmin):
@@ -75,13 +67,6 @@ class CategoryAdmin(GuardedModelAdmin):
     search_fields = list(search_fields_of["common"])
 
 
-class DishAdmin(GuardedModelAdmin):
-    raw_id_fields = ('outlet', 'categories')
-    search_fields = list(search_fields_of["common"])
-    search_fields += ['outlet__'+x for x in search_fields_of["common"]]
-    search_fields += ['categories__'+x for x in search_fields_of["common"]]
-
-
 class RatingAdmin(GuardedModelAdmin):
     raw_id_fields = ('dish',)
     search_fields = ['dish__'+x for x in search_fields_of["common"]]
@@ -93,11 +78,25 @@ class ReviewAdmin(GuardedModelAdmin):
     search_fields = ['outlet__'+x for x in search_fields_of["common"]]
     search_fields += ['user__'+x for x in search_fields_of["user"]]
 
+
 class NoteAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet', 'user')
     search_fields = ['outlet__'+x for x in search_fields_of["common"]]
     search_fields += ['user__'+x for x in search_fields_of["user"]]
 
+
+class DishAdmin(GuardedModelAdmin):
+    raw_id_fields = ('outlet', 'categories')
+    search_fields = list(search_fields_of["common"])
+    search_fields += ['outlet__'+x for x in search_fields_of["common"]]
+    search_fields += ['categories__'+x for x in search_fields_of["common"]]
+
+    def get_urls(self):
+        urls = super(DishAdmin, self).get_urls()
+        return patterns(
+            '',
+            (r'^import/$', self.admin_site.admin_view(import_dish_csv)))\
+            + urls
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)

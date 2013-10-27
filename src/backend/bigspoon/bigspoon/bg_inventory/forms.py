@@ -46,3 +46,24 @@ class DishCreateForm(forms.ModelForm):
             'start_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
             'end_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
         }
+
+
+class DishCSVForm(forms.Form):
+    csv_file = forms.FileField(
+        label=_("CSV File: "),
+        required=True
+    )
+    exclude_first_line = forms.BooleanField(
+        initial=True,
+        required=False
+    )
+
+    def clean(self):
+        cleaned_data = super(DishCSVForm, self).clean()
+        data = cleaned_data.get('csv_file')
+        if data and (not data.name.endswith('.csv')):
+            msg = u'You can only upload csv files.'
+            self._errors['csv_file'] = self.error_class([msg])
+            del cleaned_data['csv_file']
+
+        return cleaned_data

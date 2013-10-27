@@ -355,11 +355,14 @@ class Dish(models.Model):
     )
     photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
+        blank=True,
+        null=True,
         sizes=((640, 400),),
         help_text=_('dish photo')
     )
     categories = models.ManyToManyField(
         Category,
+        blank=True,
         help_text=_('belong to category'),
         related_name='dishes',
     )
