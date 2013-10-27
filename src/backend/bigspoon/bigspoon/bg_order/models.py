@@ -64,6 +64,19 @@ class Meal(models.Model):
     """
     Stores meal information. A Meal is a set of Orders.
     """
+    ACTIVE = 0
+    INACTIVE = 1
+    ASK_BILL = 2
+    STATUS_CHOICES_DIC = {
+        ACTIVE: 'active',
+        INACTIVE: 'inactive',
+        ASK_BILL: 'ask bill',
+    }
+    STATUS_CHOICES = (
+        (ACTIVE, 'active'),
+        (INACTIVE, 'inactive'),
+        (ASK_BILL, 'ask bill'),
+    )
     diner = models.ForeignKey(
         User,
         help_text=_('diner who create the meal'),
@@ -74,9 +87,10 @@ class Meal(models.Model):
         help_text=_('table diner is sitting at when create meal'),
         related_name="meals"
     )
-    is_active = models.BooleanField(
-        help_text=_('whether the order in meal is processed'),
-        default=True
+    status = models.IntegerField(
+        max_length=1,
+        choices=STATUS_CHOICES,
+        help_text=_('status: 0-ACTIVE, 1-INACTIVE, 2-ASK_BILL')
     )
     is_paid = models.BooleanField(
         help_text=_('whether the meal is closed'),
@@ -87,7 +101,7 @@ class Meal(models.Model):
         auto_now_add=True
     )
     modified = models.DateTimeField(
-        help_text=_('time when '),
+        help_text=_('time when meal is last updated'),
         blank=True,
         null=True,
     )
@@ -98,11 +112,11 @@ class Meal(models.Model):
     )
 
     def __unicode__(self):
-        meal_status = "Active" if self.is_active else "Inactive"
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
         return "(%s - %s) | %s | %s" % (self.table.outlet.name,
-                                        self.table.name, meal_status,
+                                        self.table.name,
+                                        self.STATUS_CHOICES_DIC(self.status),
                                         meal_payment)
 
     class Meta:
