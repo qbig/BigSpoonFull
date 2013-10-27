@@ -11,6 +11,7 @@
 @interface Constants : NSObject
 
 // Request URLs:
+extern NSString* const BASE_URL;
 extern NSString* const  USER_SIGNUP;
 extern NSString* const  USER_LOGIN;
 extern NSString* const  LIST_OUTLETS;
