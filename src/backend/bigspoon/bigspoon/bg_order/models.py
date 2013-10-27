@@ -119,6 +119,12 @@ class Meal(models.Model):
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
 
+    def get_meal_spending(self):
+        meal_spending = 0
+        for order in self.orders.all():
+            meal_spending += order.dish.price * order.quantity
+        return meal_spending
+
     def get_created(self):
         return self.created.strftime('%d %b %Y')
 

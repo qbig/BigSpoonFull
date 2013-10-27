@@ -87,8 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         total_spending = 0
         for meal in self.meals.all():
-            for order in meal.orders.all():
-                total_spending += order.dish.price * order.quantity
+            total_spending += meal.get_meal_spending()
         return total_spending
 
     def get_short_name(self):
