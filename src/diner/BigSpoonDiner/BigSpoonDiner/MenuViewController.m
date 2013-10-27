@@ -31,6 +31,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
+    MenuTableViewController *menuTableViewController = self.container;
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,26 +65,6 @@
 
 - (IBAction)itemsButtonPressed:(id)sender {
     NSLog(@"itemsButtonPressed");
-
-}
-
-- (IBAction)breakfastButtonPressed:(id)sender {
-    NSLog(@"breakfastButtonPressed");
-
-}
-
-- (IBAction)mainButtonPressed:(id)sender {
-    NSLog(@"mainButtonPressed");
-
-}
-
-- (IBAction)sideButtonPressed:(id)sender {
-    NSLog(@"sideButtonPressed");
-
-}
-
-- (IBAction)beverageButtonPressed:(id)sender {
-    NSLog(@"beverageButtonPressed");
 
 }
 

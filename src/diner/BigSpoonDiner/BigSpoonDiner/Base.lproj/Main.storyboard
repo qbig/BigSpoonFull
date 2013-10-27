@@ -277,48 +277,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cj-rM-k6r">
-                                <rect key="frame" x="96" y="76" width="42" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Mains">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="mainButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="Olz-It-WPt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jca-gK-xwY">
-                                <rect key="frame" x="157" y="67" width="64" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <string key="title">Sides &amp;
-Snacks</string>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sideButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="180-nD-1cX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLb-cY-C38">
-                                <rect key="frame" x="240" y="76" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Beverages">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="beverageButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="hbk-hJ-O31"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMr-Yr-mup">
-                                <rect key="frame" x="8" y="76" width="65" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Breakfast">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="breakfastButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="yEN-gz-QM6"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Outlet Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glx-H1-q4K">
                                 <rect key="frame" x="55" y="32" width="177" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -357,7 +315,7 @@ Snacks</string>
                                 </connections>
                             </button>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OY8-ew-AZo">
-                                <rect key="frame" x="8" y="114" width="305" height="454"/>
+                                <rect key="frame" x="8" y="67" width="305" height="501"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -398,11 +356,8 @@ Snacks</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="beverageButton" destination="KLb-cY-C38" id="lCf-3k-cEC"/>
-                        <outlet property="breakfastButton" destination="VMr-Yr-mup" id="yBv-A7-Grr"/>
-                        <outlet property="mainButton" destination="3cj-rM-k6r" id="Lmc-Ia-VI7"/>
+                        <outlet property="container" destination="OY8-ew-AZo" id="3wv-wx-0wk"/>
                         <outlet property="outletNameLabel" destination="glx-H1-q4K" id="wXQ-TP-Jux"/>
-                        <outlet property="sideButton" destination="jca-gK-xwY" id="TqE-AL-AGY"/>
                         <outlet property="viewModeButton" destination="ArR-XE-dvZ" id="Ys7-3G-Wpk"/>
                     </connections>
                 </viewController>
@@ -415,12 +370,61 @@ Snacks</string>
             <objects>
                 <tableViewController id="KE0-Fp-4U7" userLabel="MenuTableViewController" customClass="MenuTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
-                        <rect key="frame" x="0.0" y="0.0" width="305" height="454"/>
+                        <rect key="frame" x="0.0" y="0.0" width="305" height="501"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="cTl-rN-X2W">
+                            <rect key="frame" x="0.0" y="0.0" width="305" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLb-cY-C38">
+                                    <rect key="frame" x="223" y="15" width="73" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Beverages">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="beveragesButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="2We-NN-HWx"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jca-gK-xwY">
+                                    <rect key="frame" x="145" y="6" width="64" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal">
+                                        <string key="title">Sides &amp;
+Snacks</string>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="sidesAndSnacksButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="0ir-3Q-UHC"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cj-rM-k6r">
+                                    <rect key="frame" x="88" y="15" width="42" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Mains">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="mainsButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="q3d-Cy-dA0"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMr-Yr-mup">
+                                    <rect key="frame" x="6" y="15" width="65" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Breakfast">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="breakfastButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="KT5-j9-ra5"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuListCell" rowHeight="59" id="HgS-6H-ity" customClass="MenuListCell">
-                                <rect key="frame" x="0.0" y="22" width="305" height="59"/>
+                                <rect key="frame" x="0.0" y="82" width="305" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgS-6H-ity" id="0rT-1q-Ya9">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="58"/>
@@ -467,7 +471,7 @@ Snacks</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="186" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
-                                <rect key="frame" x="0.0" y="81" width="305" height="186"/>
+                                <rect key="frame" x="0.0" y="141" width="305" height="186"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HiF-Sy-gJL" id="AmA-8O-KWh">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="185"/>
@@ -513,7 +517,7 @@ Snacks</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pV2-Pz-y2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2115" y="1160"/>
+            <point key="canvasLocation" x="2200" y="1140"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">

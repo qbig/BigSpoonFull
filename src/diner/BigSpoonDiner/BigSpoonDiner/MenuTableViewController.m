@@ -8,7 +8,10 @@
 
 #import "MenuTableViewController.h"
 
-@interface MenuTableViewController ()
+@interface MenuTableViewController (){
+    NSMutableData *_responseData;
+    int statusCode;
+}
 
 @end
 
@@ -83,13 +86,29 @@
     NSLog(@"Loading dishes from server...");
     
     self.dishesArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
-    Dish *newDish1 = [[Dish alloc] initWithName:@"Most Popular Dish" Description:@"Originated in Singapore, it's literally the best" Price:30 Ratings:5];
-    [self.dishesArray addObject:newDish1];
     
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LIST_OUTLETS]];
+    request.HTTPMethod = @"GET";
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    Dish *newDish2 = [[Dish alloc] initWithName:@"Second Popular Dish" Description:@"Simply delitious, it's literally the best" Price:30 Ratings:2];
-    [self.dishesArray addObject:newDish2];
+    // Create url connection and fire request
+    [NSURLConnection connectionWithRequest:request delegate:self];
 }
+
+// Ajax callback to add one more new item in the table:
+- (void)addOutlet:(Dish *)dish
+{
+	[self.dishesArray addObject:dish];
+	NSIndexPath *indexPath =
+    [NSIndexPath indexPathForRow:[self.dishesArray count] - 1
+                       inSection:0];
+    
+	[self.tableView insertRowsAtIndexPaths:
+     [NSArray arrayWithObject:indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -141,5 +160,22 @@
 }
 
  */
+
+- (IBAction)breakfastButtonPressed:(id)sender {
+    NSLog(@"breakfastButtonPressed");
+}
+
+- (IBAction)mainsButtonPressed:(id)sender {
+    NSLog(@"mainButtonPressed");
+}
+
+- (IBAction)beveragesButtonPressed:(id)sender {
+    NSLog(@"beveragesButtonPressed");
+}
+- (IBAction)sidesAndSnacksButtonPressed:(id)sender {
+    NSLog(@"sidesButtonPressed");
+    
+}
+
 
 @end
