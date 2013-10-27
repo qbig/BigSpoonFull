@@ -80,7 +80,6 @@ class OutletListSerializer(serializers.ModelSerializer):
 
 
 class OutletTableSerializer(serializers.ModelSerializer):
-    outlet = RelatedField(many=True)
 
     class Meta:
         model = Table
