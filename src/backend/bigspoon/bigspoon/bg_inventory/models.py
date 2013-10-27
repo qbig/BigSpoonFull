@@ -81,6 +81,16 @@ class User(AbstractBaseUser, PermissionsMixin):
             full_name = self.email
         return full_name.strip()
 
+    def get_total_spending(self):
+        """
+        Returns total sum of all orders of all meals.
+        """
+        total_spending = 0
+        for meal in self.meals.all():
+            for order in meal.orders.all():
+                total_spending += order.dish.price * order.quantity
+        return total_spending
+
     def get_short_name(self):
         """
         Returns the user email
@@ -275,6 +285,11 @@ class Outlet(models.Model):
         _('open hours'),
         blank=False,
         help_text=_('outlet opening hours')
+    )
+    treshold = models.IntegerField(
+        _('treshold'),
+        default=10,
+        help_text=_('service time treshold'),
     )
 
     def __unicode__(self):

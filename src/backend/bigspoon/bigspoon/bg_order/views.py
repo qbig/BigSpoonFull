@@ -1,11 +1,11 @@
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet, Table
+from bg_inventory.models import User, Dish, Outlet, Table
 from bg_order.models import Meal
 
 from bg_inventory.forms import DishCreateForm
@@ -86,8 +86,13 @@ class TableView(ListView):
             .prefetch_related('meals', 'meals__orders')
 
 
-class UserView(TemplateView):
+class UserView(UpdateView):
+    model = User
     template_name = "bg_order/user.html"
+
+    def get(self, request, *args, **kwargs):
+        temp = super(UserView, self).get(request, *args, **kwargs)
+        return temp
 
 
 class HistoryView(TemplateView):

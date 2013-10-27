@@ -187,7 +187,6 @@
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
-            user.password = password;
             user.auth_token = auth_token;
             
             NSLog(@"New user created:");
@@ -297,7 +296,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"FromOutletsToMenu"]) {
+    if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
 		menuViewController.delegate = self;
         
@@ -306,7 +305,7 @@
         menuViewController.outlet = outlet;
         
 	} else{
-        NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
+        NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
 

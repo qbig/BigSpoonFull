@@ -16,8 +16,8 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer
-from bg_inventory.models import Outlet, Profile, Category
-from bg_order.models import Meal, Request
+from bg_inventory.models import Outlet, Profile, Category, Table, Dish
+from bg_order.models import Meal, Request, Order
 
 User = get_user_model()
 
@@ -46,7 +46,8 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
 
     def post(self, request, *args, **kwargs):
         response = self.create(request, *args, **kwargs)
-        del response.data['password']
+        if 'password' in response.data.keys():
+            del response.data['password']
         return response
 
 
@@ -122,21 +123,50 @@ class ListCategory(generics.ListAPIView):
     model = Category
 
 
-class MealList(generics.ListAPIView):
+class CreateMeal(generics.CreateAPIView):
     """
-    List meals or create new meal
+    Create new meal
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    queryset = Meal.objects.all()
+    model = Meal
     serializer_class = MealSerializer
+
+    def post(self, request, *args, **kwargs):
+        dishes = request.DATA['dishes']
+
+        # Check quantity
+        for dish_pair in dishes:
+            dish = Dish.objects.get(id=int(dish_pair.keys()[0]))
+            quantity = dish_pair.values()[0]
+            stock_quantity = dish.quantity
+
+            if stock_quantity < quantity:
+                return Response({"error": "Not enough stock for dish ID "
+                                + str(dish.id)},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+        table = Table.objects.get(id=request.DATA['table'])
+        diner = request.user
+        meal, created = Meal.objects.get_or_create(table=table, diner=diner,
+                                                   is_paid=False)
+
+        for dish_pair in dishes:
+            dish = Dish.objects.get(id=int(dish_pair.keys()[0]))
+            quantity = dish_pair.values()[0]
+            Order.objects.create(meal=meal, dish=dish, quantity=quantity)
+            dish.quantity -= quantity
+            dish.save()
+
+        return Response({"meal_id": meal.id, }, status=status.HTTP_201_CREATED)
 
 
 class MealDetail(generics.RetrieveAPIView):
     """
     Show meal details
     """
-    permission_classes = (AllowAny,)
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
     serializer_class = MealDetailSerializer
     model = Meal
 

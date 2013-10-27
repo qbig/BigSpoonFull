@@ -12,12 +12,11 @@
 
         {% compress css %}
         <link rel="stylesheet" href="{% static "css/normalize.min.css" %}">
-        <link rel="stylesheet" href="{% static "css/main.css" %}">
         <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
         <!--TIME PICKER-->
-        <link rel="stylesheet" href="{% static "css/timepicker/base.css" %}">
+        <!-- <link rel="stylesheet" href="{% static "css/timepicker/base.css" %}"> -->
         <link rel="stylesheet" href="{% static "css/timepicker/jquery.timepicker.css" %}">
-
+        <link rel="stylesheet" href="{% static "css/main.css" %}">
 
         {% endcompress %}
     </head>
@@ -49,12 +48,12 @@
         {% block compressjsmore %}{% endblock %}
         {% endcompress %}
         <!--TIME PICKER - Load in this order: basejs, timepickerjs, datepair.js, run_timepicker.js-->
-        <script src="{% static "js/timepicker/GruntFile.js"%}"></script>
         <script src="{% static "js/timepicker/base.js"%}"></script>
         <script src="{% static "js/timepicker/jquery.timepicker.js"%}"></script>
         <script src="{% static "js/timepicker/jquery.timepicker.min.js"%}"></script>
         <script src="{% static "js/timepicker/datepair.js"%}"></script>
         <script src="{% static "js/timepicker/runtimepicker.js"%}"></script>
+        {% block masonry_js %}{% endblock %}
         {% block normaljsmore %}{% endblock %}
     </body>
 </html>
