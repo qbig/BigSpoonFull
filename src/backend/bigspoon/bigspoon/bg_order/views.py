@@ -1,11 +1,11 @@
 from django.contrib import messages
 from django.views.generic import TemplateView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
 from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet, Table
+from bg_inventory.models import User, Dish, Outlet, Table
 from bg_order.models import Meal
 
 from bg_inventory.forms import DishCreateForm
@@ -86,13 +86,53 @@ class TableView(ListView):
             .prefetch_related('meals', 'meals__orders')
 
 
-class UserView(TemplateView):
+class UserView(UpdateView):
+    model = User
     template_name = "bg_order/user.html"
+
+    def get(self, request, *args, **kwargs):
+        temp = super(UserView, self).get(request, *args, **kwargs)
+        return temp
 
 
 class HistoryView(TemplateView):
     template_name = "bg_order/history.html"
 
 
-class ReportView(TemplateView):
+class ReportView(ListView):
+    model = Meal
     template_name = "bg_order/report.html"
+
+    # def get_queryset(self):
+    #     outlets = get_objects_for_user(
+    #         self.request.user,
+    #         "change_outlet",
+    #         Outlet.objects.all()
+    #     )
+    #     return super(ReportView, self).get_queryset()\
+    #         .prefetch_related('diner', 'orders', 'table')\
+    #         .filter(table__outlet__in=outlets)
+
+
+    def get(self, request, *args, **kwargs):
+        outlet = get_objects_for_user(self.request.user, "change_outlet",
+                                      Outlet.objects.all())[0]
+        temp = super(ReportView, self).get(request, *args, **kwargs)
+            # /
+            # .prefetch_related('diner', 'orders', 'table')\
+            # .filter(table__outlet__in=outlets)
+        # temp.context_data['form']['outlet'].field.initial = outlet
+        # import ipdb; ipdb.set_trace();
+        return temp
+
+    # def get_queryset(self):
+    #     #filter queryset based on user's permitted outlet
+    #     outlets = get_objects_for_user(
+    #         self.request.user,
+    #         "change_outlet",
+    #         Outlet.objects.all()
+    #     )
+    #     return super(ReportView, self).get_queryset()\
+    #         .filter(outlet__in=outlets)\
+    #         .prefetch_related('meals', 'meals__orders')
+

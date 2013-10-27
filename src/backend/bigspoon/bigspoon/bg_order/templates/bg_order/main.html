@@ -7,21 +7,28 @@
 
     {% for meal in object_list %}
     <div class="item">
-        <span class="urgent time"><i class="icon-time"></i> ordered 2:14 mins ago</span>
-        <a href="user.html"><img src="https://graph.facebook.com/yos.riady/picture" /></a>
+        {% if meal.wait_time.0 > meal.table.outlet.treshold %}
+        <span class="urgent time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
+        {% else %}
+        <span class="early time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
+        {% endif %}
+        <a href="user.html"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
-            <li>{{order.dish.name}} - {{order.quantity}}</li>
+            <li>{{order.dish.name}}  <em>{{order.quantity}}</em></li>
             {% endfor %}
         </ul>
 
         <a class="acknowledge" href="#"><i class="icon-check-empty"></i> Acknowledge</a>
     </div>
     {% endfor %}
+{% endblock %}
+
+
+
     <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
     <script src="{% static "js/main.js"%}"></script>
-{% endblock %}
