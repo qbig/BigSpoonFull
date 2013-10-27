@@ -365,6 +365,11 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     list-style-type: none;
 }
 
+.order li em {
+    float:right;
+    color: #888;
+}
+
 .order li:nth-child(even){
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
     background: #f2ede8;

@@ -42,7 +42,7 @@
         </span>
             <ul class="order">
             {% for order in meal.orders.all %}
-                <li>{{order.dish.name}} {{order.dish.quantity}}</li>
+                <li>{{order.dish.name}} <em>x{{order.quantity}}</em></li>
             {% endfor %}
             </ul>
         {% endfor %}
