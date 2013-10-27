@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.h
+//  OrderHistoryViewController
 //  BigSpoonDiner
 //
 //  Created by Shubham Goyal on 14/10/13.
@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 //#import "PastOrderView.h"
 
+@class OrderHistoryViewController;
+
+@protocol SettingsViewControllerDelegate <NSObject>
+- (void)cancelButtonPressed: (OrderHistoryViewController *)controller;
+@end
+
+
 @interface OrderHistoryViewController : UIViewController
 
+@property (nonatomic, weak) id <SettingsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
+- (IBAction)cancelButtonPressed:(id)sender;
 
 @end

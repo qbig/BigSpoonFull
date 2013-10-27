@@ -93,4 +93,25 @@
     NSLog(@"Asked, hay!");
     return 4;
 }
+
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"FromMenuListToOrderHistory"]) {
+		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
+		orderHistoryViewController.delegate = self;
+        
+	} else{
+        NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
+    }
+}
+
+- (void) cancelButtonPressed:(OrderHistoryViewController *)controller{
+    NSLog(@"cancelled");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end
