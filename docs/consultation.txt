@@ -1,0 +1,27 @@
+Allow Restaurant to do bulk upload via excel.
+
+Check if excel can attach images. Microsoft word screws up the quality of the image. Must check if Excel will screw up image even if we can attach the images.
+
+Explain why we use QR Code instead of just entering numbers - to prevent users from misusing the app.
+
+Automatically choose outlet.
+By geolocation.
+
+How to prove that person is actually there.
+GPS information.
+
+Allow Restaurant to assign categories, even though Admin part is going to be handled by BigSpoon.
+
+Explain what happens on the restaurant side - how the restaurant will process from app to their POS system.
+
+Allow restaurant to set the threshold for the delay. A way for the restaurant to maintain QOS. Fine-dining restaurant has different threshold from family restaurant.
+
+Avoid developing an app that's customized to one restaurant.
+
+Have a video to show the actual experience to showcase during STEPS. We're going out to real non-techie customers, rather than just developers.
+
+Tedious to explain the whole concept due to the number of parts.
+
+put at project level rather than app level
+
+

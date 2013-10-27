@@ -10,28 +10,41 @@ class Request(models.Model):
     """
     WATER = 0
     WAITER = 1
+    REQUEST_CHOICES_DIC = {
+        WATER: 'Ask for water',
+        WAITER: 'Ask for waiter',
+    }
     REQUEST_CHOICES = (
         (WATER, 'Ask for water'),
         (WAITER, 'Ask for waiter'),
     )
 
-    diner = models.ForeignKey(User, related_name="requests")
-    table = models.ForeignKey(Table, related_name="requests")
+    diner = models.ForeignKey(
+        User,
+        help_text=_('diner who create request'),
+        related_name="requests"
+    )
+    table = models.ForeignKey(
+        Table,
+        help_text=_('table diner is sitting at when create request'),
+        related_name="requests"
+    )
     request_type = models.IntegerField(
         max_length=1,
         choices=REQUEST_CHOICES,
+        help_text=_('request type, 0-WATER, 1-WAITER')
     )
     is_active = models.BooleanField(
         default=True,
     )
     created = models.DateTimeField(
         auto_now_add=True,
-        help_text=_('Request created time'),
+        help_text=_('Request created time')
     )
     finished = models.DateTimeField(
-        help_text=_('Request finish time'),
         blank=True,
         null=True,
+        help_text=_('Request finish time')
     )
 
     def __unicode__(self):
@@ -51,14 +64,35 @@ class Meal(models.Model):
     """
     Stores meal information. A Meal is a set of Orders.
     """
-    diner = models.ForeignKey(User, related_name="meals")
-    table = models.ForeignKey(Table, related_name="meals")
-    is_active = models.BooleanField(default=True)
-    is_paid = models.BooleanField(default=False)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
+    diner = models.ForeignKey(
+        User,
+        help_text=_('diner who create the meal'),
+        related_name="meals"
+    )
+    table = models.ForeignKey(
+        Table,
+        help_text=_('table diner is sitting at when create meal'),
+        related_name="meals"
+    )
+    is_active = models.BooleanField(
+        help_text=_('whether the order in meal is processed'),
+        default=True
+    )
+    is_paid = models.BooleanField(
+        help_text=_('whether the meal is closed'),
+        default=False
+    )
+    created = models.DateTimeField(
+        help_text=_('time when meal is created'),
+        auto_now_add=True
+    )
+    modified = models.DateTimeField(
+        help_text=_('time when '),
+        blank=True,
+        null=True,
+    )
     bill_time = models.DateTimeField(
-        help_text=_('Time paid'),
+        help_text=_('time when meal is paid'),
         blank=True,
         null=True,
     )
@@ -80,18 +114,28 @@ class Order(models.Model):
     """
     Stores order information. An order is a quantity of a single dish.
     """
-    meal = models.ForeignKey(Meal, related_name="orders")
-    dish = models.ForeignKey(Dish, related_name="orders")
+    meal = models.ForeignKey(
+        Meal,
+        help_text=_('belong to meal'),
+        related_name="orders"
+    )
+    dish = models.ForeignKey(
+        Dish,
+        help_text=_('ordered dish'),
+        related_name="orders"
+    )
     quantity = models.IntegerField(
         default=0,
-        help_text=_('Number of dishes ordered'),
+        help_text=_('number of dishes ordered'),
     )
 
     def __unicode__(self):
-        return "(%s - %s) %s | %s x%s" % (self.meal.table.outlet.name,
-                                          self.meal.table.name,
-                                          self.meal.diner.first_name,
-                                          self.dish.name, self.quantity)
+        return "(%s - %s) %s | %s x %s" % (
+            self.meal.table.outlet.name,
+            self.meal.table.name,
+            self.meal.diner.get_full_name,
+            self.dish.name, self.quantity
+        )
 
     class Meta:
         verbose_name = _('order')
