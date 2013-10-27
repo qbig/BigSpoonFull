@@ -1,25 +1,29 @@
 //
-//  LoginViewController.m
+//  AuthViewController.m
 //  BigSpoonDiner
 //
 //  Created by Zhixing Yang on 15/10/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "SignUpViewController.h"
 
-@interface LoginViewController (){
+@interface SignUpViewController (){
     NSMutableData *_responseData;
     int statusCode;
 }
 
 @end
 
-@implementation LoginViewController
+@implementation SignUpViewController
 
-@synthesize emailLabel;
-@synthesize passwordField;
 @synthesize activityIndicator;
+@synthesize submitButton;
+@synthesize firstNameLabel;
+@synthesize lastNameLabel;
+@synthesize emailAddressLabel;
+@synthesize passwordLabel;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +32,12 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,61 +50,32 @@
 }
 
 - (IBAction)submitButtonPressed:(id)sender {
-
     NSError* error;
+    [self showLoadingIndicators];
     
     // Create the request.
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:USER_LOGIN]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:USER_SIGNUP]];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
+    
     NSDictionary* info = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.emailLabel.text,
-                          @"email",
-                          self.passwordField.text,
+                          self.firstNameLabel.text,
+                          @"first_name",
+                          self.lastNameLabel.text,
+                          @"last_name",
+                          self.passwordLabel.text,
                           @"password",
+                          self.emailAddressLabel.text,
+                          @"email",
                           nil];
-
+    
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                   options:NSJSONWritingPrettyPrinted error:&error];
-
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    
     request.HTTPBody = jsonData;
     
-    
-    if ([self isTableValid]){
-        // Create url connection and fire request
-        [self showLoadingIndicators];
-        [NSURLConnection connectionWithRequest:request delegate:self];
-    }
-}
-
-- (BOOL) isTableValid{
-    NSString *errorMessage = @"";
-
-    if ([self.emailLabel.text length] == 0) {
-        errorMessage = @"Email is required.";
-       
-    }
-    
-    if ([self.passwordField.text length] == 0) {
-        errorMessage = @"Password is required.";
-    }
-    
-    if ([self.emailLabel.text length] == 0 && [self.passwordField.text length] == 0) {
-        errorMessage = @"Email and Password is required.";
-    }
-    
-    if ([errorMessage isEqualToString:@""]) {
-        
-        return YES;
-        
-    } else{
-        
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [message show];
-        
-        return NO;
-    }
+    // Create url connection and fire request
+    [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 #pragma mark NSURLConnection Delegate Methods
@@ -108,11 +89,11 @@
     statusCode = [response statusCode];
     
     //NSDictionary* headers = [response allHeaderFields];
-    
+
     NSLog(@"response code: %d",  statusCode);
     
     _responseData = [[NSMutableData alloc] init];
-    
+
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -132,55 +113,54 @@
                           options:kNilOptions
                           error:&error];
     
-    //        for (id key in [json allKeys]){
-    //            NSString* obj =(NSString *) [json objectForKey: key];
-    //            NSLog(obj);
-    //        }
+//        for (id key in [json allKeys]){
+//            NSString* obj =(NSString *) [json objectForKey: key];
+//            NSLog(obj);
+//        }
     
     [self stopLoadingIndicators];
-    
-    switch (statusCode) {
-            
-        // 200 Okay
-        case 200:{
 
+    switch (statusCode) {
+        
+        // 201 Created
+        case 201:{
+            
             NSString* email =[json objectForKey:@"email"];
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
+            NSString* password = [json objectForKey:@"password"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
             
-
+            
             User *user = [User sharedInstance];
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
             user.auth_token = auth_token;
-
-            NSLog(@"User logged in:");
+            
+            NSLog(@"New user created:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
+            NSLog(@"Pwd: %@", password);
             NSLog(@"Auth_token: %@", auth_token);
             
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            
-            // Set
-            [prefs setObject:firstName forKey:@"firstName"];
-            [prefs setObject:lastName forKey:@"lastName"];
-            [prefs setObject:email forKey:@"email"];
-            [prefs synchronize];
-            [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
-            
+            [self performSegueWithIdentifier:@"SegueFromAuthToOutlet" sender:self];
 
-            [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
             
             break;
         }
             
         default:{
             
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Unable to login with provided credentials." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [message show];
+            id firstKey = [[json allKeys] firstObject];
+
+            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
             
+            NSLog(@"Error occurred: %@", errorMessage);
+            
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [message show];
+
             break;
         }
     }
@@ -198,7 +178,6 @@
     NSLog(@"NSURLCoonection encounters error at creating users.");
 }
 
-
 #pragma mark Show and hide indicators
 
 - (void) showLoadingIndicators{
@@ -212,6 +191,5 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     [activityIndicator stopAnimating];
 }
-
 
 @end

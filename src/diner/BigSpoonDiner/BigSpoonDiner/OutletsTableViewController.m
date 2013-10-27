@@ -187,7 +187,6 @@
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
-            user.password = password;
             user.auth_token = auth_token;
             
             NSLog(@"New user created:");

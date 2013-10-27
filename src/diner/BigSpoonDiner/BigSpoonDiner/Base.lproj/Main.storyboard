@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="a1i-Wr-CeU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="gGf-qz-hrh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
@@ -100,17 +100,17 @@
                         <outlet property="emailLabel" destination="qcj-26-zEi" id="V8L-PG-bdw"/>
                         <outlet property="passwordField" destination="5MA-48-CfT" id="FJl-Ls-KBK"/>
                         <outlet property="submitButton" destination="86u-ti-hRG" id="mct-7e-Htu"/>
-                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueOnSuccessfulLogin" id="YtG-TR-wQ2"/>
+                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueOnSuccessfulLogin" id="NcF-ES-z1f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVX-3W-w7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-742" y="837"/>
+            <point key="canvasLocation" x="-734" y="531"/>
         </scene>
-        <!--Auth View Controller - AuthViewController-->
+        <!--Sign Up View Controller - AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
             <objects>
-                <viewController title="AuthViewController" id="ffF-mi-uHH" customClass="AuthViewController" sceneMemberID="viewController">
+                <viewController title="AuthViewController" id="ffF-mi-uHH" customClass="SignUpViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CfJ-qb-gsR"/>
                         <viewControllerLayoutGuide type="bottom" id="88J-kW-QT5"/>
@@ -186,12 +186,12 @@
                         <outlet property="lastNameLabel" destination="bNC-Rw-s3B" id="Y8V-Ht-L09"/>
                         <outlet property="passwordLabel" destination="Fry-53-SdK" id="VHh-LX-6j4"/>
                         <outlet property="submitButton" destination="Q9J-od-BFS" id="trb-3u-oTF"/>
-                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromAuthToOutlet" id="ftm-WR-Pvq"/>
+                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromSingUpToOutlets" id="ew3-Pm-EPj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-97" y="409"/>
+            <point key="canvasLocation" x="-135" y="209"/>
         </scene>
         <!--Outlets Table View Controller - Outlets-->
         <scene sceneID="Aj7-bl-XUx">
@@ -262,7 +262,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAk-Dc-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1008" y="1093"/>
+            <point key="canvasLocation" x="1104" y="1103"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="FoD-uc-8wx">
@@ -407,7 +407,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32a-af-j0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1572" y="1093"/>
+            <point key="canvasLocation" x="1574" y="1103"/>
         </scene>
         <!--MenuTableViewController-->
         <scene sceneID="OaT-xB-Mu9">
@@ -512,7 +512,7 @@ Snacks</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pV2-Pz-y2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2100" y="1150"/>
+            <point key="canvasLocation" x="2115" y="1160"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">
@@ -527,12 +527,34 @@ Snacks</string>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="SaX-nl-uiI" kind="relationship" relationship="rootViewController" id="tJw-HT-0bG"/>
+                        <segue destination="SaX-nl-uiI" kind="relationship" relationship="rootViewController" id="mhF-A7-nea"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dh7-Q7-3fC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="465" y="1103"/>
+            <point key="canvasLocation" x="647" y="1103"/>
+        </scene>
+        <!--Auth View Controller-->
+        <scene sceneID="34S-9W-1H3">
+            <objects>
+                <viewController id="gGf-qz-hrh" customClass="AuthViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="th3-D7-4UV"/>
+                        <viewControllerLayoutGuide type="bottom" id="wpi-tA-0h4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fZj-AP-KQh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="a1i-Wr-CeU" kind="modal" identifier="SegueFromStartToLogin" id="I2z-6F-iSE"/>
+                        <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromStartToOutlets" id="BRr-gL-kHC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5T1-4d-yAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1310" y="1103"/>
         </scene>
         <!--Order History View Controller-->
         <scene sceneID="ze2-eJ-tgg">
@@ -583,7 +605,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2100" y="1774"/>
+            <point key="canvasLocation" x="2115" y="1774"/>
         </scene>
     </scenes>
     <resources>
@@ -600,7 +622,7 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="YtG-TR-wQ2"/>
+        <segue reference="BRr-gL-kHC"/>
         <segue reference="4OV-aI-hBG"/>
     </inferredMetricsTieBreakers>
 </document>

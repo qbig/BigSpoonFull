@@ -13,6 +13,10 @@
 		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
 		49164204180C590C00080B87 /* photo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164202180C590C00080B87 /* photo_icon.png */; };
 		49320E4018166CAE00F5C190 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49320E3F18166CAE00F5C190 /* Constants.m */; };
+		49558BBE181D0B3F00273090 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49558BBD181D0B3F00273090 /* Security.framework */; };
+		49558BC3181D0BA800273090 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC0181D0BA800273090 /* SSKeychain.m */; };
+		49558BC4181D0BA800273090 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC2181D0BA800273090 /* SSKeychainQuery.m */; };
+		49558BC7181D14CD00273090 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC6181D14CD00273090 /* AuthViewController.m */; };
 		49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B0E180CECE200089254 /* MenuTableViewController.m */; };
 		49669B15180CED1D00089254 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B14180CED1D00089254 /* Dish.m */; };
 		49669B18180CED2D00089254 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B17180CED2D00089254 /* User.m */; };
@@ -25,7 +29,7 @@
 		4999A216180A744100270B0B /* URLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A215180A744100270B0B /* URLImageView.m */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
 		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
-		49CB7970180C68C500F530C5 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* AuthViewController.m */; };
+		49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* SignUpViewController.m */; };
 		49CB7972180C6C4000F530C5 /* icon_256px_unfilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */; };
 		49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB7974180C6D9400F530C5 /* LoginViewController.m */; };
 		49F107E3180886D600D2C8DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E2180886D600D2C8DD /* Foundation.framework */; };
@@ -65,6 +69,13 @@
 		49164202180C590C00080B87 /* photo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_icon.png; sourceTree = "<group>"; };
 		49320E3E18166CAE00F5C190 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		49320E3F18166CAE00F5C190 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		49558BBD181D0B3F00273090 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		49558BBF181D0BA800273090 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
+		49558BC0181D0BA800273090 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
+		49558BC1181D0BA800273090 /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
+		49558BC2181D0BA800273090 /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
+		49558BC5181D14CD00273090 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		49558BC6181D14CD00273090 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
 		49669B0D180CECE200089254 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
 		49669B0E180CECE200089254 /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
 		49669B13180CED1D00089254 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
@@ -86,8 +97,8 @@
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		49CB796E180C68C500F530C5 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
-		49CB796F180C68C500F530C5 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		49CB796E180C68C500F530C5 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		49CB796F180C68C500F530C5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_256px_unfilled.png; sourceTree = "<group>"; };
 		49CB7973180C6D9400F530C5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		49CB7974180C6D9400F530C5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
@@ -120,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49558BBE181D0B3F00273090 /* Security.framework in Frameworks */,
 				49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */,
 				4999A2071809518C00270B0B /* FacebookSDK.framework in Frameworks */,
 				49F107E7180886D600D2C8DD /* UIKit.framework in Frameworks */,
@@ -151,10 +163,12 @@
 				49669B0E180CECE200089254 /* MenuTableViewController.m */,
 				49CB796B180C631300F530C5 /* MenuViewController.h */,
 				49CB796C180C631300F530C5 /* MenuViewController.m */,
-				49CB796E180C68C500F530C5 /* AuthViewController.h */,
-				49CB796F180C68C500F530C5 /* AuthViewController.m */,
+				49CB796E180C68C500F530C5 /* SignUpViewController.h */,
+				49CB796F180C68C500F530C5 /* SignUpViewController.m */,
 				49CB7973180C6D9400F530C5 /* LoginViewController.h */,
 				49CB7974180C6D9400F530C5 /* LoginViewController.m */,
+				49558BC5181D14CD00273090 /* AuthViewController.h */,
+				49558BC6181D14CD00273090 /* AuthViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -209,6 +223,7 @@
 		49F107E1180886D600D2C8DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				49558BBD181D0B3F00273090 /* Security.framework */,
 				4999A2061809518C00270B0B /* FacebookSDK.framework */,
 				49F107E2180886D600D2C8DD /* Foundation.framework */,
 				49F107E4180886D600D2C8DD /* CoreGraphics.framework */,
@@ -229,6 +244,10 @@
 				49F107F2180886D600D2C8DD /* AppDelegate.m */,
 				49320E3E18166CAE00F5C190 /* Constants.h */,
 				49320E3F18166CAE00F5C190 /* Constants.m */,
+				49558BBF181D0BA800273090 /* SSKeychain.h */,
+				49558BC0181D0BA800273090 /* SSKeychain.m */,
+				49558BC1181D0BA800273090 /* SSKeychainQuery.h */,
+				49558BC2181D0BA800273090 /* SSKeychainQuery.m */,
 				49F107F4180886D600D2C8DD /* Main.storyboard */,
 				49F107FD180886D600D2C8DD /* Images.xcassets */,
 				49F107E9180886D600D2C8DD /* Supporting Files */,
@@ -392,9 +411,10 @@
 			files = (
 				49669B18180CED2D00089254 /* User.m in Sources */,
 				49669B15180CED1D00089254 /* Dish.m in Sources */,
-				49CB7970180C68C500F530C5 /* AuthViewController.m in Sources */,
+				49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */,
 				49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */,
 				E951D784180EE285002BE045 /* OrderHistoryViewController.m in Sources */,
+				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
@@ -403,7 +423,9 @@
 				49669B1B180CF2A000089254 /* MenuPhotoCell.m in Sources */,
 				49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */,
 				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
+				49558BC4181D0BA800273090 /* SSKeychainQuery.m in Sources */,
 				4999A216180A744100270B0B /* URLImageView.m in Sources */,
+				49558BC7181D14CD00273090 /* AuthViewController.m in Sources */,
 				4989729F180C8C9F0090DA75 /* MenuListCell.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
 				49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */,
