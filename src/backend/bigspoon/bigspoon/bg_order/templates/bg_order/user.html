@@ -14,6 +14,16 @@
     </span>
 
     <span class='user-stats'>
+
+        {% if user.gender == 'M' %}
+        <p class='visits'><i class="icon-male"></i></p>
+        {% elif user.gender == 'F' %}
+        <p class='visits'><i class="icon-female"></i></p>
+        {% else %}
+
+        {% endif %}
+
+
         <p class='visits'><i class="icon-user"></i> {{user.meals.count}} visits</p>
         <p class='spent'><i class="icon-dollar"></i> {{user.get_total_spending}} spent</p>
     </span>
