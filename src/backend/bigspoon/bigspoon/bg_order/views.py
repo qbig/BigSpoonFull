@@ -22,8 +22,8 @@ class MainView(ListView):
             Outlet.objects.all()
         )
         return super(MainView, self).get_queryset()\
-            .prefetch_related('outlet', 'categories')\
-            .filter(outlet__in=outlets)
+            .prefetch_related('diner', 'orders', 'table')\
+            .filter(table__outlet__in=outlets)
 
 
 class MenuView(ModelFormSetView):
