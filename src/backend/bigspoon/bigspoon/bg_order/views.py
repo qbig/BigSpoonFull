@@ -112,7 +112,8 @@ class ReportView(ListView):
     def get(self, request, *args, **kwargs):
         outlet = get_objects_for_user(self.request.user, "change_outlet",
                                       Outlet.objects.all())[0]
-        temp = super(ReportView, self).get(request, *args, **kwargs)\
+        temp = super(ReportView, self).get(request, *args, **kwargs)
+            # /
             # .prefetch_related('diner', 'orders', 'table')\
             # .filter(table__outlet__in=outlets)
         # temp.context_data['form']['outlet'].field.initial = outlet
