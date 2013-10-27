@@ -24,7 +24,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ffF-mi-uHH" kind="modal" modalTransitionStyle="coverVertical" id="4OV-aI-hBG"/>
+                                    <action selector="fbButtonPressed:" destination="a1i-Wr-CeU" eventType="touchUpInside" id="q9a-ln-2Vs"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To get started, simply log in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUE-xR-AXN">
@@ -41,7 +41,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ffF-mi-uHH" kind="modal" id="f6L-wo-XMw"/>
+                                    <segue destination="ffF-mi-uHH" kind="modal" identifier="SegueFromLoginToSignup" id="f6L-wo-XMw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RS3-47-u56">
@@ -96,8 +96,9 @@
                         <color key="backgroundColor" red="0.92549026012420654" green="0.92941182851791382" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="ETG-My-DrL" id="uvk-ET-BJb"/>
+                        <outlet property="activityIndicator" destination="ETG-My-DrL" id="R3O-zC-Pqq"/>
                         <outlet property="emailLabel" destination="qcj-26-zEi" id="V8L-PG-bdw"/>
+                        <outlet property="fbButton" destination="QSJ-Wx-9kb" id="ezC-jQ-SDO"/>
                         <outlet property="passwordField" destination="5MA-48-CfT" id="FJl-Ls-KBK"/>
                         <outlet property="submitButton" destination="86u-ti-hRG" id="mct-7e-Htu"/>
                         <segue destination="jIA-Id-th3" kind="modal" identifier="SegueOnSuccessfulLogin" id="NcF-ES-z1f"/>
@@ -105,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVX-3W-w7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-734" y="531"/>
+            <point key="canvasLocation" x="-906" y="411"/>
         </scene>
         <!--Sign Up View Controller - AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
@@ -191,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-135" y="209"/>
+            <point key="canvasLocation" x="-171" y="93"/>
         </scene>
         <!--Outlets Table View Controller - Outlets-->
         <scene sceneID="Aj7-bl-XUx">
@@ -554,7 +555,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5T1-4d-yAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1310" y="1103"/>
+            <point key="canvasLocation" x="-1494" y="1103"/>
         </scene>
         <!--Order History View Controller-->
         <scene sceneID="ze2-eJ-tgg">
@@ -622,7 +623,6 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4OV-aI-hBG"/>
-        <segue reference="ew3-Pm-EPj"/>
+        <segue reference="NcF-ES-z1f"/>
     </inferredMetricsTieBreakers>
 </document>

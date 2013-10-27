@@ -213,5 +213,9 @@
     [activityIndicator stopAnimating];
 }
 
+#praga mark fbLogin
 
+- (IBAction)fbButtonPressed:(id)sender {
+    NSLog(@"fbButtonPressed");
+}
 @end
