@@ -18,3 +18,5 @@ docutils>=0.10,<1.0
 Pygments>=1.6,<2.0
 #Formviews
 django-extra-views>=0.6.3,<0.7
+# django rest doc
+django-rest-framework-docs>=0.1.7,<0.2
