@@ -55,6 +55,13 @@ class MenuAddView(CreateView):
     template_name = "bg_inventory/dish_form.html"
     success_url = "/staff/menu/"
 
+    # def post(self, request, *args, **kwargs):
+    #     outlet = get_objects_for_user(self.request.user, "change_outlet",
+    #                                   Outlet.objects.all())[0]
+    #     temp = super(MenuAddView, self).post(request, *args, **kwargs)
+    #     temp.context_data['form']['outlet'].field.initial = outlet
+    #     return temp
+
     def get(self, request, *args, **kwargs):
         outlet = get_objects_for_user(self.request.user, "change_outlet",
                                       Outlet.objects.all())[0]
