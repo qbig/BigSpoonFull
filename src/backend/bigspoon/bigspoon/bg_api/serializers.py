@@ -79,20 +79,19 @@ class OutletListSerializer(serializers.ModelSerializer):
         model = Outlet
 
 
-class OutletDetailSerializer(serializers.ModelSerializer):
-    dishes = DishSerializer(many=True)
-
-    class Meta:
-        model = Outlet
-
-
 class OutletTableSerializer(serializers.ModelSerializer):
     outlet = RelatedField(many=True)
 
     class Meta:
         model = Table
-        fields = ('name', 'qrcode')
-        read_only_fields = ('name', 'qrcode')
+
+
+class OutletDetailSerializer(serializers.ModelSerializer):
+    dishes = DishSerializer(many=True)
+    tables = OutletTableSerializer(many=True)
+
+    class Meta:
+        model = Outlet
 
 
 class RatingSerializer(serializers.ModelSerializer):
