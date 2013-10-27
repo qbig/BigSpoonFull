@@ -10,7 +10,7 @@ class RequestAdmin(admin.ModelAdmin):
 
 
 class MealAdmin(admin.ModelAdmin):
-    list_display = ['diner', 'table', 'is_active', 'is_paid',
+    list_display = ['diner', 'table', 'status', 'is_paid',
                     'created', 'modified', 'bill_time']
     list_display_links = ('diner', 'table',)
 

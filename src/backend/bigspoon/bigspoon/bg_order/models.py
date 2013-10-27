@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 from bg_inventory.models import User, Table, Dish
+from datetime import datetime
 
 
 class Request(models.Model):
@@ -90,6 +92,7 @@ class Meal(models.Model):
     status = models.IntegerField(
         max_length=1,
         choices=STATUS_CHOICES,
+        default=ACTIVE,
         help_text=_('status: 0-ACTIVE, 1-INACTIVE, 2-ASK_BILL')
     )
     is_paid = models.BooleanField(
@@ -111,12 +114,18 @@ class Meal(models.Model):
         null=True,
     )
 
+    @property
+    def wait_time(self):
+        diff = timezone.now() - self.modified
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return diffmod
+
     def __unicode__(self):
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
         return "(%s - %s) | %s | %s" % (self.table.outlet.name,
                                         self.table.name,
-                                        self.STATUS_CHOICES_DIC(self.status),
+                                        self.STATUS_CHOICES_DIC[self.status],
                                         meal_payment)
 
     class Meta:
