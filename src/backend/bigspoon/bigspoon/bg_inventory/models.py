@@ -221,6 +221,12 @@ class Profile(models.Model):
         """
         return "%s - %s" % (self.user, self.gender)
 
+    def get_favourite_categories(self):
+        favourites = ""
+        for category in self.favourite_categories.all():
+            favourites += (category.name+", ")
+        return favourites
+
     class Meta:
         verbose_name = _('profile')
         verbose_name_plural = _('profiles')

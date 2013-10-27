@@ -42,7 +42,7 @@
 
     {% if user.profile %}
     <div class="user-preferences">
-        <h4><i class="icon-frown"></i> Allergies</h4><p class="allergies">
+        <h4><i class="icon-frown"></i> Known Allergies</h4><p class="allergies">
             {{user.profile.allergies}}
         </p>
 
@@ -57,7 +57,7 @@
         </p>
 
         <h4><i class="icon-heart"></i> Favourite categories</h4><p class="favourites">
-        Pasta, seafood
+            {{user.profile.get_favourite_categories}}
         </p>
 
         <!-- last feedback -->
@@ -68,7 +68,13 @@
 
         <!-- manager notes -->
         <h4><i class="icon-file-alt"></i> Notes</h4>
-        <input class="notes" type="textarea" placeholder="Likes to sit near windows"/>
+        <input class="notes" type="textarea" placeholder="Likes to sit near windows" value="
+
+            {% for note in user.notes.all%}
+                {{note.content}}
+            {% endfor %}
+
+        "/>
     </div>
     {% endif %}
 
