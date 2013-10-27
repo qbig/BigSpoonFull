@@ -13,11 +13,11 @@ from rest_framework import renderers
 from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer, ProfileSerializer, OrderSerializer, \
+    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer
 from bg_inventory.models import Outlet, Profile, Category
-from bg_order.models import Order, Meal, Request
+from bg_order.models import Meal, Request
 
 User = get_user_model()
 
@@ -122,18 +122,7 @@ class ListCategory(generics.ListAPIView):
     model = Category
 
 
-# to be changed
-class CreateOrder(generics.CreateAPIView):
-    """
-    Create new order
-    """
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
-    permission_classes = (DjangoObjectPermissions,)
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-
-
-class MealList(generics.ListCreateAPIView):
+class MealList(generics.ListAPIView):
     """
     List meals or create new meal
     """
@@ -143,7 +132,16 @@ class MealList(generics.ListCreateAPIView):
     serializer_class = MealSerializer
 
 
-class CreateRequest(generics.CreateAPIView):
+class MealDetail(generics.RetrieveAPIView):
+    """
+    Show meal details
+    """
+    permission_classes = (AllowAny,)
+    serializer_class = MealDetailSerializer
+    model = Meal
+
+
+class CreateRequest(generics.ListCreateAPIView):
     """
     Create new request
     """

@@ -132,10 +132,17 @@ class MealSerializer(serializers.ModelSerializer):
         read_only_fields = ('created', 'modified')
 
 
+class MealDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Meal
+
+
 class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Request
+        read_only_fields = ('is_active', 'finished')
 
 
 class TokenSerializer(serializers.Serializer):
