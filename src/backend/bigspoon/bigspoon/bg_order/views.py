@@ -21,7 +21,7 @@ class MainView(ListView):
             "change_outlet",
             Outlet.objects.all()
         )
-        return super(MenuView, self).get_queryset()\
+        return super(MainView, self).get_queryset()\
             .prefetch_related('outlet', 'categories')\
             .filter(outlet__in=outlets)
 
