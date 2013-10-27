@@ -3,7 +3,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
 from bg_inventory.models import User, Table, Dish
-from datetime import datetime
 
 
 class Request(models.Model):
@@ -120,6 +119,9 @@ class Meal(models.Model):
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
 
+    def get_created(self):
+        return self.created.strftime('%d %b %Y')
+
     def __unicode__(self):
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
@@ -156,7 +158,7 @@ class Order(models.Model):
         return "(%s - %s) %s | %s x %s" % (
             self.meal.table.outlet.name,
             self.meal.table.name,
-            self.meal.diner.get_full_name,
+            self.meal.diner.get_full_name(),
             self.dish.name, self.quantity
         )
 
