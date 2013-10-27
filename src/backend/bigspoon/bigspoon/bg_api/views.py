@@ -2,15 +2,19 @@ from django.contrib.auth import get_user_model
 from django.http import Http404
 
 from rest_framework import generics
+from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, \
     SessionAuthentication
 from rest_framework.permissions import AllowAny, DjangoObjectPermissions
 from rest_framework.response import Response
+from rest_framework import parsers
+from rest_framework import renderers
+from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, OrderSerializer, \
-    MealSerializer, RequestSerializer
+    MealSerializer, RequestSerializer, TokenSerializer
 from bg_inventory.models import Outlet, Profile
 from bg_order.models import Order, Meal, Request
 
@@ -18,6 +22,9 @@ User = get_user_model()
 
 
 class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
+    """
+    Create User or Check user email exists
+    """
     permission_classes = (AllowAny,)
     serializer_class = UserSerializer
     model = User
@@ -25,19 +32,55 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
     def pre_save(self, user):
         user.set_password(user.password)
 
-    def get(self, request, format=None):
+    def get(self, request):
         useremail = request.QUERY_PARAMS.get('email', None)
         if useremail:
             try:
-                u = User.objects.get(email=useremail)
-                return Response({'token': u.auth_token.key})
+                User.objects.get(email=useremail)
+                return Response(status=status.HTTP_409_CONFLICT)
             except User.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    def post(self, request, *args, **kwargs):
+        response = self.create(request, *args, **kwargs)
+        del response.data['password']
+        return response
 
-class UserProfile(generics.RetrieveAPIView):
+
+class LoginUser(APIView):
+    """
+    Get user token by email and password
+    """
+    throttle_classes = ()
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser,
+                      parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = TokenSerializer
+    model = Token
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.DATA)
+        if serializer.is_valid():
+            u = serializer.object['user']
+            token, created = Token.objects.get_or_create(
+                user=u
+            )
+            return Response({
+                'email': u.email,
+                'first_name': u.first_name,
+                'last_name': u.last_name,
+                'auth_token': token.key
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfile(generics.RetrieveAPIView, generics.UpdateAPIView):
+    """
+    Get or update user profile
+    """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
     serializer_class = ProfileSerializer
@@ -52,22 +95,27 @@ class UserProfile(generics.RetrieveAPIView):
 
 
 class ListOutlet(generics.ListAPIView):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
-    permission_classes = (DjangoObjectPermissions,)
+    """
+    List all outlets
+    """
+    permission_classes = (AllowAny,)
     serializer_class = OutletListSerializer
     model = Outlet
 
 
 class OutletDetail(generics.RetrieveAPIView):
-    authentication_classes = (SessionAuthentication, TokenAuthentication)
-    permission_classes = (DjangoObjectPermissions,)
+    """
+    List outlet details including dishes
+    """
+    permission_classes = (AllowAny,)
     serializer_class = OutletDetailSerializer
     model = Outlet
 
 
+# to be changed
 class CreateOrder(generics.CreateAPIView):
     """
-    List all orders, or create a new order.
+    Create new order
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -77,7 +125,7 @@ class CreateOrder(generics.CreateAPIView):
 
 class MealList(generics.ListCreateAPIView):
     """
-    List all orders, or create a new order.
+    List meals or create new meal
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -87,7 +135,7 @@ class MealList(generics.ListCreateAPIView):
 
 class CreateRequest(generics.CreateAPIView):
     """
-    List all orders, or create a new order.
+    Create new request
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)

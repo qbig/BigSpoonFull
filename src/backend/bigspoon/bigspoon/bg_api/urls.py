@@ -7,6 +7,7 @@ urlpatterns = patterns(
     '',
     # user
     url(r'^user$', views.CreateUser.as_view()),
+    url(r'^login$', views.LoginUser.as_view()),
     # ordering
     url(r'^order$', views.CreateOrder.as_view()),
     url(r'^meal$', views.MealList.as_view()),
@@ -16,10 +17,9 @@ urlpatterns = patterns(
     # outlet
     url(r'^outlets$', views.ListOutlet.as_view()),
     url(r'^outlets/(?P<pk>[0-9]+)$', views.OutletDetail.as_view()),
+    # session auth
     url(r'^web-auth/',
         include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^token-auth/',
-        'rest_framework.authtoken.views.obtain_auth_token'),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

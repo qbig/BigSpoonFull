@@ -5,13 +5,12 @@ from bg_inventory.models import Restaurant, Outlet, Table,\
 from bg_order.models import Meal, Order, Request
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    meals = RelatedField(many=True)
-    requests = RelatedField(many=True)
 
     class Meta:
         model = User
@@ -150,3 +149,28 @@ class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Request
+
+
+class TokenSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = authenticate(username=email, password=password)
+
+            if user:
+                if not user.is_active:
+                    raise serializers.ValidationError(
+                        'User account is disabled.')
+                attrs['user'] = user
+                return attrs
+            else:
+                raise serializers.ValidationError(
+                    'Unable to login with provided credentials.')
+        else:
+            raise serializers.ValidationError(
+                'Must include "email" and "password"')
