@@ -16,8 +16,14 @@ class MainView(ListView):
     model = Meal
 
     def get_queryset(self):
-        return get_objects_for_user(self.request.user,
-                                    "change_meal", Meal.objects.all())
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        return super(MenuView, self).get_queryset()\
+            .prefetch_related('outlet', 'categories')\
+            .filter(outlet__in=outlets)
 
 
 class MenuView(ModelFormSetView):
@@ -29,9 +35,14 @@ class MenuView(ModelFormSetView):
 
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
-        outlet = get_objects_for_user(self.request.user, "change_outlet",
-                                      Outlet.objects.all())[0]
-        return super(MenuView, self).get_queryset().filter(outlet=outlet)
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        return super(MenuView, self).get_queryset()\
+            .prefetch_related('outlet', 'categories')\
+            .filter(outlet__in=outlets)
 
     def formset_valid(self, formset):
         print("Menu update form Valid")
@@ -58,10 +69,14 @@ class TableView(ListView):
 
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
-        outlet = get_objects_for_user(self.request.user, "change_outlet",
-                                      Outlet.objects.all())[0]
-        return super(TableView, self).get_queryset().filter(outlet=outlet).\
-            prefetch_related('meals').prefetch_related('meals__orders')
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        return super(TableView, self).get_queryset()\
+            .filter(outlet__in=outlets)\
+            .prefetch_related('meals', 'meals__orders')
 
 
 class UserView(TemplateView):

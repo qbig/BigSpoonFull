@@ -25,7 +25,7 @@ def _handle_csv_file(f, exclude_first_line=True):
 
     # Create the banklog object
     for row in uploaded_csv:
-        if len(row) is not 8:
+        if len(row) < 8:
             raise Exception("number of columns wrong.")
         try:
             o = Outlet.objects.get(pk=int(row[0].strip()))
@@ -53,7 +53,7 @@ def import_dish_csv(request):
             try:
                 _handle_csv_file(f, exclude_first_line)
             except Exception as e:
-                error = "The given csv file format is wrong. %s" % e
+                error = "The given csv file format is wrong.\n Error:%s" % e
                 messages.error(request, error)
             else:
                 status = "Dishes has been imported."
