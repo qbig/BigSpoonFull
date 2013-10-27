@@ -216,11 +216,12 @@
 #pragma mark fbLogin
 
 - (IBAction)fbButtonPressed:(id)sender {
-    NSLog(@"fbButtonPressed");
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        NSLog(@"Successfully logged in before");
-        [self performSegueWithIdentifier:@"" sender:self];
-    } else{
+    
+    if (FBSession.activeSession.isOpen) {
+        NSLog(@"FBSession.activeSession.isOpen IS open!");
+        [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+    }else{
+        NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];
     }
 }
@@ -231,7 +232,12 @@
     switch (state) {
         case FBSessionStateOpen: {
             NSLog(@"Successfully logged in with Facebook");
-            
+            if (FBSession.activeSession.isOpen) {
+                NSLog(@"YAY! Finally Become open!");
+                [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+            } else{
+                NSLog(@"Nope not yet");
+            }
         }
             break;
         case FBSessionStateClosed:{
@@ -263,7 +269,8 @@
 
 - (void)openSession
 {
-    [FBSession openActiveSessionWithReadPermissions:nil
+    NSArray *permissions = [[NSArray alloc] initWithObjects:@"email", @"basic_info", nil];
+    [FBSession openActiveSessionWithReadPermissions:permissions
                                        allowLoginUI:YES
                                   completionHandler:
      ^(FBSession *session,FBSessionState state, NSError *error) {

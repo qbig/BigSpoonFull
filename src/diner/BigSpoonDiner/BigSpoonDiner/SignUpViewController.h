@@ -10,6 +10,8 @@
 #import "User.h"
 #import "Constants.h"
 #import "SSKeychain.h"
+#import <FacebookSDK/FacebookSDK.h>
+
 
 @interface SignUpViewController : UIViewController <NSURLConnectionDelegate>
 
