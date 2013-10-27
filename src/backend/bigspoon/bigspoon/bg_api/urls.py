@@ -22,6 +22,8 @@ urlpatterns = patterns(
     # session auth
     url(r'^web-auth/',
         include('rest_framework.urls', namespace='rest_framework')),
+    # documentation
+    url(r'^doc/', include('rest_framework_docs.urls')),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

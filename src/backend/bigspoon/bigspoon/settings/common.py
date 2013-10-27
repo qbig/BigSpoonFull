@@ -205,6 +205,9 @@ THIRD_PARTY_APPS = (
     # Django rest framework authtoken:
     'rest_framework.authtoken',
 
+    # Django rest framework documentation:
+    'rest_framework_docs',
+
     # Django object level permission:
     'guardian',
 

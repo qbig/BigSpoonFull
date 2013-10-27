@@ -44,10 +44,12 @@ class RestaurantSerializer(serializers.ModelSerializer):
     icon = serializers.SerializerMethodField('get_icon')
 
     def get_icon(self, obj):
-        return {
-            'original': obj.icon.url,
-            'thumbnail': obj.icon.url_200x200,
-        }
+        if obj.icon:
+            return {
+                'original': obj.icon.url,
+                'thumbnail': obj.icon.url_200x200,
+            }
+        return "no icon"
 
     class Meta:
         model = Restaurant
@@ -59,10 +61,12 @@ class DishSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
 
     def get_photo(self, obj):
-        return {
-            'original': obj.photo.url,
-            'thumbnail': obj.photo.url_640x400,
-        }
+        if obj.photo:
+            return {
+                'original': obj.photo.url,
+                'thumbnail': obj.photo.url_640x400,
+            }
+        return "no photo"
 
     class Meta:
         model = Dish
@@ -73,7 +77,6 @@ class OutletListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Outlet
-        read_only_fields = ('name', 'desc')
 
 
 class OutletDetailSerializer(serializers.ModelSerializer):
@@ -81,7 +84,6 @@ class OutletDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Outlet
-        read_only_fields = ('name', 'desc')
 
 
 class OutletTableSerializer(serializers.ModelSerializer):
