@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Outlet.h"
+#import "OrderHistoryViewController.h"
 
 @class MenuViewController;
 
@@ -16,7 +17,7 @@
 @end
 
 
-@interface MenuViewController : UIViewController <NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <SettingsViewControllerDelegate, NSURLConnectionDelegate>
 
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
