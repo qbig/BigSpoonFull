@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Constants.h"
 #import "User.h"
+#import "SSKeychain.h"
 
 @interface LoginViewController : UIViewController <NSURLConnectionDelegate>
 

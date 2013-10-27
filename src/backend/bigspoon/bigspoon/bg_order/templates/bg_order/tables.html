@@ -6,7 +6,7 @@
 {% block content %}
 
 <div class="wrapper">
-    <div class="table">
+<!--     <div class="table">
         <h3>Table T01</h3>
 
         <span class='user'>
@@ -30,7 +30,7 @@
             <li>Root beer</li>
         </ul>
     </div>
-
+ -->
     {% for table in table_list %}
 
     <div class="table">
@@ -42,7 +42,7 @@
         </span>
             <ul class="order">
             {% for order in meal.orders.all %}
-                <li>{{order.dish.name}} {{order.dish.quantity}}</li>
+                <li>{{order.dish.name}} <em>x{{order.quantity}}</em></li>
             {% endfor %}
             </ul>
         {% endfor %}
