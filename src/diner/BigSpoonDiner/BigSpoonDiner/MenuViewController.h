@@ -42,5 +42,6 @@
 - (IBAction)itemsButtonPressed:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIView *container;
+@property (strong, nonatomic) MenuTableViewController *menuListViewController;
 
 @end

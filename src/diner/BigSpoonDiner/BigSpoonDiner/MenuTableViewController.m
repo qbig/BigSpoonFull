@@ -19,6 +19,8 @@
 
 @synthesize dishesArray;
 @synthesize outlet;
+@synthesize displayMethod;
+@synthesize displayCategory;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,6 +37,9 @@
     
     [self loadDishesFromServer];
     
+    // By default:
+    displayCategory = kCategoryBreakfast;
+    displayMethod = kMethodPhoto;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,19 +71,42 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MenuListCell *cell = (MenuListCell *)[tableView
+    
+    if (self.displayMethod == kMethodList) {
+        
+        MenuListCell *cell = (MenuListCell *)[tableView
                                       dequeueReusableCellWithIdentifier:@"MenuListCell"];
     
+        Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
     
-	Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
+        cell.nameLabel.text = dish.name;
     
-	cell.nameLabel.text = dish.name;
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
     
-	cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
+        cell.descriptionLabel.text = dish.description;
+        
+        return cell;
+
+    }
     
-	cell.descriptionLabel.text = dish.description;
+    else {
+        
+        MenuPhotoCell *cell = (MenuPhotoCell *)[tableView
+                                              dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
+        
+        Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
+        
+        //cell.imageView.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+        cell.nameLabel.text = dish.name;
+        
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
+        
+        cell.descriptionLabel.text = dish.description;
+        
+        return cell;
+
+    }
     
-    return cell;
 }
 
 - (void) loadDishesFromServer{
