@@ -286,6 +286,11 @@ class Outlet(models.Model):
         blank=False,
         help_text=_('outlet opening hours')
     )
+    treshold = models.IntegerField(
+        _('treshold'),
+        default=10,
+        help_text=_('service time treshold'),
+    )
 
     def __unicode__(self):
         """

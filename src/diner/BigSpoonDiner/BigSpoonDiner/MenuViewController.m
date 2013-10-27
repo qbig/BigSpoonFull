@@ -101,12 +101,12 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"FromMenuListToOrderHistory"]) {
+    if ([segue.identifier isEqualToString:@"SegueFromMenuListToOrderHistory"]) {
 		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
 		orderHistoryViewController.delegate = self;
         
 	} else{
-        NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
+        NSLog(@"Segure in the menuViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
 
