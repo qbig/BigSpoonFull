@@ -14,8 +14,9 @@ from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, OrderSerializer, \
-    MealSerializer, RequestSerializer, TokenSerializer
-from bg_inventory.models import Outlet, Profile
+    MealSerializer, RequestSerializer, TokenSerializer, \
+    CategorySerializer
+from bg_inventory.models import Outlet, Profile, Category
 from bg_order.models import Order, Meal, Request
 
 User = get_user_model()
@@ -110,6 +111,15 @@ class OutletDetail(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
     serializer_class = OutletDetailSerializer
     model = Outlet
+
+
+class ListCategory(generics.ListAPIView):
+    """
+    List all categories
+    """
+    permission_classes = (AllowAny,)
+    serializer_class = CategorySerializer
+    model = Category
 
 
 # to be changed

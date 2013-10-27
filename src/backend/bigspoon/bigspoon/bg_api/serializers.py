@@ -28,10 +28,6 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
 
     user = serializers.SerializerMethodField('get_user')
-    gender = serializers.SerializerMethodField('get_gender')
-    is_vegetarian = serializers.SerializerMethodField('get_is_vegetarian')
-    is_muslim = serializers.SerializerMethodField('get_is_muslim')
-    favourite = CategorySerializer(many=True)
 
     def get_user(self, obj):
         return {
@@ -39,15 +35,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             'first_name': obj.user.first_name,
             'last_name': obj.user.last_name,
         }
-
-    def get_gender(self, obj):
-        return Profile.GENDER_TYPES_DIC[obj.gender]
-
-    def get_is_vegetarian(self, obj):
-        return Profile.YES_NO_CHOICES_DIC[obj.is_vegetarian]
-
-    def get_is_muslim(self, obj):
-        return Profile.YES_NO_CHOICES_DIC[obj.is_muslim]
 
     class Meta:
         model = Profile

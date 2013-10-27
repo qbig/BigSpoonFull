@@ -177,6 +177,7 @@ class Profile(models.Model):
         _('gender'),
         max_length=1,
         choices=GENDER_TYPES,
+        default='M',
         help_text=_('user gender information'),
     )
     is_vegetarian = models.CharField(
@@ -195,12 +196,14 @@ class Profile(models.Model):
     )
     allergies = models.TextField(
         _('allergies'),
+        blank=True,
         help_text=_('user allergies (e.g. peanut)')
     )
     favourite_categories = models.ManyToManyField(
         Category,
+        blank=True,
         help_text=_('user favourite categories'),
-        related_name='prefer_users',
+        related_name='prefered_user_profiles',
     )
 
     def __unicode__(self):
