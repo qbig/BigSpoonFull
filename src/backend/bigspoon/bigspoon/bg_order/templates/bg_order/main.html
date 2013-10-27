@@ -19,13 +19,16 @@
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
-            <li>{{order.dish.name}} - {{order.quantity}}</li>
+            <li>{{order.dish.name}}  <em>{{order.quantity}}</em></li>
             {% endfor %}
         </ul>
 
         <a class="acknowledge" href="#"><i class="icon-check-empty"></i> Acknowledge</a>
     </div>
     {% endfor %}
+{% endblock %}
+
+
+
     <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
     <script src="{% static "js/main.js"%}"></script>
-{% endblock %}
