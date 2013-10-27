@@ -213,9 +213,63 @@
     [activityIndicator stopAnimating];
 }
 
-#praga mark fbLogin
+#pragma mark fbLogin
 
 - (IBAction)fbButtonPressed:(id)sender {
     NSLog(@"fbButtonPressed");
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        NSLog(@"Successfully logged in before");
+        [self performSegueWithIdentifier:@"" sender:self];
+    } else{
+        [self openSession];
+    }
+}
+
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error{
+    switch (state) {
+        case FBSessionStateOpen: {
+            NSLog(@"Successfully logged in with Facebook");
+            
+        }
+            break;
+        case FBSessionStateClosed:{
+            NSLog(@"FBSessionStateClosed");
+        }
+            break;
+        case FBSessionStateClosedLoginFailed:
+            // Once the user has logged in, we want them to
+            // be looking at the root view.
+            NSLog(@"Failed logging with Facebook");
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+            break;
+        default:
+            NSLog(@"Other cases");
+            break;
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+- (void)openSession
+{
+    [FBSession openActiveSessionWithReadPermissions:nil
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,FBSessionState state, NSError *error) {
+         [self sessionStateChanged:session state:state error:error];
+         
+         FBSession.activeSession = session;
+     }];
 }
 @end
