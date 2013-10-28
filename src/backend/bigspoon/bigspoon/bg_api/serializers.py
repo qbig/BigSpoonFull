@@ -143,7 +143,9 @@ class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Request
-        read_only_fields = ('is_active', 'finished')
+        fields = ('table', 'note', 'request_type', 'is_active',
+                  'finished', 'diner')
+        read_only_fields = ('is_active', 'finished', 'diner')
 
 
 class TokenSerializer(serializers.Serializer):

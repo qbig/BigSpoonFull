@@ -30,8 +30,8 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
     serializer_class = UserSerializer
     model = User
 
-    def pre_save(self, user):
-        user.set_password(user.password)
+    def pre_save(self, obj):
+        obj.set_password(obj.password)
 
     def get(self, request):
         useremail = request.QUERY_PARAMS.get('email', None)
@@ -171,14 +171,17 @@ class MealDetail(generics.RetrieveAPIView):
     model = Meal
 
 
-class CreateRequest(generics.ListCreateAPIView):
+class CreateRequest(generics.CreateAPIView):
     """
     Create new request
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    queryset = Request.objects.all()
     serializer_class = RequestSerializer
+    model = Request
+
+    def pre_save(self, obj):
+        obj.diner = self.request.user
 
 
 class AskForBill(generics.GenericAPIView):

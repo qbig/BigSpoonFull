@@ -40,6 +40,7 @@
         <a href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
+        <p>{{request.note}}</p>
         <a class="acknowledge"><i class="icon-check-sign"></i> Acknowledge</a>
     </div>
     {% endfor %}
