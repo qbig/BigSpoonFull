@@ -29,6 +29,7 @@
 @synthesize quantityOfWarmWaterLabel;
 @synthesize requestForWaiterView;
 @synthesize requestForBillView;
+@synthesize ratingsTableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -154,6 +155,7 @@
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
             [alertView show];
+            [self.ratingsView setHidden:NO];
         }
         else if([title isEqualToString:@"Cancel"])
         {
@@ -263,5 +265,13 @@
     self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
     
     [self.requestWaterView setHidden:YES];
+}
+- (IBAction)ratingSubmitButtonPressed:(id)sender {
+    
+    [self ratingCancelButtonPressed:nil];
+}
+
+- (IBAction)ratingCancelButtonPressed:(id)sender {
+    [self.ratingsView setHidden:YES];
 }
 @end
