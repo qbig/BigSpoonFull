@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.http import Http404
+from datetime import datetime
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -191,12 +192,17 @@ class AskForBill(generics.GenericAPIView):
     model = Meal
 
     def post(self, request, *args, **kwargs):
-        table = Table.objects.get(id=int(request.DATA['table']))
+        try:
+            table = Table.objects.get(id=int(request.DATA['table']))
+        except Table.DoesNotExist:
+            raise Http404
         diner = request.user
-        meal = Meal.objects.filter(table=table, diner=diner,
-                                   is_paid=False)[0]
-        if meal:
+        meals = Meal.objects.filter(table=table, diner=diner,
+                                    is_paid=False)
+        if meals.count() > 0:
+            meal = meals[0]
             meal.status = Meal.ASK_BILL
+            meal.modified = datetime.now()
             meal.save()
             return Response({"meal_id": meal.id, }, status=status.HTTP_200_OK)
 
