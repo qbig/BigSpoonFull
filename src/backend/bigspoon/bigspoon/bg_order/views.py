@@ -3,14 +3,18 @@ from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
+from django.contrib.auth import get_user_model
+from django.http import Http404
 
 from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import User, Dish, Outlet, Table
+from bg_inventory.models import Dish, Outlet, Table
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
+
+User = get_user_model()
 
 
 class MainView(TemplateView):
@@ -130,9 +134,12 @@ class UserView(UpdateView):
     model = User
     template_name = "bg_order/user.html"
 
-    def get(self, request, *args, **kwargs):
-        temp = super(UserView, self).get(request, *args, **kwargs)
-        return temp
+    def get_object(self, queryset=None):
+        try:
+            obj = User.objects.get(pk=self.kwargs['pk'])
+        except User.DoesNotExist:
+            raise Http404
+        return obj
 
 
 class ReportView(ListView):
