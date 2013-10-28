@@ -62,7 +62,33 @@
 
 - (IBAction)requestForWaterButtonPressed:(id)sender {
     NSLog(@"requestForWaterButtonPressed");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+    User *user = [User sharedInstance];
+    
+    NSDictionary *parameters = @{
+                                 @"token": user.auth_token,
+                                 @"table_id": @"3",
+                                 @"request_type": @"0"
+                                 };
+    [manager POST:REQUEST_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:{
+                NSLog(@"Success");
+                
+            }
+                break;
+            case 403:{
+                NSLog(@"Authentication credentials were not provided.");
+            }
+            default:
+                break;
+        }
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 
 }
 
