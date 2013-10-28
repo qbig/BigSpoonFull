@@ -32,7 +32,7 @@
     {% endfor %}
     {% for request in requests_cards %}
     <div class="item">
-        {% if request.wait_time.0 > meal.table.outlet.treshold %}
+        {% if request.wait_time.0 > request.table.outlet.treshold %}
         <span class="urgent time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
