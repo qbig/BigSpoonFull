@@ -157,10 +157,10 @@
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [indexPath row] * 100;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return [indexPath row] * 100;
+//}
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // Append the new data to the instance variable you declared
@@ -229,7 +229,7 @@
                                        ];
                 
                 [self addDish:newDishObject];
-                
+                NSLog(@"Adding one dish!!!");
             }
             
             break;
