@@ -10,7 +10,8 @@
 #import "Outlet.h"
 #import "OrderHistoryViewController.h"
 #import "MenuTableViewController.h"
-
+#import <AFHTTPRequestOperationManager.h>
+#import "User.h"
 
 @class MenuViewController;
 
