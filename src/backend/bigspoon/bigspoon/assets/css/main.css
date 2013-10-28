@@ -335,6 +335,10 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     background: #0C4;
 }
 
+.item span.passed {
+    background: #C4C4C4;
+}
+
 .item h3 {
     margin-top: 0px;
     margin-bottom: 0px;

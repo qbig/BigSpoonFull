@@ -5,7 +5,7 @@
 
 {% block content %}
 
-    {% for meal in object_list %}
+    {% for meal in meal_cards %}
     <div class="item">
         {% if meal.wait_time.0 > meal.table.outlet.treshold %}
         <span class="urgent time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
@@ -28,6 +28,19 @@
         {% else %}
             <a class="closebill"><i class="icon-money"></i> Close Bill</a>
         {% endif %}
+    </div>
+    {% endfor %}
+    {% for request in requests_cards %}
+    <div class="item">
+        {% if request.wait_time.0 > meal.table.outlet.treshold %}
+        <span class="urgent time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
+        {% else %}
+        <span class="early time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
+        {% endif %}
+        <a href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
+        <h3>{{ request.table.name }}</h3>
+        <h4>{{ request.diner.get_full_name }}</h4>
+        <a class="acknowledge"><i class="icon-check-sign"></i> Acknowledge</a>
     </div>
     {% endfor %}
 {% endblock content %}

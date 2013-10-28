@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
@@ -8,16 +8,15 @@ from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
 from bg_inventory.models import User, Dish, Outlet, Table
-from bg_order.models import Meal
+from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
 
 
-class MainView(ListView):
+class MainView(TemplateView):
     template_name = "bg_order/main.html"
-    model = Meal
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
         outlets = get_objects_for_user(
             self.request.user,
             "change_outlet",
@@ -25,17 +24,23 @@ class MainView(ListView):
         )
         if (outlets.count() == 0):
             raise PermissionDenied
-        return super(MainView, self).get_queryset()\
+        context = super(MainView, self).get_context_data(**kwargs)
+        context['meal_cards'] = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
+        context['requests_cards'] = Request.objects\
+            .prefetch_related('diner', 'table')\
+            .filter(table__outlet__in=outlets)\
+            .filter(is_active=True)
+        return context
 
 
-class HistoryView(ListView):
+class HistoryView(TemplateView):
     template_name = "bg_order/history.html"
     model = Meal
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
         outlets = get_objects_for_user(
             self.request.user,
             "change_outlet",
@@ -43,9 +48,16 @@ class HistoryView(ListView):
         )
         if (outlets.count() == 0):
             raise PermissionDenied
-        return super(HistoryView, self).get_queryset()\
+        context = super(HistoryView, self).get_context_data(**kwargs)
+        context['meal_cards'] = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
-            .filter(table__outlet__in=outlets, status=Meal.INACTIVE)
+            .filter(table__outlet__in=outlets)\
+            .filter(status=Meal.INACTIVE)
+        context['requests_cards'] = Request.objects\
+            .prefetch_related('diner', 'table')\
+            .filter(table__outlet__in=outlets)\
+            .filter(is_active=False)
+        return context
 
 
 class MenuView(ModelFormSetView):
