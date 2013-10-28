@@ -12,6 +12,7 @@
 #import "MenuTableViewController.h"
 #import <AFHTTPRequestOperationManager.h>
 #import "User.h"
+#import "RequestWaterViewController.h"
 
 @class MenuViewController;
 
@@ -25,6 +26,7 @@
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
+@property (nonatomic, strong) RequestWaterViewController *requestWaterViewController;
 
 // Buttons:
 

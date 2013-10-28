@@ -17,6 +17,7 @@
 @synthesize delegate;
 @synthesize outlet;
 @synthesize menuListViewController;
+@synthesize requestWaterViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +33,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
-    //MenuTableViewController *menuTableViewController = [self.container ];
+    self.requestWaterViewController = [[RequestWaterViewController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,6 +63,11 @@
 
 - (IBAction)requestForWaterButtonPressed:(id)sender {
     NSLog(@"requestForWaterButtonPressed");
+    
+    [self.view addSubview: self.requestWaterViewController.controlPanelView];
+     
+    
+    return;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     User *user = [User sharedInstance];
