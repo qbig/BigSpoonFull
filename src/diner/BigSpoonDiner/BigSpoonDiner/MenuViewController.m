@@ -10,6 +10,9 @@
 
 @interface MenuViewController ()
 
+@property (nonatomic, strong) UIAlertView *requestForWaiterView;
+@property (nonatomic, strong) UIAlertView *requestForBillView;
+
 @end
 
 @implementation MenuViewController
@@ -24,6 +27,8 @@
 
 @synthesize quantityOfColdWaterLabel;
 @synthesize quantityOfWarmWaterLabel;
+@synthesize requestForWaiterView;
+@synthesize requestForBillView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,12 +79,25 @@
 
 - (IBAction)callWaiterButtonPressed:(id)sender {
     NSLog(@"callWaiterButtonPressed");
-
+    self.requestForWaiterView = [[UIAlertView alloc]
+                              initWithTitle:@"Call For Service"
+                              message:@"Require assistance from the waiter?"
+                              delegate:self
+                              cancelButtonTitle:@"Yes"
+                              otherButtonTitles:@"Cancel", nil];
+    [self.requestForWaiterView show];
 }
 
 - (IBAction)billButtonPressed:(id)sender {
     NSLog(@"billButtonPressed");
-
+    NSLog(@"callWaiterButtonPressed");
+    self.requestForBillView = [[UIAlertView alloc]
+                                 initWithTitle:@"Call For Service"
+                               message:@"Would you like the bill?"
+                                 delegate:self
+                                 cancelButtonTitle:@"Yes"
+                                 otherButtonTitles:@"Cancel", nil];
+    [self.requestForBillView show];
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
@@ -119,7 +137,50 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-// Delegate:
+#pragma mark Delegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    
+    if ([alertView isEqual:self.requestForBillView]) {
+        if([title isEqualToString:@"Yes"])
+        {
+            NSLog(@"Request For Bill");
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:@"Call For Service"
+                                      message:@"The waiter will be right with you"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+            [alertView show];
+        }
+        else if([title isEqualToString:@"Cancel"])
+        {
+            NSLog(@"Request For bill Canceled");
+        }else{
+            NSLog(@"Unrecognized button pressed");
+        }
+    } else if ([alertView isEqual:self.requestForWaiterView]){
+        if([title isEqualToString:@"Yes"])
+        {
+            NSLog(@"Request For Waiter");
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:@"Call For Service"
+                                      message:@"The waiter will be right with you"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+            [alertView show];
+        }
+        else if([title isEqualToString:@"Cancel"])
+        {
+            NSLog(@"Request For waiter Canceled");
+        }else{
+            NSLog(@"Unrecognized button pressed");
+        }
+    }
+}
 
 - (void) DishOrdered:(Dish *)dish{
     NSLog(@"New Dish Ordered!");
