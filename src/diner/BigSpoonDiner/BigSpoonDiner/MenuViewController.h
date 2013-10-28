@@ -46,4 +46,31 @@
 @property (strong, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
 
+
+// "Call For Service" Control Panel:
+@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+
+@property (nonatomic) int quantityOfColdWater;
+@property (nonatomic) int quantityOfWarmWater;
+
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfWarmWaterLabel;
+
+- (IBAction)plusColdWaterButtonPressed:(id)sender;
+- (IBAction)minusColdWaterButtonPressed:(id)sender;
+
+- (IBAction)plusWarmWaterButtonPressed:(id)sender;
+- (IBAction)minusWarmWaterButtonPressed:(id)sender;
+
+- (IBAction)requestWaterOkayButtonPressed:(id)sender;
+- (IBAction)requestWaterCancelButtonPressed:(id)sender;
+
+// "Bill" Control Panel:
+@property (strong, nonatomic) IBOutlet UIView *ratingsView;
+@property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
+@property (strong, nonatomic) IBOutlet UITextView *feedbackTextView;
+
+- (IBAction)ratingSubmitButtonPressed:(id)sender;
+- (IBAction)ratingCancelButtonPressed:(id)sender;
+
 @end
