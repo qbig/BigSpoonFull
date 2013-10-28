@@ -20,7 +20,7 @@
 @end
 
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UIAlertViewDelegate, NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, NSURLConnectionDelegate>
 
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;

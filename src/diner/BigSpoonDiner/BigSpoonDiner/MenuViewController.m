@@ -45,6 +45,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
+    //MenuTableViewController *menuTableViewController = [self.container ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,8 +75,7 @@
 
 - (IBAction)requestForWaterButtonPressed:(id)sender {
     NSLog(@"requestForWaterButtonPressed");
-    
-    [self.requestWaterView setHidden:NO];
+    [self animateControlPanelView:self.requestWaterView willShow:YES];
 }
 
 - (IBAction)callWaiterButtonPressed:(id)sender {
@@ -155,7 +155,7 @@
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
             [alertView show];
-            [self.ratingsView setHidden:NO];
+            [self animateControlPanelView:self.ratingsView willShow:YES];
         }
         else if([title isEqualToString:@"Cancel"])
         {
@@ -264,7 +264,7 @@
     self.quantityOfWarmWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfWarmWater];
     self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
     
-    [self.requestWaterView setHidden:YES];
+    [self animateControlPanelView:self.requestWaterView willShow:NO];
 }
 - (IBAction)ratingSubmitButtonPressed:(id)sender {
     
@@ -272,6 +272,18 @@
 }
 
 - (IBAction)ratingCancelButtonPressed:(id)sender {
-    [self.ratingsView setHidden:YES];
+    [self animateControlPanelView:self.ratingsView willShow:NO];
 }
+
+#pragma makr Animations
+
+- (void) animateControlPanelView: (UIView *)view willShow: (BOOL) willShow{
+    
+    [UIView animateWithDuration:5.0
+                     animations:^{
+                         [view setHidden: !willShow];
+                     }];
+}
+
+
 @end

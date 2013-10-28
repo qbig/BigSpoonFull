@@ -118,8 +118,6 @@
     
     NSString *requestURL = [LIST_OUTLETS stringByAppendingString:appendURL];
     
-    NSLog(@"asdfasdfasdfas %@", requestURL);
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestURL]];
     request.HTTPMethod = @"GET";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
