@@ -9,11 +9,17 @@
 <div class="user-info">
 
     <span class='user'>
-        <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
+        <img class="thumbnail-navigation" src="{{user.avatar_url}}" />
         <h3>{{user.first_name}} {{user.last_name}}</h3>
     </span>
 
     <span class='user-stats'>
+        {% if user.profile.gender == 'M' %}
+        <p class='visits'><i class="icon-male"></i></p>
+        {% elif user.profile.gender == 'F' %}
+        <p class='visits'><i class="icon-female"></i></p>
+        {% else %}
+        {% endif %}
         <p class='visits'><i class="icon-user"></i> {{user.meals.count}} visits</p>
         <p class='spent'><i class="icon-dollar"></i> {{user.get_total_spending}} spent</p>
     </span>
@@ -21,38 +27,58 @@
     <!-- order history -->
     <div class="past-orders">
         <h3><i class="icon-time"></i> Past Orders</h3>
-        <h5>October 19</h5>
+        {% for meal in user.meals.all%}
+
+        <h5>{{meal.get_created}}</h5>
+
         <ul class="order">
-            <li>Tandoori Chicken</li>
-            <li>Penang Laksa</li>
-            <li>Root beer</li>
+        {% for order in meal.orders.all %}
+            <li>{{order.dish}} <em>{{order.quantity}}</em></li>
+        {% endfor %}
         </ul>
 
-        <h5>August 9</h5>
-        <ul class="order">
-            <li>Tandoori Chicken</li>
-            <li>Penang Laksa</li>
-            <li>Root beer</li>
-        </ul>
+        {% endfor %}
     </div>
 
+    {% if user.profile %}
     <div class="user-preferences">
-        <h4><i class="icon-frown"></i> Allergies</h4><p class="allergies">Scallops, pickles</p>
+        <h4><i class="icon-frown"></i> Known Allergies</h4><p class="allergies">
+            {{user.profile.allergies}}
+        </p>
 
-        <h4><i class="icon-warning-sign"></i> Vegetarian</h4><p class="vegetarian">No</p>
+        <h4><i class="icon-warning-sign"></i> Dietary requirements</h4><p class="vegetarian">
+        {% if user.profile.vegetarian %}
+            Vegetarian
+        {% endif %}
 
-        <h4><i class="icon-heart"></i> Favourite items</h4><p class="favourites">Pasta, seafood</p>
+        {% if user.profile.muslim %}
+            Muslim
+        {% endif %}
+        </p>
+
+        <h4><i class="icon-heart"></i> Favourite categories</h4><p class="favourites">
+            {{user.profile.get_favourite_categories}}
+        </p>
 
         <!-- last feedback -->
         <h4><i class="icon-star"></i> Feedback</h4>
-        <p class="feedback">Last visit was good. Food is great.</p>
+        <p class="feedback">
+        Last visit was good. Food is great.
+        </p>
 
         <!-- manager notes -->
         <h4><i class="icon-file-alt"></i> Notes</h4>
-        <input class="notes" type="textarea" placeholder="Likes to sit near windows"/>
+        <input class="notes" type="textarea" placeholder="Likes to sit near windows" value="
+
+            {% for note in user.notes.all%}
+                {{note.content}}
+            {% endfor %}
+
+        "/>
     </div>
+    {% endif %}
 
 </div>
 </div>
 
-{% endblock %}
+{% endblock content %}

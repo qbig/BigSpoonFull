@@ -24,7 +24,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ffF-mi-uHH" kind="modal" modalTransitionStyle="coverVertical" id="4OV-aI-hBG"/>
+                                    <action selector="fbButtonPressed:" destination="a1i-Wr-CeU" eventType="touchUpInside" id="q9a-ln-2Vs"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To get started, simply log in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BUE-xR-AXN">
@@ -41,7 +41,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ffF-mi-uHH" kind="modal" id="f6L-wo-XMw"/>
+                                    <segue destination="ffF-mi-uHH" kind="modal" identifier="SegueFromLoginToSignup" id="f6L-wo-XMw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RS3-47-u56">
@@ -96,8 +96,9 @@
                         <color key="backgroundColor" red="0.92549026012420654" green="0.92941182851791382" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="ETG-My-DrL" id="uvk-ET-BJb"/>
+                        <outlet property="activityIndicator" destination="ETG-My-DrL" id="R3O-zC-Pqq"/>
                         <outlet property="emailLabel" destination="qcj-26-zEi" id="V8L-PG-bdw"/>
+                        <outlet property="fbButton" destination="QSJ-Wx-9kb" id="ezC-jQ-SDO"/>
                         <outlet property="passwordField" destination="5MA-48-CfT" id="FJl-Ls-KBK"/>
                         <outlet property="submitButton" destination="86u-ti-hRG" id="mct-7e-Htu"/>
                         <segue destination="jIA-Id-th3" kind="modal" identifier="SegueOnSuccessfulLogin" id="NcF-ES-z1f"/>
@@ -105,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVX-3W-w7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-734" y="531"/>
+            <point key="canvasLocation" x="-906" y="411"/>
         </scene>
         <!--Sign Up View Controller - AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
@@ -191,7 +192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-135" y="209"/>
+            <point key="canvasLocation" x="-171" y="93"/>
         </scene>
         <!--Outlets Table View Controller - Outlets-->
         <scene sceneID="Aj7-bl-XUx">
@@ -276,48 +277,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cj-rM-k6r">
-                                <rect key="frame" x="96" y="76" width="42" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Mains">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="mainButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="Olz-It-WPt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jca-gK-xwY">
-                                <rect key="frame" x="157" y="67" width="64" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <string key="title">Sides &amp;
-Snacks</string>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="sideButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="180-nD-1cX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLb-cY-C38">
-                                <rect key="frame" x="240" y="76" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Beverages">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="beverageButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="hbk-hJ-O31"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMr-Yr-mup">
-                                <rect key="frame" x="8" y="76" width="65" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Breakfast">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="breakfastButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="yEN-gz-QM6"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Outlet Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glx-H1-q4K">
                                 <rect key="frame" x="55" y="32" width="177" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -328,7 +287,7 @@ Snacks</string>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ArR-XE-dvZ">
                                 <rect key="frame" x="8" y="32" width="30" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Toggle" image="list_icon.png">
+                                <state key="normal" title="Toggle" image="photo_icon.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -356,11 +315,11 @@ Snacks</string>
                                 </connections>
                             </button>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OY8-ew-AZo">
-                                <rect key="frame" x="8" y="114" width="305" height="454"/>
+                                <rect key="frame" x="8" y="67" width="305" height="501"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="KE0-Fp-4U7" kind="embed" id="uZC-64-nPd"/>
+                                    <segue destination="KE0-Fp-4U7" kind="embed" identifier="SegueFromContainerToDishList" id="uZC-64-nPd"/>
                                 </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bottom_buttons.png" translatesAutoresizingMaskIntoConstraints="NO" id="rzZ-R2-gh1">
@@ -397,11 +356,8 @@ Snacks</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="beverageButton" destination="KLb-cY-C38" id="lCf-3k-cEC"/>
-                        <outlet property="breakfastButton" destination="VMr-Yr-mup" id="yBv-A7-Grr"/>
-                        <outlet property="mainButton" destination="3cj-rM-k6r" id="Lmc-Ia-VI7"/>
+                        <outlet property="container" destination="OY8-ew-AZo" id="3wv-wx-0wk"/>
                         <outlet property="outletNameLabel" destination="glx-H1-q4K" id="wXQ-TP-Jux"/>
-                        <outlet property="sideButton" destination="jca-gK-xwY" id="TqE-AL-AGY"/>
                         <outlet property="viewModeButton" destination="ArR-XE-dvZ" id="Ys7-3G-Wpk"/>
                     </connections>
                 </viewController>
@@ -414,12 +370,61 @@ Snacks</string>
             <objects>
                 <tableViewController id="KE0-Fp-4U7" userLabel="MenuTableViewController" customClass="MenuTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
-                        <rect key="frame" x="0.0" y="0.0" width="305" height="454"/>
+                        <rect key="frame" x="0.0" y="0.0" width="305" height="501"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="cTl-rN-X2W">
+                            <rect key="frame" x="0.0" y="0.0" width="305" height="60"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLb-cY-C38">
+                                    <rect key="frame" x="223" y="15" width="73" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Beverages">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="beveragesButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="2We-NN-HWx"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="jca-gK-xwY">
+                                    <rect key="frame" x="145" y="6" width="64" height="48"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal">
+                                        <string key="title">Sides &amp;
+Snacks</string>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="sidesAndSnacksButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="0ir-3Q-UHC"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cj-rM-k6r">
+                                    <rect key="frame" x="88" y="15" width="42" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Mains">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="mainsButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="q3d-Cy-dA0"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMr-Yr-mup">
+                                    <rect key="frame" x="6" y="15" width="65" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Breakfast">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="breakfastButtonPressed:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="KT5-j9-ra5"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuListCell" rowHeight="59" id="HgS-6H-ity" customClass="MenuListCell">
-                                <rect key="frame" x="0.0" y="22" width="305" height="59"/>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="MenuListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuListCell" rowHeight="59" id="HgS-6H-ity" customClass="MenuListCell">
+                                <rect key="frame" x="0.0" y="82" width="305" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgS-6H-ity" id="0rT-1q-Ya9">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="58"/>
@@ -465,8 +470,8 @@ Snacks</string>
                                     <outlet property="priceLabel" destination="t1W-aM-iIl" id="lGe-R5-KhQ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="186" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
-                                <rect key="frame" x="0.0" y="81" width="305" height="186"/>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="MenuPhotoCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="186" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
+                                <rect key="frame" x="0.0" y="141" width="305" height="186"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HiF-Sy-gJL" id="AmA-8O-KWh">
                                     <rect key="frame" x="0.0" y="0.0" width="305" height="185"/>
@@ -483,6 +488,9 @@ Snacks</string>
                                             <state key="normal">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="addButtonPressed:" destination="HiF-Sy-gJL" eventType="touchUpInside" id="48M-ls-9sw"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IA3-5n-3yL" userLabel="Rating">
                                             <rect key="frame" x="211" y="159" width="100" height="31"/>
@@ -500,8 +508,22 @@ Snacks</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhl-89-pKc">
+                                            <rect key="frame" x="20" y="126" width="46" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="U1t-2X-sVO" id="6NU-He-sGJ"/>
+                                    <outlet property="imageView" destination="3lS-eC-aBJ" id="mUs-ix-Cw0"/>
+                                    <outlet property="nameLabel" destination="dhl-89-pKc" id="HMX-pI-gTJ"/>
+                                    <outlet property="priceLabel" destination="SyZ-yA-tXV" id="m3s-zJ-WaL"/>
+                                    <outlet property="ratingImageView" destination="IA3-5n-3yL" id="7s8-PZ-anT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -512,7 +534,7 @@ Snacks</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pV2-Pz-y2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2115" y="1160"/>
+            <point key="canvasLocation" x="2200" y="1140"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">
@@ -554,7 +576,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5T1-4d-yAE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1310" y="1103"/>
+            <point key="canvasLocation" x="-1494" y="1103"/>
         </scene>
         <!--Order History View Controller-->
         <scene sceneID="ze2-eJ-tgg">
@@ -614,7 +636,7 @@ Snacks</string>
         <image name="gear.png" width="104" height="104"/>
         <image name="home.png" width="103" height="103"/>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
-        <image name="list_icon.png" width="109" height="105"/>
+        <image name="photo_icon.png" width="121" height="105"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -622,7 +644,6 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4OV-aI-hBG"/>
-        <segue reference="ew3-Pm-EPj"/>
+        <segue reference="NcF-ES-z1f"/>
     </inferredMetricsTieBreakers>
 </document>

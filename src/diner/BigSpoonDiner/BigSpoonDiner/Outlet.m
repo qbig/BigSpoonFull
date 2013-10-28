@@ -17,8 +17,14 @@
 @synthesize address;    
 @synthesize phoneNumber;
 @synthesize operatingHours;
+@synthesize outletID;
 
-- (id) initWithImgURL:(NSURL *)u Name:(NSString *)n Address:(NSString *)a PhoneNumber:(NSString *)p OperationgHours:(NSString *)o{
+- (id) initWithImgURL:(NSURL *)u
+                 Name:(NSString *)n
+              Address:(NSString *)a
+          PhoneNumber:(NSString *)p
+      OperationgHours:(NSString *)o
+             OutletID:(int)i{
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -26,6 +32,7 @@
         self.address = a;
         self.phoneNumber = p;
         self.operatingHours = o;
+        self.outletID = i;
     }
     return self;
 }

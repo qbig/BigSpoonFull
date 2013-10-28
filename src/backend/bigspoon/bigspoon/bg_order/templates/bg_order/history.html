@@ -1,10 +1,24 @@
-{% extends "base.html" %}
+{% extends "base_nav.html" %}
 
 {% load staticfiles %}
 {% load compress %}
 
 {% block content %}
-
-<p>This is the history page!</p>
-
-{% endblock %}
+    {% for meal in object_list %}
+    <div class="item">
+        <a href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
+        <h3>{{ meal.table.name }}</h3>
+        <h4>{{ meal.diner.get_full_name }}</h4>
+        <!-- Left color coded timing, list of orders, acknowledge button -->
+        <ul class="order">
+            {% for order in meal.orders.all %}
+            <li>{{order.dish.name}}  <em>{{order.quantity}}</em></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+{% endblock content %}
+{% block js %}
+<script src="{% static "js/masonry.pkgd.min.js"%}"></script>
+<script src="{% static "js/main.js"%}"></script>
+{% endblock js %}

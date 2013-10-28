@@ -10,9 +10,45 @@
 #import "Dish.h"
 #import "MenuListCell.h"
 #import "MenuPhotoCell.h"
+#import "Constants.h"
+#import "Outlet.h"
+
+enum DishDisplayMethod : NSUInteger {
+    kMethodList = 1,
+    kMethodPhoto = 2,
+};
+
+enum DishDisplayCategory : NSUInteger{
+    kCategoryBreakfast = 1,
+    kCategoryMains = 2,
+    kCategorySides = 3,
+    kCategoryBeverages = 4
+};
+
+@class MenuTableViewController;
+
+@protocol OrderDishDelegate <NSObject>
+- (void)DishOrdered: (Dish *)dish;
+@end
 
 @interface MenuTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
+
+@property (nonatomic, strong) id <OrderDishDelegate> delegate;
+
+@property (nonatomic, strong) Outlet *outlet;
+
+@property (nonatomic) enum DishDisplayMethod displayMethod;
+@property (nonatomic) enum DishDisplayCategory displayCategory;
+
+- (IBAction)breakfastButtonPressed:(id)sender;
+
+- (IBAction)mainsButtonPressed:(id)sender;
+
+- (IBAction)beveragesButtonPressed:(id)sender;
+
+- (IBAction)sidesAndSnacksButtonPressed:(id)sender;
+
 
 @end

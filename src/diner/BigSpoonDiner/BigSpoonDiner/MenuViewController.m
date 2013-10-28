@@ -16,6 +16,7 @@
 
 @synthesize delegate;
 @synthesize outlet;
+@synthesize menuListViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +32,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
+    //MenuTableViewController *menuTableViewController = [self.container ];
 }
 
 - (void)didReceiveMemoryWarning
@@ -45,10 +47,22 @@
 
 - (IBAction)viewModeButtonPressed:(id)sender {
     NSLog(@"viewModeButtonPressed");
+    if (self.menuListViewController.displayMethod == kMethodList){
+        self.menuListViewController.displayMethod = kMethodPhoto;
+        [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateHighlighted];
+        [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateNormal];
+
+    } else{
+        self.menuListViewController.displayMethod = kMethodList;
+        [self.viewModeButton setImage:[UIImage imageNamed:@"list_icon.png"] forState:UIControlStateHighlighted];
+        [self.viewModeButton setImage:[UIImage imageNamed:@"list_icon.png"] forState:UIControlStateNormal];
+    }
+    [self.menuListViewController.tableView reloadData];
 }
 
 - (IBAction)requestForWaterButtonPressed:(id)sender {
     NSLog(@"requestForWaterButtonPressed");
+    
 
 }
 
@@ -64,26 +78,6 @@
 
 - (IBAction)itemsButtonPressed:(id)sender {
     NSLog(@"itemsButtonPressed");
-
-}
-
-- (IBAction)breakfastButtonPressed:(id)sender {
-    NSLog(@"breakfastButtonPressed");
-
-}
-
-- (IBAction)mainButtonPressed:(id)sender {
-    NSLog(@"mainButtonPressed");
-
-}
-
-- (IBAction)sideButtonPressed:(id)sender {
-    NSLog(@"sideButtonPressed");
-
-}
-
-- (IBAction)beverageButtonPressed:(id)sender {
-    NSLog(@"beverageButtonPressed");
 
 }
 
@@ -105,7 +99,11 @@
 		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
 		orderHistoryViewController.delegate = self;
         
-	} else{
+	} else if ([segue.identifier isEqualToString:@"SegueFromContainerToDishList"]){
+        self.menuListViewController = segue.destinationViewController;
+        self.menuListViewController.outlet = self.outlet;
+        self.menuListViewController.delegate = self;
+    } else{
         NSLog(@"Segure in the menuViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
@@ -114,4 +112,11 @@
     NSLog(@"cancelled");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+// Delegate:
+
+- (void) DishOrdered:(Dish *)dish{
+    NSLog(@"New Dish Ordered!");
+}
+
 @end

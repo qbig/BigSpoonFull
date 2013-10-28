@@ -46,6 +46,11 @@
 
 </div>
 
-
-{% endblock %}
-
+{% endblock content %}
+{% block js %}
+<!--TIME PICKER - Load in this order: basejs, timepickerjs, datepair.js, run_timepicker.js-->
+<script src="{% static "js/timepicker/base.js"%}"></script>
+<script src="{% static "js/timepicker/jquery.timepicker.js"%}"></script>
+<script src="{% static "js/timepicker/datepair.js"%}"></script>
+<script src="{% static "js/timepicker/runtimepicker.js"%}"></script>
+{% endblock js %}

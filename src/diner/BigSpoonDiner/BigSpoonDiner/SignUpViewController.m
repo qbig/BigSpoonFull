@@ -37,6 +37,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self populateUserDetails];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -198,6 +200,26 @@
     [[self submitButton] setEnabled: YES];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     [activityIndicator stopAnimating];
+}
+
+#pragma mark fb
+
+- (void)populateUserDetails
+{
+    if (FBSession.activeSession.isOpen) {
+        [[FBRequest requestForMe] startWithCompletionHandler:
+         ^(FBRequestConnection *connection,
+           NSDictionary<FBGraphUser> *user,
+           NSError *error) {
+             if (!error) {
+                 self.firstNameLabel.text = user.first_name;
+                 self.lastNameLabel.text = user.last_name;
+                 self.emailAddressLabel.text = [user objectForKey:@"email"];
+             }
+         }];
+    } else{
+        NSLog(@"User is not logged in with Facebook");
+    }
 }
 
 @end
