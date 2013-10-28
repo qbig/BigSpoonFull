@@ -52,6 +52,23 @@
 }
 
 - (IBAction)submitButtonPressed:(id)sender {
+    
+    
+  
+    
+    if ([firstNameLabel.text isEqualToString:@""] || [lastNameLabel.text isEqualToString:@""] ||
+        [emailAddressLabel.text isEqualToString:@""] || [passwordLabel.text isEqualToString:@""]) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Oops"
+                                  message:@"Please make sure you've filled up the form"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        return;
+    }
+    
     NSError* error;
     [self showLoadingIndicators];
     

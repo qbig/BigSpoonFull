@@ -279,9 +279,31 @@
 
 - (void) animateControlPanelView: (UIView *)view willShow: (BOOL) willShow{
     
-    [UIView animateWithDuration:5.0
+    // view.alpha: how transparent it is. If 0, it still occupy its space on the screen
+    // view.hidden: whether it is shown. If no, it will not occupy its space on the screen
+    
+    // Set the alpha to the other way. And set it back in the animation.
+    if (willShow) {
+        view.alpha = 0;
+    } else{
+        view.alpha = 1;
+    }
+    
+    if (willShow) {
+        [view setHidden: !willShow];
+    }
+    [UIView animateWithDuration:0.5
                      animations:^{
-                         [view setHidden: !willShow];
+                         if (willShow) {
+                             view.alpha = 1;
+                         } else{
+                             view.alpha = 0;
+                         }
+                     }
+                     completion:^(BOOL finished){
+                         if (!willShow) {
+                             [view setHidden: !willShow];
+                         }
                      }];
 }
 
