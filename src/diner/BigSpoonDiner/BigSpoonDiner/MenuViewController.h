@@ -20,7 +20,7 @@
 @end
 
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UIAlertViewDelegate, NSURLConnectionDelegate>
 
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
@@ -45,5 +45,26 @@
 
 @property (strong, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
+
+
+// "Call For Service" control panel:
+@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+
+@property (nonatomic) int quantityOfColdWater;
+@property (nonatomic) int quantityOfWarmWater;
+
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfWarmWaterLabel;
+
+
+- (IBAction)plusColdWaterButtonPressed:(id)sender;
+- (IBAction)minusColdWaterButtonPressed:(id)sender;
+
+- (IBAction)plusWarmWaterButtonPressed:(id)sender;
+- (IBAction)minusWarmWaterButtonPressed:(id)sender;
+
+- (IBAction)requestWaterOkayButtonPressed:(id)sender;
+- (IBAction)requestWaterCancelButtonPressed:(id)sender;
+
 
 @end

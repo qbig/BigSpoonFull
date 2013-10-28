@@ -243,7 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				E9B7A28D180BF3EC009B6BD1 /* Custom Views */,
-				49CAFC50180BB9DE0058C900 /* Images */,
 				4999A20F180A50C300270B0B /* Models */,
 				4999A208180A4FCA00270B0B /* ViewControllers */,
 				49F107F1180886D600D2C8DD /* AppDelegate.h */,
@@ -256,6 +255,7 @@
 				49558BC2181D0BA800273090 /* SSKeychainQuery.m */,
 				49F107F4180886D600D2C8DD /* Main.storyboard */,
 				49F107FD180886D600D2C8DD /* Images.xcassets */,
+				49CAFC50180BB9DE0058C900 /* Images */,
 				49F107E9180886D600D2C8DD /* Supporting Files */,
 			);
 			path = BigSpoonDiner;
