@@ -397,6 +397,19 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     font-size: 14px;
 }
 
+.item a.closebill {
+    margin: 0 55px;
+    padding: 10px 20px;
+    width: 120px;
+    border-radius: 5px;
+    background-color: #468847;
+    color: white;
+    text-align:center;
+    text-decoration:none;
+    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size: 14px;
+}
+
 .item .icon{
     display: block;
     margin-bottom: 10px;
