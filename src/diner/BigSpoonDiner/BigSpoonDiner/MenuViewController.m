@@ -219,7 +219,7 @@
     NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
 
     NSDictionary *parameters = @{
-                                 @"table": @3,
+                                 @"table": @2,
                                  @"request_type": @0,
                                  @"note": note
                                  };
@@ -227,7 +227,8 @@
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: REQUEST_URL]];
     [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
-    
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
                                                        options:NSJSONWritingPrettyPrinted error:&error];
@@ -239,7 +240,8 @@
     [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         int responseCode = [operation.response statusCode];
         switch (responseCode) {
-            case 200:{
+            case 200:
+            case 201:{
                 NSLog(@"Success");
                 UIAlertView *alertView = [[UIAlertView alloc]
                                           initWithTitle:@"Call For Service"
@@ -267,7 +269,6 @@
 }
 
 - (void) displayErrorInfo: (NSString *) info{
-    NSLog(@"Authentication credentials were not provided.");
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"Oops"
                               message: info
