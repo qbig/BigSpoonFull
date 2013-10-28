@@ -1,7 +1,6 @@
 {% extends "base_nav.html" %}
 
 {% load staticfiles %}
-{% load compress %}
 
 {% block content %}
 
@@ -31,9 +30,3 @@
     </div>
     {% endfor %}
 {% endblock content %}
-{% block js %}
-{% compress js %}
-<script src="{% static "js/masonry.pkgd.min.js"%}"></script>
-<script src="{% static "js/main.js"%}"></script>
-{% endcompress %}
-{% endblock %}
