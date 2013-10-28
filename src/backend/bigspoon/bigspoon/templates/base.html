@@ -16,6 +16,7 @@
         <!--TIME PICKER-->
         <link rel="stylesheet" href="{% static "css/timepicker/jquery.timepicker.css" %}">
         <link rel="stylesheet" href="{% static "css/main.css" %}">
+        {% block css %}{% endblock %}
         {% endcompress %}
     </head>
     <body>
@@ -28,15 +29,8 @@
         {% compress js %}
         <script src="{% static "js/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
         <script src="{% static "js/jquery-1.10.1.min.js" %}"></script>
-        <script src="{% static "js/timepicker/base.js"%}"></script>
-        <script src="{% static "js/timepicker/jquery.timepicker.js"%}"></script>
-        <script src="{% static "js/timepicker/datepair.js"%}"></script>
-        <script src="{% static "js/timepicker/runtimepicker.js"%}"></script>
-        <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
-        <script src="{% static "js/main.js"%}"></script>
-        {% block js %}<!--Do not remove. For uncompressable JS Code.-->{% endblock %}
+        {% block js %}{% endblock %}
         {% endcompress %}
-        
-        {% block morejs %}<!--Do not remove. For uncompressable JS Code.-->{% endblock %}
+        {% block morejs %}<!--DO NOT REMOVE. FOR UNCOMPRESSABLE JS CODE.-->{% endblock %}
     </body>
 </html>

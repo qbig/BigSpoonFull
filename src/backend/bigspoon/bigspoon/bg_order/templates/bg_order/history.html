@@ -1,6 +1,7 @@
 {% extends "base_nav.html" %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block content %}
     {% for meal in object_list %}
@@ -17,3 +18,7 @@
     </div>
     {% endfor %}
 {% endblock content %}
+{% block js %}
+<script src="{% static "js/masonry.pkgd.min.js"%}"></script>
+<script src="{% static "js/main.js"%}"></script>
+{% endblock js %}

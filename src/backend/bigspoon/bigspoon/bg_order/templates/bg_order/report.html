@@ -1,6 +1,7 @@
 {% extends "base_nav.html" %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block content %}
 
@@ -33,6 +34,7 @@
 			<td class="separate-column">{{meal.created}}</td>
 			<td class="separate-column"><!-- {{order.dish.name}} {{order.quantity}}  --></td>
 			<td class="separate-column">{{meal.diner.get_full_name}}</td>
+			<td class="separate-column">{{<!-- meal. -->}}</td>
 		</tr>
 			{% for order in meal.orders.all %}
 			<tr>
