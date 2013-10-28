@@ -4,11 +4,14 @@
 {% load compress %}
 
 {% block content %}
-    {% for meal in object_list %}
+
+    {% for meal in meal_cards %}
     <div class="item">
+        <span class="passed time"><i class="icon-time"></i> finished in {{meal.used_time.0}} mins {{meal.used_time.1}} seconds</span>
         <a href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
+
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
@@ -17,4 +20,13 @@
         </ul>
     </div>
     {% endfor %}
+    {% for request in requests_cards %}
+    <div class="item">
+        <span class="passed time"><i class="icon-time"></i> finished in {{request.used_time.0}} mins {{request.used_time.1}} seconds</span>
+        <a href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
+        <h3>{{ request.table.name }}</h3>
+        <h4>{{ request.diner.get_full_name }}</h4>
+    </div>
+    {% endfor %}
+
 {% endblock content %}

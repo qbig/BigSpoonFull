@@ -48,6 +48,18 @@ class Request(models.Model):
         help_text=_('Request finish time')
     )
 
+    @property
+    def wait_time(self):
+        diff = timezone.now() - self.created
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return diffmod
+
+    @property
+    def used_time(self):
+        diff = self.finished - self.created
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return diffmod
+
     def __unicode__(self):
         request_status = "Active" if self.is_active else "Inactive"
         return "(%s) %s | %s" % (self.table.name, self.diner.first_name,
@@ -116,6 +128,12 @@ class Meal(models.Model):
     @property
     def wait_time(self):
         diff = timezone.now() - self.modified
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return diffmod
+
+    @property
+    def used_time(self):
+        diff = self.bill_time - self.created
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
 
