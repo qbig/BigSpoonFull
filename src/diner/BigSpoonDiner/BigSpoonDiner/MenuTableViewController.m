@@ -96,7 +96,7 @@
         
         Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
         
-        //cell.imageView.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+        cell.imageView.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
         cell.nameLabel.text = dish.name;
         
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
@@ -157,6 +157,11 @@
     
     _responseData = [[NSMutableData alloc] init];
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [indexPath row] * 100;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
