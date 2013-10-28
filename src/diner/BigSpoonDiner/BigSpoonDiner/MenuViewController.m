@@ -216,45 +216,65 @@
 
 - (IBAction)requestWaterOkayButtonPressed:(id)sender {
     
-    [self requestWaterCancelButtonPressed:nil];
-    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    
-//    User *user = [User sharedInstance];
-//    
-//    NSDictionary *parameters = @{
-//                                 @"token": user.auth_token,
-//                                 @"table_id": @"3",
-//                                 @"request_type": @"0"
-//                                 };
-//    [manager POST:REQUEST_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        int responseCode = [operation.response statusCode];
-//        switch (responseCode) {
-//            case 200:{
-//                NSLog(@"Success");
-//                
-//            }
-//                break;
-//            case 403:{
-//                NSLog(@"Authentication credentials were not provided.");
-//            }
-//            default:
-//                break;
-//        }
-//        NSLog(@"JSON: %@", responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
+    NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
 
+    NSDictionary *parameters = @{
+                                 @"table": @3,
+                                 @"request_type": @0,
+                                 @"note": note
+                                 };
     
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: REQUEST_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"POST";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:{
+                NSLog(@"Success");
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          initWithTitle:@"Call For Service"
+                                          message:@"The waiter will be right with you"
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                [alertView show];
+            }
+                break;
+            case 403:
+            default:{
+                [self displayErrorInfo: @"Please check your network"];
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", operation.responseString);
+        [self displayErrorInfo:operation.responseString];
+    }];
+    [operation start];
+    
+    [self requestWaterCancelButtonPressed:nil];
+}
+
+- (void) displayErrorInfo: (NSString *) info{
+    NSLog(@"Authentication credentials were not provided.");
     UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Call For Service"
-                              message:@"The waiter will be right with you"
+                              initWithTitle:@"Oops"
+                              message: info
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
     [alertView show];
-    
 }
 
 - (IBAction)requestWaterCancelButtonPressed:(id)sender {
