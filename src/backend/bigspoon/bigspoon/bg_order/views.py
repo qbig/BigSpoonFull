@@ -28,7 +28,7 @@ class MainView(ListView):
         return super(MainView, self).get_queryset()\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
-            .filter(Q(status=0) | Q(status=2))
+            .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
 
 
 class HistoryView(ListView):
@@ -45,7 +45,7 @@ class HistoryView(ListView):
             raise PermissionDenied
         return super(HistoryView, self).get_queryset()\
             .prefetch_related('diner', 'orders', 'table')\
-            .filter(table__outlet__in=outlets, status=1)
+            .filter(table__outlet__in=outlets, status=Meal.INACTIVE)
 
 
 class MenuView(ModelFormSetView):

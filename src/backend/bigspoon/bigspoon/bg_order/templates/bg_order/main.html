@@ -12,7 +12,7 @@
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
         {% endif %}
-        <a href="user.html"><img src="{{meal.diner.avatar_url}}" /></a>
+        <a href="/staff/user/{{meal.diner.id}}" target="_blank"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
@@ -23,7 +23,11 @@
             {% endfor %}
         </ul>
 
-        <a class="acknowledge" href="#"><i class="icon-check-empty"></i> Acknowledge</a>
+        {% if meal.status == 0 %}
+            <a class="acknowledge"><i class="icon-check-sign"></i> Acknowledge</a>
+        {% else %}
+            <a class="closebill"><i class="icon-money"></i> Close Bill</a>
+        {% endif %}
     </div>
     {% endfor %}
 {% endblock %}
