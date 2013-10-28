@@ -6,7 +6,7 @@
 {% block content %}
     {% for meal in object_list %}
     <div class="item">
-        <a href="/staff/user/{{meal.diner.id}}" target="_blank"><img src="{{meal.diner.avatar_url}}" /></a>
+        <a href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
         <!-- Left color coded timing, list of orders, acknowledge button -->
@@ -17,6 +17,8 @@
         </ul>
     </div>
     {% endfor %}
-{% endblock %}
+{% endblock content %}
+{% block js %}
 <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
 <script src="{% static "js/main.js"%}"></script>
+{% endblock js %}

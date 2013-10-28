@@ -12,7 +12,7 @@
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
         {% endif %}
-        <a href="/staff/user/{{meal.diner.id}}" target="_blank"><img src="{{meal.diner.avatar_url}}" /></a>
+        <a href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
@@ -30,6 +30,8 @@
         {% endif %}
     </div>
     {% endfor %}
-{% endblock %}
+{% endblock content %}
+{% block js %}
 <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
 <script src="{% static "js/main.js"%}"></script>
+{% endblock %}
