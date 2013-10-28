@@ -17,7 +17,13 @@
 @synthesize delegate;
 @synthesize outlet;
 @synthesize menuListViewController;
-@synthesize requestWaterViewController;
+@synthesize requestWaterView;
+
+@synthesize quantityOfColdWater;
+@synthesize quantityOfWarmWater;
+
+@synthesize quantityOfColdWaterLabel;
+@synthesize quantityOfWarmWaterLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,7 +39,6 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
-    self.requestWaterViewController = [[RequestWaterViewController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,38 +69,7 @@
 - (IBAction)requestForWaterButtonPressed:(id)sender {
     NSLog(@"requestForWaterButtonPressed");
     
-    [self.view addSubview: self.requestWaterViewController.controlPanelView];
-     
-    
-    return;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    User *user = [User sharedInstance];
-    
-    NSDictionary *parameters = @{
-                                 @"token": user.auth_token,
-                                 @"table_id": @"3",
-                                 @"request_type": @"0"
-                                 };
-    [manager POST:REQUEST_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        int responseCode = [operation.response statusCode];
-        switch (responseCode) {
-            case 200:{
-                NSLog(@"Success");
-                
-            }
-                break;
-            case 403:{
-                NSLog(@"Authentication credentials were not provided.");
-            }
-            default:
-                break;
-        }
-        NSLog(@"JSON: %@", responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-
+    [self.requestWaterView setHidden:NO];
 }
 
 - (IBAction)callWaiterButtonPressed:(id)sender {
@@ -151,4 +125,82 @@
     NSLog(@"New Dish Ordered!");
 }
 
+#pragma mark Request For Water
+
+- (IBAction)plusColdWaterButtonPressed:(id)sender {
+    self.quantityOfColdWater++;
+    self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", quantityOfColdWater];
+}
+
+- (IBAction)minusColdWaterButtonPressed:(id)sender {
+    if (self.quantityOfColdWater > 0) {
+        self.quantityOfColdWater--;
+        self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", quantityOfColdWater];
+    }
+}
+
+- (IBAction)plusWarmWaterButtonPressed:(id)sender {
+    self.quantityOfWarmWater++;
+    self.quantityOfWarmWaterLabel.text = [NSString stringWithFormat:@"%d", quantityOfWarmWater];
+}
+
+- (IBAction)minusWarmWaterButtonPressed:(id)sender {
+    if (self.quantityOfWarmWater > 0) {
+        self.quantityOfWarmWater--;
+        self.quantityOfWarmWaterLabel.text = [NSString stringWithFormat:@"%d", quantityOfWarmWater];
+    }
+}
+
+- (IBAction)requestWaterOkayButtonPressed:(id)sender {
+    
+    [self requestWaterCancelButtonPressed:nil];
+    
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    
+//    User *user = [User sharedInstance];
+//    
+//    NSDictionary *parameters = @{
+//                                 @"token": user.auth_token,
+//                                 @"table_id": @"3",
+//                                 @"request_type": @"0"
+//                                 };
+//    [manager POST:REQUEST_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        int responseCode = [operation.response statusCode];
+//        switch (responseCode) {
+//            case 200:{
+//                NSLog(@"Success");
+//                
+//            }
+//                break;
+//            case 403:{
+//                NSLog(@"Authentication credentials were not provided.");
+//            }
+//            default:
+//                break;
+//        }
+//        NSLog(@"JSON: %@", responseObject);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error: %@", error);
+//    }];
+
+    
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Call For Service"
+                              message:@"The waiter will be right with you"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    [alertView show];
+    
+}
+
+- (IBAction)requestWaterCancelButtonPressed:(id)sender {
+
+    self.quantityOfWarmWater = 0;
+    self.quantityOfColdWater = 0;
+    self.quantityOfWarmWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfWarmWater];
+    self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
+    
+    [self.requestWaterView setHidden:YES];
+}
 @end

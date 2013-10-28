@@ -12,7 +12,6 @@
 		49164200180C58BB00080B87 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FE180C58BB00080B87 /* home.png */; };
 		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
 		49164204180C590C00080B87 /* photo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164202180C590C00080B87 /* photo_icon.png */; };
-		492A59B5181E6EC9006252C7 /* RequestWaterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492A59B4181E6EC9006252C7 /* RequestWaterViewController.m */; };
 		49320E4018166CAE00F5C190 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49320E3F18166CAE00F5C190 /* Constants.m */; };
 		49558BBE181D0B3F00273090 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49558BBD181D0B3F00273090 /* Security.framework */; };
 		49558BC3181D0BA800273090 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC0181D0BA800273090 /* SSKeychain.m */; };
@@ -70,8 +69,6 @@
 		491641FE180C58BB00080B87 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		49164201180C590C00080B87 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
 		49164202180C590C00080B87 /* photo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_icon.png; sourceTree = "<group>"; };
-		492A59B3181E6EC9006252C7 /* RequestWaterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestWaterViewController.h; sourceTree = "<group>"; };
-		492A59B4181E6EC9006252C7 /* RequestWaterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestWaterViewController.m; sourceTree = "<group>"; };
 		49320E3E18166CAE00F5C190 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		49320E3F18166CAE00F5C190 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		49558BBD181D0B3F00273090 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -176,8 +173,6 @@
 				49CB7974180C6D9400F530C5 /* LoginViewController.m */,
 				49558BC5181D14CD00273090 /* AuthViewController.h */,
 				49558BC6181D14CD00273090 /* AuthViewController.m */,
-				492A59B3181E6EC9006252C7 /* RequestWaterViewController.h */,
-				492A59B4181E6EC9006252C7 /* RequestWaterViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -462,7 +457,6 @@
 				E951D784180EE285002BE045 /* OrderHistoryViewController.m in Sources */,
 				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
-				492A59B5181E6EC9006252C7 /* RequestWaterViewController.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,

@@ -12,7 +12,6 @@
 #import "MenuTableViewController.h"
 #import <AFHTTPRequestOperationManager.h>
 #import "User.h"
-#import "RequestWaterViewController.h"
 
 @class MenuViewController;
 
@@ -26,7 +25,6 @@
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
-@property (nonatomic, strong) RequestWaterViewController *requestWaterViewController;
 
 // Buttons:
 
@@ -47,5 +45,26 @@
 
 @property (strong, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
+
+
+// "Call For Service" control panel:
+@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+
+@property (nonatomic) int quantityOfColdWater;
+@property (nonatomic) int quantityOfWarmWater;
+
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfWarmWaterLabel;
+
+
+- (IBAction)plusColdWaterButtonPressed:(id)sender;
+- (IBAction)minusColdWaterButtonPressed:(id)sender;
+
+- (IBAction)plusWarmWaterButtonPressed:(id)sender;
+- (IBAction)minusWarmWaterButtonPressed:(id)sender;
+
+- (IBAction)requestWaterOkayButtonPressed:(id)sender;
+- (IBAction)requestWaterCancelButtonPressed:(id)sender;
+
 
 @end
