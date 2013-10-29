@@ -17,6 +17,8 @@
 		49048D19181F4A2100B480A3 /* add_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D18181F4A2100B480A3 /* add_icon.png */; };
 		49048D1B181F4DD900B480A3 /* add_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D1A181F4DD800B480A3 /* add_icon2.png */; };
 		49048D1E181F9E5500B480A3 /* MultiContainerViewSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 49048D1D181F9E5500B480A3 /* MultiContainerViewSegue.m */; };
+		49048D24181FF71100B480A3 /* itemsOrderedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49048D23181FF71100B480A3 /* itemsOrderedTableViewController.m */; };
+		49048D26181FFA6000B480A3 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D25181FFA6000B480A3 /* back.png */; };
 		491641FF180C58BB00080B87 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FD180C58BB00080B87 /* gear.png */; };
 		49164200180C58BB00080B87 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FE180C58BB00080B87 /* home.png */; };
 		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
@@ -84,6 +86,9 @@
 		49048D1A181F4DD800B480A3 /* add_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_icon2.png; sourceTree = "<group>"; };
 		49048D1C181F9E5500B480A3 /* MultiContainerViewSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultiContainerViewSegue.h; sourceTree = "<group>"; };
 		49048D1D181F9E5500B480A3 /* MultiContainerViewSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultiContainerViewSegue.m; sourceTree = "<group>"; };
+		49048D22181FF71100B480A3 /* itemsOrderedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itemsOrderedTableViewController.h; sourceTree = "<group>"; };
+		49048D23181FF71100B480A3 /* itemsOrderedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = itemsOrderedTableViewController.m; sourceTree = "<group>"; };
+		49048D25181FFA6000B480A3 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		491641FD180C58BB00080B87 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		491641FE180C58BB00080B87 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		49164201180C590C00080B87 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
@@ -192,6 +197,8 @@
 				49CB7974180C6D9400F530C5 /* LoginViewController.m */,
 				49558BC5181D14CD00273090 /* AuthViewController.h */,
 				49558BC6181D14CD00273090 /* AuthViewController.m */,
+				49048D22181FF71100B480A3 /* itemsOrderedTableViewController.h */,
+				49048D23181FF71100B480A3 /* itemsOrderedTableViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -212,6 +219,7 @@
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				49048D25181FFA6000B480A3 /* back.png */,
 				49048D1A181F4DD800B480A3 /* add_icon2.png */,
 				49048D18181F4A2100B480A3 /* add_icon.png */,
 				49048D0C181F489C00B480A3 /* 1StarSmall@2x.png */,
@@ -433,6 +441,7 @@
 				49048D11181F489C00B480A3 /* 1StarSmall@2x.png in Resources */,
 				49048D1B181F4DD900B480A3 /* add_icon2.png in Resources */,
 				49048D19181F4A2100B480A3 /* add_icon.png in Resources */,
+				49048D26181FFA6000B480A3 /* back.png in Resources */,
 				49F107ED180886D600D2C8DD /* InfoPlist.strings in Resources */,
 				49048D17181F48DC00B480A3 /* 4StarsSmall@2x.png in Resources */,
 				49F107F6180886D600D2C8DD /* Main.storyboard in Resources */,
@@ -505,6 +514,7 @@
 				49048D1E181F9E5500B480A3 /* MultiContainerViewSegue.m in Sources */,
 				4999A216180A744100270B0B /* URLImageView.m in Sources */,
 				49558BC7181D14CD00273090 /* AuthViewController.m in Sources */,
+				49048D24181FF71100B480A3 /* itemsOrderedTableViewController.m in Sources */,
 				4989729F180C8C9F0090DA75 /* MenuListCell.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
 				49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */,

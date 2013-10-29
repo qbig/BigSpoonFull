@@ -82,13 +82,10 @@
     NSLog(@"viewModeButtonPressedAtListPage");
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
-        [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateHighlighted];
-        [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateNormal];
-
+        [self changeViewModeButtonIconTo:@"photo_icon.png"];
     } else if (self.menuListViewController.displayMethod == kMethodPhoto){
         self.menuListViewController.displayMethod = kMethodList;
-        [self.viewModeButton setImage:[UIImage imageNamed:@"list_icon.png"] forState:UIControlStateHighlighted];
-        [self.viewModeButton setImage:[UIImage imageNamed:@"list_icon.png"] forState:UIControlStateNormal];
+        [self changeViewModeButtonIconTo:@"list_icon.png"];
     } else {
         NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
@@ -101,7 +98,12 @@
     [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
     [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateHighlighted];
+    if (self.menuListViewController.displayMethod == kMethodPhoto){
+        [self changeViewModeButtonIconTo:@"photo_icon.png"];
+    } else{
+        [self changeViewModeButtonIconTo:@"list_icon.png"];
+    }
+    
     [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
 }
 
@@ -187,6 +189,11 @@
     [self performSegueWithIdentifier:@"SegueFromMenuToItems" sender:self];
 }
 
+- (void) changeViewModeButtonIconTo: (NSString *)picName{
+    [self.viewModeButton setImage:[UIImage imageNamed:picName] forState:UIControlStateNormal];
+    [self.viewModeButton setImage:[UIImage imageNamed:picName] forState:UIControlStateHighlighted];
+}
+
 #pragma mark tableViewController Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -213,7 +220,16 @@
         
         //if view controller isn't already contained in the viewControllers-Dictionary
         if (![_viewControllersByIdentifier objectForKey:segue.identifier]) {
+            
+            NSLog(@"New viewController generated when performing segue: %@", segue.identifier);
+            
             [_viewControllersByIdentifier setObject:segue.destinationViewController forKey:segue.identifier];
+            
+            if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
+                self.menuListViewController = segue.destinationViewController;
+                self.menuListViewController.outlet = self.outlet;
+                self.menuListViewController.delegate = self;
+            }
         }
         
         self.destinationIdentifier = segue.identifier;
@@ -221,16 +237,15 @@
         
         if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
             NSLog(@"Going SegueFromMenuToList");
-            self.menuListViewController = segue.destinationViewController;
-            self.menuListViewController.outlet = self.outlet;
-            self.menuListViewController.delegate = self;
         }
         
-        else if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
+        if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
             NSLog(@"Going SegueFromMenuToItems");
             // Change the function of button to: Go Back.
             [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
             [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [self changeViewModeButtonIconTo:@"back"];
         }
         
     } else{

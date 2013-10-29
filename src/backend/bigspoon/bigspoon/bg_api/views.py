@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from django.http import Http404
 from datetime import datetime
 
@@ -192,10 +193,7 @@ class AskForBill(generics.GenericAPIView):
     model = Meal
 
     def post(self, request, *args, **kwargs):
-        try:
-            table = Table.objects.get(id=int(request.DATA['table']))
-        except Table.DoesNotExist:
-            raise Http404
+        table = get_object_or_404(Table, id=int(request.DATA['table']))
         diner = request.user
         meals = Meal.objects.filter(table=table, diner=diner,
                                     is_paid=False)
