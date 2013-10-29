@@ -227,7 +227,7 @@ body {
 
 .wrapper {
     margin: 0 auto;
-    min-width: 800px;
+    min-width: 920px;
     max-width: 960px;
     border-radius: 5px;
 }
@@ -308,13 +308,17 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     float: left;
     margin: 5px;
     padding-bottom: 20px;
-    min-height: 200px;
+    /*min-height: 200px;*/
     width: 250px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
+}
+
+div.history {
+    opacity: 0.8;
 }
 
 .item span.time {
@@ -408,7 +412,11 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
 
-.item a.acknowledge {
+.item a:hover, .item a:focus, .item a:active {
+    cursor: pointer;
+}
+
+.item a.acknowledge, .item a.respond, .item a.closebill {
     display:block;
     margin: 0 auto;
     padding: 10px 20px;
@@ -423,20 +431,19 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item a.closebill {
-    margin: 0 55px;
-    padding: 10px 20px;
-    width: 120px;
-    border-radius: 5px;
-    background-color: #468847;
-    color: white;
-    text-align:center;
-    text-decoration:none;
-    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
-    font-size: 14px;
+    background-color: rgb(231,76,60);
+}
+
+.item a.closebill:hover,.item a.closebill:active, .item a.closebill:focus {
+background-color: #468847;
 }
 
 .item a.acknowledge:hover,.item a.acknowledge:active, .item a.acknowledge:focus {
     background-color: #008cdd;
+}
+
+.item a.respond:hover,.item a.respond:active, .item a.respond:focus {
+    background-color: #0C4;
 }
 
 /* Menu main & Menu Items */
@@ -530,8 +537,8 @@ p.success {
     display: inline;
     padding: 10px;
     border-radius: 5px;
-    background: #0C4;;
-    color: #fff;
+    background: #0C4;
+    color: #fff;;
 }
 
 .login p input, .user-info input, .menu-item p input, .menu-item textarea{
@@ -562,8 +569,8 @@ p.success {
 }
 
 .menu-item p.photo{
-    width: 400px;
     margin-top:5px;
+    width: 400px;
 }
 
 .menu-item p.photo a {
@@ -724,9 +731,9 @@ p.success {
 }
 
 form.menu-add {
+    margin-bottom:100px;
     padding: 40px 240px;
     padding-bottom:80px;
-    margin-bottom:100px;
 }
 
 .menu-add .pos input{
@@ -757,35 +764,35 @@ form.menu-add {
 .login .login-btn {
     margin-top: 40px;
     padding: 10px 20px;
+    border-radius: 10px;
     background-color: #008cdd;
     color: white;
     text-align:center;
     text-decoration:none;
-    border-radius: 10px;
 }
 
 
 .login {
+    margin: 10px auto;
     padding: 40px;
     padding-top:10px;
-    border-radius: 5px;
     width: 360px;
-    margin: 10px auto;
+    border-radius: 5px;
     background: #fff;
 }
 
 h1.logo {
-    text-align:center;
-    font-size: 64px;
     display: block;
-    width: 200px;
     margin: 0 auto;
     margin-top: 150px;
+    width: 200px;
+    text-align:center;
+    font-size: 64px;
 }
 
 .login label {
-    font-weight: bold;
     display: inline-block;
     width: 100px;
+    font-weight: bold;
 
 }
