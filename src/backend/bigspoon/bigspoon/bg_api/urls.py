@@ -25,6 +25,11 @@ urlpatterns = patterns(
         include('rest_framework.urls', namespace='rest_framework')),
     # documentation
     url(r'^doc/', include('rest_framework_docs.urls')),
+    # staff app API
+    url(r'^closebill$', views.CloseBill.as_view()),
+    url(r'^ackorder$', views.AckOrder.as_view()),
+    url(r'^ackreq$', views.AckRequest.as_view()),
+
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

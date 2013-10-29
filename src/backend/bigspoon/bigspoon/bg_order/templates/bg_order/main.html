@@ -4,10 +4,9 @@
 {% load compress %}
 
 {% block content %}
-
     {% for meal in meal_cards %}
     <div class="item">
-        {% if meal.wait_time.0 > meal.table.outlet.threshold %}
+        {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
         <span class="urgent time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
@@ -32,7 +31,7 @@
     {% endfor %}
     {% for request in requests_cards %}
     <div class="item">
-        {% if request.wait_time.0 > request.table.outlet.threshold %}
+        {% if request.wait_time.0 >= request.table.outlet.threshold %}
         <span class="urgent time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
@@ -47,13 +46,8 @@
             <img class="icon" src="{% static "img/water.png" %}"/>
         {% elif request.request_type == 1%}
             <img class="icon" src="{% static "img/waiter.png" %}"/>
-        {% else %}
-
         {% endif %}
-
         </p>
-
-
         <a class="acknowledge"><i class="icon-check-sign"></i> Acknowledge</a>
     </div>
     {% endfor %}
