@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterView;
 @property (nonatomic, strong) UIAlertView *requestForBillView;
+@property (nonatomic, strong) UIAlertView *inputTableIDView;
 
 @end
 
@@ -54,6 +55,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma mark ButtonClick Event Listeners
+
+
 - (IBAction)homeButtonPressed:(id)sender{
     [self.delegate MenuViewControllerHomeButtonPressed:self];
 }
@@ -74,6 +79,7 @@
 }
 
 - (IBAction)requestForWaterButtonPressed:(id)sender {
+    [self askForTableID];
     NSLog(@"requestForWaterButtonPressed");
     [self animateControlPanelView:self.requestWaterView willShow:YES];
 }
@@ -105,6 +111,8 @@
     NSLog(@"itemsButtonPressed");
 
 }
+
+#pragma mark tableViewController Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -156,7 +164,8 @@
                                       cancelButtonTitle:@"OK"
                                       otherButtonTitles:nil];
             [alertView show];
-            [self animateControlPanelView:self.ratingsView willShow:YES];
+            
+            //[self animateControlPanelView:self.ratingsView willShow:YES];
         }
         else if([title isEqualToString:@"Cancel"])
         {
@@ -184,7 +193,7 @@
     NSLog(@"New Dish Ordered!");
 }
 
-#pragma mark Request For Water
+#pragma mark Request For Service (water and waiter)
 
 - (IBAction)plusColdWaterButtonPressed:(id)sender {
     self.quantityOfColdWater++;
@@ -286,6 +295,9 @@
     
     [self animateControlPanelView:self.requestWaterView willShow:NO];
 }
+
+#pragma mark Request for Bill
+
 - (IBAction)ratingSubmitButtonPressed:(id)sender {
     
     [self ratingCancelButtonPressed:nil];
@@ -295,7 +307,7 @@
     [self animateControlPanelView:self.ratingsView willShow:NO];
 }
 
-#pragma makr Animations
+#pragma makr Animation
 
 - (void) animateControlPanelView: (UIView *)view willShow: (BOOL) willShow{
     
@@ -326,6 +338,30 @@
                          }
                      }];
 }
+
+#pragma mark Ask For Table Number
+
+- (void) askForTableID{
+    return;
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Please enter your table ID"
+                              message: nil
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alertView textFieldAtIndex:0].delegate = self;
+    [alertView show];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    return NO;
+}
+
+- (void) textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"hshsa");
+}
+
 
 
 @end

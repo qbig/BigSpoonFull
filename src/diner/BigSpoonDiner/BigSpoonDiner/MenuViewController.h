@@ -21,7 +21,7 @@
 @end
 
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate>
 
 
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
@@ -69,9 +69,12 @@
 // "Bill" Control Panel:
 @property (strong, nonatomic) IBOutlet UIView *ratingsView;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
-@property (strong, nonatomic) IBOutlet UITextView *feedbackTextView;
+@property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
+
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
+
+
 
 @end
