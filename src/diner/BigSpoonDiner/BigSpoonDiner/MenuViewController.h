@@ -23,9 +23,11 @@
 
 @interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate>
 
-
+// Class Data:
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
+@property (nonatomic) int tableID;
+@property (nonatomic) NSArray *validTableIDs;
 
 // Buttons:
 
@@ -39,9 +41,9 @@
 
 // Four buttons at the bottom
 
-- (IBAction)requestForWaterButtonPressed:(id)sender;
-- (IBAction)callWaiterButtonPressed:(id)sender;
-- (IBAction)billButtonPressed:(id)sender;
+- (IBAction)requestWaterButtonPressed:(id)sender;
+- (IBAction)requestWaiterButtonPressed:(id)sender;
+- (IBAction)requestBillButtonPressed:(id)sender;
 - (IBAction)itemsButtonPressed:(id)sender;
 
 @property (strong, nonatomic) IBOutlet UIView *container;
@@ -50,19 +52,14 @@
 
 // "Call For Service" Control Panel:
 @property (strong, nonatomic) IBOutlet UIView *requestWaterView;
-
 @property (nonatomic) int quantityOfColdWater;
 @property (nonatomic) int quantityOfWarmWater;
-
 @property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
 @property (strong, nonatomic) IBOutlet UILabel *quantityOfWarmWaterLabel;
-
 - (IBAction)plusColdWaterButtonPressed:(id)sender;
 - (IBAction)minusColdWaterButtonPressed:(id)sender;
-
 - (IBAction)plusWarmWaterButtonPressed:(id)sender;
 - (IBAction)minusWarmWaterButtonPressed:(id)sender;
-
 - (IBAction)requestWaterOkayButtonPressed:(id)sender;
 - (IBAction)requestWaterCancelButtonPressed:(id)sender;
 
@@ -70,11 +67,7 @@
 @property (strong, nonatomic) IBOutlet UIView *ratingsView;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
-
-
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
-
-
 
 @end

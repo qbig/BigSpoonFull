@@ -8,11 +8,14 @@
 
 #import "MenuViewController.h"
 
-@interface MenuViewController ()
+@interface MenuViewController (){
+    void (^taskAfterAskingForTableID)(void);
+}
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterView;
 @property (nonatomic, strong) UIAlertView *requestForBillView;
 @property (nonatomic, strong) UIAlertView *inputTableIDView;
+@property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 
 @end
 
@@ -30,13 +33,16 @@
 @synthesize quantityOfWarmWaterLabel;
 @synthesize requestForWaiterView;
 @synthesize requestForBillView;
+@synthesize inputTableIDView;
 @synthesize ratingsTableView;
+@synthesize taskAfterAskingForTableID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.tableID = -1;
     }
     return self;
 }
@@ -78,32 +84,80 @@
     [self.menuListViewController.tableView reloadData];
 }
 
-- (IBAction)requestForWaterButtonPressed:(id)sender {
-    [self askForTableID];
-    NSLog(@"requestForWaterButtonPressed");
+- (IBAction)requestWaterButtonPressed:(id)sender {
+    NSLog(@"requestWaterButtonPressed");
+
+    if (self.tableID == -1 || self.tableID == 0) {
+        NSLog(@"Table ID is not know. Asking the user for it");
+        [self askForTableID];
+        
+        __weak MenuViewController *weakSelf = self;
+        
+        self.taskAfterAskingForTableID = ^(void){
+            [weakSelf performRequestWaterTask];
+        };
+    } else{
+        NSLog(@"Table ID is known: %d", self.tableID);
+        [self performRequestWaterTask];
+    }
+}
+
+- (void) performRequestWaterTask{
     [self animateControlPanelView:self.requestWaterView willShow:YES];
 }
 
-- (IBAction)callWaiterButtonPressed:(id)sender {
+- (IBAction)requestWaiterButtonPressed:(id)sender {
     NSLog(@"callWaiterButtonPressed");
-    self.requestForWaiterView = [[UIAlertView alloc]
-                              initWithTitle:@"Call For Service"
-                              message:@"Require assistance from the waiter?"
-                              delegate:self
-                              cancelButtonTitle:@"Yes"
-                              otherButtonTitles:@"Cancel", nil];
-    [self.requestForWaiterView show];
+    
+    if (self.tableID == -1 || self.tableID == 0) {
+        NSLog(@"Table ID is not know. Asking the user for it");
+        [self askForTableID];
+        
+        __weak MenuViewController *weakSelf = self;
+        
+        self.taskAfterAskingForTableID = ^(void){
+            [weakSelf performRequestWaiterTask];
+        };
+    } else{
+        NSLog(@"Table ID is known: %d", self.tableID);
+        [self performRequestWaiterTask];
+    }
 }
 
-- (IBAction)billButtonPressed:(id)sender {
-    NSLog(@"billButtonPressed");
-    NSLog(@"callWaiterButtonPressed");
-    self.requestForBillView = [[UIAlertView alloc]
+- (void) performRequestWaiterTask{
+    self.requestForWaiterView = [[UIAlertView alloc]
                                  initWithTitle:@"Call For Service"
-                               message:@"Would you like the bill?"
+                                 message:@"Require assistance from the waiter?"
                                  delegate:self
                                  cancelButtonTitle:@"Yes"
                                  otherButtonTitles:@"Cancel", nil];
+    [self.requestForWaiterView show];
+}
+
+- (IBAction)requestBillButtonPressed:(id)sender {
+    NSLog(@"billButtonPressed");
+    if (self.tableID == -1 || self.tableID == 0) {
+        NSLog(@"Table ID is not know. Asking the user for it");
+        [self askForTableID];
+        
+        __weak MenuViewController *weakSelf = self;
+        
+        self.taskAfterAskingForTableID = ^(void){
+            [weakSelf performRequestBillTask];
+        };
+    } else{
+        NSLog(@"Table ID is known: %d", self.tableID);
+        [self performRequestBillTask];
+    }
+}
+
+- (void) performRequestBillTask{
+    self.requestForBillView = [[UIAlertView alloc]
+                               initWithTitle:@"Call For Service"
+                               message:@"Would you like the bill?"
+                               delegate:self
+                               cancelButtonTitle:@"Yes"
+                               otherButtonTitles:@"Cancel", nil];
     [self.requestForBillView show];
 }
 
@@ -173,7 +227,9 @@
         }else{
             NSLog(@"Unrecognized button pressed");
         }
-    } else if ([alertView isEqual:self.requestForWaiterView]){
+    }
+    
+    else if ([alertView isEqual:self.requestForWaiterView]){
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Waiter");
@@ -187,11 +243,38 @@
             NSLog(@"Unrecognized button pressed");
         }
     }
+    
+    else if ([alertView isEqual:self.inputTableIDView]){
+
+        if(![title isEqualToString:@"Cancel"])
+        {
+            NSString *name = [alertView textFieldAtIndex:0].text;
+            int value = [name integerValue];
+            NSLog(@"User input ID: %d", value);
+            
+            for (NSNumber *validID in self.validTableIDs) {
+                if ([validID integerValue] == value) {
+                    NSLog(@"The table ID is valid");
+                    self.tableID = value;
+                    self.taskAfterAskingForTableID();
+                    return;
+                }
+            }
+            [self askForTableIDWithTitle:@"Please enter a valid table ID"];
+        }
+    } else{
+        NSLog(@"In alertView delegateion method: No alertview found.");
+    }
 }
 
 - (void) DishOrdered:(Dish *)dish{
     NSLog(@"New Dish Ordered!");
 }
+
+- (void)ValidTableRetrieved: (NSArray *)vIDs{
+    self.validTableIDs = vIDs;
+}
+
 
 #pragma mark Request For Service (water and waiter)
 
@@ -230,7 +313,7 @@
 
 - (void) requestWithType: (id) requestType WithNote: (NSString *)note{
     NSDictionary *parameters = @{
-                                 @"table": @2,
+                                 @"table": [NSNumber numberWithInt: self.tableID],
                                  @"request_type": requestType,
                                  @"note": note
                                  };
@@ -342,26 +425,20 @@
 #pragma mark Ask For Table Number
 
 - (void) askForTableID{
-    return;
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Please enter your table ID"
+    [self askForTableIDWithTitle: @"Please enter your table ID"];
+}
+
+- (void) askForTableIDWithTitle: (NSString *)title{
+    self.inputTableIDView = [[UIAlertView alloc]
+                              initWithTitle: title
                               message: nil
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alertView textFieldAtIndex:0].delegate = self;
-    [alertView show];
+                              delegate:self
+                              cancelButtonTitle:@"Cancel"
+                              otherButtonTitles:@"Okay", nil];
+    
+    self.inputTableIDView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [self.inputTableIDView show];
 }
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    return NO;
-}
-
-- (void) textFieldDidEndEditing:(UITextField *)textField{
-    NSLog(@"hshsa");
-}
-
 
 
 @end

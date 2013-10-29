@@ -29,6 +29,7 @@ enum DishDisplayCategory : NSUInteger{
 
 @protocol OrderDishDelegate <NSObject>
 - (void)DishOrdered: (Dish *)dish;
+- (void)ValidTableRetrieved: (NSArray *)validTableIDs;
 @end
 
 @interface MenuTableViewController : UITableViewController
@@ -41,6 +42,7 @@ enum DishDisplayCategory : NSUInteger{
 
 @property (nonatomic) enum DishDisplayMethod displayMethod;
 @property (nonatomic) enum DishDisplayCategory displayCategory;
+
 
 - (IBAction)breakfastButtonPressed:(id)sender;
 

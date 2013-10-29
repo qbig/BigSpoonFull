@@ -332,17 +332,17 @@
                                 <items>
                                     <barButtonItem title="              " id="Bta-gf-M88">
                                         <connections>
-                                            <action selector="requestForWaterButtonPressed:" destination="fn9-OW-D18" id="8eW-Nz-2oe"/>
+                                            <action selector="requestWaterButtonPressed:" destination="fn9-OW-D18" id="Wj9-BS-LYm"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="              " id="DPa-qq-Tgf">
                                         <connections>
-                                            <action selector="callWaiterButtonPressed:" destination="fn9-OW-D18" id="Lii-tv-tSn"/>
+                                            <action selector="requestWaiterButtonPressed:" destination="fn9-OW-D18" id="Xg3-LU-KZI"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="             " id="rIN-Oc-HPD">
                                         <connections>
-                                            <action selector="billButtonPressed:" destination="fn9-OW-D18" id="1Mp-KW-JVm"/>
+                                            <action selector="requestBillButtonPressed:" destination="fn9-OW-D18" id="aUM-Nq-T1h"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="              " id="HGw-0r-0uf">
