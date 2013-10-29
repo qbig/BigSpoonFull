@@ -261,7 +261,20 @@
                 
                 [self addDish:newDishObject];
                 NSLog(@"Adding one dish!!!");
+                
+                
             }
+            
+            // Retrieve valid table IDs:
+            NSMutableArray *validTableIDs = [[NSMutableArray alloc] init];
+            NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
+            for (NSDictionary *newTable in tables) {
+                NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
+                NSLog(@"Table ID retrieved %d:", [tableID integerValue]);
+                [validTableIDs addObject: tableID];
+            }
+            
+            [self.delegate ValidTableRetrieved:validTableIDs];
             
             break;
         }
@@ -358,7 +371,6 @@
 }
 - (IBAction)sidesAndSnacksButtonPressed:(id)sender {
     NSLog(@"sidesButtonPressed");
-    
 }
 
 
