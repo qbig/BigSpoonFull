@@ -575,15 +575,15 @@
                                         </state>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="42" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-nK-mn8">
-                                        <rect key="frame" x="20" y="27" width="280" height="195"/>
+                                        <rect key="frame" x="0.0" y="27" width="320" height="195"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newOrderCell" rowHeight="42" id="DCr-pl-LLM" customClass="newOrderCell">
-                                                <rect key="frame" x="0.0" y="22" width="280" height="42"/>
+                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="NewOrderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewOrderCell" rowHeight="42" id="DCr-pl-LLM" customClass="NewOrderCell">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DCr-pl-LLM" id="HHE-mv-gOe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="41"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t6q-QS-67e">
@@ -613,13 +613,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Cc-Ge-yPu">
-                                                            <rect key="frame" x="90" y="11" width="151" height="21"/>
+                                                            <rect key="frame" x="90" y="11" width="201" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6b-hE-R6K">
-                                                            <rect key="frame" x="240" y="11" width="40" height="21"/>
+                                                            <rect key="frame" x="280" y="9" width="40" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
@@ -627,7 +627,9 @@
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="minusButton" destination="kmj-Hz-HU3" id="fjP-58-3bq"/>
                                                     <outlet property="nameLabel" destination="4Cc-Ge-yPu" id="h7p-U5-swa"/>
+                                                    <outlet property="plusButton" destination="t6q-QS-67e" id="1fh-KY-Y99"/>
                                                     <outlet property="priceLabel" destination="h6b-hE-R6K" id="0k6-WI-eIq"/>
                                                     <outlet property="quantityLabel" destination="UCp-9c-PEo" id="pgs-TF-vJd"/>
                                                 </connections>
@@ -639,15 +641,15 @@
                                         </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ggd-zB-wHu">
-                                        <rect key="frame" x="12" y="295" width="296" height="192"/>
+                                        <rect key="frame" x="0.0" y="295" width="331" height="192"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="pastOrderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="pastOrderCell" id="OpB-Ul-bc8" customClass="pastOrderCell">
-                                                <rect key="frame" x="0.0" y="22" width="296" height="44"/>
+                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="PastOrderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PastOrderCell" id="OpB-Ul-bc8" customClass="PastOrderCell">
+                                                <rect key="frame" x="0.0" y="22" width="331" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OpB-Ul-bc8" id="Tm9-mb-xis">
-                                                    <rect key="frame" x="0.0" y="0.0" width="296" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="331" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEr-3j-VdB">
@@ -657,13 +659,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTN-uy-bRb">
-                                                            <rect key="frame" x="46" y="11" width="210" height="21"/>
+                                                            <rect key="frame" x="46" y="11" width="227" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RlT-vQ-Lyf">
-                                                            <rect key="frame" x="242" y="11" width="45" height="21"/>
+                                                            <rect key="frame" x="266" y="11" width="45" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface pastOrderCell : UITableViewCell
+@interface PastOrderCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;

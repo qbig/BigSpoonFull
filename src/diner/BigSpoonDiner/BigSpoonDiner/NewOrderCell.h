@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface newOrderCell : UITableViewCell
+@interface NewOrderCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
+
+@property (strong, nonatomic) IBOutlet UIButton *plusButton;
+@property (strong, nonatomic) IBOutlet UIButton *minusButton;
+
 
 @end

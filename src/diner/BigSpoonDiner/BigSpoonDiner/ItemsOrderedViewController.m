@@ -70,11 +70,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    newOrderCell *cell = (newOrderCell *)[tableView
-                                            dequeueReusableCellWithIdentifier:@"newOrderCell"];
-    
-    return cell;
+    if ([tableView isEqual:self.currentOrderTableView]) {
+        NewOrderCell *cell = (NewOrderCell *)[tableView
+                                              dequeueReusableCellWithIdentifier:@"NewOrderCell"];
+        Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
+        
+        cell.nameLabel.text = dish.name;
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDish:dish]];
+        
+        cell.plusButton.tag = dish.ID;
+        cell.minusButton.tag = dish.ID;
+        
+        
+        return cell;
+    } else if ([tableView isEqual:self.pastOrderTableView]){
+        PastOrderCell *cell = (PastOrderCell *)[tableView
+                                              dequeueReusableCellWithIdentifier:@"PastOrderCell"];
+        
+        Dish *dish = [self.pastOrder.dishes objectAtIndex:indexPath.row];
+        
+        cell.nameLabel.text = dish.name;
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDish:dish]];
+       
+        return cell;
+    } else{
+        NSLog(@"Unrecognized tableView is calling delegate method");
+        return nil;
+    }
 }
 
 /*
@@ -128,7 +152,7 @@
 
  */
 
-- (IBAction)plusButtonPressed:(id)sender {
+- (IBAction)plusButtonPressed:(UIButton *)sender {
     
     [self.delegate orderQuantityHasChanged: self.currentOrder];
 }

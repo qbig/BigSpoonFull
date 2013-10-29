@@ -52,9 +52,11 @@
 - (IBAction)requestBillButtonPressed:(id)sender;
 - (IBAction)itemsButtonPressed:(id)sender;
 
+// Objects related to Container view:
+
 @property (strong, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
-
+@property (strong, nonatomic) ItemsOrderedViewController *itemsOrderedViewController;
 
 // "Call For Service" Control Panel:
 @property (strong, nonatomic) IBOutlet UIView *requestWaterView;

@@ -228,15 +228,14 @@
             [_viewControllersByIdentifier setObject:segue.destinationViewController forKey:segue.identifier];
             
             if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
+                
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
             } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
-                ItemsOrderedViewController *itemVC = (ItemsOrderedViewController *)segue.destinationViewController;
                 
-                itemVC.delegate = self;
-                itemVC.currentOrder = self.currentOrder;
-                itemVC.pastOrder = self.pastOrder;
+                self.itemsOrderedViewController = (ItemsOrderedViewController *)segue.destinationViewController;
+                self.itemsOrderedViewController.delegate = self;
             }
         }
         
@@ -255,6 +254,11 @@
             [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
             
             [self changeViewModeButtonIconTo:@"back"];
+            
+            self.itemsOrderedViewController.currentOrder = self.currentOrder;
+            self.itemsOrderedViewController.pastOrder = self.pastOrder;
+            [self.itemsOrderedViewController.currentOrderTableView reloadData];
+            [self.itemsOrderedViewController.pastOrderTableView reloadData];
         }
         
     } else{

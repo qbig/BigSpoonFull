@@ -1,14 +1,14 @@
 //
-//  newOrderCell.m
+//  pastOrderCell.m
 //  BigSpoonDiner
 //
 //  Created by Zhixing Yang on 30/10/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "newOrderCell.h"
+#import "PastOrderCell.h"
 
-@implementation newOrderCell
+@implementation PastOrderCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Order.h"
 
-#import "newOrderCell.h"
-#import "pastOrderCell.h"
+#import "NewOrderCell.h"
+#import "PastOrderCell.h"
+#import "Dish.h"
 
 @class ItemsOrderedViewController;
 
