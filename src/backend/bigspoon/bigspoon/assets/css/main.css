@@ -416,7 +416,7 @@ div.history {
     cursor: pointer;
 }
 
-.item a.acknowledge, .item a.respond {
+.item a.acknowledge, .item a.respond, .item a.closebill {
     display:block;
     margin: 0 auto;
     padding: 10px 20px;
@@ -431,17 +431,11 @@ div.history {
 }
 
 .item a.closebill {
-    display:block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    width: 120px;
-    border-radius: 5px;
-    background-color: #468847;
-    color: white;
-    text-align:center;
-    text-decoration:none;
-    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
-    font-size: 14px;
+    background-color: rgb(231,76,60);
+}
+
+.item a.closebill:hover,.item a.closebill:active, .item a.closebill:focus {
+background-color: #468847;
 }
 
 .item a.acknowledge:hover,.item a.acknowledge:active, .item a.acknowledge:focus {
