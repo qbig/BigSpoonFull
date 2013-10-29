@@ -214,4 +214,4 @@ def post_meal_creation(sender, instance=None, created=False, **kwargs):
     if created:
         assign_perm('change_meal', instance.diner, instance)
         for u in get_users_with_perms(instance.table.outlet):
-            assign_perm('change_request', u, instance)
+            assign_perm('change_meal', u, instance)
