@@ -18,6 +18,6 @@ extern NSString* const  LIST_OUTLETS;
 extern NSString* const REQUEST_URL;
 
 // Others:
-extern int const MAX_NUMBER_OF_TRIAL_RECONNECT;
-
+extern int const ROW_HEIGHT_LIST_MENU;
+extern int const ROW_HEIGHT_PHOTO_MENU;
 @end

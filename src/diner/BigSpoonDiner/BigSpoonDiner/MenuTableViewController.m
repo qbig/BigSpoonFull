@@ -94,9 +94,20 @@
         MenuPhotoCell *cell = (MenuPhotoCell *)[tableView
                                               dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
         
-        cell.imageView.image =  [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+        
+        [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        
+        [cell.imageView setClipsToBounds:YES];
+        cell.imageView.autoresizingMask = UIViewAutoresizingNone;
+        cell.imageView.image =  image;
+        
+        cell.ratingImageView.image = [self imageForRating:dish.ratings];
+        
         cell.nameLabel.text = dish.name;
         
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
@@ -107,6 +118,19 @@
 
     }
     
+}
+
+- (UIImage *)imageForRating:(int)rating
+{
+	switch (rating)
+	{
+		case 1: return [UIImage imageNamed:@"1StarSmall@2x.png"];
+		case 2: return [UIImage imageNamed:@"2StarsSmall@2x.png"];
+		case 3: return [UIImage imageNamed:@"3StarsSmall@2x.png"];
+		case 4: return [UIImage imageNamed:@"4StarsSmall@2x.png"];
+		case 5: return [UIImage imageNamed:@"5StarsSmall@2x.png"];
+	}
+	return nil;
 }
 
 - (void) loadDishesFromServer{
@@ -160,9 +184,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.displayMethod == kMethodList) {
-        return 112;
+        return ROW_HEIGHT_LIST_MENU;
     } else if (self.displayMethod == kMethodPhoto){
-        return 234;
+        return ROW_HEIGHT_PHOTO_MENU;
     } else{
         NSLog(@"Invalid display method");
         return 100;

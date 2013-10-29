@@ -148,6 +148,7 @@
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Bill");
+            // TODO Make HTTP request for this.
             UIAlertView *alertView = [[UIAlertView alloc]
                                       initWithTitle:@"Call For Service"
                                       message:@"The waiter will be right with you"
@@ -167,13 +168,8 @@
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Waiter");
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      initWithTitle:@"Call For Service"
-                                      message:@"The waiter will be right with you"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-            [alertView show];
+            
+            [self requestWithType:@1 WithNote:@"Request For Waiter"];
         }
         else if([title isEqualToString:@"Cancel"])
         {
@@ -218,9 +214,15 @@
     
     NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
 
+    [self requestWithType:@0 WithNote:note];
+    
+    [self requestWaterCancelButtonPressed:nil];
+}
+
+- (void) requestWithType: (id) requestType WithNote: (NSString *)note{
     NSDictionary *parameters = @{
                                  @"table": @2,
-                                 @"request_type": @0,
+                                 @"request_type": requestType,
                                  @"note": note
                                  };
     
@@ -228,11 +230,10 @@
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: REQUEST_URL]];
     [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
+    
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
                                                        options:NSJSONWritingPrettyPrinted error:&error];
-    
     request.HTTPBody = jsonData;
     request.HTTPMethod = @"POST";
     
@@ -259,16 +260,14 @@
         }
         NSLog(@"JSON: %@", responseObject);
     }
-    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", operation.responseString);
-        [self displayErrorInfo:operation.responseString];
-    }];
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo:operation.responseString];
+                                      }];
     [operation start];
-    
-    [self requestWaterCancelButtonPressed:nil];
 }
 
 - (void) displayErrorInfo: (NSString *) info{
+    NSLog(@"Error: %@", info);
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"Oops"
                               message: info
