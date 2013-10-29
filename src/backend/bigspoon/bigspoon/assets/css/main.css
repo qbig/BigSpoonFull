@@ -350,6 +350,26 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     float:right;
 }
 
+.item p.note {
+    font-size:14px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.2);
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+    background: #fcf6ef;
+    padding: 5px 20px;
+    color: #333;
+    min-height:50px;
+}
+
+.item .icon{
+    opacity: 0.8;
+    display: block;
+    top: 115px;
+    right: 5px;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+}
+
 .item h4 {
     display: inline-block;
     margin:0px;
@@ -389,7 +409,8 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item a.acknowledge {
-    margin: 0 55px;
+    display:block;
+    margin: 0 auto;
     padding: 10px 20px;
     width: 120px;
     border-radius: 5px;
@@ -412,12 +433,6 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     text-decoration:none;
     text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
     font-size: 14px;
-}
-
-.item .icon{
-    display: block;
-    margin-bottom: 10px;
-    height: 150px;
 }
 
 .item a.acknowledge:hover,.item a.acknowledge:active, .item a.acknowledge:focus {
