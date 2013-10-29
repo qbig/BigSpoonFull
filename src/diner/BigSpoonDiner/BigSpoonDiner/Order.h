@@ -11,10 +11,16 @@
 
 @interface Order : NSObject
 
+@property (nonatomic, strong) NSMutableArray *dishes;
+@property (nonatomic, strong) NSMutableArray *quantity;
+
 - (void) addDish: (Dish *) dish;
 - (void) minusDish: (Dish *) dish;
 
 - (int) getQuantityOfDish: (Dish *) dish;
 - (int) getTotalQuantity;
+- (int) getTotalPrice;
+- (void) mergeWithAnotherOrder: (Order *)newOrder;
+- (int) getNumberOfDishes;
 
 @end

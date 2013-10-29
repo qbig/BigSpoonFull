@@ -54,7 +54,8 @@
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-    self.order = [[Order alloc]init];
+    self.currentOrder = [[Order alloc]init];
+    self.pastOrder = [[Order alloc]init];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -335,13 +336,13 @@
 }
 
 - (void) dishOrdered:(Dish *)dish{
-    [self.order addDish:dish];
+    [self.currentOrder addDish:dish];
     [self updateItemQuantityBadge];
 }
 
 - (void) updateItemQuantityBadge{
     
-    int totalQuantity = [self.order getTotalQuantity];
+    int totalQuantity = [self.currentOrder getTotalQuantity];
     
     NSLog(@"Total quantity: %d", totalQuantity);
     

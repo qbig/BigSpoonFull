@@ -30,7 +30,8 @@
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
 @property (nonatomic) NSArray *validTableIDs;
-@property (nonatomic, strong) Order *order;
+@property (nonatomic, strong) Order *currentOrder;
+@property (nonatomic, strong) Order *pastOrder;
 
 // Buttons:
 
