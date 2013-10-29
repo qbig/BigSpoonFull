@@ -10,6 +10,7 @@
 
 @interface MenuViewController (){
     void (^taskAfterAskingForTableID)(void);
+    NSMutableDictionary *_viewControllersByIdentifier;
 }
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterView;
@@ -52,7 +53,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
-    //MenuTableViewController *menuTableViewController = [self.container ];
+    _viewControllersByIdentifier = [NSMutableDictionary dictionary];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (self.childViewControllers.count < 1) {
+        [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,19 +78,31 @@
     [self.delegate MenuViewControllerHomeButtonPressed:self];
 }
 
-- (IBAction)viewModeButtonPressed:(id)sender {
-    NSLog(@"viewModeButtonPressed");
+- (IBAction)viewModeButtonPressedAtListPage:(id)sender {
+    NSLog(@"viewModeButtonPressedAtListPage");
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
         [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateHighlighted];
         [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateNormal];
 
-    } else{
+    } else if (self.menuListViewController.displayMethod == kMethodPhoto){
         self.menuListViewController.displayMethod = kMethodList;
         [self.viewModeButton setImage:[UIImage imageNamed:@"list_icon.png"] forState:UIControlStateHighlighted];
         [self.viewModeButton setImage:[UIImage imageNamed:@"list_icon.png"] forState:UIControlStateNormal];
+    } else {
+        NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
     [self.menuListViewController.tableView reloadData];
+}
+
+- (IBAction)viewModeButtonPressedAtOrderPage:(id)sender{
+    NSLog(@"viewModeButtonPressedAtOrderPage");
+    // Change the function of button to: Go Back.
+    [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.viewModeButton setImage:[UIImage imageNamed:@"photo_icon.png"] forState:UIControlStateHighlighted];
+    [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
 }
 
 - (IBAction)requestWaterButtonPressed:(id)sender {
@@ -163,7 +184,7 @@
 
 - (IBAction)itemsButtonPressed:(id)sender {
     NSLog(@"itemsButtonPressed");
-
+    [self performSegueWithIdentifier:@"SegueFromMenuToItems" sender:self];
 }
 
 #pragma mark tableViewController Delegate
@@ -186,13 +207,43 @@
 		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
 		orderHistoryViewController.delegate = self;
         
-	} else if ([segue.identifier isEqualToString:@"SegueFromContainerToDishList"]){
-        self.menuListViewController = segue.destinationViewController;
-        self.menuListViewController.outlet = self.outlet;
-        self.menuListViewController.delegate = self;
+	} else if([segue isKindOfClass:[MultiContainerViewSegue class]]){
+        
+        self.oldViewController = self.destinationViewController;
+        
+        //if view controller isn't already contained in the viewControllers-Dictionary
+        if (![_viewControllersByIdentifier objectForKey:segue.identifier]) {
+            [_viewControllersByIdentifier setObject:segue.destinationViewController forKey:segue.identifier];
+        }
+        
+        self.destinationIdentifier = segue.identifier;
+        self.destinationViewController = [_viewControllersByIdentifier objectForKey:self.destinationIdentifier];
+        
+        if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
+            NSLog(@"Going SegueFromMenuToList");
+            self.menuListViewController = segue.destinationViewController;
+            self.menuListViewController.outlet = self.outlet;
+            self.menuListViewController.delegate = self;
+        }
+        
+        else if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
+            NSLog(@"Going SegueFromMenuToItems");
+            // Change the function of button to: Go Back.
+            [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
+            [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
     } else{
         NSLog(@"Segure in the menuViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([self.destinationIdentifier isEqual:identifier]) {
+        //Dont perform segue, if visible ViewController is already the destination ViewController
+        return NO;
+    }
+    return YES;
 }
 
 - (void) cancelButtonPressed:(OrderHistoryViewController *)controller{

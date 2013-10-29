@@ -13,6 +13,7 @@
 #import <AFHTTPRequestOperationManager.h>
 #import "User.h"
 #import "Constants.h"
+#import "MultiContainerViewSegue.h"
 
 @class MenuViewController;
 
@@ -37,7 +38,8 @@
 // Three buttons at the top: (gear button no need here)
 
 - (IBAction)homeButtonPressed:(id)sender;
-- (IBAction)viewModeButtonPressed:(id)sender;
+- (IBAction)viewModeButtonPressedAtListPage:(id)sender;
+- (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
 
 // Four buttons at the bottom
 
@@ -69,5 +71,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
+
+// For container view:
+@property (weak,nonatomic) UIViewController *destinationViewController;
+@property (strong, nonatomic) NSString *destinationIdentifier;
+@property (strong, nonatomic) UIViewController *oldViewController;
 
 @end
