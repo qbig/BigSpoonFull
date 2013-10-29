@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.http import Http404
+from datetime import datetime
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -30,8 +31,8 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
     serializer_class = UserSerializer
     model = User
 
-    def pre_save(self, user):
-        user.set_password(user.password)
+    def pre_save(self, obj):
+        obj.set_password(obj.password)
 
     def get(self, request):
         useremail = request.QUERY_PARAMS.get('email', None)
@@ -171,14 +172,17 @@ class MealDetail(generics.RetrieveAPIView):
     model = Meal
 
 
-class CreateRequest(generics.ListCreateAPIView):
+class CreateRequest(generics.CreateAPIView):
     """
     Create new request
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    queryset = Request.objects.all()
     serializer_class = RequestSerializer
+    model = Request
+
+    def pre_save(self, obj):
+        obj.diner = self.request.user
 
 
 class AskForBill(generics.GenericAPIView):
@@ -188,12 +192,17 @@ class AskForBill(generics.GenericAPIView):
     model = Meal
 
     def post(self, request, *args, **kwargs):
-        table = Table.objects.get(id=int(request.DATA['table']))
+        try:
+            table = Table.objects.get(id=int(request.DATA['table']))
+        except Table.DoesNotExist:
+            raise Http404
         diner = request.user
-        meal = Meal.objects.filter(table=table, diner=diner,
-                                   is_paid=False)[0]
-        if meal:
+        meals = Meal.objects.filter(table=table, diner=diner,
+                                    is_paid=False)
+        if meals.count() > 0:
+            meal = meals[0]
             meal.status = Meal.ASK_BILL
+            meal.modified = datetime.now()
             meal.save()
             return Response({"meal_id": meal.id, }, status=status.HTTP_200_OK)
 

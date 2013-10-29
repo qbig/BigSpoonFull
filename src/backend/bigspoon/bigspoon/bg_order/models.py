@@ -40,12 +40,17 @@ class Request(models.Model):
     )
     created = models.DateTimeField(
         auto_now_add=True,
-        help_text=_('Request created time')
+        help_text=_('request created time')
     )
     finished = models.DateTimeField(
         blank=True,
         null=True,
-        help_text=_('Request finish time')
+        help_text=_('request finish time')
+    )
+    note = models.TextField(
+        _('note'),
+        blank=True,
+        help_text=_('request specific note')
     )
 
     @property
