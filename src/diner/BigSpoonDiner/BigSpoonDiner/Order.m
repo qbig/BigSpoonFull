@@ -17,6 +17,16 @@
 
 @implementation Order
 
+- (id) init{
+    self = [super init];
+    if (self) {
+        // Initialization code
+        self.dishes = [[NSMutableArray alloc] init];
+        self.quantity = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 - (void) addDish: (Dish *) dish{
     // If added before, just update its index:
     if ([self.dishes containsObject:dish]) {
@@ -32,7 +42,7 @@
     // If it's new, add it:
     else{
         [self.dishes addObject: dish];
-        [self.quantity addObject: [NSNumber numberWithInt:0]];
+        [self.quantity addObject: [NSNumber numberWithInt:1]];
     }
 }
 

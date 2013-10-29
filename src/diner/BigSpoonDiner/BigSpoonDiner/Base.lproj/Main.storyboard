@@ -511,12 +511,25 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.84999999999999998" alpha="0.95000000000000007" colorSpace="calibratedWhite"/>
                             </view>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="red_circle.png" translatesAutoresizingMaskIntoConstraints="NO" id="Pv4-sA-esJ">
+                                <rect key="frame" x="278" y="515" width="18" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKE-PM-MCP">
+                                <rect key="frame" x="278" y="512" width="18" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="container" destination="OY8-ew-AZo" id="3wv-wx-0wk"/>
                         <outlet property="feedbackTextField" destination="Jw5-DG-Xsg" id="qGZ-Qt-lEa"/>
+                        <outlet property="itemQuantityLabel" destination="AKE-PM-MCP" id="nFx-Gv-xYC"/>
+                        <outlet property="itemQuantityLabelBackgroundImageView" destination="Pv4-sA-esJ" id="rUk-6Y-j9D"/>
                         <outlet property="outletNameLabel" destination="glx-H1-q4K" id="wXQ-TP-Jux"/>
                         <outlet property="quantityOfColdWaterLabel" destination="bAu-YH-qPd" id="lsY-ca-7bB"/>
                         <outlet property="quantityOfWarmWaterLabel" destination="GC9-9b-fy0" id="795-Mn-6oK"/>
@@ -839,6 +852,7 @@ Snacks</string>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="121" height="105"/>
+        <image name="red_circle.png" width="184" height="184"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

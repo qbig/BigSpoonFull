@@ -385,7 +385,17 @@
     
     NSLog(@"New item added to order list with ID: %d", itemID);
     
-    [self.delegate ]
+    [self.delegate dishOrdered:[self getDishWithID: itemID]];
+}
+
+- (Dish *) getDishWithID: (int) itemID{
+    for (Dish * dish in dishesArray) {
+        if (dish.ID == itemID) {
+            return dish;
+        }
+    }
+    NSLog(@"Dish with itemID: %d, was not found when trying to order", itemID);
+    return nil;
 }
 
 

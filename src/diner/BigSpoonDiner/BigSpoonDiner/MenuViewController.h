@@ -79,4 +79,9 @@
 @property (strong, nonatomic) NSString *destinationIdentifier;
 @property (strong, nonatomic) UIViewController *oldViewController;
 
+// For the item quantity label:
+@property (strong, nonatomic) IBOutlet UILabel *itemQuantityLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *itemQuantityLabelBackgroundImageView;
+
+
 @end

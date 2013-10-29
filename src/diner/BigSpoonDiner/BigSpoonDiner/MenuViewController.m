@@ -54,6 +54,7 @@
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
+    self.order = [[Order alloc]init];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -334,8 +335,24 @@
 }
 
 - (void) dishOrdered:(Dish *)dish{
-    NSLog(@"New Dish Ordered!");
     [self.order addDish:dish];
+    [self updateItemQuantityBadge];
+}
+
+- (void) updateItemQuantityBadge{
+    
+    int totalQuantity = [self.order getTotalQuantity];
+    
+    NSLog(@"Total quantity: %d", totalQuantity);
+    
+    if (totalQuantity == 0) {
+        [self.itemQuantityLabel setHidden:YES];
+        [self.itemQuantityLabelBackgroundImageView setHidden:YES];
+    } else{
+        [self.itemQuantityLabel setHidden:NO];
+        [self.itemQuantityLabelBackgroundImageView setHidden:NO];
+        self.itemQuantityLabel.text = [NSString stringWithFormat:@"%d", totalQuantity];
+    }
 }
 
 - (void)validTableRetrieved: (NSArray *)vIDs{
