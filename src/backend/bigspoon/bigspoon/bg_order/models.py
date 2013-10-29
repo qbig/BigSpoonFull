@@ -194,3 +194,24 @@ class Order(models.Model):
     class Meta:
         verbose_name = _('order')
         verbose_name_plural = _('orders')
+
+
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from guardian.shortcuts import assign_perm, get_users_with_perms
+
+
+@receiver(post_save, sender=Request)
+def post_request_creation(sender, instance=None, created=False, **kwargs):
+    if created:
+        assign_perm('change_request', instance.diner, instance)
+        for u in get_users_with_perms(instance.table.outlet):
+            assign_perm('change_request', u, instance)
+
+
+@receiver(post_save, sender=Meal)
+def post_meal_creation(sender, instance=None, created=False, **kwargs):
+    if created:
+        assign_perm('change_meal', instance.diner, instance)
+        for u in get_users_with_perms(instance.table.outlet):
+            assign_perm('change_meal', u, instance)

@@ -318,7 +318,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 div.history {
-    opacity: 0.8;
+    opacity: 0.5;
 }
 
 .item span.time {
@@ -362,6 +362,7 @@ div.history {
     padding: 5px 20px;
     color: #333;
     min-height:50px;
+    word-wrap: break-word;
 }
 
 .item .icon{
@@ -391,6 +392,7 @@ div.history {
     padding: 5px 20px;
     color: #333;
     list-style-type: none;
+    word-wrap: break-word;
 }
 
 .order li em {
@@ -794,5 +796,4 @@ h1.logo {
     display: inline-block;
     width: 100px;
     font-weight: bold;
-
 }

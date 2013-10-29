@@ -19,9 +19,7 @@
         {% endcompress %}
     </head>
     <body>
-        <nav>
-            {% block nav %}{% endblock %}
-        </nav>
+        {% block nav %}{% endblock %}
         <div id ="main">
             {% block content %}{% endblock %}
         </div>
@@ -33,6 +31,7 @@
         <script src="{% static "js/timepicker/datepair.js"%}"></script>
         <script src="{% static "js/timepicker/runtimepicker.js"%}"></script>
         <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
+        <script src="{% static "js/jquery.cookie.js"%}"></script>
         <script src="{% static "js/main.js"%}"></script>
         {% endcompress %}
         {% block morejs %}

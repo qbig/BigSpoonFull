@@ -291,10 +291,10 @@ class Outlet(models.Model):
         blank=False,
         help_text=_('outlet opening hours')
     )
-    treshold = models.IntegerField(
-        _('treshold'),
+    threshold = models.IntegerField(
+        _('threshold'),
         default=10,
-        help_text=_('service time treshold'),
+        help_text=_('service time threshold'),
     )
 
     def __unicode__(self):

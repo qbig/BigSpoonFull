@@ -160,7 +160,7 @@ class CreateMeal(generics.CreateAPIView):
             dish.quantity -= quantity
             dish.save()
 
-        return Response({"meal_id": meal.id, }, status=status.HTTP_201_CREATED)
+        return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
 
 class MealDetail(generics.RetrieveAPIView):
@@ -206,3 +206,68 @@ class AskForBill(generics.GenericAPIView):
 
         return Response({"error": "Meal not found", },
                         status=status.HTTP_400_BAD_REQUEST)
+
+
+# internal API for staff app only
+class CloseBill(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (DjangoObjectPermissions,)
+    model = Meal
+
+    def post(self, request, *args, **kwargs):
+        try:
+            meal = Meal.objects.get(pk=int(request.DATA['meal']))
+        except Meal.DoesNotExist:
+            raise Http404
+        if not request.user.has_perm('change_meal', meal):
+            return Response({
+                "details": "You do not have permission to perform this action."
+            }, status=status.HTTP_403_FORBIDDEN)
+        meal.status = Meal.INACTIVE
+        meal.is_paid = True
+        meal.bill_time = datetime.now()
+        meal.save()
+        return Response(MealDetailSerializer(meal).data,
+                        status=status.HTTP_200_OK)
+
+
+class AckOrder(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (DjangoObjectPermissions,)
+    model = Meal
+
+    def post(self, request, *args, **kwargs):
+        try:
+            meal = Meal.objects.get(pk=int(request.DATA['meal']))
+        except Meal.DoesNotExist:
+            raise Http404
+        if not request.user.has_perm('change_meal', meal):
+            return Response({
+                "details": "You do not have permission to perform this action."
+            }, status=status.HTTP_403_FORBIDDEN)
+        meal.status = Meal.INACTIVE
+        meal.modified = datetime.now()
+        meal.save()
+        return Response(MealDetailSerializer(meal).data,
+                        status=status.HTTP_200_OK)
+
+
+class AckRequest(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (DjangoObjectPermissions,)
+    model = Request
+
+    def post(self, request, *args, **kwargs):
+        try:
+            req = Request.objects.get(pk=int(request.DATA['request']))
+        except Meal.DoesNotExist:
+            raise Http404
+        if not request.user.has_perm('change_request', req):
+            return Response({
+                "details": "You do not have permission to perform this action."
+            }, status=status.HTTP_403_FORBIDDEN)
+        req.is_active = False
+        req.finished = datetime.now()
+        req.save()
+        return Response(RequestSerializer(req).data,
+                        status=status.HTTP_200_OK)

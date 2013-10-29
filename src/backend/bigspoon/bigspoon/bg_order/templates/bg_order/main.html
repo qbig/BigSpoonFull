@@ -4,15 +4,14 @@
 {% load compress %}
 
 {% block content %}
-
     {% for meal in meal_cards %}
     <div class="item">
-        {% if meal.wait_time.0 > meal.table.outlet.treshold %}
+        {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
         <span class="urgent time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
         {% endif %}
-        <a href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
+        <a href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
@@ -24,20 +23,20 @@
         </ul>
 
         {% if meal.status == 0 %}
-            <a class="acknowledge"><i class="icon-check-sign"></i> Acknowledge</a>
-        {% else %}
-            <a class="closebill"><i class="icon-money"></i> Close Bill</a>
+            <a class="acknowledge ack-button" rel="order" model="meal" id="{{meal.id}}"><i class="icon-check-sign"></i> Acknowledge</a>
+        {% elif meal.status == 2 %}
+        <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
         {% endif %}
     </div>
     {% endfor %}
     {% for request in requests_cards %}
     <div class="item request">
-        {% if request.wait_time.0 > request.table.outlet.treshold %}
+        {% if request.wait_time.0 >= request.table.outlet.treshold %}
         <span class="urgent time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
         {% endif %}
-        <a href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
+        <a href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
 
@@ -47,14 +46,9 @@
             <img class="icon" src="{% static "img/water.png" %}"/>
         {% elif request.request_type == 1%}
             <img class="icon" src="{% static "img/waiter.png" %}"/>
-        {% else %}
-
         {% endif %}
-
         </p>
-
-
-        <a class="respond"><i class="icon-glass"></i> Respond</a>
+        <a class="respond ack-button" rel="req" model="request" id="{{request.id}}"><i class="icon-glass"></i> Respond</a>
     </div>
     {% endfor %}
 {% endblock content %}
