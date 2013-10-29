@@ -231,6 +231,12 @@
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
+            } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
+                ItemsOrderedViewController *itemVC = (ItemsOrderedViewController *)segue.destinationViewController;
+                
+                itemVC.delegate = self;
+                itemVC.currentOrder = self.currentOrder;
+                itemVC.pastOrder = self.pastOrder;
             }
         }
         
@@ -243,6 +249,7 @@
         
         if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
             NSLog(@"Going SegueFromMenuToItems");
+            
             // Change the function of button to: Go Back.
             [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
             [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
@@ -337,6 +344,11 @@
 
 - (void) dishOrdered:(Dish *)dish{
     [self.currentOrder addDish:dish];
+    [self updateItemQuantityBadge];
+}
+
+- (void) orderQuantityHasChanged:(Order *)order{
+    NSLog(@"MenuViewController Detected Order Change");
     [self updateItemQuantityBadge];
 }
 

@@ -15,6 +15,7 @@
 #import "Constants.h"
 #import "MultiContainerViewSegue.h"
 #import "Order.h"
+#import "ItemsOrderedViewController.h"
 
 @class MenuViewController;
 
@@ -23,7 +24,7 @@
 @end
 
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate>
 
 // Data:
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;

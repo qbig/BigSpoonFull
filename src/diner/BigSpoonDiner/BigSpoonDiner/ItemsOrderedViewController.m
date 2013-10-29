@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "itemsOrderedTableViewController.h"
+#import "ItemsOrderedViewController.h"
 
-@interface itemsOrderedTableViewController ()
+@interface ItemsOrderedViewController ()
 
 @end
 
-@implementation itemsOrderedTableViewController
+@implementation ItemsOrderedViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"itemsOrderedViewController Loading view");
+    NSLog(@"ItemsOrderedViewController Loading view");
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -45,24 +45,34 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    if ([tableView isEqual:self.currentOrderTableView]) {
+        return 1;
+    } else if ([tableView isEqual:self.pastOrderTableView]){
+        return 1;
+    } else{
+        NSLog(@"Unrecognized tableView is calling delegate method");
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    if ([tableView isEqual:self.currentOrderTableView]) {
+        return [self.currentOrder getNumberOfDishes];
+    } else if ([tableView isEqual:self.pastOrderTableView]){
+        return [self.pastOrder getNumberOfDishes];
+    } else{
+        NSLog(@"Unrecognized tableView is calling delegate method");
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
+
+    newOrderCell *cell = (newOrderCell *)[tableView
+                                            dequeueReusableCellWithIdentifier:@"newOrderCell"];
     
     return cell;
 }
@@ -118,4 +128,13 @@
 
  */
 
+- (IBAction)plusButtonPressed:(id)sender {
+    
+    [self.delegate orderQuantityHasChanged: self.currentOrder];
+}
+
+- (IBAction)minusButtonPressed:(UIButton *)sender {
+    
+    [self.delegate orderQuantityHasChanged: self.currentOrder];
+}
 @end
