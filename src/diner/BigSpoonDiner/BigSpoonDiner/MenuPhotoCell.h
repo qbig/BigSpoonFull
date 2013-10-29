@@ -14,8 +14,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *ratingImageView;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
-
-
-- (IBAction)addButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
 
 @end

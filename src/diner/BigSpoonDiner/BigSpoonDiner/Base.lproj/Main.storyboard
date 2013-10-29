@@ -646,7 +646,7 @@ Snacks</string>
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="addButtonPressed:" destination="HgS-6H-ity" eventType="touchUpInside" id="VNN-PQ-n2N"/>
+                                                <action selector="addNewItemButtonClicked:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="taM-Zw-0Nq"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1W-aM-iIl">
@@ -709,10 +709,14 @@ Snacks</string>
                                             <state key="normal" image="add_icon2.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="addNewItemButtonClicked:" destination="KE0-Fp-4U7" eventType="touchUpInside" id="svK-1Y-cn0"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="addButton" destination="UbY-Ez-zJc" id="Pmt-57-IfY"/>
                                     <outlet property="descriptionLabel" destination="U1t-2X-sVO" id="6NU-He-sGJ"/>
                                     <outlet property="imageView" destination="3lS-eC-aBJ" id="mUs-ix-Cw0"/>
                                     <outlet property="nameLabel" destination="dhl-89-pKc" id="HMX-pI-gTJ"/>

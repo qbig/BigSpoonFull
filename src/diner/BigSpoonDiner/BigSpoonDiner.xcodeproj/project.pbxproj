@@ -19,6 +19,7 @@
 		49048D1E181F9E5500B480A3 /* MultiContainerViewSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 49048D1D181F9E5500B480A3 /* MultiContainerViewSegue.m */; };
 		49048D24181FF71100B480A3 /* itemsOrderedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49048D23181FF71100B480A3 /* itemsOrderedTableViewController.m */; };
 		49048D26181FFA6000B480A3 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D25181FFA6000B480A3 /* back.png */; };
+		49048D29182001C900B480A3 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 49048D28182001C900B480A3 /* Order.m */; };
 		491641FF180C58BB00080B87 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FD180C58BB00080B87 /* gear.png */; };
 		49164200180C58BB00080B87 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 491641FE180C58BB00080B87 /* home.png */; };
 		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
@@ -89,6 +90,8 @@
 		49048D22181FF71100B480A3 /* itemsOrderedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = itemsOrderedTableViewController.h; sourceTree = "<group>"; };
 		49048D23181FF71100B480A3 /* itemsOrderedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = itemsOrderedTableViewController.m; sourceTree = "<group>"; };
 		49048D25181FFA6000B480A3 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		49048D27182001C900B480A3 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		49048D28182001C900B480A3 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		491641FD180C58BB00080B87 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		491641FE180C58BB00080B87 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		49164201180C590C00080B87 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 				49669B14180CED1D00089254 /* Dish.m */,
 				49669B16180CED2D00089254 /* User.h */,
 				49669B17180CED2D00089254 /* User.m */,
+				49048D27182001C900B480A3 /* Order.h */,
+				49048D28182001C900B480A3 /* Order.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
+				49048D29182001C900B480A3 /* Order.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				49669B1B180CF2A000089254 /* MenuPhotoCell.m in Sources */,

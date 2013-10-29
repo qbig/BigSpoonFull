@@ -333,11 +333,12 @@
     }
 }
 
-- (void) DishOrdered:(Dish *)dish{
+- (void) dishOrdered:(Dish *)dish{
     NSLog(@"New Dish Ordered!");
+    [self.order addDish:dish];
 }
 
-- (void)ValidTableRetrieved: (NSArray *)vIDs{
+- (void)validTableRetrieved: (NSArray *)vIDs{
     self.validTableIDs = vIDs;
 }
 

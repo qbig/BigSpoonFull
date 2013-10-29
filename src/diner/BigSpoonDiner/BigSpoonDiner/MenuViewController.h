@@ -14,6 +14,7 @@
 #import "User.h"
 #import "Constants.h"
 #import "MultiContainerViewSegue.h"
+#import "Order.h"
 
 @class MenuViewController;
 
@@ -24,11 +25,12 @@
 
 @interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate>
 
-// Class Data:
+// Data:
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
 @property (nonatomic) NSArray *validTableIDs;
+@property (nonatomic, strong) Order *order;
 
 // Buttons:
 

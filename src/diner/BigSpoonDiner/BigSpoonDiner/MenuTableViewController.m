@@ -80,6 +80,9 @@
         Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
     
         cell.nameLabel.text = dish.name;
+        
+        // When the button is clicked, we know which one. :)
+        cell.addButton.tag = dish.ID;
     
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
     
@@ -97,6 +100,9 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
+        
+        // When the button is clicked, we know which one. :)
+        cell.addButton.tag = dish.ID;
         
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
         
@@ -274,7 +280,7 @@
                 [validTableIDs addObject: tableID];
             }
             
-            [self.delegate ValidTableRetrieved:validTableIDs];
+            [self.delegate validTableRetrieved:validTableIDs];
             
             break;
         }
@@ -371,6 +377,15 @@
 }
 - (IBAction)sidesAndSnacksButtonPressed:(id)sender {
     NSLog(@"sidesButtonPressed");
+}
+
+- (IBAction)addNewItemButtonClicked:(id)sender {
+    UIButton *btn = (UIButton *)sender;
+    int itemID = btn.tag;
+    
+    NSLog(@"New item added to order list with ID: %d", itemID);
+    
+    [self.delegate ]
 }
 
 
