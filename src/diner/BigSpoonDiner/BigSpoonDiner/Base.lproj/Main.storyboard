@@ -291,7 +291,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="viewModeButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="awa-0j-yZJ"/>
+                                    <action selector="viewModeButtonPressedAtListPage:" destination="fn9-OW-D18" eventType="touchUpInside" id="Wjw-bN-ync"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22J-FF-bS0">
@@ -318,9 +318,6 @@
                                 <rect key="frame" x="8" y="67" width="305" height="501"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="KE0-Fp-4U7" kind="embed" identifier="SegueFromContainerToDishList" id="uZC-64-nPd"/>
-                                </connections>
                             </containerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bottom_buttons.png" translatesAutoresizingMaskIntoConstraints="NO" id="rzZ-R2-gh1">
                                 <rect key="frame" x="8" y="516" width="305" height="54"/>
@@ -527,22 +524,52 @@
                         <outlet property="ratingsView" destination="4Xt-L4-3ng" id="fPY-oP-Wlf"/>
                         <outlet property="requestWaterView" destination="gnx-vY-vgQ" id="UOn-KQ-Sdb"/>
                         <outlet property="viewModeButton" destination="ArR-XE-dvZ" id="Ys7-3G-Wpk"/>
+                        <segue destination="KE0-Fp-4U7" kind="custom" identifier="SegueFromMenuToList" customClass="MultiContainerViewSegue" id="2dA-Z8-WM1"/>
+                        <segue destination="chZ-5t-n0Q" kind="custom" identifier="SegueFromMenuToItems" customClass="MultiContainerViewSegue" id="RA6-ck-miY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32a-af-j0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1574" y="1103"/>
         </scene>
+        <!--Table View Controller-->
+        <scene sceneID="N6d-2K-daX">
+            <objects>
+                <tableViewController id="chZ-5t-n0Q" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JFF-2Q-x3Y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WR9-xp-mhh">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WR9-xp-mhh" id="jrJ-HP-Awo">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="chZ-5t-n0Q" id="ehA-d2-5Yi"/>
+                            <outlet property="delegate" destination="chZ-5t-n0Q" id="bsK-sj-gS4"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GwR-Fz-m2H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2300" y="367"/>
+        </scene>
         <!--MenuTableViewController-->
         <scene sceneID="OaT-xB-Mu9">
             <objects>
                 <tableViewController id="KE0-Fp-4U7" userLabel="MenuTableViewController" customClass="MenuTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
-                        <rect key="frame" x="0.0" y="0.0" width="305" height="501"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="cTl-rN-X2W">
-                            <rect key="frame" x="0.0" y="0.0" width="305" height="60"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLb-cY-C38">
@@ -592,10 +619,10 @@ Snacks</string>
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="MenuListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuListCell" rowHeight="59" id="HgS-6H-ity" customClass="MenuListCell">
-                                <rect key="frame" x="0.0" y="82" width="305" height="59"/>
+                                <rect key="frame" x="0.0" y="82" width="320" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgS-6H-ity" id="0rT-1q-Ya9">
-                                    <rect key="frame" x="0.0" y="0.0" width="305" height="58"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="58"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAF-xu-Uld">
@@ -638,14 +665,14 @@ Snacks</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="MenuPhotoCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="186" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
-                                <rect key="frame" x="0.0" y="141" width="305" height="186"/>
+                                <rect key="frame" x="0.0" y="141" width="320" height="186"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HiF-Sy-gJL" id="AmA-8O-KWh">
-                                    <rect key="frame" x="0.0" y="0.0" width="305" height="185"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3lS-eC-aBJ" userLabel="Dish Photo">
-                                            <rect key="frame" x="0.0" y="0.0" width="305" height="185"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="185"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="photo_cell_gradient.png" translatesAutoresizingMaskIntoConstraints="NO" id="6Fm-7d-8MW">
@@ -702,7 +729,7 @@ Snacks</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pV2-Pz-y2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2200" y="1140"/>
+            <point key="canvasLocation" x="2745" y="1103"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">
@@ -795,7 +822,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2115" y="1774"/>
+            <point key="canvasLocation" x="2300" y="1772"/>
         </scene>
     </scenes>
     <resources>
