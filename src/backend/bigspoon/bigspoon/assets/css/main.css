@@ -222,12 +222,12 @@ textarea {
 
 
 body {
-    background: url("{{STATIC_URL;}}img/bg.png");
+    background: url("{{STATIC_URL}}img/bg.png");
 }
 
 .wrapper {
     margin: 0 auto;
-    min-width: 800px;
+    min-width: 920px;
     max-width: 960px;
     border-radius: 5px;
 }
@@ -355,23 +355,23 @@ div.history {
 }
 
 .item p.note {
-    padding: 5px 20px;
-    min-height:50px;
+    font-size:14px;
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     background: #fcf6ef;
+    padding: 5px 20px;
     color: #333;
-    font-size:14px;
+    min-height:50px;
 }
 
 .item .icon{
-    position: absolute;
+    opacity: 0.8;
+    display: block;
     top: 115px;
     right: 5px;
-    display: block;
-    width: 50px;
     height: 50px;
-    opacity: 0.8;
+    width: 50px;
+    position: absolute;
 }
 
 .item h4 {
