@@ -159,7 +159,7 @@ class CreateMeal(generics.CreateAPIView):
             dish.quantity -= quantity
             dish.save()
 
-        return Response({"meal_id": meal.id, }, status=status.HTTP_201_CREATED)
+        return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
 
 class MealDetail(generics.RetrieveAPIView):

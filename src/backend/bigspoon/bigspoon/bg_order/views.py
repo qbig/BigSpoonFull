@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.views.generic import ListView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.auth import get_user_model
@@ -126,20 +126,23 @@ class TableView(ListView):
             Outlet.objects.all()
         )
         return super(TableView, self).get_queryset()\
-            .filter(outlet__in=outlets)\
-            .prefetch_related('meals', 'meals__orders')
+            .prefetch_related('meals', 'meals__orders')\
+            .filter(outlet__in=outlets)
 
 
-class UserView(UpdateView):
-    model = User
+class UserView(TemplateView):
     template_name = "bg_order/user.html"
 
-    def get_object(self, queryset=None):
+    def get_context_data(self, **kwargs):
+        context = super(UserView, self).get_context_data(**kwargs)
         try:
-            obj = User.objects.get(pk=self.kwargs['pk'])
+            context['diner'] = User.objects\
+                .prefetch_related('meals', 'meals__orders',
+                                  'profile', 'notes')\
+                .get(pk=self.kwargs['pk'])
         except User.DoesNotExist:
             raise Http404
-        return obj
+        return context
 
 
 class ReportView(ListView):

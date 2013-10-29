@@ -24,7 +24,7 @@
 
         {% if meal.status == 0 %}
             <a class="acknowledge ack-button" rel="order" model="meal" id="{{meal.id}}"><i class="icon-check-sign"></i> Acknowledge</a>
-        {% else %}
+        {% elif meal.status == 2 %}
         <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
         {% endif %}
     </div>

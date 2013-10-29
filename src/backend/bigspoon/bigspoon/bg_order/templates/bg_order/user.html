@@ -7,27 +7,25 @@
 
 <div class="wrapper-no-bg">
     <div class="user-info">
-
         <span class='user'>
-            <img class="thumbnail-navigation" src="{{user.avatar_url}}" />
-            <h3>{{user.first_name}} {{user.last_name}}</h3>
+            <img class="thumbnail-navigation" src="{{diner.avatar_url}}" />
+            <h3>{{diner.first_name}} {{diner.last_name}}</h3>
         </span>
 
         <span class='user-stats'>
-            {% if user.profile.gender == 'M' %}
+            {% if diner.profile.gender == 'M' %}
             <p class='visits'><i class="icon-male"></i></p>
-            {% elif user.profile.gender == 'F' %}
+            {% elif diner.profile.gender == 'F' %}
             <p class='visits'><i class="icon-female"></i></p>
-            {% else %}
             {% endif %}
-            <p class='visits'><i class="icon-user"></i> {{user.meals.count}} visits</p>
-            <p class='spent'><i class="icon-dollar"></i> {{user.get_total_spending}} spent</p>
+            <p class='visits'><i class="icon-user"></i> {{diner.meals.count}} visits</p>
+            <p class='spent'><i class="icon-dollar"></i> {{diner.get_total_spending}} spent</p>
         </span>
 
         <!-- order history -->
         <div class="past-orders">
             <h3><i class="icon-time"></i> Past Orders</h3>
-            {% for meal in user.meals.all%}
+            {% for meal in diner.meals.all %}
 
             <h5>{{meal.get_created}}</h5>
 
@@ -40,24 +38,24 @@
             {% endfor %}
         </div>
 
-        {% if user.profile %}
+        {% if diner.profile %}
         <div class="user-preferences">
             <h4><i class="icon-frown"></i> Known Allergies</h4><p class="allergies">
-                {{user.profile.allergies}}
+                {{diner.profile.allergies}}
             </p>
 
             <h4><i class="icon-warning-sign"></i> Dietary requirements</h4><p class="vegetarian">
-                {% if user.profile.vegetarian %}
+                {% if diner.profile.vegetarian %}
                 Vegetarian
                 {% endif %}
 
-                {% if user.profile.muslim %}
+                {% if diner.profile.muslim %}
                 Muslim
                 {% endif %}
             </p>
 
             <h4><i class="icon-heart"></i> Favourite categories</h4><p class="favourites">
-                {{user.profile.get_favourite_categories}}
+                {{diner.profile.get_favourite_categories}}
             </p>
 
             <!-- last feedback -->
@@ -70,7 +68,7 @@
             <h4><i class="icon-file-alt"></i> Notes</h4>
             <input class="notes" type="textarea" placeholder="Likes to sit near windows" value="
 
-            {% for note in user.notes.all%}
+            {% for note in diner.notes.all%}
             {{note.content}}
             {% endfor %}
 

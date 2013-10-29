@@ -28,7 +28,7 @@ $(document).ready(function() {
                 STAFF_API_URLS[type],
                 req_data
             ).done(function(data) {
-                location.reload();
+                location.reload(true);
             }).fail(function(data) {
                 console.log("POST failed");
                 console.log(data);

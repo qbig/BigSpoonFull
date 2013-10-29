@@ -26,7 +26,14 @@
         <a href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
-        <p>{{request.note}}</p>
+        <p class="note">{{request.note}}
+
+        {% if request.request_type == 0 %}
+            <img class="icon" src="{% static "img/water.png" %}"/>
+        {% elif request.request_type == 1%}
+            <img class="icon" src="{% static "img/waiter.png" %}"/>
+        {% endif %}
+        </p>
     </div>
     {% endfor %}
 
