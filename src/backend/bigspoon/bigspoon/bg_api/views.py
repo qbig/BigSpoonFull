@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
+from django.contrib.auth.models import Group
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -38,6 +39,13 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
 
     def pre_save(self, obj):
         obj.set_password(obj.password)
+        obj.is_active = True
+
+    def post_save(self, obj, created=False):
+        # add to normal user group
+        g = Group.objects.get(name='normaluser')
+        g.user_set.add(obj)
+        g.save()
 
     def get(self, request):
         useremail = request.QUERY_PARAMS.get('email', None)
