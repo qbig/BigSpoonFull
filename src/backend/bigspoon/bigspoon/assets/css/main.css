@@ -656,25 +656,22 @@ p.success {
     display:inline-block;
     margin: 10px auto 20px;
     padding: 20px;
-    width: 800px;
+    width: 700px;
     border-radius: 5px;
     background: #fff;
-    -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
-    -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
-    box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
 }
 
 .past-orders {
     display: block;
     float: left;
     margin-right: 30px;
-    width: 360px;
+    width: 300px;
 }
 
 .user-preferences {
     display: block;
     float: left;
-    width: 400px;
+    width: 360px;
 }
 
 .user-info .user img {
@@ -720,7 +717,7 @@ p.success {
     display: inline-block;
     margin-top: 0px;
     padding:20px;
-    width: 360px;
+    width: 320px;
     height: 80px;
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
@@ -728,7 +725,7 @@ p.success {
 }
 
 .user-info input.notes {
-    width: 380px;
+    width: 340px;
     height: 80px;
 }
 
@@ -802,7 +799,8 @@ h1.logo {
     position: relative;
     background: #FFF;
     padding: 20px;
-    width: auto;
-    max-width: 75%;
+    /*width: auto;*/
+    width: 730px;
+    border-radius:5px;
     margin: 20px auto;
 }
