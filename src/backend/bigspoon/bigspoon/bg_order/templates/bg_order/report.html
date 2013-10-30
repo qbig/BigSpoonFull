@@ -40,15 +40,15 @@
 				{% endfor %}
 			</td>
 			<td class="separate-column">{{meal.diner.get_full_name}}</td>
-			<td class="separate-column"></td>
-		</tr>
+			<td class="separate-column">${{meal.get_meal_spending|floatformat:2}}</td>
+		</tr><!--
 			{% for order in meal.orders.all %}
 			<tr>
-				<td></td>
-				<td class="separate-column"><!-- {{order.dish.name}} {{order.quantity}}  --></td>
+				<td></td><td></td>
+				<td class="separate-column">{{order.dish.name}} x{{order.quantity}}</td>
 				<td></td>
 			</tr>
-			{% endfor %}
+			{% endfor %}-->
         {% endfor %}
     </tbody>
 </table>
