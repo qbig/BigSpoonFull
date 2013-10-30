@@ -309,3 +309,8 @@ ANONYMOUS_DEFAULT_USERNAME_VALUE = 'Anonymous'
 AUTH_USER_MODEL = 'bg_inventory.User'
 LOGIN_REDIRECT_URL = '/staff/main'
 ########## END USER MODEL CONFIGURATION
+
+########## REDIS HOST CONFIGURATION
+from os import environ
+REDIS_HOST = environ.get('REDIS_HOST', '127.0.0.1')
+########## END REDIS HOST CONFIGURATION

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
-from django.conf.urls.defaults import patterns
+from django.conf.urls import patterns
 from guardian.admin import GuardedModelAdmin
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 
