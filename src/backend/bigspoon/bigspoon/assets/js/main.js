@@ -1,10 +1,29 @@
 $(document).ready(function() {
 
+    // for socket io
+    socket = io.connect();
+    socket.on("message", function(obj){
+        if (obj.message.type == "message") {
+            var data = eval(obj.message.data);
+            console.log(data);
+            if (data[0] == "refresh") {
+                location.reload(true);
+            }
+        }
+    });
+    if (outlet_ids != null) {
+        for (var i = 0, len = outlet_ids.length; i < len; i++) {
+            socket.send("subscribe:" + outlet_ids[i]);
+        }
+    }
+
+    // for masonry
     $("#main").masonry({
         resizeable: true,
         itemSelector: '.item'
     });
 
+    // for user pop up
     $(".user-profile-link").magnificPopup({
         type: 'ajax',
         alignTop: true,
@@ -12,6 +31,7 @@ $(document).ready(function() {
         overflowY: 'scroll',
     });
 
+    // for request and order ack
     var host = "http://"+location.host;
 
     var STAFF_API_URLS = {

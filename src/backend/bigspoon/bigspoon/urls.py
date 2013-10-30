@@ -20,6 +20,8 @@ urlpatterns = patterns(
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^staff/', include('bigspoon.bg_order.urls')),
     url(r'^api/v1/', include('bigspoon.bg_api.urls')),
+    # socketio view
+    url(r'^socket\.io', 'bigspoon.bg_inventory.views.socketio'),
 )
 
 if settings.DEBUG:

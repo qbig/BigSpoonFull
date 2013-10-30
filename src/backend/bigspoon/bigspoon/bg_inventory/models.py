@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django_thumbs.db.models import ImageWithThumbsField
 from django.utils.text import slugify
+from guardian.shortcuts import get_objects_for_user
 
 from bg_inventory.managers import UserManager
 
@@ -112,6 +113,15 @@ class User(AbstractBaseUser, PermissionsMixin):
             hashlib.md5(self.email.lower()).hexdigest(),
             urllib.urlencode({'d': 'mm', 's': str(s)})
         )
+
+    @property
+    def outlet_ids(self):
+        outlets = get_objects_for_user(
+            self,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        return [o.id for o in outlets]
 
     def __unicode__(self):
         """

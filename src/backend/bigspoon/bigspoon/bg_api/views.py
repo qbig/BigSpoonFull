@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import Http404
-from datetime import datetime
+from django.conf import settings
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -21,6 +21,10 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish
 from bg_order.models import Meal, Request, Order
 
+import redis
+from datetime import datetime
+
+REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 User = get_user_model()
 
 
@@ -227,6 +231,9 @@ class CloseBill(generics.GenericAPIView):
         meal.is_paid = True
         meal.bill_time = datetime.now()
         meal.save()
+        red = redis.StrictRedis(REDIS_HOST)
+        for o_id in request.user.outlet_ids:
+            red.publish('%d' % o_id, ['refresh'])
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -248,6 +255,9 @@ class AckOrder(generics.GenericAPIView):
         meal.status = Meal.INACTIVE
         meal.modified = datetime.now()
         meal.save()
+        red = redis.StrictRedis(REDIS_HOST)
+        for o_id in request.user.outlet_ids:
+            red.publish('%d' % o_id, ['refresh'])
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -269,5 +279,8 @@ class AckRequest(generics.GenericAPIView):
         req.is_active = False
         req.finished = datetime.now()
         req.save()
+        red = redis.StrictRedis(REDIS_HOST)
+        for o_id in request.user.outlet_ids:
+            red.publish('%d' % o_id, ['refresh'])
         return Response(RequestSerializer(req).data,
                         status=status.HTTP_200_OK)
