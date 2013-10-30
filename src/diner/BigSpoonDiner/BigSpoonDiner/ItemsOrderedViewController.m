@@ -189,4 +189,16 @@
     cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
 
 }
+- (IBAction)placeOrderButtonPressed:(id)sender {
+    
+    [self.delegate placeOrder];
+    
+}
+
+- (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
+    self.currentOrder = currentOrder;
+    self.pastOrder = pastOrder;
+    [self.currentOrderTableView reloadData];
+    [self.pastOrderTableView reloadData];
+}
 @end

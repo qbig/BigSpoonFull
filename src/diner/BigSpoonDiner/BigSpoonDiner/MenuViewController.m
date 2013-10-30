@@ -255,10 +255,7 @@
             
             [self changeViewModeButtonIconTo:@"back"];
             
-            self.itemsOrderedViewController.currentOrder = self.currentOrder;
-            self.itemsOrderedViewController.pastOrder = self.pastOrder;
-            [self.itemsOrderedViewController.currentOrderTableView reloadData];
-            [self.itemsOrderedViewController.pastOrderTableView reloadData];
+            [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
         }
         
     } else{
@@ -394,8 +391,13 @@
 }
 
 - (void) placeOrder{
+    
+    // TODO
+    
     [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
     self.currentOrder = [[Order alloc] init];
+    [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
+    //[self.itemsOrderedViewController]
 }
 - (Order *) getCurrentOrder{
     return self.currentOrder;

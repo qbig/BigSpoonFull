@@ -38,4 +38,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *currentOrderTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pastOrderTableView;
 
+- (IBAction)placeOrderButtonPressed:(id)sender;
+
+- (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
+
 @end
