@@ -23,6 +23,27 @@
         </tr>
     </thead>
     <tbody>
+    {% for meal in object_list %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td class="separate-column">{{meal.created}}</td>
+			<td class="separate-column">
+			{% for order in meal.orders.all %}
+				{% if order.quantity < 10 %}0{% endif %}{{order.quantity}}x
+				&nbsp;{{order.dish.name}}<br>
+			{% endfor %}
+			</td>
+			<td class="separate-column">{{meal.diner.get_full_name}}</td>
+			<td class="separate-column">${{meal.get_meal_spending|floatformat:2}}</td>
+		</tr><!--
+		{% for order in meal.orders.all %}
+			<tr>
+				<td></td><td></td>
+				<td class="separate-column">{{order.dish.name}} x{{order.quantity}}</td>
+				<td></td>
+			</tr>
+		{% endfor %}-->
+    {% endfor %}
         <!--<tr>
             <td>1</td>
             <td class="separate-column">Jul 6, 2006 8:14 AM</td>
@@ -30,27 +51,6 @@
             <td class="separate-column">Yos</td>
             <td class="separate-column">$9.99</td>
         </tr>-->
-        {% for meal in object_list %}
-		<tr>
-			<td>{{forloop.counter}}</td>
-			<td class="separate-column">{{meal.created}}</td>
-			<td class="separate-column">
-				{% for order in meal.orders.all %}
-				{% if order.quantity < 10 %}0{% endif %}{{order.quantity}}x
-				&nbsp;{{order.dish.name}}<br>
-				{% endfor %}
-			</td>
-			<td class="separate-column">{{meal.diner.get_full_name}}</td>
-			<td class="separate-column">${{meal.get_meal_spending|floatformat:2}}</td>
-		</tr><!--
-			{% for order in meal.orders.all %}
-			<tr>
-				<td></td><td></td>
-				<td class="separate-column">{{order.dish.name}} x{{order.quantity}}</td>
-				<td></td>
-			</tr>
-			{% endfor %}-->
-        {% endfor %}
     </tbody>
 </table>
 
