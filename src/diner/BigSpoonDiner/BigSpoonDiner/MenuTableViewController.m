@@ -159,10 +159,14 @@
 // Ajax callback to add one more new item in the table:
 - (void)addDish:(Dish *)dish
 {
+    
+    // Not used. Because it's view is not aligned properly. Don't know the bug yet.
+    
+    return;
+    
 	[self.dishesArray addObject:dish];
-	NSIndexPath *indexPath =
-    [NSIndexPath indexPathForRow:[self.dishesArray count] - 1
-                       inSection:0];
+    
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.dishesArray count] - 1 inSection: 0];
     
 	[self.tableView insertRowsAtIndexPaths:
      [NSArray arrayWithObject:indexPath]
@@ -265,11 +269,10 @@
                                                        quantity:quantity
                                        ];
                 
-                [self addDish:newDishObject];
-                NSLog(@"Adding one dish!!!");
-                
-                
+                [self.dishesArray addObject:newDishObject];
             }
+            
+            [self.tableView reloadData];
             
             // Retrieve valid table IDs:
             NSMutableArray *validTableIDs = [[NSMutableArray alloc] init];
