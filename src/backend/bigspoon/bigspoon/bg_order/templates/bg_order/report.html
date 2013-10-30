@@ -8,7 +8,8 @@
 <p>Meal Report</p>
 
 <style>
-    table thead tr th, table tbody tr td, 
+	table tbody tr td empty { padding-left:10px; }
+    table thead tr th, table tbody tr td,
     .separate-column{ padding-left:5px; padding-right:10px; }
     table tbody tr td, .align-top{ vertical-align:top; }
     .order_spending, .greyfont{color:gray;}
@@ -27,7 +28,7 @@
     <tbody>
     {% for meal in object_list %}
 		<tr>
-			<td>{{forloop.counter}}</td>
+			<td><empty></empty>{{forloop.counter}}</td>
 			<td class="separate-column">{{meal.created}}</td>
 			<td class="separate-column">
 			{% for order in meal.orders.all %}
