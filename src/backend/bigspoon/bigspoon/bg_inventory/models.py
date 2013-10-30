@@ -121,7 +121,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             "change_outlet",
             Outlet.objects.all()
         )
-        return [long(o.id) for o in outlets]
+        return [str(o.id) for o in outlets]
 
     def __unicode__(self):
         """
