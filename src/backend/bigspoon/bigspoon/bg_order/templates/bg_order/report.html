@@ -5,20 +5,13 @@
 
 {% block content %}
 
-<p>Meal Report</p>
 
-<style>
-	table tbody tr td empty { padding-left:10px; }
-    table thead tr th, table tbody tr td,
-    .separate-column{ padding-left:5px; padding-right:10px; }
-    table tbody tr td, .align-top{ vertical-align:top; }
-    .order_spending, .greyfont{color:gray;}
-    .order_spending{font-size:14px;} /*Default font-size seems to be 16.*/
-</style>
-<table class="sortable">
+<div class="sectionHeader"><h2 class="force-clear">Meal Report</h2></div>
+
+<table class="sortable datatable">
     <thead align="left">
         <tr>
-            <th >S/N</th>
+            <th style="padding-right:18px;">S/N</th>
             <th class="separate-column">Meal Creation Date</th>
             <th class="separate-column">Dishes Ordered</th>
             <th class="separate-column">Customer</th>
@@ -42,7 +35,7 @@
 			</td>
 			<td class="separate-column">{{meal.diner.get_full_name}}</td>
 			<td class="separate-column"><!--using comment to prevent space between $ & num
-			>--><span class="order_spending"><!--
+			>--><span class="order-spending"><!--
 			>-->{% for order in meal.orders.all %}{% if meal.orders.all|length > 1 %}<!--
 				Only show if length>1. Else we can just show the total, it's == that order.
 				>-->+ ${{order.get_order_spending|floatformat:2}}<br>{% endif %}
