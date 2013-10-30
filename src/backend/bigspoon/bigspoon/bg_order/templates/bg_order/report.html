@@ -19,7 +19,7 @@
         <tr>
             <th >S/N</th>
             <th class="separate-column">Meal Creation Date</th>
-            <th class="separate-column">Dished Ordered</th>
+            <th class="separate-column">Dishes Ordered</th>
             <th class="separate-column">Customer</th>
             <th class="separate-column">Total</th>
         </tr>
@@ -35,7 +35,8 @@
 				&nbsp;{{order.dish.name}}<br> <!--This line is always shown-->
 			{% endfor %}
 			{% if meal.orders.all|length > 1 %}
-			Sum Total <!--This line can be turned off-->
+			<!--Should we put this at the top of the list of dishes order?-->
+			Meal Total <!--This line can be turned off-->
 			{% endif %}
 			</td>
 			<td class="separate-column">{{meal.diner.get_full_name}}</td>
