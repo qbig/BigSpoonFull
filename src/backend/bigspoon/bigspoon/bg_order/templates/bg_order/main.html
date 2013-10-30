@@ -11,7 +11,7 @@
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{meal.wait_time.0}} mins {{meal.wait_time.1}} seconds</span>
         {% endif %}
-        <a href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
+        <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
@@ -36,7 +36,7 @@
         {% else %}
         <span class="early time"><i class="icon-time"></i> waited {{request.wait_time.0}} mins {{request.wait_time.1}} seconds</span>
         {% endif %}
-        <a href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
+        <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
 

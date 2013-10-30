@@ -5,6 +5,13 @@ $(document).ready(function() {
         itemSelector: '.item'
     });
 
+    $(".user-profile-link").magnificPopup({
+        type: 'ajax',
+        alignTop: true,
+        closeBtnInside: true,
+        overflowY: 'scroll',
+    });
+
     var host = "http://"+location.host;
 
     var STAFF_API_URLS = {

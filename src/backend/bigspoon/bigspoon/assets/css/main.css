@@ -797,3 +797,12 @@ h1.logo {
     width: 100px;
     font-weight: bold;
 }
+
+.white-popup {
+    position: relative;
+    background: #FFF;
+    padding: 20px;
+    width: auto;
+    max-width: 75%;
+    margin: 20px auto;
+}
