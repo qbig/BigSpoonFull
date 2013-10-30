@@ -1,14 +1,14 @@
 //
-//  MenuPhotoCell.m
+//  pastOrderCell.m
 //  BigSpoonDiner
 //
-//  Created by Zhixing Yang on 15/10/13.
+//  Created by Zhixing Yang on 30/10/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "MenuPhotoCell.h"
+#import "PastOrderCell.h"
 
-@implementation MenuPhotoCell
+@implementation PastOrderCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

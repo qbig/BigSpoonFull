@@ -1,14 +1,14 @@
 //
-//  MenuPhotoCell.m
+//  newOrderCell.m
 //  BigSpoonDiner
 //
-//  Created by Zhixing Yang on 15/10/13.
+//  Created by Zhixing Yang on 30/10/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "MenuPhotoCell.h"
+#import "NewOrderCell.h"
 
-@implementation MenuPhotoCell
+@implementation NewOrderCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

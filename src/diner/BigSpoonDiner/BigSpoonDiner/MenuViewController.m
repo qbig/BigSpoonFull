@@ -54,6 +54,8 @@
 	// Do any additional setup after loading the view.
     self.outletNameLabel.text = self.outlet.name;
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
+    self.currentOrder = [[Order alloc]init];
+    self.pastOrder = [[Order alloc]init];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -226,9 +228,14 @@
             [_viewControllersByIdentifier setObject:segue.destinationViewController forKey:segue.identifier];
             
             if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
+                
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
+            } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
+                
+                self.itemsOrderedViewController = (ItemsOrderedViewController *)segue.destinationViewController;
+                self.itemsOrderedViewController.delegate = self;
             }
         }
         
@@ -241,11 +248,17 @@
         
         if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
             NSLog(@"Going SegueFromMenuToItems");
+            
             // Change the function of button to: Go Back.
             [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
             [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
             
             [self changeViewModeButtonIconTo:@"back"];
+            
+            self.itemsOrderedViewController.currentOrder = self.currentOrder;
+            self.itemsOrderedViewController.pastOrder = self.pastOrder;
+            [self.itemsOrderedViewController.currentOrderTableView reloadData];
+            [self.itemsOrderedViewController.pastOrderTableView reloadData];
         }
         
     } else{
@@ -333,11 +346,33 @@
     }
 }
 
-- (void) DishOrdered:(Dish *)dish{
-    NSLog(@"New Dish Ordered!");
+- (void) dishOrdered:(Dish *)dish{
+    [self.currentOrder addDish:dish];
+    [self updateItemQuantityBadge];
 }
 
-- (void)ValidTableRetrieved: (NSArray *)vIDs{
+- (void) orderQuantityHasChanged:(Order *)order{
+    NSLog(@"MenuViewController Detected Order Change");
+    [self updateItemQuantityBadge];
+}
+
+- (void) updateItemQuantityBadge{
+    
+    int totalQuantity = [self.currentOrder getTotalQuantity];
+    
+    NSLog(@"Total quantity: %d", totalQuantity);
+    
+    if (totalQuantity == 0) {
+        [self.itemQuantityLabel setHidden:YES];
+        [self.itemQuantityLabelBackgroundImageView setHidden:YES];
+    } else{
+        [self.itemQuantityLabel setHidden:NO];
+        [self.itemQuantityLabelBackgroundImageView setHidden:NO];
+        self.itemQuantityLabel.text = [NSString stringWithFormat:@"%d", totalQuantity];
+    }
+}
+
+- (void)validTableRetrieved: (NSArray *)vIDs{
     self.validTableIDs = vIDs;
 }
 

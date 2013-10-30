@@ -14,6 +14,8 @@
 #import "User.h"
 #import "Constants.h"
 #import "MultiContainerViewSegue.h"
+#import "Order.h"
+#import "ItemsOrderedViewController.h"
 
 @class MenuViewController;
 
@@ -22,13 +24,15 @@
 @end
 
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate>
 
-// Class Data:
+// Data:
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
 @property (nonatomic) NSArray *validTableIDs;
+@property (nonatomic, strong) Order *currentOrder;
+@property (nonatomic, strong) Order *pastOrder;
 
 // Buttons:
 
@@ -48,9 +52,11 @@
 - (IBAction)requestBillButtonPressed:(id)sender;
 - (IBAction)itemsButtonPressed:(id)sender;
 
+// Objects related to Container view:
+
 @property (strong, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
-
+@property (strong, nonatomic) ItemsOrderedViewController *itemsOrderedViewController;
 
 // "Call For Service" Control Panel:
 @property (strong, nonatomic) IBOutlet UIView *requestWaterView;
@@ -76,5 +82,10 @@
 @property (weak,nonatomic) UIViewController *destinationViewController;
 @property (strong, nonatomic) NSString *destinationIdentifier;
 @property (strong, nonatomic) UIViewController *oldViewController;
+
+// For the item quantity label:
+@property (strong, nonatomic) IBOutlet UILabel *itemQuantityLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *itemQuantityLabelBackgroundImageView;
+
 
 @end
