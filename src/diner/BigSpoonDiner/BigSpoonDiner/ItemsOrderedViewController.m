@@ -92,7 +92,7 @@
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDish:dish]];
        
         return cell;
     } else{
@@ -181,7 +181,6 @@
     
     NSLog(@"Minus dish at row: %d with ID: %d", indexPath.row, dishID);
     
-    
     NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
     
     
@@ -200,5 +199,9 @@
     self.pastOrder = pastOrder;
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
+}
+
+- (IBAction)textFinishEditing:(id)sender {
+    [sender resignFirstResponder];
 }
 @end

@@ -47,6 +47,7 @@
 		49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* SignUpViewController.m */; };
 		49CB7972180C6C4000F530C5 /* icon_256px_unfilled.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */; };
 		49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB7974180C6D9400F530C5 /* LoginViewController.m */; };
+		49DC2CC518214CC0003FC068 /* TotalPriceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DC2CC418214CBF003FC068 /* TotalPriceCell.m */; };
 		49F107E3180886D600D2C8DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E2180886D600D2C8DD /* Foundation.framework */; };
 		49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E4180886D600D2C8DD /* CoreGraphics.framework */; };
 		49F107E7180886D600D2C8DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F107E6180886D600D2C8DD /* UIKit.framework */; };
@@ -139,6 +140,8 @@
 		49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_256px_unfilled.png; sourceTree = "<group>"; };
 		49CB7973180C6D9400F530C5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		49CB7974180C6D9400F530C5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		49DC2CC318214CBF003FC068 /* TotalPriceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalPriceCell.h; sourceTree = "<group>"; };
+		49DC2CC418214CBF003FC068 /* TotalPriceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalPriceCell.m; sourceTree = "<group>"; };
 		49F107DF180886D600D2C8DD /* BigSpoonDiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSpoonDiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F107E2180886D600D2C8DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49F107E4180886D600D2C8DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -358,6 +361,8 @@
 				496DD1B118202633001EBA6D /* NewOrderCell.m */,
 				496DD1B318202672001EBA6D /* PastOrderCell.h */,
 				496DD1B418202672001EBA6D /* PastOrderCell.m */,
+				49DC2CC318214CBF003FC068 /* TotalPriceCell.h */,
+				49DC2CC418214CBF003FC068 /* TotalPriceCell.m */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -523,6 +528,7 @@
 				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
+				49DC2CC518214CC0003FC068 /* TotalPriceCell.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
 				49048D29182001C900B480A3 /* Order.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,
