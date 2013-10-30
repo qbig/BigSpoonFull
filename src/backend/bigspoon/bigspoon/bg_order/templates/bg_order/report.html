@@ -11,6 +11,8 @@
     table thead tr th, table tbody tr td, 
     .separate-column{ padding-left:5px; padding-right:10px; }
     table tbody tr td, .align-top{ vertical-align:top; }
+    .order_spending, .greyfont{color:gray;}
+    .order_spending{font-size:14px;} /*Default font-size seems to be 16.*/
 </style>
 <table class="sortable">
     <thead align="left">
@@ -30,11 +32,22 @@
 			<td class="separate-column">
 			{% for order in meal.orders.all %}
 				{% if order.quantity < 10 %}0{% endif %}{{order.quantity}}x
-				&nbsp;{{order.dish.name}}<br>
+				&nbsp;{{order.dish.name}}<br> <!--This line is always shown-->
 			{% endfor %}
+			{% if meal.orders.all|length > 1 %}
+			Sum Total <!--This line can be turned off-->
+			{% endif %}
 			</td>
 			<td class="separate-column">{{meal.diner.get_full_name}}</td>
-			<td class="separate-column">${{meal.get_meal_spending|floatformat:2}}</td>
+			<td class="separate-column"><!--using comment to prevent space between $ & num
+			>--><span class="order_spending"><!--
+			>-->{% for order in meal.orders.all %}{% if meal.orders.all|length > 1 %}<!--
+				Only show if length>1. Else we can just show the total, it's == that order.
+				>-->+ ${{order.get_order_spending|floatformat:2}}<br>{% endif %}
+				{% endfor %}
+				</span>
+				${{meal.get_meal_spending|floatformat:2}} <!--This line is always shown-->
+			</td>
 		</tr><!--
 		{% for order in meal.orders.all %}
 			<tr>
