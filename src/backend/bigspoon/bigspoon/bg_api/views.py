@@ -148,19 +148,29 @@ class CreateMeal(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         dishes = request.DATA['dishes']
+        table_id = request.DATA['table']
+        try:
+            table = Table.objects.get(id=int(table_id))
+        except Table.DoesNotExist:
+            return Response({"error": "Unknown table id " + str(table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         # Check quantity
         for dish_pair in dishes:
-            dish = Dish.objects.get(id=int(dish_pair.keys()[0]))
+            dish_id = dish_pair.keys()[0]
+            try:
+                dish = Dish.objects.get(id=int(dish_id))
+            except Dish.DoesNotExist:
+                return Response({"error": "Unknown dish id " + str(dish_id)},
+                                status=status.HTTP_400_BAD_REQUEST)
             quantity = dish_pair.values()[0]
             stock_quantity = dish.quantity
 
             if stock_quantity < quantity:
-                return Response({"error": "Not enough stock for dish ID "
+                return Response({"error": "Not enough stock for dish id "
                                 + str(dish.id)},
                                 status=status.HTTP_400_BAD_REQUEST)
 
-        table = Table.objects.get(id=request.DATA['table'])
         diner = request.user
         meal, created = Meal.objects.get_or_create(table=table, diner=diner,
                                                    is_paid=False)
@@ -214,9 +224,9 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = datetime.now()
             meal.save()
-            return Response({"meal_id": meal.id, }, status=status.HTTP_200_OK)
+            return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
-        return Response({"error": "Meal not found", },
+        return Response({"error": "No unpaid meal for this user", },
                         status=status.HTTP_400_BAD_REQUEST)
 
 
