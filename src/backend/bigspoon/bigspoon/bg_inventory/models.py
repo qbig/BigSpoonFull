@@ -513,7 +513,6 @@ class Note(models.Model):
 from rest_framework.authtoken.models import Token
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from django.contrib.auth.models import Group
 
 
 @receiver(post_save, sender=User)
@@ -523,7 +522,3 @@ def post_user_creation(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
         # create profile
         Profile.objects.create(user=instance)
-        # add to normal user group
-        g = Group.objects.get(name='normaluser')
-        g.user_set.add(instance)
-        g.save()
