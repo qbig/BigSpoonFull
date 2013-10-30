@@ -16,7 +16,13 @@
 @class ItemsOrderedViewController;
 
 @protocol PlaceOrderDelegate <NSObject>
-- (void)orderQuantityHasChanged: (Order *)order;
+
+- (Order *) addDishWithID: (int) dishID;
+- (Order *) minusDishWithID: (int) dishID;
+- (void) placeOrder;
+- (Order *) getCurrentOrder;
+- (Order *) getPastOrder;
+
 @end
 
 @interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
@@ -25,10 +31,15 @@
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
 
-- (IBAction)plusButtonPressed:(UIButton *)sender;
-- (IBAction)minusButtonPressed:(UIButton *)sender;
+
+- (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @property (strong, nonatomic) IBOutlet UITableView *currentOrderTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pastOrderTableView;
+
+- (IBAction)placeOrderButtonPressed:(id)sender;
+
+- (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
 
 @end

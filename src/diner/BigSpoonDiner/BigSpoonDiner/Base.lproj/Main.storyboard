@@ -573,6 +573,9 @@
                                         <state key="normal" title="Place Order">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="placeOrderButtonPressed:" destination="yOQ-Ac-fpM" eventType="touchUpInside" id="Dq6-Gw-OgM"/>
+                                        </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="42" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="KZd-nK-mn8">
                                         <rect key="frame" x="0.0" y="27" width="320" height="195"/>
@@ -593,7 +596,7 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="plusButtonPressed:" destination="yOQ-Ac-fpM" eventType="touchUpInside" id="WTn-vJ-ebD"/>
+                                                                <action selector="plusButtonPressed:forEvent:" destination="yOQ-Ac-fpM" eventType="touchUpInside" id="NiZ-d2-wdK"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmj-Hz-HU3">
@@ -603,7 +606,7 @@
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="minusButtonPressed:" destination="yOQ-Ac-fpM" eventType="touchUpInside" id="plB-FL-Hd2"/>
+                                                                <action selector="minusButtonPressed:forEvent:" destination="yOQ-Ac-fpM" eventType="touchUpInside" id="fCY-RD-Oyd"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCp-9c-PEo">
@@ -983,44 +986,6 @@ Snacks</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2300" y="1772"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="TT2-IC-10M">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Zn8-Ff-Ajq" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hEh-ve-XYK"/>
-                        <viewControllerLayoutGuide type="bottom" id="vwI-Uw-fhD"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="LF8-Zf-Mfu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Uwh-Ud-36e" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2667" y="421"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="NgZ-87-1bI">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="R8B-IO-upZ" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oAL-vr-2CC"/>
-                        <viewControllerLayoutGuide type="bottom" id="cPz-hQ-zgA"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bQq-cO-WOr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y1a-C0-dbt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2667" y="955"/>
         </scene>
     </scenes>
     <resources>

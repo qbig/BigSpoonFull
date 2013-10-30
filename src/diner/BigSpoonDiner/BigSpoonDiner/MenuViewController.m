@@ -255,10 +255,7 @@
             
             [self changeViewModeButtonIconTo:@"back"];
             
-            self.itemsOrderedViewController.currentOrder = self.currentOrder;
-            self.itemsOrderedViewController.pastOrder = self.pastOrder;
-            [self.itemsOrderedViewController.currentOrderTableView reloadData];
-            [self.itemsOrderedViewController.pastOrderTableView reloadData];
+            [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
         }
         
     } else{
@@ -376,6 +373,39 @@
     self.validTableIDs = vIDs;
 }
 
+// PlaceOrderDelegate:
+- (Order *) addDishWithID: (int) dishID{
+    Dish *dish = [self.menuListViewController getDishWithID:dishID];
+    [self.currentOrder addDish:dish];
+    [self updateItemQuantityBadge];
+    
+    return self.currentOrder;
+}
+
+- (Order *) minusDishWithID: (int) dishID{
+    Dish *dish = [self.menuListViewController getDishWithID:dishID];
+    [self.currentOrder minusDish:dish];
+    [self updateItemQuantityBadge];
+    
+    return self.currentOrder;
+}
+
+- (void) placeOrder{
+    
+    // TODO
+    
+    [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
+    self.currentOrder = [[Order alloc] init];
+    [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
+    //[self.itemsOrderedViewController]
+}
+- (Order *) getCurrentOrder{
+    return self.currentOrder;
+}
+
+- (Order *) getPastOrder{
+    return self.pastOrder;
+}
 
 #pragma mark Request For Service (water and waiter)
 

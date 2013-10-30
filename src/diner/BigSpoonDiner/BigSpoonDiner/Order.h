@@ -18,6 +18,7 @@
 - (void) minusDish: (Dish *) dish;
 
 - (int) getQuantityOfDish: (Dish *) dish;
+- (int) getQuantityOfDishID: (int) dishID;
 - (int) getTotalQuantity;
 - (int) getTotalPrice;
 - (void) mergeWithAnotherOrder: (Order *)newOrder;

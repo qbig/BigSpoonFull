@@ -52,7 +52,8 @@ enum DishDisplayCategory : NSUInteger{
 
 - (IBAction)sidesAndSnacksButtonPressed:(id)sender;
 
-
 - (IBAction)addNewItemButtonClicked:(id)sender;
+
+- (Dish *) getDishWithID: (int) itemID;
 
 @end
