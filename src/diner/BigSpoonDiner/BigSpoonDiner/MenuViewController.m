@@ -398,6 +398,16 @@
     self.currentOrder = [[Order alloc] init];
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
     //[self.itemsOrderedViewController]
+    
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Order Places"
+                              message:@"Your food will be ready soon"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    [alertView show];
+    
+    [self updateItemQuantityBadge];
 }
 - (Order *) getCurrentOrder{
     return self.currentOrder;

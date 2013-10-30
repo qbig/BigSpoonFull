@@ -41,5 +41,6 @@
 - (IBAction)placeOrderButtonPressed:(id)sender;
 
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
+- (IBAction)textFinishEditing:(id)sender;
 
 @end
