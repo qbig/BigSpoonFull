@@ -152,13 +152,41 @@
 
  */
 
-- (IBAction)plusButtonPressed:(UIButton *)sender {
+- (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+
     
-    [self.delegate orderQuantityHasChanged: self.currentOrder];
+    UITouch * touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.currentOrderTableView];
+    NSIndexPath * indexPath = [self.currentOrderTableView indexPathForRowAtPoint: location];
+    
+    int dishID = sender.tag;
+    
+    NSLog(@"Added dish at row: %d with ID: %d", indexPath.row, dishID);
+
+    
+    NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
+    
+    
+    self.currentOrder = [self.delegate addDishWithID: dishID];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
+
 }
 
-- (IBAction)minusButtonPressed:(UIButton *)sender {
+- (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+    UITouch * touch = [[event allTouches] anyObject];
+    CGPoint location = [touch locationInView: self.currentOrderTableView];
+    NSIndexPath * indexPath = [self.currentOrderTableView indexPathForRowAtPoint: location];
     
-    [self.delegate orderQuantityHasChanged: self.currentOrder];
+    int dishID = sender.tag;
+    
+    NSLog(@"Minus dish at row: %d with ID: %d", indexPath.row, dishID);
+    
+    
+    NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
+    
+    
+    self.currentOrder = [self.delegate minusDishWithID: dishID];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
+
 }
 @end

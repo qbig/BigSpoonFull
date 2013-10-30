@@ -76,6 +76,21 @@
     }
 }
 
+- (int) getQuantityOfDishID: (int) dishID{
+    
+    // Iterate through the dishes:
+    for (int i = 0; i < [self.dishes count]; i++) {
+        Dish *dish = [self.dishes objectAtIndex:i];
+        if (dish.ID == dishID) {
+            NSNumber *quantity = [self getQuantityObjectOfDish:dish];
+            return quantity.integerValue;
+        }
+    }
+    
+    // The dishID not found:
+    return 0;
+}
+
 - (int) getTotalQuantity{
     int totalQuantity = 0;
     

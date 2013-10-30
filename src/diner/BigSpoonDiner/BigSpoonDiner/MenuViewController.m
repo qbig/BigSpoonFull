@@ -376,6 +376,34 @@
     self.validTableIDs = vIDs;
 }
 
+// PlaceOrderDelegate:
+- (Order *) addDishWithID: (int) dishID{
+    Dish *dish = [self.menuListViewController getDishWithID:dishID];
+    [self.currentOrder addDish:dish];
+    [self updateItemQuantityBadge];
+    
+    return self.currentOrder;
+}
+
+- (Order *) minusDishWithID: (int) dishID{
+    Dish *dish = [self.menuListViewController getDishWithID:dishID];
+    [self.currentOrder minusDish:dish];
+    [self updateItemQuantityBadge];
+    
+    return self.currentOrder;
+}
+
+- (void) placeOrder{
+    [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
+    self.currentOrder = [[Order alloc] init];
+}
+- (Order *) getCurrentOrder{
+    return self.currentOrder;
+}
+
+- (Order *) getPastOrder{
+    return self.pastOrder;
+}
 
 #pragma mark Request For Service (water and waiter)
 
