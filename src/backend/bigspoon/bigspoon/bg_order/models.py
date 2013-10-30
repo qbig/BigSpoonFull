@@ -4,6 +4,8 @@ from django.utils import timezone
 
 from bg_inventory.models import User, Table, Dish
 
+import time
+
 
 class Request(models.Model):
     """
@@ -64,6 +66,12 @@ class Request(models.Model):
         diff = self.finished - self.created
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
+
+    @property
+    def count_down_start(self):
+        timetuple = self.created.timetuple()
+        timestamp = time.mktime(timetuple)
+        return timestamp * 1000.0
 
     def __unicode__(self):
         request_status = "Active" if self.is_active else "Inactive"
@@ -141,6 +149,12 @@ class Meal(models.Model):
         diff = self.bill_time - self.created
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
+
+    @property
+    def count_down_start(self):
+        timetuple = self.modified.timetuple()
+        timestamp = time.mktime(timetuple)
+        return timestamp * 1000.0
 
     def get_meal_spending(self):
         meal_spending = 0
