@@ -1,13 +1,14 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
+from django.utils import timezone
+
 from rest_framework import serializers
 from rest_framework.relations import RelatedField
+
 from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note, Profile
 from bg_order.models import Meal, Order, Request
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
-
-from datetime import datetime
 
 User = get_user_model()
 
@@ -97,7 +98,7 @@ class OutletDetailSerializer(serializers.ModelSerializer):
     tables = OutletTableSerializer(many=True)
 
     def get_dishes(self, obj):
-        now = datetime.now().time()
+        now = timezone.now().time()
         current = obj.dishes.filter(
             start_time__lte=now,
             end_time__gte=now)
