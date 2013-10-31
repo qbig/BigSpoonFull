@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Login View Controller - Login-->
@@ -335,6 +335,9 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Profile" id="hla-0d-srt"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="profilePictureView" destination="D0Z-vK-U3H" id="6mX-xg-xYG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAy-2B-trc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1112,6 +1115,6 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BRr-gL-kHC"/>
+        <segue reference="ew3-Pm-EPj"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -15,5 +15,6 @@
 @interface ProfileViewController : UIViewController
 
 @property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePictureView;
 
 @end
