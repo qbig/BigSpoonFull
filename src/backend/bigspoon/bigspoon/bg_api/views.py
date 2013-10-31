@@ -193,6 +193,8 @@ class CreateMeal(generics.CreateAPIView):
             dish.quantity -= quantity
             dish.save()
 
+        red = redis.StrictRedis(REDIS_HOST)
+        red.publish('%d' % table.outlet.id, ['refresh'])
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
 
