@@ -338,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAy-2B-trc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2776" y="1772"/>
+            <point key="canvasLocation" x="3104" y="1772"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="FoD-uc-8wx">
@@ -382,7 +382,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bPu-xR-NBc" kind="modal" identifier="SegueFromMenuListToOrderHistory" id="Qkp-q3-Lrn"/>
+                                    <segue destination="i9f-S4-Sdf" kind="modal" identifier="SegueFromMenuListToOrderHistory" id="htP-xw-w7b"/>
                                 </connections>
                             </button>
                             <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OY8-ew-AZo">
@@ -615,6 +615,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32a-af-j0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1574" y="1103"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="F1M-b0-iSz">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="i9f-S4-Sdf" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O8u-Sd-PCW">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bPu-xR-NBc" kind="relationship" relationship="rootViewController" id="bPD-uW-22P"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kxv-lR-HGE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2126" y="1772"/>
         </scene>
         <!--Items Ordered View Controller-->
         <scene sceneID="SFB-2J-Y9e">
@@ -1074,7 +1089,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2300" y="1772"/>
+            <point key="canvasLocation" x="2670" y="1772"/>
         </scene>
     </scenes>
     <resources>
