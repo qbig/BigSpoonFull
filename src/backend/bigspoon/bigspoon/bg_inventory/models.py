@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, Sum
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django_thumbs.db.models import ImageWithThumbsField
 from django.utils.text import slugify
@@ -91,6 +91,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         for meal in self.meals.all():
             total_spending += meal.get_meal_spending()
         return total_spending
+
+    def get_average_spending(self):
+        """
+        Returns average of all orders of all meals of this user.
+        """
+        total_spending = self.get_total_spending()
+        num_meals = self.meals.count()
+        return total_spending/num_meals
 
     def get_short_name(self):
         """
