@@ -89,7 +89,8 @@ class LoginUser(APIView):
                 'email': u.email,
                 'first_name': u.first_name,
                 'last_name': u.last_name,
-                'auth_token': token.key
+                'auth_token': token.key,
+                'avatar_url': u.avatar_url
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

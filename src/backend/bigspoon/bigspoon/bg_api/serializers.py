@@ -15,10 +15,15 @@ User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
 
+    avatar_url = serializers.SerializerMethodField('get_avatar')
+
+    def get_avatar(self, obj):
+        return obj.avatar_url
+
     class Meta:
         model = User
         fields = ('email', 'username', 'first_name', 'last_name',
-                  'password', 'auth_token')
+                  'password', 'auth_token', 'avatar_url')
         read_only_fields = ('auth_token',)
 
 
@@ -38,6 +43,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'email': obj.user.email,
             'first_name': obj.user.first_name,
             'last_name': obj.user.last_name,
+            'avatar_url': obj.user.avatar_url,
         }
 
     class Meta:
