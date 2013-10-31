@@ -120,15 +120,15 @@
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performRequestWaterTask];
+            [weakSelf performRequestWaterSelectQuantityPopUp];
         };
     } else{
         NSLog(@"Table ID is known: %d", self.tableID);
-        [self performRequestWaterTask];
+        [self performRequestWaterSelectQuantityPopUp];
     }
 }
 
-- (void) performRequestWaterTask{
+- (void) performRequestWaterSelectQuantityPopUp{
     [self animateControlPanelView:self.requestWaterView willShow:YES];
 }
 
@@ -142,15 +142,15 @@
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performRequestWaiterTask];
+            [weakSelf performRequestWaiterConfirmationPopUp];
         };
     } else{
         NSLog(@"Table ID is known: %d", self.tableID);
-        [self performRequestWaiterTask];
+        [self performRequestWaiterConfirmationPopUp];
     }
 }
 
-- (void) performRequestWaiterTask{
+- (void) performRequestWaiterConfirmationPopUp{
     self.requestForWaiterView = [[UIAlertView alloc]
                                  initWithTitle:@"Call For Service"
                                  message:@"Require assistance from the waiter?"
@@ -162,6 +162,20 @@
 
 - (IBAction)requestBillButtonPressed:(id)sender {
     NSLog(@"billButtonPressed");
+    
+    // If the user hasn't ordered anything:
+    if ([self.currentOrder getTotalQuantity] + [self.pastOrder getTotalQuantity] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                     initWithTitle:@"Request Bill"
+                                     message:@"You haven't ordered anything."
+                                     delegate:nil
+                                     cancelButtonTitle:@"Okay"
+                                     otherButtonTitles:nil];
+        [alertView show];
+        
+        return;
+    }
+    
     if (self.tableID == -1 || self.tableID == 0) {
         NSLog(@"Table ID is not know. Asking the user for it");
         [self askForTableID];
@@ -169,15 +183,15 @@
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performRequestBillTask];
+            [weakSelf performRequestBillConfirmationPopUp];
         };
     } else{
         NSLog(@"Table ID is known: %d", self.tableID);
-        [self performRequestBillTask];
+        [self performRequestBillConfirmationPopUp];
     }
 }
 
-- (void) performRequestBillTask{
+- (void) performRequestBillConfirmationPopUp{
     self.requestForBillView = [[UIAlertView alloc]
                                initWithTitle:@"Call For Service"
                                message:@"Would you like the bill?"
@@ -185,6 +199,71 @@
                                cancelButtonTitle:@"Yes"
                                otherButtonTitles:@"Cancel", nil];
     [self.requestForBillView show];
+}
+
+- (void) performRequestBillNetWorkRequest{
+    
+    NSMutableArray *dishesArray = [[NSMutableArray alloc] init];
+    
+    // For every dish that is currently in the order, we add it to the dishes dictionary:
+    for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
+        Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
+        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDish: dish]];
+        NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
+        
+        NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
+        [dishesArray addObject:newPair];
+    }
+    
+    NSDictionary *parameters = @{
+                                 @"table": [NSNumber numberWithInt: self.tableID],
+                                 };
+    
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: BILL_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"POST";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Request Bill Success");
+                [self afterSuccessfulRequestBill];
+            }
+                break;
+            case 403:
+            default:{
+                NSLog(@"Request Bill Fail");
+                [self displayErrorInfo: operation.responseObject];
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo: operation.responseObject];
+                                      }];
+    
+    [operation start];
+}
+
+- (void) afterSuccessfulRequestBill{
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Call For Bill"
+                              message:@"The waiter will be right with you"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    [alertView show];
+    [self animateControlPanelView:self.ratingsView willShow:YES];
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
@@ -288,15 +367,7 @@
         {
             NSLog(@"Request For Bill");
             // TODO Make HTTP request for this.
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      initWithTitle:@"Call For Service"
-                                      message:@"The waiter will be right with you"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-            [alertView show];
-            
-            [self animateControlPanelView:self.ratingsView willShow:YES];
+            [self performRequestBillNetWorkRequest];
         }
         else if([title isEqualToString:@"Cancel"])
         {
@@ -411,15 +482,15 @@
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performPlaceOrderTask];
+            [weakSelf performPlaceOrderConfirmationPopUp];
         };
     } else{
         NSLog(@"Table ID is known: %d", self.tableID);
-        [self performPlaceOrderTask];
+        [self performPlaceOrderConfirmationPopUp];
     }
 }
 
-- (void) performPlaceOrderTask{
+- (void) performPlaceOrderConfirmationPopUp{
     
     NSMutableString *message = [[NSMutableString alloc] init];
     
