@@ -272,7 +272,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 24px 30px;
+    padding: 24px;
     border: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -806,7 +806,7 @@ h1.logo {
 }
 
 
-/* ========================= 
+/* =========================
    Report Page Styles */
 table tbody tr td empty {
     padding-left:10px;
