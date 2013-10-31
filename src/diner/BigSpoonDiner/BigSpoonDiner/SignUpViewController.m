@@ -77,16 +77,16 @@
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSDictionary* info = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.firstNameLabel.text,
-                          @"first_name",
-                          self.lastNameLabel.text,
-                          @"last_name",
-                          self.passwordLabel.text,
-                          @"password",
-                          self.emailAddressLabel.text,
-                          @"email",
-                          nil];
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject: self.firstNameLabel.text forKey: @"first_name"];
+    [info setObject: self.lastNameLabel.text forKey: @"last_name"];
+    [info setObject: self.passwordLabel.text forKey: @"password"];
+    [info setObject: self.emailAddressLabel.text forKey: @"email"];
+    
+    if (self.facebookUserName != nil && [self.facebookUserName isEqualToString:@""]) {
+        [info setObject:self.facebookUserName forKey:@"username"];
+        NSLog(@"User signed up through Facebook. Username: %@", self.facebookUserName);
+    }
     
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                        options:NSJSONWritingPrettyPrinted error:&error];
@@ -148,6 +148,7 @@
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
+            NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
             
             
             User *user = [User sharedInstance];
@@ -155,6 +156,7 @@
             user.lastName = lastName;
             user.email = email;
             user.auth_token = auth_token;
+            user.profilePhotoURL = profilePhotoURL;
             
             NSLog(@"New user created:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
@@ -167,6 +169,7 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
+            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
 
@@ -232,6 +235,7 @@
                  self.firstNameLabel.text = user.first_name;
                  self.lastNameLabel.text = user.last_name;
                  self.emailAddressLabel.text = [user objectForKey:@"email"];
+                 self.facebookUserName = user.username;
              }
          }];
     } else{
