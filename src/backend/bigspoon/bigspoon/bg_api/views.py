@@ -179,6 +179,8 @@ class CreateMeal(generics.CreateAPIView):
         diner = request.user
         meal, created = Meal.objects.get_or_create(table=table, diner=diner,
                                                    is_paid=False)
+        meal.modified = datetime.now()
+        meal.save()
 
         for dish_pair in dishes:
             dish = Dish.objects.get(id=int(dish_pair.keys()[0]))
