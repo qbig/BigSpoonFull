@@ -9,7 +9,7 @@ from django.http import Http404
 from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet, Table
+from bg_inventory.models import Dish, Outlet, Table, Review, Note
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
@@ -135,13 +135,25 @@ class UserView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(UserView, self).get_context_data(**kwargs)
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
         try:
-            context['diner'] = User.objects\
+            diner = User.objects\
                 .prefetch_related('meals', 'meals__orders',
                                   'profile', 'notes')\
                 .get(pk=self.kwargs['pk'])
         except User.DoesNotExist:
             raise Http404
+
+        context['diner'] = diner
+        context['reviews'] = Review.objects.filter(user=diner,
+                                                   outlet__in=outlets
+                                                   ).all()
+        context['notes'] = Note.objects.filter(user=diner,
+                                               outlet__in=outlets).all()
         return context
 
 

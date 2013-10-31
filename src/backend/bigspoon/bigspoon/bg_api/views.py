@@ -9,7 +9,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, \
     SessionAuthentication
-from rest_framework.permissions import AllowAny, DjangoObjectPermissions
+from rest_framework.permissions import AllowAny, DjangoObjectPermissions, \
+    IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import parsers
 from rest_framework import renderers
@@ -18,8 +19,8 @@ from rest_framework.authtoken.models import Token
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
-    CategorySerializer
-from bg_inventory.models import Outlet, Profile, Category, Table, Dish
+    CategorySerializer, NoteSerializer
+from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note
 from bg_order.models import Meal, Request, Order
 
 import redis
@@ -301,4 +302,22 @@ class AckRequest(generics.GenericAPIView):
         for o_id in request.user.outlet_ids:
             red.publish('%d' % o_id, ['refresh'])
         return Response(RequestSerializer(req).data,
+                        status=status.HTTP_200_OK)
+
+
+class CreateNote(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    model = Note
+
+    def post(self, req, *args, **kwargs):
+        try:
+            note = Note.objects.get_or_create(user_id=int(req.DATA['user']),
+                                              outlet_id=int(req.DATA['outlet'])
+                                              )[0]
+        except Note.DoesNotExist:
+            raise Http404
+        note.content = req.DATA['content']
+        note.save()
+        return Response(NoteSerializer(note).data,
                         status=status.HTTP_200_OK)

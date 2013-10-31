@@ -18,17 +18,10 @@ $(document).ready(function() {
     }
 
     // for masonry
-    $("#main").masonry({
+    $("#main .wrapper").masonry({
         resizeable: true,
-        itemSelector: '.item'
-    });
-
-    // for user pop up
-    $(".user-profile-link").magnificPopup({
-        type: 'ajax',
-        alignTop: true,
-        closeBtnInside: true,
-        overflowY: 'scroll',
+        itemSelector: '.item',
+        columnWidth: 40,
     });
 
     // for request and order ack
@@ -38,9 +31,44 @@ $(document).ready(function() {
         "req": host+"/api/v1/ackreq",
         "bill": host+"/api/v1/closebill",
         "order": host+"/api/v1/ackorder",
+        "note": host+"/api/v1/note",
     }
 
     var csrftoken = $.cookie('csrftoken');
+
+    window.saveNote = function(elem){
+            var button = $(elem);
+            var user = button.attr('user');
+            var outlet = button.attr('outlet');
+            var content = button.parent().find('.notes').val();
+
+            var req_data = {
+                "csrfmiddlewaretoken":csrftoken,
+                "outlet": outlet,
+                "user": user,
+                "content":content,
+            }
+
+            console.log(req_data);
+
+            $.post(
+                STAFF_API_URLS["note"],
+                req_data
+            ).done(function(data) {
+                console.log("POST success!");
+            }).fail(function(data) {
+                console.log("POST failed");
+                console.log(data);
+            });
+    }
+
+    // for user pop up
+    $(".user-profile-link").magnificPopup({
+        type: 'ajax',
+        alignTop: true,
+        closeBtnInside: true,
+        overflowY: 'scroll',
+    });
 
     $('.ack-button').each(function() {
         var button = $(this);
@@ -62,6 +90,7 @@ $(document).ready(function() {
             });
         });
     });
+
 
     // for countdown
 

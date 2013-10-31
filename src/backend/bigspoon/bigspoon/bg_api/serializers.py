@@ -111,8 +111,8 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class NoteSerializer(serializers.ModelSerializer):
-    outlet = RelatedField(many=True)
-    user = RelatedField(many=True)
+    outlet = RelatedField(many=False)
+    user = RelatedField(many=False)
 
     class Meta:
         model = Note
