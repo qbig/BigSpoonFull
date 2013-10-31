@@ -42,6 +42,7 @@
     NSString *email = [prefs stringForKey:@"email"];
     NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
     // birthday is not supported for now
+    // profilePhotoURL is an optional field. No need to check here.
     
     NSLog(@"fistName: %@, lastName: %@, email: %@, auth_token: %@", firstName, lastName, email, auth_token);
     

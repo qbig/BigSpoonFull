@@ -22,6 +22,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *passwordLabel;
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 
+@property (strong, nonatomic) NSString * facebookUserName;
 
 - (IBAction)submitButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

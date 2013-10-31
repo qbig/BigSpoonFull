@@ -148,6 +148,7 @@
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
+            NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
             
 
             User *user = [User sharedInstance];
@@ -155,6 +156,7 @@
             user.lastName = lastName;
             user.email = email;
             user.auth_token = auth_token;
+            user.profilePhotoURL = profilePhotoURL;
 
             NSLog(@"User logged in:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
@@ -167,6 +169,7 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
+            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
             

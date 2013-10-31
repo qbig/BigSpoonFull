@@ -14,6 +14,7 @@
 @synthesize lastName;
 @synthesize email;
 @synthesize birthday;
+@synthesize profilePhotoURL;
 @synthesize auth_token;
 
 + (User *)sharedInstance
