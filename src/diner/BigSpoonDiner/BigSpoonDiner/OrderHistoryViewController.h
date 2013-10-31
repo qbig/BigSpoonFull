@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeAndSettingsButtonView.h"
 //#import "PastOrderView.h"
 
 @class OrderHistoryViewController;
@@ -20,6 +21,6 @@
 
 @property (nonatomic, weak) id <SettingsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
-- (IBAction)cancelButtonPressed:(id)sender;
+@property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
 
 @end

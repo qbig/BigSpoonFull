@@ -16,8 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    //    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     return YES;
 }
 

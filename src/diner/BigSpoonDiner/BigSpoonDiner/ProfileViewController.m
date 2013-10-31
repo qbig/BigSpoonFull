@@ -1,19 +1,18 @@
 //
-//  SettingsViewController.m
+//  ProfileViewController.m
 //  BigSpoonDiner
 //
-//  Created by Shubham Goyal on 14/10/13.
+//  Created by Shubham Goyal on 27/10/13.
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "OrderHistoryViewController.h"
-#import "HomeAndSettingsButtonView.h"
+#import "ProfileViewController.h"
 
-@interface OrderHistoryViewController ()
+@interface ProfileViewController ()
 
 @end
 
-@implementation OrderHistoryViewController
+@implementation ProfileViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +31,6 @@
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];
     self.topRightButtonsView = [subviewArray objectAtIndex:0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.topRightButtonsView];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,7 +39,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)cancelButtonPressed:(id)sender {
-    [self.delegate cancelButtonPressed:self];
-}
 @end
