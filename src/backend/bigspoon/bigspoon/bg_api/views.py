@@ -218,6 +218,10 @@ class CreateRequest(generics.CreateAPIView):
     def pre_save(self, obj):
         obj.diner = self.request.user
 
+    def post_save(self, obj, created=False):
+        red = redis.StrictRedis(REDIS_HOST)
+        red.publish('%d' % obj.table.outlet.id, ['refresh'])
+
 
 class AskForBill(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
@@ -237,6 +241,8 @@ class AskForBill(generics.GenericAPIView):
             meal.save()
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
+        red = redis.StrictRedis(REDIS_HOST)
+        red.publish('%d' % table.outlet.id, ['refresh'])
         return Response({"error": "No unpaid meal for this user", },
                         status=status.HTTP_400_BAD_REQUEST)
 
