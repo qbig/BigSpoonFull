@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface MenuPhotoCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *ratingImageView;
+@property (strong, nonatomic) IBOutlet UILabel *priceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UIButton *addButton;
 
 @end

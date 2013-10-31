@@ -30,13 +30,6 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -49,8 +42,7 @@
 - (IBAction)submitButtonPressed:(id)sender {
 
     NSError* error;
-    [self showLoadingIndicators];
-
+    
     // Create the request.
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:USER_LOGIN]];
     request.HTTPMethod = @"POST";
@@ -58,7 +50,7 @@
 
     NSDictionary* info = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.emailLabel.text,
-                          @"username",
+                          @"email",
                           self.passwordField.text,
                           @"password",
                           nil];
@@ -67,9 +59,42 @@
                                                    options:NSJSONWritingPrettyPrinted error:&error];
 
     request.HTTPBody = jsonData;
+    
+    
+    if ([self isTableValid]){
+        // Create url connection and fire request
+        [self showLoadingIndicators];
+        [NSURLConnection connectionWithRequest:request delegate:self];
+    }
+}
 
-    // Create url connection and fire request
-    [NSURLConnection connectionWithRequest:request delegate:self];
+- (BOOL) isTableValid{
+    NSString *errorMessage = @"";
+
+    if ([self.emailLabel.text length] == 0) {
+        errorMessage = @"Email is required.";
+       
+    }
+    
+    if ([self.passwordField.text length] == 0) {
+        errorMessage = @"Password is required.";
+    }
+    
+    if ([self.emailLabel.text length] == 0 && [self.passwordField.text length] == 0) {
+        errorMessage = @"Email and Password is required.";
+    }
+    
+    if ([errorMessage isEqualToString:@""]) {
+        
+        return YES;
+        
+    } else{
+        
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [message show];
+        
+        return NO;
+    }
 }
 
 #pragma mark NSURLConnection Delegate Methods
@@ -122,22 +147,29 @@
             NSString* email =[json objectForKey:@"email"];
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
-            NSString* password = [json objectForKey:@"password"];
-            NSString* auth_token = [json objectForKey:@"token"];
+            NSString* auth_token = [json objectForKey:@"auth_token"];
             
 
             User *user = [User sharedInstance];
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
-            user.password = password;
             user.auth_token = auth_token;
 
             NSLog(@"User logged in:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
-            NSLog(@"Pwd: %@", password);
             NSLog(@"Auth_token: %@", auth_token);
+            
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            // Set
+            [prefs setObject:firstName forKey:@"firstName"];
+            [prefs setObject:lastName forKey:@"lastName"];
+            [prefs setObject:email forKey:@"email"];
+            [prefs synchronize];
+            [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
+            
 
             [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
             
@@ -146,13 +178,7 @@
             
         default:{
             
-            id firstKey = [[json allKeys] firstObject];
-            
-            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
-            
-            NSLog(@"Error occurred: %@", errorMessage);
-            
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Unable to login with provided credentials." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [message show];
             
             break;
@@ -187,5 +213,70 @@
     [activityIndicator stopAnimating];
 }
 
+#pragma mark fbLogin
 
+- (IBAction)fbButtonPressed:(id)sender {
+    
+    if (FBSession.activeSession.isOpen) {
+        NSLog(@"FBSession.activeSession.isOpen IS open!");
+        [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+    }else{
+        NSLog(@"FBSession.activeSession.isOpen NOT open!");
+        [self openSession];
+    }
+}
+
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error{
+    switch (state) {
+        case FBSessionStateOpen: {
+            NSLog(@"Successfully logged in with Facebook");
+            if (FBSession.activeSession.isOpen) {
+                NSLog(@"YAY! Finally Become open!");
+                [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+            } else{
+                NSLog(@"Nope not yet");
+            }
+        }
+            break;
+        case FBSessionStateClosed:{
+            NSLog(@"FBSessionStateClosed");
+        }
+            break;
+        case FBSessionStateClosedLoginFailed:
+            // Once the user has logged in, we want them to
+            // be looking at the root view.
+            NSLog(@"Failed logging with Facebook");
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+            break;
+        default:
+            NSLog(@"Other cases");
+            break;
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+- (void)openSession
+{
+    NSArray *permissions = [[NSArray alloc] initWithObjects:@"email", @"basic_info", nil];
+    [FBSession openActiveSessionWithReadPermissions:permissions
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,FBSessionState state, NSError *error) {
+         [self sessionStateChanged:session state:state error:error];
+         
+         FBSession.activeSession = session;
+     }];
+}
 @end

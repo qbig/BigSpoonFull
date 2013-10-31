@@ -13,6 +13,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
-- (IBAction)addButtonPressed:(id)sender;
 
 @end

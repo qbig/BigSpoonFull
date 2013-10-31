@@ -100,32 +100,10 @@
     // And call the ajax callback: - (void)addOutlet:(Outlet *)Outlet
     // We could use  [self.tableView reloadData] but it looks nicer to insert the new row with an animation. 
     
-    // Test data:
-    
-    Outlet *newOutlet = [[Outlet alloc] init];
-    
-    newOutlet.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-prn1/c142.91.546.546/s160x160/47854_556693471032572_2024581657_n.jpg"];
-    newOutlet.name = @"Food For Thought";
-    newOutlet.address = @"#3-05 Habourfront Tower";
-    newOutlet.phoneNumber = @"8796 0493";
-    newOutlet.operatingHours = @"9:30am - 12:00am";
-    [self.outletsArray addObject:newOutlet];
-    
-    Outlet *newOutlet2 = [[Outlet alloc] init];
-    
-    newOutlet2.imgURL = [[NSURL alloc] initWithString:  @"http://profile.ak.fbcdn.net/hprofile-ak-frc1/c29.29.363.363/s160x160/999357_391637284290743_2024655580_n.jpg"];
-    newOutlet2.name = @"Si Chuan Beef Noodle";
-    newOutlet2.address = @"#2-08 Serangoon Rd";
-    newOutlet2.phoneNumber = @"9879 8569";
-    newOutlet2.operatingHours = @"8:30am - 9:00am";
-    [self.outletsArray addObject:newOutlet2];
-    
-    return;
-    
     // Create the request.
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LIST_OUTLETS]];
     request.HTTPMethod = @"GET";
-    [request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
 
     // Create url connection and fire request
     [NSURLConnection connectionWithRequest:request delegate:self];
@@ -160,12 +138,9 @@
     //parse out the json data
     
     NSError* error;
-    NSDictionary* json = [NSJSONSerialization
-                          JSONObjectWithData:_responseData
-                          
-                          options:kNilOptions
-                          error:&error];
-    
+    NSArray* outletList = (NSArray*) [NSJSONSerialization JSONObjectWithData:_responseData
+                                                                     options:kNilOptions
+                                                                       error:&error];
     //        for (id key in [json allKeys]){
     //            NSString* obj =(NSString *) [json objectForKey: key];
     //            NSLog(obj);
@@ -173,36 +148,41 @@
     
     switch (statusCode) {
             
-            // 200 Okay
+        // 200 Okay
         case 200:{
             
-            NSString* email =[json objectForKey:@"email"];
-            NSString* firstName = [json objectForKey:@"first_name"];
-            NSString* lastName = [json objectForKey:@"last_name"];
-            NSString* password = [json objectForKey:@"password"];
-            NSString* auth_token = [json objectForKey:@"auth_token"];
-            
-            
-            User *user = [User sharedInstance];
-            user.firstName = firstName;
-            user.lastName = lastName;
-            user.email = email;
-            user.password = password;
-            user.auth_token = auth_token;
-            
-            NSLog(@"New user created:");
-            NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
-            NSLog(@"Email: %@", email);
-            NSLog(@"Pwd: %@", password);
-            NSLog(@"Auth_token: %@", auth_token);
-            
-            [self performSegueWithIdentifier:@"SegueFromAuthToOutlet" sender:self];
-            
+            for (NSDictionary *newOutlet in outletList) {
+                NSDictionary *restaurant = (NSDictionary *)[newOutlet objectForKey:@"restaurant"];
+                NSDictionary *icon = (NSDictionary *)[restaurant objectForKey:@"icon"];
+                NSString *thumbnail = (NSString *)[icon objectForKey:@"thumbnail"];
+                NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
+                
+                int ID = [[newOutlet objectForKey:@"id"] intValue];
+                NSString* name = [newOutlet objectForKey:@"name"];
+                NSString* phone = [newOutlet objectForKey:@"phone"];
+                NSString* address = [newOutlet objectForKey:@"address"];
+                NSString* opening = [newOutlet objectForKey:@"opening"];
+                
+                NSLog(@"Outlet id: %d", ID);
+                
+                Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
+                                                                   Name: name
+                                                                Address: address
+                                                            PhoneNumber: phone
+                                                        OperationgHours: opening
+                                                               OutletID:ID];
+                [self addOutlet:newOutletObject];
+                
+            }
             
             break;
         }
             
         default:{
+            
+            NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
+                                                                             options:kNilOptions
+                                                                               error:&error];
             
             id firstKey = [[json allKeys] firstObject];
             
@@ -297,7 +277,7 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"FromOutletsToMenu"]) {
+    if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
 		menuViewController.delegate = self;
         
@@ -306,7 +286,7 @@
         menuViewController.outlet = outlet;
         
 	} else{
-        NSLog(@"Segure in the outletsViewController cannot assign delegate to its segue");
+        NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
 

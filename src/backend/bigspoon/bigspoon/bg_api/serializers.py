@@ -5,17 +5,17 @@ from bg_inventory.models import Restaurant, Outlet, Table,\
 from bg_order.models import Meal, Order, Request
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
 
 User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
-    meals = RelatedField(many=True)
-    requests = RelatedField(many=True)
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password', 'auth_token')
+        fields = ('email', 'username', 'first_name', 'last_name',
+                  'password', 'auth_token')
         read_only_fields = ('auth_token',)
 
 
@@ -29,10 +29,6 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
 
     user = serializers.SerializerMethodField('get_user')
-    gender = serializers.SerializerMethodField('get_gender')
-    is_vegetarian = serializers.SerializerMethodField('get_is_vegetarian')
-    is_muslim = serializers.SerializerMethodField('get_is_muslim')
-    favourite = CategorySerializer(many=True)
 
     def get_user(self, obj):
         return {
@@ -40,15 +36,6 @@ class ProfileSerializer(serializers.ModelSerializer):
             'first_name': obj.user.first_name,
             'last_name': obj.user.last_name,
         }
-
-    def get_gender(self, obj):
-        return Profile.GENDER_TYPES_DIC[obj.gender]
-
-    def get_is_vegetarian(self, obj):
-        return Profile.YES_NO_CHOICES_DIC[obj.is_vegetarian]
-
-    def get_is_muslim(self, obj):
-        return Profile.YES_NO_CHOICES_DIC[obj.is_muslim]
 
     class Meta:
         model = Profile
@@ -58,10 +45,12 @@ class RestaurantSerializer(serializers.ModelSerializer):
     icon = serializers.SerializerMethodField('get_icon')
 
     def get_icon(self, obj):
-        return {
-            'original': obj.icon.url,
-            'thumbnail': obj.icon.url_200x200,
-        }
+        if obj.icon:
+            return {
+                'original': obj.icon.url,
+                'thumbnail': obj.icon.url_200x200,
+            }
+        return "no icon"
 
     class Meta:
         model = Restaurant
@@ -73,10 +62,12 @@ class DishSerializer(serializers.ModelSerializer):
     categories = CategorySerializer(many=True)
 
     def get_photo(self, obj):
-        return {
-            'original': obj.photo.url,
-            'thumbnail': obj.photo.url_640x400,
-        }
+        if obj.photo:
+            return {
+                'original': obj.photo.url,
+                'thumbnail': obj.photo.url_640x400,
+            }
+        return "no photo"
 
     class Meta:
         model = Dish
@@ -87,24 +78,20 @@ class OutletListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Outlet
-        read_only_fields = ('name', 'desc')
+
+
+class OutletTableSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Table
 
 
 class OutletDetailSerializer(serializers.ModelSerializer):
     dishes = DishSerializer(many=True)
+    tables = OutletTableSerializer(many=True)
 
     class Meta:
         model = Outlet
-        read_only_fields = ('name', 'desc')
-
-
-class OutletTableSerializer(serializers.ModelSerializer):
-    outlet = RelatedField(many=True)
-
-    class Meta:
-        model = Table
-        fields = ('name', 'qrcode')
-        read_only_fields = ('name', 'qrcode')
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -146,7 +133,41 @@ class MealSerializer(serializers.ModelSerializer):
         read_only_fields = ('created', 'modified')
 
 
+class MealDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Meal
+
+
 class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Request
+        fields = ('table', 'note', 'request_type', 'is_active',
+                  'finished', 'diner')
+        read_only_fields = ('is_active', 'finished', 'diner')
+
+
+class TokenSerializer(serializers.Serializer):
+    email = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = authenticate(username=email, password=password)
+
+            if user:
+                if not user.is_active:
+                    raise serializers.ValidationError(
+                        'User account is disabled.')
+                attrs['user'] = user
+                return attrs
+            else:
+                raise serializers.ValidationError(
+                    'Unable to login with provided credentials.')
+        else:
+            raise serializers.ValidationError(
+                'Must include "email" and "password"')

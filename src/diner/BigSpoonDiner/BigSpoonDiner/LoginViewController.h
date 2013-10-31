@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Constants.h"
 #import "User.h"
+#import "SSKeychain.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface LoginViewController : UIViewController <NSURLConnectionDelegate>
 
@@ -16,6 +18,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailLabel;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (strong, nonatomic) IBOutlet UIButton *fbButton;
+
 - (IBAction)submitButtonPressed:(id)sender;
+
+- (IBAction)fbButtonPressed:(id)sender;
 
 @end

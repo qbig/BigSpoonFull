@@ -1,10 +1,40 @@
-{% extends "base.html" %}
+{% extends "bg_order/staff.html" %}
 
 {% load staticfiles %}
 {% load compress %}
 
 {% block content %}
 
-<p>This is the history page!</p>
+    {% for meal in meal_cards %}
+    <div class="item history">
+        <span class="passed time"><i class="icon-time"></i> finished in {{meal.used_time.0}} mins {{meal.used_time.1}} seconds</span>
+        <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
+        <h3>{{ meal.table.name }}</h3>
+        <h4>{{ meal.diner.get_full_name }}</h4>
 
-{% endblock %}
+        <!-- Left color coded timing, list of orders, acknowledge button -->
+        <ul class="order">
+            {% for order in meal.orders.all %}
+            <li>{{order.dish.name}}  <em>{{order.quantity}}</em></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+    {% for request in requests_cards %}
+    <div class="item history">
+        <span class="passed time"><i class="icon-time"></i> finished in {{request.used_time.0}} mins {{request.used_time.1}} seconds</span>
+        <a class="user-profile-link" href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
+        <h3>{{ request.table.name }}</h3>
+        <h4>{{ request.diner.get_full_name }}</h4>
+        <p class="note">{{request.note}}
+
+        {% if request.request_type == 0 %}
+            <img class="icon" src="{% static "img/water.png" %}"/>
+        {% elif request.request_type == 1%}
+            <img class="icon" src="{% static "img/waiter.png" %}"/>
+        {% endif %}
+        </p>
+    </div>
+    {% endfor %}
+
+{% endblock content %}

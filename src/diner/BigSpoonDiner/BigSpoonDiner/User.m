@@ -13,7 +13,6 @@
 @synthesize firstName;
 @synthesize lastName;
 @synthesize email;
-@synthesize password;
 @synthesize birthday;
 @synthesize auth_token;
 

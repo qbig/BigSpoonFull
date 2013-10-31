@@ -1,4 +1,4 @@
-{% extends "base_nav.html" %}
+{% extends "bg_order/staff.html" %}
 
 {% load staticfiles %}
 {% load compress %}
@@ -6,50 +6,30 @@
 {% block content %}
 
 <div class="wrapper">
-    <div class="table">
-        <h3>Table T01</h3>
-
-        <span class='user'>
-            <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
-            <h4>Edmund Yong's orders</h4>
-        </span>
-        <ul class="order">
-            <li>Sambal prawns</li>
-            <li>Spicy ikan bilis</li>
-            <li>Tomato salad</li>
-            <li>Fries</li>
-        </ul>
-
-        <span class='user'>
-            <h4>Tan Aik Leng's orders</h4>
-            <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
-        </span>
-        <ul class="order">
-            <li>Tandoori Chicken</li>
-            <li>Penang Laksa</li>
-            <li>Root beer</li>
-        </ul>
-    </div>
-
     {% for table in table_list %}
 
     <div class="table">
         <h3>{{table.name}}</h3>
         {% for meal in table.meals.all %}
-        <span class='user'>
-            <img class="thumbnail-navigation" src="https://graph.facebook.com/yos.riady/picture" />
-            <h4>{{ meal.diner.get_full_name }}'s orders</h4>
-        </span>
-            <ul class="order">
-            {% for order in meal.orders.all %}
-                <li>{{order.dish.name}} {{order.dish.quantity}}</li>
+            {% if meal.status == 1 %}
+            <div class='history'>
+            {% else %}
+            <div class='active'>
+            {% endif %}
+                <span class='user'>
+                    <img class="thumbnail-navigation" src="{{meal.diner.avatar_url}}" />
+                    <h4>{{ meal.diner.get_full_name }}'s orders</h4>
+                </span>
+                <ul class="order">
+                    {% for order in meal.orders.all %}
+                    <li>{{order.dish.name}} <em>{{order.quantity}}</em></li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endfor %}
-            </ul>
-        {% endfor %}
     </div>
-
     {% endfor %}
 
 </div>
 
-{% endblock %}
+{% endblock content %}

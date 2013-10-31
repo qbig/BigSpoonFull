@@ -1,21 +1,25 @@
 from django.contrib import admin
+from guardian.admin import GuardedModelAdmin
 from bg_order.models import Request, Meal, Order
 
 
-class RequestAdmin(admin.ModelAdmin):
+class RequestAdmin(GuardedModelAdmin):
+    raw_id_fields = ('diner', 'table')
     list_display = ['diner', 'table', 'request_type', 'is_active', 'created',
                     'finished']
     list_display_links = ('diner', 'table',)
     search_fields = ['diner__first_name', 'diner__last_name']
 
 
-class MealAdmin(admin.ModelAdmin):
-    list_display = ['diner', 'table', 'is_active', 'is_paid',
+class MealAdmin(GuardedModelAdmin):
+    raw_id_fields = ('diner', 'table')
+    list_display = ['diner', 'table', 'status', 'is_paid',
                     'created', 'modified', 'bill_time']
     list_display_links = ('diner', 'table',)
 
 
-class OrderAdmin(admin.ModelAdmin):
+class OrderAdmin(GuardedModelAdmin):
+    raw_id_fields = ('dish',)
     list_display = ['id', 'meal', 'get_diner', 'dish',
                     'quantity']
     list_display_links = ('meal', 'dish', 'get_diner')

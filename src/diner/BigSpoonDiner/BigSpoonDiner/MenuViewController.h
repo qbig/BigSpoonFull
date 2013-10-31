@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Outlet.h"
+#import "OrderHistoryViewController.h"
+#import "MenuTableViewController.h"
+#import <AFHTTPRequestOperationManager.h>
+#import "User.h"
+#import "Constants.h"
+#import "MultiContainerViewSegue.h"
+#import "Order.h"
+#import "ItemsOrderedViewController.h"
 
 @class MenuViewController;
 
@@ -16,38 +24,68 @@
 @end
 
 
-@interface MenuViewController : UIViewController <NSURLConnectionDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate>
 
-
+// Data:
 @property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
+@property (nonatomic) int tableID;
+@property (nonatomic) NSArray *validTableIDs;
+@property (nonatomic, strong) Order *currentOrder;
+@property (nonatomic, strong) Order *pastOrder;
 
 // Buttons:
 
 @property (strong, nonatomic) IBOutlet UIButton *viewModeButton;
-@property (strong, nonatomic) IBOutlet UIButton *breakfastButton;
-@property (strong, nonatomic) IBOutlet UIButton *mainButton;
-@property (strong, nonatomic) IBOutlet UIButton *sideButton;
-@property (strong, nonatomic) IBOutlet UIButton *beverageButton;
 @property (strong, nonatomic) IBOutlet UILabel *outletNameLabel;
 
 // Three buttons at the top: (gear button no need here)
 
 - (IBAction)homeButtonPressed:(id)sender;
-- (IBAction)viewModeButtonPressed:(id)sender;
-
-// Four buttons at the top:
-
-- (IBAction)breakfastButtonPressed:(id)sender;
-- (IBAction)mainButtonPressed:(id)sender;
-- (IBAction)sideButtonPressed:(id)sender;
-- (IBAction)beverageButtonPressed:(id)sender;
+- (IBAction)viewModeButtonPressedAtListPage:(id)sender;
+- (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
 
 // Four buttons at the bottom
 
-- (IBAction)requestForWaterButtonPressed:(id)sender;
-- (IBAction)callWaiterButtonPressed:(id)sender;
-- (IBAction)billButtonPressed:(id)sender;
+- (IBAction)requestWaterButtonPressed:(id)sender;
+- (IBAction)requestWaiterButtonPressed:(id)sender;
+- (IBAction)requestBillButtonPressed:(id)sender;
 - (IBAction)itemsButtonPressed:(id)sender;
+
+// Objects related to Container view:
+
+@property (strong, nonatomic) IBOutlet UIView *container;
+@property (strong, nonatomic) MenuTableViewController *menuListViewController;
+@property (strong, nonatomic) ItemsOrderedViewController *itemsOrderedViewController;
+
+// "Call For Service" Control Panel:
+@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+@property (nonatomic) int quantityOfColdWater;
+@property (nonatomic) int quantityOfWarmWater;
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
+@property (strong, nonatomic) IBOutlet UILabel *quantityOfWarmWaterLabel;
+- (IBAction)plusColdWaterButtonPressed:(id)sender;
+- (IBAction)minusColdWaterButtonPressed:(id)sender;
+- (IBAction)plusWarmWaterButtonPressed:(id)sender;
+- (IBAction)minusWarmWaterButtonPressed:(id)sender;
+- (IBAction)requestWaterOkayButtonPressed:(id)sender;
+- (IBAction)requestWaterCancelButtonPressed:(id)sender;
+
+// "Bill" Control Panel:
+@property (strong, nonatomic) IBOutlet UIView *ratingsView;
+@property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
+@property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
+- (IBAction)ratingSubmitButtonPressed:(id)sender;
+- (IBAction)ratingCancelButtonPressed:(id)sender;
+
+// For container view:
+@property (weak,nonatomic) UIViewController *destinationViewController;
+@property (strong, nonatomic) NSString *destinationIdentifier;
+@property (strong, nonatomic) UIViewController *oldViewController;
+
+// For the item quantity label:
+@property (strong, nonatomic) IBOutlet UILabel *itemQuantityLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *itemQuantityLabelBackgroundImageView;
+
 
 @end

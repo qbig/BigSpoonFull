@@ -205,6 +205,9 @@ THIRD_PARTY_APPS = (
     # Django rest framework authtoken:
     'rest_framework.authtoken',
 
+    # Django rest framework documentation:
+    'rest_framework_docs',
+
     # Django object level permission:
     'guardian',
 
@@ -304,5 +307,10 @@ ANONYMOUS_DEFAULT_USERNAME_VALUE = 'Anonymous'
 
 ########## USER MODEL CONFIGURATION
 AUTH_USER_MODEL = 'bg_inventory.User'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/staff/main'
 ########## END USER MODEL CONFIGURATION
+
+########## REDIS HOST CONFIGURATION
+from os import environ
+REDIS_HOST = environ.get('REDIS_HOST', '127.0.0.1')
+########## END REDIS HOST CONFIGURATION

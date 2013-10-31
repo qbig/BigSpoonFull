@@ -70,8 +70,8 @@ DEBUG_TOOLBAR_CONFIG = {
 ########## REST FRAMEWORK CONFIGURATION
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONPRenderer',
         'rest_framework.renderers.UnicodeJSONRenderer',
+        'rest_framework.renderers.JSONPRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_PARSER_CLASSES': (
