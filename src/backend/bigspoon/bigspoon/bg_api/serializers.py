@@ -60,6 +60,10 @@ class RestaurantSerializer(serializers.ModelSerializer):
 class DishSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField('get_photo')
     categories = CategorySerializer(many=True)
+    average_rating = serializers.SerializerMethodField('get_average_rating')
+
+    def get_average_rating(self, obj):
+        return obj.get_average_rating()
 
     def get_photo(self, obj):
         if obj.photo:
