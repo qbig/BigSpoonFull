@@ -481,14 +481,15 @@
             case 403:
             default:{
                 NSLog(@"Place Order Fail");
-                [self displayErrorInfo: operation.responseString];
+                [self displayErrorInfo: operation.responseObject];
             }
         }
         NSLog(@"JSON: %@", responseObject);
     }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          [self displayErrorInfo:operation.responseString];
-                                      }];
+    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self displayErrorInfo: operation.responseObject];
+    }];
+    
     [operation start];
 }
 
@@ -587,22 +588,32 @@
                 break;
             case 403:
             default:{
-                [self displayErrorInfo: @"Please check your network"];
+                [self displayErrorInfo: operation.responseObject];
             }
         }
         NSLog(@"JSON: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          [self displayErrorInfo:operation.responseString];
+                                          [self displayErrorInfo:operation.responseObject];
                                       }];
     [operation start];
 }
 
-- (void) displayErrorInfo: (NSString *) info{
-    NSLog(@"Error: %@", info);
+- (void) displayErrorInfo: (id) responseObject{
+    
+    NSDictionary *dictionary = (NSDictionary *)responseObject;
+    
+    NSMutableString *message = [[NSMutableString alloc] init];
+    
+    NSArray *errorInfoArray= [dictionary allValues];
+    
+    for (NSString * errorInfo in errorInfoArray) {
+        [message appendString:errorInfo];
+    }
+
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"Oops"
-                              message: info
+                              message: message
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
