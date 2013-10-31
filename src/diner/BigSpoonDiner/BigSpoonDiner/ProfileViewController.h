@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #include "HomeAndSettingsButtonView.h"
+#import "User.h"
+#import "Constants.h"
+#import <AFHTTPRequestOperationManager.h>
 
 @interface ProfileViewController : UIViewController
 
