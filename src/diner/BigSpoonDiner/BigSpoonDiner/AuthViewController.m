@@ -40,18 +40,19 @@
     NSString *firstName = [prefs stringForKey:@"firstName"];
     NSString *lastName = [prefs stringForKey:@"lastName"];
     NSString *email = [prefs stringForKey:@"email"];
+    UIImage *profileImage = [prefs objectForKey:@"profileImage"];
     NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
     // birthday is not supported for now
-    // profilePhotoURL is an optional field. No need to check here.
     
     NSLog(@"fistName: %@, lastName: %@, email: %@, auth_token: %@", firstName, lastName, email, auth_token);
     
-    if (firstName != nil && lastName != nil && email != nil && auth_token != nil) {
+    if (firstName != nil && lastName != nil && email != nil && auth_token != nil && profileImage != nil) {
         User *user = [User sharedInstance];
         user.firstName = firstName;
         user.lastName = lastName;
         user.email = email;
         user.auth_token = auth_token;
+        user.profileImage = profileImage;
         
         [self performSegueWithIdentifier:@"SegueFromStartToOutlets" sender:self];
         

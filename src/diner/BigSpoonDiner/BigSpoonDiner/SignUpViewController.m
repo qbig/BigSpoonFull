@@ -156,7 +156,7 @@
             user.lastName = lastName;
             user.email = email;
             user.auth_token = auth_token;
-            user.profilePhotoURL = profilePhotoURL;
+            user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
             
             NSLog(@"New user created:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
@@ -169,7 +169,7 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
-            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
+            [prefs setObject:user.profileImage forKey:@"profileImage"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
 
