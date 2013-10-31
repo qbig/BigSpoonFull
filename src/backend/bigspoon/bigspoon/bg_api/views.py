@@ -157,6 +157,7 @@ class CreateMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         # Check quantity
+        out_of_stock = []
         for dish_pair in dishes:
             dish_id = dish_pair.keys()[0]
             try:
@@ -168,9 +169,12 @@ class CreateMeal(generics.CreateAPIView):
             stock_quantity = dish.quantity
 
             if stock_quantity < quantity:
-                return Response({"error": "Not enough stock for dish id "
-                                + str(dish.id)},
-                                status=status.HTTP_400_BAD_REQUEST)
+                out_of_stock.append(dish.name)
+
+        if(len(out_of_stock) > 0):
+            return Response({"error": "Sorry, we ran out of stock for "
+                             + ", ".join(out_of_stock)},
+                            status=status.HTTP_400_BAD_REQUEST)
 
         diner = request.user
         meal, created = Meal.objects.get_or_create(table=table, diner=diner,
