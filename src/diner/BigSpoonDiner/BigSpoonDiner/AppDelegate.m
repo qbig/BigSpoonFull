@@ -18,7 +18,7 @@
     // Override point for customization after application launch.
 //    [self loadOutlets];
 //    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     return YES;
 }
 
