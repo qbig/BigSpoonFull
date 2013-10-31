@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIAlertView *requestForWaiterView;
 @property (nonatomic, strong) UIAlertView *requestForBillView;
 @property (nonatomic, strong) UIAlertView *inputTableIDView;
+@property (nonatomic, strong) UIAlertView *placeOrderView;
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 
 @end
@@ -295,7 +296,7 @@
                                       otherButtonTitles:nil];
             [alertView show];
             
-            //[self animateControlPanelView:self.ratingsView willShow:YES];
+            [self animateControlPanelView:self.ratingsView willShow:YES];
         }
         else if([title isEqualToString:@"Cancel"])
         {
@@ -338,7 +339,18 @@
             }
             [self askForTableIDWithTitle:@"Please enter a valid table ID"];
         }
-    } else{
+    }
+    
+    else if ([alertView isEqual:self.placeOrderView]){
+    
+        if(![title isEqualToString:@"Cancel"])
+        {
+            [self performPlaceOrderNetWorkRequest];
+        }
+        
+    }
+    
+    else{
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
 }
@@ -356,8 +368,6 @@
 - (void) updateItemQuantityBadge{
     
     int totalQuantity = [self.currentOrder getTotalQuantity];
-    
-    NSLog(@"Total quantity: %d", totalQuantity);
     
     if (totalQuantity == 0) {
         [self.itemQuantityLabel setHidden:YES];
@@ -392,15 +402,104 @@
 
 - (void) placeOrder{
     
-    // TODO
+    NSLog(@"Placing order");
     
+    if (self.tableID == -1 || self.tableID == 0) {
+        NSLog(@"Table ID is not know. Asking the user for it");
+        [self askForTableID];
+        
+        __weak MenuViewController *weakSelf = self;
+        
+        self.taskAfterAskingForTableID = ^(void){
+            [weakSelf performPlaceOrderTask];
+        };
+    } else{
+        NSLog(@"Table ID is known: %d", self.tableID);
+        [self performPlaceOrderTask];
+    }
+}
+
+- (void) performPlaceOrderTask{
+    
+    NSMutableString *message = [[NSMutableString alloc] init];
+    
+    // For every dish that is currently in the order, we print out something like: "3X Samon Fish"
+    for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
+        Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
+        [message appendFormat:@"%dX %@\n", [self.currentOrder getQuantityOfDish: dish], dish.name];
+    }
+    
+     self.placeOrderView = [[UIAlertView alloc]
+                              initWithTitle:@"New Order"
+                              message: message
+                              delegate:self
+                              cancelButtonTitle:@"Cancel"
+                              otherButtonTitles:@"Ok", nil];
+    [self.placeOrderView show];
+}
+
+- (void) performPlaceOrderNetWorkRequest{
+    
+    NSMutableArray *dishesArray = [[NSMutableArray alloc] init];
+    
+    // For every dish that is currently in the order, we add it to the dishes dictionary:
+    for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
+        Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
+        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDish: dish]];
+        NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
+        
+        NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
+        [dishesArray addObject:newPair];
+    }
+    
+    NSDictionary *parameters = @{
+                                 @"dishes": dishesArray,
+                                 @"table": [NSNumber numberWithInt: self.tableID],
+                                 };
+    
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: ORDER_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"POST";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Place Order Success");
+                [self afterSuccessfulPlacedOrder];
+            }
+                break;
+            case 403:
+            default:{
+                NSLog(@"Place Order Fail");
+                [self displayErrorInfo: operation.responseObject];
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+    failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self displayErrorInfo: operation.responseObject];
+    }];
+    
+    [operation start];
+}
+
+- (void) afterSuccessfulPlacedOrder{
     [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
     self.currentOrder = [[Order alloc] init];
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
-    //[self.itemsOrderedViewController]
     
     UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Order Places"
+                              initWithTitle:@"Order Placed Successfully"
                               message:@"Your food will be ready soon"
                               delegate:nil
                               cancelButtonTitle:@"OK"
@@ -409,6 +508,7 @@
     
     [self updateItemQuantityBadge];
 }
+
 - (Order *) getCurrentOrder{
     return self.currentOrder;
 }
@@ -488,22 +588,32 @@
                 break;
             case 403:
             default:{
-                [self displayErrorInfo: @"Please check your network"];
+                [self displayErrorInfo: operation.responseObject];
             }
         }
         NSLog(@"JSON: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          [self displayErrorInfo:operation.responseString];
+                                          [self displayErrorInfo:operation.responseObject];
                                       }];
     [operation start];
 }
 
-- (void) displayErrorInfo: (NSString *) info{
-    NSLog(@"Error: %@", info);
+- (void) displayErrorInfo: (id) responseObject{
+    
+    NSDictionary *dictionary = (NSDictionary *)responseObject;
+    
+    NSMutableString *message = [[NSMutableString alloc] init];
+    
+    NSArray *errorInfoArray= [dictionary allValues];
+    
+    for (NSString * errorInfo in errorInfoArray) {
+        [message appendString:errorInfo];
+    }
+
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"Oops"
-                              message: info
+                              message: message
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];

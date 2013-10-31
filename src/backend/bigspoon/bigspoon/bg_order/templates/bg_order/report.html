@@ -25,8 +25,8 @@
 			<td class="separate-column">{{meal.created}}</td>
 			<td class="separate-column">
 			{% for order in meal.orders.all %}
-				{% if order.quantity < 10 %}0{% endif %}{{order.quantity}}x
-				&nbsp;{{order.dish.name}}<br> <!--This line is always shown-->
+				{% if order.quantity < 10 %}0{% endif %}{{order.quantity}}
+				&nbsp;&nbsp;{{order.dish.name}}<br> <!--This line is always shown-->
 			{% endfor %}
 			{% if meal.orders.all|length > 1 %}
 			<!--Should we put this at the top of the list of dishes order?-->

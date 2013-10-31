@@ -7,6 +7,8 @@ from bg_order.models import Meal, Order, Request
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 
+from datetime import datetime
+
 User = get_user_model()
 
 
@@ -60,6 +62,10 @@ class RestaurantSerializer(serializers.ModelSerializer):
 class DishSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField('get_photo')
     categories = CategorySerializer(many=True)
+    average_rating = serializers.SerializerMethodField('get_average_rating')
+
+    def get_average_rating(self, obj):
+        return obj.get_average_rating()
 
     def get_photo(self, obj):
         if obj.photo:
@@ -87,8 +93,15 @@ class OutletTableSerializer(serializers.ModelSerializer):
 
 
 class OutletDetailSerializer(serializers.ModelSerializer):
-    dishes = DishSerializer(many=True)
+    dishes = serializers.SerializerMethodField('get_dishes')
     tables = OutletTableSerializer(many=True)
+
+    def get_dishes(self, obj):
+        now = datetime.now().time()
+        current = obj.dishes.filter(
+            start_time__lte=now,
+            end_time__gte=now)
+        return DishSerializer(current).data
 
     class Meta:
         model = Outlet

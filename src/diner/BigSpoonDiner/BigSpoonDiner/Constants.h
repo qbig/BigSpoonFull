@@ -17,6 +17,7 @@ extern NSString* const  USER_LOGIN;
 extern NSString* const  LIST_OUTLETS;
 extern NSString* const REQUEST_URL;
 extern NSString* const PROFILE_URL;
+extern NSString* const ORDER_URL;
 
 // Others:
 extern int const ROW_HEIGHT_LIST_MENU;
