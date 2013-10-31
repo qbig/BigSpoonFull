@@ -109,7 +109,7 @@
     
     //NSDictionary* headers = [response allHeaderFields];
     
-    NSLog(@"response code: %d",  statusCode);
+    NSLog(@"response code for log in: %d",  statusCode);
     
     _responseData = [[NSMutableData alloc] init];
     
@@ -143,7 +143,7 @@
             
         // 200 Okay
         case 200:{
-
+        
             NSString* email =[json objectForKey:@"email"];
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
@@ -163,6 +163,7 @@
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
             NSLog(@"Auth_token: %@", auth_token);
+            NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
@@ -170,10 +171,9 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
-            [prefs setObject:user.profileImage forKey:@"profileImage"];
+            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
-            
 
             [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
             

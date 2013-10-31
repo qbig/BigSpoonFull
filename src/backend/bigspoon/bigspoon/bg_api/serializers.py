@@ -1,23 +1,29 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate
+from django.utils import timezone
+
 from rest_framework import serializers
 from rest_framework.relations import RelatedField
+
 from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note, Profile
 from bg_order.models import Meal, Order, Request
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate
-
-from datetime import datetime
 
 User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
 
+    avatar_url = serializers.SerializerMethodField('get_avatar')
+
+    def get_avatar(self, obj):
+        return obj.avatar_url
+
     class Meta:
         model = User
         fields = ('email', 'username', 'first_name', 'last_name',
-                  'password', 'auth_token')
+                  'password', 'auth_token', 'avatar_url')
         read_only_fields = ('auth_token',)
 
 
@@ -37,6 +43,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'email': obj.user.email,
             'first_name': obj.user.first_name,
             'last_name': obj.user.last_name,
+            'avatar_url': obj.user.avatar_url,
         }
 
     class Meta:
@@ -97,7 +104,7 @@ class OutletDetailSerializer(serializers.ModelSerializer):
     tables = OutletTableSerializer(many=True)
 
     def get_dishes(self, obj):
-        now = datetime.now().time()
+        now = timezone.now().time()
         current = obj.dishes.filter(
             start_time__lte=now,
             end_time__gte=now)

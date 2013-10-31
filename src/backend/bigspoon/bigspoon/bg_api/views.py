@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.conf import settings
 from django.contrib.auth.models import Group
+from django.utils import timezone
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -24,7 +25,6 @@ from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note
 from bg_order.models import Meal, Request, Order
 
 import redis
-from datetime import datetime
 
 REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 User = get_user_model()
@@ -89,7 +89,8 @@ class LoginUser(APIView):
                 'email': u.email,
                 'first_name': u.first_name,
                 'last_name': u.last_name,
-                'auth_token': token.key
+                'auth_token': token.key,
+                'avatar_url': u.avatar_url
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -172,8 +173,8 @@ class CreateMeal(generics.CreateAPIView):
                 out_of_stock.append(dish.name)
 
         if(len(out_of_stock) > 0):
-            out_of_stock_str = ", ".join(out_of_stock[:-1]) #exclude last item, for "and" concatenation below.
-            if (len(out_of_stock)>1):
+            out_of_stock_str = ", ".join(out_of_stock[:-1])
+            if (len(out_of_stock) > 1):
                 out_of_stock_str += " and "+out_of_stock[-1]
             return Response({"error": "Sorry, we ran out of stock for "
                              + out_of_stock_str},
@@ -182,7 +183,7 @@ class CreateMeal(generics.CreateAPIView):
         diner = request.user
         meal, created = Meal.objects.get_or_create(table=table, diner=diner,
                                                    is_paid=False)
-        meal.modified = datetime.now()
+        meal.modified = timezone.now()
         meal.status = Meal.ACTIVE
         meal.save()
 
@@ -193,6 +194,8 @@ class CreateMeal(generics.CreateAPIView):
             dish.quantity -= quantity
             dish.save()
 
+        red = redis.StrictRedis(REDIS_HOST)
+        red.publish('%d' % table.outlet.id, ['refresh'])
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
 
@@ -237,7 +240,7 @@ class AskForBill(generics.GenericAPIView):
         if meals.count() > 0:
             meal = meals[0]
             meal.status = Meal.ASK_BILL
-            meal.modified = datetime.now()
+            meal.modified = timezone.now()
             meal.save()
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
@@ -264,7 +267,7 @@ class CloseBill(generics.GenericAPIView):
             }, status=status.HTTP_403_FORBIDDEN)
         meal.status = Meal.INACTIVE
         meal.is_paid = True
-        meal.bill_time = datetime.now()
+        meal.bill_time = timezone.now()
         meal.save()
         red = redis.StrictRedis(REDIS_HOST)
         for o_id in request.user.outlet_ids:
@@ -288,7 +291,7 @@ class AckOrder(generics.GenericAPIView):
                 "details": "You do not have permission to perform this action."
             }, status=status.HTTP_403_FORBIDDEN)
         meal.status = Meal.INACTIVE
-        meal.modified = datetime.now()
+        meal.modified = timezone.now()
         meal.save()
         red = redis.StrictRedis(REDIS_HOST)
         for o_id in request.user.outlet_ids:
@@ -312,7 +315,7 @@ class AckRequest(generics.GenericAPIView):
                 "details": "You do not have permission to perform this action."
             }, status=status.HTTP_403_FORBIDDEN)
         req.is_active = False
-        req.finished = datetime.now()
+        req.finished = timezone.now()
         req.save()
         red = redis.StrictRedis(REDIS_HOST)
         for o_id in request.user.outlet_ids:
