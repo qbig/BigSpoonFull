@@ -15,22 +15,6 @@
             <p class='spent'><i class="icon-dollar"></i> {{diner.get_total_spending}} spent</p>
         </span>
 
-        <!-- order history -->
-        <div class="past-orders">
-            <h3><i class="icon-time"></i> Past Orders</h3>
-            {% for meal in diner.meals.all %}
-
-            <h5>{{meal.get_created}}</h5>
-
-            <ul class="order">
-                {% for order in meal.orders.all %}
-                <li>{{order.dish}} <em>{{order.quantity}}</em></li>
-                {% endfor %}
-            </ul>
-
-            {% endfor %}
-        </div>
-
         {% if diner.profile %}
         <div class="user-preferences">
             <h4><i class="icon-frown"></i> Known Allergies</h4><p class="allergies">
@@ -54,20 +38,62 @@
             <!-- last feedback -->
             <h4><i class="icon-star"></i> Feedback</h4>
             <p class="feedback">
-                Last visit was good. Food is great.
+                {% for review in reviews %}
+
+                {{ review.feedback }} - {{ review.score }} stars
+                <br />
+                {% endfor %}
             </p>
+
+        </div>
+        {% endif %}
+
+        <!-- order history -->
+        <div class="past-orders">
 
             <!-- manager notes -->
             <h4><i class="icon-file-alt"></i> Notes</h4>
-            <input class="notes" type="textarea" placeholder="Likes to sit near windows" value="
 
-            {% for note in diner.notes.all%}
-            {{note.content}}
-            {% endfor %}
+            {% if notes %}
+                {% for note in notes %}
+                <span class="notespan">
+                <input class="notes" type="textarea" placeholder="Likes to sit near windows" value="{{note.content}}"/>
 
-            "/>
+                <a href="#" class="note-save" onclick="saveNote(this);" user="{{note.user.id}}" outlet="{{note.outlet.id}}"><i class="icon-save"></i> Save</a>
+                </span>
+                {% endfor %}
+            {% else %}
+                {% for outlet_id in user.outlet_ids %}
+
+                <span class="notespan">
+                <input class="notes" type="textarea" placeholder="Likes to sit near windows"/>
+
+                <a href="#" class="note-save" onclick="saveNote(this);" user="{{diner.id}}" outlet="{{outlet_id}}"><i class="icon-save"></i> Save</a>
+                </span>
+                {% endfor %}
+            {% endif %}
+
+            <h3><i class="icon-time"></i> Past Orders</h3>
+
+            {% if diner.meals.count > 0 %}
+
+                {% for meal in diner.meals.all %}
+
+                <h5>{{meal.get_created}}</h5>
+                <ul class="order">
+                    {% for order in meal.orders.all %}
+                    <li>{{order.dish}} <em>{{order.quantity}}</em></li>
+                    {% endfor %}
+                </ul>
+
+                {% endfor %}
+            {% else%}
+
+                <p>This user has no past orders yet.</p>
+
+            {% endif %}
+
         </div>
-        {% endif %}
 
     </div>
 </div>

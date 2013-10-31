@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django_thumbs.db.models import ImageWithThumbsField
 from django.utils.text import slugify
@@ -405,6 +406,15 @@ class Dish(models.Model):
         slug = slugify(self.name)
         return 'restaurant/dishes/%s/%s/%s.%s' % (
             self.outlet.name, self.id, slug, end)
+
+    def get_average_rating(self):
+        average_rating = self.ratings.all().\
+            aggregate(Avg('score'))['score__avg']
+
+        if average_rating is None:
+            return -1
+        else:
+            return int(average_rating)
 
     def __unicode__(self):
         """
