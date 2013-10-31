@@ -172,8 +172,11 @@ class CreateMeal(generics.CreateAPIView):
                 out_of_stock.append(dish.name)
 
         if(len(out_of_stock) > 0):
+            out_of_stock_str = ", ".join(out_of_stock[:-1]) #exclude last item, for "and" concatenation below.
+            if (len(out_of_stock)>1):
+                out_of_stock_str += " and "+out_of_stock[-1]
             return Response({"error": "Sorry, we ran out of stock for "
-                             + ", ".join(out_of_stock)},
+                             + out_of_stock_str},
                             status=status.HTTP_400_BAD_REQUEST)
 
         diner = request.user
