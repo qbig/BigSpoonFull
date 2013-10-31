@@ -195,7 +195,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
-    NSLog(@"NSURLCoonection encounters error at creating users.");
+    NSLog(@"NSURLCoonection encounters error at logging in.");
 }
 
 
