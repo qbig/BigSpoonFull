@@ -109,7 +109,7 @@
     
     //NSDictionary* headers = [response allHeaderFields];
 
-    NSLog(@"response code: %d",  statusCode);
+    NSLog(@"response code for sign up: %d",  statusCode);
     
     _responseData = [[NSMutableData alloc] init];
 
@@ -162,6 +162,7 @@
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
             NSLog(@"Auth_token: %@", auth_token);
+            NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
             
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -169,7 +170,7 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
-            [prefs setObject:user.profileImage forKey:@"profileImage"];
+            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
 
