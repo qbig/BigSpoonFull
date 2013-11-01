@@ -465,6 +465,7 @@ background-color: #468847;
     background: #fff;
     width: 880px;
     border-radius:5px;
+    margin-bottom: 40px;
 }
 
 #main .wrapper-no-bg {
@@ -539,6 +540,10 @@ background-color: #468847;
     font-weight: bold;
 }
 
+form.menu-add {
+    padding-bottom: 60px;
+}
+
 p.error {
     display: inline;
     padding: 10px;
@@ -574,8 +579,8 @@ p.success {
 }
 
 .menu-item p.name input{
-    margin: 0px 90px 0px 35px;
-    width: 295px;
+    margin: 0px 20px 0px 35px;
+    width: 260px;
 }
 
 .menu-item p.description textarea{
@@ -746,12 +751,6 @@ p.success {
     display: block;
     padding-bottom: 20px;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
-}
-
-form.menu-add {
-    margin-bottom:100px;
-    padding: 40px 240px;
-    padding-bottom:80px;
 }
 
 .menu-add .pos input{
