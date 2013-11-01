@@ -742,9 +742,9 @@ p.success {
 }
 
 .user-info input.notes {
+    margin-bottom:15px;
     width: 280px;
     height: 80px;
-    margin-bottom:15px;
 }
 
 .user-info .notespan {
@@ -815,11 +815,11 @@ h1.logo {
 
 .white-popup {
     position: relative;
-    background: #FFF;
+    margin: 20px auto;
     padding: 10px;
     max-width: 740px;
     border-radius:5px;
-    margin: 20px auto;
+    background: #FFF;
 }
 
 
@@ -831,8 +831,8 @@ table tbody tr td empty {
 table thead tr th,
 table tbody tr td,
 .separate-column{
-    padding-left:5px;
     padding-right:18px;
+    padding-left:5px;
 }
 table tbody tr td,
 .align-top{
@@ -847,16 +847,16 @@ table tbody tr td,
 
 .force-clear{margin:0;}
 .sectionHeader {
-    margin: 10px;
     display:block;
+    margin: 10px;
     padding: 10px 20px 10px 20px; /*trbl*/
     /*padding: 5px 10px 5px 10px;*/ /*trbl*/
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
-    color: #fff;
     background-color: #660033;
+    color: #fff;
 }
 
 .datatable {
@@ -866,7 +866,7 @@ table tbody tr td,
 table thead tr {
     border-bottom: 2px solid #660033;
 }
-table thead tr th {}
+table thead tr th { }
 .datatable tbody tr {
     border-bottom: 1px solid #D5B9C7;
 }
