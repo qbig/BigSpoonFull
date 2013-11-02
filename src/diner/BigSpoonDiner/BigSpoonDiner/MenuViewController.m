@@ -53,7 +53,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.outletNameLabel.text = self.outlet.name;
+    [self.navigationController setTitle: self.outlet.name];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     self.currentOrder = [[Order alloc]init];
     self.pastOrder = [[Order alloc]init];
