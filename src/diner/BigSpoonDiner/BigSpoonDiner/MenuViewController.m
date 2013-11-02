@@ -195,7 +195,7 @@
     NSLog(@"billButtonPressed");
     
     // If the user hasn't ordered anything:
-    if ([self.currentOrder getTotalQuantity] + [self.pastOrder getTotalQuantity] == 0) {
+    if ([self.pastOrder getTotalQuantity] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                      initWithTitle:@"Request Bill"
                                      message:@"You haven't ordered anything."
@@ -503,6 +503,19 @@
 }
 
 - (void) placeOrder{
+    
+    // If the user hasn't ordered anything:
+    if ([self.currentOrder getTotalQuantity] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Place Order"
+                                  message:@"You haven't selected anything."
+                                  delegate:nil
+                                  cancelButtonTitle:@"Okay"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        return;
+    }
     
     NSLog(@"Placing order");
     

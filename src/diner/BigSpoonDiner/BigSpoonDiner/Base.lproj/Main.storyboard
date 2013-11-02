@@ -352,7 +352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAy-2B-trc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3680" y="1768"/>
+            <point key="canvasLocation" x="2736" y="2184"/>
         </scene>
         <!--Menu View Controller - Outlet Name-->
         <scene sceneID="FoD-uc-8wx">
@@ -363,7 +363,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <containerView contentMode="scaleToFill" id="OY8-ew-AZo">
-                                <rect key="frame" x="0.0" y="67" width="307" height="501"/>
+                                <rect key="frame" x="0.0" y="63" width="307" height="505"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </containerView>
@@ -564,12 +564,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
-                                <rect key="frame" x="-147" y="-44" width="93" height="44"/>
+                                <rect key="frame" x="-47" y="-44" width="93" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" id="uqC-gj-MFU">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
-                                            <rect key="frame" x="19" y="12" width="25" height="25"/>
+                                            <rect key="frame" x="16" y="10" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Toggle" image="photo_icon.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -581,7 +581,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="y9B-8i-1fw">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
-                                            <rect key="frame" x="59" y="12" width="25" height="25"/>
+                                            <rect key="frame" x="51" y="10" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Gear" image="gear.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -619,7 +619,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32a-af-j0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="623"/>
+            <point key="canvasLocation" x="1862" y="1103"/>
         </scene>
         <!--Items Ordered View Controller-->
         <scene sceneID="SFB-2J-Y9e">
@@ -1079,7 +1079,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3166" y="1768"/>
+            <point key="canvasLocation" x="2230" y="2184"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mrU-Fl-mZv">
@@ -1120,6 +1120,6 @@ Snacks</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="TRy-SG-Bfr"/>
+        <segue reference="qnZ-wN-VZu"/>
     </inferredMetricsTieBreakers>
 </document>
