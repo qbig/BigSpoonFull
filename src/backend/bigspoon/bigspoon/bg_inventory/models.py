@@ -350,6 +350,16 @@ class Table(models.Model):
         """
         return '%s - %s' % (self.outlet.name, self.name)
 
+    def get_table_spending(self):
+        """
+        Returns a table's total spending
+        """
+        total = 0
+        meals = self.meals.all()
+        for meal in meals:
+            total += meal.get_meal_spending()
+        return total
+
     class Meta:
         verbose_name = _('table')
         verbose_name_plural = _('tables')
