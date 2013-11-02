@@ -68,13 +68,13 @@ class CategoryAdmin(GuardedModelAdmin):
 
 
 class RatingAdmin(GuardedModelAdmin):
-    raw_id_fields = ('dish',)
+    raw_id_fields = ('dish', 'user')
     search_fields = ['dish__'+x for x in search_fields_of["common"]]
     search_fields += ['user__'+x for x in search_fields_of["user"]]
 
 
 class ReviewAdmin(GuardedModelAdmin):
-    raw_id_fields = ('outlet',)
+    raw_id_fields = ('outlet', 'user')
     search_fields = ['outlet__'+x for x in search_fields_of["common"]]
     search_fields += ['user__'+x for x in search_fields_of["user"]]
 

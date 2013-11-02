@@ -1,7 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.db import models
-from django.db.models import Avg, Sum
+from django.db.models import Avg
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django_thumbs.db.models import ImageWithThumbsField
 from django.utils.text import slugify
@@ -462,6 +462,7 @@ class Rating(models.Model):
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
+        default=0.0,
     )
 
     def __unicode__(self):
@@ -473,6 +474,7 @@ class Rating(models.Model):
     class Meta:
         verbose_name = _('rating')
         verbose_name_plural = _('ratings')
+        unique_together = ("dish", "user")
 
 
 class Review(models.Model):
@@ -492,6 +494,7 @@ class Review(models.Model):
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
+        default=0.0,
     )
     feedback = models.TextField(
         _('feedback'),
@@ -507,6 +510,7 @@ class Review(models.Model):
     class Meta:
         verbose_name = _('review')
         verbose_name_plural = _('reviews')
+        unique_together = ("outlet", "user")
 
 
 class Note(models.Model):
