@@ -252,7 +252,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Outlets" id="Gi1-Ny-QUB">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="4hN-iT-RPX">
+                        <barButtonItem key="rightBarButtonItem" id="4hN-iT-RPX">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fgU-iA-Ffp">
                                 <rect key="frame" x="279" y="9" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -567,7 +567,7 @@
                                 <rect key="frame" x="-47" y="-44" width="93" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem style="plain" id="uqC-gj-MFU">
+                                    <barButtonItem id="uqC-gj-MFU">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
                                             <rect key="frame" x="16" y="10" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -579,7 +579,7 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" id="y9B-8i-1fw">
+                                    <barButtonItem id="y9B-8i-1fw">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
                                             <rect key="frame" x="51" y="10" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
