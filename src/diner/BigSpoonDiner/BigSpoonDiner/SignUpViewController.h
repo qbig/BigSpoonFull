@@ -27,5 +27,6 @@
 - (IBAction)submitButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
+@property (strong, nonatomic) IBOutlet UINavigationItem *navigationController;
 
 @end

@@ -23,13 +23,6 @@
                                     <action selector="fbButtonPressed:" destination="a1i-Wr-CeU" eventType="touchUpInside" id="q9a-ln-2Vs"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To get started, simply log in" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BUE-xR-AXN">
-                                <rect key="frame" x="108" y="74" width="191" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jNS-vJ-sZK">
                                 <rect key="frame" x="42" y="356" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -37,7 +30,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ffF-mi-uHH" kind="modal" identifier="SegueFromLoginToSignup" id="f6L-wo-XMw"/>
+                                    <segue destination="ffF-mi-uHH" kind="push" identifier="SegueFromLoginToSignup" id="f6L-wo-XMw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RS3-47-u56">
@@ -47,7 +40,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haven't got an account?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E0S-wL-5sL">
-                                <rect key="frame" x="66" y="327" width="189" height="21"/>
+                                <rect key="frame" x="66" y="321" width="189" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
@@ -89,8 +82,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.92549026012420654" green="0.92941182851791382" blue="0.97647064924240112" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Log In" id="rf3-EE-Rv4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="activityIndicator" destination="ETG-My-DrL" id="R3O-zC-Pqq"/>
                         <outlet property="emailLabel" destination="qcj-26-zEi" id="V8L-PG-bdw"/>
@@ -102,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVX-3W-w7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-906" y="411"/>
+            <point key="canvasLocation" x="-380" y="411"/>
         </scene>
         <!--Sign Up View Controller - AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
@@ -170,13 +165,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" red="0.92549026010000002" green="0.92941182850000004" blue="0.97647064920000004" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Sign Up" id="gR0-jP-RBh">
+                        <barButtonItem key="backBarButtonItem" title="Log In" id="tYl-qU-Pnh"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="activityIndicator" destination="qF5-EY-w67" id="HRk-Y7-WMD"/>
                         <outlet property="emailAddressLabel" destination="W8P-Yy-RSf" id="S5V-d4-G7J"/>
                         <outlet property="firstNameLabel" destination="kfC-QY-8S8" id="Utv-QR-9CT"/>
                         <outlet property="lastNameLabel" destination="bNC-Rw-s3B" id="Y8V-Ht-L09"/>
+                        <outlet property="navigationController" destination="gR0-jP-RBh" id="kbV-aX-rvs"/>
                         <outlet property="passwordLabel" destination="Fry-53-SdK" id="VHh-LX-6j4"/>
                         <outlet property="submitButton" destination="Q9J-od-BFS" id="trb-3u-oTF"/>
                         <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromSingUpToOutlets" id="ew3-Pm-EPj"/>
@@ -184,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="go0-ig-d0C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-171" y="93"/>
+            <point key="canvasLocation" x="355" y="93"/>
         </scene>
         <!--Outlets Table View Controller - Outlets-->
         <scene sceneID="Aj7-bl-XUx">
@@ -829,7 +829,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhP-Xs-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2126" y="618"/>
+            <point key="canvasLocation" x="2652" y="618"/>
         </scene>
         <!--MenuTableViewController-->
         <scene sceneID="OaT-xB-Mu9">
@@ -1036,7 +1036,7 @@ Snacks</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="a1i-Wr-CeU" kind="modal" identifier="SegueFromStartToLogin" id="I2z-6F-iSE"/>
+                        <segue destination="WVk-DA-pv9" kind="modal" identifier="SegueFromStartToLogin" id="I2z-6F-iSE"/>
                         <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromStartToOutlets" id="BRr-gL-kHC"/>
                     </connections>
                 </viewController>
@@ -1091,6 +1091,24 @@ Snacks</string>
             </objects>
             <point key="canvasLocation" x="2670" y="1772"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mrU-Fl-mZv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WVk-DA-pv9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pYm-aP-vgb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="a1i-Wr-CeU" kind="relationship" relationship="rootViewController" id="4EA-Is-i64"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cp7-Wy-gmV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-906" y="411"/>
+        </scene>
     </scenes>
     <resources>
         <image name="X-Large_278x44_glowy.png" width="280" height="47"/>
@@ -1112,6 +1130,6 @@ Snacks</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="BRr-gL-kHC"/>
+        <segue reference="NcF-ES-z1f"/>
     </inferredMetricsTieBreakers>
 </document>

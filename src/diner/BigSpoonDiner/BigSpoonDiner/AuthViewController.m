@@ -35,7 +35,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
    
     // Comment this line to enable the saving of user data:
-    // [prefs setObject:nil forKey:@"firstName"];
+     [prefs setObject:nil forKey:@"firstName"];
     
     NSString *firstName = [prefs stringForKey:@"firstName"];
     NSString *lastName = [prefs stringForKey:@"lastName"];
