@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
     // for socket io
-    var STAFF_MEAL_PAGES = ['/staff/main/', '/staff/history/', '/staff/report/', '/staff/tables/'];
+    var STAFF_CURRENT_MEAL_PAGES = ['/staff/main/', '/staff/tables/'];
+    var STAFF_PAST_MEAL_PAGES = ['/staff/history/', '/staff/report/', '/staff/tables/'];
+    var STAFF_MEAL_PAGES = STAFF_CURRENT_MEAL_PAGES + STAFF_PAST_MEAL_PAGES;
     var STAFF_MENU_PAGES = ['/staff/menu/'];
     socket = io.connect();
     socket.on("message", function(obj){
@@ -11,12 +13,18 @@ $(document).ready(function() {
             console.log(data);
             if (data[0] == "refresh") {
                 if (data[1] == "request" || data[1] == "meal") {
-                    if ($.inArray(path, STAFF_MEAL_PAGES)) {
+                    if (data[2] == "current" && $.inArray(path, STAFF_CURRENT_MEAL_PAGES) != -1) {
+                        location.reload(true);
+                    }
+                    else if (data[2] == "past" && $.inArray(path, STAFF_PAST_MEAL_PAGES) != -1) {
+                        location.reload(true);
+                    }
+                    else if (data[2] == "both" && $.inArray(path, STAFF_MEAL_PAGES) != -1) {
                         location.reload(true);
                     }
                 }
                 else if (data[1] == "menu") {
-                    if ($.inArray(path, STAFF_MENU_PAGES)) {
+                    if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
                         location.reload(true);
                     }
                 }

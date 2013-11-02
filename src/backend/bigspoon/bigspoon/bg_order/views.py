@@ -57,7 +57,7 @@ class HistoryView(TemplateView):
         context['meal_cards'] = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
-            .filter(status=Meal.INACTIVE)
+            .filter(status=Meal.INACTIVE, is_paid=False)
         context['requests_cards'] = Request.objects\
             .prefetch_related('diner', 'table')\
             .filter(table__outlet__in=outlets)\
@@ -180,4 +180,4 @@ class ReportView(ListView):
             raise PermissionDenied
         return super(ReportView, self).get_queryset()\
             .prefetch_related('diner', 'orders', 'table')\
-            .filter(table__outlet__in=outlets)
+            .filter(table__outlet__in=outlets, is_paid=True)
