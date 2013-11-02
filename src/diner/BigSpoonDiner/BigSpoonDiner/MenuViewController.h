@@ -42,10 +42,12 @@
 @property (strong, nonatomic) IBOutlet UIButton *settingsButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 
-@property (strong, nonatomic) IBOutlet UINavigationItem *navigationController;
+@property (strong, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender;
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
+- (IBAction)settingsButtonPressed:(id)sender;
+
 
 // Four buttons at the bottom
 

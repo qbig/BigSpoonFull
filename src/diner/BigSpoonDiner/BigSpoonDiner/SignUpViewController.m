@@ -23,6 +23,7 @@
 @synthesize lastNameLabel;
 @synthesize emailAddressLabel;
 @synthesize passwordLabel;
+@synthesize navigationItem;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

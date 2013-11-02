@@ -27,7 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"ddddslkdfas;lkdfjas;ldfkj");
 	// Do any additional setup after loading the view.
     
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];

@@ -176,7 +176,7 @@
                         <outlet property="emailAddressLabel" destination="W8P-Yy-RSf" id="S5V-d4-G7J"/>
                         <outlet property="firstNameLabel" destination="kfC-QY-8S8" id="Utv-QR-9CT"/>
                         <outlet property="lastNameLabel" destination="bNC-Rw-s3B" id="Y8V-Ht-L09"/>
-                        <outlet property="navigationController" destination="gR0-jP-RBh" id="kbV-aX-rvs"/>
+                        <outlet property="navigationItem" destination="gR0-jP-RBh" id="dVa-ow-cgw"/>
                         <outlet property="passwordLabel" destination="Fry-53-SdK" id="VHh-LX-6j4"/>
                         <outlet property="submitButton" destination="Q9J-od-BFS" id="trb-3u-oTF"/>
                         <segue destination="jIA-Id-th3" kind="modal" identifier="SegueFromSingUpToOutlets" id="ew3-Pm-EPj"/>
@@ -251,11 +251,25 @@
                             <outlet property="delegate" destination="SaX-nl-uiI" id="3MH-Bj-d2r"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Outlets" id="Gi1-Ny-QUB"/>
+                    <navigationItem key="navigationItem" title="Outlets" id="Gi1-Ny-QUB">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="4hN-iT-RPX">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fgU-iA-Ffp">
+                                <rect key="frame" x="279" y="9" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Button" image="gear.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="bPu-xR-NBc" kind="push" id="TRy-SG-Bfr"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAk-Dc-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104" y="1103"/>
+            <point key="canvasLocation" x="1188" y="1103"/>
         </scene>
         <!--Profile View Controller - Profile-->
         <scene sceneID="8sa-iJ-CvT">
@@ -338,7 +352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAy-2B-trc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3104" y="1772"/>
+            <point key="canvasLocation" x="3680" y="1768"/>
         </scene>
         <!--Menu View Controller - Outlet Name-->
         <scene sceneID="FoD-uc-8wx">
@@ -528,14 +542,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </tableView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="RqQ-af-GJK">
-                                        <rect key="frame" x="15" y="221" width="245" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Jw5-DG-Xsg">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your feedback here..." minimumFontSize="17" id="RqQ-af-GJK">
                                         <rect key="frame" x="15" y="221" width="245" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <nil key="textColor"/>
@@ -557,12 +564,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
-                                <rect key="frame" x="-147" y="-88" width="93" height="44"/>
+                                <rect key="frame" x="-147" y="-44" width="93" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" id="uqC-gj-MFU">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
-                                            <rect key="frame" x="16" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="19" y="12" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Toggle" image="photo_icon.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -574,13 +581,13 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" id="y9B-8i-1fw">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
-                                            <rect key="frame" x="56" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="59" y="12" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button" image="gear.png">
+                                            <state key="normal" title="Gear" image="gear.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="bPu-xR-NBc" kind="push" identifier="SegueFromMenuListToOrderHistory" id="bE6-jf-NhZ"/>
+                                                <action selector="settingsButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="Rqg-VD-KO8"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -591,13 +598,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Outlet Name" id="8dV-wS-J2x"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="container" destination="OY8-ew-AZo" id="3wv-wx-0wk"/>
-                        <outlet property="feedbackTextField" destination="Jw5-DG-Xsg" id="qGZ-Qt-lEa"/>
                         <outlet property="itemQuantityLabel" destination="AKE-PM-MCP" id="nFx-Gv-xYC"/>
                         <outlet property="itemQuantityLabelBackgroundImageView" destination="Pv4-sA-esJ" id="rUk-6Y-j9D"/>
-                        <outlet property="navigationController" destination="8dV-wS-J2x" id="7Re-mD-r5J"/>
+                        <outlet property="navigationItem" destination="8dV-wS-J2x" id="vCK-AL-3zP"/>
                         <outlet property="quantityOfColdWaterLabel" destination="bAu-YH-qPd" id="lsY-ca-7bB"/>
                         <outlet property="quantityOfWarmWaterLabel" destination="GC9-9b-fy0" id="795-Mn-6oK"/>
                         <outlet property="ratingsTableView" destination="M0g-8b-oSz" id="E11-7u-JgJ"/>
@@ -609,11 +614,12 @@
                         <outlet property="viewModeButton" destination="ArR-XE-dvZ" id="Ys7-3G-Wpk"/>
                         <segue destination="KE0-Fp-4U7" kind="custom" identifier="SegueFromMenuToList" customClass="MultiContainerViewSegue" id="2dA-Z8-WM1"/>
                         <segue destination="yOQ-Ac-fpM" kind="custom" identifier="SegueFromMenuToItems" customClass="MultiContainerViewSegue" id="SGN-X5-ToM"/>
+                        <segue destination="bPu-xR-NBc" kind="push" identifier="SegueFromMenuListToOrderHistory" id="qnZ-wN-VZu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="32a-af-j0E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1574" y="1103"/>
+            <point key="canvasLocation" x="1758" y="623"/>
         </scene>
         <!--Items Ordered View Controller-->
         <scene sceneID="SFB-2J-Y9e">
@@ -813,7 +819,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhP-Xs-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2670" y="314"/>
+            <point key="canvasLocation" x="2742" y="150"/>
         </scene>
         <!--MenuTableViewController-->
         <scene sceneID="OaT-xB-Mu9">
@@ -988,7 +994,7 @@ Snacks</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pV2-Pz-y2F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2670" y="1039"/>
+            <point key="canvasLocation" x="2742" y="895"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">
@@ -1008,7 +1014,7 @@ Snacks</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dh7-Q7-3fC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="647" y="1103"/>
+            <point key="canvasLocation" x="583" y="1103"/>
         </scene>
         <!--Auth View Controller-->
         <scene sceneID="34S-9W-1H3">
@@ -1073,7 +1079,7 @@ Snacks</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I2z-3d-Dhp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2670" y="1772"/>
+            <point key="canvasLocation" x="3166" y="1768"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mrU-Fl-mZv">
@@ -1114,5 +1120,6 @@ Snacks</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
+        <segue reference="TRy-SG-Bfr"/>
     </inferredMetricsTieBreakers>
 </document>
