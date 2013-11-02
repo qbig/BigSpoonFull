@@ -1,13 +1,28 @@
 $(document).ready(function() {
 
     // for socket io
+    var STAFF_MEAL_PAGES = ['/staff/main/', '/staff/history/', '/staff/report/', '/staff/tables/'];
+    var STAFF_MENU_PAGES = ['/staff/menu/'];
     socket = io.connect();
     socket.on("message", function(obj){
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
+            var path = location.pathname;
             console.log(data);
             if (data[0] == "refresh") {
-                location.reload(true);
+                if (data[1] == "request" || data[1] == "meal") {
+                    if ($.inArray(path, STAFF_MEAL_PAGES)) {
+                        location.reload(true);
+                    }
+                }
+                else if (data[1] == "menu") {
+                    if ($.inArray(path, STAFF_MENU_PAGES)) {
+                        location.reload(true);
+                    }
+                }
+                else {
+                    // other instructions
+                }
             }
         }
     });

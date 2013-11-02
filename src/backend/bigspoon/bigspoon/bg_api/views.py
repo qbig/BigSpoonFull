@@ -197,7 +197,10 @@ class CreateMeal(generics.CreateAPIView):
             dish.quantity -= quantity
             dish.save()
 
-        send_socketio_message([table.outlet.id], ['refresh', 'neworder'])
+        send_socketio_message(
+            [table.outlet.id],
+            ['refresh', 'meal', 'add']
+        )
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
 
@@ -224,7 +227,10 @@ class CreateRequest(generics.CreateAPIView):
         obj.diner = self.request.user
 
     def post_save(self, obj, created=False):
-        send_socketio_message([obj.table.outlet.id], ['refresh', 'newrequest'])
+        send_socketio_message(
+            [obj.table.outlet.id],
+            ['refresh', 'request', 'add']
+        )
 
 
 class AskForBill(generics.GenericAPIView):
@@ -243,7 +249,10 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            send_socketio_message([table.outlet.id], ['refresh', 'askbill'])
+            send_socketio_message(
+                [table.outlet.id],
+                ['refresh', 'meal', 'askbill']
+            )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
         return Response({"error": "No unpaid meal for this user", },
@@ -275,7 +284,9 @@ class CreateRating(generics.CreateAPIView):
             serializer.data['user'] = rating.user.id
             headers = self.get_success_headers(serializer.data)
             send_socketio_message(
-                [rating.dish.outlet.id], ['refresh', 'rating'])
+                [rating.dish.outlet.id],
+                ['refresh', 'rating']
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED,
                             headers=headers)
 
@@ -308,7 +319,9 @@ class CreateReview(generics.CreateAPIView):
             serializer.data['user'] = review.user.id
             headers = self.get_success_headers(serializer.data)
             send_socketio_message(
-                [review.outlet.id], ['refresh', 'review'])
+                [review.outlet.id],
+                ['refresh', 'review']
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED,
                             headers=headers)
 
@@ -335,7 +348,9 @@ class CloseBill(generics.GenericAPIView):
         meal.bill_time = timezone.now()
         meal.save()
         send_socketio_message(
-            request.user.outlet_ids, ['refresh', 'closebill'])
+            request.user.outlet_ids,
+            ['refresh', 'meal', 'closebill']
+        )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -358,7 +373,9 @@ class AckOrder(generics.GenericAPIView):
         meal.modified = timezone.now()
         meal.save()
         send_socketio_message(
-            request.user.outlet_ids, ['refresh', 'ackorder'])
+            request.user.outlet_ids,
+            ['refresh', 'meal', 'ackmeal']
+        )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -381,7 +398,9 @@ class AckRequest(generics.GenericAPIView):
         req.finished = timezone.now()
         req.save()
         send_socketio_message(
-            request.user.outlet_ids, ['refresh', 'ackreqeust'])
+            request.user.outlet_ids,
+            ['refresh', 'request', 'ackrequest']
+        )
         return Response(RequestSerializer(req).data,
                         status=status.HTTP_200_OK)
 

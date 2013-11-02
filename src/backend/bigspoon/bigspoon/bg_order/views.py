@@ -91,7 +91,9 @@ class MenuView(ModelFormSetView):
 
     def post(self, request, *args, **kwargs):
         result = super(MenuView, self).post(request, *args, **kwargs)
-        send_socketio_message(request.user.outlet_ids, ['refresh', 'menu'])
+        send_socketio_message(
+            request.user.outlet_ids,
+            ['refresh', 'menu', 'update'])
         return result
 
 
@@ -111,6 +113,13 @@ class MenuAddView(CreateView):
         req = super(MenuAddView, self).get(request, *args, **kwargs)
         req.context_data['form']['outlet'].field.initial = outlets[0]
         return req
+
+    def post(self, request, *args, **kwargs):
+        result = super(MenuAddView, self).post(request, *args, **kwargs)
+        send_socketio_message(
+            request.user.outlet_ids,
+            ['refresh', 'menu', 'add'])
+        return result
 
 
 class TableView(ListView):
