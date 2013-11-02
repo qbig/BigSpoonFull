@@ -37,11 +37,13 @@
 // Buttons:
 
 @property (strong, nonatomic) IBOutlet UIButton *viewModeButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *viewModeBarButton;
 
-// Buttons at the top:
-// (gear button no need here, it's directly triggering the segue)
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 
 @property (strong, nonatomic) IBOutlet UINavigationItem *navigationController;
+
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender;
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
 

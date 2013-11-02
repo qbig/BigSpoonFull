@@ -57,6 +57,16 @@
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     self.currentOrder = [[Order alloc]init];
     self.pastOrder = [[Order alloc]init];
+    
+    
+    
+    // The toolbar that contains the bar button items
+    // The toolbar is hidden (set in storyboard, x = -100)
+    // Its bar button items is inserted to the navigationController
+    // The buttons are hidden by default. Because don't wanna show their moving trace.
+    // They will shown in viewDidAppear:
+    self.navigationController.rightBarButtonItems =
+    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -65,6 +75,8 @@
     if (self.childViewControllers.count < 1) {
         [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
     }
+    [self.viewModeButton setHidden:NO];
+    [self.settingsButton setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning

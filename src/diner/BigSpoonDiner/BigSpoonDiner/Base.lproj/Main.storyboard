@@ -556,51 +556,41 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
+                                <rect key="frame" x="-147" y="-88" width="93" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" id="uqC-gj-MFU">
+                                        <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
+                                            <rect key="frame" x="16" y="7" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Toggle" image="photo_icon.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="viewModeButtonPressedAtListPage:" destination="fn9-OW-D18" eventType="touchUpInside" id="Wjw-bN-ync"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="y9B-8i-1fw">
+                                        <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
+                                            <rect key="frame" x="56" y="7" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Button" image="gear.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="bPu-xR-NBc" kind="push" identifier="SegueFromMenuListToOrderHistory" id="bE6-jf-NhZ"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Outlet Name" id="8dV-wS-J2x">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ZNA-gx-qve">
-                            <view key="customView" contentMode="scaleToFill" id="5gs-uW-sNb">
-                                <rect key="frame" x="224" y="5" width="80" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
-                                        <rect key="frame" x="-13" y="-5" width="93" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                        <items>
-                                            <barButtonItem style="plain" id="uqC-gj-MFU">
-                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
-                                                    <rect key="frame" x="16" y="7" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Toggle" image="photo_icon.png">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="viewModeButtonPressedAtListPage:" destination="fn9-OW-D18" eventType="touchUpInside" id="Wjw-bN-ync"/>
-                                                    </connections>
-                                                </button>
-                                            </barButtonItem>
-                                            <barButtonItem style="plain" id="y9B-8i-1fw">
-                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
-                                                    <rect key="frame" x="56" y="7" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button" image="gear.png">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="bPu-xR-NBc" kind="push" identifier="SegueFromMenuListToOrderHistory" id="bE6-jf-NhZ"/>
-                                                    </connections>
-                                                </button>
-                                            </barButtonItem>
-                                        </items>
-                                    </toolbar>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Outlet Name" id="8dV-wS-J2x"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="container" destination="OY8-ew-AZo" id="3wv-wx-0wk"/>
@@ -613,6 +603,9 @@
                         <outlet property="ratingsTableView" destination="M0g-8b-oSz" id="E11-7u-JgJ"/>
                         <outlet property="ratingsView" destination="4Xt-L4-3ng" id="fPY-oP-Wlf"/>
                         <outlet property="requestWaterView" destination="gnx-vY-vgQ" id="UOn-KQ-Sdb"/>
+                        <outlet property="settingsBarButton" destination="y9B-8i-1fw" id="NFH-rw-YGu"/>
+                        <outlet property="settingsButton" destination="Ly9-TU-y8l" id="hfo-LG-PeR"/>
+                        <outlet property="viewModeBarButton" destination="uqC-gj-MFU" id="usO-YW-MOx"/>
                         <outlet property="viewModeButton" destination="ArR-XE-dvZ" id="Ys7-3G-Wpk"/>
                         <segue destination="KE0-Fp-4U7" kind="custom" identifier="SegueFromMenuToList" customClass="MultiContainerViewSegue" id="2dA-Z8-WM1"/>
                         <segue destination="yOQ-Ac-fpM" kind="custom" identifier="SegueFromMenuToItems" customClass="MultiContainerViewSegue" id="SGN-X5-ToM"/>
