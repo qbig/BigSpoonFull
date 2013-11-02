@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import Http404
-from django.conf import settings
 from django.contrib.auth.models import Group
 from django.utils import timezone
 
@@ -25,11 +24,10 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
+from utils import send_socketio_message
 
-import redis
 from decimal import Decimal
 
-REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 User = get_user_model()
 
 
@@ -199,8 +197,7 @@ class CreateMeal(generics.CreateAPIView):
             dish.quantity -= quantity
             dish.save()
 
-        red = redis.StrictRedis(REDIS_HOST)
-        red.publish('%d' % table.outlet.id, ['refresh'])
+        send_socketio_message([table.outlet.id], ['refresh', 'neworder'])
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
 
@@ -227,8 +224,7 @@ class CreateRequest(generics.CreateAPIView):
         obj.diner = self.request.user
 
     def post_save(self, obj, created=False):
-        red = redis.StrictRedis(REDIS_HOST)
-        red.publish('%d' % obj.table.outlet.id, ['refresh'])
+        send_socketio_message([obj.table.outlet.id], ['refresh', 'newrequest'])
 
 
 class AskForBill(generics.GenericAPIView):
@@ -247,8 +243,7 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            red = redis.StrictRedis(REDIS_HOST)
-            red.publish('%d' % table.outlet.id, ['refresh'])
+            send_socketio_message([table.outlet.id], ['refresh', 'askbill'])
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
         return Response({"error": "No unpaid meal for this user", },
@@ -279,8 +274,8 @@ class CreateRating(generics.CreateAPIView):
             rating.save()
             serializer.data['user'] = rating.user.id
             headers = self.get_success_headers(serializer.data)
-            red = redis.StrictRedis(REDIS_HOST)
-            red.publish('%d' % rating.dish.outlet.id, ['refresh'])
+            send_socketio_message(
+                [rating.dish.outlet.id], ['refresh', 'rating'])
             return Response(serializer.data, status=status.HTTP_201_CREATED,
                             headers=headers)
 
@@ -312,8 +307,8 @@ class CreateReview(generics.CreateAPIView):
             review.save()
             serializer.data['user'] = review.user.id
             headers = self.get_success_headers(serializer.data)
-            red = redis.StrictRedis(REDIS_HOST)
-            red.publish('%d' % review.outlet.id, ['refresh'])
+            send_socketio_message(
+                [review.outlet.id], ['refresh', 'review'])
             return Response(serializer.data, status=status.HTTP_201_CREATED,
                             headers=headers)
 
@@ -339,9 +334,8 @@ class CloseBill(generics.GenericAPIView):
         meal.is_paid = True
         meal.bill_time = timezone.now()
         meal.save()
-        red = redis.StrictRedis(REDIS_HOST)
-        for o_id in request.user.outlet_ids:
-            red.publish('%d' % o_id, ['refresh'])
+        send_socketio_message(
+            request.user.outlet_ids, ['refresh', 'closebill'])
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -363,9 +357,8 @@ class AckOrder(generics.GenericAPIView):
         meal.status = Meal.INACTIVE
         meal.modified = timezone.now()
         meal.save()
-        red = redis.StrictRedis(REDIS_HOST)
-        for o_id in request.user.outlet_ids:
-            red.publish('%d' % o_id, ['refresh'])
+        send_socketio_message(
+            request.user.outlet_ids, ['refresh', 'ackorder'])
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -387,9 +380,8 @@ class AckRequest(generics.GenericAPIView):
         req.is_active = False
         req.finished = timezone.now()
         req.save()
-        red = redis.StrictRedis(REDIS_HOST)
-        for o_id in request.user.outlet_ids:
-            red.publish('%d' % o_id, ['refresh'])
+        send_socketio_message(
+            request.user.outlet_ids, ['refresh', 'ackreqeust'])
         return Response(RequestSerializer(req).data,
                         status=status.HTTP_200_OK)
 
