@@ -509,11 +509,14 @@ background-color: #468847;
 
 .save-bar span {
     background: #fcf6ef;
-    border-top: 1px dotted rgba(0, 0, 0, 0.2);
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+    border: 1px dotted rgba(0, 0, 0, 0.2);
     position: fixed;
     width: 880px;
     bottom: 1px;
+}
+
+#main .save-bar span input.save {
+    margin: 10px 20px;
 }
 
 .note-save {
