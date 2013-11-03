@@ -461,7 +461,6 @@ background-color: #468847;
     margin: 0 auto;
     width: 100%;
     border: none;
-    min-height:768px;
     height: 100%;
     overflow:hidden!important;
 }
@@ -475,7 +474,6 @@ background-color: #468847;
     width: 880px;
     border-radius:5px;
     padding-bottom: 40px;
-    min-height:100%;
 }
 
 #main .wrapper-no-bg {
@@ -502,7 +500,6 @@ background-color: #468847;
     color: white;
     text-align:center;
     text-decoration:none;
-    /*text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;*/
     font-size: 14px;
 }
 
