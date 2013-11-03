@@ -9,8 +9,12 @@
 #import "ProfileViewController.h"
 
 @interface ProfileViewController ()
+
+@property NSString* isVegetarian;
+
 - (void) loadUserDetails;
 - (void) updateUserDetailsOnServer;
+- (void) setStateOfVegetarianButton:(NSString*)isVegetarianValueFromServer;
 @end
 
 @implementation ProfileViewController
@@ -42,8 +46,11 @@
     [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
+    NSLog(@"%@", self.isVegetarian);
+    
     NSDictionary *parameters = @{
                                  @"allergies": self.allergiesTextField.text,
+                                 @"is_vegetarian": self.isVegetarian,
                                  };
 
     
@@ -55,7 +62,7 @@
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
     [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        int responseCode = [operation.response statusCode];
+        long responseCode = [operation.response statusCode];
         switch (responseCode) {
             case 200:
             case 201:{
@@ -92,6 +99,7 @@
             case 201:{
                 self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", [User sharedInstance].firstName, [User sharedInstance].lastName];
                 self.allergiesTextField.text = responseObject[@"allergies"];
+                [self setStateOfVegetarianButton:responseObject[@"is_vegetarian"]];
             }
                 break;
             case 403:
@@ -132,7 +140,28 @@
     return YES;
 }
 
+- (void) setStateOfVegetarianButton:(NSString*)isVegetarianValueFromServer {
+    if ([isVegetarianValueFromServer isEqualToString:@"N"]) {
+        [self.isVegetarianButton setBackgroundColor:[UIColor redColor]];
+        [self.isVegetarianButton setTitle:@"NO" forState:UIControlStateNormal];
+    }
+    else {
+        [self.isVegetarianButton setBackgroundColor:[UIColor greenColor]];
+        [self.isVegetarianButton setTitle:@"YES" forState:UIControlStateNormal];
+    }
+    self.isVegetarian = isVegetarianValueFromServer;
+}
+
 - (IBAction)toggleIsVegetarianDisplay:(UIButton *)sender {
-    
+    if ([self.isVegetarianButton.titleLabel.text isEqualToString:@"YES"]) {
+        [self.isVegetarianButton setBackgroundColor:[UIColor redColor]];
+        [self.isVegetarianButton setTitle:@"NO" forState:UIControlStateNormal];
+        self.isVegetarian = @"N";
+    } else {
+        [self.isVegetarianButton setBackgroundColor:[UIColor greenColor]];
+        [self.isVegetarianButton setTitle:@"YES" forState:UIControlStateNormal];
+        self.isVegetarian = @"Y";
+    }
+    [self updateUserDetailsOnServer];
 }
 @end

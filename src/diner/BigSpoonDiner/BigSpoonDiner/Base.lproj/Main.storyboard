@@ -331,7 +331,7 @@
                                 <rect key="frame" x="137" y="344" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="NO" backgroundImage="plain_green_background.jpg">
+                                <state key="normal" title="NO">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
@@ -1121,7 +1121,6 @@ Snacks</string>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="121" height="105"/>
-        <image name="plain_green_background.jpg" width="300" height="192"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="red_circle.png" width="184" height="184"/>
     </resources>
