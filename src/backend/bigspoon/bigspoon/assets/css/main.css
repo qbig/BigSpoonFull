@@ -277,9 +277,13 @@ nav ul li{
 nav ul li a {
     margin: 0 -2.5px;
     padding: 24px 18px;
-    border: 1px solid #ddd;
+    border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
+}
+
+nav ul li a:last-child {
+    border-right: 1px solid #ddd;
 }
 
 nav ul li h1 a {
