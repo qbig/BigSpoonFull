@@ -168,7 +168,6 @@
 		B7CAB2EEB6524D3B826504F5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E951D782180EE285002BE045 /* OrderHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHistoryViewController.h; sourceTree = "<group>"; };
 		E951D783180EE285002BE045 /* OrderHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHistoryViewController.m; sourceTree = "<group>"; };
-		E98A26A21822954400E1B169 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = BigSpoonDiner/Constants.h; sourceTree = "<group>"; };
 		E99E9A221821AF58002ECD29 /* HomeAndSettingsButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeAndSettingsButtonView.xib; path = ../HomeAndSettingsButtonView.xib; sourceTree = "<group>"; };
 		E99E9A241821B464002ECD29 /* HomeAndSettingsButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeAndSettingsButtonView.h; sourceTree = "<group>"; };
 		E99E9A251821B464002ECD29 /* HomeAndSettingsButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeAndSettingsButtonView.m; sourceTree = "<group>"; };
@@ -274,7 +273,6 @@
 		49F107D6180886D600D2C8DD = {
 			isa = PBXGroup;
 			children = (
-				E98A26A21822954400E1B169 /* Constants.h */,
 				4999A215180A744100270B0B /* URLImageView.m */,
 				49F107E8180886D600D2C8DD /* BigSpoonDiner */,
 				49F1080A180886D600D2C8DD /* BigSpoonDinerTests */,
