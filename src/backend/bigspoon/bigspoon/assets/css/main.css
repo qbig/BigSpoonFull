@@ -286,6 +286,7 @@ nav ul li h1 a {
 }
 
 nav .wrapper {
+    width: 100%;
     max-width: 100%;
 }
 
