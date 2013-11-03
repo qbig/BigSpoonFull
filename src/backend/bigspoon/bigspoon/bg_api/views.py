@@ -279,7 +279,7 @@ class CreateRating(generics.CreateAPIView):
                 user=request.user,
                 dish_id=int(serializer.data['dish']),
             )
-            rating.score = Decimal(serializer.data['score'])
+            rating.score = Decimal(str(serializer.data['score']))
             rating.save()
             serializer.data['user'] = rating.user.id
             headers = self.get_success_headers(serializer.data)
@@ -313,7 +313,7 @@ class CreateReview(generics.CreateAPIView):
                 user=request.user,
                 outlet_id=int(serializer.data['outlet']),
             )
-            review.score = Decimal(serializer.data['score'])
+            review.score = Decimal(str(serializer.data['score']))
             review.feedback = serializer.data['feedback']
             review.save()
             serializer.data['user'] = review.user.id
