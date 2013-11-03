@@ -128,7 +128,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('outlet', 'user', 'score', 'feedback')
+        fields = ('outlet', 'user', 'feedback')
         read_only_fields = ('user',)
 
 

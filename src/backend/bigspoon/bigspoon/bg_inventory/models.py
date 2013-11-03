@@ -500,11 +500,6 @@ class Review(models.Model):
         help_text=_('reviewed outlet'),
         related_name='reviews',
     )
-    score = models.DecimalField(
-        max_digits=2,
-        decimal_places=1,
-        default='0.0',
-    )
     feedback = models.TextField(
         _('feedback'),
         help_text=_('feedback text')
