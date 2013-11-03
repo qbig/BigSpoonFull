@@ -21,7 +21,10 @@ extern NSString* const ORDER_URL;
 extern NSString* const BILL_URL;
 
 
-// Others:
+// Dimentions (length, height, etc..):
 extern int const ROW_HEIGHT_LIST_MENU;
 extern int const ROW_HEIGHT_PHOTO_MENU;
+extern int const HEIGHT_NAVIGATION_ITEM;
+
+// Others:
 @end

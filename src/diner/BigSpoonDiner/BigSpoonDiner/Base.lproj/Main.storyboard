@@ -815,6 +815,7 @@
                     <connections>
                         <outlet property="currentOrderTableView" destination="KZd-nK-mn8" id="pfC-Jj-Uhu"/>
                         <outlet property="pastOrderTableView" destination="Ggd-zB-wHu" id="XbD-HC-MMJ"/>
+                        <outlet property="scrollView" destination="2an-2D-blm" id="AKb-S8-cQj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhP-Xs-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1120,6 +1121,6 @@ Snacks</string>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="qnZ-wN-VZu"/>
+        <segue reference="TRy-SG-Bfr"/>
     </inferredMetricsTieBreakers>
 </document>
