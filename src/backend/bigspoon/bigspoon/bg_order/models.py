@@ -21,7 +21,6 @@ class Request(models.Model):
         (WATER, 'Ask for water'),
         (WAITER, 'Ask for waiter'),
     )
-
     diner = models.ForeignKey(
         User,
         help_text=_('diner who create request'),

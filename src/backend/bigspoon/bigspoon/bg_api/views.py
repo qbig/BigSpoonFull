@@ -259,38 +259,33 @@ class AskForBill(generics.GenericAPIView):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
-class CreateRating(generics.CreateAPIView):
-    """
-    Create or change rating
-    """
+class CreateRating(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
     serializer_class = RatingSerializer
     model = Rating
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(
-            data=request.DATA,
-            files=request.FILES
-        )
-
-        if serializer.is_valid():
+    def post(self, request, *args, **kwargs):
+        diner = request.user
+        dishes = request.DATA['dishes']
+        for dish_pair in dishes:
+            dish_id = dish_pair.keys()[0]
+            try:
+                dish = Dish.objects.get(id=int(dish_id))
+            except Dish.DoesNotExist:
+                return Response({"error": "Unknown dish id " + str(dish_id)},
+                                status=status.HTTP_400_BAD_REQUEST)
             rating, created = Rating.objects.get_or_create(
-                user=request.user,
-                dish_id=int(serializer.data['dish']),
+                user=diner,
+                dish=dish,
             )
-            rating.score = Decimal(str(serializer.data['score']))
+            rating.score = Decimal(str(dish_pair.values()[0]))
             rating.save()
-            serializer.data['user'] = rating.user.id
-            headers = self.get_success_headers(serializer.data)
-            send_socketio_message(
-                [rating.dish.outlet.id],
-                ['refresh', 'rating']
-            )
-            return Response(serializer.data, status=status.HTTP_201_CREATED,
-                            headers=headers)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        send_socketio_message(
+            [rating.dish.outlet.id],
+            ['refresh', 'rating']
+        )
+        return Response("ratings created", status=status.HTTP_200_OK)
 
 
 class CreateReview(generics.CreateAPIView):
@@ -313,7 +308,6 @@ class CreateReview(generics.CreateAPIView):
                 user=request.user,
                 outlet_id=int(serializer.data['outlet']),
             )
-            review.score = Decimal(str(serializer.data['score']))
             review.feedback = serializer.data['feedback']
             review.save()
             serializer.data['user'] = review.user.id
