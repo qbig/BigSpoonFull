@@ -270,6 +270,7 @@ nav ul li{
     font-size: 18px;
     font-family: "Scholar";
     line-height:36px;
+    padding: 0px;
 }
 
 nav ul li a {
@@ -604,6 +605,7 @@ p.success {
 }
 
 .menu-item p.photo input {
+    max-width: 270px;
     margin-top:10px;
 }
 
