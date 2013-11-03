@@ -671,8 +671,8 @@
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
     
     UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Order Placed Successfully"
-                              message:@"Your food will be ready soon"
+                              initWithTitle:@"Your order has been sent"
+                              message:@"Thank you for waiting"
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
