@@ -13,6 +13,7 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    /*overflow:hidden!important;*/
 }
 
 ::-moz-selection {
@@ -227,7 +228,6 @@ body {
 
 .wrapper {
     margin: 0 auto;
-    min-width: 920px;
     max-width: 960px;
     border-radius: 5px;
 }
@@ -463,7 +463,6 @@ background-color: #468847;
     border: none;
     min-height:768px;
     height: 100%;
-    overflow:hidden!important;
 }
 
 #main .wrapper {
@@ -506,6 +505,23 @@ background-color: #468847;
     font-size: 14px;
 }
 
+.save-bar {
+    padding-top:40px;
+    display: block;
+}
+
+.save-bar span {
+    background: #fcf6ef;
+    border-top: 1px dotted rgba(0, 0, 0, 0.2);
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 880px;
+    bottom: 1px;
+}
+
+.save-bar input.save {
+}
+
 .note-save {
     display:inline;
     float:none;
@@ -513,7 +529,8 @@ background-color: #468847;
 }
 
 #main input.save {
-    float:none;
+    margin: 10px 20px;
+    float: right;
     background-color: #61C0B9;
 }
 
