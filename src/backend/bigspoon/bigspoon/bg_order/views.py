@@ -14,6 +14,7 @@ from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
 from utils import send_socketio_message
+from utils import today_limit, one_hour_ago
 
 User = get_user_model()
 
@@ -53,14 +54,17 @@ class HistoryView(TemplateView):
         )
         if (outlets.count() == 0):
             raise PermissionDenied
+        limit = today_limit()
         context = super(HistoryView, self).get_context_data(**kwargs)
         context['meal_cards'] = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
-            .filter(status=Meal.INACTIVE, is_paid=False)
+            .filter(created__lte=limit[0], created__gte=limit[1])\
+            .filter(status=Meal.INACTIVE)
         context['requests_cards'] = Request.objects\
             .prefetch_related('diner', 'table')\
             .filter(table__outlet__in=outlets)\
+            .filter(created__lte=limit[0], created__gte=limit[1])\
             .filter(is_active=False)
         return context
 
@@ -135,6 +139,7 @@ class TableView(ListView):
         )
         return super(TableView, self).get_queryset()\
             .prefetch_related('meals', 'meals__orders')\
+            .filter(created__gte=one_hour_ago())\
             .filter(outlet__in=outlets)
 
 
