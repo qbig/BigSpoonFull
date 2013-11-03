@@ -18,7 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
     avatar_url = serializers.SerializerMethodField('get_avatar')
 
     def get_avatar(self, obj):
-        return obj.avatar_url
+        if hasattr(obj, 'email'):
+            return obj.avatar_url
+        return 'None'
 
     class Meta:
         model = User
