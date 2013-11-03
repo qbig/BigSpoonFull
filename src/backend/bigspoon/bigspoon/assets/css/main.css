@@ -640,17 +640,9 @@ p.success {
     margin-top:10px;
 }
 
-.menu-item p.start_time input, .menu-item p.end_time input{
-    width: 80px;
-}
-
-.menu-item p.price input, p.pos input, p.quantity input{
+.menu-item p.start_time input, .menu-item p.end_time input, .menu-item p.price input, p.pos input, p.quantity input{
     margin-left:5px;
-    width: 35px;
-}
-
-.menu-item p.start_time input, .menu-item p.end_time input, .menu-item p.photo input{
-    margin-left:5px;
+    width: 95px;
 }
 
 /* Table styles */
