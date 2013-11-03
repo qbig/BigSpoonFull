@@ -199,7 +199,7 @@ class CreateMeal(generics.CreateAPIView):
 
         send_socketio_message(
             [table.outlet.id],
-            ['refresh', 'meal', 'current']
+            ['refresh', 'meal', 'new']
         )
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
@@ -229,7 +229,7 @@ class CreateRequest(generics.CreateAPIView):
     def post_save(self, obj, created=False):
         send_socketio_message(
             [obj.table.outlet.id],
-            ['refresh', 'request', 'current']
+            ['refresh', 'request', 'new']
         )
 
 
@@ -251,7 +251,7 @@ class AskForBill(generics.GenericAPIView):
             meal.save()
             send_socketio_message(
                 [table.outlet.id],
-                ['refresh', 'meal', 'both']
+                ['refresh', 'meal', 'askbill']
             )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
@@ -349,7 +349,7 @@ class CloseBill(generics.GenericAPIView):
         meal.save()
         send_socketio_message(
             request.user.outlet_ids,
-            ['refresh', 'meal', 'both']
+            ['refresh', 'meal', 'closebill']
         )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
@@ -374,7 +374,7 @@ class AckOrder(generics.GenericAPIView):
         meal.save()
         send_socketio_message(
             request.user.outlet_ids,
-            ['refresh', 'meal', 'both']
+            ['refresh', 'meal', 'ack']
         )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
@@ -399,7 +399,7 @@ class AckRequest(generics.GenericAPIView):
         req.save()
         send_socketio_message(
             request.user.outlet_ids,
-            ['refresh', 'request', 'both']
+            ['refresh', 'request', 'ack']
         )
         return Response(RequestSerializer(req).data,
                         status=status.HTTP_200_OK)
