@@ -42,9 +42,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_user(self, obj):
         return {
-            'email': obj.user.email,
-            'first_name': obj.user.first_name,
-            'last_name': obj.user.last_name,
+            'visits': obj.user.meals.count(),
+            'total': obj.user.get_total_spending(),
             'avatar_url': obj.user.avatar_url,
         }
 
