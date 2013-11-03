@@ -13,7 +13,7 @@ from bg_inventory.models import Dish, Outlet, Table, Review, Note
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
-from utils import send_socketio_message
+from utils import send_socketio_message, today_limit
 
 User = get_user_model()
 
@@ -53,14 +53,17 @@ class HistoryView(TemplateView):
         )
         if (outlets.count() == 0):
             raise PermissionDenied
+        limit = today_limit()
         context = super(HistoryView, self).get_context_data(**kwargs)
         context['meal_cards'] = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
-            .filter(status=Meal.INACTIVE, is_paid=False)
+            .filter(created__lte=limit[1], created__gte=limit[0])\
+            .filter(status=Meal.INACTIVE)
         context['requests_cards'] = Request.objects\
             .prefetch_related('diner', 'table')\
             .filter(table__outlet__in=outlets)\
+            .filter(created__lte=limit[1], created__gte=limit[0])\
             .filter(is_active=False)
         return context
 

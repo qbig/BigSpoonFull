@@ -12,6 +12,7 @@
 #import "NewOrderCell.h"
 #import "PastOrderCell.h"
 #import "Dish.h"
+#import "Constants.h"
 
 @class ItemsOrderedViewController;
 
@@ -31,6 +32,7 @@
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
 
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;

@@ -12,14 +12,8 @@
 
 @class OrderHistoryViewController;
 
-@protocol SettingsViewControllerDelegate <NSObject>
-- (void)cancelButtonPressed: (OrderHistoryViewController *)controller;
-@end
-
-
 @interface OrderHistoryViewController : UIViewController
 
-@property (nonatomic, weak) id <SettingsViewControllerDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
 @property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
 

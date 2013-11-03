@@ -16,23 +16,19 @@
 #import "MultiContainerViewSegue.h"
 #import "Order.h"
 #import "ItemsOrderedViewController.h"
+#import "ExitMenuListDelegate.h"
 
 @class MenuViewController;
 
-@protocol MenuViewControllerDelegate <NSObject>
-- (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller;
-@end
-
-
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate>
 
 // Data:
-@property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
 @property (nonatomic) NSArray *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
+@property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
 
 // Buttons:
 

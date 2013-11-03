@@ -104,6 +104,7 @@
 		491641FE180C58BB00080B87 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
 		49164201180C590C00080B87 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
 		49164202180C590C00080B87 /* photo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_icon.png; sourceTree = "<group>"; };
+		491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitMenuListDelegate.h; sourceTree = "<group>"; };
 		49320E3F18166CAE00F5C190 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		49558BBD181D0B3F00273090 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		49558BBF181D0BA800273090 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
@@ -144,6 +145,7 @@
 		49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_256px_unfilled.png; sourceTree = "<group>"; };
 		49CB7973180C6D9400F530C5 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		49CB7974180C6D9400F530C5 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		49D87D841825D8E700A6190D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		49DC2CC318214CBF003FC068 /* TotalPriceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalPriceCell.h; sourceTree = "<group>"; };
 		49DC2CC418214CBF003FC068 /* TotalPriceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalPriceCell.m; sourceTree = "<group>"; };
 		49F107DF180886D600D2C8DD /* BigSpoonDiner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSpoonDiner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,12 +310,14 @@
 		49F107E8180886D600D2C8DD /* BigSpoonDiner */ = {
 			isa = PBXGroup;
 			children = (
+				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
 				E9B7A28D180BF3EC009B6BD1 /* Custom Views */,
 				49CAFC50180BB9DE0058C900 /* Images */,
 				4999A20F180A50C300270B0B /* Models */,
 				4999A208180A4FCA00270B0B /* ViewControllers */,
 				49F107F1180886D600D2C8DD /* AppDelegate.h */,
 				49F107F2180886D600D2C8DD /* AppDelegate.m */,
+				49D87D841825D8E700A6190D /* Constants.h */,
 				49320E3F18166CAE00F5C190 /* Constants.m */,
 				49558BBF181D0BA800273090 /* SSKeychain.h */,
 				49558BC0181D0BA800273090 /* SSKeychain.m */,

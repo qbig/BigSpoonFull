@@ -13,6 +13,7 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    /*overflow:hidden!important;*/
 }
 
 ::-moz-selection {
@@ -227,7 +228,6 @@ body {
 
 .wrapper {
     margin: 0 auto;
-    min-width: 920px;
     max-width: 960px;
     border-radius: 5px;
 }
@@ -245,6 +245,7 @@ nav {
     display: inline;
     float: left;
     width: 100%;
+    min-width:960px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.2);
@@ -268,12 +269,13 @@ nav ul li{
     font-size: 18px;
     font-family: "Scholar";
     line-height:36px;
+    padding: 0px;
 }
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 24px;
-    border: 1px solid #ddd;
+    padding: 24px 18px;
+    border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
 }
@@ -281,6 +283,10 @@ nav ul li a {
 nav ul li h1 a {
     margin: 0px;
     border:none;
+}
+
+nav ul li a.logout {
+    border-right: 1px solid #ddd;
 }
 
 nav ul li h1 a:hover{
@@ -292,33 +298,17 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     background: #F8F8F8;
 }
 
-/*.clock {
-    font-size: 16px;
-    background: rgba(231,76,60,0.8);
-    padding: 10px;
-    margin-left: 10px;
-    color: #fff;
-    border-radius: 5px;
-    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
-}*/
-
-
 /* Order Items */
 .item {
     float: left;
     margin: 5px;
     padding-bottom: 20px;
-    /*min-height: 200px;*/
     width: 270px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
-}
-
-div.history {
-    opacity: 0.7;
 }
 
 .item span.time {
@@ -352,6 +342,23 @@ div.history {
 
 .item img {
     float:right;
+}
+
+.item p.paid, .item p.unpaid {
+    color: #fff;
+    font-size: 12px;
+    font-weight:bold;
+    text-align:center;
+    text-transform: uppercase;
+    padding:5px 10px;
+}
+
+.item p.paid {
+    background-color: #0C4;
+}
+
+.item p.unpaid {
+    background-color: rgb(231,76,60);
 }
 
 .item p.note {
@@ -454,18 +461,18 @@ background-color: #468847;
     margin: 0 auto;
     width: 100%;
     border: none;
+    height: 100%;
 }
 
 #main .wrapper {
     margin-top: 10px;
-    /*background: #fff;*/
 }
 
 #main .wrapper-bg {
     background: #fff;
     width: 880px;
     border-radius:5px;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
 }
 
 #main .wrapper-no-bg {
@@ -492,8 +499,24 @@ background-color: #468847;
     color: white;
     text-align:center;
     text-decoration:none;
-    /*text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;*/
     font-size: 14px;
+}
+
+.save-bar {
+    padding-top:40px;
+    display: block;
+}
+
+.save-bar span {
+    background: #fcf6ef;
+    border: 1px dotted rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 880px;
+    bottom: 1px;
+}
+
+#main .save-bar span input.save {
+    margin: 10px 20px;
 }
 
 .note-save {
@@ -503,7 +526,7 @@ background-color: #468847;
 }
 
 #main input.save {
-    float:none;
+    float: none;
     background-color: #61C0B9;
 }
 
@@ -523,7 +546,7 @@ background-color: #468847;
 .menu-item img{
     float: left;
     overflow: hidden;
-    margin-right:25px;
+    margin-right:5px;
     height: 250px;
 }
 
@@ -536,12 +559,42 @@ background-color: #468847;
 .menu-item span p {
     float:left;
     margin: 0px;
-    padding: 10px 0px 0px 20px;
+    padding: 10px 0px 0px 10px;
     font-weight: bold;
 }
 
 form.menu-add {
     padding-bottom: 60px;
+    margin-left: 30px;
+}
+
+.menu-item .menu-add span p {
+    padding-left: 0px;
+}
+
+.menu-item .menu-add span p.pos {
+    margin-left: 0px;
+}
+
+.menu-item .menu-add span p.price {
+    margin-left: 10px;
+}
+
+.menu-item .menu-add span p.price #id_price{
+    margin-left: 10px;
+}
+
+.menu-item .menu-add span p.end_time {
+    padding-left: 20px;
+}
+
+.menu-item .menu-add span p.end_time input,
+.menu-item .menu-add span p.start_time input{
+    width: 80px;
+}
+
+.menu-item .menu-add span p.photo input {
+    margin-left: 30px;
 }
 
 p.error {
@@ -580,11 +633,11 @@ p.success {
 
 .menu-item p.name input{
     margin: 0px 20px 0px 35px;
-    width: 260px;
+    width: 275px;
 }
 
 .menu-item p.description textarea{
-    width: 380px;
+    width: 360px;
 }
 
 .menu-item p.photo{
@@ -602,20 +655,17 @@ p.success {
 }
 
 .menu-item p.photo input {
+    max-width: 270px;
     margin-top:10px;
 }
 
-.menu-item p.start_time input, .menu-item p.end_time input{
-    width: 80px;
+.menu-item p.start_time input, .menu-item p.end_time input, .menu-item p.price input, p.pos input, p.quantity input{
+    margin-left:5px;
+    width: 95px;
 }
 
-.menu-item p.price input, p.pos input, p.quantity input{
-    margin-left:5px;
-    width: 35px;
-}
-
-.menu-item p.start_time input, .menu-item p.end_time input, .menu-item p.photo input{
-    margin-left:5px;
+.menu-item p.pos {
+    margin-left: 15px;
 }
 
 /* Table styles */
@@ -801,7 +851,7 @@ p.success {
 h1.logo {
     display: block;
     margin: 0 auto;
-    margin-top: 150px;
+    margin-top: 50px;
     width: 200px;
     text-align:center;
     font-size: 64px;

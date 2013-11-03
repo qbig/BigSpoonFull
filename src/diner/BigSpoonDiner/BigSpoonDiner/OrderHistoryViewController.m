@@ -41,7 +41,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)cancelButtonPressed:(id)sender {
-    [self.delegate cancelButtonPressed:self];
-}
 @end

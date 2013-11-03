@@ -13,17 +13,17 @@
     NSMutableDictionary *_viewControllersByIdentifier;
 }
 
-@property (nonatomic, strong) UIAlertView *requestForWaiterView;
-@property (nonatomic, strong) UIAlertView *requestForBillView;
-@property (nonatomic, strong) UIAlertView *inputTableIDView;
-@property (nonatomic, strong) UIAlertView *placeOrderView;
+@property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
+@property (nonatomic, strong) UIAlertView *requestForBillAlertView;
+@property (nonatomic, strong) UIAlertView *inputTableIDAlertView;
+@property (nonatomic, strong) UIAlertView *placeOrderAlertView;
+@property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 
 @end
 
 @implementation MenuViewController
 
-@synthesize delegate;
 @synthesize outlet;
 @synthesize menuListViewController;
 @synthesize requestWaterView;
@@ -33,9 +33,9 @@
 
 @synthesize quantityOfColdWaterLabel;
 @synthesize quantityOfWarmWaterLabel;
-@synthesize requestForWaiterView;
-@synthesize requestForBillView;
-@synthesize inputTableIDView;
+@synthesize requestForWaiterAlertView;
+@synthesize requestForBillAlertView;
+@synthesize inputTableIDAlertView;
 @synthesize ratingsTableView;
 @synthesize taskAfterAskingForTableID;
 @synthesize navigationItem;
@@ -59,11 +59,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.navigationItem setTitle: self.outlet.name];
+    [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-    self.currentOrder = [[Order alloc]init];
-    self.pastOrder = [[Order alloc]init];
-   
+    
+    // If the ordered items are null, init them.
+    // If not, update the badge.
+    if ([self.currentOrder getTotalQuantity] + [self.pastOrder getTotalQuantity] == 0) {
+        self.currentOrder = [[Order alloc]init];
+        self.pastOrder = [[Order alloc]init];
+    } else{
+        [self updateItemQuantityBadge];
+    }
+    
     // The toolbar that contains the bar button items
     // The toolbar is hidden (set in storyboard, x = -100)
     // Its bar button items is inserted to the navigationController
@@ -71,6 +78,15 @@
     // They will shown in viewDidAppear:
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+}
+
+- (NSString *) regulateLengthOfString:(NSString *)String{
+    NSString *toReturn = String;
+    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
+        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
+        toReturn = [toReturn stringByAppendingString:@"..."];
+    }
+    return toReturn;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -88,6 +104,41 @@
     [self.settingsButton setHidden:NO];
 }
 
+- (void) viewWillDisappear:(BOOL)animated{
+    
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        
+        NSString *message = @"";
+        if ([self.currentOrder getTotalQuantity] != 0) {
+            message = @"You have selected some food but haven't placed the order. You can come back later to place the order";
+        }
+        if ([self.pastOrder getTotalQuantity] != 0){
+            message = @"You have unpaid items. You can come back later to pay the bill";
+        }
+        if ([self.currentOrder getTotalQuantity] != 0 && [self.pastOrder getTotalQuantity] != 0) {
+            message = @"You have unorderd and unpaid items. You can come back later";
+        }
+        
+        if (![message isEqualToString:@""]) {
+            
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                                 initWithTitle:nil
+                                                 message:message
+                                                 delegate:self
+                                                 cancelButtonTitle:nil
+                                                 otherButtonTitles:@"Okay", nil];
+            
+            [alertView show];
+            
+            [self.delegate exitMenuListWithCurrentOrder:self.currentOrder
+                                              PastOrder:self.pastOrder
+                                            andOutletID:self.outlet.outletID];
+        }
+    }
+    
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -96,11 +147,6 @@
 
 
 #pragma mark ButtonClick Event Listeners
-
-
-- (IBAction)homeButtonPressed:(id)sender{
-    [self.delegate MenuViewControllerHomeButtonPressed:self];
-}
 
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender {
     NSLog(@"viewModeButtonPressedAtListPage");
@@ -113,6 +159,7 @@
     } else {
         NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
+    
     [self.menuListViewController.tableView reloadData];
 }
 
@@ -182,20 +229,20 @@
 }
 
 - (void) performRequestWaiterConfirmationPopUp{
-    self.requestForWaiterView = [[UIAlertView alloc]
+    self.requestForWaiterAlertView = [[UIAlertView alloc]
                                  initWithTitle:@"Call For Service"
                                  message:@"Require assistance from the waiter?"
                                  delegate:self
                                  cancelButtonTitle:@"Yes"
                                  otherButtonTitles:@"Cancel", nil];
-    [self.requestForWaiterView show];
+    [self.requestForWaiterAlertView show];
 }
 
 - (IBAction)requestBillButtonPressed:(id)sender {
     NSLog(@"billButtonPressed");
     
     // If the user hasn't ordered anything:
-    if ([self.currentOrder getTotalQuantity] + [self.pastOrder getTotalQuantity] == 0) {
+    if ([self.pastOrder getTotalQuantity] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                      initWithTitle:@"Request Bill"
                                      message:@"You haven't ordered anything."
@@ -223,13 +270,13 @@
 }
 
 - (void) performRequestBillConfirmationPopUp{
-    self.requestForBillView = [[UIAlertView alloc]
+    self.requestForBillAlertView = [[UIAlertView alloc]
                                initWithTitle:@"Call For Service"
                                message:@"Would you like the bill?"
                                delegate:self
                                cancelButtonTitle:@"Yes"
                                otherButtonTitles:@"Cancel", nil];
-    [self.requestForBillView show];
+    [self.requestForBillAlertView show];
 }
 
 - (void) performRequestBillNetWorkRequest{
@@ -295,6 +342,10 @@
                               otherButtonTitles:nil];
     [alertView show];
     [self animateControlPanelView:self.ratingsView willShow:YES];
+    
+    // Set the order items to null
+    self.currentOrder = [[Order alloc] init];
+    self.pastOrder = [[Order alloc] init];
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
@@ -324,8 +375,10 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromMenuListToOrderHistory"]) {
-		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
-		orderHistoryViewController.delegate = self;
+        
+        // Change the back button title. Cannot display title of restaurant, since it's too long to appear in the back button.
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Menu" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
         
 	} else if([segue isKindOfClass:[MultiContainerViewSegue class]]){
         
@@ -393,7 +446,7 @@
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     
-    if ([alertView isEqual:self.requestForBillView]) {
+    if ([alertView isEqual:self.requestForBillAlertView]) {
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Bill");
@@ -408,7 +461,7 @@
         }
     }
     
-    else if ([alertView isEqual:self.requestForWaiterView]){
+    else if ([alertView isEqual:self.requestForWaiterAlertView]){
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Waiter");
@@ -423,7 +476,7 @@
         }
     }
     
-    else if ([alertView isEqual:self.inputTableIDView]){
+    else if ([alertView isEqual:self.inputTableIDAlertView]){
 
         if(![title isEqualToString:@"Cancel"])
         {
@@ -443,13 +496,17 @@
         }
     }
     
-    else if ([alertView isEqual:self.placeOrderView]){
+    else if ([alertView isEqual:self.placeOrderAlertView]){
     
         if(![title isEqualToString:@"Cancel"])
         {
             [self performPlaceOrderNetWorkRequest];
         }
         
+    }
+    
+    else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
+        [self.navigationController popViewControllerAnimated:NO];
     }
     
     else{
@@ -504,6 +561,19 @@
 
 - (void) placeOrder{
     
+    // If the user hasn't ordered anything:
+    if ([self.currentOrder getTotalQuantity] == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Place Order"
+                                  message:@"You haven't selected anything."
+                                  delegate:nil
+                                  cancelButtonTitle:@"Okay"
+                                  otherButtonTitles:nil];
+        [alertView show];
+        
+        return;
+    }
+    
     NSLog(@"Placing order");
     
     if (self.tableID == -1 || self.tableID == 0) {
@@ -531,13 +601,13 @@
         [message appendFormat:@"%dX %@\n", [self.currentOrder getQuantityOfDish: dish], dish.name];
     }
     
-     self.placeOrderView = [[UIAlertView alloc]
+     self.placeOrderAlertView = [[UIAlertView alloc]
                               initWithTitle:@"New Order"
                               message: message
                               delegate:self
                               cancelButtonTitle:@"Cancel"
                               otherButtonTitles:@"Ok", nil];
-    [self.placeOrderView show];
+    [self.placeOrderAlertView show];
 }
 
 - (void) performPlaceOrderNetWorkRequest{
@@ -601,8 +671,8 @@
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
     
     UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Order Placed Successfully"
-                              message:@"Your food will be ready soon"
+                              initWithTitle:@"Your order has been sent"
+                              message:@"Thank you for waiting"
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
@@ -782,15 +852,15 @@
 }
 
 - (void) askForTableIDWithTitle: (NSString *)title{
-    self.inputTableIDView = [[UIAlertView alloc]
+    self.inputTableIDAlertView = [[UIAlertView alloc]
                               initWithTitle: title
                               message: nil
                               delegate:self
                               cancelButtonTitle:@"Cancel"
                               otherButtonTitles:@"Okay", nil];
     
-    self.inputTableIDView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [self.inputTableIDView show];
+    self.inputTableIDAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [self.inputTableIDAlertView show];
 }
 
 

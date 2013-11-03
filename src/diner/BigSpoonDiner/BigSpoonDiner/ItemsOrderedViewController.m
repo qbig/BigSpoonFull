@@ -8,7 +8,9 @@
 
 #import "ItemsOrderedViewController.h"
 
-@interface ItemsOrderedViewController ()
+@interface ItemsOrderedViewController (){
+    int viewAppearCount;
+}
 
 @end
 
@@ -27,12 +29,28 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
+    viewAppearCount = 0;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    viewAppearCount++;
+    
+    // If it's not first time load, the navigation bar item will automatically be added on top of the page
+    // We don't want that.
+    // So in the second appearence, bring up the tableview. It will stay this way ever after.
+    if (viewAppearCount == 2){
+        CGRect frame = self.scrollView.frame;
+        self.scrollView.frame = CGRectMake(frame.origin.x, frame.origin.y - HEIGHT_NAVIGATION_ITEM, frame.size.width, frame.size.height);
+        [self.view bringSubviewToFront:self.scrollView];
+    }
 }
 
 - (void)didReceiveMemoryWarning

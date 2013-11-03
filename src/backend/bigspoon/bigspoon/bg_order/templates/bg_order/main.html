@@ -17,10 +17,12 @@
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
+        <p class="note">{{meal.note}}</p>
+
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
-            <li>{{order.dish.name}}  <em>{{order.quantity}}</em></li>
+            <li>{{order.dish.pos}} {{order.dish.name}}  <em>{{order.quantity}}</em></li>
             {% endfor %}
         </ul>
 
