@@ -300,24 +300,12 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     background: #F8F8F8;
 }
 
-/*.clock {
-    font-size: 16px;
-    background: rgba(231,76,60,0.8);
-    padding: 10px;
-    margin-left: 10px;
-    color: #fff;
-    border-radius: 5px;
-    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
-}*/
-
-
 /* Order Items */
 .item {
     float: left;
     margin: 5px;
     padding-bottom: 20px;
     width: 270px;
-    /*height: 300px;*/
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -475,11 +463,12 @@ background-color: #468847;
     margin: 0 auto;
     width: 100%;
     border: none;
+    min-height:100%;
 }
 
 #main .wrapper {
     margin-top: 10px;
-    /*background: #fff;*/
+    min-height:100%;
 }
 
 #main .wrapper-bg {
@@ -487,6 +476,7 @@ background-color: #468847;
     width: 880px;
     border-radius:5px;
     padding-bottom: 40px;
+    min-height:100%;
 }
 
 #main .wrapper-no-bg {
@@ -570,8 +560,25 @@ form.menu-add {
     padding-left: 0px;
 }
 
+.menu-item .menu-add span p.pos {
+    margin-left: 0px;
+}
+
+.menu-item .menu-add span p.price {
+    margin-left: 10px;
+}
+
+.menu-item .menu-add span p.price #id_price{
+    margin-left: 10px;
+}
+
 .menu-item .menu-add span p.end_time {
-    padding-left: 10px;
+    padding-left: 20px;
+}
+
+.menu-item .menu-add span p.end_time input,
+.menu-item .menu-add span p.start_time input{
+    width: 80px;
 }
 
 .menu-item .menu-add span p.photo input {
