@@ -283,10 +283,31 @@
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
         menuViewController.outlet = outlet;
+        menuViewController.delegate = self;
+        
+        if (outlet.outletID == self.outletIDOfPreviousSelection) {
+            
+            NSLog(@"In outlets list: going back to a previous page with selected items");
+            menuViewController.currentOrder = self.currentOrder;
+            menuViewController.pastOrder = self.pastOrder;
+            
+        } else{
+            
+            NSLog(@"In outlets list: opening a new page with no selected items");
+            
+        }
         
 	} else{
         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
+}
+
+#pragma mark - Delegate
+
+- (void) exitMenuListWithCurrentOrder: (Order *) currentOrder PastOrder: (Order *) pastOrder andOutletID: (int) outletID{
+    self.currentOrder = currentOrder;
+    self.pastOrder = pastOrder;
+    self.outletIDOfPreviousSelection = outletID;
 }
 
 @end

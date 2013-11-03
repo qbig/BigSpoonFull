@@ -16,6 +16,7 @@
 #import "MultiContainerViewSegue.h"
 #import "Order.h"
 #import "ItemsOrderedViewController.h"
+#import "ExitMenuListDelegate.h"
 
 @class MenuViewController;
 
@@ -27,6 +28,7 @@
 @property (nonatomic) NSArray *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
+@property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
 
 // Buttons:
 
