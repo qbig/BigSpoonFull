@@ -20,6 +20,7 @@
                     <img class="thumbnail-navigation" src="{{meal.diner.avatar_url}}" />
                     <h4>{{ meal.diner.get_full_name }}'s orders</h4>
                 </span>
+                <p class="note">{{meal.note}}</p>
                 <ul class="order">
                     {% for order in meal.orders.all %}
                     <li>{{order.dish.name}} <em>{{order.quantity}}</em></li>
