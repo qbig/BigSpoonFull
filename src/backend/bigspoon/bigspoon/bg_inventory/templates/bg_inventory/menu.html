@@ -31,7 +31,15 @@
         </div>
     {% endfor %}
 
+
+    <span class="save-bar">
+
+        <span>
     <input class="save" type="submit" value="Save" />
+        </span>
+
+    </span>
+
     {% if formset.errors %}
         <p class="error">{{ formset.errors }}</p>
     {% endif %}

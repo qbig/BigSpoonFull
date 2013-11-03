@@ -68,7 +68,6 @@
 		E99E9A261821B464002ECD29 /* HomeAndSettingsButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = E99E9A251821B464002ECD29 /* HomeAndSettingsButtonView.m */; };
 		E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B7A29C180D3CA0009B6BD1 /* PastOrderView.m */; };
 		E9B7A29F180D3CA0009B6BD1 /* PastOrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B7A29D180D3CA0009B6BD1 /* PastOrderView.xib */; };
-		E9CD90D4181CEEDF00139FEC /* plain_green_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9CD90D3181CEEDF00139FEC /* plain_green_background.jpg */; };
 		E9CD90D7181D088000139FEC /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD90D6181D088000139FEC /* ProfileViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -169,13 +168,13 @@
 		B7CAB2EEB6524D3B826504F5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E951D782180EE285002BE045 /* OrderHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHistoryViewController.h; sourceTree = "<group>"; };
 		E951D783180EE285002BE045 /* OrderHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHistoryViewController.m; sourceTree = "<group>"; };
+		E98A26A21822954400E1B169 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = BigSpoonDiner/Constants.h; sourceTree = "<group>"; };
 		E99E9A221821AF58002ECD29 /* HomeAndSettingsButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeAndSettingsButtonView.xib; path = ../HomeAndSettingsButtonView.xib; sourceTree = "<group>"; };
 		E99E9A241821B464002ECD29 /* HomeAndSettingsButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeAndSettingsButtonView.h; sourceTree = "<group>"; };
 		E99E9A251821B464002ECD29 /* HomeAndSettingsButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeAndSettingsButtonView.m; sourceTree = "<group>"; };
 		E9B7A29B180D3CA0009B6BD1 /* PastOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastOrderView.h; sourceTree = "<group>"; };
 		E9B7A29C180D3CA0009B6BD1 /* PastOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastOrderView.m; sourceTree = "<group>"; };
 		E9B7A29D180D3CA0009B6BD1 /* PastOrderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PastOrderView.xib; sourceTree = "<group>"; };
-		E9CD90D3181CEEDF00139FEC /* plain_green_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = plain_green_background.jpg; sourceTree = "<group>"; };
 		E9CD90D5181D088000139FEC /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		E9CD90D6181D088000139FEC /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,7 +259,6 @@
 				49048D10181F489C00B480A3 /* 5StarsSmall@2x.png */,
 				49048D0A181F463A00B480A3 /* photo_cell_gradient.png */,
 				49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */,
-				E9CD90D3181CEEDF00139FEC /* plain_green_background.jpg */,
 				49864D961822175600065251 /* plain_purple_background.jpg */,
 				497DD71B180C5B8600316138 /* bottom_buttons.png */,
 				49164201180C590C00080B87 /* list_icon.png */,
@@ -276,6 +274,7 @@
 		49F107D6180886D600D2C8DD = {
 			isa = PBXGroup;
 			children = (
+				E98A26A21822954400E1B169 /* Constants.h */,
 				4999A215180A744100270B0B /* URLImageView.m */,
 				49F107E8180886D600D2C8DD /* BigSpoonDiner */,
 				49F1080A180886D600D2C8DD /* BigSpoonDinerTests */,
@@ -475,7 +474,6 @@
 				49164203180C590C00080B87 /* list_icon.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
 				E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */,
-				E9CD90D4181CEEDF00139FEC /* plain_green_background.jpg in Resources */,
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,
 				49048D12181F489C00B480A3 /* 2StarsSmall@2x.png in Resources */,
 				49164200180C58BB00080B87 /* home.png in Resources */,

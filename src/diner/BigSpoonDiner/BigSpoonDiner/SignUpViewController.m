@@ -87,6 +87,9 @@
     [info setObject: self.lastNameLabel.text forKey: @"last_name"];
     [info setObject: self.passwordLabel.text forKey: @"password"];
     [info setObject: self.emailAddressLabel.text forKey: @"email"];
+    if (self.facebookUserName) {
+        [info setObject:self.facebookUserName forKey:@"username"];
+    }
     
     if (self.facebookUserName != nil && [self.facebookUserName isEqualToString:@""]) {
         [info setObject:self.facebookUserName forKey:@"username"];

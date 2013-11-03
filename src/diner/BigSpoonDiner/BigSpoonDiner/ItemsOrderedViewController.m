@@ -77,9 +77,9 @@
 {
     // Return the number of rows in the section.
     if ([tableView isEqual:self.currentOrderTableView]) {
-        return [self.currentOrder getNumberOfDishes];
+        return [self.currentOrder getNumberOfKindsOfDishes];
     } else if ([tableView isEqual:self.pastOrderTableView]){
-        return [self.pastOrder getNumberOfDishes];
+        return [self.pastOrder getNumberOfKindsOfDishes];
     } else{
         NSLog(@"Unrecognized tableView is calling delegate method");
         return 0;
@@ -95,7 +95,7 @@
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByDish:dish]];
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
@@ -110,7 +110,7 @@
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDishByDish:dish]];
        
         return cell;
     } else{
@@ -186,7 +186,7 @@
     
     
     self.currentOrder = [self.delegate addDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
 
 }
 
@@ -203,7 +203,7 @@
     
     
     self.currentOrder = [self.delegate minusDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
 
 }
 - (IBAction)placeOrderButtonPressed:(id)sender {
