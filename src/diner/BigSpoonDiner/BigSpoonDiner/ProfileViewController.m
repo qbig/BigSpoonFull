@@ -10,6 +10,7 @@
 
 @interface ProfileViewController ()
 - (void) loadUserDetails;
+- (void) updateUserDetailsOnServer;
 @end
 
 @implementation ProfileViewController
@@ -35,6 +36,47 @@
     [self loadUserDetails];
 }
 
+- (void) updateUserDetailsOnServer {
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: PROFILE_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSDictionary *parameters = @{
+                                 @"allergies": self.allergiesTextField.text,
+                                 };
+
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"PUT";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Update profile success");
+            }
+                break;
+            case 403:
+            default:{
+                NSLog(@"Update profile failure");
+                [self displayErrorInfo: operation.responseObject];
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo: operation.responseObject];
+                                      }];
+    
+    [operation start];
+}
+
 - (void) loadUserDetails {
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: PROFILE_URL]];
@@ -48,7 +90,8 @@
         switch (responseCode) {
             case 200:
             case 201:{
-                NSLog(@"Success");
+                self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", [User sharedInstance].firstName, [User sharedInstance].lastName];
+                self.allergiesTextField.text = responseObject[@"allergies"];
             }
                 break;
             case 403:
@@ -82,4 +125,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSLog(@"textFieldShouldReturn:");
+    [self.allergiesTextField resignFirstResponder];
+    [self updateUserDetailsOnServer];
+    return YES;
+}
+
+- (IBAction)toggleIsVegetarianDisplay:(UIButton *)sender {
+    
+}
 @end

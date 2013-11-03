@@ -69,7 +69,7 @@ class Request(models.Model):
 
     @property
     def count_down_start(self):
-        timetuple = self.created.timetuple()
+        timetuple = timezone.localtime(self.created).timetuple()
         timestamp = time.mktime(timetuple)
         return timestamp * 1000.0
 
@@ -152,7 +152,7 @@ class Meal(models.Model):
 
     @property
     def count_down_start(self):
-        timetuple = self.modified.timetuple()
+        timetuple = timezone.localtime(self.modified).timetuple()
         timestamp = time.mktime(timetuple)
         return timestamp * 1000.0
 
@@ -196,8 +196,9 @@ class Order(models.Model):
         default=0,
         help_text=_('number of dishes ordered'),
     )
+
     def get_order_spending(self):
-        return self.dish.price *self.quantity #needs self. else refs global.
+        return self.dish.price * self.quantity
 
     def __unicode__(self):
         return "(%s - %s) %s | %s x %s" % (

@@ -37,13 +37,17 @@
 // Buttons:
 
 @property (strong, nonatomic) IBOutlet UIButton *viewModeButton;
-@property (strong, nonatomic) IBOutlet UILabel *outletNameLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *viewModeBarButton;
 
-// Three buttons at the top: (gear button no need here)
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 
-- (IBAction)homeButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UINavigationItem *navigationItem;
+
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender;
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
+- (IBAction)settingsButtonPressed:(id)sender;
+
 
 // Four buttons at the bottom
 

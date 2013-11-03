@@ -115,19 +115,19 @@ class OutletDetailSerializer(serializers.ModelSerializer):
 
 
 class RatingSerializer(serializers.ModelSerializer):
-    dish = RelatedField(many=True)
-    user = RelatedField(many=True)
 
     class Meta:
         model = Rating
+        fields = ('dish', 'user', 'score')
+        read_only_fields = ('user',)
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-    outlet = RelatedField(many=True)
-    user = RelatedField(many=True)
 
     class Meta:
         model = Review
+        fields = ('outlet', 'user', 'score', 'feedback')
+        read_only_fields = ('user',)
 
 
 class NoteSerializer(serializers.ModelSerializer):

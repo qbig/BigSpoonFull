@@ -12,9 +12,15 @@
 #import "Constants.h"
 #import <AFHTTPRequestOperationManager.h>
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : UIViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
 @property (weak, nonatomic) IBOutlet UIImageView *profilePictureView;
+@property (weak, nonatomic) IBOutlet UITextView *favoriteItemsTextView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UITextField *allergiesTextField;
+@property (weak, nonatomic) IBOutlet UIButton *isVegetarianButton;
+
+- (IBAction)toggleIsVegetarianDisplay:(UIButton *)sender;
 
 @end

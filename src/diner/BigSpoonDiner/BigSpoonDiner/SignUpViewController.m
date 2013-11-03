@@ -23,6 +23,7 @@
 @synthesize lastNameLabel;
 @synthesize emailAddressLabel;
 @synthesize passwordLabel;
+@synthesize navigationItem;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -40,6 +41,10 @@
     [self populateUserDetails];
 
 	// Do any additional setup after loading the view.
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning

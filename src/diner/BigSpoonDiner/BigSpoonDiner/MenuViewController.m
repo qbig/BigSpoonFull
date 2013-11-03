@@ -38,6 +38,7 @@
 @synthesize inputTableIDView;
 @synthesize ratingsTableView;
 @synthesize taskAfterAskingForTableID;
+@synthesize navigationItem;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,22 +50,42 @@
     return self;
 }
 
+- (void)loadView{
+    [super loadView];
+    NSLog(@"load view");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.outletNameLabel.text = self.outlet.name;
+    [self.navigationItem setTitle: self.outlet.name];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     self.currentOrder = [[Order alloc]init];
     self.pastOrder = [[Order alloc]init];
+   
+    // The toolbar that contains the bar button items
+    // The toolbar is hidden (set in storyboard, x = -100)
+    // Its bar button items is inserted to the navigationController
+    // The buttons are hidden by default. Because don't wanna show their moving trace.
+    // They will shown in viewDidAppear:
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
+    
+    // Put back the button
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+    
     [super viewDidAppear:animated];
     
     if (self.childViewControllers.count < 1) {
         [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
     }
+    [self.viewModeButton setHidden:NO];
+    [self.settingsButton setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,6 +129,16 @@
     }
     
     [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
+}
+
+- (IBAction)settingsButtonPressed:(id)sender {
+    
+    // Need to set the rightBarButtonItems to nil. Otherwise they will slide to the left.
+    // They will be put back after viewDidAppear: function. That function will be called after the new view is poped.
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: nil];
+
+    [self performSegueWithIdentifier:@"SegueFromMenuListToOrderHistory" sender:self];
 }
 
 - (IBAction)requestWaterButtonPressed:(id)sender {
