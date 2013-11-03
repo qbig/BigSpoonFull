@@ -23,7 +23,6 @@
 
 @implementation MenuViewController
 
-@synthesize delegate;
 @synthesize outlet;
 @synthesize menuListViewController;
 @synthesize requestWaterView;
@@ -59,7 +58,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.navigationItem setTitle: self.outlet.name];
+    [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     self.currentOrder = [[Order alloc]init];
     self.pastOrder = [[Order alloc]init];
@@ -71,6 +70,15 @@
     // They will shown in viewDidAppear:
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+}
+
+- (NSString *) regulateLengthOfString:(NSString *)String{
+    NSString *toReturn = String;
+    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
+        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
+        toReturn = [toReturn stringByAppendingString:@"..."];
+    }
+    return toReturn;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -97,10 +105,6 @@
 
 #pragma mark ButtonClick Event Listeners
 
-
-- (IBAction)homeButtonPressed:(id)sender{
-    [self.delegate MenuViewControllerHomeButtonPressed:self];
-}
 
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender {
     NSLog(@"viewModeButtonPressedAtListPage");
@@ -324,8 +328,10 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromMenuListToOrderHistory"]) {
-		OrderHistoryViewController *orderHistoryViewController = segue.destinationViewController;
-		orderHistoryViewController.delegate = self;
+        
+        // Change the back button title. Cannot display title of restaurant, since it's too long to appear in the back button.
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Menu" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
         
 	} else if([segue isKindOfClass:[MultiContainerViewSegue class]]){
         

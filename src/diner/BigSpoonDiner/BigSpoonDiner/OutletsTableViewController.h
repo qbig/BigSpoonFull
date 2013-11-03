@@ -14,7 +14,7 @@
 #import "User.h"
 #import "Constants.h"
 
-@interface OutletsTableViewController : UITableViewController <MenuViewControllerDelegate, NSURLConnectionDelegate>
+@interface OutletsTableViewController : UITableViewController <NSURLConnectionDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 

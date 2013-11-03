@@ -11,6 +11,7 @@
 @implementation Constants
 
 // Request URLs:
+
 NSString* const BASE_URL = @"http://122.248.199.242/";
 NSString* const  USER_SIGNUP = @"http://122.248.199.242/api/v1/user";
 NSString* const USER_LOGIN = @"http://122.248.199.242/api/v1/login";
@@ -22,9 +23,12 @@ NSString* const BILL_URL = @"http://122.248.199.242/api/v1/askbill";
 
 
 // Dimentions:
+
 int const ROW_HEIGHT_LIST_MENU = 59;
 int const ROW_HEIGHT_PHOTO_MENU = 186;
 int const HEIGHT_NAVIGATION_ITEM = 63;
+
 // Others:
+int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 
 @end

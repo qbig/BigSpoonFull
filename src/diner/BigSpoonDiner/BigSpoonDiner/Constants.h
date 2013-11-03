@@ -11,6 +11,7 @@
 @interface Constants : NSObject
 
 // Request URLs:
+
 extern NSString* const BASE_URL;
 extern NSString* const  USER_SIGNUP;
 extern NSString* const  USER_LOGIN;
@@ -22,9 +23,12 @@ extern NSString* const BILL_URL;
 
 
 // Dimentions (length, height, etc..):
+
 extern int const ROW_HEIGHT_LIST_MENU;
 extern int const ROW_HEIGHT_PHOTO_MENU;
 extern int const HEIGHT_NAVIGATION_ITEM;
 
 // Others:
+extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
+
 @end

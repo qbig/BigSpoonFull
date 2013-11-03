@@ -279,7 +279,6 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
-		menuViewController.delegate = self;
         
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
