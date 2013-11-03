@@ -298,7 +298,7 @@ class Outlet(models.Model):
         help_text=_('outlet name')
     )
     discount = models.CharField(
-        _('phone'),
+        _('discount'),
         max_length=30,
         blank=True,
         help_text=_('outlet discount')
