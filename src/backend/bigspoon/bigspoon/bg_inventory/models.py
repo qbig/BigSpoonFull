@@ -297,6 +297,13 @@ class Outlet(models.Model):
         max_length=255,
         help_text=_('outlet name')
     )
+    discount = models.CharField(
+        _('phone'),
+        max_length=30,
+        blank=True,
+        help_text=_('outlet discount')
+    )
+
     phone = models.CharField(
         _('phone'),
         max_length=30,
@@ -308,13 +315,15 @@ class Outlet(models.Model):
     )
     opening = models.TextField(
         _('open hours'),
-        blank=False,
         help_text=_('outlet opening hours')
     )
     threshold = models.IntegerField(
         _('threshold'),
         default=10,
         help_text=_('service time threshold'),
+    )
+    is_active = models.BooleanField(
+        default=False,
     )
 
     def __unicode__(self):
