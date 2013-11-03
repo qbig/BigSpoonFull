@@ -68,6 +68,8 @@
         self.currentOrder = [[Order alloc]init];
         self.pastOrder = [[Order alloc]init];
     } else{
+        
+        
         [self updateItemQuantityBadge];
     }
     
@@ -286,7 +288,7 @@
     // For every dish that is currently in the order, we add it to the dishes dictionary:
     for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
         Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
-        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDish: dish]];
+        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDishByDish: dish]];
         NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
         
         NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
@@ -598,7 +600,7 @@
     // For every dish that is currently in the order, we print out something like: "3X Samon Fish"
     for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
         Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
-        [message appendFormat:@"%dX %@\n", [self.currentOrder getQuantityOfDish: dish], dish.name];
+        [message appendFormat:@"%dX %@\n", [self.currentOrder getQuantityOfDishByDish: dish], dish.name];
     }
     
      self.placeOrderAlertView = [[UIAlertView alloc]
@@ -617,7 +619,7 @@
     // For every dish that is currently in the order, we add it to the dishes dictionary:
     for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
         Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
-        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDish: dish]];
+        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDishByDish: dish]];
         NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
         
         NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
