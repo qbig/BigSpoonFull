@@ -5,8 +5,7 @@ $(document).ready(function() {
         "new": ['/staff/main/', '/staff/tables/'],
         "ack": ['/staff/main/', '/staff/history/', '/staff/tables/'],
         "askbill": ['/staff/main/', '/staff/history/', '/staff/tables/'],
-        "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/'],
-        "all": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
+        "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
     };
     var STAFF_MENU_PAGES = ['/staff/menu/'];
     socket = io.connect();

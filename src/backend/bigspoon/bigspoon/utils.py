@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils import timezone
 from datetime import datetime, timedelta, time
 
 import redis
@@ -13,7 +14,7 @@ def send_socketio_message(chan_list, message_data):
 
 
 def today_limit():
-    today = datetime.now.date()
+    today = timezone.now().date()
     tomorrow = today + timedelta(1)
     today_start = datetime.combine(today, time())
     today_end = datetime.combine(tomorrow, time())
@@ -21,4 +22,4 @@ def today_limit():
 
 
 def one_hour_ago():
-    return datetime.datetime.now() - datetime.timedelta(hours=1)
+    return timezone.now() - timedelta(hours=1)
