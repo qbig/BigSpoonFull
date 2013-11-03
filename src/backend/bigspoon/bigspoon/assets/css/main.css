@@ -559,6 +559,19 @@ background-color: #468847;
 
 form.menu-add {
     padding-bottom: 60px;
+    margin-left: 30px;
+}
+
+.menu-item .menu-add span p {
+    padding-left: 0px;
+}
+
+.menu-item .menu-add span p.end_time {
+    padding-left: 10px;
+}
+
+.menu-item .menu-add span p.photo input {
+    margin-left: 30px;
 }
 
 p.error {
