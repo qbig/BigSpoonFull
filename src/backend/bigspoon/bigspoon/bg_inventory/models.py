@@ -462,7 +462,7 @@ class Rating(models.Model):
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
-        default=0.0,
+        default='0.0',
     )
 
     def __unicode__(self):
@@ -494,7 +494,7 @@ class Review(models.Model):
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
-        default=0.0,
+        default='0.0',
     )
     feedback = models.TextField(
         _('feedback'),

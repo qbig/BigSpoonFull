@@ -137,6 +137,11 @@ class Meal(models.Model):
         blank=True,
         null=True,
     )
+    note = models.TextField(
+        _('note'),
+        blank=True,
+        help_text=_('meal specific note')
+    )
 
     @property
     def wait_time(self):
