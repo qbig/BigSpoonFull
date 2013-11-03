@@ -516,9 +516,6 @@ background-color: #468847;
     bottom: 1px;
 }
 
-.save-bar input.save {
-}
-
 .note-save {
     display:inline;
     float:none;
@@ -526,8 +523,7 @@ background-color: #468847;
 }
 
 #main input.save {
-    margin: 10px 20px;
-    float: right;
+    float: none;
     background-color: #61C0B9;
 }
 
