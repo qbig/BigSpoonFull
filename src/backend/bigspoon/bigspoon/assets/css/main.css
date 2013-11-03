@@ -285,11 +285,6 @@ nav ul li h1 a {
     border:none;
 }
 
-nav .wrapper {
-    width: 100%;
-    max-width: 100%;
-}
-
 nav ul li h1 a:hover{
     background: inherit;
     color: inherit;
