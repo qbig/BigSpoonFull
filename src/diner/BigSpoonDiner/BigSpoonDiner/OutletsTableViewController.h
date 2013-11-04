@@ -24,6 +24,7 @@
 // If the user ordered some items and comes out to the main page.
 // When the user goes to that outlet again, we should restore his/her previous selection
 @property (nonatomic) int outletIDOfPreviousSelection;
+@property (nonatomic) int tableIDOfPreviousSelection;
 @property (nonatomic, strong) Order * currentOrder;
 @property (nonatomic, strong) Order * pastOrder;
 

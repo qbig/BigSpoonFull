@@ -50,17 +50,22 @@
         
         int index = [self getIndexOfDishByDish:dish];
         int quantity = [self getQuantityOfDishByDish:dish];
-        NSNumber* quantityObject = [self getQuantityObjectOfDish:dish];
         
         // Still have more than one quantity, just decrease the number:
         if (quantity > 1) {
+            NSLog(@"Quantity minus one!");
             NSNumber *newQuantity = [NSNumber numberWithInt: quantity - 1];
             [self.quantity setObject:newQuantity atIndexedSubscript: index];
         }
         
         // Have less than one quantity, if minus, becomes 0 quantity, so just remove it:
         else{
-            [self.quantity removeObject: quantityObject];
+            NSLog(@"Removed!!");
+            NSLog(@"Before removed: dishes: %d", [self.dishes count]);
+            NSLog(@"Before removed: quantity: %d", [self.quantity count]);
+            
+            // Can't use: [self.quantity removeObjectAtIndex: quantityObject]; The object equality comparision ist not be accurate.
+            [self.quantity removeObjectAtIndex: index];
             [self removeDishWithID:dish.ID];
         }
         
@@ -181,13 +186,17 @@
 }
 
 - (void) removeDishWithID: (int) newDishID{
+    
+    Dish *dishToBeRemoved = nil;
+    
     for (Dish *dish in self.dishes) {
         if (dish.ID == newDishID) {
-            // NSLog(@"Contains: %d!", dishID);
-            [self.dishes removeObject: dish];
-            return;
+            dishToBeRemoved = dish;
+            break;
         }
     }
+    
+    [self.dishes removeObject: dishToBeRemoved];
 }
 
 @end
