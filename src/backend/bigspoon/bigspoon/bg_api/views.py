@@ -183,13 +183,14 @@ class CreateMeal(generics.CreateAPIView):
                              + out_of_stock_str},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        note = request.DATA['note']
         diner = request.user
         meal, created = Meal.objects.get_or_create(table=table, diner=diner,
                                                    is_paid=False)
         meal.modified = timezone.now()
         meal.status = Meal.ACTIVE
-        meal.note = note
+        if ('note' in request.DATA):
+            note = request.DATA['note']
+            meal.note = note
         meal.save()
 
         for dish_pair in dishes:
