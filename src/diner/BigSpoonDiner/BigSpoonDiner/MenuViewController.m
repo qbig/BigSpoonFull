@@ -11,6 +11,7 @@
 @interface MenuViewController (){
     void (^taskAfterAskingForTableID)(void);
     NSMutableDictionary *_viewControllersByIdentifier;
+    NSString *notesWhenPlacingOrder;
 }
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
@@ -499,6 +500,8 @@
     }
     
     else if ([alertView isEqual:self.placeOrderAlertView]){
+        
+        NSLog(@"Place Order Alert View Clicked");
     
         if(![title isEqualToString:@"Cancel"])
         {
@@ -561,7 +564,7 @@
     return self.currentOrder;
 }
 
-- (void) placeOrder{
+- (void) placeOrderWithNotes:(NSString *)notes{
     
     // If the user hasn't ordered anything:
     if ([self.currentOrder getTotalQuantity] == 0) {
@@ -577,6 +580,8 @@
     }
     
     NSLog(@"Placing order");
+    
+    notesWhenPlacingOrder = notes;
     
     if (self.tableID == -1 || self.tableID == 0) {
         NSLog(@"Table ID is not know. Asking the user for it");
@@ -626,11 +631,13 @@
         [dishesArray addObject:newPair];
     }
     
-    NSDictionary *parameters = @{
-                                 @"dishes": dishesArray,
-                                 @"table": [NSNumber numberWithInt: self.tableID],
-                                 };
-    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setObject:[NSArray arrayWithArray: dishesArray] forKey:@"dishes"];
+    [parameters setObject:[NSNumber numberWithInt: self.tableID] forKey:@"table"];
+    if (notesWhenPlacingOrder != nil && ![notesWhenPlacingOrder isEqualToString:@""] ) {
+        [parameters setObject:notesWhenPlacingOrder forKey:@"note"];
+    }
+
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: ORDER_URL]];
     [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
@@ -661,6 +668,7 @@
         NSLog(@"JSON: %@", responseObject);
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Place Order failure: %@", operation.responseString);
         [self displayErrorInfo: operation.responseObject];
     }];
     

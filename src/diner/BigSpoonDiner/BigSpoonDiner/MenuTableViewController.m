@@ -54,6 +54,8 @@
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    NSLog(@"Before: %d", viewAppearCount);
+    
     viewAppearCount++;
     
     // If it's not first time load, the navigation bar item will automatically be added on top of the page

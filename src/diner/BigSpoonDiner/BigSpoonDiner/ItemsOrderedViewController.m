@@ -208,7 +208,13 @@
 }
 - (IBAction)placeOrderButtonPressed:(id)sender {
     
-    [self.delegate placeOrder];
+    [self.delegate placeOrderWithNotes:self.addNotesTextField.text];
+    
+    // Erase the existing text.
+    self.addNotesTextField.text = @"";
+    
+    // Put away the keyboard
+    [self.addNotesTextField resignFirstResponder];
     
 }
 

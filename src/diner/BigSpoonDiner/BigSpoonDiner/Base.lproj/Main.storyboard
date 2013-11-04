@@ -830,6 +830,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="addNotesTextField" destination="sus-Pe-AR7" id="BE0-Ii-yap"/>
                         <outlet property="currentOrderTableView" destination="KZd-nK-mn8" id="pfC-Jj-Uhu"/>
                         <outlet property="pastOrderTableView" destination="Ggd-zB-wHu" id="XbD-HC-MMJ"/>
                         <outlet property="scrollView" destination="2an-2D-blm" id="AKb-S8-cQj"/>
@@ -1135,6 +1136,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="TRy-SG-Bfr"/>
+        <segue reference="qnZ-wN-VZu"/>
     </inferredMetricsTieBreakers>
 </document>

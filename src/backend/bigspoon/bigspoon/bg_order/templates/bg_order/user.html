@@ -13,6 +13,7 @@
             {% endif %}
             <p class='visits'><i class="icon-user"></i> {{diner.meals.count}} visits</p>
             <p class='spent'><i class="icon-dollar"></i> {{diner.get_total_spending}} spent</p>
+            <p class='spent'><i class="icon-dollar"></i> {{diner.get_average_spending}} average spent</p>
         </span>
 
         {% if diner.profile %}
