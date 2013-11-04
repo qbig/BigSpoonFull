@@ -24,7 +24,7 @@
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
-            <li>{{order.dish.pos}} {{order.dish.name}}  <em>{{order.quantity}}</em></li>
+            <li><em class='pos'>{{order.dish.pos}}</em> {{order.dish.name}}  <em class='quantity'>{{order.quantity}}</em></li>
             {% endfor %}
         </ul>
 
