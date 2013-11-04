@@ -98,8 +98,17 @@
     if (self.childViewControllers.count < 1) {
         [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
     }
-    [self.viewModeButton setHidden:NO];
-    [self.settingsButton setHidden:NO];
+    
+    // If the user is currently viewing the selected items, we should hide the "viewModeButton"
+    // Because its function is replaced by the "< Menu" button at the top-left
+    if ([self.destinationIdentifier isEqualToString:@"SegueFromMenuToItems"]) {
+        [self.viewModeButton setHidden:YES];
+        [self.settingsButton setHidden:NO];
+    } else{
+        [self.viewModeButton setHidden:NO];
+        [self.settingsButton setHidden:NO];
+    }
+
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -176,15 +185,19 @@
         [self changeViewModeButtonIconTo:@"list_icon.png"];
     }
     
+    [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(goToHomePage)];
+    
+    [self.viewModeButton setHidden:NO];
+    
     [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
 }
 
+- (void) goToHomePage{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (IBAction)settingsButtonPressed:(id)sender {
-    
-    // Need to set the rightBarButtonItems to nil. Otherwise they will slide to the left.
-    // They will be put back after viewDidAppear: function. That function will be called after the new view is poped.
-    self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: nil];
 
     [self performSegueWithIdentifier:@"SegueFromMenuListToOrderHistory" sender:self];
 }
@@ -206,7 +219,7 @@
 }
 
 - (void) performRequestWaterSelectQuantityPopUp{
-    [self animateControlPanelView:self.requestWaterView willShow:YES];
+    [self animateTransitionOfUIView:self.requestWaterView willShow:YES];
 }
 
 - (IBAction)requestWaiterButtonPressed:(id)sender {
@@ -336,7 +349,7 @@
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
     [alertView show];
-    [self animateControlPanelView:self.ratingsView willShow:YES];
+    [self animateTransitionOfUIView:self.ratingsView willShow:YES];
     
     // Set the order items to null
     self.currentOrder = [[Order alloc] init];
@@ -346,12 +359,34 @@
 
 - (IBAction)itemsButtonPressed:(id)sender {
     NSLog(@"itemsButtonPressed");
-    [self performSegueWithIdentifier:@"SegueFromMenuToItems" sender:self];
+    
+    // Can also check in the shouldPerformSegueWithIdentifier:sender
+    // But it doesn't work because it's manual segue
+    if (![self.destinationIdentifier isEqualToString:@"SegueFromMenuToItems"]) {
+        [self performSegueWithIdentifier:@"SegueFromMenuToItems" sender:self];
+    }
 }
 
 - (void) changeViewModeButtonIconTo: (NSString *)picName{
     [self.viewModeButton setImage:[UIImage imageNamed:picName] forState:UIControlStateNormal];
     [self.viewModeButton setImage:[UIImage imageNamed:picName] forState:UIControlStateHighlighted];
+}
+
+- (void) changeBackButtonTo: (NSString *)picName withAction: (SEL) sel{
+    
+    UIImage *buttonImage = [UIImage imageNamed:picName];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+
+    [button setImage:buttonImage forState:UIControlStateNormal];
+    
+    button.frame = CGRectMake(0, 0, 70, 25); // Ratio: 128 * 46
+    
+    [button addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    self.navigationItem.leftBarButtonItem = customBarItem;
+
 }
 
 #pragma mark tableViewController Delegate
@@ -372,8 +407,19 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromMenuListToOrderHistory"]) {
         
+        // Need to set the rightBarButtonItems to nil. Otherwise they will slide to the left.
+        // They will be put back after viewDidAppear: function. That function will be called after the new view is poped.
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: nil];
+        
+        NSString *backButtonTitle = @"";
+        if ([self.destinationIdentifier isEqualToString:@"SegueFromMenuToItems"]) {
+            backButtonTitle = @"Items";
+        } else if ([self.destinationIdentifier isEqualToString:@"SegueFromMenuToList"]) {
+            backButtonTitle = @"Menu";
+        }
+        
         // Change the back button title. Cannot display title of restaurant, since it's too long to appear in the back button.
-        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Menu" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: backButtonTitle style: UIBarButtonItemStyleBordered target: nil action: nil];
         [[self navigationItem] setBackBarButtonItem: newBackButton];
         
 	} else if([segue isKindOfClass:[MultiContainerViewSegue class]]){
@@ -392,6 +438,7 @@
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
+                
             } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
                 
                 self.itemsOrderedViewController = (ItemsOrderedViewController *)segue.destinationViewController;
@@ -403,17 +450,20 @@
         self.destinationViewController = [_viewControllersByIdentifier objectForKey:self.destinationIdentifier];
         
         if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
+            
             NSLog(@"Going SegueFromMenuToList");
+        
         }
         
         if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
+
             NSLog(@"Going SegueFromMenuToItems");
             
-            // Change the function of button to: Go Back.
-            [self.viewModeButton removeTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
-            [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtOrderPage:) forControlEvents:UIControlEventTouchUpInside];
+            // Make a new goBackButton
+            [self changeBackButtonTo:@"back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
             
-            [self changeViewModeButtonIconTo:@"back"];
+            // Change the function of button to: Go Back.
+            [self.viewModeButton setHidden:YES];
             
             [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
         }
@@ -421,14 +471,6 @@
     } else{
         NSLog(@"Segure in the menuViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
-}
-
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if ([self.destinationIdentifier isEqual:identifier]) {
-        //Dont perform segue, if visible ViewController is already the destination ViewController
-        return NO;
-    }
-    return YES;
 }
 
 - (void) cancelButtonPressed:(OrderHistoryViewController *)controller{
@@ -800,7 +842,7 @@
     self.quantityOfWarmWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfWarmWater];
     self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
     
-    [self animateControlPanelView:self.requestWaterView willShow:NO];
+    [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
 }
 
 #pragma mark Request for Bill
@@ -811,12 +853,12 @@
 }
 
 - (IBAction)ratingCancelButtonPressed:(id)sender {
-    [self animateControlPanelView:self.ratingsView willShow:NO];
+    [self animateTransitionOfUIView:self.ratingsView willShow:NO];
 }
 
 #pragma makr Animation
 
-- (void) animateControlPanelView: (UIView *)view willShow: (BOOL) willShow{
+- (void) animateTransitionOfUIView: (UIView *)view willShow: (BOOL) willShow{
     
     // view.alpha: how transparent it is. If 0, it still occupy its space on the screen
     // view.hidden: whether it is shown. If no, it will not occupy its space on the screen

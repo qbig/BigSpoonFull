@@ -200,6 +200,14 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"NSURLCoonection encounters error at logging in.");
+    
+    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to log in. Please check your network"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 

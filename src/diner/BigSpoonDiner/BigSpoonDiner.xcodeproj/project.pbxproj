@@ -29,6 +29,7 @@
 		49558BC3181D0BA800273090 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC0181D0BA800273090 /* SSKeychain.m */; };
 		49558BC4181D0BA800273090 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC2181D0BA800273090 /* SSKeychainQuery.m */; };
 		49558BC7181D14CD00273090 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC6181D14CD00273090 /* AuthViewController.m */; };
+		4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 4962305D18279AA700B3F07A /* home_with_arrow.png */; };
 		49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B0E180CECE200089254 /* MenuTableViewController.m */; };
 		49669B15180CED1D00089254 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B14180CED1D00089254 /* Dish.m */; };
 		49669B18180CED2D00089254 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B17180CED2D00089254 /* User.m */; };
@@ -113,6 +114,7 @@
 		49558BC2181D0BA800273090 /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
 		49558BC5181D14CD00273090 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
 		49558BC6181D14CD00273090 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		4962305D18279AA700B3F07A /* home_with_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_with_arrow.png; sourceTree = "<group>"; };
 		49669B0D180CECE200089254 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
 		49669B0E180CECE200089254 /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
 		49669B13180CED1D00089254 /* Dish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dish.h; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				49048D1A181F4DD800B480A3 /* add_icon2.png */,
 				49048D18181F4A2100B480A3 /* add_icon.png */,
 				49048D0C181F489C00B480A3 /* 1StarSmall@2x.png */,
+				4962305D18279AA700B3F07A /* home_with_arrow.png */,
 				49048D0D181F489C00B480A3 /* 2StarsSmall@2x.png */,
 				49048D0E181F489C00B480A3 /* 3StarsSmall@2x.png */,
 				49048D16181F48DC00B480A3 /* 4StarsSmall@2x.png */,
@@ -470,6 +473,7 @@
 				49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */,
 				497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */,
 				49164203180C590C00080B87 /* list_icon.png in Resources */,
+				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
 				E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */,
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,

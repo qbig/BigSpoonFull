@@ -208,6 +208,12 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to load outlets. Please check your network"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 
@@ -305,6 +311,9 @@
             NSLog(@"In outlets list: opening a new page with no selected items");
             
         }
+        
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Home" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
         
 	} else{
         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);

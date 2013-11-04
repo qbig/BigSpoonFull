@@ -215,6 +215,14 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"NSURLCoonection encounters error at creating users.");
+    
+    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to sign up. Please check your network."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 #pragma mark Show and hide indicators
