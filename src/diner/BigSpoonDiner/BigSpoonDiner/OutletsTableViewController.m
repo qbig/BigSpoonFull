@@ -288,8 +288,17 @@
         if (outlet.outletID == self.outletIDOfPreviousSelection) {
             
             NSLog(@"In outlets list: going back to a previous page with selected items");
+            
+            // Assign the history to the outlet:
             menuViewController.currentOrder = self.currentOrder;
             menuViewController.pastOrder = self.pastOrder;
+            menuViewController.tableID = self.tableIDOfPreviousSelection;
+            
+            // Erase self data. If the user exits from the outlet, these info will be set by delegate.
+            self.currentOrder = nil;
+            self.pastOrder = nil;
+            self.tableIDOfPreviousSelection = -1;
+            self.outletIDOfPreviousSelection = -1;
             
         } else{
             
@@ -304,10 +313,14 @@
 
 #pragma mark - Delegate
 
-- (void) exitMenuListWithCurrentOrder: (Order *) currentOrder PastOrder: (Order *) pastOrder andOutletID: (int) outletID{
+- (void) exitMenuListWithCurrentOrder: (Order *) currentOrder
+                            PastOrder: (Order *) pastOrder
+                             OutletID: (int) outletID
+                           andTableID: (int) tableID {
     self.currentOrder = currentOrder;
     self.pastOrder = pastOrder;
     self.outletIDOfPreviousSelection = outletID;
+    self.tableIDOfPreviousSelection = tableID;
 }
 
 @end

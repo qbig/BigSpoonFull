@@ -51,11 +51,6 @@
     return self;
 }
 
-- (void)loadView{
-    [super loadView];
-    NSLog(@"load view");
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -132,10 +127,13 @@
                                                  otherButtonTitles:@"Okay", nil];
             
             [alertView show];
-            
+        }
+        
+        if ([self isTableIDKnown]) {
             [self.delegate exitMenuListWithCurrentOrder:self.currentOrder
                                               PastOrder:self.pastOrder
-                                            andOutletID:self.outlet.outletID];
+                                               OutletID:self.outlet.outletID
+                                             andTableID:self.tableID];
         }
     }
     
@@ -194,8 +192,7 @@
 - (IBAction)requestWaterButtonPressed:(id)sender {
     NSLog(@"requestWaterButtonPressed");
 
-    if (self.tableID == -1 || self.tableID == 0) {
-        NSLog(@"Table ID is not know. Asking the user for it");
+    if (![self isTableIDKnown]) {
         [self askForTableID];
         
         __weak MenuViewController *weakSelf = self;
@@ -204,7 +201,6 @@
             [weakSelf performRequestWaterSelectQuantityPopUp];
         };
     } else{
-        NSLog(@"Table ID is known: %d", self.tableID);
         [self performRequestWaterSelectQuantityPopUp];
     }
 }
@@ -216,8 +212,7 @@
 - (IBAction)requestWaiterButtonPressed:(id)sender {
     NSLog(@"callWaiterButtonPressed");
     
-    if (self.tableID == -1 || self.tableID == 0) {
-        NSLog(@"Table ID is not know. Asking the user for it");
+    if (![self isTableIDKnown]) {
         [self askForTableID];
         
         __weak MenuViewController *weakSelf = self;
@@ -226,7 +221,6 @@
             [weakSelf performRequestWaiterConfirmationPopUp];
         };
     } else{
-        NSLog(@"Table ID is known: %d", self.tableID);
         [self performRequestWaiterConfirmationPopUp];
     }
 }
@@ -257,8 +251,7 @@
         return;
     }
     
-    if (self.tableID == -1 || self.tableID == 0) {
-        NSLog(@"Table ID is not know. Asking the user for it");
+    if (![self isTableIDKnown]) {
         [self askForTableID];
         
         __weak MenuViewController *weakSelf = self;
@@ -267,7 +260,6 @@
             [weakSelf performRequestBillConfirmationPopUp];
         };
     } else{
-        NSLog(@"Table ID is known: %d", self.tableID);
         [self performRequestBillConfirmationPopUp];
     }
 }
@@ -349,6 +341,7 @@
     // Set the order items to null
     self.currentOrder = [[Order alloc] init];
     self.pastOrder = [[Order alloc] init];
+    self.tableID = -1;
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
@@ -583,8 +576,7 @@
     
     notesWhenPlacingOrder = notes;
     
-    if (self.tableID == -1 || self.tableID == 0) {
-        NSLog(@"Table ID is not know. Asking the user for it");
+    if (![self isTableIDKnown]) {
         [self askForTableID];
         
         __weak MenuViewController *weakSelf = self;
@@ -593,7 +585,6 @@
             [weakSelf performPlaceOrderConfirmationPopUp];
         };
     } else{
-        NSLog(@"Table ID is known: %d", self.tableID);
         [self performPlaceOrderConfirmationPopUp];
     }
 }
@@ -855,7 +846,13 @@
                      }];
 }
 
-#pragma mark Ask For Table Number
+#pragma mark - Dealing with table number
+
+- (BOOL) isTableIDKnown{
+    NSLog(@"Current table ID: %d", self.tableID);
+    // If tableID is 0 or -1, we conclude that the tableID is not known from the user.
+    return self.tableID > 1;
+}
 
 - (void) askForTableID{
     [self askForTableIDWithTitle: @"Please enter your table ID"];
