@@ -152,19 +152,20 @@ class UserView(TemplateView):
             Outlet.objects.all()
         )
         try:
-            diner = User.objects\
-                .prefetch_related('meals', 'meals__orders',
-                                  'profile', 'notes')\
-                .get(pk=self.kwargs['pk'])
+            diner = User.objects.prefetch_related(
+                'meals', 'meals__orders',
+                'profile', 'notes').get(pk=self.kwargs['pk'])
         except User.DoesNotExist:
             raise Http404
 
         context['diner'] = diner
-        context['reviews'] = Review.objects.filter(user=diner,
-                                                   outlet__in=outlets
-                                                   ).all()
-        context['notes'] = Note.objects.filter(user=diner,
-                                               outlet__in=outlets).all()
+        context['reviews'] = Review.objects.filter(
+            user=diner,
+            outlet__in=outlets
+        ).all()
+        context['notes'] = Note.objects.filter(
+            user=diner,
+            outlet__in=outlets).all()
         return context
 
 
