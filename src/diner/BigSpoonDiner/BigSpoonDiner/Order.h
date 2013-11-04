@@ -14,6 +14,11 @@
 @property (nonatomic, strong) NSMutableArray *dishes;
 @property (nonatomic, strong) NSMutableArray *quantity;
 
+// Note: Object equlity is not assumed, for example:
+// You shall NEVER use:
+// - [self.dishes containsObject: newDish]
+// - [self.dishes indexOf: newDish]
+
 - (void) addDish: (Dish *) dish;
 - (void) minusDish: (Dish *) dish;
 

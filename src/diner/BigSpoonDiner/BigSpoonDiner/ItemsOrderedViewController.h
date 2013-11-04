@@ -20,7 +20,7 @@
 
 - (Order *) addDishWithID: (int) dishID;
 - (Order *) minusDishWithID: (int) dishID;
-- (void) placeOrder;
+- (void) placeOrderWithNotes: (NSString*)notes;
 - (Order *) getCurrentOrder;
 - (Order *) getPastOrder;
 
@@ -44,5 +44,6 @@
 
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
 - (IBAction)textFinishEditing:(id)sender;
+@property (strong, nonatomic) IBOutlet UITextField *addNotesTextField;
 
 @end

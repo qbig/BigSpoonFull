@@ -28,10 +28,13 @@
 
 - (void) addDish: (Dish *) dish{
     // If added before, just update its index:
-    if ([self.dishes containsObject:dish]) {
+    if ([self containsDishWithDishID:dish.ID]) {
         
         int index = [self getIndexOfDishByDish:dish];
+        NSLog(@"index: %d", index);
         int quantity = [self getQuantityOfDishByDish:dish];
+        
+        NSLog(@"Adding dish with ID: %d, with old quantity: %d", dish.ID, quantity);
         
         NSNumber *newQuantity = [NSNumber numberWithInt: quantity + 1];
         [self.quantity setObject:newQuantity atIndexedSubscript: index];
@@ -46,7 +49,7 @@
 }
 
 - (void) minusDish:(Dish *)dish{
-    if ([self.dishes containsObject:dish]) {
+    if ([self containsDishWithDishID:dish.ID]) {
         
         int index = [self getIndexOfDishByDish:dish];
         int quantity = [self getQuantityOfDishByDish:dish];
@@ -68,8 +71,9 @@
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
-    if ([self.dishes containsObject:dish]) {
+    if ([self containsDishWithDishID:dish.ID]) {
         NSNumber *quantity = [self getQuantityObjectOfDish:dish];
+        NSLog(@"Getting quantity of dish ID: %d, quantity: %d", dish.ID, quantity.integerValue);
         return quantity.integerValue;
     } else{
         return 0;
@@ -125,7 +129,7 @@
         
         int newQuantity = [newOrder getQuantityOfDishByDish:newDish];
         
-        if ([self.dishes containsObject:newDish]) {
+        if ([self containsDishWithDishID: newDish.ID]) {
             
             int selfQuantity = [self getQuantityOfDishByDish:newDish];
             int index = [self getIndexOfDishByDish:newDish];
@@ -149,22 +153,34 @@
 
 #pragma mark Private Functions
 
-- (NSNumber *) getQuantityObjectOfDish: (Dish *) dish{
-    int index = [self getIndexOfDishByDish:dish];
+- (NSNumber *) getQuantityObjectOfDish: (Dish *) newDish{
+    int index = [self getIndexOfDishByDish:newDish];
     return (NSNumber *)[self.quantity objectAtIndex: index];
 }
 
-- (int) getIndexOfDishByDish: (Dish *) dish{
-    return [self.dishes indexOfObject:dish];
+- (int) getIndexOfDishByDish: (Dish *) newDish{
+    for (int i = 0; i < [self.dishes count]; i++) {
+        Dish * myDish = [self.dishes objectAtIndex:i];
+        if (myDish.ID == newDish.ID) {
+            return i;
+        }
+    }
+    return -1;
 }
 
-- (Dish *) getDishByID: (int) dishID{
+- (Dish *) getDishByID: (int) newDishID{
     for (Dish *dish in self.dishes) {
-        if (dish.ID == dishID) {
+        if (dish.ID == newDishID) {
+           // NSLog(@"Contains: %d!", dishID);
             return dish;
         }
     }
+    //NSLog(@"No Contain: %d!", dishID);
     return nil;
+}
+
+- (BOOL) containsDishWithDishID: (int) newDishID{
+    return [self getDishByID:newDishID] != nil;
 }
 
 @end
