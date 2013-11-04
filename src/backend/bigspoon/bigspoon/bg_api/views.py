@@ -190,7 +190,7 @@ class CreateMeal(generics.CreateAPIView):
         meal.status = Meal.ACTIVE
         if ('note' in request.DATA):
             note = request.DATA['note']
-            meal.note = note
+            meal.note += "\r\n" + note
         meal.save()
 
         for dish_pair in dishes:
