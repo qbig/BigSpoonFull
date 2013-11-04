@@ -126,6 +126,7 @@
             message = @"You have unorderd and unpaid items. You can come back later";
         }
         
+        // If the user has selected/ordered anything:
         if (![message isEqualToString:@""]) {
             
             UIAlertView *alertView = [[UIAlertView alloc]
@@ -136,13 +137,12 @@
                                                  otherButtonTitles:@"Okay", nil];
             
             [alertView show];
-        }
-        
-        if ([self isTableIDKnown]) {
+            
             [self.delegate exitMenuListWithCurrentOrder:self.currentOrder
                                               PastOrder:self.pastOrder
                                                OutletID:self.outlet.outletID
                                              andTableID:self.tableID];
+
         }
     }
     

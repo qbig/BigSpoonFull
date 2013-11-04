@@ -46,7 +46,7 @@
     // If it's not first time load, the navigation bar item will automatically be added on top of the page
     // We don't want that.
     // So in the second appearence, bring up the tableview. It will stay this way ever after.
-    if (viewAppearCount == 2){
+    if (viewAppearCount == -2){
         CGRect frame = self.scrollView.frame;
         self.scrollView.frame = CGRectMake(frame.origin.x, frame.origin.y - HEIGHT_NAVIGATION_ITEM, frame.size.width, frame.size.height);
         [self.view bringSubviewToFront:self.scrollView];
