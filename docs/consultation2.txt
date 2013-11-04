@@ -1,0 +1,98 @@
+Exhibition Message:
+- solves real life problem
+- useful - useful to who -> diners, restaurant owners
+
+show useful to diners
+-> hard to get waiters attention. useful = can order immediately.
+
+how to show the usefulness:
+- show the app?
+- BUT how we know the diners really benefitted from it?
+- interview
+ - what was good about the app
+ - what was bad about the app
+ - how did it help you?
+ - gets quotes
+ - testimonial
+test group of friends. go down to Lola's Cafe
+film.
+
+useful to restaurant owners
+-> useful = less manpower. -> more efficiency, less walking around
+-> useful2 = useful analytics
+
+in an average restaurant it takes X minutes to get a waiter
+with our app, you cut the time down to Y minutes
+The time taken for you to get your food goes down from X minutes to Y minutes
+
+
+it may be boring to you, but if the restaurant owner feels it is useful, what can you say.
+
+
+=========================
+Already entered into POS.
+
+ADD MENU WAS CONFUSING
+Clear image was confusing. Clear immediately. with an X. Ask confirm delete?
+Restaurant owner: cannot add new category. Maybe put Add Category next to add item button.
+Message for menu update success positioning is wrong.
+
+Confirm if restaurants are using POS. The "POS" name given by Jay may not be the correct one.
+
+Staff owner can add categories in a separate page that normal staff has no access to.
+After adding the item, I wasn't sure if the item was added.
+Prompt the item has been created. Also 
+
+Header
+Left sidebar
+Main Content
+
+=========================
+Report page needs some message for when there is no data
+Have left sidebar explain what the page is for.
+If there's no data yet, can have the tooltip in left side bar to explain.
+
+Dropdown that tells me what date to what date the month is for. For the month.
+Want to see if the sales went up or down.
+The chart should be above the table.
+Click on chart, the table will change.
+If Wednesday had a spike, I'll click on it, the table data will change to give more details to pique the curiosity.
+
+Most ordered dishes. How many chicken tandoori was sold. What was the trend.
+Most popular dishes for the month.
+=========================
+Render POS id in table view
+Style POS id properly
+
+=========================
+Dont know the difference between History and Table.
+From a user point of view, it looks like the same thing.
+History can also somewhat be viewed from the report.
+Can remove history.
+
+=========================
+Set up the CSV file before meeting the restaurant owner.
+
+You can simulate it with a waiter or waitress, to pretend to be a customer.
+
+We appreciate if you can just say out what you are thinking of doing next.
+Even if it's just clicking on the button.
+Eg The goal is to do X Y Z.
+Eg I want to do Z but I can't do it.
+Eg I want to do Y but after X, I can't find Y.
+
+Write down what they clicked first, and clicked next.
+Write down each time they feel lost.
+
+Dont tell them "Hey you have an order."
+See if they noticed that they have an order.
+If they don't see it, dont tell them straight. Hint a bit "Do you see any notification?"
+
+Main screen new order notification may need sound or screen flash. If they dont notice it.
+
+
+
+
+
+
+
