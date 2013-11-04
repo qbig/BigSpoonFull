@@ -119,7 +119,7 @@ class MenuAddView(CreateView):
 
     def post(self, request, *args, **kwargs):
         result = super(MenuAddView, self).post(request, *args, **kwargs)
-        messages.success(self.request, 'Dish added.')
+        messages.success(self.request, 'Dish added')
         send_socketio_message(
             request.user.outlet_ids,
             ['refresh', 'menu', 'add'])

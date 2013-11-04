@@ -41,7 +41,7 @@ class DishCreateForm(forms.ModelForm):
     class Meta:
         model = Dish
         fields = ['outlet', 'name', 'pos', 'start_time', 'end_time', 'desc',
-                  'price', 'photo', 'categories']
+                  'price', 'photo', 'quantity','categories']
         widgets = {
             'start_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
             'end_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),

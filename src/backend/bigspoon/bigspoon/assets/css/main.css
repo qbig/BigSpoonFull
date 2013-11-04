@@ -593,7 +593,7 @@ form.menu-add {
 }
 
 .menu-item .menu-add span p.price {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .menu-item .menu-add span p.price #id_price{
@@ -610,7 +610,7 @@ form.menu-add {
 }
 
 .menu-item .menu-add span p.photo input {
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 p.error {
@@ -648,8 +648,8 @@ p.success {
 }
 
 .menu-item p.name input{
-    margin: 0px 20px 0px 35px;
-    width: 275px;
+    margin: 0px 20px 0px 15px;
+    width: 295px;
 }
 
 .menu-item p.description textarea{
@@ -820,7 +820,7 @@ p.success {
 }
 
 .menu-add .pos input{
-    margin-left: 48px;
+    margin-left: 4px;
 }
 
 .menu-add .price {
@@ -832,7 +832,7 @@ p.success {
     margin-left: 20px;
 }
 
-.menu-add .price #id_price {
+.menu-add .price #id_price, .menu-add .quantity {
     margin-left: 20px;
 }
 
