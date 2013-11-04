@@ -96,8 +96,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         Returns average of all orders of all meals of this user.
         """
-        total_spending = self.get_total_spending()
         num_meals = self.meals.count()
+        if num_meals == 0:
+            return 0
+        total_spending = self.get_total_spending()
         return total_spending/num_meals
 
     def get_short_name(self):

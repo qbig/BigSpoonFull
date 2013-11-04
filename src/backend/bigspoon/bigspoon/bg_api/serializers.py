@@ -44,6 +44,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return {
             'visits': obj.user.meals.count(),
             'total': obj.user.get_total_spending(),
+            'average': obj.user.get_average_spending(),
             'avatar_url': obj.user.avatar_url,
         }
 

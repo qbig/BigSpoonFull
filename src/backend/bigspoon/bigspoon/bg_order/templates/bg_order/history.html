@@ -12,7 +12,10 @@
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
-        <p class="note">{{meal.note}}</p>
+        {% if meal.note %}
+            <p class="note">{{meal.note}}</p>
+        {% endif %}
+
         {% if meal.is_paid %}
             <p class="paid">Paid</p>
         {% else %}
