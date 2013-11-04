@@ -81,6 +81,10 @@ Eg The goal is to do X Y Z.
 Eg I want to do Z but I can't do it.
 Eg I want to do Y but after X, I can't find Y.
 
+DO NOT LEAD THE USER. They will then try to not look stupid and try to look harder.
+Hints can be given as: "Maybe you want to try order some food with your friends."
+Don't tell them where the order button is.
+
 Write down what they clicked first, and clicked next.
 Write down each time they feel lost.
 
