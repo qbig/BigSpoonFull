@@ -336,7 +336,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 .item h3 {
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-left: 20px;
+    padding-left: 10px;
     color: rgb(85,85,85);
 }
 
@@ -354,7 +354,7 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item p.paid {
-    background-color: #0C4;
+    background-color: #C4C4C4;
 }
 
 .item p.unpaid {
@@ -366,7 +366,8 @@ p.note {
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
     background: #fcf6ef;
-    padding: 5px 20px;
+    padding: 5px 10px;
+    margin-top:0px;
     color: #333;
     min-height:50px;
     word-wrap: break-word;
@@ -385,7 +386,7 @@ p.note {
 .item h4 {
     display: inline-block;
     margin:0px;
-    padding-left: 20px;
+    padding-left: 10px;
     color: rgba(85,85,85,0.8);
     font-size: 14px;
 }
@@ -396,15 +397,25 @@ p.note {
 }
 
 .order li {
-    padding: 5px 20px;
+    padding: 5px 10px;
     color: #333;
     list-style-type: none;
     word-wrap: break-word;
 }
 
-.order li em {
+.order li em.quantity {
     float:right;
+    padding-right:10px;
     color: #888;
+}
+
+.order li em.pos{
+    float:none;
+    color: #fff;
+    font-size:12px;
+    background-color:#0C4;
+    border-radius:5px;
+    padding:2px 5px;
 }
 
 .order li:nth-child(even){
@@ -502,6 +513,11 @@ background-color: #468847;
     font-size: 14px;
 }
 
+span.notifications {
+    float: right;
+    padding-top: 28px;
+}
+
 .save-bar {
     padding-top:40px;
     display: block;
@@ -577,7 +593,7 @@ form.menu-add {
 }
 
 .menu-item .menu-add span p.price {
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .menu-item .menu-add span p.price #id_price{
@@ -594,7 +610,7 @@ form.menu-add {
 }
 
 .menu-item .menu-add span p.photo input {
-    margin-left: 30px;
+    margin-left: 20px;
 }
 
 p.error {
@@ -632,8 +648,8 @@ p.success {
 }
 
 .menu-item p.name input{
-    margin: 0px 20px 0px 35px;
-    width: 275px;
+    margin: 0px 20px 0px 15px;
+    width: 295px;
 }
 
 .menu-item p.description textarea{
@@ -804,7 +820,7 @@ p.success {
 }
 
 .menu-add .pos input{
-    margin-left: 48px;
+    margin-left: 4px;
 }
 
 .menu-add .price {
@@ -816,7 +832,7 @@ p.success {
     margin-left: 20px;
 }
 
-.menu-add .price #id_price {
+.menu-add .price #id_price, .menu-add .quantity {
     margin-left: 20px;
 }
 
@@ -898,7 +914,9 @@ table tbody tr td,
 .force-clear{margin:0;}
 .sectionHeader {
     display:block;
+    width: 740px;
     margin: 10px;
+    margin-bottom:0px;
     padding: 10px 20px 10px 20px; /*trbl*/
     /*padding: 5px 10px 5px 10px;*/ /*trbl*/
     border-top-left-radius: 5px;
@@ -907,6 +925,15 @@ table tbody tr td,
     border-bottom-left-radius: 0px;
     background-color: #660033;
     color: #fff;
+}
+
+.tableWrapper {
+    margin:10px;
+    margin-top:0px;
+    width: 740px;
+    background:#fff;
+    padding:20px;
+    padding-bottom: 40px;
 }
 
 .datatable {
