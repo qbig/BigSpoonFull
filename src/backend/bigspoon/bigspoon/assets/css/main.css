@@ -513,6 +513,11 @@ background-color: #468847;
     font-size: 14px;
 }
 
+span.notifications {
+    float: right;
+    padding-top: 28px;
+}
+
 .save-bar {
     padding-top:40px;
     display: block;

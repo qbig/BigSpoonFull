@@ -6,7 +6,21 @@
 {% block content %}
 
 <div class="wrapper-bg">
+
     <a class="add" href="/staff/menu/add/"><i class="icon-plus"></i> Add menu item</a>
+
+    <span class="notifications">
+    {% if formset.errors %}
+        <p class="error">{{ formset.errors }}</p>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <p class="success"> {{ message }} </p>
+        {% endfor %}
+    {% endif %}
+    </span>
+
     <h1>Menu</h1>
 
   <form action="/staff/menu/" method="post">{% csrf_token %}
@@ -39,16 +53,6 @@
         </span>
 
     </span>
-
-    {% if formset.errors %}
-        <p class="error">{{ formset.errors }}</p>
-    {% endif %}
-
-    {% if messages %}
-        {% for message in messages %}
-        <p class="success"> {{ message }} </p>
-        {% endfor %}
-    {% endif %}
 
   </form>
 
