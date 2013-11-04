@@ -12,15 +12,16 @@
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
 
-        {% if meal.note %}
-            <p class="note">{{meal.note}}</p>
-        {% endif %}
-
         {% if meal.is_paid %}
             <p class="paid">Paid</p>
         {% else %}
             <p class="unpaid">Unpaid</p>
         {% endif %}
+
+        {% if meal.note %}
+            <p class="note">{{meal.note}}</p>
+        {% endif %}
+
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
