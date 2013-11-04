@@ -893,7 +893,7 @@
 - (BOOL) isTableIDKnown{
     NSLog(@"Current table ID: %d", self.tableID);
     // If tableID is 0 or -1, we conclude that the tableID is not known from the user.
-    return self.tableID > 1;
+    return self.tableID > 0;
 }
 
 - (void) askForTableID{
