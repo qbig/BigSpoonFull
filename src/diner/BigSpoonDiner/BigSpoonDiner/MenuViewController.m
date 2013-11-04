@@ -379,7 +379,7 @@
 
     [button setImage:buttonImage forState:UIControlStateNormal];
     
-    button.frame = CGRectMake(0, 0, 70, 25); // Ratio: 128 * 46
+    button.frame = CGRectMake(0, 0, 23 * SCALE_OF_BUTTON, 23); // Ratio: 128 * 46
     
     [button addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
     

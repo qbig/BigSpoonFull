@@ -27,7 +27,7 @@ NSString* const BILL_URL = @"http://122.248.199.242/api/v1/askbill";
 int const ROW_HEIGHT_LIST_MENU = 59;
 int const ROW_HEIGHT_PHOTO_MENU = 196;
 int const HEIGHT_NAVIGATION_ITEM = 63;
-int const SCALE_OF_BUTTON = 0.56;
+double const SCALE_OF_BUTTON = 2.85;
 
 // Others:
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
