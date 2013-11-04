@@ -188,6 +188,9 @@ class CreateMeal(generics.CreateAPIView):
                                                    is_paid=False)
         meal.modified = timezone.now()
         meal.status = Meal.ACTIVE
+        if ('note' in request.DATA):
+            note = request.DATA['note']
+            meal.note += "\r\n" + note
         meal.save()
 
         for dish_pair in dishes:

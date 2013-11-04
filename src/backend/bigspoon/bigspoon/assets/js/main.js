@@ -120,19 +120,13 @@ $(document).ready(function() {
         setInterval(function () {
 
             var seconds_left = (new Date() - new Date(Number(start_time))) / 1000;
-            // do some time calculations
-            days = parseInt(seconds_left / 86400);
-            seconds_left = seconds_left % 86400;
 
-            hours = parseInt(seconds_left / 3600);
-            seconds_left = seconds_left % 3600;
-
+            console.log(seconds_left);
             minutes = parseInt(seconds_left / 60);
             seconds = parseInt(seconds_left % 60);
 
             // format countdown string + set tag value
-            card.html('<i class="icon-time"></i> waited ' + days + "d, " + hours + "h, "
-            + minutes + "m, " + seconds + "s");
+            card.html('<i class="icon-time"></i> waited ' + minutes + " m, " + seconds + " s");
 
         }, 1000);
     });

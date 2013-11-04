@@ -31,11 +31,8 @@
     if ([self containsDishWithDishID:dish.ID]) {
         
         int index = [self getIndexOfDishByDish:dish];
-        NSLog(@"index: %d", index);
         int quantity = [self getQuantityOfDishByDish:dish];
-        
-        NSLog(@"Adding dish with ID: %d, with old quantity: %d", dish.ID, quantity);
-        
+                
         NSNumber *newQuantity = [NSNumber numberWithInt: quantity + 1];
         [self.quantity setObject:newQuantity atIndexedSubscript: index];
         
@@ -64,7 +61,7 @@
         // Have less than one quantity, if minus, becomes 0 quantity, so just remove it:
         else{
             [self.quantity removeObject: quantityObject];
-            [self.dishes removeObject:dish];
+            [self removeDishWithID:dish.ID];
         }
         
     }
@@ -73,7 +70,7 @@
 - (int) getQuantityOfDishByDish: (Dish *) dish{
     if ([self containsDishWithDishID:dish.ID]) {
         NSNumber *quantity = [self getQuantityObjectOfDish:dish];
-        NSLog(@"Getting quantity of dish ID: %d, quantity: %d", dish.ID, quantity.integerValue);
+        // NSLog(@"Getting quantity of dish ID: %d, quantity: %d", dish.ID, quantity.integerValue);
         return quantity.integerValue;
     } else{
         return 0;
@@ -137,7 +134,7 @@
             NSNumber *numObject = [NSNumber numberWithInt: newQuantity + selfQuantity];
             [self.quantity setObject: numObject atIndexedSubscript:index];
             
-            NSLog(@"Meging dish... Existing Dish: %d, has new quantity: %d", newDish.ID, newQuantity + selfQuantity);
+            // NSLog(@"Meging dish... Existing Dish: %d, has new quantity: %d", newDish.ID, newQuantity + selfQuantity);
             
         } else{
             
@@ -145,7 +142,7 @@
             NSNumber *newQuantityObject = [NSNumber numberWithInt:newQuantity];
             [self.quantity addObject:newQuantityObject];
             
-            NSLog(@"Meging dish... New Dish: %d, has new quantity: %d", newDish.ID, [newQuantityObject integerValue]);
+            // NSLog(@"Meging dish... New Dish: %d, has new quantity: %d", newDish.ID, [newQuantityObject integerValue]);
             
         }
     }
@@ -181,6 +178,16 @@
 
 - (BOOL) containsDishWithDishID: (int) newDishID{
     return [self getDishByID:newDishID] != nil;
+}
+
+- (void) removeDishWithID: (int) newDishID{
+    for (Dish *dish in self.dishes) {
+        if (dish.ID == newDishID) {
+            // NSLog(@"Contains: %d!", dishID);
+            [self.dishes removeObject: dish];
+            return;
+        }
+    }
 }
 
 @end

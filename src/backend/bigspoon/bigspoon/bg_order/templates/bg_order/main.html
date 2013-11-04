@@ -11,7 +11,7 @@
         {% else %}
         <span class="early time countdown" start={{meal.count_down_start}}>
         {% endif %}
-            <i class="icon-time"></i>
+            <i class="icon-time"></i> waited {{meal.wait_time.0}} m, {{meal.wait_time.1}} s
         </span>
         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
@@ -40,7 +40,7 @@
         {% else %}
         <span class="early time countdown" start={{request.count_down_start}}>
         {% endif %}
-            <i class="icon-time"></i>
+            <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
         </span>
         <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>

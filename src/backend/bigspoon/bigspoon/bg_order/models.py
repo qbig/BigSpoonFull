@@ -150,7 +150,10 @@ class Meal(models.Model):
 
     @property
     def used_time(self):
-        diff = self.bill_time - self.created
+        if (self.bill_time):
+            diff = self.bill_time - self.created
+        else:
+            diff = self.modified - self.created
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
 
