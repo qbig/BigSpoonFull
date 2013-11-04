@@ -71,7 +71,7 @@ class HistoryView(TemplateView):
 class MenuView(ModelFormSetView):
     template_name = "bg_inventory/menu.html"
     model = Dish
-    fields = ['name', 'desc', 'price', 'pos', 'quantity', 'photo',
+    fields = ['name', 'desc', 'price', 'pos', 'quantity',
               'start_time', 'end_time', 'categories']
     extra = 0
 
@@ -89,7 +89,7 @@ class MenuView(ModelFormSetView):
             .filter(outlet__in=outlets)
 
     def formset_valid(self, formset):
-        messages.success(self.request, 'Dish details updated.')
+        messages.success(self.request, 'Dish details updated')
         return super(MenuView, self).formset_valid(formset)
 
     def post(self, request, *args, **kwargs):
