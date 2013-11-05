@@ -11,6 +11,8 @@
 
 @protocol ExitMenuListDelegate <NSObject>
 
-- (void) exitMenuListWithCurrentOrder: (Order *) currentOrder PastOrder: (Order *) pastOrder andOutletID: (int) outletID;
-
+- (void) exitMenuListWithCurrentOrder: (Order *) currentOrder
+                            PastOrder: (Order *) pastOrder
+                             OutletID: (int) outletID
+                           andTableID: (int) tableID;
 @end

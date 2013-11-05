@@ -61,11 +61,14 @@
     // If it's not first time load, the navigation bar item will automatically be added on top of the page
     // We don't want that.
     // So in the second appearence, bring up the tableview. It will stay this way ever after.
-    if (viewAppearCount == 2){
+    if (viewAppearCount == -2){
         CGRect frame = self.tableView.frame;
         self.tableView.frame = CGRectMake(frame.origin.x, frame.origin.y - HEIGHT_NAVIGATION_ITEM, frame.size.width, frame.size.height);
         [self.view bringSubviewToFront:self.tableView];
     }
+    
+    CGRect navframe = [[self.navigationController navigationBar] frame];
+    NSLog(@"Navframe Height=%f",navframe.size.height);
 }
 
 - (void)didReceiveMemoryWarning
@@ -276,10 +279,15 @@
                 int price = [[newDish objectForKey:@"price"] intValue];
                 int quantity = [[newDish objectForKey:@"quantity"] intValue];
                 
+                int rating = [[newDish objectForKey:@"average_rating"] intValue];
+                if (rating == -1) {
+                    rating = 0;
+                }
+                
                 Dish *newDishObject = [[Dish alloc]initWithName:name
                                                     Description:desc
                                                           Price:price
-                                                        Ratings:5
+                                                        Ratings:rating
                                                              ID:ID
                                                     categories:categories
                                                          imgURL:imgURL
@@ -334,6 +342,14 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"NSURLCoonection encounters error at getting dishes.");
+    
+    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to load menu. Please check your network"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 /*
