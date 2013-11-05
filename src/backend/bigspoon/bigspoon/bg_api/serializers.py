@@ -61,7 +61,10 @@ class RestaurantSerializer(serializers.ModelSerializer):
                 'original': obj.icon.url,
                 'thumbnail': obj.icon.url_200x200,
             }
-        return "no icon"
+        return {
+            'original': "media/restaurant/icons/default.jpg",
+            'thumbnail': "media/restaurant/icons/default.jpg",
+        }
 
     class Meta:
         model = Restaurant
@@ -82,7 +85,10 @@ class DishSerializer(serializers.ModelSerializer):
                 'original': obj.photo.url,
                 'thumbnail': obj.photo.url_640x400,
             }
-        return "no photo"
+        return {
+            'original': "media/restaurant/dishes/default.jpg",
+            'thumbnail': "media/restaurant/dishes/default.jpg",
+        }
 
     class Meta:
         model = Dish
@@ -109,7 +115,8 @@ class OutletDetailSerializer(serializers.ModelSerializer):
         now = timezone.now().time()
         current = obj.dishes.filter(
             start_time__lte=now,
-            end_time__gte=now)
+            end_time__gte=now
+        )
         return DishSerializer(current).data
 
     class Meta:
