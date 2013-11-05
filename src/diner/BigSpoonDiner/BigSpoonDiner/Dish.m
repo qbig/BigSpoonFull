@@ -26,7 +26,7 @@
 
 - (id) initWithName: (NSString *) n
         Description: (NSString *) d
-              Price: (int) p
+              Price: (double) p
             Ratings: (int) r
                  ID: (int) I
          categories: (NSArray *) c

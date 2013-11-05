@@ -107,7 +107,7 @@
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
     
-        cell.priceLabel.text = [NSString stringWithFormat:@"%d", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", dish.price];
     
         cell.descriptionLabel.text = dish.description;
         
@@ -139,7 +139,7 @@
         
         cell.nameLabel.text = dish.name;
         
-        cell.priceLabel.text = [NSString stringWithFormat:@"%d", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", dish.price];
         
         cell.descriptionLabel.text = dish.description;
         
@@ -276,7 +276,7 @@
                 NSString* startTime = [newDish objectForKey:@"start_time"];
                 NSString* endTime = [newDish objectForKey:@"end_time"];
                 
-                int price = [[newDish objectForKey:@"price"] intValue];
+                double price = [[newDish objectForKey:@"price"] floatValue];
                 int quantity = [[newDish objectForKey:@"quantity"] intValue];
                 
                 int rating = [[newDish objectForKey:@"average_rating"] intValue];

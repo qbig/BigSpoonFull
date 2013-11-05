@@ -27,7 +27,7 @@
 - (int) getQuantityOfDishByID: (int) dishID;
 
 - (int) getTotalQuantity;
-- (int) getTotalPrice;
+- (double) getTotalPrice;
 
 - (void) mergeWithAnotherOrder: (Order *)newOrder;
 

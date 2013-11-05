@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *description;
-@property (nonatomic) int price;
+@property (nonatomic) double price;
 @property (nonatomic) int ratings;
 
 @property (nonatomic) int ID;
@@ -26,7 +26,7 @@
 
 - (id) initWithName: (NSString *) name
         Description: (NSString *) description
-              Price: (int) price
+              Price: (double) price
             Ratings: (int) ratings
                  ID: (int) ID
          categories: (NSArray *) categories

@@ -46,4 +46,17 @@
 - (IBAction)textFinishEditing:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *addNotesTextField;
 
+// Price tags:
+
+@property (strong, nonatomic) IBOutlet UILabel *currentSubtotalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *currentServiceChargeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *currentGSTLabel;
+@property (strong, nonatomic) IBOutlet UILabel *currentTotalLabel;
+
+@property (strong, nonatomic) IBOutlet UILabel *pastSubtotalLabel;
+@property (strong, nonatomic) IBOutlet UILabel *pastServiceChargeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *pastGSTLabel;
+@property (strong, nonatomic) IBOutlet UILabel *pastTotalLabel;
+
+
 @end

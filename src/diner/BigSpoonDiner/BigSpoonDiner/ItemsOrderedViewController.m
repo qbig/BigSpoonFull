@@ -96,7 +96,7 @@
         Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", dish.price];
         cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByDish:dish]];
         
         cell.plusButton.tag = dish.ID;
@@ -111,7 +111,7 @@
         Dish *dish = [self.pastOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", dish.price];
         cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDishByDish:dish]];
        
         return cell;
@@ -172,6 +172,8 @@
 
  */
 
+#pragma mark - Button event listeners
+
 - (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
 
     
@@ -220,14 +222,51 @@
     
 }
 
+// This function is called when segue from menu list to here is performed
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
     self.currentOrder = currentOrder;
     self.pastOrder = pastOrder;
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
+    
+    [self updatePriceLabelsWithCurrentORder:self.currentOrder
+                              SubtotalLabel:self.currentSubtotalLabel
+                         ServiceChargeLabel:self.currentServiceChargeLabel
+                                   GSTLabel:self.currentGSTLabel
+                              andTotalLabel:self.currentTotalLabel];
+    
+    [self updatePriceLabelsWithCurrentORder:self.pastOrder
+                              SubtotalLabel:self.pastSubtotalLabel
+                         ServiceChargeLabel:self.pastServiceChargeLabel
+                                   GSTLabel:self.pastGSTLabel
+                              andTotalLabel:self.pastTotalLabel];
 }
 
 - (IBAction)textFinishEditing:(id)sender {
     [sender resignFirstResponder];
 }
+
+- (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
+                          SubtotalLabel: (UILabel *) subTotalLabel
+                        ServiceChargeLabel: (UILabel *) serviceChargeLabel
+                                  GSTLabel: (UILabel *) GSTLabel
+                             andTotalLabel: (UILabel *) totalLabel{
+    
+    float serviceChargePercentage = 0.1;
+    float GSTPercentage = 0.07;
+    
+    float subTotal = [newOrder getTotalPrice];
+    subTotalLabel.text = [NSString stringWithFormat:@"Subtotal: $%.2f", subTotal];
+    
+    float serviceCharge = subTotal * serviceChargePercentage;
+    serviceChargeLabel.text = [NSString stringWithFormat:@"Service Charge(%.0f%%): $%.2f", serviceChargePercentage * 100, serviceCharge];
+ 
+    float GST = subTotal * GSTPercentage;
+    GSTLabel.text = [NSString stringWithFormat:@"GST(%.0f%%): $%.2f", GSTPercentage * 100, GST];
+    
+    float total = subTotal + serviceCharge + GST;
+    totalLabel.text = [NSString stringWithFormat:@"Total: $%.2f", total];
+}
+
+
 @end

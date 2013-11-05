@@ -107,8 +107,8 @@
     return totalQuantity;
 }
 
-- (int) getTotalPrice{
-    int totalPrice = 0;
+- (double) getTotalPrice{
+    double totalPrice = 0;
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *newDish = (Dish *)[self.dishes objectAtIndex:i];
         int quantity = [self getQuantityOfDishByDish:newDish];
