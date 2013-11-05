@@ -30,6 +30,8 @@
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
     viewAppearCount = 0;
+    
+    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
