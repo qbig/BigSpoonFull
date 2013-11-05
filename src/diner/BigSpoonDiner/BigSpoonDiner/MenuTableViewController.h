@@ -32,7 +32,7 @@ enum DishDisplayCategory : NSUInteger{
 - (void)validTableRetrieved: (NSArray *)validTableIDs;
 @end
 
-@interface MenuTableViewController : UITableViewController
+@interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
 
@@ -42,7 +42,7 @@ enum DishDisplayCategory : NSUInteger{
 
 @property (nonatomic) enum DishDisplayMethod displayMethod;
 @property (nonatomic) enum DishDisplayCategory displayCategory;
-
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)breakfastButtonPressed:(id)sender;
 
