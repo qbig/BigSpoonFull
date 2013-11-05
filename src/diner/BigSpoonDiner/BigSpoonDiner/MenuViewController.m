@@ -12,6 +12,7 @@
     void (^taskAfterAskingForTableID)(void);
     NSMutableDictionary *_viewControllersByIdentifier;
     NSString *notesWhenPlacingOrder;
+    CGRect oldFrameItemBadge;
 }
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
@@ -54,7 +55,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    // Record the frame of badge
+    oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
+    
+    // Set the Outlet Name to be the title
     [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     
@@ -64,8 +69,6 @@
         self.currentOrder = [[Order alloc]init];
         self.pastOrder = [[Order alloc]init];
     } else{
-        
-        
         [self updateItemQuantityBadge];
     }
     
@@ -575,6 +578,26 @@
         [self.itemQuantityLabel setHidden:NO];
         [self.itemQuantityLabelBackgroundImageView setHidden:NO];
         self.itemQuantityLabel.text = [NSString stringWithFormat:@"%d", totalQuantity];
+        
+        // Animation of the red badge:
+        
+        // newFrame is frame With Same Center And Zoomed width and height
+        CGRect newFrame = CGRectMake(oldFrameItemBadge.origin.x -
+                                     oldFrameItemBadge.size.width * (BADGE_ANMINATION_ZOOM_FACTOR - 1) / 2,
+                                      oldFrameItemBadge.origin.y -
+                                     oldFrameItemBadge.size.height * (BADGE_ANMINATION_ZOOM_FACTOR - 1) / 2,
+                                      oldFrameItemBadge.size.width * BADGE_ANMINATION_ZOOM_FACTOR,
+                                      oldFrameItemBadge.size.height * BADGE_ANMINATION_ZOOM_FACTOR);
+        
+        [UIView animateWithDuration:BADGE_ANMINATION_DURATION / 2
+                              delay:0
+                            options: UIViewAnimationOptionAutoreverse
+                         animations:^{
+                             self.itemQuantityLabelBackgroundImageView.frame = newFrame;
+                         }
+                         completion:^(BOOL finished){
+                             self.itemQuantityLabelBackgroundImageView.frame = oldFrameItemBadge;
+                         }];
     }
 }
 

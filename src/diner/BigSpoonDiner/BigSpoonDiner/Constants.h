@@ -29,6 +29,11 @@ extern int const ROW_HEIGHT_PHOTO_MENU;
 extern int const HEIGHT_NAVIGATION_ITEM;
 extern double const SCALE_OF_BUTTON;
 
+// Animations
+extern double const BADGE_ANMINATION_DURATION;
+extern double const BADGE_ANMINATION_ZOOM_FACTOR;
+
+
 // Others:
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
 

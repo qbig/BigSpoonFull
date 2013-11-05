@@ -29,6 +29,10 @@ int const ROW_HEIGHT_PHOTO_MENU = 196;
 int const HEIGHT_NAVIGATION_ITEM = 63;
 double const SCALE_OF_BUTTON = 2.85;
 
+// Animations:
+double const BADGE_ANMINATION_DURATION = 0.3;
+double const BADGE_ANMINATION_ZOOM_FACTOR = 1.5;
+
 // Others:
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 
