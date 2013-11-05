@@ -413,20 +413,20 @@
                                 <rect key="frame" x="37" y="143" width="246" height="247"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QAx-Tp-brd">
-                                        <rect key="frame" x="134" y="65" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QAx-Tp-brd">
+                                        <rect key="frame" x="137" y="68" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="+">
+                                        <state key="normal" title="+" image="add_icon_green.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="plusColdWaterButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="Oec-l3-OMw"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="G3X-Pu-Uhk">
-                                        <rect key="frame" x="191" y="65" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G3X-Pu-Uhk">
+                                        <rect key="frame" x="194" y="68" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="-">
+                                        <state key="normal" title="-" image="minus_icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -458,20 +458,20 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CK6-0b-2cY">
-                                        <rect key="frame" x="134" y="132" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CK6-0b-2cY">
+                                        <rect key="frame" x="137" y="135" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="+">
+                                        <state key="normal" title="+" image="add_icon_green.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="plusWarmWaterButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="EbI-1A-w7g"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ebX-v2-dsH">
-                                        <rect key="frame" x="191" y="132" width="30" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ebX-v2-dsH">
+                                        <rect key="frame" x="194" y="135" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="-">
+                                        <state key="normal" title="-" image="minus_icon.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -484,10 +484,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="w3J-CN-LC7">
-                                        <rect key="frame" x="26" y="197" width="36" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w3J-CN-LC7">
+                                        <rect key="frame" x="26" y="197" width="75" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Okay">
+                                        <color key="backgroundColor" red="0.122336521" green="1" blue="0.2148235715" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title=" Okay ">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -495,9 +498,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nlz-DO-kw8">
-                                        <rect key="frame" x="178" y="197" width="48" height="30"/>
+                                        <rect key="frame" x="151" y="197" width="75" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Cancel">
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title=" Cancel ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -529,10 +534,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Dit-aF-bsd">
-                                        <rect key="frame" x="20" y="333" width="49" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dit-aF-bsd">
+                                        <rect key="frame" x="20" y="333" width="75" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Submit">
+                                        <color key="backgroundColor" red="0.122336521" green="1" blue="0.2148235715" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title=" Submit ">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -540,9 +548,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TyD-EQ-grM">
-                                        <rect key="frame" x="212" y="333" width="48" height="30"/>
+                                        <rect key="frame" x="185" y="333" width="75" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Cancel">
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title=" Cancel ">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -652,11 +662,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5MF-RW-ibQ">
-                                        <rect key="frame" x="218" y="315" width="82" height="30"/>
+                                        <rect key="frame" x="218" y="315" width="95" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="0.122336521" green="1" blue="0.2148235715" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Place Order">
+                                        <state key="normal" title=" Place Order ">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -676,22 +686,22 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t6q-QS-67e">
-                                                            <rect key="frame" x="10" y="5" width="30" height="30"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t6q-QS-67e">
+                                                            <rect key="frame" x="13" y="8" width="25" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                            <state key="normal" title="+">
+                                                            <state key="normal" title="+" image="add_icon_green.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
                                                                 <action selector="plusButtonPressed:forEvent:" destination="yOQ-Ac-fpM" eventType="touchUpInside" id="NiZ-d2-wdK"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kmj-Hz-HU3">
-                                                            <rect key="frame" x="65" y="0.0" width="30" height="44"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kmj-Hz-HU3">
+                                                            <rect key="frame" x="71" y="9" width="23" height="23"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                            <state key="normal" title="-">
+                                                            <state key="normal" title="-" image="minus_icon.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
@@ -1121,9 +1131,11 @@
         <image name="X-Large_278x44_glowy.png" width="280" height="47"/>
         <image name="add_icon.png" width="256" height="256"/>
         <image name="add_icon2.png" width="128" height="128"/>
+        <image name="add_icon_green.png" width="128" height="128"/>
         <image name="bottom_buttons.png" width="1367" height="226"/>
         <image name="gear.png" width="104" height="104"/>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
+        <image name="minus_icon.png" width="482" height="482"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="121" height="105"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
