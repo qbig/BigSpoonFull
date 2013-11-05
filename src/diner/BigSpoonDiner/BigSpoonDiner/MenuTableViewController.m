@@ -296,8 +296,11 @@
                                                         endTime:endTime
                                                        quantity:quantity
                                        ];
-                
-                [self.dishesArray addObject:newDishObject];
+                if ([categories count] > 0) {
+                    [self.dishesArray insertObject:newDishObject atIndex:0];
+                } else{
+                    [self.dishesArray addObject:newDishObject];
+                }
             }
             
             [self.tableView reloadData];
