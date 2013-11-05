@@ -53,6 +53,8 @@
         self.scrollView.frame = CGRectMake(frame.origin.x, frame.origin.y - HEIGHT_NAVIGATION_ITEM, frame.size.width, frame.size.height);
         [self.view bringSubviewToFront:self.scrollView];
     }
+    
+    [self updatePriceLabels];
 }
 
 - (void)didReceiveMemoryWarning
@@ -228,7 +230,14 @@
     self.pastOrder = pastOrder;
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
-    
+    [self updatePriceLabels];
+}
+
+- (IBAction)textFinishEditing:(id)sender {
+    [sender resignFirstResponder];
+}
+
+- (void) updatePriceLabels{
     [self updatePriceLabelsWithCurrentORder:self.currentOrder
                               SubtotalLabel:self.currentSubtotalLabel
                          ServiceChargeLabel:self.currentServiceChargeLabel
@@ -242,15 +251,13 @@
                               andTotalLabel:self.pastTotalLabel];
 }
 
-- (IBAction)textFinishEditing:(id)sender {
-    [sender resignFirstResponder];
-}
-
 - (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
                           SubtotalLabel: (UILabel *) subTotalLabel
                         ServiceChargeLabel: (UILabel *) serviceChargeLabel
                                   GSTLabel: (UILabel *) GSTLabel
                              andTotalLabel: (UILabel *) totalLabel{
+    
+    NSLog(@"%@", newOrder);
     
     float serviceChargePercentage = 0.1;
     float GSTPercentage = 0.07;

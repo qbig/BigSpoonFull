@@ -352,7 +352,8 @@
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
     [alertView show];
-    [self animateTransitionOfUIView:self.ratingsView willShow:YES];
+    
+    //[self animateTransitionOfUIView:self.ratingsView willShow:YES];
     
     // Set the order items to null
     self.currentOrder = [[Order alloc] init];
