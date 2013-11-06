@@ -722,6 +722,7 @@ p.success {
 .user {
     display:block;
     height: 50px;
+    margin-bottom: -3px;
 }
 
 .user h4 {
@@ -1006,7 +1007,7 @@ table thead tr th { }
 .view-profile {
     display: block;
     text-align: center;
-    background: #dedede;
+    background: #C4C4C4;
     color: #fff;
     margin-top: 3px;
     padding: 5px;
@@ -1015,4 +1016,9 @@ table thead tr th { }
 
 .view-profile:hover {
     background: #61C0B9;
+}
+
+.no-orders {
+    text-align: center;
+    color: rgba(85,85,85,0.8);
 }

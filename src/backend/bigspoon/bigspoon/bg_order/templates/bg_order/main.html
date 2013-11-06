@@ -58,6 +58,7 @@
         <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
+        <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
 
         <p class="note">{{request.note}}
 
