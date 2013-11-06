@@ -274,7 +274,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 24px 18px;
+    padding: 20px 18px;
     border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -975,4 +975,15 @@ table thead tr th { }
 
 .accordion-heading i {
     float:right;
+}
+
+.help {
+    max-width: 660px;
+    margin: 10px 35px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #fcf6ef;
+    color: #333;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
 }
