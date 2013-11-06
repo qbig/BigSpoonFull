@@ -76,13 +76,14 @@
         <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
 
         <p class="note">{{request.note}}
+        </p>
 
         {% if request.request_type == 0 %}
             <img class="icon" src="{% static "img/water.png" %}"/>
         {% elif request.request_type == 1%}
             <img class="icon" src="{% static "img/waiter.png" %}"/>
         {% endif %}
-        </p>
+
         <a class="respond ack-button" rel="req" model="request" id="{{request.id}}"><i class="icon-glass"></i> Respond</a>
     </div>
     {% endfor %}
