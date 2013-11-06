@@ -24,9 +24,25 @@
         <h4>{{ meal.diner.get_full_name }}</h4>
         <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
 
-        {% if meal.note %}
-            <p class="note">{{meal.note}}</p>
+
+        {% if meal.diner.profile.is_vegetarian == 'Y' and meal.diner.profile.is_muslim == 'Y' %}
+            <p class="notice"><i class="icon-warning-sign"></i> Vegetarian & Muslim</p>
+        {% elif meal.diner.profile.is_vegetarian == 'Y' %}
+            <p class="notice"><i class="icon-warning-sign"></i> Vegetarian</p>
+        {% elif meal.diner.profile.is_muslim == 'Y' %}
+            <p class="notice"><i class="icon-warning-sign"></i> Muslim</p>
         {% endif %}
+
+        <p class="note">
+        {% if meal.note %}
+            {{meal.note}}
+        {% endif %}
+
+        {% if meal.diner.profile.allergies %}
+            Allergic to: {{meal.diner.profile.allergies}}
+        {% endif %}
+        </p>
+
 
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">

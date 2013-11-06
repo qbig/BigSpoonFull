@@ -802,6 +802,16 @@ p.success {
     color: #fff;
 }
 
+.notice {
+    background: #0C4;
+    color: #fff;
+    display: block;
+    text-align: center;
+    color: #fff;
+    margin: 0px;
+    text-decoration: none;
+}
+
 .user-info .feedback, .user-info .favourites, .user-info .vegetarian, .user-info .allergies {
     display: inline-block;
     margin-top: 0px;
