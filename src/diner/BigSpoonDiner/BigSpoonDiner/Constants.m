@@ -33,7 +33,7 @@ int const ITEM_LIST_SCROLL_HEIGHT = 1100;
 
 // Animations:
 double const BADGE_ANMINATION_DURATION = 0.3;
-double const BADGE_ANMINATION_ZOOM_FACTOR = 1.5;
+double const BADGE_ANMINATION_ZOOM_FACTOR = 1.8;
 
 // Others:
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
