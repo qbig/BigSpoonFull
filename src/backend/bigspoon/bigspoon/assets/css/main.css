@@ -404,13 +404,18 @@ p.note {
 }
 
 .order li em.quantity {
-    float:right;
+    float:left;
     padding-right:10px;
-    color: #888;
+    margin-right: 5px;
+    background-color: #0C4;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 2px 10px;
 }
 
 .order li em.pos{
-    float:none;
+    float:right;
     color: #fff;
     font-size:12px;
     background-color:#0C4;
@@ -986,4 +991,28 @@ table thead tr th { }
     background: #fcf6ef;
     color: #333;
     border: 1px dashed rgba(0, 0, 0, 0.2);
+}
+
+.view-profile {
+    display: block;
+    text-align: center;
+    background: #dedede;
+    color: #fff;
+    margin-top: 3px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.view-profile {
+    display: block;
+    text-align: center;
+    background: #dedede;
+    color: #fff;
+    margin-top: 3px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.view-profile:hover {
+    background: #61C0B9;
 }

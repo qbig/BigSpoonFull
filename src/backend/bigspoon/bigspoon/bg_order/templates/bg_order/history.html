@@ -16,6 +16,7 @@
         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
+        <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
 
         {% if meal.is_paid %}
             <p class="paid">Paid</p>
@@ -30,7 +31,11 @@
         <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
             {% for order in meal.orders.all %}
-            <li><em class="pos">{{order.dish.pos}}</em> {{order.dish.name}}  <em class="quantity">{{order.quantity}}</em></li>
+            <li>
+                <em class='quantity'>{{order.quantity}}x</em>
+                {{order.dish.name}}
+                <!-- <em class='pos'>{{order.dish.pos}}</em> -->
+            </li>
             {% endfor %}
         </ul>
 
@@ -42,6 +47,8 @@
         <a class="user-profile-link" href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
+        <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
+
         <p class="note">{{request.note}}
 
         {% if request.request_type == 0 %}

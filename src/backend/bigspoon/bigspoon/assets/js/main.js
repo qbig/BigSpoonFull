@@ -131,6 +131,13 @@ $(document).ready(function() {
         overflowY: 'scroll',
     });
 
+    $(".view-profile").magnificPopup({
+        type: 'ajax',
+        alignTop: true,
+        closeBtnInside: true,
+        overflowY: 'scroll',
+    });
+
     $('.ack-button').each(function() {
         var button = $(this);
         var type = button.attr('rel');
