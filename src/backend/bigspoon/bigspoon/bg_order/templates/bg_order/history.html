@@ -34,7 +34,7 @@
             <li>
                 <em class='quantity'>{{order.quantity}}x</em>
                 {{order.dish.name}}
-                <!-- <em class='pos'>{{order.dish.pos}}</em> -->
+                <em class='pos'>{{order.dish.pos}}</em>
             </li>
             {% endfor %}
         </ul>
@@ -49,14 +49,15 @@
         <h4>{{ request.diner.get_full_name }}</h4>
         <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
 
-        <p class="note">{{request.note}}
+        <p class="note">
+            {{request.note}}
+        </p>
 
         {% if request.request_type == 0 %}
             <img class="icon" src="{% static "img/water.png" %}"/>
         {% elif request.request_type == 1%}
             <img class="icon" src="{% static "img/waiter.png" %}"/>
         {% endif %}
-        </p>
     </div>
     {% endfor %}
     </div>

@@ -381,7 +381,7 @@ p.note {
     float: none;
     opacity: 0.8;
     display: inline;
-    height: 130px;
+height: 130px;
 }
 
 .item h4 {
@@ -421,7 +421,7 @@ p.note {
     float:right;
     color: #fff;
     font-size:12px;
-    background-color:#0C4;
+    background-color:#61C0B9;
     border-radius:5px;
     padding:2px 5px;
 }
