@@ -17,9 +17,9 @@
     <thead align="left">
         <tr>
             <th >S/N</th>
+            <th class="separate-column">Customer</th>
             <th class="separate-column">Meal Creation Date</th>
             <th class="separate-column">Dishes Ordered</th>
-            <th class="separate-column">Customer</th>
             <th class="separate-column">Total</th>
         </tr>
     </thead>
@@ -27,6 +27,7 @@
     {% for meal in object_list %}
 		<tr>
 			<td><empty></empty>{{forloop.counter}}</td>
+            <td class="separate-column"><a class="user-profile-link" href="/staff/user/{{meal.diner.id}}">{{meal.diner.get_full_name}}</a></td>
 			<td class="separate-column">{{meal.created}}</td>
 			<td class="separate-column">
 			{% for order in meal.orders.all %}
@@ -38,7 +39,6 @@
 			Meal Total <!--This line can be turned off-->
 			{% endif %}
 			</td>
-			<td class="separate-column">{{meal.diner.get_full_name}}</td>
 			<td class="separate-column"><!--using comment to prevent space between $ & num
 			>--><span class="order-spending"><!--
 			>-->{% for order in meal.orders.all %}{% if meal.orders.all|length > 1 %}<!--

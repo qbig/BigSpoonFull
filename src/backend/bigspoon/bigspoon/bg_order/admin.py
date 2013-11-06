@@ -13,7 +13,7 @@ class RequestAdmin(GuardedModelAdmin):
 
 class MealAdmin(GuardedModelAdmin):
     raw_id_fields = ('diner', 'table')
-    list_display = ['diner', 'table', 'status', 'is_paid',
+    list_display = ['id', 'diner', 'table', 'status', 'is_paid',
                     'created', 'modified', 'bill_time']
     list_display_links = ('diner', 'table',)
 

@@ -74,8 +74,9 @@ class Request(models.Model):
 
     def __unicode__(self):
         request_status = "Active" if self.is_active else "Inactive"
-        return "(%s) %s | %s" % (self.table.name, self.diner.first_name,
-                                 request_status)
+        return "%s. (%s) %s | %s" % (self.id,
+                                     self.table.name, self.diner.first_name,
+                                     request_status)
 
     class Meta:
         verbose_name = _('request')
@@ -175,10 +176,12 @@ class Meal(models.Model):
     def __unicode__(self):
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
-        return "(%s - %s) | %s | %s" % (self.table.outlet.name,
-                                        self.table.name,
-                                        self.STATUS_CHOICES_DIC[self.status],
-                                        meal_payment)
+        return "%s. (%s - %s) | %s | %s" % (self.id,
+                                            self.table.outlet.name,
+                                            self.table.name,
+                                            self.STATUS_CHOICES_DIC[
+                                                self.status],
+                                            meal_payment)
 
     class Meta:
         verbose_name = _('meal')
