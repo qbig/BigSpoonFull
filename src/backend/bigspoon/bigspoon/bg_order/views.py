@@ -75,6 +75,10 @@ class MenuView(ModelFormSetView):
               'start_time', 'end_time', 'categories']
     extra = 0
 
+    def construct_formset(self):
+        formset = super(MenuView, self).construct_formset()
+        return formset
+
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
         outlets = get_objects_for_user(

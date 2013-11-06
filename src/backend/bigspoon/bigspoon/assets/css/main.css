@@ -950,3 +950,29 @@ table thead tr th { }
 .datatable tbody tr td {
     padding-top: 5px; padding-bottom: 3px;
 }
+
+.accordion-heading {
+    padding: 10px 20px;
+    color: #fff;
+    margin: 0px;
+    font-weight: normal;
+    font-family: Scholar;
+    font-size: 24px;
+}
+
+.accordion-heading:nth-of-type(odd){
+    background-color: #4EB2AB;
+}
+
+.accordion-heading:nth-of-type(even){
+    background-color: #61C0B9;
+}
+
+.accordion-heading:hover, .accordion-heading:focus,
+.accordion-heading:active {
+
+}
+
+.accordion-heading i {
+    float:right;
+}

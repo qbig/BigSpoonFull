@@ -25,8 +25,9 @@
 
   <form action="/staff/menu/" method="post">{% csrf_token %}
     {{ formset.management_form }}
-
+    <div id="accordion">
     {% for form in formset %}
+        <h3 class= "accordion-heading">{{ form.name.value }} <i class="icon-collapse"></i></h3>
         <div class="menu-item">
             {{form.id}}
             <img src = "{{ form.instance.photo.url_640x400 }}"/>
@@ -43,6 +44,7 @@
 
         </div>
     {% endfor %}
+    </div>
 
 
     <span class="save-bar">
