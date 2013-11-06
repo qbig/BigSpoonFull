@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+
+    // need a jquery toggle onlick event
     $('#accordion').accordion({
         collapsible:true,
 
@@ -29,6 +31,15 @@ $(document).ready(function() {
             return false; // Cancel the default action
         }
     });
+
+
+    // $(".accordion-heading").click(function(){
+    //     if($(this).hasClass('icon-collapse')){
+    //         $(this).removeClass('icon-collapse').addClass('icon-collapse-top');
+    //     } else {
+    //         $(this).removeClass('icon-collapse-top').addClass('icon-collapse');
+    //     }
+    // });​
 
     // for socket io
     var STAFF_MEAL_PAGES = {
