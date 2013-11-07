@@ -47,6 +47,10 @@ $(document).ready(function() {
 
 
     // Toggle collapsible icon
+    $(".help").click(function(){
+        $(this).hide();
+    });
+
 
     $("#accordion h3").click(function(){
         var icon = $(this).find("i");
