@@ -82,13 +82,17 @@
 
                 <h5>{{meal.get_created}}</h5>
                 <ul class="order">
-                    {% for order in meal.orders.all %}
-                    <li>
-                        <em class='quantity'>{{order.quantity}}x</em>
-                        {{order.dish.name}}
-                        <em class='pos'>{{order.dish.pos}}</em>
-                    </li>
-                    {% endfor %}
+                    {% if meal.orders.count > 0 %}
+                        {% for order in meal.orders.all %}
+                        <li>
+                            <em class='quantity'>{{order.quantity}}x</em>
+                            {{order.dish.name}}
+                            <em class='pos'>{{order.dish.pos}}</em>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li>No orders yet.</li>
+                    {% endif %}
                 </ul>
 
                 {% endfor %}

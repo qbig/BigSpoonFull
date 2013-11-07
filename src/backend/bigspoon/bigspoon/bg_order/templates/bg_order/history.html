@@ -28,15 +28,18 @@
             <p class="note">{{meal.note}}</p>
         {% endif %}
 
-        <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
-            {% for order in meal.orders.all %}
-            <li>
-                <em class='quantity'>{{order.quantity}}x</em>
-                {{order.dish.name}}
-                <em class='pos'>{{order.dish.pos}}</em>
-            </li>
-            {% endfor %}
+            {% if meal.orders.count > 0 %}
+                {% for order in meal.orders.all %}
+                <li>
+                    <em class='quantity'>{{order.quantity}}x</em>
+                    {{order.dish.name}}
+                    <em class='pos'>{{order.dish.pos}}</em>
+                </li>
+                {% endfor %}
+            {% else %}
+                <li>No orders yet.</li>
+            {% endif %}
         </ul>
 
     </div>
