@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-    // need a jquery toggle onlick event
     $('#accordion').accordion({
         collapsible:true,
 
@@ -32,6 +30,8 @@ $(document).ready(function() {
         }
     });
 
+
+    // Toggle collapsible icon
 
     // $(".accordion-heading").click(function(){
     //     if($(this).hasClass('icon-collapse')){
@@ -93,6 +93,7 @@ $(document).ready(function() {
         "bill": host+"/api/v1/closebill",
         "order": host+"/api/v1/ackorder",
         "note": host+"/api/v1/note",
+        "dish": host+"/api/v1/dish"
     }
 
     var csrftoken = $.cookie('csrftoken');
@@ -121,6 +122,64 @@ $(document).ready(function() {
                 console.log("POST failed");
                 console.log(data);
             });
+    }
+
+    window.successMessage = function(name){
+        var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>"
+        return successMessage;
+    }
+
+    function errorMessage(name){
+        var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>"
+        return errorMessage;
+    }
+
+    window.updateDish = function(elem){
+        var button = $(elem);
+        var form = button.parent().find('span');
+
+        var id = button.attr('dish-id');
+        var name = form.find('.name input').val()
+        var price = form.find('.price input').val()
+        var pos = form.find('.pos input').val()
+        var desc = form.find('.description textarea').val()
+        var quantity = form.find('.quantity input').val()
+        var start_time = form.find('.start_time input').val()
+        var end_time = form.find('.end_time input').val()
+
+        console.log("Update dish " + id);
+
+        var req_data = {
+            "csrfmiddlewaretoken":csrftoken,
+            "name":name,
+            "price":price,
+            "pos":pos,
+            "desc":desc,
+            "quantity":quantity,
+            "desc":desc,
+            "start_time":start_time,
+            "end_time":end_time,
+            // "categories":categories
+        }
+
+        console.log(req_data);
+
+        $.post(
+            STAFF_API_URLS["dish"] + "/" + id,
+            req_data
+        ).done(function(data) {
+            var notice_id = '#notice-' + id;
+            $(notice_id).empty();
+            $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);;
+            console.log("POST success!");
+        }).fail(function(data) {
+            var notice_id = '#notice-' + id;
+            $(notice_id).empty();
+            $(notice_id).append(errorMessage(name)).effect("highlight", {}, 3000);;
+            console.log("POST failed");
+            console.log(data);
+        });
+
     }
 
     // for user pop up
@@ -169,7 +228,7 @@ $(document).ready(function() {
 
             var seconds_left = (new Date() - new Date(Number(start_time))) / 1000;
 
-            console.log(seconds_left);
+            // console.log(seconds_left);
             minutes = parseInt(seconds_left / 60);
             seconds = parseInt(seconds_left % 60);
 

@@ -14,53 +14,34 @@
 
     <a class="add" href="/staff/menu/add/"><i class="icon-plus"></i> Add menu item</a>
 
-    <span class="notifications">
-    {% if formset.errors %}
-        <p class="error"><i class="icon-frown"></i> {{ formset.errors }}</p>
-    {% endif %}
-
-    {% if messages %}
-        {% for message in messages %}
-        <p class="success"><i class="icon-ok-sign"></i> {{ message }} </p>
-        {% endfor %}
-    {% endif %}
-    </span>
-
     <h1>Menu</h1>
 
-  <form action="/staff/menu/" method="post">{% csrf_token %}
-    {{ formset.management_form }}
     <div id="accordion">
-    {% for form in formset %}
-        <h3 class= "accordion-heading">{{ form.name.value }} <i class="icon-collapse"></i></h3>
+    {% for dish in dish_list %}
+        <h3 class= "accordion-heading">{{ dish.name }} <i class="icon-collapse"></i></h3>
         <div class="menu-item">
-            {{form.id}}
-            <img src = "{{ form.instance.photo.url_640x400 }}"/>
+            <img src = "{{ dish.photo.url_640x400 }}"/>
             <span>
-                <p class="name"><label>{{form.name.label}}</label> {{form.name}}</p>
-                <p class="price"><i class="icon-usd"></i> {{form.price.label}} {{form.price}}</p>
-                <p class="pos"><i class="icon-barcode"></i> POS {{form.pos}}</p>
-                <p class="description">{{form.desc.label}} <br/>{{form.desc}}</p>
-                <p class="start_time"><i class="icon-time"></i> {{form.start_time.label}} <br/>{{form.start_time}}</p>
-                <p class="end_time"><i class="icon-time"></i> {{form.end_time.label}} <br/>{{form.end_time}}</p>
-                <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/> {{form.quantity}}</p>
-                <p class="categories"><i class="icon-tag"></i> {{form.categories.label}} {{form.categories}}</p>
+                <p class="name"><label>Name </label> <input type="text" value="{{dish.name}}"></p>
+                <p class="price"><i class="icon-usd"></i>Price <input type="text" value="{{dish.price}}"></p>
+                <p class="pos"><i class="icon-barcode"></i> POS <input type="text" value="{{dish.pos}}"></p>
+                <p class="description">Description <br/><textarea cols="40" rows="10">{{dish.desc}}</textarea></p>
+                <p class="start_time"><i class="icon-time"></i> Start time <br/><input type="text" autocomplete="off" id="id_start_time" class="ui-timepicker-input" value="{{dish.start_time|date:"H:i:s"}}"></p>
+                <p class="end_time"><i class="icon-time"></i> End time <br/><input type="text" autocomplete="off" id="id_end_time" class="ui-timepicker-input" value="{{dish.end_time|date:"H:i:s"}}"></p>
+                <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/> <input type="text" value="{{dish.quantity}}"></p>
+                <p class="categories"><i class="icon-tag"></i> Categories {{dish.categories.all}}</p>
             </span>
+
+            <span id="notice-{{dish.id}}" class="notifications">
+
+            </span>
+
+
+            <a class="add" dish-id="{{dish.id}}" onclick="updateDish(this)"><i class="icon-save"></i> Save</a>
 
         </div>
     {% endfor %}
     </div>
-
-
-    <span class="save-bar">
-
-        <span>
-    <input class="save" type="submit" value="Save" />
-        </span>
-
-    </span>
-
-  </form>
 
 </div>
 </div>

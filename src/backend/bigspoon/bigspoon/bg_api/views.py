@@ -20,7 +20,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
-    ReviewSerializer
+    ReviewSerializer, DishSerializer
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
@@ -417,4 +417,28 @@ class CreateNote(generics.GenericAPIView):
         note.content = req.DATA['content']
         note.save()
         return Response(NoteSerializer(note).data,
+                        status=status.HTTP_200_OK)
+
+
+class UpdateDish(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    model = Dish
+
+    def post(self, req, *args, **kwargs):
+        id = int(kwargs['pk'])
+        try:
+            dish = Dish.objects.get(id=id)
+        except Dish.DoesNotExist:
+            raise Http404
+        dish.name = req.DATA['name']
+        dish.price = int(req.DATA['price'])
+        dish.pos = req.DATA['pos']
+        dish.desc = req.DATA['desc']
+        dish.start_time = req.DATA['start_time']
+        dish.end_time = req.DATA['end_time']
+        dish.quantity = int(req.DATA['quantity'])
+        # dish.categories = req.DATA['categories']
+        dish.save()
+        return Response(DishSerializer(dish).data,
                         status=status.HTTP_200_OK)

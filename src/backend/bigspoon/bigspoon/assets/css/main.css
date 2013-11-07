@@ -521,26 +521,17 @@ background-color: #468847;
     font-size: 14px;
 }
 
-span.notifications {
-    float: right;
-    padding-top: 28px;
+.menu-item span.notifications {
+    position: relative;
+    bottom: 100px;
+    width: auto;
+    border-radius:5px;
+    max-width: 400px    ;
 }
 
-.save-bar {
-    padding-top:40px;
-    display: block;
-}
-
-.save-bar span {
-    background: #fcf6ef;
-    border: 1px dotted rgba(0, 0, 0, 0.2);
-    position: fixed;
-    width: 880px;
-    bottom: 1px;
-}
-
-#main .save-bar span input.save {
-    margin: 10px 20px;
+.menu-item span.notifications p {
+    font-weight:normal;
+    padding:10px;
 }
 
 .note-save {
@@ -806,12 +797,12 @@ p.success {
 }
 
 .notice {
+    display: block;
+    margin: 0px;
     background: #0C4;
     color: #fff;
-    display: block;
-    text-align: center;
     color: #fff;
-    margin: 0px;
+    text-align: center;
     text-decoration: none;
 }
 
@@ -933,10 +924,10 @@ table tbody tr td,
 .force-clear{margin:0;}
 .sectionHeader {
     display:block;
-    width: 740px;
     margin: 10px;
     margin-bottom:0px;
     padding: 10px 20px 10px 20px; /*trbl*/
+    width: 740px;
     /*padding: 5px 10px 5px 10px;*/ /*trbl*/
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -949,10 +940,10 @@ table tbody tr td,
 .tableWrapper {
     margin:10px;
     margin-top:0px;
-    width: 740px;
-    background:#fff;
     padding:20px;
     padding-bottom: 40px;
+    width: 740px;
+    background:#fff;
 }
 
 .datatable {
@@ -971,12 +962,12 @@ table thead tr th { }
 }
 
 .accordion-heading {
+    margin: 0px;
     padding: 10px 20px;
     color: #fff;
-    margin: 0px;
     font-weight: normal;
-    font-family: Scholar;
     font-size: 24px;
+    font-family: Scholar;
 }
 
 .accordion-heading:nth-of-type(odd){
@@ -997,33 +988,33 @@ table thead tr th { }
 }
 
 .help {
-    max-width: 660px;
     margin: 10px auto;
     padding: 5px 20px;
+    max-width: 660px;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    font-size: 14px;
     background: #fcf6ef;
     color: #333;
-    border: 1px dashed rgba(0, 0, 0, 0.2);
+    font-size: 14px;
 }
 
 .view-profile {
     display: block;
-    text-align: center;
-    background: #dedede;
-    color: #fff;
     margin-top: 3px;
     padding: 5px;
+    background: #dedede;
+    color: #fff;
+    text-align: center;
     text-decoration: none;
 }
 
 .view-profile {
     display: block;
-    text-align: center;
-    background: #C4C4C4;
-    color: #fff;
     margin-top: 3px;
     padding: 5px;
+    background: #C4C4C4;
+    color: #fff;
+    text-align: center;
     text-decoration: none;
 }
 
@@ -1032,6 +1023,6 @@ table thead tr th { }
 }
 
 .no-orders {
-    text-align: center;
     color: rgba(85,85,85,0.8);
+    text-align: center;
 }

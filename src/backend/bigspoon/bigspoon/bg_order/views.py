@@ -6,7 +6,6 @@ from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.http import Http404
 
-from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
 from bg_inventory.models import Dish, Outlet, Table, Review, Note
@@ -68,16 +67,9 @@ class HistoryView(TemplateView):
         return context
 
 
-class MenuView(ModelFormSetView):
-    template_name = "bg_inventory/menu.html"
+class MenuView(ListView):
     model = Dish
-    fields = ['name', 'desc', 'price', 'pos', 'quantity',
-              'start_time', 'end_time', 'categories']
-    extra = 0
-
-    def construct_formset(self):
-        formset = super(MenuView, self).construct_formset()
-        return formset
+    template_name = "bg_inventory/menu.html"
 
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
@@ -92,15 +84,8 @@ class MenuView(ModelFormSetView):
             .prefetch_related('outlet', 'categories')\
             .filter(outlet__in=outlets)
 
-    def formset_valid(self, formset):
-        messages.success(self.request, 'Dish details updated')
-        return super(MenuView, self).formset_valid(formset)
-
-    def post(self, request, *args, **kwargs):
-        result = super(MenuView, self).post(request, *args, **kwargs)
-        send_socketio_message(
-            request.user.outlet_ids,
-            ['refresh', 'menu', 'update'])
+    def get(self, request, *args, **kwargs):
+        result = super(MenuView, self).get(request, *args, **kwargs)
         return result
 
 
