@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    // Live search
+    // Menu update page live search/filter
     $('#filter').keyup(function() {
         var f = $(this).val();
         var regex = new RegExp(f, 'gi');
@@ -13,7 +13,7 @@ $(document).ready(function() {
             });
     });
 
-    // Menu collapsibles
+    // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,
         active:false,
@@ -45,13 +45,12 @@ $(document).ready(function() {
         }
     });
 
-
-    // Toggle collapsible icon
+    // Dismiss tutorial messages
     $(".help").click(function(){
         $(this).hide();
     });
 
-
+    // Toggle accordion icons
     $("#accordion h3").click(function(){
         var icon = $(this).find("i");
         if(icon.hasClass('icon-collapse')){
@@ -154,6 +153,7 @@ $(document).ready(function() {
         return errorMessage;
     }
 
+    // Makes AJAX call to update dish API endpoint
     window.updateDish = function(elem){
         var button = $(elem);
         var form = button.parent().find('span');
@@ -202,7 +202,7 @@ $(document).ready(function() {
 
     }
 
-    // for user pop up
+    // for User profile pop up
     $(".user-profile-link").magnificPopup({
         type: 'ajax',
         alignTop: true,
@@ -240,7 +240,6 @@ $(document).ready(function() {
 
 
     // for countdown
-
     $('.countdown').each(function() {
         var card = $(this);
         var start_time = card.attr("start");

@@ -521,25 +521,6 @@ background-color: #468847;
     font-size: 14px;
 }
 
-.menu-item span.notifications {
-    position: relative;
-    bottom: 100px;
-    width: auto;
-    border-radius:5px;
-    max-width: 400px    ;
-}
-
-.menu-item span.notifications p {
-    font-weight:normal;
-    padding:10px;
-}
-
-.note-save {
-    display:inline;
-    float:none;
-    margin:0px;
-}
-
 #main input.save {
     float: none;
     background-color: #61C0B9;
@@ -547,6 +528,64 @@ background-color: #468847;
 
 #main input.save:hover, #main input.save:active, #main input.save:focus {
     background-color: #008cdd;
+}
+
+#main .item p.allergy {
+    height: 20px;
+    font-size: 14px;
+    background: rgb(231,76,60);
+    padding: 5px 10px;
+    margin: 0px;
+    color: #FFF;
+    word-wrap: break-word;
+    overflow: scroll;
+}
+
+.user-summary {
+    background: #eee;
+    display:block;
+    clear:both;
+}
+
+.view-profile {
+    float: left;
+    width: 80px;
+    display: block;
+    margin-top: 3px;
+    padding: 5px;
+    background: #C4C4C4;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    overflow:hidden;
+}
+
+.view-profile .full {
+    width: 140px;
+}
+
+.profile-tab {
+    height: 22px;
+    font-size:14px;
+    float: left;
+    width: 80px;
+    display: block;
+    margin-top: 3px;
+    margin-bottom:0px;
+    padding: 5px;
+    background: #fcf6ef;
+    color: #666;
+    text-align: center;
+    overflow:hidden;
+}
+
+.view-profile:hover {
+    background: #61C0B9;
+}
+
+.user-summary .visits {
+    float: left;
+
 }
 
 .menu-item {
@@ -578,40 +617,45 @@ background-color: #468847;
     font-weight: bold;
 }
 
-form.menu-add {
-    padding-bottom: 60px;
-    margin-left: 30px;
+.menu-item span.notifications {
+    position: relative;
+    bottom: 100px;
+    width: auto;
+    border-radius:5px;
+    max-width: 400px;
 }
 
-.menu-item .menu-add span p {
-    padding-left: 0px;
+.menu-item span.notifications p {
+    font-weight:normal;
+    padding:10px;
 }
 
-.menu-item .menu-add span p.pos {
-    margin-left: 0px;
+.note-save {
+    display:inline;
+    float:none;
+    margin:0px;
 }
 
-.menu-item .menu-add span p.price {
-    margin-left: 20px;
+.user {
+    display:block;
+    height: 50px;
 }
 
-.menu-item .menu-add span p.price #id_price{
-    margin-left: 10px;
+.user h4 {
+    font-weight:normal;
+    max-width: 200px;
+    word-wrap:break-word;
+    display: inline-block;
+    padding-top: 15px;
+    font-size: 14px;
 }
 
-.menu-item .menu-add span p.end_time {
-    padding-left: 20px;
+.user img {
+    float: right;
 }
 
-.menu-item .menu-add span p.end_time input,
-.menu-item .menu-add span p.start_time input{
-    width: 80px;
-}
 
-.menu-item .menu-add span p.photo input {
-    margin-left: 20px;
-}
-
+/* Menu update error/success messages */
 p.error {
     display: inline;
     padding: 10px;
@@ -628,6 +672,8 @@ p.success {
     color: #fff;;
 }
 
+
+/* Filter search bar*/
 input#filter , .login p input, .user-info input, .menu-item p input, .menu-item textarea{
     padding: 10px;
     max-height:80px;
@@ -683,7 +729,95 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
     margin-left: 15px;
 }
 
-/* Table styles */
+/*Menu add page styles*/
+
+.accordion-heading {
+    margin: 0px;
+    padding: 10px 20px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 24px;
+    font-family: Scholar;
+}
+
+.accordion-heading:nth-of-type(odd){
+    background-color: #4EB2AB;
+}
+
+.accordion-heading:nth-of-type(even){
+    background-color: #61C0B9;
+}
+
+.accordion-heading:hover, .accordion-heading:focus,
+.accordion-heading:active {
+
+}
+
+.accordion-heading i {
+    float:right;
+}
+
+form.menu-add {
+    padding-bottom: 60px;
+    margin-left: 30px;
+}
+
+.menu-item .menu-add span p {
+    padding-left: 0px;
+}
+
+.menu-item .menu-add span p.pos {
+    margin-left: 0px;
+}
+
+.menu-item .menu-add span p.price {
+    margin-left: 20px;
+}
+
+.menu-item .menu-add span p.price #id_price{
+    margin-left: 10px;
+}
+
+.menu-item .menu-add span p.end_time {
+    padding-left: 20px;
+}
+
+.menu-item .menu-add span p.end_time input,
+.menu-item .menu-add span p.start_time input{
+    width: 80px;
+}
+
+.menu-item .menu-add span p.photo input {
+    margin-left: 20px;
+}
+
+.menu-add .pos input{
+    margin-left: 4px;
+}
+
+.menu-add .price {
+    margin-left: 60px;
+}
+
+.menu-item p.photo input {
+    margin-top:0px;
+    margin-left: 20px;
+}
+
+.menu-add .price #id_price, .menu-add .quantity {
+    margin-left: 20px;
+}
+
+#main .menu-add .save, .login .login-btn {
+    display:block;
+    margin:0 auto;
+    width: 200px;
+    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size:16px;
+}
+
+/* =========================
+   Table Page Styles */
 .table {
     float: left;
     margin: 5px;
@@ -711,25 +845,6 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
     margin: 0px;
     padding-left: 20px;
     color: rgba(85,85,85,0.8);
-}
-
-.user {
-    display:block;
-    height: 50px;
-    /*margin-bottom: -3px;*/
-}
-
-.user h4 {
-    font-weight:normal;
-    max-width: 200px;
-    word-wrap:break-word;
-    display: inline-block;
-    padding-top: 15px;
-    font-size: 14px;
-}
-
-.user img {
-    float: right;
 }
 
 .table .order {
@@ -799,16 +914,6 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
     color: #fff;
 }
 
-.notice {
-    display: block;
-    margin: 0px;
-    background: #0C4;
-    color: #fff;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-}
-
 .user-info .feedback, .user-info .favourites, .user-info .vegetarian, .user-info .allergies {
     display: inline-block;
     margin-top: 0px;
@@ -832,31 +937,19 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
 
-.menu-add .pos input{
-    margin-left: 4px;
+/* Vegetarian/Muslim notice */
+.notice {
+    display: block;
+    margin: 0px;
+    background: #0C4;
+    color: #fff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
 }
 
-.menu-add .price {
-    margin-left: 60px;
-}
 
-.menu-item p.photo input {
-    margin-top:0px;
-    margin-left: 20px;
-}
-
-.menu-add .price #id_price, .menu-add .quantity {
-    margin-left: 20px;
-}
-
-#main .menu-add .save, .login .login-btn {
-    display:block;
-    margin:0 auto;
-    width: 200px;
-    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
-    font-size:16px;
-}
-
+/* Login page styles */
 .login .login-btn {
     margin-top: 40px;
     padding: 10px 20px;
@@ -866,7 +959,6 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
     text-align:center;
     text-decoration:none;
 }
-
 
 .login {
     margin: 10px auto;
@@ -964,31 +1056,7 @@ table thead tr th { }
     padding-top: 5px; padding-bottom: 3px;
 }
 
-.accordion-heading {
-    margin: 0px;
-    padding: 10px 20px;
-    color: #fff;
-    font-weight: normal;
-    font-size: 24px;
-    font-family: Scholar;
-}
 
-.accordion-heading:nth-of-type(odd){
-    background-color: #4EB2AB;
-}
-
-.accordion-heading:nth-of-type(even){
-    background-color: #61C0B9;
-}
-
-.accordion-heading:hover, .accordion-heading:focus,
-.accordion-heading:active {
-
-}
-
-.accordion-heading i {
-    float:right;
-}
 
 .help {
     margin: 10px auto;
@@ -1017,60 +1085,3 @@ input#filter {
     height: 20px;
 }
 
-#main .item p.allergy {
-    height: 20px;
-    font-size: 14px;
-    background: rgb(231,76,60);
-    padding: 5px 10px;
-    margin: 0px;
-    color: #FFF;
-    word-wrap: break-word;
-    overflow: scroll;
-}
-
-.user-summary {
-    background: #eee;
-    display:block;
-    clear:both;
-}
-
-.view-profile {
-    float: left;
-    width: 80px;
-    display: block;
-    margin-top: 3px;
-    padding: 5px;
-    background: #C4C4C4;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    overflow:hidden;
-}
-
-.view-profile .full {
-    width: 140px;
-}
-
-.profile-tab {
-    height: 22px;
-    font-size:14px;
-    float: left;
-    width: 80px;
-    display: block;
-    margin-top: 3px;
-    margin-bottom:0px;
-    padding: 5px;
-    background: #fcf6ef;
-    color: #666;
-    text-align: center;
-    overflow:hidden;
-}
-
-.view-profile:hover {
-    background: #61C0B9;
-}
-
-.user-summary .visits {
-    float: left;
-
-}

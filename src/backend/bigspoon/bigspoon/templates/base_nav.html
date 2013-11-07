@@ -5,9 +5,7 @@
 
 {% block nav %}
 <nav>
-    <!-- <div class="wrapper"> -->
         <ul>
-            <!-- <li><h1>BIGSPOON</h1></li> -->
             <li><a href="{% url "staff_main" %}"><i class="icon-bell-alt"></i> Right Now</a></li>
             <li><a href="{% url "staff_history" %}"><i class="icon-time"></i> History</a></li>
             <li><a href="{% url "staff_menu" %}"><i class="icon-food"></i> Menu</a></li>
@@ -15,6 +13,5 @@
             <li><a href="{% url "staff_table" %}"><i class="icon-group"></i> Tables</a></li>
             <li><a class="logout" href="{% url "logout" %}"><i class="icon-times"></i> Logout</a></li>
         </ul>
-    <!-- </div> -->
 </nav>
 {% endblock nav %}
