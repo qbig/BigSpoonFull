@@ -628,7 +628,7 @@ p.success {
     color: #fff;;
 }
 
-.login p input, .user-info input, .menu-item p input, .menu-item textarea{
+input#filter , .login p input, .user-info input, .menu-item p input, .menu-item textarea{
     padding: 10px;
     max-height:80px;
     border: 0px;
@@ -1025,4 +1025,11 @@ table thead tr th { }
 .no-orders {
     color: rgba(85,85,85,0.8);
     text-align: center;
+}
+
+input#filter {
+    float: right;
+    margin: 20px 5px;
+    width:300px;
+    height: 20px;
 }

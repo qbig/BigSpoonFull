@@ -1,7 +1,22 @@
 $(document).ready(function() {
 
+    // Live search
+    $('#filter').keyup(function() {
+        var f = $(this).val();
+        var regex = new RegExp(f, 'gi');
+
+        $('#accordion h3').hide()
+            .each(function() {
+                if($(this).html().match(regex)) {
+                    $(this).show();
+                }
+            });
+    });
+
+    // Menu collapsibles
     $('#accordion').accordion({
         collapsible:true,
+        active:false,
 
         beforeActivate: function(event, ui) {
              // The accordion believes a panel is being opened
@@ -33,13 +48,14 @@ $(document).ready(function() {
 
     // Toggle collapsible icon
 
-    // $(".accordion-heading").click(function(){
-    //     if($(this).hasClass('icon-collapse')){
-    //         $(this).removeClass('icon-collapse').addClass('icon-collapse-top');
-    //     } else {
-    //         $(this).removeClass('icon-collapse-top').addClass('icon-collapse');
-    //     }
-    // });​
+    $("#accordion h3").click(function(){
+        var icon = $(this).find("i");
+        if(icon.hasClass('icon-collapse')){
+            icon.removeClass('icon-collapse').addClass('icon-collapse-top');
+        } else {
+            icon.removeClass('icon-collapse-top').addClass('icon-collapse');
+        }
+    });
 
     // for socket io
     var STAFF_MEAL_PAGES = {
