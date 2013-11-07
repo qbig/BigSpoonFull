@@ -720,6 +720,9 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
 }
 
 .user h4 {
+    font-weight:normal;
+    max-width: 200px;
+    word-wrap:break-word;
     display: inline-block;
     padding-top: 15px;
     font-size: 14px;
