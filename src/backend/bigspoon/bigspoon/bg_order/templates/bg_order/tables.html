@@ -29,7 +29,13 @@
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
                         <h4>{{ meal.diner.get_full_name }}'s orders</h4>
                     </span>
-                    <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
+
+                    <span class="user-summary">
+                    <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
+                    <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+                    <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
+                    </span>
+
                     {% if meal.note %}
                         <p class="note">{{meal.note}}</p>
                     {% endif %}
@@ -39,7 +45,11 @@
                             <li>
                                 <em class='quantity'>{{order.quantity}}x</em>
                                 {{order.dish.name}}
+
+                                {% if order.dish.pos %}
                                 <em class='pos'>{{order.dish.pos}}</em>
+                                {% endif %}
+
                             </li>
                             {% endfor %}
                         {% else %}

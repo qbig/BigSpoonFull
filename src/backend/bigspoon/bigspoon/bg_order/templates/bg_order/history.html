@@ -16,7 +16,13 @@
         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
-        <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
+
+        <span class="user-summary">
+        <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
+        <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+        <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+        </span>
+
 
         {% if meal.is_paid %}
             <p class="paid">Paid</p>
@@ -34,7 +40,9 @@
                 <li>
                     <em class='quantity'>{{order.quantity}}x</em>
                     {{order.dish.name}}
+                    {% if order.dish.pos %}
                     <em class='pos'>{{order.dish.pos}}</em>
+                    {% endif %}
                 </li>
                 {% endfor %}
             {% else %}
@@ -50,7 +58,13 @@
         <a class="user-profile-link" href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
-        <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> View Profile</a>
+
+        <span class="user-summary">
+        <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
+        <p class='profile-tab'>${{ request.diner.get_average_spending }} ave</p>
+        <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+        </span>
+
 
         <p class="note">
             {{request.note}}

@@ -87,7 +87,9 @@
                         <li>
                             <em class='quantity'>{{order.quantity}}x</em>
                             {{order.dish.name}}
+                            {% if order.dish.pos %}
                             <em class='pos'>{{order.dish.pos}}</em>
+                            {% endif %}
                         </li>
                         {% endfor %}
                     {% else %}
