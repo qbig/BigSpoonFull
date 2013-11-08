@@ -24,7 +24,7 @@
         <div>
         <div class="menu-item">
             <img src = "{{ dish.photo.url_640x400 }}"/>
-            <span>
+            <span class="form">
                 <p class="name"><label>Name </label> <input type="text" value="{{dish.name}}"></p>
                 <p class="price"><i class="icon-usd"></i>Price <input type="text" value="{{dish.price}}"></p>
                 <p class="pos"><i class="icon-barcode"></i> POS <input type="text" value="{{dish.pos}}"></p>
@@ -33,14 +33,14 @@
                 <p class="end_time"><i class="icon-time"></i> End time <br/><input type="text" autocomplete="off" id="id_end_time" class="ui-timepicker-input" value="{{dish.end_time|date:"H:i:s"}}"></p>
                 <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/> <input type="text" value="{{dish.quantity}}"></p>
                 <p class="categories"><i class="icon-tag"></i> Categories {{dish.categories.all}}</p>
+
+                <a class="add" dish-id="{{dish.id}}" onclick="updateDish(this)"><i class="icon-save"></i> Save</a>
             </span>
 
             <span id="notice-{{dish.id}}" class="notifications">
 
             </span>
 
-
-            <a class="add" dish-id="{{dish.id}}" onclick="updateDish(this)"><i class="icon-save"></i> Save</a>
 
         </div>
         </div>

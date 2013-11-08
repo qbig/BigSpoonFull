@@ -156,7 +156,10 @@ $(document).ready(function() {
     // Makes AJAX call to update dish API endpoint
     window.updateDish = function(elem){
         var button = $(elem);
-        var form = button.parent().find('span');
+        var form = button.parent();
+
+        console.log(button.parent());
+        console.log(form);
 
         var id = button.attr('dish-id');
         var name = form.find('.name input').val()
