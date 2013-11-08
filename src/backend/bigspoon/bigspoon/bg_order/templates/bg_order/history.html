@@ -39,7 +39,7 @@
                 {% for order in meal.orders.all %}
                 <li>
                     <em class='quantity'>{{order.quantity}}x</em>
-                    {{order.dish.name}}
+                    <p>{{order.dish.name}}</p>
                     {% if order.dish.pos %}
                     <em class='pos'>{{order.dish.pos}}</em>
                     {% endif %}

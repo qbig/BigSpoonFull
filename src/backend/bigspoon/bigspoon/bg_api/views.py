@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import Http404
@@ -457,4 +459,28 @@ class UpdateDish(generics.GenericAPIView):
         dish.quantity = int(req.DATA['quantity'])
         dish.save()
         return Response(DishSerializer(dish).data,
+                        status=status.HTTP_200_OK)
+
+
+class GetSpendingData(generics.GenericAPIView):
+    model = Meal
+
+    def post(self, req, *args, **kwargs):
+        outlet_id = int(kwargs['pk'])
+
+        try:
+            table = Table.objects.filter(outlet=outlet_id)[0]
+        except Table.DoesNotExist:
+            raise Http404
+
+        from_date_str = str(req.DATA['from_date'])
+        from_date = datetime.datetime.strptime(from_date_str,
+                                               '%d-%m-%Y').date()
+        to_date_str = str(req.DATA['to_date'])
+        to_date = datetime.datetime.strptime(to_date_str, '%d-%m-%Y').date()
+
+        meals_past_week = Meal.objects.filter(table=table,
+                                              created__gte=from_date,
+                                              created__lte=to_date)
+        return Response(MealSerializer(meals_past_week).data,
                         status=status.HTTP_200_OK)

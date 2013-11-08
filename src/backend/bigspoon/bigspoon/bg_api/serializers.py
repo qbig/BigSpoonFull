@@ -210,6 +210,12 @@ class MealDetailSerializer(serializers.ModelSerializer):
         model = Meal
 
 
+class MealSpendingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Meal
+
+
 class RequestSerializer(serializers.ModelSerializer):
 
     class Meta:
