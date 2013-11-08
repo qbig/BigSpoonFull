@@ -37,11 +37,11 @@
             <p class="notice"><i class="icon-warning-sign"></i> Muslim</p>
         {% endif %}
 
-        <p class="allergy">
         {% if meal.diner.profile.allergies %}
+        <p class="allergy">
             Allergic to: {{meal.diner.profile.allergies}}
-        {% endif %}
         </p>
+        {% endif %}
 
         <p class="note">
         {% if meal.note %}
