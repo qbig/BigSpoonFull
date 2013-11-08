@@ -73,6 +73,8 @@ $(document).ready(function() {
         }
     });
 
+    var host = "http://"+location.host;
+
     // for socket io
     var STAFF_MEAL_PAGES = {
         "new": ['/staff/main/', '/staff/tables/'],
@@ -81,7 +83,7 @@ $(document).ready(function() {
         "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
     };
     var STAFF_MENU_PAGES = ['/staff/menu/'];
-    socket = io.connect();
+    socket = io.connect(host+":8000");
     socket.on("message", function(obj){
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
@@ -118,8 +120,6 @@ $(document).ready(function() {
     });
 
     // for request and order ack
-    var host = "http://"+location.host;
-
     var STAFF_API_URLS = {
         "req": host+"/api/v1/ackreq",
         "bill": host+"/api/v1/closebill",
