@@ -29,14 +29,17 @@ class MainView(TemplateView):
         if (outlets.count() == 0):
             raise PermissionDenied
         context = super(MainView, self).get_context_data(**kwargs)
-        context['meal_cards'] = Meal.objects\
+        meals = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
-        context['requests_cards'] = Request.objects\
+        requests = Request.objects\
             .prefetch_related('diner', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(is_active=True)
+        cards = list(meals)+list(requests)
+        context["cards"] = sorted(cards,
+                                  key=lambda card: card.count_down_start)
         return context
 
 

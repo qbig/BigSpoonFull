@@ -10,97 +10,102 @@
     </div>
 
     <div class="wrapper">
-    {% for meal in meal_cards %}
-    <div class="item">
-        {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
-        <span class="urgent time countdown" start={{meal.count_down_start}}>
-        {% else %}
-        <span class="early time countdown" start={{meal.count_down_start}}>
-        {% endif %}
-            <i class="icon-time"></i> waited {{meal.wait_time.0}}m, {{meal.wait_time.1}}s
-        </span>
-        <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
-        <h3>{{ meal.table.name }}</h3>
-        <h4>{{ meal.diner.get_full_name }}</h4>
+    {% for card in cards %}
+        {% if card.status %}
+            {% with card as meal %}
+            <div class="item">
+                {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
+                <span class="urgent time countdown" start={{meal.count_down_start}}>
+                {% else %}
+                <span class="early time countdown" start={{meal.count_down_start}}>
+                {% endif %}
+                    <i class="icon-time"></i> waited {{meal.wait_time.0}}m, {{meal.wait_time.1}}s
+                </span>
+                <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
+                <h3>{{ meal.table.name }}</h3>
+                <h4>{{ meal.diner.get_full_name }}</h4>
 
-        <span class="user-summary">
-        <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
-        <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
-        <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
-        </span>
+                <span class="user-summary">
+                <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
+                <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+                <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+                </span>
 
-        {% if meal.diner.profile.is_vegetarian == 'Y' and meal.diner.profile.is_muslim == 'Y' %}
-            <p class="notice"><i class="icon-warning-sign"></i> Vegetarian & Muslim</p>
-        {% elif meal.diner.profile.is_vegetarian == 'Y' %}
-            <p class="notice"><i class="icon-warning-sign"></i> Vegetarian</p>
-        {% elif meal.diner.profile.is_muslim == 'Y' %}
-            <p class="notice"><i class="icon-warning-sign"></i> Muslim</p>
-        {% endif %}
+                {% if meal.diner.profile.is_vegetarian == 'Y' and meal.diner.profile.is_muslim == 'Y' %}
+                    <p class="notice"><i class="icon-warning-sign"></i> Vegetarian & Muslim</p>
+                {% elif meal.diner.profile.is_vegetarian == 'Y' %}
+                    <p class="notice"><i class="icon-warning-sign"></i> Vegetarian</p>
+                {% elif meal.diner.profile.is_muslim == 'Y' %}
+                    <p class="notice"><i class="icon-warning-sign"></i> Muslim</p>
+                {% endif %}
 
-        {% if meal.diner.profile.allergies %}
-        <p class="allergy">
-            Allergic to: {{meal.diner.profile.allergies}}
-        </p>
-        {% endif %}
+                {% if meal.diner.profile.allergies %}
+                <p class="allergy">
+                    Allergic to: {{meal.diner.profile.allergies}}
+                </p>
+                {% endif %}
 
-        <p class="note">
-        {% if meal.note %}
-            {{meal.note}}
-        {% endif %}
-        </p>
+                <p class="note">
+                {% if meal.note %}
+                    {{meal.note}}
+                {% endif %}
+                </p>
 
-        <ul class="order">
-            {% if meal.orders.count > 0 %}
-                {% for order in meal.orders.all %}
-                <li>
-                    <em class='quantity'>{{order.quantity}}x</em>
-                    {{order.dish.name}}
-                    {% if order.dish.pos %}
-                    <em class='pos'>{{order.dish.pos}}</em>
+                <ul class="order">
+                    {% if meal.orders.count > 0 %}
+                        {% for order in meal.orders.all %}
+                        <li>
+                            <em class='quantity'>{{order.quantity}}x</em>
+                            {{order.dish.name}}
+                            {% if order.dish.pos %}
+                            <em class='pos'>{{order.dish.pos}}</em>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li>No orders yet.</li>
                     {% endif %}
-                </li>
-                {% endfor %}
-            {% else %}
-                <li>No orders yet.</li>
-            {% endif %}
-        </ul>
+                </ul>
 
-        {% if meal.status == 0 %}
-            <a class="acknowledge ack-button" rel="order" model="meal" id="{{meal.id}}"><i class="icon-check-sign"></i> Acknowledge</a>
-        {% elif meal.status == 2 %}
-        <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
-        {% endif %}
-    </div>
-    {% endfor %}
-    {% for request in requests_cards %}
-    <div class="item request">
-        {% if request.wait_time.0 >= request.table.outlet.threshold %}
-        <span class="urgent time countdown" start={{request.count_down_start}}>
+                {% if meal.status == 0 %}
+                    <a class="acknowledge ack-button" rel="order" model="meal" id="{{meal.id}}"><i class="icon-check-sign"></i> Acknowledge</a>
+                {% elif meal.status == 2 %}
+                <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
+                {% endif %}
+            </div>
+            {% endwith %}
         {% else %}
-        <span class="early time countdown" start={{request.count_down_start}}>
+            {% with card as request %}
+            <div class="item request">
+                {% if request.wait_time.0 >= request.table.outlet.threshold %}
+                <span class="urgent time countdown" start={{request.count_down_start}}>
+                {% else %}
+                <span class="early time countdown" start={{request.count_down_start}}>
+                {% endif %}
+                    <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
+                </span>
+                <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
+                <h3>{{ request.table.name }}</h3>
+                <h4>{{ request.diner.get_full_name }}</h4>
+                <span class="user-summary">
+                <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
+                <p class='profile-tab'>${{ request.diner.get_average_spending }} ave</p>
+                <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+                </span>
+
+                <p class="note">{{request.note}}
+                </p>
+
+                {% if request.request_type == 0 %}
+                    <img class="icon" src="{% static "img/water.png" %}"/>
+                {% elif request.request_type == 1%}
+                    <img class="icon" src="{% static "img/waiter.png" %}"/>
+                {% endif %}
+
+                <a class="respond ack-button" rel="req" model="request" id="{{request.id}}"><i class="icon-glass"></i> Respond</a>
+            </div>
+            {% endwith %}
         {% endif %}
-            <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
-        </span>
-        <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
-        <h3>{{ request.table.name }}</h3>
-        <h4>{{ request.diner.get_full_name }}</h4>
-        <span class="user-summary">
-        <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
-        <p class='profile-tab'>${{ request.diner.get_average_spending }} ave</p>
-        <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
-        </span>
-
-        <p class="note">{{request.note}}
-        </p>
-
-        {% if request.request_type == 0 %}
-            <img class="icon" src="{% static "img/water.png" %}"/>
-        {% elif request.request_type == 1%}
-            <img class="icon" src="{% static "img/waiter.png" %}"/>
-        {% endif %}
-
-        <a class="respond ack-button" rel="req" model="request" id="{{request.id}}"><i class="icon-glass"></i> Respond</a>
-    </div>
     {% endfor %}
     </div>
 {% endblock content %}
