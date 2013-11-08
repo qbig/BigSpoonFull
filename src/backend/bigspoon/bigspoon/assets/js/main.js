@@ -13,6 +13,19 @@ $(document).ready(function() {
             });
     });
 
+    // filter by dish category
+    $('#pick-category').on("change", function() {
+        var category = $(this).val();
+        var regex = new RegExp(category, 'gi');
+
+        $('#accordion h3').hide()
+            .each(function() {
+                if($(this).html().match(regex)) {
+                    $(this).show();
+                }
+            });
+    });
+
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,

@@ -8,7 +8,7 @@ from django.http import Http404
 
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet, Table, Review, Note
+from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
@@ -83,6 +83,11 @@ class MenuView(ListView):
         return super(MenuView, self).get_queryset()\
             .prefetch_related('outlet', 'categories')\
             .filter(outlet__in=outlets)
+
+    def get_context_data(self, **kwargs):
+        context = super(MenuView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
     def get(self, request, *args, **kwargs):
         result = super(MenuView, self).get(request, *args, **kwargs)

@@ -1085,3 +1085,7 @@ input#filter {
     height: 20px;
 }
 
+#pick-category {
+    margin: 30px;
+    margin-bottom:0px;
+}
