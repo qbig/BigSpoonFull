@@ -71,6 +71,12 @@ class RestaurantSerializer(serializers.ModelSerializer):
         read_only_fields = ('name',)
 
 
+class OrderDishSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Dish
+
+
 class DishSerializer(serializers.ModelSerializer):
     photo = serializers.SerializerMethodField('get_photo')
     categories = CategorySerializer(many=True)
@@ -148,10 +154,46 @@ class NoteSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    dish = DishSerializer(many=False)
+    dish = serializers.SerializerMethodField('get_dish')
+    outlet = serializers.SerializerMethodField('get_outlet')
+
+    def get_dish(self, obj):
+        return {
+            "id": obj.dish.id,
+            "name": obj.dish.name
+        }
+
+    def get_outlet(self, obj):
+        return {
+            "id": obj.meal.table.outlet.id,
+            "name": obj.meal.table.outlet.name
+        }
 
     class Meta:
         model = Order
+        fields = ("quantity", "dish")
+
+
+class MealHistorySerializer(serializers.ModelSerializer):
+    orders = OrderSerializer(many=True)
+    outlet = serializers.SerializerMethodField('get_outlet')
+    order_time = serializers.SerializerMethodField('get_order_time')
+
+    def get_order_time(self, obj):
+        now = timezone.now()
+        return "%s (%d days ago)" % (
+            obj.bill_time.date().strftime("%Y/%m/%d"),
+            (now.date() - obj.bill_time.date()).days)
+
+    def get_outlet(self, obj):
+        return {
+            "id": obj.table.outlet.id,
+            "name": obj.table.outlet.name
+        }
+
+    class Meta:
+        model = Meal
+        fields = ("outlet", "order_time", "note", "orders")
 
 
 class MealSerializer(serializers.ModelSerializer):

@@ -20,7 +20,8 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
-    ReviewSerializer, DishSerializer
+    ReviewSerializer, DishSerializer, MealHistorySerializer
+
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
@@ -140,14 +141,30 @@ class ListCategory(generics.ListAPIView):
     model = Category
 
 
+class MealHistory(generics.ListAPIView):
+    """
+    List all meals belong to person
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealHistorySerializer
+    model = Meal
+
+    def get_queryset(self):
+        return Meal.objects.filter(
+            diner=self.request.user,
+            is_paid=True
+        )
+
+
 class CreateMeal(generics.CreateAPIView):
     """
     Create new meal
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    model = Meal
     serializer_class = MealSerializer
+    model = Meal
 
     def post(self, request, *args, **kwargs):
         dishes = request.DATA['dishes']
