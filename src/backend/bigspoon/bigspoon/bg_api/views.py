@@ -432,7 +432,7 @@ class UpdateDish(generics.GenericAPIView):
         except Dish.DoesNotExist:
             raise Http404
         dish.name = req.DATA['name']
-        dish.price = int(req.DATA['price'])
+        dish.price = Decimal(str(req.DATA['price']))
         dish.pos = req.DATA['pos']
         dish.desc = req.DATA['desc']
         dish.start_time = req.DATA['start_time']
