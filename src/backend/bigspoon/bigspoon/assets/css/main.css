@@ -411,6 +411,12 @@ height: 130px;
     word-wrap: break-word;
 }
 
+.order li p {
+    display: inline-block;
+    width: 170px;
+    margin: 0px;
+}
+
 .order li em.quantity {
     float:left;
     padding-right:10px;
@@ -423,7 +429,6 @@ height: 130px;
 }
 
 .order li em.pos{
-    float:right;
     color: #fff;
     font-size:12px;
     background-color:#61C0B9;
