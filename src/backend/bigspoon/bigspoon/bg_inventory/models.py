@@ -330,14 +330,14 @@ class Outlet(models.Model):
         _('gst'),
         max_digits=3,
         decimal_places=2,
-        default=0.07,
+        default="0.07",
         help_text=_('goods and services tax'),
     )
     scr = models.DecimalField(
         _('scr'),
         max_digits=3,
         decimal_places=2,
-        default=0.10,
+        default="0.10",
         help_text=_('service charge rate'),
     )
 
