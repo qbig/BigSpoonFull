@@ -225,6 +225,10 @@ class RequestSerializer(serializers.ModelSerializer):
         read_only_fields = ('is_active', 'finished', 'diner')
 
 
+class SearchDishSerializer(serializers.Serializer):
+    name = serializers.CharField(required=True)
+
+
 class TokenSerializer(serializers.Serializer):
     email = serializers.CharField()
     password = serializers.CharField()

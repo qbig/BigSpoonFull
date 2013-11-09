@@ -28,6 +28,8 @@ urlpatterns = patterns(
     url(r'^outlets/(?P<pk>[0-9]+)$', views.OutletDetail.as_view()),
     # category
     url(r'^categories$', views.ListCategory.as_view()),
+    # search outlet by dish
+    url(r'^searchdish$', views.SearchOutletByDish.as_view()),
     # session auth
     url(r'^web-auth/',
         include('rest_framework.urls', namespace='rest_framework')),

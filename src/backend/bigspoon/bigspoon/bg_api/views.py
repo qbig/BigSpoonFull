@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.contrib.auth.models import Group
 from django.utils import timezone
+from django.db.models import Q
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -22,7 +23,8 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
-    ReviewSerializer, DishSerializer, MealHistorySerializer
+    ReviewSerializer, DishSerializer, MealHistorySerializer, \
+    SearchDishSerializer
 
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
@@ -159,6 +161,7 @@ class MealHistory(generics.ListAPIView):
         )
 
 
+#NOTE: Use serializer to check and get post data here
 class CreateMeal(generics.CreateAPIView):
     """
     Create new meal
@@ -255,6 +258,7 @@ class CreateRequest(generics.CreateAPIView):
         )
 
 
+#NOTE: Use serializer to check and get post data here
 class AskForBill(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -281,6 +285,7 @@ class AskForBill(generics.GenericAPIView):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
+#NOTE: Use serializer to check and get post data here
 class CreateRating(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -344,7 +349,31 @@ class CreateReview(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class SearchOutletByDish(generics.GenericAPIView):
+    model = Outlet
+    serializer_class = SearchDishSerializer
+
+    def post(self, req, *args, **kwargs):
+        serializer = self.get_serializer(
+            data=req.DATA,
+            files=req.FILES
+        )
+        if serializer.is_valid():
+            outlets = Outlet.objects.filter(
+                Q(dishes__name__contains=serializer.data['name']) |
+                Q(dishes__desc__contains=serializer.data['name'])
+            ).values_list("id", "name").distinct()
+            if outlets.count() > 0:
+                return Response([
+                    {"id": o[0], "name": o[1]} for o in outlets
+                ], status=status.HTTP_200_OK)
+            return Response("no results",
+                            status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 # internal API for staff app only
+#NOTE: Use serializer to check and get post data here
 class CloseBill(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (DjangoObjectPermissions,)
@@ -371,6 +400,7 @@ class CloseBill(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class AckOrder(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (DjangoObjectPermissions,)
@@ -396,6 +426,7 @@ class AckOrder(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class AckRequest(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (DjangoObjectPermissions,)
@@ -421,6 +452,7 @@ class AckRequest(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class CreateNote(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -439,6 +471,7 @@ class CreateNote(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class UpdateDish(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -462,6 +495,7 @@ class UpdateDish(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class GetSpendingData(generics.GenericAPIView):
     model = Meal
 
