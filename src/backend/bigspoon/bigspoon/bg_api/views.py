@@ -360,8 +360,8 @@ class SearchOutletByDish(generics.GenericAPIView):
         )
         if serializer.is_valid():
             outlets = Outlet.objects.filter(
-                Q(dishes__name__contains=serializer.data['name']) |
-                Q(dishes__desc__contains=serializer.data['name'])
+                Q(dishes__name__icontains=serializer.data['name']) |
+                Q(dishes__desc__icontains=serializer.data['name'])
             ).values_list("id", "name").distinct()
             if outlets.count() > 0:
                 return Response([
