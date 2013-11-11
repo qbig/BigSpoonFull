@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+    // time picker
+    $('input.ui-timepicker-input').timepicker({
+        'timeFormat': 'H:i:s',
+        'step': 30,
+        'maxTime': '11:59pm',
+    });
+
     // Menu update page live search/filter
     $('#filter').keyup(function() {
         var f = $(this).val();

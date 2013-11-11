@@ -1,8 +1,5 @@
 {% extends "staff.html" %}
 
-{% load staticfiles %}
-{% load compress %}
-
 {% block content %}
 
     <div class="help">
@@ -40,11 +37,11 @@
                 <p class="price"><i class="icon-usd"></i> Price <input type="text" value="{{dish.price}}"></p>
                 <p class="pos"><i class="icon-barcode"></i> POS <input type="text" value="{{dish.pos}}"></p>
                 <p class="description">Description <br/><textarea cols="40" rows="10">{{dish.desc}}</textarea></p>
-                <p class="start_time"><i class="icon-time"></i> Start time <br/><input type="text" autocomplete="off" id="id_start_time" class="ui-timepicker-input" value="{{dish.start_time|date:"H:i:s"}}"></p>
-                <p class="end_time"><i class="icon-time"></i> End time <br/><input type="text" autocomplete="off" id="id_end_time" class="ui-timepicker-input" value="{{dish.end_time|date:"H:i:s"}}"></p>
+                <p class="start_time"><i class="icon-time"></i> Start time <br/><input type="text" autocomplete="off" class="ui-timepicker-input" value="{{dish.start_time|date:"H:i:s"}}"></p>
+                <p class="end_time"><i class="icon-time"></i> End time <br/><input type="text" autocomplete="off" class="ui-timepicker-input" value="{{dish.end_time|date:"H:i:s"}}"></p>
                 <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/> <input type="text" value="{{dish.quantity}}"></p>
 
-                <a class="add" dish-id="{{dish.id}}" onclick="updateDish(this)"><i class="icon-save"></i> Save</a>
+                <a href="#" class="add" dish-id="{{dish.id}}" onclick="updateDish(this)"><i class="icon-save"></i> Save</a>
             </span>
 
             <span id="notice-{{dish.id}}" class="notifications">
