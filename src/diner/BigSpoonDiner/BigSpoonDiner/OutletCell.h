@@ -15,5 +15,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *address;
 @property (nonatomic, strong) IBOutlet UILabel *phoneNumber;
 @property (nonatomic, strong) IBOutlet UILabel *operatingHours;
+@property (strong, nonatomic) IBOutlet UILabel *promotionTextLabel;
 
 @end
