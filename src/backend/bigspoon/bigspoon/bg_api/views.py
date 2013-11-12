@@ -1,8 +1,11 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.contrib.auth.models import Group
 from django.utils import timezone
+from django.db.models import Q
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -20,7 +23,9 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
-    ReviewSerializer
+    ReviewSerializer, DishSerializer, MealHistorySerializer, \
+    SearchDishSerializer
+
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
@@ -140,14 +145,31 @@ class ListCategory(generics.ListAPIView):
     model = Category
 
 
+class MealHistory(generics.ListAPIView):
+    """
+    List all meals belong to person
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealHistorySerializer
+    model = Meal
+
+    def get_queryset(self):
+        return Meal.objects.filter(
+            diner=self.request.user,
+            is_paid=True
+        )
+
+
+#NOTE: Use serializer to check and get post data here
 class CreateMeal(generics.CreateAPIView):
     """
     Create new meal
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    model = Meal
     serializer_class = MealSerializer
+    model = Meal
 
     def post(self, request, *args, **kwargs):
         dishes = request.DATA['dishes']
@@ -236,6 +258,7 @@ class CreateRequest(generics.CreateAPIView):
         )
 
 
+#NOTE: Use serializer to check and get post data here
 class AskForBill(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -262,6 +285,7 @@ class AskForBill(generics.GenericAPIView):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
+#NOTE: Use serializer to check and get post data here
 class CreateRating(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -325,7 +349,31 @@ class CreateReview(generics.CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class SearchOutletByDish(generics.GenericAPIView):
+    model = Outlet
+    serializer_class = SearchDishSerializer
+
+    def post(self, req, *args, **kwargs):
+        serializer = self.get_serializer(
+            data=req.DATA,
+            files=req.FILES
+        )
+        if serializer.is_valid():
+            outlets = Outlet.objects.filter(
+                Q(dishes__name__icontains=serializer.data['name']) |
+                Q(dishes__desc__icontains=serializer.data['name'])
+            ).values_list("id", "name").distinct()
+            if outlets.count() > 0:
+                return Response([
+                    {"id": o[0], "name": o[1]} for o in outlets
+                ], status=status.HTTP_200_OK)
+            return Response("no results",
+                            status=status.HTTP_404_NOT_FOUND)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 # internal API for staff app only
+#NOTE: Use serializer to check and get post data here
 class CloseBill(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (DjangoObjectPermissions,)
@@ -352,6 +400,7 @@ class CloseBill(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class AckOrder(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (DjangoObjectPermissions,)
@@ -377,6 +426,7 @@ class AckOrder(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class AckRequest(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (DjangoObjectPermissions,)
@@ -402,6 +452,7 @@ class AckRequest(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+#NOTE: Use serializer to check and get post data here
 class CreateNote(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -417,4 +468,53 @@ class CreateNote(generics.GenericAPIView):
         note.content = req.DATA['content']
         note.save()
         return Response(NoteSerializer(note).data,
+                        status=status.HTTP_200_OK)
+
+
+#NOTE: Use serializer to check and get post data here
+class UpdateDish(generics.GenericAPIView):
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    model = Dish
+
+    def post(self, req, *args, **kwargs):
+        id = int(kwargs['pk'])
+        try:
+            dish = Dish.objects.get(id=id)
+        except Dish.DoesNotExist:
+            raise Http404
+        dish.name = req.DATA['name']
+        dish.price = Decimal(str(req.DATA['price']))
+        dish.pos = req.DATA['pos']
+        dish.desc = req.DATA['desc']
+        dish.start_time = req.DATA['start_time']
+        dish.end_time = req.DATA['end_time']
+        dish.quantity = int(req.DATA['quantity'])
+        dish.save()
+        return Response(DishSerializer(dish).data,
+                        status=status.HTTP_200_OK)
+
+
+#NOTE: Use serializer to check and get post data here
+class GetSpendingData(generics.GenericAPIView):
+    model = Meal
+
+    def post(self, req, *args, **kwargs):
+        outlet_id = int(kwargs['pk'])
+
+        try:
+            table = Table.objects.filter(outlet=outlet_id)[0]
+        except Table.DoesNotExist:
+            raise Http404
+
+        from_date_str = str(req.DATA['from_date'])
+        from_date = datetime.datetime.strptime(from_date_str,
+                                               '%d-%m-%Y').date()
+        to_date_str = str(req.DATA['to_date'])
+        to_date = datetime.datetime.strptime(to_date_str, '%d-%m-%Y').date()
+
+        meals_past_week = Meal.objects.filter(table=table,
+                                              created__gte=from_date,
+                                              created__lte=to_date)
+        return Response(MealSerializer(meals_past_week).data,
                         status=status.HTTP_200_OK)

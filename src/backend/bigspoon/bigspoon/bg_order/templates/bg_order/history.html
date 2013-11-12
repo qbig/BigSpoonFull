@@ -4,13 +4,25 @@
 {% load compress %}
 
 {% block content %}
+    <div class="help">
+        <p><i class="icon-time"></i> <strong>History</strong> shows you all of today's acknowledged orders and requests. Here, you can review all your inactive orders and see how long it took to respond to
+        the diners.</p>
+    </div>
 
+    <div class="wrapper">
     {% for meal in meal_cards %}
     <div class="item history">
-        <span class="passed time"><i class="icon-time"></i> finished in {{meal.used_time.0}} mins {{meal.used_time.1}} seconds</span>
+        <span class="passed time"><i class="icon-time"></i> responded in {{meal.used_time.0}} mins {{meal.used_time.1}} seconds</span>
         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}" rel="facebox"><img src="{{meal.diner.avatar_url}}" /></a>
         <h3>{{ meal.table.name }}</h3>
         <h4>{{ meal.diner.get_full_name }}</h4>
+
+        <span class="user-summary">
+        <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
+        <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+        <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+        </span>
+
 
         {% if meal.is_paid %}
             <p class="paid">Paid</p>
@@ -22,30 +34,49 @@
             <p class="note">{{meal.note}}</p>
         {% endif %}
 
-        <!-- Left color coded timing, list of orders, acknowledge button -->
         <ul class="order">
-            {% for order in meal.orders.all %}
-            <li><em class="pos">{{order.dish.pos}}</em> {{order.dish.name}}  <em class="quantity">{{order.quantity}}</em></li>
-            {% endfor %}
+            {% if meal.orders.count > 0 %}
+                {% for order in meal.orders.all %}
+                <li>
+                    <em class='quantity'>{{order.quantity}}x</em>
+                    <p>{{order.dish.name}}</p>
+                    {% if order.dish.pos %}
+                    <em class='pos'>{{order.dish.pos}}</em>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            {% else %}
+                <li>No orders yet.</li>
+            {% endif %}
         </ul>
 
     </div>
     {% endfor %}
     {% for request in requests_cards %}
     <div class="item history">
-        <span class="passed time"><i class="icon-time"></i> finished in {{request.used_time.0}} mins {{request.used_time.1}} seconds</span>
+        <span class="passed time"><i class="icon-time"></i> responded in {{request.used_time.0}} mins {{request.used_time.1}} seconds</span>
         <a class="user-profile-link" href="/staff/user/{{request.diner.id}}" rel="facebox"><img src="{{request.diner.avatar_url}}" /></a>
         <h3>{{ request.table.name }}</h3>
         <h4>{{ request.diner.get_full_name }}</h4>
-        <p class="note">{{request.note}}
+
+        <span class="user-summary">
+        <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
+        <p class='profile-tab'>${{ request.diner.get_average_spending }} ave</p>
+        <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+        </span>
+
+
+        <p class="note">
+            {{request.note}}
+        </p>
 
         {% if request.request_type == 0 %}
             <img class="icon" src="{% static "img/water.png" %}"/>
         {% elif request.request_type == 1%}
             <img class="icon" src="{% static "img/waiter.png" %}"/>
         {% endif %}
-        </p>
     </div>
     {% endfor %}
+    </div>
 
 {% endblock content %}

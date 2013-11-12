@@ -6,16 +6,19 @@ from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.http import Http404
 
-from extra_views import ModelFormSetView
 from guardian.shortcuts import get_objects_for_user
 
-from bg_inventory.models import Dish, Outlet, Table, Review, Note
+from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
 from utils import send_socketio_message, today_limit
 
 User = get_user_model()
+
+
+class IndexView(TemplateView):
+    template_name = "index.html"
 
 
 class MainView(TemplateView):
@@ -30,14 +33,17 @@ class MainView(TemplateView):
         if (outlets.count() == 0):
             raise PermissionDenied
         context = super(MainView, self).get_context_data(**kwargs)
-        context['meal_cards'] = Meal.objects\
+        meals = Meal.objects\
             .prefetch_related('diner', 'orders', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
-        context['requests_cards'] = Request.objects\
+        requests = Request.objects\
             .prefetch_related('diner', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(is_active=True)
+        cards = list(meals)+list(requests)
+        context["cards"] = sorted(cards,
+                                  key=lambda card: card.count_down_start)
         return context
 
 
@@ -68,12 +74,9 @@ class HistoryView(TemplateView):
         return context
 
 
-class MenuView(ModelFormSetView):
-    template_name = "bg_inventory/menu.html"
+class MenuView(ListView):
     model = Dish
-    fields = ['name', 'desc', 'price', 'pos', 'quantity',
-              'start_time', 'end_time', 'categories']
-    extra = 0
+    template_name = "bg_inventory/menu.html"
 
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
@@ -88,15 +91,13 @@ class MenuView(ModelFormSetView):
             .prefetch_related('outlet', 'categories')\
             .filter(outlet__in=outlets)
 
-    def formset_valid(self, formset):
-        messages.success(self.request, 'Dish details updated')
-        return super(MenuView, self).formset_valid(formset)
+    def get_context_data(self, **kwargs):
+        context = super(MenuView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
-    def post(self, request, *args, **kwargs):
-        result = super(MenuView, self).post(request, *args, **kwargs)
-        send_socketio_message(
-            request.user.outlet_ids,
-            ['refresh', 'menu', 'update'])
+    def get(self, request, *args, **kwargs):
+        result = super(MenuView, self).get(request, *args, **kwargs)
         return result
 
 

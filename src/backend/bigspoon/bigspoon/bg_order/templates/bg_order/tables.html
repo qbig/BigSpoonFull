@@ -5,31 +5,62 @@
 
 {% block content %}
 
+    <div class="help">
+        <p><i class="icon-group"></i> <strong>Tables</strong> shows you a bird's-eye view of all your current tables' unpaid orders.</p>
+    </div>
+
 <div class="wrapper">
     {% for table in table_list %}
 
     <div class="table">
         <h3>{{table.name}}</h3>
-        {% for meal in table.meals.all %}
-            {% if meal.status == 1 %}
-            <div class='history'>
-            {% else %}
-            <div class='active'>
-            {% endif %}
-                <span class='user'>
-                    <img class="thumbnail-navigation" src="{{meal.diner.avatar_url}}" />
-                    <h4>{{ meal.diner.get_full_name }}'s orders</h4>
-                </span>
-                {% if meal.note %}
-                    <p class="note">{{meal.note}}</p>
+
+        {% if table.meals.count > 0 %}
+
+            {% for meal in table.meals.all %}
+                {% if meal.status == 1 %}
+                <div class='history'>
+                {% else %}
+                <div class='active'>
                 {% endif %}
-                <ul class="order">
-                    {% for order in meal.orders.all %}
-                    <li><em class='pos'>{{order.dish.pos}}</em> {{order.dish.name}}  <em class='quantity'>{{order.quantity}}</em></li>
-                    {% endfor %}
-                </ul>
-            </div>
+                    <span class='user'>
+                        <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
+                        <h4>{{ meal.diner.get_full_name }}'s orders</h4>
+                    </span>
+
+                    <span class="user-summary">
+                    <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
+                    <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+                    <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
+                    </span>
+
+                    {% if meal.note %}
+                        <p class="note">{{meal.note}}</p>
+                    {% endif %}
+                    <ul class="order">
+                        {% if meal.orders.count > 0 %}
+                            {% for order in meal.orders.all %}
+                            <li>
+                                <em class='quantity'>{{order.quantity}}x</em>
+                                <p>{{order.dish.name}}</p>
+
+                                {% if order.dish.pos %}
+                                <em class='pos'>{{order.dish.pos}}</em>
+                                {% endif %}
+
+                            </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No orders yet.</li>
+                        {% endif %}
+                    </ul>
+                </div>
             {% endfor %}
+
+        {% else %}
+            <p class="no-orders">This table currently has no orders. </p>
+        {% endif %}
+
     </div>
     {% endfor %}
 

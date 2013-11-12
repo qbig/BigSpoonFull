@@ -305,7 +305,6 @@ class Outlet(models.Model):
         blank=True,
         help_text=_('outlet discount')
     )
-
     phone = models.CharField(
         _('phone'),
         max_length=30,
@@ -326,6 +325,20 @@ class Outlet(models.Model):
     )
     is_active = models.BooleanField(
         default=False,
+    )
+    gst = models.DecimalField(
+        _('gst'),
+        max_digits=3,
+        decimal_places=2,
+        default="0.07",
+        help_text=_('goods and services tax'),
+    )
+    scr = models.DecimalField(
+        _('scr'),
+        max_digits=3,
+        decimal_places=2,
+        default="0.10",
+        help_text=_('service charge rate'),
     )
 
     def __unicode__(self):
