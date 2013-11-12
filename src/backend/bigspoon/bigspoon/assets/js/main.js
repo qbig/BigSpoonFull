@@ -7,14 +7,28 @@ $(document).ready(function() {
         'maxTime': '11:59pm',
     });
 
+    // close all menu
+    function closeAllMenu() {
+        $('.ui-accordion-header').removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all').attr({
+            'aria-selected': 'false',
+            'tabindex': '-1'
+        });
+        $('.ui-accordion-header').find("i").removeClass('icon-collapse-top').addClass('icon-collapse');
+        $('.ui-accordion-content').removeClass('ui-accordion-content-active').attr({
+            'aria-expanded': 'false',
+            'aria-hidden': 'true'
+        }).hide();
+    }
+
     // Menu update page live search/filter
     $('#filter').keyup(function() {
         var f = $(this).val();
         var regex = new RegExp(f, 'gi');
 
+        closeAllMenu();
         $('#accordion h3').hide()
             .each(function() {
-                if($(this).html().match(regex)) {
+                if($(this).text().match(regex)) {
                     $(this).show();
                 }
             });
@@ -25,9 +39,10 @@ $(document).ready(function() {
         var category = $(this).val();
         var regex = new RegExp(category, 'gi');
 
+        closeAllMenu();
         $('#accordion h3').hide()
             .each(function() {
-                if($(this).html().match(regex)) {
+                if($(this).find("input").val().match(regex)) {
                     $(this).show();
                 }
             });
@@ -95,7 +110,6 @@ $(document).ready(function() {
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
             var path = location.pathname;
-            console.log(data);
             if (data[0] == "refresh") {
                 if (data[1] == "request" || data[1] == "meal") {
                     if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
@@ -150,7 +164,6 @@ $(document).ready(function() {
                 "content":content,
             }
 
-            console.log(req_data);
 
             $.post(
                 STAFF_API_URLS["note"],
@@ -178,9 +191,6 @@ $(document).ready(function() {
         var button = $(elem);
         var form = button.parent();
 
-        console.log(button.parent());
-        console.log(form);
-
         var id = button.attr('dish-id');
         var name = form.find('.name input').val()
         var price = form.find('.price input').val()
@@ -204,8 +214,6 @@ $(document).ready(function() {
             "end_time":end_time,
             // "categories":categories
         }
-
-        console.log(req_data);
 
         $.post(
             STAFF_API_URLS["dish"] + "/" + id,
