@@ -17,6 +17,10 @@ from utils import send_socketio_message, today_limit
 User = get_user_model()
 
 
+class IndexView(TemplateView):
+    template_name = "index.html"
+
+
 class MainView(TemplateView):
     template_name = "bg_order/main.html"
 
