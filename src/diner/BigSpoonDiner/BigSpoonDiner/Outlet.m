@@ -24,7 +24,11 @@
               Address:(NSString *)a
           PhoneNumber:(NSString *)p
       OperationgHours:(NSString *)o
-             OutletID:(int)i{
+             OutletID:(int)i
+      promotionalText: (NSString *) pro
+              gstRate: (double) g
+    serviceChargeRate: (double) s{
+    
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -33,6 +37,9 @@
         self.phoneNumber = p;
         self.operatingHours = o;
         self.outletID = i;
+        self.promotionalText = pro;
+        self.gstRate = g;
+        self.serviceChargeRate = s;
     }
     return self;
 }

@@ -18,7 +18,10 @@
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *operatingHours;
 @property (nonatomic) int outletID;
+@property (nonatomic, strong) NSString *promotionalText;
+@property (nonatomic) double gstRate;
+@property (nonatomic) double serviceChargeRate;
 
-- (id) initWithImgURL: (NSURL *) u Name: (NSString *) n Address: (NSString *) a PhoneNumber: (NSString *) p OperationgHours: (NSString *) o OutletID: (int) i;
+- (id) initWithImgURL: (NSURL *) u Name: (NSString *) n Address: (NSString *) a PhoneNumber: (NSString *) phone OperationgHours: (NSString *) o OutletID: (int) i  promotionalText: (NSString *) pro  gstRate: (double) g serviceChargeRate: (double) s;
 
 @end
