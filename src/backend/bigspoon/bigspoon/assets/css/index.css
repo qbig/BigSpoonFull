@@ -16,11 +16,22 @@ h1 {
   font-size: 70px;
 }
 
+.screenshot {
+  display: block;
+  width: 960px;
+  margin: 0 auto;
+}
+
+.screenshot img {
+  width: 960px;
+  box-shadow: 0px 0px 40px 5px rgba(0,0,0,0.2);
+}
+
 #section-one {
   background: url("/static/img/bg.png");
 }
 
-#section-one h1 {
+#section-one h1, #section-three h1 {
   color: #555;
   letter-spacing: -1px;
   font-size: 36px;
@@ -29,7 +40,7 @@ h1 {
   /*color: #9b59b6;*/
 }
 
-#section-one h2 {
+#section-one h2, #section-three h2 {
   margin-top: 0px;
   color: #999;
   font-weight: 100;
@@ -41,9 +52,9 @@ h1 {
   color: #9b59b6;
 }
 
-
 #section-two {
   background: #4EB2AB;
+  box-shadow: inset 0px 0px 40px 5px rgba(0,0,0,0.2);
 }
 
 #section-two h1{
@@ -55,6 +66,7 @@ h1 {
   font-size: 60px;
   font-weight: normal;
   font-family: Scholar;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 2px 0;
 }
 
 #section-three {
