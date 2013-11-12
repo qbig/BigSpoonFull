@@ -6,7 +6,7 @@
 {% block content %}
 
     <div class="help">
-        <p><i class="icon-bell-alt"></i> <strong>Right Now</strong> shows you all orders and requests waiting for your response right now. Here, you can acknowledge that the order has been accepted and let diners know that waiters will soon be with them.</p>
+        <p><i class="icon-bell-alt"></i> <strong>Home</strong> shows you all orders and requests waiting for your response right now. Here, you can acknowledge that the order has been accepted and let diners know that waiters will soon be with them.</p>
     </div>
 
     <div class="wrapper">
@@ -21,10 +21,11 @@
                 {% endif %}
                     <i class="icon-time"></i> waited {{meal.wait_time.0}}m, {{meal.wait_time.1}}s
                 </span>
-                <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
                 <h3>{{ meal.table.name }}</h3>
-                <h4>{{ meal.diner.get_full_name }}</h4>
-
+                <span class='user'>
+                        <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
+                        <h4>{{ meal.diner.get_full_name }}'s orders</h4>
+                </span>
                 <span class="user-summary">
                 <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
                 <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
@@ -83,9 +84,11 @@
                         {% endif %}
                         <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
                     </span>
-                    <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
                     <h3>{{ request.table.name }}</h3>
-                    <h4>{{ request.diner.get_full_name }}</h4>
+                    <span class='user'>
+                            <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
+                            <h4>{{ request.diner.get_full_name }}'s orders</h4>
+                    </span>
                     <span class="user-summary">
                         <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
                         <p class='profile-tab'>${{ request.diner.get_average_spending }} ave</p>
