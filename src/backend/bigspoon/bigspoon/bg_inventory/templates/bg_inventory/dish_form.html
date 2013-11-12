@@ -1,10 +1,10 @@
 {% extends "staff.html" %}
 
-{% load staticfiles %}
-{% load compress %}
+{% load menufilters %}
 
 {% block content %}
 
+<div class="wrapper">
 <div class="wrapper-bg">
     <h1>Add Menu</h1>
 
@@ -17,8 +17,8 @@
                 <p class="price"><i class="icon-usd"></i> {{form.price.label}} {{form.price}}</p>
                 <p class="description">{{form.desc.label}} {{form.desc}}</p>
                 <p class="photo"><i class="icon-camera"></i> {{form.photo.label}} {{form.photo}}</p>
-                <p class="start_time"><i class="icon-time"></i> {{form.start_time.label}} <br/>{{form.start_time}}</p>
-                <p class="end_time"><i class="icon-time"></i> {{form.end_time.label}} <br/>{{form.end_time}}</p>
+                <p class="start_time"><i class="icon-time"></i> {{form.start_time.label}} <br/>{{form.start_time|addcss:"ui-timepicker-input"}}</p>
+                <p class="end_time"><i class="icon-time"></i> {{form.end_time.label}} <br/>{{form.end_time|addcss:"ui-timepicker-input"}}</p>
                 <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/> {{form.quantity}}</p>
                 <p class="categories"><i class="icon-tag"></i> {{form.categories.label}} {{form.categories}}</p>
             </span>
@@ -32,5 +32,5 @@
         {% endif %}
 
     </div>
-
+</div>
 {% endblock content %}

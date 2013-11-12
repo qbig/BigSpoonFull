@@ -11,6 +11,8 @@
 
 @interface ItemsOrderedViewController (){
     int viewAppearCount;
+    double GSTRate;
+    double serviceChargeRate;
 }
 
 @end
@@ -56,6 +58,7 @@
     }
     
     [self updatePriceLabels];
+    [self updateTableHeight];
     
     return;
     // register for keyboard notifications
@@ -316,6 +319,12 @@
     
 }
 
+- (void) setGSTRate: (double) g andServiceChargeRate: (double) s{
+    GSTRate = g;
+    serviceChargeRate = s;
+}
+
+
 // This function is called when segue from menu list to here is performed
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
     self.currentOrder = currentOrder;
@@ -323,6 +332,7 @@
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
+    [self updateTableHeight];
 }
 
 - (IBAction)textFinishEditing:(id)sender {
@@ -333,38 +343,74 @@
     [self updatePriceLabelsWithCurrentORder:self.currentOrder
                               SubtotalLabel:self.currentSubtotalLabel
                          ServiceChargeLabel:self.currentServiceChargeLabel
+                    ServiceChargeTitleLabel:self.currentServiceChargeTitleLabel
                                    GSTLabel:self.currentGSTLabel
+                              GSTTitleLabel:self.currentGSTTitleLabel
                               andTotalLabel:self.currentTotalLabel];
     
     [self updatePriceLabelsWithCurrentORder:self.pastOrder
                               SubtotalLabel:self.pastSubtotalLabel
                          ServiceChargeLabel:self.pastServiceChargeLabel
+                    ServiceChargeTitleLabel:self.pastServiceChargeTitleLabel
                                    GSTLabel:self.pastGSTLabel
+                              GSTTitleLabel:self.pastGSTTitleLabel
                               andTotalLabel:self.pastTotalLabel];
 }
 
 - (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
                           SubtotalLabel: (UILabel *) subTotalLabel
                         ServiceChargeLabel: (UILabel *) serviceChargeLabel
+                   ServiceChargeTitleLabel: (UILabel *) serviceChargeTitleLabel
                                   GSTLabel: (UILabel *) GSTLabel
+                             GSTTitleLabel: (UILabel *) GSTTitleLabel
                              andTotalLabel: (UILabel *) totalLabel{
     
-    NSLog(@"%@", newOrder);
-    
-    float serviceChargePercentage = 0.1;
-    float GSTPercentage = 0.07;
     
     float subTotal = [newOrder getTotalPrice];
     subTotalLabel.text = [NSString stringWithFormat:@"$%.2f", subTotal];
     
-    float serviceCharge = subTotal * serviceChargePercentage;
-    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
+    float serviceCharge = subTotal * serviceChargeRate;
+    serviceChargeTitleLabel.text = [NSString stringWithFormat:@"Service Charge (%.0f%%):", serviceChargeRate * 100];
+    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceChargeRate];
  
-    float GST = subTotal * GSTPercentage;
-    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GST];
+    float GST = subTotal * GSTRate;
+    GSTTitleLabel.text = [NSString stringWithFormat:@"GST (%.0f%%):", GSTRate * 100];
+    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GSTRate];
     
     float total = subTotal + serviceCharge + GST;
     totalLabel.text = [NSString stringWithFormat:@"$%.2f", total];
+}
+
+/*
+ * The table height is dynamic.
+ */
+- (void) updateTableHeight{
+    int currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.currentOrder getNumberOfKindsOfDishes];
+    int pastOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
+    
+    CGRect currentOrderFrame = self.currentOrderTableView.frame;
+    [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
+                                                     currentOrderFrame.origin.y,
+                                                     currentOrderFrame.size.width,
+                                                     currentOrderTableHeight)];
+    
+    CGRect pasrOrderFrame = self.pastOrderTableView.frame;
+    [self.pastOrderTableView setFrame:CGRectMake(pasrOrderFrame.origin.x,
+                                                 pasrOrderFrame.origin.y,
+                                                 pasrOrderFrame.size.width,
+                                                 pastOrderTableHeight)];
+    
+    CGRect viewAfterframe = self.viewContainerForAfterCurrentOrderTable.frame;
+    [self.viewContainerForAfterCurrentOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+                                                                     currentOrderFrame.origin.y + currentOrderTableHeight,
+                                                                     viewAfterframe.size.width,
+                                                                     viewAfterframe.size.height)];
+    
+    viewAfterframe = self.viewContainerForAfterPastOrderTable.frame;
+    [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+                                                                  pasrOrderFrame.origin.y + pastOrderTableHeight,
+                                                                  viewAfterframe.size.width,
+                                                                  viewAfterframe.size.height)];
 }
 
 

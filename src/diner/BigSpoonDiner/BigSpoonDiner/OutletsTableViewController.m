@@ -86,6 +86,8 @@
 	cell.phoneNumber.text = outlet.phoneNumber;
     
 	cell.operatingHours.text = outlet.operatingHours;
+    
+    cell.promotionTextLabel.text = outlet.promotionalText;
 
     return cell;
 }
@@ -162,6 +164,9 @@
                 NSString* phone = [newOutlet objectForKey:@"phone"];
                 NSString* address = [newOutlet objectForKey:@"address"];
                 NSString* opening = [newOutlet objectForKey:@"opening"];
+                NSString* promotionalText = [newOutlet objectForKey:@"discount"];
+                double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
+                double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];;
                 
                 NSLog(@"Outlet id: %d", ID);
                 
@@ -170,7 +175,12 @@
                                                                 Address: address
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
-                                                               OutletID:ID lat:0 lon:0];
+                                                               OutletID:ID
+                                                                    lat:0
+                                                                    lon:0
+                                                        promotionalText: promotionalText
+                                                                gstRate: gstRate
+                                                      serviceChargeRate: serviceChargeRate];
                 [self addOutlet:newOutletObject];
                 
             }

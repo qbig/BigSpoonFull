@@ -20,7 +20,10 @@
 @property (nonatomic) int outletID;
 @property (nonatomic) double lat;
 @property (nonatomic) double lon;
+@property (nonatomic, strong) NSString *promotionalText;
+@property (nonatomic) double gstRate;
+@property (nonatomic) double serviceChargeRate;
 
-- (id) initWithImgURL: (NSURL *) u Name: (NSString *) n Address: (NSString *) a PhoneNumber: (NSString *) p OperationgHours: (NSString *) o OutletID: (int) i lat:(double)lat lon:(double)lon;
+- (id) initWithImgURL: (NSURL *) u Name: (NSString *) n Address: (NSString *) a PhoneNumber: (NSString *) phone OperationgHours: (NSString *) o OutletID: (int) i lat:(double)lat lon:(double)lon promotionalText: (NSString *) pro  gstRate: (double) g serviceChargeRate: (double) s;
 
 @end

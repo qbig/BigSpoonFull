@@ -261,6 +261,10 @@ nav h1, h1.logo{
     font-family: "Ostrich Sans";
 }
 
+nav ul {
+    margin: 10px;
+}
+
 nav ul li{
     display: inline;
     height: 100%;
@@ -274,7 +278,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 20px 18px;
+    padding: 15px 18px;
     border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -298,13 +302,21 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
     background: #F8F8F8;
 }
 
+nav a.logo{
+    display: block;
+    float: left;
+}
+
+nav a.logo img {
+    width: 57px;
+}
+
 /* Order Items */
 .item {
     float: left;
     margin: 5px;
-    padding-bottom: 20px;
     width: 270px;
-    height: 420px;
+    height: 380px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -319,7 +331,8 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 
 .item span.time {
     display:block;
-    padding: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 0px;
@@ -340,9 +353,10 @@ nav ul li a:hover, nav ul li a:focus, nav ul li a:active {
 }
 
 .item h3 {
+    text-align:center;
     margin-top: 0px;
     margin-bottom: 0px;
-    padding-left: 10px;
+/*    padding-left: 10px;*/
     color: rgb(85,85,85);
 }
 
@@ -375,6 +389,7 @@ p.note {
     background: #fcf6ef;
     padding: 5px 10px;
     margin-top:0px;
+    margin-bottom: -3px;
     color: #333;
     min-height:50px;
     word-wrap: break-word;
@@ -399,6 +414,7 @@ height: 130px;
 
 .order {
     margin-top: 2px;
+    margin-bottom: 5px;
     padding: 0px;
     height: 115px;
     overflow:scroll;
@@ -648,7 +664,9 @@ background-color: #468847;
 
 .user {
     display:block;
-    height: 50px;
+    height: 40px;
+    overflow-y: hidden;
+    margin-bottom: -3px;
 }
 
 .user h4 {

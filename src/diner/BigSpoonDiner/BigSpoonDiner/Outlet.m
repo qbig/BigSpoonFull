@@ -28,7 +28,10 @@
       OperationgHours:(NSString *)o
              OutletID:(int)i
                   lat:(double)latitude
-                  lon:(double)longitude{
+                  lon:(double)longitude
+      promotionalText: (NSString *) pro
+              gstRate: (double) g
+    serviceChargeRate: (double) s {
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -39,6 +42,9 @@
         self.outletID = i;
         self.lat = latitude;
         self.lon = longitude;
+        self.promotionalText = pro;
+        self.gstRate = g;
+        self.serviceChargeRate = s;
     }
     return self;
 }

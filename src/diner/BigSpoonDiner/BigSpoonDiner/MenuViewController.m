@@ -520,6 +520,8 @@
             // Change the function of button to: Go Back.
             [self.viewModeButton setHidden:YES];
             
+            [self.itemsOrderedViewController setGSTRate: outlet.gstRate andServiceChargeRate:outlet.serviceChargeRate];
+            
             [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
         }
         
