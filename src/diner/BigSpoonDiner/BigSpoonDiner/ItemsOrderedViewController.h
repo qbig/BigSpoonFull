@@ -64,8 +64,12 @@
 @property (strong, nonatomic) IBOutlet UILabel *currentGSTTitleLabel;
 
 @property (strong, nonatomic) IBOutlet UILabel *pastServiceChargeTitleLabel;
-@property (strong, nonatomic) IBOutlet UILabel *pastOrderLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *pastGSTTitleLabel;
+
+@property (strong, nonatomic) IBOutlet UIView *viewContainerForAfterCurrentOrderTable;
+
+@property (strong, nonatomic) IBOutlet UIView *viewContainerForAfterPastOrderTable;
 
 
 @end
