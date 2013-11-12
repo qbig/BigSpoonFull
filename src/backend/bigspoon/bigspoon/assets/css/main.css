@@ -316,7 +316,7 @@ nav a.logo img {
     float: left;
     margin: 5px;
     width: 270px;
-    height: 400px;
+    height: 380px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -414,6 +414,7 @@ height: 130px;
 
 .order {
     margin-top: 2px;
+    margin-bottom: 5px;
     padding: 0px;
     height: 115px;
     overflow:scroll;
