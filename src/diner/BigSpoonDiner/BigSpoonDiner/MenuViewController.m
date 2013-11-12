@@ -13,6 +13,10 @@
     NSMutableDictionary *_viewControllersByIdentifier;
     NSString *notesWhenPlacingOrder;
     CGRect oldFrameItemBadge;
+    CLGeocoder *geocoder;
+	CLPlacemark *placemark;
+    CLLocationManager *locationManager;
+    CLLocation *currentUserLocation;
 }
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
@@ -21,6 +25,9 @@
 @property (nonatomic, strong) UIAlertView *placeOrderAlertView;
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
+
+- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
+- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB;
 
 @end
 
@@ -79,6 +86,50 @@
     // They will shown in viewDidAppear:
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+    
+    //initialize geolocation
+    locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	locationManager.distanceFilter = kCLDistanceFilterNone;
+	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [locationManager startUpdatingLocation];
+}
+
+// Failed to get current location
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+	
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    // Call alert
+	[errorAlert show];
+}
+
+- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
+{
+    CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
+    if (distance <= radius) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
+    if ((locationA.coordinate.latitude == locationB.coordinate.latitude) && (locationA.coordinate.longitude == locationB.coordinate.longitude)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
+        currentUserLocation = newLocation;
+    }
 }
 
 - (NSString *) regulateLengthOfString:(NSString *)String{

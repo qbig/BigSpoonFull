@@ -170,7 +170,7 @@
                                                                 Address: address
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
-                                                               OutletID:ID];
+                                                               OutletID:ID lat:0 lon:0];
                 [self addOutlet:newOutletObject];
                 
             }

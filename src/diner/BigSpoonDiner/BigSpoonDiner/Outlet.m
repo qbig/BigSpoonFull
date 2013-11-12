@@ -18,13 +18,17 @@
 @synthesize phoneNumber;
 @synthesize operatingHours;
 @synthesize outletID;
+@synthesize lat;
+@synthesize lon;
 
 - (id) initWithImgURL:(NSURL *)u
                  Name:(NSString *)n
               Address:(NSString *)a
           PhoneNumber:(NSString *)p
       OperationgHours:(NSString *)o
-             OutletID:(int)i{
+             OutletID:(int)i
+                  lat:(double)latitude
+                  lon:(double)longitude{
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -33,6 +37,8 @@
         self.phoneNumber = p;
         self.operatingHours = o;
         self.outletID = i;
+        self.lat = latitude;
+        self.lon = longitude;
     }
     return self;
 }

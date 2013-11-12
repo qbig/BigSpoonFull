@@ -66,6 +66,7 @@
 		49F10811180886D600D2C8DD /* BigSpoonDinerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F10810180886D600D2C8DD /* BigSpoonDinerTests.m */; };
 		C9D71B479F8844F6B421C6DE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F63AF821F7C4274ACFCBE67 /* libPods.a */; };
 		E951D784180EE285002BE045 /* OrderHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E951D783180EE285002BE045 /* OrderHistoryViewController.m */; };
+		E972A39B1832D21C00976CA1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E972A39A1832D21C00976CA1 /* CoreLocation.framework */; };
 		E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E99E9A221821AF58002ECD29 /* HomeAndSettingsButtonView.xib */; };
 		E99E9A261821B464002ECD29 /* HomeAndSettingsButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = E99E9A251821B464002ECD29 /* HomeAndSettingsButtonView.m */; };
 		E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B7A29C180D3CA0009B6BD1 /* PastOrderView.m */; };
@@ -171,6 +172,7 @@
 		B7CAB2EEB6524D3B826504F5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		E951D782180EE285002BE045 /* OrderHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderHistoryViewController.h; sourceTree = "<group>"; };
 		E951D783180EE285002BE045 /* OrderHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderHistoryViewController.m; sourceTree = "<group>"; };
+		E972A39A1832D21C00976CA1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E99E9A221821AF58002ECD29 /* HomeAndSettingsButtonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeAndSettingsButtonView.xib; path = ../HomeAndSettingsButtonView.xib; sourceTree = "<group>"; };
 		E99E9A241821B464002ECD29 /* HomeAndSettingsButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeAndSettingsButtonView.h; sourceTree = "<group>"; };
 		E99E9A251821B464002ECD29 /* HomeAndSettingsButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeAndSettingsButtonView.m; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E972A39B1832D21C00976CA1 /* CoreLocation.framework in Frameworks */,
 				49558BBE181D0B3F00273090 /* Security.framework in Frameworks */,
 				49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */,
 				4999A2071809518C00270B0B /* FacebookSDK.framework in Frameworks */,
@@ -300,6 +303,7 @@
 		49F107E1180886D600D2C8DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E972A39A1832D21C00976CA1 /* CoreLocation.framework */,
 				49558BBD181D0B3F00273090 /* Security.framework */,
 				4999A2061809518C00270B0B /* FacebookSDK.framework */,
 				49F107E2180886D600D2C8DD /* Foundation.framework */,
