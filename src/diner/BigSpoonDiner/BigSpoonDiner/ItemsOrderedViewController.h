@@ -59,5 +59,13 @@
 @property (strong, nonatomic) IBOutlet UILabel *pastGSTLabel;
 @property (strong, nonatomic) IBOutlet UILabel *pastTotalLabel;
 
+@property (strong, nonatomic) IBOutlet UILabel *currentServiceChargeTitleLabel;
+
+@property (strong, nonatomic) IBOutlet UILabel *currentGSTTitleLabel;
+
+@property (strong, nonatomic) IBOutlet UILabel *pastServiceChargeTitleLabel;
+@property (strong, nonatomic) IBOutlet UILabel *pastOrderLabel;
+
+
 
 @end

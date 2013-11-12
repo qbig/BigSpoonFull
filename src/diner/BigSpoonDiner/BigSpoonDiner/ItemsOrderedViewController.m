@@ -341,12 +341,14 @@
     [self updatePriceLabelsWithCurrentORder:self.currentOrder
                               SubtotalLabel:self.currentSubtotalLabel
                          ServiceChargeLabel:self.currentServiceChargeLabel
+                    ServiceChargeTitleLabel:self.currentServiceChargeTitleLabel
                                    GSTLabel:self.currentGSTLabel
                               andTotalLabel:self.currentTotalLabel];
     
     [self updatePriceLabelsWithCurrentORder:self.pastOrder
                               SubtotalLabel:self.pastSubtotalLabel
                          ServiceChargeLabel:self.pastServiceChargeLabel
+                    ServiceChargeTitleLabel:self.pastServiceChargeTitleLabel
                                    GSTLabel:self.pastGSTLabel
                               andTotalLabel:self.pastTotalLabel];
 }
@@ -354,7 +356,9 @@
 - (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
                           SubtotalLabel: (UILabel *) subTotalLabel
                         ServiceChargeLabel: (UILabel *) serviceChargeLabel
+                   ServiceChargeTitleLabel: (UILabel *) serviceChargeTitleLabel
                                   GSTLabel: (UILabel *) GSTLabel
+                             GSTTitleLabel: (UILabel *) GSTTitleLabel
                              andTotalLabel: (UILabel *) totalLabel{
     
     
@@ -362,9 +366,11 @@
     subTotalLabel.text = [NSString stringWithFormat:@"$%.2f", subTotal];
     
     float serviceCharge = subTotal * serviceChargeRate;
+    serviceChargeTitleLabel.text = [NSString stringWithFormat:@"Service Charge($%.2f%%):", serviceChargeRate * 100];
     serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceChargeRate];
  
     float GST = subTotal * GSTRate;
+    GSTTitleLabel.text = [NSString stringWithFormat:@"GST ($%.2f%%):", GSTRate * 100];
     GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GSTRate];
     
     float total = subTotal + serviceCharge + GST;

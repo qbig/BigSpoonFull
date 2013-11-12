@@ -931,13 +931,17 @@
                     <connections>
                         <outlet property="addNotesTextField" destination="sus-Pe-AR7" id="BE0-Ii-yap"/>
                         <outlet property="currentGSTLabel" destination="JIU-fs-w7P" id="HON-hm-Iq8"/>
+                        <outlet property="currentGSTTitleLabel" destination="MIz-vl-b3l" id="4sB-Yk-upa"/>
                         <outlet property="currentOrderTableView" destination="KZd-nK-mn8" id="pfC-Jj-Uhu"/>
                         <outlet property="currentServiceChargeLabel" destination="5UB-Am-i2L" id="mjY-FB-IhM"/>
+                        <outlet property="currentServiceChargeTitleLabel" destination="Qul-ko-kNS" id="yey-0y-ag6"/>
                         <outlet property="currentSubtotalLabel" destination="PQM-24-rGQ" id="axf-QE-UCK"/>
                         <outlet property="currentTotalLabel" destination="89W-Kz-FUq" id="aRu-fR-NZu"/>
                         <outlet property="pastGSTLabel" destination="x4t-gG-wdD" id="NV6-ST-J6s"/>
+                        <outlet property="pastOrderLabel" destination="5fe-4x-kQQ" id="Inr-9a-v0v"/>
                         <outlet property="pastOrderTableView" destination="Ggd-zB-wHu" id="XbD-HC-MMJ"/>
                         <outlet property="pastServiceChargeLabel" destination="zwO-FZ-biy" id="Wbb-cy-5Zl"/>
+                        <outlet property="pastServiceChargeTitleLabel" destination="agi-ew-Z0f" id="rsu-9g-JJ4"/>
                         <outlet property="pastSubtotalLabel" destination="USo-Hi-fkJ" id="sUo-d1-ya8"/>
                         <outlet property="pastTotalLabel" destination="04W-bJ-mpe" id="U0L-Bh-yBL"/>
                         <outlet property="scrollView" destination="2an-2D-blm" id="AKb-S8-cQj"/>
