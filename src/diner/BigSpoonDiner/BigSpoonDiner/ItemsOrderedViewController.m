@@ -11,6 +11,8 @@
 
 @interface ItemsOrderedViewController (){
     int viewAppearCount;
+    double GSTRate;
+    double serviceChargeRate;
 }
 
 @end
@@ -316,6 +318,12 @@
     
 }
 
+- (void) setGSTRate: (double) g andServiceChargeRate: (double) s{
+    GSTRate = g;
+    serviceChargeRate = s;
+}
+
+
 // This function is called when segue from menu list to here is performed
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
     self.currentOrder = currentOrder;
@@ -349,19 +357,15 @@
                                   GSTLabel: (UILabel *) GSTLabel
                              andTotalLabel: (UILabel *) totalLabel{
     
-    NSLog(@"%@", newOrder);
-    
-    float serviceChargePercentage = 0.1;
-    float GSTPercentage = 0.07;
     
     float subTotal = [newOrder getTotalPrice];
     subTotalLabel.text = [NSString stringWithFormat:@"$%.2f", subTotal];
     
-    float serviceCharge = subTotal * serviceChargePercentage;
-    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
+    float serviceCharge = subTotal * serviceChargeRate;
+    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceChargeRate];
  
-    float GST = subTotal * GSTPercentage;
-    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GST];
+    float GST = subTotal * GSTRate;
+    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GSTRate];
     
     float total = subTotal + serviceCharge + GST;
     totalLabel.text = [NSString stringWithFormat:@"$%.2f", total];

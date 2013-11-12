@@ -42,8 +42,9 @@
 
 - (IBAction)placeOrderButtonPressed:(id)sender;
 
-- (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
-- (IBAction)textFinishEditing:(id)sender;
+- (void) setGSTRate: (double) gstRate andServiceChargeRate: (double) serviceChargeRate;
+- (void) reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
+- (IBAction) textFinishEditing:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *addNotesTextField;
 
 // Price tags:
