@@ -331,7 +331,8 @@ nav a.logo img {
 
 .item span.time {
     display:block;
-    padding: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 0px;
@@ -662,7 +663,9 @@ background-color: #468847;
 
 .user {
     display:block;
-    height: 50px;
+    height: 40px;
+    overflow-y: hidden;
+    margin-bottom: -3px;
 }
 
 .user h4 {
