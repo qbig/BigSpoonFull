@@ -91,7 +91,7 @@ h1 {
 }
 
 .main-scroll section:nth-child(odd)  {
-  background: url("/static/img/bg.png");
+  background: url("{{STATIC_URL}}img/bg.png");
 }
 
 .main-scroll section:nth-child(odd) h1 {
