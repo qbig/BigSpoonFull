@@ -507,8 +507,10 @@ class UpdateDish(generics.GenericAPIView):
 
 #NOTE: Use serializer to check and get post data here
 class GetSpendingData(generics.GenericAPIView):
-    model = Meal
     serializer_class = SpendingRequestSerializer
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    model = Meal
 
     def post(self, req, *args, **kwargs):
         serializer = self.get_serializer(
@@ -517,6 +519,7 @@ class GetSpendingData(generics.GenericAPIView):
         )
         if serializer.is_valid():
             meals_past_week = Meal.objects.filter(
+                table__outlet__in=req.user.outlet_ids,
                 created__gte=serializer.data['from_date'],
                 created__lte=serializer.data['to_date'])
             return Response(MealSpendingSerializer(meals_past_week).data,
