@@ -175,7 +175,9 @@
                                                                 Address: address
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
-                                                               OutletID: ID
+                                                               OutletID:ID
+                                                                    lat:0
+                                                                    lon:0
                                                         promotionalText: promotionalText
                                                                 gstRate: gstRate
                                                       serviceChargeRate: serviceChargeRate];
