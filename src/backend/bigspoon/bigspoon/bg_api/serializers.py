@@ -212,8 +212,23 @@ class MealDetailSerializer(serializers.ModelSerializer):
 
 class MealSpendingSerializer(serializers.ModelSerializer):
 
+    spending = serializers.SerializerMethodField('get_total')
+    date = serializers.SerializerMethodField('get_date')
+
+    def get_total(self, obj):
+        return obj.get_meal_spending()
+
+    def get_date(self, obj):
+        return obj.created.date()
+
     class Meta:
         model = Meal
+        fields = ("spending", "date")
+
+
+class SpendingRequestSerializer(serializers.Serializer):
+    from_date = serializers.DateField(required=True)
+    to_date = serializers.DateField(required=True)
 
 
 class RequestSerializer(serializers.ModelSerializer):

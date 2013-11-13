@@ -19,7 +19,7 @@ class MealAdmin(GuardedModelAdmin):
 
 
 class OrderAdmin(GuardedModelAdmin):
-    raw_id_fields = ('dish',)
+    raw_id_fields = ('dish', 'meal')
     list_display = ['id', 'meal', 'get_diner', 'dish',
                     'quantity']
     list_display_links = ('meal', 'dish', 'get_diner')

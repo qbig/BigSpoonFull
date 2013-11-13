@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.http import Http404
@@ -24,12 +22,12 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
-    SearchDishSerializer
+    SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer
 
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
-from utils import send_socketio_message
+from utils import send_socketio_message, send_user_feedback
 
 from decimal import Decimal
 
@@ -396,6 +394,10 @@ class CloseBill(generics.GenericAPIView):
             request.user.outlet_ids,
             ['refresh', 'meal', 'closebill']
         )
+        send_user_feedback(
+            "u_%d" % request.user.id,
+            ['bill closed']
+        )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -422,6 +424,10 @@ class AckOrder(generics.GenericAPIView):
             request.user.outlet_ids,
             ['refresh', 'meal', 'ack']
         )
+        send_user_feedback(
+            "u_%d" % request.user.id,
+            ['order processed']
+        )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
@@ -447,6 +453,10 @@ class AckRequest(generics.GenericAPIView):
         send_socketio_message(
             request.user.outlet_ids,
             ['refresh', 'request', 'ack']
+        )
+        send_user_feedback(
+            "u_%d" % request.user.id,
+            ['request processed']
         )
         return Response(RequestSerializer(req).data,
                         status=status.HTTP_200_OK)
@@ -498,23 +508,17 @@ class UpdateDish(generics.GenericAPIView):
 #NOTE: Use serializer to check and get post data here
 class GetSpendingData(generics.GenericAPIView):
     model = Meal
+    serializer_class = SpendingRequestSerializer
 
     def post(self, req, *args, **kwargs):
-        outlet_id = int(kwargs['pk'])
-
-        try:
-            table = Table.objects.filter(outlet=outlet_id)[0]
-        except Table.DoesNotExist:
-            raise Http404
-
-        from_date_str = str(req.DATA['from_date'])
-        from_date = datetime.datetime.strptime(from_date_str,
-                                               '%d-%m-%Y').date()
-        to_date_str = str(req.DATA['to_date'])
-        to_date = datetime.datetime.strptime(to_date_str, '%d-%m-%Y').date()
-
-        meals_past_week = Meal.objects.filter(table=table,
-                                              created__gte=from_date,
-                                              created__lte=to_date)
-        return Response(MealSerializer(meals_past_week).data,
-                        status=status.HTTP_200_OK)
+        serializer = self.get_serializer(
+            data=req.DATA,
+            files=req.FILES
+        )
+        if serializer.is_valid():
+            meals_past_week = Meal.objects.filter(
+                created__gte=serializer.data['from_date'],
+                created__lte=serializer.data['to_date'])
+            return Response(MealSpendingSerializer(meals_past_week).data,
+                            status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

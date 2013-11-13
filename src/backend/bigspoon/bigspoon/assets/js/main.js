@@ -70,14 +70,17 @@ $(document).ready(function() {
 
     $('#pick-table select').on("change", function() {
         var table = $(this).val();
-        var regex = new RegExp(table, 'gi');
-
-        $('.table').hide()
+        if (table == "All Tables") {
+            $('.table').show();
+        }
+        else {
+            $('.table').hide()
             .each(function() {
-                if($(this).find('h3').text().match(regex)) {
+                if($(this).find('h3').text() == table) {
                     $(this).show();
                 }
             });
+        }
     });
 
     // Menu update page collapsibles
@@ -191,7 +194,8 @@ $(document).ready(function() {
         "bill": host+"/api/v1/closebill",
         "order": host+"/api/v1/ackorder",
         "note": host+"/api/v1/note",
-        "dish": host+"/api/v1/dish"
+        "dish": host+"/api/v1/dish",
+        "spending": host+"/api/v1/spending"
     }
 
     var csrftoken = $.cookie('csrftoken');

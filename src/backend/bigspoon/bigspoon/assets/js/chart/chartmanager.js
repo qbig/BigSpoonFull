@@ -1,3 +1,23 @@
+(function(){
+//The host and STAFF_API_URLS is a duplicate from main.js -- cannot access encapsulated variables in mainjs
+var host = "http://"+location.host;
+var STAFF_API_URLS = {
+    "req": host+"/api/v1/ackreq",
+    "bill": host+"/api/v1/closebill",
+    "order": host+"/api/v1/ackorder",
+    "note": host+"/api/v1/note",
+    "dish": host+"/api/v1/dish",
+    "spending": host+"/api/v1/spending/1"
+}
+var csrftoken = $.cookie('csrftoken');
+var req_data = {
+    "csrfmiddlewaretoken":csrftoken,
+    "outlet": outlet,
+    "user": user,
+    "content":content,
+}
+
+//==================================================
 var chartdata = [];
 
 if (dataIsNotLoaded()){
@@ -53,11 +73,20 @@ function createChart(){
 
 
 var testData = [1,2,3,65,59,90,81,56,55,40];
-datePeriods = testData;
+//datePeriods = testData;
 	for (var i=0; i<datePeriods.length; ++i){
-		//var getData = $.post("python", );
-		chartData.push(testData[i]);
-		updateChart(chartSpending, lineChartData);
+		console.log(datePeriods[i]);
+        $.post(
+            STAFF_API_URLS["spending"], //this requires main.js
+            datePeriods[i]
+        ).done(function(data) {
+			var spending = getSpending(data);
+			chartData.push(spending);
+			updateChart(chartSpending, lineChartData);
+        }).fail(function(data) {
+            console.log("POST failed");
+            console.log(data);
+        });
 	}
 	//var myLine = new Chart(chartSpending.getContext("2d")).Line(lineChartData);
 
@@ -75,7 +104,7 @@ function updateChart(chartCanvas, lineChartData){
 }
 
 
-
+//--------------------------------------------------
 function getChartWeekLabels(){ //function weekLabels(){ // weekLabels(currTimeObj, currWeek)
 	var currTimeObj = new Time();
 	var numWeeksThisMonth = currTimeObj.weeksInMonth();
@@ -130,12 +159,22 @@ function getChartWeekLabels(){ //function weekLabels(){ // weekLabels(currTimeOb
 	return {"labels":labels, "periods":periods}
 }
 function Period(fromDateStr, toDateStr){
-	return {"from_date":fromDateStr, "to_date":toDateStr};
+	return {
+		"from_date":fromDateStr,
+		"to_date":toDateStr,
+		"csrfmiddlewaretoken":csrftoken
+	};
 }
 
-
-	
-	
+//--------------------------------------------------
+function getSpending(meal_data){
+	//nest-level controller
+	var spending = 0.0;
+	for(var i=0; i<meal_data.length; ++i){
+		spending+= meal_data[i].spending;
+	}
+	return spending;
+}
 
 	var lineChartData = {
 		labels : ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5"],
@@ -174,5 +213,7 @@ function chartIsNotCreated(){
 }
 
 
+
+})(); //end of script encapsulation
 
 
