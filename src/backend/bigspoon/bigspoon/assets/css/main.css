@@ -365,7 +365,7 @@ nav a.logo img {
     float:right;
 }
 
-.item p.paid, .item p.unpaid {
+p.paid, p.unpaid {
     color: #fff;
     font-size: 12px;
     font-weight:bold;
@@ -375,11 +375,11 @@ nav a.logo img {
     margin-bottom: -3px;
 }
 
-.item p.paid {
+p.paid {
     background-color: #C4C4C4;
 }
 
-.item p.unpaid {
+p.unpaid {
     background-color: rgb(231,76,60);
 }
 

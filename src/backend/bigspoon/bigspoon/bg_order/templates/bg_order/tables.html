@@ -18,7 +18,7 @@
             All Tables
             </option>
             {% for table in table_list %}
-            <option value="{{category.name}}">
+            <option value="{{table.name}}">
             {{table.name|capfirst}}
             </option>
             {% endfor %}
@@ -31,9 +31,8 @@
         <h3>{{table.name}}</h3>
 
         {% if table.meals.count > 0 %}
-
             {% for meal in table.meals.all %}
-                {% if meal.status == 1 %}
+                {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
                 <div class='history'>
                 {% else %}
                 <div class='active'>
@@ -42,6 +41,13 @@
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
                         <h4>{{ meal.diner.get_full_name }}</h4>
                     </span>
+
+                    <!-- By right all meals shown here is unpaid -->
+                    {% if meal.is_paid %}
+                        <p class="paid">Paid</p>
+                    {% else %}
+                        <p class="unpaid">Unpaid</p>
+                    {% endif %}
 
                     <span class="user-summary">
                     <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
