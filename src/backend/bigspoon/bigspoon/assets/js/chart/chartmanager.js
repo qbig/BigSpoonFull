@@ -29,13 +29,12 @@ function getMonthStr(monthNum){
 	}
 }
 
-/*
 function plotChart(){
 	var chartSpending = document.getElementById("chart-spending");
 	var chartTOTime = document.getElementById("chart-totime");
 
 	var chartDates = getChartDates("weeks");
-	var datePeriods = getDatePeriods();
+	var datePeriods = chartDates.periods;
 	var chartLabels = chartDates.labels;
 	var chartData = [];
 	var lineChartData = {
@@ -128,7 +127,7 @@ function getChartWeekLabels(){ //function weekLabels(){ // weekLabels(currTimeOb
 
 
 
-*/
+
 
 
 
