@@ -11,7 +11,6 @@
 @interface MenuTableViewController (){
     NSMutableData *_responseData;
     int statusCode;
-    int viewAppearCount;
 }
 
 @end
@@ -36,8 +35,6 @@
 {
     [super viewDidLoad];
     
-    viewAppearCount = 0;
-    
     [self loadDishesFromServer];
     
     // By default:
@@ -49,26 +46,6 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-    NSLog(@"Before: %d", viewAppearCount);
-    
-    viewAppearCount++;
-    
-    // If it's not first time load, the navigation bar item will automatically be added on top of the page
-    // We don't want that.
-    // So in the second appearence, bring up the tableview. It will stay this way ever after.
-    if (viewAppearCount == -2){
-        CGRect frame = self.tableView.frame;
-        self.tableView.frame = CGRectMake(frame.origin.x, frame.origin.y - HEIGHT_NAVIGATION_ITEM, frame.size.width, frame.size.height);
-        [self.view bringSubviewToFront:self.tableView];
-    }
-    
-    CGRect navframe = [[self.navigationController navigationBar] frame];
-    NSLog(@"Navframe Height=%f",navframe.size.height);
 }
 
 - (void)didReceiveMemoryWarning
