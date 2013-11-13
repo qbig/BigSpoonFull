@@ -1,5 +1,25 @@
 $(document).ready(function() {
 
+    var host = "http://"+location.host;
+    var sound = new Howl({
+        urls: ['{{STATIC_URL}}sounds/notification.mp3']
+    })
+
+    function showNotification() {
+        $('.notification').css("visibility", "visible");
+        sound.play();
+        setInterval(function() {
+            sound.play();
+        }, 60000);
+    }
+
+    if (location.pathname == "/staff/main/") {
+        localStorage.removeItem("notify");
+    }
+
+    if (localStorage.getItem("notify") == "true") {
+        showNotification();
+    }
     // time picker
     $('input.ui-timepicker-input').timepicker({
         'timeFormat': 'H:i:s',
@@ -19,21 +39,6 @@ $(document).ready(function() {
             'aria-hidden': 'true'
         }).hide();
     }
-
-
-    var sound = new Howl({
-        urls: ['{{STATIC_URL}}sounds/notification.mp3']
-    })
-
-    window.showNotification = function(){
-        $('.notification').css("visibility", "visible");
-        sound.play();
-    }
-
-    window.hideNotification = function(){
-        $('.notification').css("visibility", "hidden");
-    }
-
 
     // Menu update page live search/filter
     $('#filter').keyup(function() {
@@ -66,9 +71,7 @@ $(document).ready(function() {
     $('#pick-table select').on("change", function() {
         var table = $(this).val();
         var regex = new RegExp(table, 'gi');
-        console.log("TABLE: " + table);
 
-        closeAllMenu();
         $('.table').hide()
             .each(function() {
                 if($(this).find('h3').text().match(regex)) {
@@ -124,8 +127,6 @@ $(document).ready(function() {
         }
     });
 
-    var host = "http://"+location.host;
-
     // for socket io
     var STAFF_MEAL_PAGES = {
         "new": ['/staff/main/', '/staff/tables/'],
@@ -134,7 +135,13 @@ $(document).ready(function() {
         "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
     };
     var STAFF_MENU_PAGES = ['/staff/menu/'];
-    socket = io.connect(host+":8000");
+
+    if (host.indexOf("8000") !== -1) {
+        socket = io.connect();
+    }
+    else {
+        socket = io.connect(host+":8000");
+    }
     socket.on("message", function(obj){
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
@@ -142,7 +149,16 @@ $(document).ready(function() {
             if (data[0] == "refresh") {
                 if (data[1] == "request" || data[1] == "meal") {
                     if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                        if (data[2] == "new" || data[2] == "askbill") {
+                            sound.play();
+                        }
                         location.reload(true);
+                    }
+                    else {
+                        if (localStorage.getItem("notify") != "true") {
+                            showNotification();
+                            localStorage.setItem("notify",true);
+                        }
                     }
                 }
                 else if (data[1] == "menu") {
