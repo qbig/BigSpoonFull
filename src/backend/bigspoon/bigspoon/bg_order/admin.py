@@ -23,7 +23,6 @@ class OrderAdmin(GuardedModelAdmin):
     list_display = ['id', 'meal', 'get_diner', 'dish',
                     'quantity']
     list_display_links = ('meal', 'dish', 'get_diner')
-    list_filter = ('meal', 'dish',)
 
     def get_diner(self, obj):
             return '%s' % (obj.meal.diner)

@@ -1,5 +1,25 @@
 $(document).ready(function() {
 
+    var host = "http://"+location.host;
+    var sound = new Howl({
+        urls: ['{{STATIC_URL}}sounds/notification.mp3']
+    })
+
+    function showNotification() {
+        $('.notification').css("visibility", "visible");
+        sound.play();
+        setInterval(function() {
+            sound.play();
+        }, 60000);
+    }
+
+    if (location.pathname == "/staff/main/") {
+        localStorage.removeItem("notify");
+    }
+
+    if (localStorage.getItem("notify") == "true") {
+        showNotification();
+    }
     // time picker
     $('input.ui-timepicker-input').timepicker({
         'timeFormat': 'H:i:s',
@@ -108,20 +128,7 @@ $(document).ready(function() {
         }
     });
 
-    var host = "http://"+location.host;
-
     // for socket io
-    function showNotification() {
-        $('.notification').css("visibility", "visible");
-        var sound = new Howl({
-            urls: ['{{STATIC_URL}}sounds/notification.mp3']
-        })
-        sound.play();
-    }
-    function hideNotification(){
-        $('.notification').css("visibility", "hidden");
-    }
-
     var STAFF_MEAL_PAGES = {
         "new": ['/staff/main/', '/staff/tables/'],
         "ack": ['/staff/main/', '/staff/history/', '/staff/tables/'],
@@ -143,10 +150,16 @@ $(document).ready(function() {
             if (data[0] == "refresh") {
                 if (data[1] == "request" || data[1] == "meal") {
                     if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                        if (data[2] == "new" || data[2] == "askbill") {
+                            sound.play();
+                        }
                         location.reload(true);
                     }
                     else {
-                        showNotification();
+                        if (localStorage.getItem("notify") != "true") {
+                            showNotification();
+                            localStorage.setItem("notify",true);
+                        }
                     }
                 }
                 else if (data[1] == "menu") {

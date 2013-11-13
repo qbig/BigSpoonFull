@@ -62,12 +62,12 @@ class HistoryView(TemplateView):
         limit = today_limit()
         context = super(HistoryView, self).get_context_data(**kwargs)
         context['meal_cards'] = Meal.objects\
-            .prefetch_related('diner', 'orders', 'table')\
+            .prefetch_related('diner', 'diner__meals', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(created__lte=limit[1], created__gte=limit[0])\
             .filter(status=Meal.INACTIVE)
         context['requests_cards'] = Request.objects\
-            .prefetch_related('diner', 'table')\
+            .prefetch_related('diner', 'diner__meals', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(created__lte=limit[1], created__gte=limit[0])\
             .filter(is_active=False)
@@ -139,7 +139,9 @@ class TableView(ListView):
             Outlet.objects.all()
         )
         return super(TableView, self).get_queryset()\
-            .prefetch_related('meals', 'meals__orders')\
+            .prefetch_related('meals__diner',
+                              'meals__diner__meals',
+                              'meals', 'meals__orders')\
             .filter(outlet__in=outlets)
 
 
@@ -155,7 +157,7 @@ class UserView(TemplateView):
         )
         try:
             diner = User.objects.prefetch_related(
-                'meals', 'meals__orders',
+                'meals', 'meals__orders', 'meals__orders__dish',
                 'profile', 'notes').get(pk=self.kwargs['pk'])
         except User.DoesNotExist:
             raise Http404
