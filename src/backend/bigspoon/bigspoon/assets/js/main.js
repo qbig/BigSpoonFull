@@ -21,8 +21,13 @@ $(document).ready(function() {
     }
 
 
+    var sound = new Howl({
+        urls: ['{{STATIC_URL}}sounds/notification.mp3']
+    })
+
     window.showNotification = function(){
         $('.notification').css("visibility", "visible");
+        sound.play();
     }
 
     window.hideNotification = function(){
@@ -51,6 +56,19 @@ $(document).ready(function() {
 
         closeAllMenu();
         $('#accordion h3').hide()
+            .each(function() {
+                if($(this).find("input").val().match(regex)) {
+                    $(this).show();
+                }
+            });
+    });
+
+    $('#pick-table').on("change", function() {
+        var category = $(this).val();
+        var regex = new RegExp(category, 'gi');
+
+        closeAllMenu();
+        $('.table').hide()
             .each(function() {
                 if($(this).find("input").val().match(regex)) {
                     $(this).show();
