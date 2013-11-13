@@ -32,6 +32,13 @@ int const ITEM_LIST_SCROLL_HEIGHT = 1100;
 int const ITEM_LIST_TABLE_ROW_HEIGHT = 42;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 
+// Coordinates:
+
+int const REQUEST_WATER_VIEW_X = 40;
+int const REQUEST_WATER_VIEW_Y = 150;
+int const REQUEST_BILL_VIEW_X = 20;
+int const REQUEST_BILL_VIEW_Y = 80;
+
 // Animations:
 double const BADGE_ANMINATION_DURATION = 0.3;
 double const BADGE_ANMINATION_ZOOM_FACTOR = 1.8;
