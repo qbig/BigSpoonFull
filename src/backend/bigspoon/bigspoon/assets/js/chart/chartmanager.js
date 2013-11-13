@@ -143,11 +143,14 @@ function getChartWeekLabels(){ //function weekLabels(){ // weekLabels(currTimeOb
 		weeknum = (weeknum==0)? numWeeks : weeknum;
 		var currYMD = getTimeYMD(focusDate);
 		labels.push("Week of"+": "+currYMD.d+" "+getMonthStr(currYMD.m)); //weeknum+
-		var fromDateStr = currYMD.d+"-"+currYMD.m+"-"+currYMD.y;
-		var toDateStr = (currYMD.d+6)+"-"+currYMD.m+"-"+currYMD.y;
+		var fromDateStr = currYMD.y+"-"+currYMD.m+"-"+currYMD.d;
+		focusDate.advanceDays(6);
+		currYMD = getTimeYMD(focusDate);
+		var toDateStr = currYMD.y+"-"+currYMD.m+"-"+currYMD.d; //(currYMD.d+6)+"-"+currYMD.m+"-"+currYMD.y;
 		//c!onsole.log(fromDateStr +" " + toDateStr);
 		periods.push(new Period(fromDateStr, toDateStr));
-		focusDate.advanceDays(7); //the ++ for the week in Time Object.
+		focusDate.advanceDays(1); //the ++ for the week in Time Object.
+		//it has been split into two parts: +6 for the end of this week, then +1 for the start of next week
 	}
 	// for(var i=0+1; i<numWeeks+1; ++i){ 
 	// 	var weeknum = (currWeek+i)%numWeeks;
