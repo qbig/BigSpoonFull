@@ -60,7 +60,7 @@
 @property (strong, nonatomic) ItemsOrderedViewController *itemsOrderedViewController;
 
 // "Call For Service" Control Panel:
-@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+@property (strong, nonatomic) UIView *requestWaterView;
 @property (nonatomic) int quantityOfColdWater;
 @property (nonatomic) int quantityOfWarmWater;
 @property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;

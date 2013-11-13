@@ -95,6 +95,19 @@
     
     //Geofencing starts working as soon as this view is loaded
     [locationManager startUpdatingLocation];
+    
+    [self loadControlPanels];
+
+}
+
+- (void) loadControlPanels{
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RequestWaterView" owner:self options:nil];
+    self.requestWaterView = [subviewArray objectAtIndex:0];
+    [self.view addSubview:self.requestWaterView];
+    CGRect frame = self.requestWaterView.frame;
+    [self.requestWaterView setFrame:CGRectMake(REQUEST_WATER_VIEW_X, REQUEST_WATER_VIEW_Y, frame.size.width, frame.size.height)];
+    
+    
 }
 
 // Failed to get current location
