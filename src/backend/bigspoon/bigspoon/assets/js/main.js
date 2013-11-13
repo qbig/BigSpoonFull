@@ -71,9 +71,7 @@ $(document).ready(function() {
     $('#pick-table select').on("change", function() {
         var table = $(this).val();
         var regex = new RegExp(table, 'gi');
-        console.log("TABLE: " + table);
 
-        closeAllMenu();
         $('.table').hide()
             .each(function() {
                 if($(this).find('h3').text().match(regex)) {
