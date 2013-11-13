@@ -10,4 +10,12 @@
 
 @interface RatingAndFeedbackViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
+@property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
+- (IBAction)ratingSubmitButtonPressed:(id)sender;
+- (IBAction)ratingCancelButtonPressed:(id)sender;
+
+- (IBAction)textFieldDidEndOnExit:(id)sender;
+
+
 @end

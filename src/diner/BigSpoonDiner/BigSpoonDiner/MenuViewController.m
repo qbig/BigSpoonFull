@@ -45,7 +45,6 @@
 @synthesize requestForWaiterAlertView;
 @synthesize requestForBillAlertView;
 @synthesize inputTableIDAlertView;
-@synthesize ratingsTableView;
 @synthesize taskAfterAskingForTableID;
 @synthesize navigationItem;
 
@@ -419,7 +418,8 @@
                               otherButtonTitles:nil];
     [alertView show];
     
-    //[self animateTransitionOfUIView:self.ratingsView willShow:YES];
+    // Load and show the ratingAndFeedbackViewController: TODO
+    [self animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
     
     // Set the order items to null
     self.currentOrder = [[Order alloc] init];
@@ -935,17 +935,6 @@
     self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
     
     [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
-}
-
-#pragma mark Request for Bill
-
-- (IBAction)ratingSubmitButtonPressed:(id)sender {
-    
-    [self ratingCancelButtonPressed:nil];
-}
-
-- (IBAction)ratingCancelButtonPressed:(id)sender {
-    [self animateTransitionOfUIView:self.ratingsView willShow:NO];
 }
 
 #pragma makr Animation

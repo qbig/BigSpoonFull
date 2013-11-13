@@ -35,4 +35,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)textFieldDidEndOnExit:(id)sender {
+    [sender resignFirstResponder];
+}
 @end
