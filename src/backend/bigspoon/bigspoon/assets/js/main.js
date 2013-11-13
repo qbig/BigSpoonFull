@@ -21,15 +21,6 @@ $(document).ready(function() {
     }
 
 
-    window.showNotification = function(){
-        $('.notification').css("visibility", "visible");
-    }
-
-    window.hideNotification = function(){
-        $('.notification').css("visibility", "hidden");
-    }
-
-
     // Menu update page live search/filter
     $('#filter').keyup(function() {
         var f = $(this).val();
@@ -108,6 +99,13 @@ $(document).ready(function() {
     var host = "http://"+location.host;
 
     // for socket io
+    function showNotification() {
+        $('.notification').css("visibility", "visible");
+    }
+    function hideNotification(){
+        $('.notification').css("visibility", "hidden");
+    }
+
     var STAFF_MEAL_PAGES = {
         "new": ['/staff/main/', '/staff/tables/'],
         "ack": ['/staff/main/', '/staff/history/', '/staff/tables/'],
@@ -115,7 +113,13 @@ $(document).ready(function() {
         "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
     };
     var STAFF_MENU_PAGES = ['/staff/menu/'];
-    socket = io.connect(host+":8000");
+
+    if (host.indexOf("8000") !== -1) {
+        socket = io.connect();
+    }
+    else {
+        socket = io.connect(host+":8000");
+    }
     socket.on("message", function(obj){
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
@@ -124,6 +128,9 @@ $(document).ready(function() {
                 if (data[1] == "request" || data[1] == "meal") {
                     if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
                         location.reload(true);
+                    }
+                    else {
+                        showNotification();
                     }
                 }
                 else if (data[1] == "menu") {
