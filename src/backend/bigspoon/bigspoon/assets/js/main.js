@@ -20,6 +20,16 @@ $(document).ready(function() {
         }).hide();
     }
 
+
+    window.showNotification = function(){
+        $('.notification').css("visibility", "visible");
+    }
+
+    window.hideNotification = function(){
+        $('.notification').css("visibility", "hidden");
+    }
+
+
     // Menu update page live search/filter
     $('#filter').keyup(function() {
         var f = $(this).val();
