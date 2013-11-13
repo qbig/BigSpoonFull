@@ -314,6 +314,18 @@ class Outlet(models.Model):
         _('address'),
         help_text=_('outlet address')
     )
+    lat = models.CharField(
+        _('latitude'),
+        max_length=20,
+        blank=True,
+        help_text=_('outlet latitude')
+    )
+    lng = models.CharField(
+        _('longitude'),
+        max_length=20,
+        blank=True,
+        help_text=_('outlet longitude')
+    )
     opening = models.TextField(
         _('open hours'),
         help_text=_('outlet opening hours')
