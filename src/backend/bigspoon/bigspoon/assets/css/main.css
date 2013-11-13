@@ -1119,6 +1119,19 @@ input#filter {
     margin-bottom:0px;
 }
 
+#pick-table {
+    display:block;
+    padding: 5px 10px;
+}
+
+#pick-table label {
+    font-weight: bold;
+}
+
+#pick-table select {
+    margin: 10px;
+}
+
 .notification {
     visibility: hidden;
     width:20px;

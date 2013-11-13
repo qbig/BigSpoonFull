@@ -10,6 +10,21 @@
     </div>
 
 <div class="wrapper">
+
+    <span id="pick-table">
+        <label> Filter
+        <select>
+            <option value="">
+            All Tables
+            </option>
+            {% for table in table_list %}
+            <option value="{{category.name}}">
+            {{table.name|capfirst}}
+            </option>
+            {% endfor %}
+        </select> </label>
+    </span>
+
     {% for table in table_list %}
 
     <div class="table">
@@ -34,11 +49,8 @@
                     <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
                     </span>
 
-                    <!-- {% if meal.note %}
-                        <p class="note">{{meal.note}}</p>
-                    {% endif %}
                     <ul class="order">
-                        {% if meal.orders.count > 0 %}
+                        {% if meal.is_paid and meal.orders.count > 0 %}
                             {% for order in meal.orders.all %}
                             <li>
                                 <em class='quantity'>{{order.quantity}}x</em>
@@ -53,7 +65,7 @@
                         {% else %}
                             <li>No orders yet.</li>
                         {% endif %}
-                    </ul> -->
+                    </ul>
                 </div>
             {% endfor %}
 

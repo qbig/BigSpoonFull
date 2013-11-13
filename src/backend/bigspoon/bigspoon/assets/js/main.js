@@ -20,7 +20,6 @@ $(document).ready(function() {
         }).hide();
     }
 
-
     // Menu update page live search/filter
     $('#filter').keyup(function() {
         var f = $(this).val();
@@ -42,6 +41,19 @@ $(document).ready(function() {
 
         closeAllMenu();
         $('#accordion h3').hide()
+            .each(function() {
+                if($(this).find("input").val().match(regex)) {
+                    $(this).show();
+                }
+            });
+    });
+
+    $('#pick-table').on("change", function() {
+        var category = $(this).val();
+        var regex = new RegExp(category, 'gi');
+
+        closeAllMenu();
+        $('.table').hide()
             .each(function() {
                 if($(this).find("input").val().match(regex)) {
                     $(this).show();
@@ -101,6 +113,10 @@ $(document).ready(function() {
     // for socket io
     function showNotification() {
         $('.notification').css("visibility", "visible");
+        var sound = new Howl({
+            urls: ['{{STATIC_URL}}sounds/notification.mp3']
+        })
+        sound.play();
     }
     function hideNotification(){
         $('.notification').css("visibility", "hidden");

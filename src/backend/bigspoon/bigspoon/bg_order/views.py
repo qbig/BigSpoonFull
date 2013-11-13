@@ -41,7 +41,7 @@ class MainView(TemplateView):
             .prefetch_related('diner', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(is_active=True)
-        cards = list(meals)+list(requests)
+        cards = list(meals) + list(requests)
         context["cards"] = sorted(cards,
                                   key=lambda card: card.count_down_start)
         return context
