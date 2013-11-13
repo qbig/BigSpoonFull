@@ -106,7 +106,7 @@
     [self.view addSubview:self.requestWaterView];
     CGRect frame = self.requestWaterView.frame;
     [self.requestWaterView setFrame:CGRectMake(REQUEST_WATER_VIEW_X, REQUEST_WATER_VIEW_Y, frame.size.width, frame.size.height)];
-    
+    [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
     
 }
 
