@@ -26,7 +26,6 @@ extern NSString* const BILL_URL;
 
 extern int const ROW_HEIGHT_LIST_MENU;
 extern int const ROW_HEIGHT_PHOTO_MENU;
-extern int const HEIGHT_NAVIGATION_ITEM;
 extern double const SCALE_OF_BUTTON;
 extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;

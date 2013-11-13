@@ -92,6 +92,8 @@
 	locationManager.delegate = self;
 	locationManager.distanceFilter = kCLDistanceFilterNone;
 	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    //Geofencing starts working as soon as this view is loaded
     [locationManager startUpdatingLocation];
 }
 

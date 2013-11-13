@@ -10,7 +10,6 @@
 #define kOFFSET_FOR_KEYBOARD 80.0
 
 @interface ItemsOrderedViewController (){
-    int viewAppearCount;
     double GSTRate;
     double serviceChargeRate;
 }
@@ -32,7 +31,6 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
-    viewAppearCount = 0;
     
     self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
 
@@ -45,18 +43,7 @@
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    viewAppearCount++;
-    
-    // If it's not first time load, the navigation bar item will automatically be added on top of the page
-    // We don't want that.
-    // So in the second appearence, bring up the tableview. It will stay this way ever after.
-    if (viewAppearCount == -2){
-        CGRect frame = self.scrollView.frame;
-        self.scrollView.frame = CGRectMake(frame.origin.x, frame.origin.y - HEIGHT_NAVIGATION_ITEM, frame.size.width, frame.size.height);
-        [self.view bringSubviewToFront:self.scrollView];
-    }
-    
+       
     [self updatePriceLabels];
     [self updateTableHeight];
     
