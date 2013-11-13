@@ -160,6 +160,8 @@
                 NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
                 
                 int ID = [[newOutlet objectForKey:@"id"] intValue];
+                double lat = [[newOutlet objectForKey:@"lat"] doubleValue];
+                double lon = [[newOutlet objectForKey:@"lng"] doubleValue];
                 NSString* name = [newOutlet objectForKey:@"name"];
                 NSString* phone = [newOutlet objectForKey:@"phone"];
                 NSString* address = [newOutlet objectForKey:@"address"];
@@ -168,7 +170,7 @@
                 double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
                 double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];;
                 
-                NSLog(@"Outlet id: %d", ID);
+                NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
                 
                 Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
                                                                    Name: name
@@ -176,8 +178,8 @@
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
                                                                OutletID:ID
-                                                                    lat:0
-                                                                    lon:0
+                                                                    lat:lat
+                                                                    lon:lon
                                                         promotionalText: promotionalText
                                                                 gstRate: gstRate
                                                       serviceChargeRate: serviceChargeRate];
