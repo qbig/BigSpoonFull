@@ -70,14 +70,17 @@ $(document).ready(function() {
 
     $('#pick-table select').on("change", function() {
         var table = $(this).val();
-        var regex = new RegExp(table, 'gi');
-
-        $('.table').hide()
+        if (table == "All Tables") {
+            $('.table').show();
+        }
+        else {
+            $('.table').hide()
             .each(function() {
-                if($(this).find('h3').text().match(regex)) {
+                if($(this).find('h3').text() == table) {
                     $(this).show();
                 }
             });
+        }
     });
 
     // Menu update page collapsibles

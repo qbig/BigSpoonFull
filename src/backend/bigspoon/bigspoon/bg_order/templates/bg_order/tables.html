@@ -14,7 +14,7 @@
     <span id="pick-table">
         <label> Filter
         <select>
-            <option value="">
+            <option value="All Tables">
             All Tables
             </option>
             {% for table in table_list %}
@@ -28,10 +28,9 @@
     {% for table in table_list %}
 
     <div class="table">
-        <h3>{{table.name}}</h3>
+        <h3>{{table.name|capfirst}}</h3>
 
         {% if table.meals.count > 0 %}
-
             {% for meal in table.meals.all %}
                 {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
                 <div class='active'>
@@ -45,21 +44,13 @@
                     <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
                     </span>
 
-                    <!-- By right all meals shown here is unpaid -->
-<!--                     {% if meal.is_paid %}
-                        <p class="paid">Paid</p>
-                    {% else %}
-                        <p class="unpaid">Unpaid</p>
-                    {% endif %} -->
-
-
-                    <p class="note">
                     {% if meal.note %}
+                    <p class="note">
                         {{meal.note}}
-                    {% endif %}
                     </p>
+                    {% endif %}
+                    {% if meal.orders.count > 0 %}
                     <ul class="order">
-                        {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.all %}
                             <li>
                                 <em class='quantity'>{{order.quantity}}x</em>
@@ -73,19 +64,15 @@
                             {% endfor %}
                         {% else %}
                             <li>No orders yet.</li>
-                        {% endif %}
                     </ul>
+                    {% endif %}
                 </div>
                 {% endif %}
             {% endfor %}
-
         {% else %}
             <p class="no-orders">This table currently has no orders. </p>
         {% endif %}
-
         </div>
         {% endfor %}
-
     </div>
-
 {% endblock content %}
