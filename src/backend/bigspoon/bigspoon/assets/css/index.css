@@ -57,7 +57,7 @@ h1 {
   width: 200px;
   color: #fff;
   text-align:center;
-  text-shadow: rgba(0, 0, 0, 0.4) 0 2px 0;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 0;
   font-weight: normal;
   font-size: 18px;
   font-family: Scholar;
@@ -79,7 +79,7 @@ h1 {
   border-radius: 5px;
   background: #61C0B9;
   color: #fff;
-  text-shadow: rgba(0, 0, 0, 0.7) 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.3) 0 1px 0;
   font-size: 14px;
   font-family: 'Open Sans';
   line-height: 18px;
@@ -142,7 +142,7 @@ h1 {
   margin-top: 0px;
   color: #fff;
   text-align:center;
-  text-shadow: rgba(0, 0, 0, 0.2) 0 1px 0;
+  text-shadow: rgba(0, 0, 0, 0.6) 0 1px 0;
   font-weight: normal;
   font-size: 18px;
   font-family: 'Open Sans';
