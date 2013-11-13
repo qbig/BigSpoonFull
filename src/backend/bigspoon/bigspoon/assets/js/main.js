@@ -194,7 +194,8 @@ $(document).ready(function() {
         "bill": host+"/api/v1/closebill",
         "order": host+"/api/v1/ackorder",
         "note": host+"/api/v1/note",
-        "dish": host+"/api/v1/dish"
+        "dish": host+"/api/v1/dish",
+        "spending": host+"/api/v1/spending"
     }
 
     var csrftoken = $.cookie('csrftoken');
