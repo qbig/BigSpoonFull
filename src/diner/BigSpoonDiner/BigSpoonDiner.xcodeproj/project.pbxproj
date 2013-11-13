@@ -46,6 +46,9 @@
 		4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A20D180A506100270B0B /* OutletsTableViewController.m */; };
 		4999A212180A50EC00270B0B /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A211180A50EC00270B0B /* Outlet.m */; };
 		4999A216180A744100270B0B /* URLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A215180A744100270B0B /* URLImageView.m */; };
+		49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B8587718335F9700F32BB0 /* RequestWaterView.xib */; };
+		49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */; };
+		49B858801833658500F32BB0 /* RatingAndFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
 		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
 		49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* SignUpViewController.m */; };
@@ -143,6 +146,10 @@
 		4999A211180A50EC00270B0B /* Outlet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Outlet.m; sourceTree = "<group>"; };
 		4999A214180A744100270B0B /* URLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLImageView.h; sourceTree = "<group>"; };
 		4999A215180A744100270B0B /* URLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = URLImageView.m; path = BigSpoonDiner/URLImageView.m; sourceTree = "<group>"; };
+		49B8587718335F9700F32BB0 /* RequestWaterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestWaterView.xib; sourceTree = "<group>"; };
+		49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingAndFeedbackView.xib; sourceTree = "<group>"; };
+		49B8587E1833658500F32BB0 /* RatingAndFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingAndFeedbackViewController.h; sourceTree = "<group>"; };
+		49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingAndFeedbackViewController.m; sourceTree = "<group>"; };
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -232,6 +239,8 @@
 				49558BC6181D14CD00273090 /* AuthViewController.m */,
 				49048D22181FF71100B480A3 /* ItemsOrderedViewController.h */,
 				49048D23181FF71100B480A3 /* ItemsOrderedViewController.m */,
+				49B8587E1833658500F32BB0 /* RatingAndFeedbackViewController.h */,
+				49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -389,6 +398,8 @@
 				496DD1B118202633001EBA6D /* NewOrderCell.m */,
 				496DD1B318202672001EBA6D /* PastOrderCell.h */,
 				496DD1B418202672001EBA6D /* PastOrderCell.m */,
+				49B8587718335F9700F32BB0 /* RequestWaterView.xib */,
+				49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */,
 			);
 			name = "Custom Views";
 			sourceTree = "<group>";
@@ -481,6 +492,7 @@
 				49164203180C590C00080B87 /* list_icon.png in Resources */,
 				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
+				49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */,
 				E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */,
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,
 				49048D12181F489C00B480A3 /* 2StarsSmall@2x.png in Resources */,
@@ -495,6 +507,7 @@
 				49048D1B181F4DD900B480A3 /* add_icon2.png in Resources */,
 				49048D19181F4A2100B480A3 /* add_icon.png in Resources */,
 				49048D26181FFA6000B480A3 /* back.png in Resources */,
+				49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */,
 				49864D971822175600065251 /* plain_purple_background.jpg in Resources */,
 				4914D814182886CB00B16F4F /* add_icon_green.png in Resources */,
 				49F107ED180886D600D2C8DD /* InfoPlist.strings in Resources */,
@@ -559,6 +572,7 @@
 				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
+				49B858801833658500F32BB0 /* RatingAndFeedbackViewController.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
 				49048D29182001C900B480A3 /* Order.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,

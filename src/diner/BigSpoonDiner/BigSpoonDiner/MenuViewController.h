@@ -18,6 +18,7 @@
 #import "Order.h"
 #import "ItemsOrderedViewController.h"
 #import "ExitMenuListDelegate.h"
+#import "RatingAndFeedbackViewController.h"
 
 @class MenuViewController;
 
@@ -59,8 +60,12 @@
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
 @property (strong, nonatomic) ItemsOrderedViewController *itemsOrderedViewController;
 
-// "Call For Service" Control Panel:
-@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+/*
+ * "Call For Service" Control Panel:
+ * The view: RequestWaterView.xib
+ * The viewController: self
+ */
+@property (strong, nonatomic) UIView *requestWaterView;
 @property (nonatomic) int quantityOfColdWater;
 @property (nonatomic) int quantityOfWarmWater;
 @property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
@@ -72,12 +77,15 @@
 - (IBAction)requestWaterOkayButtonPressed:(id)sender;
 - (IBAction)requestWaterCancelButtonPressed:(id)sender;
 
-// "Bill" Control Panel:
-@property (strong, nonatomic) IBOutlet UIView *ratingsView;
-@property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
-@property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
-- (IBAction)ratingSubmitButtonPressed:(id)sender;
-- (IBAction)ratingCancelButtonPressed:(id)sender;
+/*
+ * "RatingsAndFeedback" Control Panel:
+ * The view: RatingsAndFeedbackView.xib
+ * The viewController: RatingsAndFeedbackViewContoller
+ *  (the view contains table, so it's )
+ */
+
+@property (strong, nonatomic) RatingAndFeedbackViewController * ratingAndFeedbackViewController;
+@property (strong, nonatomic) UIView *ratingsAndFeedbackView;
 
 // For container view:
 @property (weak,nonatomic) UIViewController *destinationViewController;

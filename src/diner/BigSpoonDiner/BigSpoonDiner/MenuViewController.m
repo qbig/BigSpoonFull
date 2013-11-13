@@ -45,7 +45,6 @@
 @synthesize requestForWaiterAlertView;
 @synthesize requestForBillAlertView;
 @synthesize inputTableIDAlertView;
-@synthesize ratingsTableView;
 @synthesize taskAfterAskingForTableID;
 @synthesize navigationItem;
 
@@ -95,6 +94,19 @@
     
     //Geofencing starts working as soon as this view is loaded
     [locationManager startUpdatingLocation];
+    
+    [self loadControlPanels];
+
+}
+
+- (void) loadControlPanels{
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RequestWaterView" owner:self options:nil];
+    self.requestWaterView = [subviewArray objectAtIndex:0];
+    [self.view addSubview:self.requestWaterView];
+    CGRect frame = self.requestWaterView.frame;
+    [self.requestWaterView setFrame:CGRectMake(REQUEST_WATER_VIEW_X, REQUEST_WATER_VIEW_Y, frame.size.width, frame.size.height)];
+    [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
+    
 }
 
 // Failed to get current location
@@ -406,7 +418,8 @@
                               otherButtonTitles:nil];
     [alertView show];
     
-    //[self animateTransitionOfUIView:self.ratingsView willShow:YES];
+    // Load and show the ratingAndFeedbackViewController: TODO
+    [self animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
     
     // Set the order items to null
     self.currentOrder = [[Order alloc] init];
@@ -922,17 +935,6 @@
     self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
     
     [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
-}
-
-#pragma mark Request for Bill
-
-- (IBAction)ratingSubmitButtonPressed:(id)sender {
-    
-    [self ratingCancelButtonPressed:nil];
-}
-
-- (IBAction)ratingCancelButtonPressed:(id)sender {
-    [self animateTransitionOfUIView:self.ratingsView willShow:NO];
 }
 
 #pragma makr Animation
