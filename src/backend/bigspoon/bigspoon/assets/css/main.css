@@ -468,6 +468,11 @@ height: 130px;
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
 }
 
+li p.empty-orders {
+border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+background: #fcf6ef;
+}
+
 .item a:hover, .item a:focus, .item a:active {
     cursor: pointer;
 }
