@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RatingAndFeedbackViewController : UIViewController
+@interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
