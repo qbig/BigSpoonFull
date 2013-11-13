@@ -878,6 +878,7 @@ form.menu-add {
 }
 
 .table .order {
+    width: 270px;
     margin-top: 0px;
 }
 
@@ -1144,4 +1145,14 @@ input#filter {
     color: #fff;
     border-radius: 20px;
     text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+}
+
+.table {
+    width: 820px;
+}
+
+.table .active{
+    border: 1px solid white;
+    float: left;
+    width: 270px;
 }
