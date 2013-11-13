@@ -25,7 +25,7 @@
                 {% endif %}
                     <span class='user'>
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
-                        <h4>{{ meal.diner.get_full_name }}'s orders</h4>
+                        <h4>{{ meal.diner.get_full_name }}</h4>
                     </span>
 
                     <span class="user-summary">
@@ -34,7 +34,7 @@
                     <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
                     </span>
 
-                    {% if meal.note %}
+                    <!-- {% if meal.note %}
                         <p class="note">{{meal.note}}</p>
                     {% endif %}
                     <ul class="order">
@@ -53,7 +53,7 @@
                         {% else %}
                             <li>No orders yet.</li>
                         {% endif %}
-                    </ul>
+                    </ul> -->
                 </div>
             {% endfor %}
 
