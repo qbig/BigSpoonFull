@@ -7,14 +7,14 @@ var STAFF_API_URLS = {
     "order": host+"/api/v1/ackorder",
     "note": host+"/api/v1/note",
     "dish": host+"/api/v1/dish",
-    "spending": host+"/api/v1/spending/1"
+    "spending": host+"/api/v1/spending"
 }
 var csrftoken = $.cookie('csrftoken');
 var req_data = {
     "csrfmiddlewaretoken":csrftoken,
-    "outlet": outlet,
-    "user": user,
-    "content":content,
+    // "outlet": outlet,
+    // "user": user,
+    // "content":content,
 }
 
 //==================================================
