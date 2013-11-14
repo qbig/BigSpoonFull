@@ -30,6 +30,8 @@
     
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RatingAndFeedbackView" owner:self options:nil];
     self.view = [subviewArray objectAtIndex:0];
+    
+    [self.ratingsTableView registerNib:[UINib nibWithNibName:@"RatingCellView" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"RatingCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -49,16 +51,22 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    [self.currentOrder getNumberOfKindsOfDishes];
-    return 0;
+    return [self.currentOrder getNumberOfKindsOfDishes];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RatingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OutletCell"];
+    
+    RatingCell *cell = (RatingCell *)[tableView
+                                      dequeueReusableCellWithIdentifier:@"RatingCell"];
+    
+    //RatingCell *cell = [[RatingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RatingCell"];
+
     Dish *dish = [[self.currentOrder dishes] objectAtIndex:indexPath.row];
     
     cell.dishNameLabel.text = dish.name;
+    
+    NSLog(@"Oh fuck fuck! %@ %@", dish.name, cell);
     
     return cell;
 }

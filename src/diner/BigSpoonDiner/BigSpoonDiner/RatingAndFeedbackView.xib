@@ -7,7 +7,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RatingAndFeedbackViewController">
             <connections>
                 <outlet property="feedbackTextField" destination="Sxx-mw-tMm" id="mV6-4R-5tL"/>
-                <outlet property="ratingImage" destination="762-T9-osP" id="wLK-Us-Srh"/>
                 <outlet property="ratingsTableView" destination="Yvv-31-cFB" id="P0g-ch-Zmq"/>
             </connections>
         </placeholder>
@@ -39,7 +38,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKN-rv-ppp" userLabel="Button -  Submit">
-                            <rect key="frame" x="20" y="313" width="75" height="30"/>
+                            <rect key="frame" x="20" y="321" width="75" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.122336521" green="1" blue="0.2148235715" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -52,7 +51,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feR-SS-yUC">
-                            <rect key="frame" x="185" y="313" width="75" height="30"/>
+                            <rect key="frame" x="185" y="321" width="75" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -65,7 +64,7 @@
                             </connections>
                         </button>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your feedback here..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sxx-mw-tMm">
-                            <rect key="frame" x="18" y="270" width="245" height="30"/>
+                            <rect key="frame" x="18" y="283" width="245" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -74,8 +73,8 @@
                                 <action selector="textFieldDidEndOnExit:" destination="-1" eventType="editingDidEndOnExit" id="HJO-B1-oU6"/>
                             </connections>
                         </textField>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Yvv-31-cFB">
-                            <rect key="frame" x="20" y="107" width="245" height="150"/>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Yvv-31-cFB">
+                            <rect key="frame" x="0.0" y="107" width="280" height="163"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -91,30 +90,5 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="RatingCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="RatingCell" rowHeight="48" id="UsT-ob-JhS" customClass="RatingCell">
-            <rect key="frame" x="0.0" y="0.0" width="245" height="48"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UsT-ob-JhS" id="7Ia-v3-gJ4">
-                <rect key="frame" x="0.0" y="0.0" width="245" height="47"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dish Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXw-ll-TwV">
-                        <rect key="frame" x="7" y="13" width="173" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="762-T9-osP">
-                        <rect key="frame" x="182" y="12" width="55" height="24"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                </subviews>
-            </tableViewCellContentView>
-            <connections>
-                <outlet property="dishNameLabel" destination="cXw-ll-TwV" id="rbs-fT-ZY5"/>
-                <outlet property="ratingImage" destination="762-T9-osP" id="tbS-Sd-EDh"/>
-            </connections>
-        </tableViewCell>
     </objects>
 </document>

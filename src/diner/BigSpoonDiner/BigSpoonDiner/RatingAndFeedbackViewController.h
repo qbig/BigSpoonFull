@@ -21,7 +21,6 @@
 @property (strong, nonatomic) Order* currentOrder;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
-@property (strong, nonatomic) IBOutlet UIImageView *ratingImage;
 
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
