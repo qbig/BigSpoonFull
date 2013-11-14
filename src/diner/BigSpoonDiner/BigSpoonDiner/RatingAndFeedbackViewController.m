@@ -28,11 +28,8 @@
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RatingAndFeedbackView" owner:self options:nil];
+    self.view = [subviewArray objectAtIndex:0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +49,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-
+    [self.currentOrder getNumberOfKindsOfDishes];
     return 0;
 }
 
@@ -116,6 +113,17 @@
  }
  
  */
+
+# pragma mark - Event listeners
+
+- (IBAction)ratingSubmitButtonPressed:(id)sender{
+    
+}
+
+- (IBAction)ratingCancelButtonPressed:(id)sender{
+    
+}
+
 
 - (IBAction)textFieldDidEndOnExit:(id)sender {
     [sender resignFirstResponder];

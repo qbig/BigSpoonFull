@@ -50,6 +50,7 @@
 		49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B8587718335F9700F32BB0 /* RequestWaterView.xib */; };
 		49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */; };
 		49B858801833658500F32BB0 /* RatingAndFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */; };
+		49BBB6FE18350737007546E8 /* Rating.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BBB6FD18350737007546E8 /* Rating.m */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
 		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
 		49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* SignUpViewController.m */; };
@@ -153,6 +154,8 @@
 		49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingAndFeedbackView.xib; sourceTree = "<group>"; };
 		49B8587E1833658500F32BB0 /* RatingAndFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingAndFeedbackViewController.h; sourceTree = "<group>"; };
 		49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingAndFeedbackViewController.m; sourceTree = "<group>"; };
+		49BBB6FC18350737007546E8 /* Rating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rating.h; sourceTree = "<group>"; };
+		49BBB6FD18350737007546E8 /* Rating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rating.m; sourceTree = "<group>"; };
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -259,6 +262,8 @@
 				49669B17180CED2D00089254 /* User.m */,
 				49048D27182001C900B480A3 /* Order.h */,
 				49048D28182001C900B480A3 /* Order.m */,
+				49BBB6FC18350737007546E8 /* Rating.h */,
+				49BBB6FD18350737007546E8 /* Rating.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BBB6FE18350737007546E8 /* Rating.m in Sources */,
 				49669B18180CED2D00089254 /* User.m in Sources */,
 				49669B15180CED1D00089254 /* Dish.m in Sources */,
 				49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */,
