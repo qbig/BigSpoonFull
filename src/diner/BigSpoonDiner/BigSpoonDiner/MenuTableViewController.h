@@ -12,6 +12,7 @@
 #import "MenuPhotoCell.h"
 #import "Constants.h"
 #import "Outlet.h"
+#import "BigSpoonAnimationController.h"
 
 enum DishDisplayMethod : NSUInteger {
     kMethodList = 1,

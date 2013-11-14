@@ -405,6 +405,7 @@
     NSLog(@"New item added to order list with ID: %d", itemID);
     
     [self.delegate dishOrdered:[self getDishWithID: itemID]];
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
 - (Dish *) getDishWithID: (int) itemID{

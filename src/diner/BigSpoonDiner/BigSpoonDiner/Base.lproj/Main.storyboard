@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Login View Controller - Login-->
@@ -504,7 +504,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="NewOrderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewOrderCell" rowHeight="42" id="DCr-pl-LLM" customClass="NewOrderCell">
+                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="NewOrderCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewOrderCell" rowHeight="42" id="DCr-pl-LLM" customClass="NewOrderCell">
                                                 <rect key="frame" x="0.0" y="22" width="320" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DCr-pl-LLM" id="HHE-mv-gOe">
@@ -658,7 +658,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="PastOrderCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="PastOrderCell" id="OpB-Ul-bc8" customClass="PastOrderCell">
+                                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="PastOrderCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="PastOrderCell" id="OpB-Ul-bc8" customClass="PastOrderCell">
                                                         <rect key="frame" x="0.0" y="22" width="331" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OpB-Ul-bc8" id="Tm9-mb-xis">
@@ -853,12 +853,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
                                 <rect key="frame" x="-4" y="42" width="315" height="419"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="MenuListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuListCell" rowHeight="59" id="HgS-6H-ity" customClass="MenuListCell">
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="MenuListCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuListCell" rowHeight="59" id="HgS-6H-ity" customClass="MenuListCell">
                                         <rect key="frame" x="0.0" y="22" width="315" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgS-6H-ity" id="0rT-1q-Ya9">
@@ -879,11 +879,13 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="I3T-n9-13f">
-                                                    <rect key="frame" x="265" y="8" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I3T-n9-13f">
+                                                    <rect key="frame" x="273" y="8" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="add_icon.png">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <state key="normal" image="add_icon.png"/>
+                                                    <state key="highlighted" image="add_icon.png">
+                                                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="8hH-Xx-CPg"/>
@@ -904,7 +906,7 @@
                                             <outlet property="priceLabel" destination="t1W-aM-iIl" id="lGe-R5-KhQ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MenuPhotoCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="196" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MenuPhotoCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="196" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
                                         <rect key="frame" x="0.0" y="81" width="315" height="196"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HiF-Sy-gJL" id="AmA-8O-KWh">
@@ -944,11 +946,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UbY-Ez-zJc">
-                                                    <rect key="frame" x="274" y="6" width="30" height="30"/>
+                                                    <rect key="frame" x="276" y="10" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="add_icon2.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="selected" image="photo_icon.png"/>
                                                     <connections>
                                                         <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="Jj2-yE-cb2"/>
                                                     </connections>

@@ -41,7 +41,9 @@ extern int const REQUEST_WATER_VIEW_Y;
 // Animations
 extern double const BADGE_ANMINATION_DURATION;
 extern double const BADGE_ANMINATION_ZOOM_FACTOR;
-
+extern double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION;
+extern double const BUTTON_CLICK_ANIMATION_DURATION;
+extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 
 // Others:
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;

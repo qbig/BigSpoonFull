@@ -28,7 +28,7 @@
     if (willShow) {
         [view setHidden: !willShow];
     }
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:REQUEST_CONTROL_PANEL_TRANSITION_DURATION
                      animations:^{
                          if (willShow) {
                              view.alpha = 1;
@@ -62,6 +62,20 @@
                          badgeView.frame = oldFrameItemBadge;
                      }];
 
+}
+
++ (void) animateButtonWhenClicked:(UIView *)view{
+        
+    [UIView animateWithDuration:BUTTON_CLICK_ANIMATION_DURATION
+                          delay:0
+                        options: UIViewAnimationOptionAutoreverse
+                     animations:^{
+                         view.alpha = BUTTON_CLICK_ANIMATION_ALPHA;                     }
+                     completion:^(BOOL finished){
+                         view.alpha = 1;
+                     }];
+
+    
 }
 
 @end

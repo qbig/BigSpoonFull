@@ -259,7 +259,7 @@
 #pragma mark - Button event listeners
 
 - (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
-
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     
     UITouch * touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.currentOrderTableView];
@@ -279,6 +279,8 @@
 }
 
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+
     UITouch * touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.currentOrderTableView];
     NSIndexPath * indexPath = [self.currentOrderTableView indexPathForRowAtPoint: location];
