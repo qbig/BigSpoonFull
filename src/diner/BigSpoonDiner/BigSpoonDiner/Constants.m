@@ -29,7 +29,7 @@ int const ROW_HEIGHT_PHOTO_MENU = 196;
 double const SCALE_OF_BUTTON = 2.85;
 int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 1100;
-int const ITEM_LIST_TABLE_ROW_HEIGHT = 42;
+int const ITEM_LIST_TABLE_ROW_HEIGHT = 59;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 
 // Coordinates:
@@ -40,6 +40,7 @@ int const REQUEST_BILL_VIEW_X = 20;
 int const REQUEST_BILL_VIEW_Y = 80;
 
 // Animations:
+
 double const BADGE_ANMINATION_DURATION = 0.4;
 double const BADGE_ANMINATION_ZOOM_FACTOR = 2.1;
 double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION = 0.6;
@@ -47,6 +48,7 @@ double const BUTTON_CLICK_ANIMATION_DURATION = 0.15;
 double const BUTTON_CLICK_ANIMATION_ALPHA = 0.45;
 
 // Others:
+
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 
 @end

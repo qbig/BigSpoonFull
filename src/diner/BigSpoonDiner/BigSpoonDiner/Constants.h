@@ -33,12 +33,14 @@ extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 
 // Coordinates:
+
 extern int const REQUEST_BILL_VIEW_X;
 extern int const REQUEST_BILL_VIEW_Y;
 extern int const REQUEST_WATER_VIEW_X;
 extern int const REQUEST_WATER_VIEW_Y;
 
 // Animations
+
 extern double const BADGE_ANMINATION_DURATION;
 extern double const BADGE_ANMINATION_ZOOM_FACTOR;
 extern double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION;
@@ -46,6 +48,7 @@ extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 
 // Others:
+
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
 
 @end
