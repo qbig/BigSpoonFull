@@ -31,6 +31,8 @@ extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
+extern int const RATING_STAR_WIDTH;
+extern int const RATING_STAR_HEIGHT;
 
 // Coordinates:
 
@@ -49,6 +51,7 @@ extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 
 // Others:
 
+extern int const NUM_OF_RATINGS;
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
 
 @end

@@ -31,13 +31,15 @@ int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 1100;
 int const ITEM_LIST_TABLE_ROW_HEIGHT = 59;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
+int const RATING_STAR_WIDTH = 80;
+int const RATING_STAR_HEIGHT = 15;
 
 // Coordinates:
 
 int const REQUEST_WATER_VIEW_X = 40;
 int const REQUEST_WATER_VIEW_Y = 150;
-int const RATING_AND_FEEDBACK_X = 20;
-int const RATING_AND_FEEDBACK_Y = 80;
+int const RATING_AND_FEEDBACK_X = 18;
+int const RATING_AND_FEEDBACK_Y = 70;
 
 // Animations:
 
@@ -49,6 +51,7 @@ double const BUTTON_CLICK_ANIMATION_ALPHA = 0.45;
 
 // Others:
 
+int const NUM_OF_RATINGS = 5;
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 
 @end

@@ -69,23 +69,42 @@
     // By default, show five stars.
     cell.ratingImage.image = [self imageForRating:5];
     
-        // Tag it. So that we know its identity.
-        cell.ratingImage.tag = dish.ID;
+    // Tag it. So that we know its identity.
+    cell.ratingImage.tag = dish.ID;
     
-        // Add gesture recognizer
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
-                                                 initWithTarget:self
-                                                        action:@selector(tappedRatingImageView:)];
-        [tapRecognizer setNumberOfTapsRequired:1];
-        [tapRecognizer setDelegate:self];
-    
-        [cell.ratingImage addGestureRecognizer:tapRecognizer];
+    // Add gesture recognizer
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(tappedRatingImageView:)];
+    [tapRecognizer setNumberOfTapsRequired:1];
+    [tapRecognizer setDelegate:self];
+    [cell.ratingImage setUserInteractionEnabled:YES];
+    [cell.ratingImage addGestureRecognizer:tapRecognizer];
     
     return cell;
 }
 
+- (BOOL) gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    return YES;
+}
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    return YES;
+}
+
 -(void)tappedRatingImageView: (UITapGestureRecognizer *)gesture{
-    
+
+    CGPoint location = [gesture locationInView: self.ratingsTableView];
+    NSIndexPath * indexPath = [self.ratingsTableView indexPathForRowAtPoint: location];
+    RatingCell *cell = (RatingCell *)[self.ratingsTableView cellForRowAtIndexPath: indexPath];
+
+    int dishID = cell.ratingImage.tag;
+
+    location = [gesture locationInView: cell.ratingImage];
+    int newRating = ((int) location.x) / (RATING_STAR_WIDTH / NUM_OF_RATINGS) + 1;
+    NSLog(@"New rating: %d", newRating);
+    UIImage *ratingImage = [self imageForRating:newRating];
+    cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
+                                                 scale:1.0 orientation: UIImageOrientationUpMirrored];
 }
 
 - (UIImage *)imageForRating:(int)rating
