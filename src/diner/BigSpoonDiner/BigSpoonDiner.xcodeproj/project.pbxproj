@@ -50,7 +50,7 @@
 		49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B8587718335F9700F32BB0 /* RequestWaterView.xib */; };
 		49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */; };
 		49B858801833658500F32BB0 /* RatingAndFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */; };
-		49BBB6FE18350737007546E8 /* Rating.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BBB6FD18350737007546E8 /* Rating.m */; };
+		49BBB70118350FCE007546E8 /* RatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BBB70018350FCE007546E8 /* RatingCell.m */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
 		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
 		49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* SignUpViewController.m */; };
@@ -154,8 +154,8 @@
 		49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingAndFeedbackView.xib; sourceTree = "<group>"; };
 		49B8587E1833658500F32BB0 /* RatingAndFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingAndFeedbackViewController.h; sourceTree = "<group>"; };
 		49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingAndFeedbackViewController.m; sourceTree = "<group>"; };
-		49BBB6FC18350737007546E8 /* Rating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rating.h; sourceTree = "<group>"; };
-		49BBB6FD18350737007546E8 /* Rating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Rating.m; sourceTree = "<group>"; };
+		49BBB6FF18350FCE007546E8 /* RatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingCell.h; sourceTree = "<group>"; };
+		49BBB70018350FCE007546E8 /* RatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingCell.m; sourceTree = "<group>"; };
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -262,8 +262,6 @@
 				49669B17180CED2D00089254 /* User.m */,
 				49048D27182001C900B480A3 /* Order.h */,
 				49048D28182001C900B480A3 /* Order.m */,
-				49BBB6FC18350737007546E8 /* Rating.h */,
-				49BBB6FD18350737007546E8 /* Rating.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -336,8 +334,8 @@
 			isa = PBXGroup;
 			children = (
 				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
-				E9B7A28D180BF3EC009B6BD1 /* Views */,
 				49CAFC50180BB9DE0058C900 /* Images */,
+				E9B7A28D180BF3EC009B6BD1 /* Views */,
 				4999A20F180A50C300270B0B /* Models */,
 				4999A208180A4FCA00270B0B /* ViewControllers */,
 				49F107F1180886D600D2C8DD /* AppDelegate.h */,
@@ -410,6 +408,8 @@
 				49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */,
 				49091B9C1834CFEF006AC7FE /* BigSpoonAnimationController.h */,
 				49091B9D1834CFEF006AC7FE /* BigSpoonAnimationController.m */,
+				49BBB6FF18350FCE007546E8 /* RatingCell.h */,
+				49BBB70018350FCE007546E8 /* RatingCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -574,7 +574,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49BBB6FE18350737007546E8 /* Rating.m in Sources */,
 				49669B18180CED2D00089254 /* User.m in Sources */,
 				49669B15180CED1D00089254 /* Dish.m in Sources */,
 				49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */,
@@ -587,6 +586,7 @@
 				49B858801833658500F32BB0 /* RatingAndFeedbackViewController.m in Sources */,
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
 				49048D29182001C900B480A3 /* Order.m in Sources */,
+				49BBB70118350FCE007546E8 /* RatingCell.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				E9CD90D7181D088000139FEC /* ProfileViewController.m in Sources */,

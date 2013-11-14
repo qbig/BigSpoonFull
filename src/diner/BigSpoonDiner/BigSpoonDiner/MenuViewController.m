@@ -419,6 +419,9 @@
     [alertView show];
     
     // Load and show the ratingAndFeedbackViewController: TODO
+    self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
+    self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
+    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder];
     [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
     
     // Set the order items to null

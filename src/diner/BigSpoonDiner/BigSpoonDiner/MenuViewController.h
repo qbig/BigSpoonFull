@@ -82,7 +82,7 @@
  * "RatingsAndFeedback" Control Panel:
  * The view: RatingsAndFeedbackView.xib
  * The viewController: RatingsAndFeedbackViewContoller
- *  (the view contains table, so it's )
+ *  (the view contains table, so its controller is not self, in order to seperate concerns)
  */
 
 @property (strong, nonatomic) RatingAndFeedbackViewController * ratingAndFeedbackViewController;

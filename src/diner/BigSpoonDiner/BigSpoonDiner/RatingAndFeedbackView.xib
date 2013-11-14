@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RatingAndFeedbackViewController">
             <connections>
                 <outlet property="feedbackTextField" destination="Sxx-mw-tMm" id="mV6-4R-5tL"/>
+                <outlet property="ratingImage" destination="762-T9-osP" id="wLK-Us-Srh"/>
                 <outlet property="ratingsTableView" destination="Yvv-31-cFB" id="P0g-ch-Zmq"/>
             </connections>
         </placeholder>
@@ -74,7 +75,7 @@
                             </connections>
                         </textField>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Yvv-31-cFB">
-                            <rect key="frame" x="15" y="112" width="245" height="150"/>
+                            <rect key="frame" x="20" y="107" width="245" height="150"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -90,5 +91,30 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="RatingCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="RatingCell" rowHeight="48" id="UsT-ob-JhS" customClass="RatingCell">
+            <rect key="frame" x="0.0" y="0.0" width="245" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UsT-ob-JhS" id="7Ia-v3-gJ4">
+                <rect key="frame" x="0.0" y="0.0" width="245" height="47"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dish Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXw-ll-TwV">
+                        <rect key="frame" x="7" y="13" width="173" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="762-T9-osP">
+                        <rect key="frame" x="182" y="12" width="55" height="24"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                </subviews>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dishNameLabel" destination="cXw-ll-TwV" id="rbs-fT-ZY5"/>
+                <outlet property="ratingImage" destination="762-T9-osP" id="tbS-Sd-EDh"/>
+            </connections>
+        </tableViewCell>
     </objects>
 </document>

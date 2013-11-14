@@ -8,16 +8,26 @@
 
 #import <UIKit/UIKit.h>
 #import "Order.h"
+#import "Dish.h"
+#import "RatingCell.h"
 
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+// Key: dishID; Value: rating between 0 to 5.
+@property (strong, nonatomic) NSMutableDictionary *ratings;
 
 @property (strong, nonatomic) Order* currentOrder;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
+@property (strong, nonatomic) IBOutlet UIImageView *ratingImage;
+
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
 - (IBAction)textFieldDidEndOnExit:(id)sender;
+
+- (void) reloadDataWithOrder: (Order *) currentOrder;
+
 
 
 @end

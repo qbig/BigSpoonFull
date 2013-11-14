@@ -24,9 +24,9 @@
 }
 
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    [super viewDidLoad];
+    [super loadView];
     
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RatingAndFeedbackView" owner:self options:nil];
     self.view = [subviewArray objectAtIndex:0];
@@ -55,10 +55,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    RatingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OutletCell"];
+    Dish *dish = [[self.currentOrder dishes] objectAtIndex:indexPath.row];
     
-    // Configure the cell...
+    cell.dishNameLabel.text = dish.name;
     
     return cell;
 }
@@ -128,4 +128,11 @@
 - (IBAction)textFieldDidEndOnExit:(id)sender {
     [sender resignFirstResponder];
 }
+
+- (void) reloadDataWithOrder: (Order *) c{
+    self.currentOrder = c;
+    [self.ratingsTableView reloadData];
+}
+
+
 @end

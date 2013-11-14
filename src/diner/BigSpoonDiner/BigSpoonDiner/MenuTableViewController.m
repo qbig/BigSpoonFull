@@ -156,7 +156,7 @@
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
-// Ajax callback to add one more new item in the table:
+// HTTP callback to add one more new item in the table:
 - (void)addDish:(Dish *)dish
 {
     
