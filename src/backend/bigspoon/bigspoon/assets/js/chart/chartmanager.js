@@ -72,22 +72,27 @@ function createChart(){
 	};
 
 
-var testData = [1,2,3,65,59,90,81,56,55,40];
+var testData = [100,200,300,500,900];
 //datePeriods = testData;
+//chartData = chartdata.concat(testData); //Avoid. changes ref.
+//lineChartData.datasets[0].data = chartdata.concat(testData);
 	for (var i=0; i<datePeriods.length; ++i){
-		console.log(datePeriods[i]);
+		//c!onsole.log(datePeriods[i]);
         $.post(
             STAFF_API_URLS["spending"], //this requires main.js
             datePeriods[i]
         ).done(function(data) {
 			var spending = getSpending(data);
-			chartData.push(spending);
+			spending = (spending==0)? 50: spending;
+			lineChartData.datasets[0].data.push(spending);
+			//c!onsole.log(lineChartData.datasets[0].data);
 			updateChart(chartSpending, lineChartData);
         }).fail(function(data) {
             console.log("POST failed");
             console.log(data);
         });
 	}
+	updateChart(chartSpending, lineChartData); //initial drawing
 	//var myLine = new Chart(chartSpending.getContext("2d")).Line(lineChartData);
 
 }
@@ -174,7 +179,7 @@ function getSpending(meal_data){
 	//nest-level controller
 	var spending = 0.0;
 	for(var i=0; i<meal_data.length; ++i){
-		spending+= meal_data[i].spending;
+		spending+= parseFloat(meal_data[i].spending); //must parseFloat.
 	}
 	return spending;
 }
