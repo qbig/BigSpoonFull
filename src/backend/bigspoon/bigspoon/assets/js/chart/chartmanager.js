@@ -16,6 +16,9 @@ var req_data = {
     // "user": user,
     // "content":content,
 }
+if (location.pathname == "/staff/report/") {
+
+
 
 //==================================================
 var chartdata = [];
@@ -221,6 +224,7 @@ function chartIsNotCreated(){
 }
 
 
+}//endof page check
 
 })(); //end of script encapsulation
 
