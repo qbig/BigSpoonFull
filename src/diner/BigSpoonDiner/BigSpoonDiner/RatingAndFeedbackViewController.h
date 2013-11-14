@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Order.h"
 
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
