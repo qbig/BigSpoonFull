@@ -36,8 +36,8 @@ int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 
 int const REQUEST_WATER_VIEW_X = 40;
 int const REQUEST_WATER_VIEW_Y = 150;
-int const REQUEST_BILL_VIEW_X = 20;
-int const REQUEST_BILL_VIEW_Y = 80;
+int const RATING_AND_FEEDBACK_X = 20;
+int const RATING_AND_FEEDBACK_Y = 80;
 
 // Animations:
 

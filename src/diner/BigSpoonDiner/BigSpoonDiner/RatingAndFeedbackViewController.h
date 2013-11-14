@@ -10,6 +10,8 @@
 #import "Order.h"
 #import "Dish.h"
 #import "RatingCell.h"
+#import "Constants.h"
+#import "BigSpoonAnimationController.h"
 
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

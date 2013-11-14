@@ -418,13 +418,27 @@
                               otherButtonTitles:nil];
     [alertView show];
     
-    // Load and show the ratingAndFeedbackViewController: TODO
+    // Load and show the ratingAndFeedbackViewController:
+    
+    // Initialize the controller and the view
     self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
     self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
+    
+    // Make the frame correct:
+    CGRect frame = self.ratingAndFeedbackViewController.view.frame;
+    [self.ratingsAndFeedbackView setFrame:CGRectMake(RATING_AND_FEEDBACK_X,
+                                                    RATING_AND_FEEDBACK_Y,
+                                                    frame.size.width,
+                                                    frame.size.height)];
+    
+    // Load data
     [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder];
+    
+    // Add subview and make it appear
+    [self.view addSubview: self.ratingsAndFeedbackView];
     [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
     
-    // Set the order items to null
+    // After everything, set the order items to null
     self.currentOrder = [[Order alloc] init];
     self.pastOrder = [[Order alloc] init];
     self.tableID = -1;

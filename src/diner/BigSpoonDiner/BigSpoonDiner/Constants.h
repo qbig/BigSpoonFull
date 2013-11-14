@@ -34,10 +34,10 @@ extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 
 // Coordinates:
 
-extern int const REQUEST_BILL_VIEW_X;
-extern int const REQUEST_BILL_VIEW_Y;
 extern int const REQUEST_WATER_VIEW_X;
 extern int const REQUEST_WATER_VIEW_Y;
+extern int const RATING_AND_FEEDBACK_X;
+extern int const RATING_AND_FEEDBACK_Y;
 
 // Animations
 

@@ -118,15 +118,29 @@
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender{
     
+    [self ratingCancelButtonPressed:sender];
 }
 
 - (IBAction)ratingCancelButtonPressed:(id)sender{
     
+    [self fadeOut];
 }
 
 
 - (IBAction)textFieldDidEndOnExit:(id)sender {
-    [sender resignFirstResponder];
+
+    [self fadeOut];
+}
+
+- (void) fadeOut{
+    // Perform the fade-out animation first. Then remove the view.
+    [BigSpoonAnimationController animateTransitionOfUIView:self.view willShow:NO];
+    [self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:REQUEST_CONTROL_PANEL_TRANSITION_DURATION];
+}
+
+- (void) removeSelfFromParent{
+    [self removeFromParentViewController];
+    [self.view removeFromSuperview];
 }
 
 - (void) reloadDataWithOrder: (Order *) c{
