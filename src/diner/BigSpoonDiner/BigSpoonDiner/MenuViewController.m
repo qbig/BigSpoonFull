@@ -105,7 +105,7 @@
     [self.view addSubview:self.requestWaterView];
     CGRect frame = self.requestWaterView.frame;
     [self.requestWaterView setFrame:CGRectMake(REQUEST_WATER_VIEW_X, REQUEST_WATER_VIEW_Y, frame.size.width, frame.size.height)];
-    [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
+    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
     
 }
 
@@ -287,7 +287,7 @@
 }
 
 - (void) performRequestWaterSelectQuantityPopUp{
-    [self animateTransitionOfUIView:self.requestWaterView willShow:YES];
+    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:YES];
 }
 
 - (IBAction)requestWaiterButtonPressed:(id)sender {
@@ -419,7 +419,7 @@
     [alertView show];
     
     // Load and show the ratingAndFeedbackViewController: TODO
-    [self animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
+    [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
     
     // Set the order items to null
     self.currentOrder = [[Order alloc] init];
@@ -649,24 +649,8 @@
         self.itemQuantityLabel.text = [NSString stringWithFormat:@"%d", totalQuantity];
         
         // Animation of the red badge:
-        
-        // newFrame is frame With Same Center And Zoomed width and height
-        CGRect newFrame = CGRectMake(oldFrameItemBadge.origin.x -
-                                     oldFrameItemBadge.size.width * (BADGE_ANMINATION_ZOOM_FACTOR - 1) / 2,
-                                      oldFrameItemBadge.origin.y -
-                                     oldFrameItemBadge.size.height * (BADGE_ANMINATION_ZOOM_FACTOR - 1) / 2,
-                                      oldFrameItemBadge.size.width * BADGE_ANMINATION_ZOOM_FACTOR,
-                                      oldFrameItemBadge.size.height * BADGE_ANMINATION_ZOOM_FACTOR);
-        
-        [UIView animateWithDuration:BADGE_ANMINATION_DURATION / 2
-                              delay:0
-                            options: UIViewAnimationOptionAutoreverse
-                         animations:^{
-                             self.itemQuantityLabelBackgroundImageView.frame = newFrame;
-                         }
-                         completion:^(BOOL finished){
-                             self.itemQuantityLabelBackgroundImageView.frame = oldFrameItemBadge;
-                         }];
+       [BigSpoonAnimationController animateBadgeAfterUpdate: self.itemQuantityLabelBackgroundImageView
+                                          withOriginalFrame: oldFrameItemBadge];
     }
 }
 
@@ -934,39 +918,7 @@
     self.quantityOfWarmWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfWarmWater];
     self.quantityOfColdWaterLabel.text = [NSString stringWithFormat:@"%d", self.quantityOfColdWater];
     
-    [self animateTransitionOfUIView:self.requestWaterView willShow:NO];
-}
-
-#pragma makr Animation
-
-- (void) animateTransitionOfUIView: (UIView *)view willShow: (BOOL) willShow{
-    
-    // view.alpha: how transparent it is. If 0, it still occupy its space on the screen
-    // view.hidden: whether it is shown. If no, it will not occupy its space on the screen
-    
-    // Set the alpha to the other way. And set it back in the animation.
-    if (willShow) {
-        view.alpha = 0;
-    } else{
-        view.alpha = 1;
-    }
-    
-    if (willShow) {
-        [view setHidden: !willShow];
-    }
-    [UIView animateWithDuration:0.5
-                     animations:^{
-                         if (willShow) {
-                             view.alpha = 1;
-                         } else{
-                             view.alpha = 0;
-                         }
-                     }
-                     completion:^(BOOL finished){
-                         if (!willShow) {
-                             [view setHidden: !willShow];
-                         }
-                     }];
+    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
 }
 
 #pragma mark - Dealing with table number
