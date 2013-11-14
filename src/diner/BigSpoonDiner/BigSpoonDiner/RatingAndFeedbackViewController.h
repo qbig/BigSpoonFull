@@ -13,7 +13,7 @@
 #import "Constants.h"
 #import "BigSpoonAnimationController.h"
 
-@interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 // Key: dishID; Value: rating between 0 to 5.
 @property (strong, nonatomic) NSMutableDictionary *ratings;

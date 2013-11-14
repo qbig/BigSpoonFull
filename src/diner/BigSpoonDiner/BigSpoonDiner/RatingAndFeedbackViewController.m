@@ -66,9 +66,39 @@
     
     cell.dishNameLabel.text = dish.name;
     
-    NSLog(@"Oh fuck fuck! %@ %@", dish.name, cell);
+    // By default, show five stars.
+    cell.ratingImage.image = [self imageForRating:5];
+    
+        // Tag it. So that we know its identity.
+        cell.ratingImage.tag = dish.ID;
+    
+        // Add gesture recognizer
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
+                                                 initWithTarget:self
+                                                        action:@selector(tappedRatingImageView:)];
+        [tapRecognizer setNumberOfTapsRequired:1];
+        [tapRecognizer setDelegate:self];
+    
+        [cell.ratingImage addGestureRecognizer:tapRecognizer];
     
     return cell;
+}
+
+-(void)tappedRatingImageView: (UITapGestureRecognizer *)gesture{
+    
+}
+
+- (UIImage *)imageForRating:(int)rating
+{
+	switch (rating)
+	{
+		case 1: return [UIImage imageNamed:@"1StarSmall@2x.png"];
+		case 2: return [UIImage imageNamed:@"2StarsSmall@2x.png"];
+		case 3: return [UIImage imageNamed:@"3StarsSmall@2x.png"];
+		case 4: return [UIImage imageNamed:@"4StarsSmall@2x.png"];
+		case 5: return [UIImage imageNamed:@"5StarsSmall@2x.png"];
+	}
+	return nil;
 }
 
 /*
