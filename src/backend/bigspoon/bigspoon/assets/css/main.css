@@ -278,7 +278,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 15px 18px;
+    padding: 17px 18px;
     border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -316,7 +316,7 @@ nav a.logo img {
     float: left;
     margin: 5px;
     width: 270px;
-    height: 380px;
+    height: 400px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -324,9 +324,10 @@ nav a.logo img {
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
 }
 
-.item .history {
-    border-bottom: 2px dashed #ddd;
-            margin-bottom: 10px;
+.history {
+    /*border-bottom: 2px dashed #ddd;*/
+    margin-bottom: 10px;
+    height: 360px; !important
 }
 
 .item span.time {
@@ -364,20 +365,21 @@ nav a.logo img {
     float:right;
 }
 
-.item p.paid, .item p.unpaid {
+p.paid, p.unpaid {
     color: #fff;
     font-size: 12px;
     font-weight:bold;
     text-align:center;
     text-transform: uppercase;
     padding:5px 10px;
+    margin-bottom: -3px;
 }
 
-.item p.paid {
+p.paid {
     background-color: #C4C4C4;
 }
 
-.item p.unpaid {
+p.unpaid {
     background-color: rgb(231,76,60);
 }
 
@@ -464,6 +466,11 @@ height: 130px;
 
 .order li:last-child {
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+}
+
+li p.empty-orders {
+border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+background: #fcf6ef;
 }
 
 .item a:hover, .item a:focus, .item a:active {
@@ -876,6 +883,7 @@ form.menu-add {
 }
 
 .table .order {
+    width: 270px;
     margin-top: 0px;
 }
 
@@ -893,7 +901,6 @@ form.menu-add {
 .past-orders {
     display: block;
     float: left;
-    margin-left: 30px;
     width: 300px;
 }
 
@@ -1103,6 +1110,7 @@ table thead tr th { }
 .no-orders {
     color: rgba(85,85,85,0.8);
     text-align: center;
+    padding-top: 40px;
 }
 
 input#filter {
@@ -1115,4 +1123,41 @@ input#filter {
 #pick-category {
     margin: 30px;
     margin-bottom:0px;
+}
+
+#pick-table {
+    display:block;
+    padding: 5px 10px;
+}
+
+#pick-table label {
+    font-weight: bold;
+}
+
+#pick-table select {
+    margin: 10px;
+}
+
+.notification {
+    visibility: hidden;
+    width:20px;
+    height:20px;
+    display:inline;
+    font-size: 14px;
+    background: rgba(231,76,60,0.8);
+    padding: 10px;
+    margin-left: 10px;
+    color: #fff;
+    border-radius: 20px;
+    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+}
+
+.table {
+    width: 820px;
+}
+
+.table .active{
+    border: 1px solid white;
+    float: left;
+    width: 270px;
 }

@@ -10,24 +10,34 @@
     </div>
 
 <div class="wrapper">
+
+    <span id="pick-table">
+        <label> Filter
+        <select>
+            <option value="All Tables">
+            All Tables
+            </option>
+            {% for table in table_list %}
+            <option value="{{table.name}}">
+            {{table.name|capfirst}}
+            </option>
+            {% endfor %}
+        </select> </label>
+    </span>
+
     {% for table in table_list %}
 
     <div class="table">
-        <h3>{{table.name}}</h3>
+        <h3>{{table.name|capfirst}}</h3>
 
         {% if table.meals.count > 0 %}
-
             {% for meal in table.meals.all %}
-                {% if meal.status == 1 %}
-                <div class='history'>
-                {% else %}
+                {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
                 <div class='active'>
-                {% endif %}
                     <span class='user'>
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
-                        <h4>{{ meal.diner.get_full_name }}'s orders</h4>
+                        <h4>{{ meal.diner.get_full_name }}</h4>
                     </span>
-
                     <span class="user-summary">
                     <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
                     <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
@@ -35,7 +45,9 @@
                     </span>
 
                     {% if meal.note %}
-                        <p class="note">{{meal.note}}</p>
+                    <p class="note">
+                        {{meal.note}}
+                    </p>
                     {% endif %}
                     <ul class="order">
                         {% if meal.orders.count > 0 %}
@@ -55,15 +67,12 @@
                         {% endif %}
                     </ul>
                 </div>
+                {% endif %}
             {% endfor %}
-
         {% else %}
             <p class="no-orders">This table currently has no orders. </p>
         {% endif %}
-
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
-</div>
-
 {% endblock content %}

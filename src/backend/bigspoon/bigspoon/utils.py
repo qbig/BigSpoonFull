@@ -13,6 +13,11 @@ def send_socketio_message(chan_list, message_data):
         red.publish('%d' % c_id, message_data)
 
 
+def send_user_feedback(user, message_data):
+    red = redis.StrictRedis(REDIS_HOST)
+    red.publish(user, message_data)
+
+
 def today_limit():
     today = timezone.now().date()
     tomorrow = today + timedelta(1)

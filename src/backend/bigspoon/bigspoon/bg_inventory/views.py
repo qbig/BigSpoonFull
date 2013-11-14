@@ -10,6 +10,7 @@ REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 
 
 class BigSpoonNamespace(BaseNamespace):
+
     def listener(self, chan):
             red = redis.StrictRedis(REDIS_HOST)
             red = red.pubsub()
