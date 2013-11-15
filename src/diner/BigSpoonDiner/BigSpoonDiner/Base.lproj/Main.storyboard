@@ -427,15 +427,15 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar hidden="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
-                                <rect key="frame" x="-47" y="-44" width="93" height="44"/>
+                            <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
+                                <rect key="frame" x="-44" y="-55" width="93" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem id="uqC-gj-MFU">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
-                                            <rect key="frame" x="16" y="10" width="25" height="25"/>
+                                            <rect key="frame" x="16" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <state key="normal" title="Toggle" image="photo_icon.png">
+                                            <state key="normal" title="Toggle" image="list_icon.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -445,7 +445,7 @@
                                     </barButtonItem>
                                     <barButtonItem id="y9B-8i-1fw">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
-                                            <rect key="frame" x="51" y="10" width="25" height="25"/>
+                                            <rect key="frame" x="56" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                             <state key="normal" title="Gear" image="gear.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1095,9 +1095,10 @@
         <image name="bottom_buttons.png" width="1367" height="253"/>
         <image name="gear.png" width="104" height="104"/>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
+        <image name="list_icon.png" width="105" height="105"/>
         <image name="minus_icon.png" width="482" height="482"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
-        <image name="photo_icon.png" width="109" height="105"/>
+        <image name="photo_icon.png" width="105" height="105"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="red_circle.png" width="184" height="184"/>
     </resources>
@@ -1107,7 +1108,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qnZ-wN-VZu"/>
         <segue reference="ew3-Pm-EPj"/>
+        <segue reference="TRy-SG-Bfr"/>
     </inferredMetricsTieBreakers>
 </document>

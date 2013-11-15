@@ -230,10 +230,10 @@
     NSLog(@"viewModeButtonPressedAtListPage");
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
-        [self changeViewModeButtonIconTo:@"photo_icon.png"];
+        [self changeViewModeButtonIconTo:@"list_icon.png"];
     } else if (self.menuListViewController.displayMethod == kMethodPhoto){
         self.menuListViewController.displayMethod = kMethodList;
-        [self changeViewModeButtonIconTo:@"list_icon.png"];
+        [self changeViewModeButtonIconTo:@"photo_icon.png"];
     } else {
         NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
@@ -248,9 +248,9 @@
     [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
     
     if (self.menuListViewController.displayMethod == kMethodPhoto){
-        [self changeViewModeButtonIconTo:@"photo_icon.png"];
-    } else{
         [self changeViewModeButtonIconTo:@"list_icon.png"];
+    } else{
+        [self changeViewModeButtonIconTo:@"photo_icon.png"];
     }
     
     [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(goToHomePage)];
