@@ -100,7 +100,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         if num_meals == 0:
             return 0
         total_spending = self.get_total_spending()
-        return total_spending/num_meals
+        #round to two decimal places
+        return int(total_spending / num_meals * 100) / 100.0
 
     def get_short_name(self):
         """
@@ -246,7 +247,7 @@ class Profile(models.Model):
     def get_favourite_categories(self):
         favourites = ""
         for category in self.favourite_categories.all():
-            favourites += (category.name+", ")
+            favourites += (category.name + ", ")
         return favourites
 
     class Meta:
