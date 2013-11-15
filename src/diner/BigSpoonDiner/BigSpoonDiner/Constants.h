@@ -20,6 +20,8 @@ extern NSString* const REQUEST_URL;
 extern NSString* const PROFILE_URL;
 extern NSString* const ORDER_URL;
 extern NSString* const BILL_URL;
+extern NSString* const RATING_URL;
+extern NSString* const FEEDBACK_URL;
 
 
 // Dimentions (length, height, etc..):

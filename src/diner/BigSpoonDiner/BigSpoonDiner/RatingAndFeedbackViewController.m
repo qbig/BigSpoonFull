@@ -32,6 +32,8 @@
     self.view = [subviewArray objectAtIndex:0];
     
     [self.ratingsTableView registerNib:[UINib nibWithNibName:@"RatingCellView" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"RatingCell"];
+    
+    self.ratings  = [[NSMutableDictionary alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,6 +107,13 @@
     UIImage *ratingImage = [self imageForRating:newRating];
     cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
                                                  scale:1.0 orientation: UIImageOrientationUpMirrored];
+    [self setRating:newRating ofDishID:dishID];
+    
+    
+}
+
+- (void) setRating: (int) newRating ofDishID: (int) dishID{
+    [self.ratings setObject:[NSString stringWithFormat:@"%d", newRating] forKey:[NSString stringWithFormat:@"%d", dishID]];
 }
 
 - (UIImage *)imageForRating:(int)rating
@@ -174,9 +183,81 @@
 # pragma mark - Event listeners
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender{
+    // Perfrom HTTP Call:
+    
+    [self performRatingSubmission];
+    [self performFeedbackSubmission];
     
     [self ratingCancelButtonPressed:sender];
 }
+
+- (void) performRatingSubmission{
+    
+    NSDictionary *parameters = @{
+                                 @"dishes": self.ratings,
+                                 };
+    
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: RATING_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"POST";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Submit Rating Success");
+                NSLog(@"");
+            }
+                break;
+            case 403:
+            default:{
+                NSLog(@"Submit Rating Fail");
+                NSLog(@"");
+            }
+        }
+        NSLog(@"Response: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo: operation.responseObject];
+                                      }];
+    
+    [operation start];
+}
+
+- (void) performFeedbackSubmission{
+    
+}
+
+- (void) displayErrorInfo: (id) responseObject{
+    
+    NSDictionary *dictionary = (NSDictionary *)responseObject;
+    
+    NSMutableString *message = [[NSMutableString alloc] init];
+    
+    NSArray *errorInfoArray= [dictionary allValues];
+    
+    for (NSString * errorInfo in errorInfoArray) {
+        [message appendString:errorInfo];
+    }
+    
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Oops"
+                              message: message
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    [alertView show];
+}
+
 
 - (IBAction)ratingCancelButtonPressed:(id)sender{
     
