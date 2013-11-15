@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Order.h"
 #import "Dish.h"
+#import "User.h"
 #import "RatingCell.h"
 #import "Constants.h"
 #import "BigSpoonAnimationController.h"
+#import <AFHTTPRequestOperation.h>
 
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 

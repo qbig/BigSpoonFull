@@ -20,6 +20,8 @@ NSString* const REQUEST_URL = @"http://122.248.199.242/api/v1/request";
 NSString* const PROFILE_URL = @"http://122.248.199.242/api/v1/profile";
 NSString* const ORDER_URL = @"http://122.248.199.242/api/v1/meal";
 NSString* const BILL_URL = @"http://122.248.199.242/api/v1/askbill";
+NSString* const RATING_URL = @"http://122.248.199.242/api/v1/rating";
+NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/rating";
 
 
 // Dimentions:
