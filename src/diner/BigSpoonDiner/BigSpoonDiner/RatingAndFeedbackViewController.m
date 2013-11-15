@@ -72,7 +72,8 @@
     cell.ratingImage.image = [self imageForRating:5];
     
     // Tag it. So that we know its identity.
-    cell.ratingImage.tag = dish.ID;
+    cell.tag = dish.ID;
+    NSLog(@"Tagged: %d", dish.ID);
     
     // Add gesture recognizer
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -99,11 +100,10 @@
     NSIndexPath * indexPath = [self.ratingsTableView indexPathForRowAtPoint: location];
     RatingCell *cell = (RatingCell *)[self.ratingsTableView cellForRowAtIndexPath: indexPath];
 
-    int dishID = cell.ratingImage.tag;
+    int dishID = cell.tag;
 
     location = [gesture locationInView: cell.ratingImage];
     int newRating = ((int) location.x) / (RATING_STAR_WIDTH / NUM_OF_RATINGS) + 1;
-    NSLog(@"New rating: %d", newRating);
     UIImage *ratingImage = [self imageForRating:newRating];
     cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
                                                  scale:1.0 orientation: UIImageOrientationUpMirrored];
@@ -113,6 +113,8 @@
 }
 
 - (void) setRating: (int) newRating ofDishID: (int) dishID{
+    NSLog(@"New rating: %d for dish: %d", newRating, dishID);
+
     [self.ratings setObject:[NSString stringWithFormat:@"%d", newRating] forKey:[NSString stringWithFormat:@"%d", dishID]];
 }
 
@@ -193,9 +195,16 @@
 
 - (void) performRatingSubmission{
     
+    NSMutableArray *ratingsArray = [[NSMutableArray alloc] init];
+    
+    for (NSString *key in [self.ratings allKeys]) {
+        NSDictionary *pair = [NSDictionary dictionaryWithObject:[self.ratings objectForKey:key] forKey:key];
+        [ratingsArray addObject:pair];
+    }
+    
     NSDictionary *parameters = @{
-                                 @"dishes": self.ratings,
-                                 };
+      @"dishes": ratingsArray
+    };
     
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: RATING_URL]];
@@ -205,6 +214,8 @@
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
                                                        options:NSJSONWritingPrettyPrinted error:&error];
+
+    
     request.HTTPBody = jsonData;
     request.HTTPMethod = @"POST";
     
@@ -215,26 +226,77 @@
             case 200:
             case 201:{
                 NSLog(@"Submit Rating Success");
-                NSLog(@"");
             }
                 break;
             case 403:
             default:{
                 NSLog(@"Submit Rating Fail");
-                NSLog(@"");
             }
         }
         NSLog(@"Response: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          [self displayErrorInfo: operation.responseObject];
+                                          // TODO.
+                                          // For some weird reason, even if it's successful, it still come to this
+                                          // block. So we check the response code. If it's 200, it's successful.
+                                          // This might be a backend error, though.
+                                          if ([operation.response statusCode] != 200){
+                                              [self displayErrorInfo: operation.responseObject];
+                                          } else{
+                                              NSLog(@"Submit Rating Success");
+                                          }
                                       }];
     
     [operation start];
 }
 
 - (void) performFeedbackSubmission{
+    NSString *feedback = self.feedbackTextField.text;
     
+    if ([feedback length] == 0) {
+        return;
+    }
+    
+    NSDictionary *parameters = @{
+                                 @"outlet": [NSNumber numberWithInt: self.outletID],
+                                 @"feedback": feedback
+                                 };
+    
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: FEEDBACK_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    
+    
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"POST";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Submit Feedback Success");
+            }
+                break;
+            case 403:
+            default:{
+                NSLog(@"Submit Feedback Fail");
+            }
+        }
+        NSLog(@"Response: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"Submit Feedback failed with code: %d", [operation.response statusCode]
+                                                );
+                                    }];
+    
+    [operation start];
 }
 
 - (void) displayErrorInfo: (id) responseObject{
@@ -267,7 +329,7 @@
 
 - (IBAction)textFieldDidEndOnExit:(id)sender {
 
-    [self fadeOut];
+    [self resignFirstResponder];
 }
 
 - (void) fadeOut{
@@ -281,9 +343,14 @@
     [self.view removeFromSuperview];
 }
 
-- (void) reloadDataWithOrder: (Order *) c{
+- (void) reloadDataWithOrder: (Order *) c andOutletID:(int) o{
+    self.outletID = o;
     self.currentOrder = c;
     [self.ratingsTableView reloadData];
+    self.ratings = [[NSMutableDictionary alloc] init];
+    for (Dish *dish in c.dishes) {
+        [self setRating:5 ofDishID:dish.ID];
+    }
 }
 
 
