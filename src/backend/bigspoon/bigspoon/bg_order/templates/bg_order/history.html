@@ -30,11 +30,12 @@
             <p class="unpaid">Unpaid</p>
         {% endif %} -->
 
-        {% if meal.note %}
-            <p class="note">{{meal.note}}</p>
-        {% endif %}
-
         <ul class="order">
+            {% if meal.note %}
+                <li>
+                    {{meal.note}}
+                </li>
+            {% endif %}
             {% if meal.orders.count > 0 %}
                 {% for order in meal.orders.all %}
                 <li>

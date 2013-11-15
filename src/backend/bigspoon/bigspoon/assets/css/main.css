@@ -262,7 +262,7 @@ nav h1, h1.logo{
 }
 
 nav ul {
-    margin: 10px;
+    margin: 5px;
 }
 
 nav ul li{
@@ -278,7 +278,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 17px 18px;
+    padding: 13px 18px;
     border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -308,7 +308,7 @@ nav a.logo{
 }
 
 nav a.logo img {
-    width: 57px;
+    width: 50px;
     padding: 0 20px;
 }
 
@@ -317,7 +317,7 @@ nav a.logo img {
     float: left;
     margin: 5px;
     width: 270px;
-    height: 400px;
+    height: 310px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -355,9 +355,11 @@ nav a.logo img {
 }
 
 .item h3 {
-    text-align:center;
+    text-align: center;
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: -26px;
+    font-size: 16px;
+    padding-bottom: 4px;
 /*    padding-left: 10px;*/
     color: rgb(85,85,85);
 }
@@ -416,7 +418,7 @@ height: 130px;
 }
 
 .order {
-    margin-top: 2px;
+    margin-top: 0px;
     margin-bottom: 5px;
     padding-left: 1px;
     height: 115px;
@@ -479,9 +481,10 @@ background: #fcf6ef;
 }
 
 .item a.acknowledge, .item a.respond, .item a.closebill {
-    display:block;
-    margin: 0 auto;
-    padding: 10px 20px;
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    padding: 10px 60px;
     width: 120px;
     border-radius: 5px;
     background-color: #61C0B9;
@@ -518,10 +521,12 @@ background-color: #468847;
 }
 
 #main .wrapper {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 #main .wrapper-bg {
+    padding-top:0px;
+    margin-top:10px;
     background: #fff;
     width: 880px;
     border-radius:5px;
@@ -568,7 +573,7 @@ background-color: #468847;
     height: 20px;
     font-size: 14px;
     background: rgb(231,76,60);
-    padding: 5px 10px;
+    padding: 2px 10px;
     margin: 0px;
     color: #FFF;
     word-wrap: break-word;
@@ -767,6 +772,10 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
 
 /*Menu add page styles*/
 
+#accordion {
+    padding-top: 30px;
+}
+
 .accordion-heading {
     margin: 0px;
     padding: 10px 20px;
@@ -872,7 +881,7 @@ form.menu-add {
     margin-bottom: 10px;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
     color: rgb(85,85,85);
-    text-align:center;
+    padding-left:10px;
     font-size: 32px;
     font-family: "Scholar";
 }
@@ -1163,3 +1172,8 @@ input#filter {
     float: left;
     width: 270px;
 }
+
+/*.menu-heading {
+    position: relative;
+    bottom: 75px;
+}*/
