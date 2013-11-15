@@ -481,8 +481,9 @@ background: #fcf6ef;
 }
 
 .item a.acknowledge, .item a.respond, .item a.closebill {
-    display:block;
-    margin: 0 auto;
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
     padding: 10px 60px;
     width: 120px;
     border-radius: 5px;
