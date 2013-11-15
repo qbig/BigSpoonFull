@@ -13,6 +13,9 @@
 #import "Constants.h"
 #import "Outlet.h"
 #import "BigSpoonAnimationController.h"
+#import "DishCategory.h"
+#import <AFHTTPRequestOperationManager.h>
+#import "User.h"
 
 enum DishDisplayMethod : NSUInteger {
     kMethodList = 1,
@@ -29,6 +32,7 @@ enum DishDisplayMethod : NSUInteger {
 @interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
+@property (nonatomic, strong) NSMutableArray *dishCategoryArray;
 
 @property (nonatomic, strong) id <OrderDishDelegate> delegate;
 
@@ -36,14 +40,6 @@ enum DishDisplayMethod : NSUInteger {
 
 @property (nonatomic) enum DishDisplayMethod displayMethod;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-- (IBAction)breakfastButtonPressed:(id)sender;
-
-- (IBAction)mainsButtonPressed:(id)sender;
-
-- (IBAction)beveragesButtonPressed:(id)sender;
-
-- (IBAction)sidesAndSnacksButtonPressed:(id)sender;
 
 - (IBAction)addNewItemButtonClicked:(id)sender;
 

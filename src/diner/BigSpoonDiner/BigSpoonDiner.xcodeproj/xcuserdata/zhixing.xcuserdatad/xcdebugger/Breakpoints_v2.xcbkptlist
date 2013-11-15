@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.h"
-            timestampString = "406239183.204983"
+            timestampString = "406240582.690764"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "displayMethod"
             landmarkType = "19">
          </BreakpointContent>

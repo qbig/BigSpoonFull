@@ -31,6 +31,7 @@
 {
     [super viewDidLoad];
     
+    [self loadCategoriesFromServer];
     [self loadDishesFromServer];
     
     // By default:
@@ -150,6 +151,60 @@
     // Create url connection and fire request
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
+
+- (void) loadCategoriesFromServer{
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: DISH_CATEGORY_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPMethod = @"GET";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        long responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSArray *categories = (NSArray*)responseObject;
+                for (NSDictionary *newCategory in categories) {
+                    NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
+                    NSString *name = [newCategory objectForKey:@"name"];
+                    NSString *description = [newCategory objectForKey:@"desc"];
+                    
+                    DishCategory *newObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
+                                                                       name:name
+                                                             andDescription:description];
+                    [self.dishCategoryArray addObject:newObj];
+                }
+                
+                
+                
+            }
+                break;
+            case 403:
+            default:{
+                [self displayErrorInfo: @"Please check your network"];
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo:operation.responseString];
+                                      }];
+    [operation start];
+}
+
+- (void) displayErrorInfo: (NSString *) info{
+    NSLog(@"Error: %@", info);
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Oops"
+                              message: info
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    [alertView show];
+}
+
 
 // HTTP callback to add one more new item in the table:
 - (void)addDish:(Dish *)dish

@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 nus.cs3217. All rights reserved.
 //
 
-#import "DishCatetory.h"
+#import "DishCategory.h"
 
-@implementation DishCatetory
+@implementation DishCategory
 
 - (id) initWithID: (int) i name: (NSString*) n andDescription: (NSString*) d {
     self = [super init];

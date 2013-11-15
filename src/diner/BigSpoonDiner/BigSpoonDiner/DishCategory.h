@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DishCatetory : NSObject
+@interface DishCategory : NSObject
 
 @property (nonatomic) int ID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *description;
 
 - (id) initWithID: (int) i name: (NSString*) n andDescription: (NSString*) d;
-
 
 @end

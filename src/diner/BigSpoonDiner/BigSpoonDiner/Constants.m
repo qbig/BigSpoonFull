@@ -22,7 +22,7 @@ NSString* const ORDER_URL = @"http://122.248.199.242/api/v1/meal";
 NSString* const BILL_URL = @"http://122.248.199.242/api/v1/askbill";
 NSString* const RATING_URL = @"http://122.248.199.242/api/v1/rating";
 NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/review";
-
+NSString* const DISH_CATEGORY_URL = @"http://122.248.199.242/api/v1/categories";
 
 // Dimentions:
 

@@ -111,51 +111,6 @@
     
 }
 
-// Failed to get current location
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-	
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    // Call alert
-	[errorAlert show];
-}
-
-- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
-{
-    CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-    CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
-    if (distance <= radius) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
-    if ((locationA.coordinate.latitude == locationB.coordinate.latitude) && (locationA.coordinate.longitude == locationB.coordinate.longitude)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
-        currentUserLocation = newLocation;
-    }
-}
-
-- (NSString *) regulateLengthOfString:(NSString *)String{
-    NSString *toReturn = String;
-    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
-        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
-        toReturn = [toReturn stringByAppendingString:@"..."];
-    }
-    return toReturn;
-}
 
 -(void) viewDidAppear:(BOOL)animated {
     
@@ -225,6 +180,53 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Geo Location
+
+// Failed to get current location
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+	
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    // Call alert
+	[errorAlert show];
+}
+
+- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
+{
+    CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
+    if (distance <= radius) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
+    if ((locationA.coordinate.latitude == locationB.coordinate.latitude) && (locationA.coordinate.longitude == locationB.coordinate.longitude)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
+        currentUserLocation = newLocation;
+    }
+}
+
+- (NSString *) regulateLengthOfString:(NSString *)String{
+    NSString *toReturn = String;
+    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
+        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
+        toReturn = [toReturn stringByAppendingString:@"..."];
+    }
+    return toReturn;
+}
 
 #pragma mark ButtonClick Event Listeners
 

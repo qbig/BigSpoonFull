@@ -22,7 +22,7 @@ extern NSString* const ORDER_URL;
 extern NSString* const BILL_URL;
 extern NSString* const RATING_URL;
 extern NSString* const FEEDBACK_URL;
-
+extern NSString* const DISH_CATEGORY_URL;
 
 // Dimentions (length, height, etc..):
 
