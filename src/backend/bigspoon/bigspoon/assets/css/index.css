@@ -178,7 +178,7 @@ h1 {
   font-family: 'Open Sans';
 }
 
-.staff-login {
+.staff-login, .autoscroll {
   position: absolute;
   background: rgba(0,0,0,0.1);
   color: #fff;
@@ -186,10 +186,21 @@ h1 {
   padding: 10px 20px;
   margin: 20px;
   border-radius: 5px;
-  right: 10px;
   text-decoration: none;
 }
 
-.staff-login:hover, .staff-login:active, .staff-login:focus {
+.staff-login {
+  right: 10px;
+}
+
+.autoscroll{
+  position: fixed;
+  background: rgba(0,0,0,0.1);
+  left:0px;
+  bottom: 10px;
+}
+
+.autoscroll:hover, .autoscroll:focus, .autoscroll:active, .staff-login:hover, .staff-login:active, .staff-login:focus {
   background: rgba(0,0,0,0.4);
+  cursor:pointer;
 }

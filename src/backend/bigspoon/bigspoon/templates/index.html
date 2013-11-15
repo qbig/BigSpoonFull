@@ -20,6 +20,9 @@
         {% endcompress %}
 
         <body>
+
+        <a class="autoscroll" onclick="start()"><i class="icon-refresh"></i> Autoscroll</a>
+
         <div class="main-scroll">
        <section>
         <a class="staff-login" href="{% url "login" %}"><i class="icon-signin"></i>  Staff Login</a>
@@ -127,6 +130,7 @@
         {% endcompress %}
         {% block morejs %}
         {% endblock %}
+
     </body>
 </html>
 
