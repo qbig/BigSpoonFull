@@ -390,7 +390,7 @@
                                 <rect key="frame" x="-5" y="514" width="326" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
-                            <toolbar clearsContextBeforeDrawing="NO" alpha="0.01" contentMode="scaleToFill" id="W4q-pe-P4i">
+                            <toolbar clearsContextBeforeDrawing="NO" alpha="0.10000000000000001" contentMode="scaleToFill" id="W4q-pe-P4i">
                                 <rect key="frame" x="14" y="511" width="286" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                 <items>
@@ -417,11 +417,11 @@
                                 </items>
                             </toolbar>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_circle.png" id="Pv4-sA-esJ">
-                                <rect key="frame" x="278" y="509" width="18" height="18"/>
+                                <rect key="frame" x="278" y="515" width="18" height="18"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AKE-PM-MCP">
-                                <rect key="frame" x="278" y="505" width="18" height="25"/>
+                                <rect key="frame" x="278" y="511" width="18" height="25"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
