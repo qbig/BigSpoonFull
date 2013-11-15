@@ -113,7 +113,12 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 
 ########## ALLOWED HOSTS CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['122.248.199.242', 'ip-10-129-29-161.ap-southeast-1.compute.internal:8000']
+ALLOWED_HOSTS = [
+    '122.248.199.242',
+    'bigspoon.biz',
+    'www.bigspoon.biz',
+    'ip-10-129-29-161.ap-southeast-1.compute.internal:8000',
+]
 ########## END ALLOWED HOST CONFIGURATION
 
 ########## REST FRAMEWORK CONFIGURATION
