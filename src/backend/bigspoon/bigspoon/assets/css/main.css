@@ -937,6 +937,7 @@ form.menu-add {
 }
 
 .user-info .past-orders {
+    margin-left: 20px;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
 }
 
