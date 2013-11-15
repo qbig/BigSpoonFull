@@ -634,12 +634,12 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5MF-RW-ibQ">
-                                                <rect key="frame" x="113" y="142" width="95" height="30"/>
+                                                <rect key="frame" x="109" y="142" width="113" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.62745100259780884" green="0.91764712333679199" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="backgroundColor" red="0.58039218187332153" green="0.90980398654937744" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                 <state key="normal" title=" Place Order ">
-                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>

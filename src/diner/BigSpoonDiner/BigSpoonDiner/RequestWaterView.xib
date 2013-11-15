@@ -11,7 +11,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view hidden="YES" contentMode="scaleToFill" id="1">
+        <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="242" height="247"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -101,10 +101,10 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkK-yW-COW" userLabel="Button -  Okay">
                             <rect key="frame" x="26" y="197" width="75" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.62745100259780884" green="0.91764712333679199" blue="0.57254904508590698" alpha="1" colorSpace="deviceRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="backgroundColor" red="0.58039218187332153" green="0.90980398654937744" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                             <state key="normal" title=" Okay ">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -115,7 +115,7 @@
                             <rect key="frame" x="151" y="197" width="75" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                             <state key="normal" title=" Cancel ">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UIAlertView *inputTableIDAlertView;
 @property (nonatomic, strong) UIAlertView *placeOrderAlertView;
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
+@property (nonatomic, strong) UIAlertView *afterRequestBillAlertView;
+
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
@@ -346,9 +348,23 @@
 }
 
 - (void) performRequestBillConfirmationPopUp{
+    
+    NSMutableString *message = [[NSMutableString alloc] init];
+    
+    // Append the price information to the message:
+    float subtotal = [self.pastOrder getTotalPrice];
+    float gst = subtotal * self.outlet.gstRate;
+    float serviceCharge = subtotal * self.outlet.serviceChargeRate;
+    float totalPrice = subtotal + gst + serviceCharge;
+    
+    [message appendFormat:@"Subtotal: %.2f\n", subtotal];
+    [message appendFormat:@"GST(%.0f%%): %.2f\n", self.outlet.gstRate * 100, gst];
+    [message appendFormat:@"Service Charge(%.0f%%): %.2f\n", self.outlet.serviceChargeRate * 100, serviceCharge];
+    [message appendFormat:@"Total: %.2f", totalPrice];
+    
     self.requestForBillAlertView = [[UIAlertView alloc]
-                               initWithTitle:@"Call For Service"
-                               message:@"Would you like the bill?"
+                               initWithTitle:@"Would you like your bill?"
+                               message:message
                                delegate:self
                                cancelButtonTitle:@"Yes"
                                otherButtonTitles:@"Cancel", nil];
@@ -410,13 +426,20 @@
 }
 
 - (void) afterSuccessfulRequestBill{
-    UIAlertView *alertView = [[UIAlertView alloc]
+    self.afterRequestBillAlertView = [[UIAlertView alloc]
                               initWithTitle:@"Call For Bill"
                               message:@"The waiter will be right with you"
-                              delegate:nil
+                              delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
-    [alertView show];
+    [self.afterRequestBillAlertView show];
+    
+    // After the "OK" button is clicked, [self afterRequestBillAlertViewOkayButtonClicked] will be clicked;
+}
+
+- (void) afterRequestBillAlertViewOkayButtonClicked{
+    
+    NSLog(@"asdfasdfasfdasdfasdf");
     
     // Load and show the ratingAndFeedbackViewController:
     
@@ -638,6 +661,10 @@
         [self.navigationController popViewControllerAnimated:NO];
     }
     
+    else if ([alertView isEqual:self.afterRequestBillAlertView]){
+        [self afterRequestBillAlertViewOkayButtonClicked];
+    }
+    
     else{
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
@@ -853,9 +880,10 @@
 
 - (IBAction)requestWaterOkayButtonPressed:(id)sender {
     
-    NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
-
-    [self requestWithType:@0 WithNote:note];
+    if (self.quantityOfColdWater != 0 || self.quantityOfWarmWater != 0) {
+        NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
+        [self requestWithType:@0 WithNote:note];
+    }
     
     [self requestWaterCancelButtonPressed:nil];
 }
