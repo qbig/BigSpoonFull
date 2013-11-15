@@ -317,7 +317,7 @@ nav a.logo img {
     float: left;
     margin: 5px;
     width: 270px;
-    height: 340px;
+    height: 335px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -418,7 +418,7 @@ height: 130px;
 }
 
 .order {
-    margin-top: 2px;
+    margin-top: 0px;
     margin-bottom: 5px;
     padding-left: 1px;
     height: 115px;
@@ -483,7 +483,7 @@ background: #fcf6ef;
 .item a.acknowledge, .item a.respond, .item a.closebill {
     display:block;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 10px 60px;
     width: 120px;
     border-radius: 5px;
     background-color: #61C0B9;
@@ -570,7 +570,7 @@ background-color: #468847;
     height: 20px;
     font-size: 14px;
     background: rgb(231,76,60);
-    padding: 5px 10px;
+    padding: 2px 10px;
     margin: 0px;
     color: #FFF;
     word-wrap: break-word;
