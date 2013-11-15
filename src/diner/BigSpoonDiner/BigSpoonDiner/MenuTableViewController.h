@@ -19,13 +19,6 @@ enum DishDisplayMethod : NSUInteger {
     kMethodPhoto = 2,
 };
 
-enum DishDisplayCategory : NSUInteger{
-    kCategoryBreakfast = 1,
-    kCategoryMains = 2,
-    kCategorySides = 3,
-    kCategoryBeverages = 4
-};
-
 @class MenuTableViewController;
 
 @protocol OrderDishDelegate <NSObject>
@@ -42,7 +35,6 @@ enum DishDisplayCategory : NSUInteger{
 @property (nonatomic, strong) Outlet *outlet;
 
 @property (nonatomic) enum DishDisplayMethod displayMethod;
-@property (nonatomic) enum DishDisplayCategory displayCategory;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)breakfastButtonPressed:(id)sender;

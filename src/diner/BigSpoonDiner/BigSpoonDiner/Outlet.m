@@ -10,17 +10,6 @@
 
 @implementation Outlet
 
-@synthesize imgURL;
-
-@synthesize name;
-
-@synthesize address;    
-@synthesize phoneNumber;
-@synthesize operatingHours;
-@synthesize outletID;
-@synthesize lat;
-@synthesize lon;
-
 - (id) initWithImgURL:(NSURL *)u
                  Name:(NSString *)n
               Address:(NSString *)a

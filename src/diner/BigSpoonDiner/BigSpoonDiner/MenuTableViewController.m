@@ -17,10 +17,6 @@
 
 @implementation MenuTableViewController
 
-@synthesize dishesArray;
-@synthesize outlet;
-@synthesize displayMethod;
-@synthesize displayCategory;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,8 +34,7 @@
     [self loadDishesFromServer];
     
     // By default:
-    displayCategory = kCategoryBreakfast;
-    displayMethod = kMethodPhoto;
+    self.displayMethod = kMethodPhoto;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -409,7 +404,7 @@
 }
 
 - (Dish *) getDishWithID: (int) itemID{
-    for (Dish * dish in dishesArray) {
+    for (Dish * dish in self.dishesArray) {
         if (dish.ID == itemID) {
             return dish;
         }
