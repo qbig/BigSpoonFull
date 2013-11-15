@@ -226,29 +226,77 @@
             case 200:
             case 201:{
                 NSLog(@"Submit Rating Success");
-                NSLog(@"");
             }
                 break;
             case 403:
             default:{
                 NSLog(@"Submit Rating Fail");
-                NSLog(@"");
             }
         }
         NSLog(@"Response: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          // TODO. For some weird reason, even if it's successful, it still come to this
+                                          // TODO.
+                                          // For some weird reason, even if it's successful, it still come to this
                                           // block. So we check the response code. If it's 200, it's successful.
-                                         if ([operation.response statusCode] != 200)
-                                          [self displayErrorInfo: operation.responseObject];
+                                          // This might be a backend error, though.
+                                          if ([operation.response statusCode] != 200){
+                                              [self displayErrorInfo: operation.responseObject];
+                                          } else{
+                                              NSLog(@"Submit Rating Success");
+                                          }
                                       }];
     
     [operation start];
 }
 
 - (void) performFeedbackSubmission{
+    NSString *feedback = self.feedbackTextField.text;
     
+    if ([feedback length] == 0) {
+        return;
+    }
+    
+    NSDictionary *parameters = @{
+                                 @"outlet": [NSNumber numberWithInt: self.outletID],
+                                 @"feedback": feedback
+                                 };
+    
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: FEEDBACK_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    
+    
+    request.HTTPBody = jsonData;
+    request.HTTPMethod = @"POST";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Submit Feedback Success");
+            }
+                break;
+            case 403:
+            default:{
+                NSLog(@"Submit Feedback Fail");
+            }
+        }
+        NSLog(@"Response: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"Submit Feedback failed with code: %d", [operation.response statusCode]
+                                                );
+                                    }];
+    
+    [operation start];
 }
 
 - (void) displayErrorInfo: (id) responseObject{
@@ -295,7 +343,8 @@
     [self.view removeFromSuperview];
 }
 
-- (void) reloadDataWithOrder: (Order *) c{
+- (void) reloadDataWithOrder: (Order *) c andOutletID:(int) o{
+    self.outletID = o;
     self.currentOrder = c;
     [self.ratingsTableView reloadData];
     self.ratings = [[NSMutableDictionary alloc] init];

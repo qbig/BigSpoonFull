@@ -432,7 +432,7 @@
                                                     frame.size.height)];
     
     // Load data
-    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder];
+    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
     
     // Add subview and make it appear
     [self.view addSubview: self.ratingsAndFeedbackView];
