@@ -44,12 +44,13 @@
                     <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
                     </span>
 
-                    {% if meal.note %}
-                    <p class="note">
-                        {{meal.note}}
-                    </p>
-                    {% endif %}
                     <ul class="order">
+                        {% if meal.note %}
+                            <li>
+                                {{meal.note}}
+                            </li>
+                        {% endif %}
+
                         {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.all %}
                             <li>
