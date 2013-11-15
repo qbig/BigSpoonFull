@@ -72,7 +72,8 @@
     cell.ratingImage.image = [self imageForRating:5];
     
     // Tag it. So that we know its identity.
-    cell.ratingImage.tag = dish.ID;
+    cell.tag = dish.ID;
+    NSLog(@"Tagged: %d", dish.ID);
     
     // Add gesture recognizer
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -99,11 +100,10 @@
     NSIndexPath * indexPath = [self.ratingsTableView indexPathForRowAtPoint: location];
     RatingCell *cell = (RatingCell *)[self.ratingsTableView cellForRowAtIndexPath: indexPath];
 
-    int dishID = cell.ratingImage.tag;
+    int dishID = cell.tag;
 
     location = [gesture locationInView: cell.ratingImage];
     int newRating = ((int) location.x) / (RATING_STAR_WIDTH / NUM_OF_RATINGS) + 1;
-    NSLog(@"New rating: %d", newRating);
     UIImage *ratingImage = [self imageForRating:newRating];
     cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
                                                  scale:1.0 orientation: UIImageOrientationUpMirrored];
@@ -113,6 +113,8 @@
 }
 
 - (void) setRating: (int) newRating ofDishID: (int) dishID{
+    NSLog(@"New rating: %d for dish: %d", newRating, dishID);
+
     [self.ratings setObject:[NSString stringWithFormat:@"%d", newRating] forKey:[NSString stringWithFormat:@"%d", dishID]];
 }
 
@@ -193,9 +195,16 @@
 
 - (void) performRatingSubmission{
     
+    NSMutableArray *ratingsArray = [[NSMutableArray alloc] init];
+    
+    for (NSString *key in [self.ratings allKeys]) {
+        NSDictionary *pair = [NSDictionary dictionaryWithObject:[self.ratings objectForKey:key] forKey:key];
+        [ratingsArray addObject:pair];
+    }
+    
     NSDictionary *parameters = @{
-                                 @"dishes": self.ratings,
-                                 };
+      @"dishes": ratingsArray
+    };
     
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: RATING_URL]];
@@ -205,6 +214,8 @@
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
                                                        options:NSJSONWritingPrettyPrinted error:&error];
+
+    
     request.HTTPBody = jsonData;
     request.HTTPMethod = @"POST";
     
@@ -227,6 +238,9 @@
         NSLog(@"Response: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          // TODO. For some weird reason, even if it's successful, it still come to this
+                                          // block. So we check the response code. If it's 200, it's successful.
+                                         if ([operation.response statusCode] != 200)
                                           [self displayErrorInfo: operation.responseObject];
                                       }];
     
@@ -267,7 +281,7 @@
 
 - (IBAction)textFieldDidEndOnExit:(id)sender {
 
-    [self fadeOut];
+    [self resignFirstResponder];
 }
 
 - (void) fadeOut{
@@ -284,6 +298,10 @@
 - (void) reloadDataWithOrder: (Order *) c{
     self.currentOrder = c;
     [self.ratingsTableView reloadData];
+    self.ratings = [[NSMutableDictionary alloc] init];
+    for (Dish *dish in c.dishes) {
+        [self setRating:5 ofDishID:dish.ID];
+    }
 }
 
 
