@@ -525,6 +525,8 @@ background-color: #468847;
 }
 
 #main .wrapper-bg {
+    padding-top:0px;
+    margin-top:10px;
     background: #fff;
     width: 880px;
     border-radius:5px;
@@ -769,6 +771,10 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
 }
 
 /*Menu add page styles*/
+
+#accordion {
+    padding-top: 30px;
+}
 
 .accordion-heading {
     margin: 0px;
