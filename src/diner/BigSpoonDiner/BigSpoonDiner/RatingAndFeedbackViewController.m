@@ -23,10 +23,15 @@
     return self;
 }
 
-- (void)viewDidLoad
+
+- (void)loadView
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [super loadView];
+    
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RatingAndFeedbackView" owner:self options:nil];
+    self.view = [subviewArray objectAtIndex:0];
+    
+    [self.ratingsTableView registerNib:[UINib nibWithNibName:@"RatingCellView" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"RatingCell"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,7 +40,170 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)textFieldDidEndOnExit:(id)sender {
-    [sender resignFirstResponder];
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return [self.currentOrder getNumberOfKindsOfDishes];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    RatingCell *cell = (RatingCell *)[tableView
+                                      dequeueReusableCellWithIdentifier:@"RatingCell"];
+    
+    //RatingCell *cell = [[RatingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RatingCell"];
+
+    Dish *dish = [[self.currentOrder dishes] objectAtIndex:indexPath.row];
+    
+    cell.dishNameLabel.text = dish.name;
+    
+    // By default, show five stars.
+    cell.ratingImage.image = [self imageForRating:5];
+    
+    // Tag it. So that we know its identity.
+    cell.ratingImage.tag = dish.ID;
+    
+    // Add gesture recognizer
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(tappedRatingImageView:)];
+    [tapRecognizer setNumberOfTapsRequired:1];
+    [tapRecognizer setDelegate:self];
+    [cell.ratingImage setUserInteractionEnabled:YES];
+    [cell.ratingImage addGestureRecognizer:tapRecognizer];
+    
+    return cell;
+}
+
+- (BOOL) gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    return YES;
+}
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    return YES;
+}
+
+-(void)tappedRatingImageView: (UITapGestureRecognizer *)gesture{
+
+    CGPoint location = [gesture locationInView: self.ratingsTableView];
+    NSIndexPath * indexPath = [self.ratingsTableView indexPathForRowAtPoint: location];
+    RatingCell *cell = (RatingCell *)[self.ratingsTableView cellForRowAtIndexPath: indexPath];
+
+    int dishID = cell.ratingImage.tag;
+
+    location = [gesture locationInView: cell.ratingImage];
+    int newRating = ((int) location.x) / (RATING_STAR_WIDTH / NUM_OF_RATINGS) + 1;
+    NSLog(@"New rating: %d", newRating);
+    UIImage *ratingImage = [self imageForRating:newRating];
+    cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
+                                                 scale:1.0 orientation: UIImageOrientationUpMirrored];
+}
+
+- (UIImage *)imageForRating:(int)rating
+{
+	switch (rating)
+	{
+		case 1: return [UIImage imageNamed:@"1StarSmall@2x.png"];
+		case 2: return [UIImage imageNamed:@"2StarsSmall@2x.png"];
+		case 3: return [UIImage imageNamed:@"3StarsSmall@2x.png"];
+		case 4: return [UIImage imageNamed:@"4StarsSmall@2x.png"];
+		case 5: return [UIImage imageNamed:@"5StarsSmall@2x.png"];
+	}
+	return nil;
+}
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
+ */
+
+# pragma mark - Event listeners
+
+- (IBAction)ratingSubmitButtonPressed:(id)sender{
+    
+    [self ratingCancelButtonPressed:sender];
+}
+
+- (IBAction)ratingCancelButtonPressed:(id)sender{
+    
+    [self fadeOut];
+}
+
+
+- (IBAction)textFieldDidEndOnExit:(id)sender {
+
+    [self fadeOut];
+}
+
+- (void) fadeOut{
+    // Perform the fade-out animation first. Then remove the view.
+    [BigSpoonAnimationController animateTransitionOfUIView:self.view willShow:NO];
+    [self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:REQUEST_CONTROL_PANEL_TRANSITION_DURATION];
+}
+
+- (void) removeSelfFromParent{
+    [self removeFromParentViewController];
+    [self.view removeFromSuperview];
+}
+
+- (void) reloadDataWithOrder: (Order *) c{
+    self.currentOrder = c;
+    [self.ratingsTableView reloadData];
+}
+
+
 @end

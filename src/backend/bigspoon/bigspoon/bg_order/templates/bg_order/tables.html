@@ -49,8 +49,8 @@
                         {{meal.note}}
                     </p>
                     {% endif %}
-                    {% if meal.orders.count > 0 %}
                     <ul class="order">
+                        {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.all %}
                             <li>
                                 <em class='quantity'>{{order.quantity}}x</em>
@@ -64,8 +64,8 @@
                             {% endfor %}
                         {% else %}
                             <li>No orders yet.</li>
+                        {% endif %}
                     </ul>
-                    {% endif %}
                 </div>
                 {% endif %}
             {% endfor %}

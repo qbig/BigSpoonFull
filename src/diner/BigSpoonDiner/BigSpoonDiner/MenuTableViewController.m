@@ -156,7 +156,7 @@
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
-// Ajax callback to add one more new item in the table:
+// HTTP callback to add one more new item in the table:
 - (void)addDish:(Dish *)dish
 {
     
@@ -405,6 +405,7 @@
     NSLog(@"New item added to order list with ID: %d", itemID);
     
     [self.delegate dishOrdered:[self getDishWithID: itemID]];
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
 - (Dish *) getDishWithID: (int) itemID{

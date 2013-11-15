@@ -16,6 +16,9 @@ var req_data = {
     // "user": user,
     // "content":content,
 }
+if (location.pathname == "/staff/report/") {
+
+
 
 //==================================================
 var chartdata = [];
@@ -72,22 +75,27 @@ function createChart(){
 	};
 
 
-var testData = [1,2,3,65,59,90,81,56,55,40];
+var testData = [100,200,300,500,900];
 //datePeriods = testData;
+//chartData = chartdata.concat(testData); //Avoid. changes ref.
+//lineChartData.datasets[0].data = chartdata.concat(testData);
 	for (var i=0; i<datePeriods.length; ++i){
-		console.log(datePeriods[i]);
+		//c!onsole.log(datePeriods[i]);
         $.post(
             STAFF_API_URLS["spending"], //this requires main.js
             datePeriods[i]
         ).done(function(data) {
 			var spending = getSpending(data);
-			chartData.push(spending);
+			spending = (spending==0)? 50: spending;
+			lineChartData.datasets[0].data.push(spending);
+			//c!onsole.log(lineChartData.datasets[0].data);
 			updateChart(chartSpending, lineChartData);
         }).fail(function(data) {
             console.log("POST failed");
             console.log(data);
         });
 	}
+	updateChart(chartSpending, lineChartData); //initial drawing
 	//var myLine = new Chart(chartSpending.getContext("2d")).Line(lineChartData);
 
 }
@@ -143,11 +151,14 @@ function getChartWeekLabels(){ //function weekLabels(){ // weekLabels(currTimeOb
 		weeknum = (weeknum==0)? numWeeks : weeknum;
 		var currYMD = getTimeYMD(focusDate);
 		labels.push("Week of"+": "+currYMD.d+" "+getMonthStr(currYMD.m)); //weeknum+
-		var fromDateStr = currYMD.d+"-"+currYMD.m+"-"+currYMD.y;
-		var toDateStr = (currYMD.d+6)+"-"+currYMD.m+"-"+currYMD.y;
+		var fromDateStr = currYMD.y+"-"+currYMD.m+"-"+currYMD.d;
+		focusDate.advanceDays(6);
+		currYMD = getTimeYMD(focusDate);
+		var toDateStr = currYMD.y+"-"+currYMD.m+"-"+currYMD.d; //(currYMD.d+6)+"-"+currYMD.m+"-"+currYMD.y;
 		//c!onsole.log(fromDateStr +" " + toDateStr);
 		periods.push(new Period(fromDateStr, toDateStr));
-		focusDate.advanceDays(7); //the ++ for the week in Time Object.
+		focusDate.advanceDays(1); //the ++ for the week in Time Object.
+		//it has been split into two parts: +6 for the end of this week, then +1 for the start of next week
 	}
 	// for(var i=0+1; i<numWeeks+1; ++i){ 
 	// 	var weeknum = (currWeek+i)%numWeeks;
@@ -171,7 +182,7 @@ function getSpending(meal_data){
 	//nest-level controller
 	var spending = 0.0;
 	for(var i=0; i<meal_data.length; ++i){
-		spending+= meal_data[i].spending;
+		spending+= parseFloat(meal_data[i].spending); //must parseFloat.
 	}
 	return spending;
 }
@@ -213,6 +224,7 @@ function chartIsNotCreated(){
 }
 
 
+}//endof page check
 
 })(); //end of script encapsulation
 

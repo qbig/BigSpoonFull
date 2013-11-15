@@ -98,8 +98,8 @@
 
     self.outletsArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
     
-    // Make ajax calls to the server and get the list of outlets
-    // And call the ajax callback: - (void)addOutlet:(Outlet *)Outlet
+    // Make HTTP request to the server and get the list of outlets
+    // And call the HTTP callback: - (void)addOutlet:(Outlet *)Outlet
     // We could use  [self.tableView reloadData] but it looks nicer to insert the new row with an animation. 
     
     // Create the request.
@@ -229,7 +229,7 @@
 }
 
 
-// Ajax callback to add one more new item in the table:
+// HTTP Request callback to add one more new item in the table:
 - (void)addOutlet:(Outlet *)Outlet
 {
 	[self.outletsArray addObject:Outlet];
