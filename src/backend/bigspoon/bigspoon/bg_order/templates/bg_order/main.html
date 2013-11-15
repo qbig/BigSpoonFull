@@ -87,7 +87,7 @@
                     <h3>{{ request.table.name }}</h3>
                     <span class='user'>
                             <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
-                            <h4>{{ request.diner.get_full_name }}'s orders</h4>
+                            <h4>{{ request.diner.get_full_name }}</h4>
                     </span>
                     <span class="user-summary">
                         <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
