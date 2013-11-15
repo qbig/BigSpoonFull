@@ -124,6 +124,7 @@ h1 {
 
 .main-scroll section:nth-child(odd)  {
   background: url("{{STATIC_URL}}img/bg.png");
+  /*box-shadow: inset 0px 0px 40px 5px rgba(0,0,0,0.2);*/
 }
 
 .main-scroll section:nth-child(odd) h1 {
@@ -176,4 +177,20 @@ h1 {
   font-weight: normal;
   font-size: 18px;
   font-family: 'Open Sans';
+}
+
+.staff-login {
+  position: absolute;
+  background: rgba(0,0,0,0.1);
+  color: #fff;
+  z-index: 100;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 5px;
+  right: 10px;
+  text-decoration: none;
+}
+
+.staff-login:hover, .staff-login:active, .staff-login:focus {
+  background: rgba(0,0,0,0.4);
 }

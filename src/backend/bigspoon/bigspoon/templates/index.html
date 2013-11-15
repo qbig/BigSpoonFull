@@ -19,9 +19,10 @@
         <link rel="stylesheet" href="{% static "css/index.css" %}">
         {% endcompress %}
 
-<body>
+        <body>
         <div class="main-scroll">
        <section>
+        <a class="staff-login" href="{% url "login" %}"><i class="icon-signin"></i>  Staff Login</a>
                 <h1>More than just food on the table.</h1>
                 <h2>Made lovingly by team <strong>BigSpoon</strong></h2>
                 <!-- <img src="{% static 'img/logo-wide.jpg' %}"> -->
@@ -93,7 +94,7 @@
                 <span class="person">
                     <a href="http://www.yosriady.com" target="_blank"><img src="{% static "img/yos.png" %}"/></a>
                     <h4>Yos Riady</h4>
-                    <p>Hi! I'm Yos and I love Python! Come talk to me and I'd be happy to give you a demo!</p>
+                    <p>Hi! I'm Yos and I love Python! Come talk to me and I'd be happy to give you a demo of our application!</p>
                 </span>
                 <span class="person">
                     <a href="#"><img src="{% static "img/zx.png" %}"/></a>
