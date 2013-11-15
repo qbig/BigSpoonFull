@@ -418,6 +418,7 @@ height: 130px;
 .order {
     margin-top: 2px;
     margin-bottom: 5px;
+    padding-left: 1px;
     padding: 0px;
     height: 115px;
     overflow:scroll;
