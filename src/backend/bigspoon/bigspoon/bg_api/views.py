@@ -306,10 +306,10 @@ class CreateRating(generics.GenericAPIView):
             )
             rating.score = Decimal(str(dish_pair.values()[0]))
             rating.save()
-        send_socketio_message(
-            [rating.dish.outlet.id],
-            ['refresh', 'rating']
-        )
+            send_socketio_message(
+                [rating.dish.outlet.id],
+                ['refresh', 'rating']
+            )
         return Response("ratings created", status=status.HTTP_200_OK)
 
 
