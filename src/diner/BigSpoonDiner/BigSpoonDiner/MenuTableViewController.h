@@ -33,6 +33,7 @@ enum DishDisplayMethod : NSUInteger {
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
 @property (nonatomic, strong) NSMutableArray *dishCategoryArray;
+@property (nonatomic) int displayCategoryID;
 
 @property (nonatomic, strong) id <OrderDishDelegate> delegate;
 

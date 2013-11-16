@@ -37,6 +37,7 @@
     
     // By default:
     self.displayMethod = kMethodPhoto;
+    self.displayCategoryID = -1;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -63,19 +64,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.dishesArray count];
+    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+    return [dishes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
+
     if (self.displayMethod == kMethodList) {
         
         MenuListCell *cell = (MenuListCell *)[tableView
                                       dequeueReusableCellWithIdentifier:@"MenuListCell"];
-    
-        Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
-    
+        
         cell.nameLabel.text = dish.name;
         
         // When the button is clicked, we know which one. :)
@@ -95,8 +96,6 @@
                                               dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
@@ -123,6 +122,70 @@
     
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.displayMethod == kMethodList) {
+        return ROW_HEIGHT_LIST_MENU;
+    } else if (self.displayMethod == kMethodPhoto){
+        return ROW_HEIGHT_PHOTO_MENU;
+    } else{
+        NSLog(@"Invalid display method");
+        return 100;
+    }
+}
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
+ */
+
 - (UIImage *)imageForRating:(int)rating
 {
 	switch (rating)
@@ -135,6 +198,8 @@
 	}
 	return nil;
 }
+
+#pragma mark - Loading Data:
 
 - (void) loadDishesFromServer{
 
@@ -233,25 +298,6 @@
     [operation start];
 }
 
--(IBAction)dishCategoryButtonPressed:(UIButton*)button{
-    NSLog(@"ButtonPressed: %d", button.tag);
-    UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
-                                                   green:CATEGORY_BUTTON_COLOR_GREEN
-                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
-                                                   alpha:1];
-    
-    [button setBackgroundColor:buttonElementColour];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
-    for (UIButton *newButton in self.categoryButtonsArray) {
-        if (newButton.tag != button.tag) {
-            NSLog(@"%d %d", newButton.tag, button.tag);
-            [newButton setBackgroundColor:[UIColor whiteColor]];
-            [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
-        }
-    }
-}
-
 - (void) displayErrorInfo: (NSString *) info{
     NSLog(@"Error: %@", info);
     UIAlertView *alertView = [[UIAlertView alloc]
@@ -299,18 +345,6 @@
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.displayMethod == kMethodList) {
-        return ROW_HEIGHT_LIST_MENU;
-    } else if (self.displayMethod == kMethodPhoto){
-        return ROW_HEIGHT_PHOTO_MENU;
-    } else{
-        NSLog(@"Invalid display method");
-        return 100;
-    }
-}
-
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // Append the new data to the instance variable you declared
     [_responseData appendData:data];
@@ -325,12 +359,7 @@
     NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
                                                                          options:kNilOptions
                                                                            error:&error];
-    
-    //        for (id key in [json allKeys]){
-    //            NSString* obj =(NSString *) [json objectForKey: key];
-    //            NSLog(obj);
-    //        }
-    
+
     switch (statusCode) {
             
         // 200 Okay
@@ -374,7 +403,7 @@
                                                           Price:price
                                                         Ratings:rating
                                                              ID:ID
-                                                    categories:categories
+                                                    categories:categoryIDs
                                                          imgURL:imgURL
                                                             pos:pos
                                                       startTime:startTime
@@ -440,56 +469,7 @@
     [alertView show];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
+#pragma mark - Event Listeners
 
 - (IBAction)breakfastButtonPressed:(id)sender {
     NSLog(@"breakfastButtonPressed");
@@ -516,6 +496,29 @@
     [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
+-(IBAction)dishCategoryButtonPressed:(UIButton*)button{
+    UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+                                                   green:CATEGORY_BUTTON_COLOR_GREEN
+                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
+                                                   alpha:1];
+    
+    [button setBackgroundColor:buttonElementColour];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    for (UIButton *newButton in self.categoryButtonsArray) {
+        if (newButton.tag != button.tag) {
+            NSLog(@"%d %d", newButton.tag, button.tag);
+            [newButton setBackgroundColor:[UIColor whiteColor]];
+            [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
+        }
+    }
+    
+    self.displayCategoryID = button.tag;
+    [self.tableView reloadData];
+}
+
+#pragma mark - Others
+
 - (Dish *) getDishWithID: (int) itemID{
     for (Dish * dish in self.dishesArray) {
         if (dish.ID == itemID) {
@@ -524,6 +527,19 @@
     }
     NSLog(@"Dish with itemID: %d, was not found when trying to order", itemID);
     return nil;
+}
+
+- (NSArray *) getDishWithCategory: (int) categoryID{
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for (Dish *dish in self.dishesArray) {
+        for (NSNumber *number in dish.categories) {
+            if ([number integerValue] == categoryID) {
+                [result addObject:dish];
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 
