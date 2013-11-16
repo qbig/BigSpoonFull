@@ -33,6 +33,7 @@ enum DishDisplayMethod : NSUInteger {
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
 @property (nonatomic, strong) NSMutableArray *dishCategoryArray;
+@property (nonatomic) int displayCategoryID;
 
 @property (nonatomic, strong) id <OrderDishDelegate> delegate;
 
@@ -40,6 +41,8 @@ enum DishDisplayMethod : NSUInteger {
 
 @property (nonatomic) enum DishDisplayMethod displayMethod;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIScrollView *categoryButtonsHolderView;
+@property (strong, nonatomic) NSMutableArray *categoryButtonsArray;
 
 - (IBAction)addNewItemButtonClicked:(id)sender;
 

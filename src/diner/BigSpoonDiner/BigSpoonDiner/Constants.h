@@ -35,6 +35,15 @@ extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
 extern int const RATING_STAR_HEIGHT;
+extern int const AVERAGE_PIXEL_PER_CHAR;
+extern int const CATEGORY_BUTTON_OFFSET;
+extern int const CATEGORY_BUTTON_BORDER_WIDTH;
+
+// Colours
+
+extern float const CATEGORY_BUTTON_COLOR_RED;
+extern float const CATEGORY_BUTTON_COLOR_GREEN;
+extern float const CATEGORY_BUTTON_COLOR_BLUE;
 
 // Coordinates:
 
@@ -51,9 +60,13 @@ extern double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 
+// Fonts:
+extern double const CATEGORY_BUTTON_FONT;
+
 // Others:
 
 extern int const NUM_OF_RATINGS;
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
+
 
 @end
