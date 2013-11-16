@@ -65,11 +65,41 @@
 {
     // Return the number of rows in the section.
     NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
-    return [dishes count];
+    // Add one at the bottom to avoid from hidden by the bar
+    return [dishes count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+    
+    // The very last one: placeholder to avoid from hidden by the bar:
+    if ([indexPath row] == [dishes count]) {
+        if (self.displayMethod == kMethodList) {
+            MenuListCell *cell = [[MenuListCell alloc]init];
+            
+            cell.nameLabel.text = @"";
+            cell.addButton.tag = -1;
+            cell.priceLabel.text = @"";
+            cell.descriptionLabel.text = @"";
+            
+            return cell;
+        } else{
+            
+            MenuPhotoCell *cell = [[MenuPhotoCell alloc] init];
+            [cell.addButton setEnabled:NO];
+            cell.nameLabel.text = @"";
+            cell.addButton.tag = -1;
+            cell.priceLabel.text = @"";
+            cell.descriptionLabel.text = @"";
+            cell.imageView.image = nil;
+
+            return cell;
+        }
+    }
+    
+    
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
 
     if (self.displayMethod == kMethodList) {
