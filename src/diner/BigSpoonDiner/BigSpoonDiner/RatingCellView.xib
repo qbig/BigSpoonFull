@@ -26,7 +26,7 @@
                     </imageView>
                 </subviews>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.30588235294117649" green="0.33725490196078434" blue="0.37647058823529411" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="dishNameLabel" destination="01b-FG-mrZ" id="Gwg-iw-2v6"/>
                 <outlet property="ratingImage" destination="964-ve-vWr" id="xz1-lq-Ry9"/>

@@ -511,10 +511,11 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t6q-QS-67e">
-                                                            <rect key="frame" x="7" y="10" width="32" height="32"/>
+                                                            <rect key="frame" x="0.0" y="7" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                            <state key="normal" title="+" image="add_icon_green.png">
+                                                            <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
+                                                            <state key="normal" title="+" image="button_add_no_circle.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
@@ -522,10 +523,11 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kmj-Hz-HU3">
-                                                            <rect key="frame" x="71" y="11" width="31" height="31"/>
+                                                            <rect key="frame" x="62" y="8" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                            <state key="normal" title="-" image="minus_icon.png">
+                                                            <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
+                                                            <state key="normal" title="-" image="button_minus_no_circle.png">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
                                                             <connections>
@@ -533,13 +535,13 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UCp-9c-PEo">
-                                                            <rect key="frame" x="38" y="16" width="33" height="21"/>
+                                                            <rect key="frame" x="35" y="16" width="33" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Cc-Ge-yPu">
-                                                            <rect key="frame" x="110" y="17" width="152" height="21"/>
+                                                            <rect key="frame" x="101" y="17" width="161" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <nil key="highlightedColor"/>
@@ -636,7 +638,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5MF-RW-ibQ">
                                                 <rect key="frame" x="109" y="142" width="113" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.58039218187332153" green="0.90980398654937744" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
+                                                <color key="backgroundColor" red="0.44705882352941173" green="0.82745098039215681" blue="0.4823529411764706" alpha="1" colorSpace="deviceRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                 <state key="normal" title=" Place Order ">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -805,55 +807,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="cTl-rN-X2W">
-                                <rect key="frame" x="9" y="0.0" width="300" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KLb-cY-C38">
-                                        <rect key="frame" x="223" y="7" width="73" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Beverages">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="beveragesButtonPressed:" destination="svy-28-WHp" eventType="touchUpInside" id="2HR-kY-IYA"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" id="jca-gK-xwY">
-                                        <rect key="frame" x="151" y="9" width="64" height="28"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Sides">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="sidesAndSnacksButtonPressed:" destination="svy-28-WHp" eventType="touchUpInside" id="WGf-S3-oxj"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3cj-rM-k6r">
-                                        <rect key="frame" x="95" y="8" width="42" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Mains">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="mainsButtonPressed:" destination="svy-28-WHp" eventType="touchUpInside" id="QBa-LU-8go"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VMr-Yr-mup">
-                                        <rect key="frame" x="6" y="8" width="65" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Breakfast">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="breakfastButtonPressed:" destination="svy-28-WHp" eventType="touchUpInside" id="5t1-UM-jGz"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="x23-h5-Wa5">
+                                <rect key="frame" x="10" y="8" width="1000" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yfv-po-KGo">
-                                <rect key="frame" x="-4" y="42" width="315" height="526"/>
+                                <rect key="frame" x="-4" y="56" width="315" height="512"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -879,10 +838,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I3T-n9-13f">
-                                                    <rect key="frame" x="273" y="9" width="35" height="35"/>
+                                                    <rect key="frame" x="273" y="9" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <state key="normal" image="add_icon.png"/>
+                                                    <state key="normal" image="button_add_no_circle.png"/>
                                                     <state key="highlighted" image="add_icon.png">
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -947,7 +906,8 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UbY-Ez-zJc">
                                                     <rect key="frame" x="266" y="5" width="45" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="add_icon2.png">
+                                                    <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                                                    <state key="normal" image="add_button_with_circle.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" image="photo_icon.png"/>
@@ -1089,14 +1049,14 @@
     </scenes>
     <resources>
         <image name="X-Large_278x44_glowy.png" width="280" height="47"/>
+        <image name="add_button_with_circle.png" width="128" height="128"/>
         <image name="add_icon.png" width="256" height="256"/>
-        <image name="add_icon2.png" width="128" height="128"/>
-        <image name="add_icon_green.png" width="128" height="128"/>
         <image name="bottom_buttons.png" width="1367" height="253"/>
+        <image name="button_add_no_circle.png" width="128" height="128"/>
+        <image name="button_minus_no_circle.png" width="128" height="128"/>
         <image name="gear.png" width="104" height="104"/>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
         <image name="list_icon.png" width="105" height="105"/>
-        <image name="minus_icon.png" width="482" height="482"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="105" height="105"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>

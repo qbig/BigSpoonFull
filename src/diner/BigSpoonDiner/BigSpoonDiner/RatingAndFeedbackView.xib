@@ -43,7 +43,7 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKN-rv-ppp" userLabel="Button -  Submit">
                             <rect key="frame" x="11" y="321" width="75" height="30"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" red="0.58039218187332153" green="0.90980398654937744" blue="0.42745101451873779" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="backgroundColor" red="0.44705882352941173" green="0.82745098039215681" blue="0.4823529411764706" alpha="1" colorSpace="deviceRGB"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                             <state key="normal" title=" Submit ">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,14 +80,14 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="sectionIndexTrackingBackgroundColor" red="0.29536033160000003" green="0.29536033160000003" blue="0.29536033160000003" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                            <color key="sectionIndexTrackingBackgroundColor" red="0.30588235294117649" green="0.33725490196078434" blue="0.37647058823529411" alpha="0.95000000000000007" colorSpace="calibratedRGB"/>
                             <connections>
                                 <outlet property="dataSource" destination="-1" id="lsB-TX-CpG"/>
                                 <outlet property="delegate" destination="-1" id="n0A-jv-KWn"/>
                             </connections>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.30588235294117649" green="0.33725490196078434" blue="0.37647058823529411" alpha="1" colorSpace="deviceRGB"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

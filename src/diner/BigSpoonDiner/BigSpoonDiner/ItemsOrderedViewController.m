@@ -180,7 +180,7 @@
         Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
         cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByDish:dish]];
         
         cell.plusButton.tag = dish.ID;
@@ -195,7 +195,7 @@
         Dish *dish = [self.pastOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%.2f", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
         cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDishByDish:dish]];
        
         return cell;

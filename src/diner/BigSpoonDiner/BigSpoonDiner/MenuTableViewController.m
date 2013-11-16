@@ -80,7 +80,7 @@
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
     
-        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
     
         cell.descriptionLabel.text = dish.description;
         
@@ -112,7 +112,7 @@
         
         cell.nameLabel.text = dish.name;
         
-        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
         
         cell.descriptionLabel.text = dish.description;
         
