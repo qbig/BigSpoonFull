@@ -26,9 +26,34 @@
         <div class="main-scroll">
        <section>
         <a class="staff-login" href="{% url "login" %}"><i class="icon-signin"></i>  Staff Login</a>
-                <h1>More than just food on the table.</h1>
-                <h2><i class="icon-heart"></i> Made lovingly by team <strong>BigSpoon</strong></h2>
-                <!-- <img src="{% static 'img/logo-wide.jpg' %}"> -->
+                <img class="logo" src="{% static 'img/logo-wide.png' %}">
+                <h1 class="nopadding">Create <strong>great</strong> dining experiences.</h1>
+
+                <div class="side">
+
+                    <span class="screenshot-ios">
+                    <img src="{% static "img/ios_screen1.png" %}"/>
+            </span>
+
+<span class="screenshot">
+                    <img src="{% static "img/staff_screen2.jpg" %}"/>
+            </span>
+
+                </div>
+
+
+                <div class="side">
+                <span>
+                <h1><i class="icon-mobile-phone"></i> Mobile Ordering</h1>
+                <h2>For <strong>diners</strong> </h2>
+                </span>
+
+                <span>
+                <h1><i class="icon-bar-chart"></i> Restaurant Management</h1>
+                <h2>For <strong>owners</strong> </h2>
+                </span>
+                </side>
+
             </section>
             <section>
                 <h1>Service</h1>
