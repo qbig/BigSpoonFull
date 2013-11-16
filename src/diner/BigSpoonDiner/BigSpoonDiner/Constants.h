@@ -35,6 +35,9 @@ extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
 extern int const RATING_STAR_HEIGHT;
+extern int const AVERAGE_PIXEL_PER_CHAR;
+extern int const CATEGORY_BUTTON_OFFSET;
+extern int const CATEGORY_BUTTON_BORDER_WIDTH;
 
 // Coordinates:
 

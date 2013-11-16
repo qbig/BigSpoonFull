@@ -40,6 +40,7 @@ enum DishDisplayMethod : NSUInteger {
 
 @property (nonatomic) enum DishDisplayMethod displayMethod;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIScrollView *categoryButtonsHolderView;
 
 - (IBAction)addNewItemButtonClicked:(id)sender;
 

@@ -165,7 +165,12 @@
         switch (responseCode) {
             case 200:
             case 201:{
+                
                 NSArray *categories = (NSArray*)responseObject;
+                
+                int sumOfCategoryButtonWidths = 0;
+                int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
+                
                 for (NSDictionary *newCategory in categories) {
                     NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
                     NSString *name = [newCategory objectForKey:@"name"];
@@ -174,10 +179,37 @@
                     DishCategory *newObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
                                                                        name:name
                                                              andDescription:description];
+                    // Put the object into dishDategoryArray:
                     [self.dishCategoryArray addObject:newObj];
+                    
+                    // Add one more category button
+                    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                    button.tag = [categoryID integerValue];
+                    button.layer.borderColor = [UIColor blueColor].CGColor;
+                    button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
+
+                    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                    
+                    
+                    [button addTarget:self
+                               action:@selector(dishCategoryButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+                    
+                    // Add spaces before and after the title:
+                    NSString *buttonTitle = [name stringByAppendingString:@" "];
+                    buttonTitle = [@" " stringByAppendingString:buttonTitle];
+                    [button setTitle:buttonTitle forState:UIControlStateNormal];
+                    
+                    [self.categoryButtonsHolderView addSubview:button];
+
+                    int buttonWidth = ([name length] + 2) * AVERAGE_PIXEL_PER_CHAR;
+                    button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
+                    // minus border width so that they will overlap at the border:
+                    sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;
+                    NSLog(@"Newbutton: (%d, %d), (%d, %d)", sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
                 }
                 
-                
+                self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths, buttonHeight);
                 
             }
                 break;
@@ -192,6 +224,11 @@
                                           [self displayErrorInfo:operation.responseString];
                                       }];
     [operation start];
+}
+
+-(IBAction)dishCategoryButtonPressed:(UIButton*)button{
+    NSLog(@"Pressed: %d", button.tag);
+    
 }
 
 - (void) displayErrorInfo: (NSString *) info{

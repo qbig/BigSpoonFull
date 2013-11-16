@@ -35,6 +35,9 @@ int const ITEM_LIST_TABLE_ROW_HEIGHT = 59;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 int const RATING_STAR_WIDTH = 80;
 int const RATING_STAR_HEIGHT = 15;
+int const AVERAGE_PIXEL_PER_CHAR = 8;
+int const CATEGORY_BUTTON_OFFSET = 5;
+int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
 
 // Coordinates:
 
