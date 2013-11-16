@@ -39,6 +39,12 @@ extern int const AVERAGE_PIXEL_PER_CHAR;
 extern int const CATEGORY_BUTTON_OFFSET;
 extern int const CATEGORY_BUTTON_BORDER_WIDTH;
 
+// Colours
+
+extern float const CATEGORY_BUTTON_COLOR_RED;
+extern float const CATEGORY_BUTTON_COLOR_GREEN;
+extern float const CATEGORY_BUTTON_COLOR_BLUE;
+
 // Coordinates:
 
 extern int const REQUEST_WATER_VIEW_X;

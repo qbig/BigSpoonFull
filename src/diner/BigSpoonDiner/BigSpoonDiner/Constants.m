@@ -39,6 +39,12 @@ int const AVERAGE_PIXEL_PER_CHAR = 8;
 int const CATEGORY_BUTTON_OFFSET = 5;
 int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
 
+// Colours
+
+float const CATEGORY_BUTTON_COLOR_RED = 0 / 256.0;
+float const CATEGORY_BUTTON_COLOR_GREEN = 135 / 256.0;
+float const CATEGORY_BUTTON_COLOR_BLUE = 198 / 256.0;
+
 // Coordinates:
 
 int const REQUEST_WATER_VIEW_X = 40;

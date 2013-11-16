@@ -170,6 +170,10 @@
                 
                 int sumOfCategoryButtonWidths = 0;
                 int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
+                UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+                                                              green:CATEGORY_BUTTON_COLOR_GREEN
+                                                               blue:CATEGORY_BUTTON_COLOR_BLUE
+                                                              alpha:1];
                 
                 for (NSDictionary *newCategory in categories) {
                     NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
@@ -185,10 +189,10 @@
                     // Add one more category button
                     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                     button.tag = [categoryID integerValue];
-                    button.layer.borderColor = [UIColor blueColor].CGColor;
+                    button.layer.borderColor = buttonElementColour.CGColor;
                     button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
 
-                    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+                    [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
                     
                     
                     [button addTarget:self
@@ -206,10 +210,12 @@
                     button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
                     // minus border width so that they will overlap at the border:
                     sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;
-                    NSLog(@"Newbutton: (%d, %d), (%d, %d)", sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
+                    
+                    [self.categoryButtonsArray addObject:button];
                 }
                 
                 self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths, buttonHeight);
+                [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
                 
             }
                 break;
@@ -227,8 +233,20 @@
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
-    NSLog(@"Pressed: %d", button.tag);
+    UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+                                                   green:CATEGORY_BUTTON_COLOR_GREEN
+                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
+                                                   alpha:1];
     
+    [button setBackgroundColor:buttonElementColour];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    for (UIButton *newButton in self.categoryButtonsArray) {
+        if (![newButton isEqual: button]) {
+            [button setBackgroundColor:[UIColor whiteColor]];
+            [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
+        }
+    }
 }
 
 - (void) displayErrorInfo: (NSString *) info{
