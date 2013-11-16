@@ -60,6 +60,11 @@ double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION = 0.6;
 double const BUTTON_CLICK_ANIMATION_DURATION = 0.15;
 double const BUTTON_CLICK_ANIMATION_ALPHA = 0.45;
 
+// Fonts:
+
+double const CATEGORY_BUTTON_FONT = 16.0;
+
+
 // Others:
 
 int const NUM_OF_RATINGS = 5;

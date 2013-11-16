@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.categoryButtonsArray = [[NSMutableArray alloc] init];
     
     [self loadCategoriesFromServer];
     [self loadDishesFromServer];
@@ -193,7 +194,7 @@
                     button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
 
                     [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
-                    
+                    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size:20.0];
                     
                     [button addTarget:self
                                action:@selector(dishCategoryButtonPressed:)
@@ -233,6 +234,7 @@
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
+    NSLog(@"ButtonPressed: %d", button.tag);
     UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
                                                    green:CATEGORY_BUTTON_COLOR_GREEN
                                                     blue:CATEGORY_BUTTON_COLOR_BLUE
@@ -240,11 +242,12 @@
     
     [button setBackgroundColor:buttonElementColour];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
+
     for (UIButton *newButton in self.categoryButtonsArray) {
-        if (![newButton isEqual: button]) {
-            [button setBackgroundColor:[UIColor whiteColor]];
-            [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
+        if (newButton.tag != button.tag) {
+            NSLog(@"%d %d", newButton.tag, button.tag);
+            [newButton setBackgroundColor:[UIColor whiteColor]];
+            [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
         }
     }
 }

@@ -60,9 +60,13 @@ extern double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 
+// Fonts:
+extern double const CATEGORY_BUTTON_FONT;
+
 // Others:
 
 extern int const NUM_OF_RATINGS;
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
+
 
 @end
