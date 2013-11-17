@@ -689,6 +689,7 @@ background-color: #468847;
 .menu-item span.notifications p {
     padding:10px;
     font-weight:normal;
+    margin-top: 10px;
 }
 
 .note-save {
