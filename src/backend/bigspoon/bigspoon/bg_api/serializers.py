@@ -114,15 +114,16 @@ class OutletTableSerializer(serializers.ModelSerializer):
 
 
 class OutletDetailSerializer(serializers.ModelSerializer):
-    # dishes = serializers.SerializerMethodField('get_dishes')
+    dishes = serializers.SerializerMethodField('get_dishes')
     tables = OutletTableSerializer(many=True)
 
     def get_dishes(self, obj):
-        now = timezone.now().time()
-        current = obj.dishes.filter(
-            start_time__lte=now,
-            end_time__gte=now
-        )
+        # now = timezone.now().time()
+        # current = obj.dishes.filter(
+        #     start_time__lte=now,
+        #     end_time__gte=now
+        # )
+        current = obj.dishes.all()
         return DishSerializer(current).data
 
     class Meta:
