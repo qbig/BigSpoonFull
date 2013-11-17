@@ -88,7 +88,7 @@
                         {% endif %}
                         <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
                     </span>
-                    <h3>{{ meal.table.name }}</h3>
+                    <h3>{{ request.table.name }}</h3>
                     <span class='user'>
                             <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
                             <h4>{{ request.diner.get_full_name }}</h4>
@@ -99,12 +99,10 @@
                         <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
                     </span>
 
-                    <ul class="order">
                     {% if request.note %}
-                        <li>
+                        <p class="note">
                             {{request.note}}
-                        </li>
-                    </ul>
+                        </p>
                     {% endif %}
 
                     {% if request.request_type == 0 %}
