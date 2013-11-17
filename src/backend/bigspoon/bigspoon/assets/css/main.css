@@ -278,7 +278,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 13px 12px;
+    padding: 9px 12px;
     border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -497,8 +497,26 @@ background: #fcf6ef;
     font-size: 14px;
 }
 
+.table a.closebill {
+    position: static;
+    padding: 10px 60px;
+    width: 80px;
+    border-radius: 5px;
+    /*background-color: #61C0B9;*/
+    background-color: #CCC;
+    color: white;
+    text-align:center;
+    text-decoration:none;
+    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size: 14px;
+}
+
 .item a.closebill {
     background-color: rgb(231,76,60);
+}
+
+.table a.closebill:hover, .table a.closebill:active {
+    cursor:pointer;
 }
 
 /*.item a.closebill:hover,.item a.closebill:active, .item a.closebill:focus {
@@ -1180,3 +1198,8 @@ input#filter {
     position: relative;
     bottom: 75px;
 }*/
+
+.table-name {
+    display:inline;
+    font-weight:bold;
+}

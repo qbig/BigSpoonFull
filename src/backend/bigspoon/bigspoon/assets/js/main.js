@@ -304,6 +304,7 @@ $(document).ready(function() {
         var req_data = {
             "csrfmiddlewaretoken":csrftoken
         }
+        console.log(req_data);
         req_data[button.attr("model")] = button.attr("id");
         button.click(function() {
             $.post(
