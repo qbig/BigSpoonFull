@@ -39,7 +39,18 @@
                         <p class="description">Description <br/><textarea cols="40" rows="10">{{dish.desc}}</textarea></p>
                         <p class="start_time"><i class="icon-time"></i> Start time <br/><input type="text" autocomplete="off" class="ui-timepicker-input" value="{{dish.start_time|date:"H:i:s"}}"></p>
                         <p class="end_time"><i class="icon-time"></i> End time <br/><input type="text" autocomplete="off" class="ui-timepicker-input" value="{{dish.end_time|date:"H:i:s"}}"></p>
-                        <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/> <input type="text" value="{{dish.quantity}}"></p>
+                        <p class="quantity"><i class="icon-shopping-cart"></i> Stock <br/>
+                            <select>
+                                <option value="{{dish.quantity}}" selected="selected">Current: {{dish.quantity}}</option>
+                                <option value="0">0</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </p>
 
                         <a href="#" class="add" dish-id="{{dish.id}}" onclick="updateDish(this)"><i class="icon-save"></i> Save</a>
                     </span>
