@@ -529,9 +529,9 @@ background-color: #468847;
     background-color: #008cdd;
 }*/
 
-.item a.respond:hover,.item a.respond:active, .item a.respond:focus {
+/*.item a.respond:hover,.item a.respond:active, .item a.respond:focus {
     background-color: #0C4;
-}
+}*/
 
 /* Menu main & Menu Items */
 #main {
@@ -923,6 +923,7 @@ form.menu-add {
 .table .order {
     width: 290px;
     margin-top: 0px;
+    margin-bottom: 20px;
 }
 
 /* User profile page */
@@ -1198,7 +1199,7 @@ input#filter {
 .table .active{
     border: 1px solid white;
     float: left;
-    width: 290px;
+    min-height: 220px;
 }
 
 /*.menu-heading {
