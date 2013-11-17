@@ -395,7 +395,7 @@ class CloseBill(generics.GenericAPIView):
             ['refresh', 'meal', 'closebill']
         )
         send_user_feedback(
-            "u_%d" % meal.diner.id,
+            "u_%s" % meal.diner.auth_token.key,
             ['Your bill has been closed.']
         )
         return Response(MealDetailSerializer(meal).data,
@@ -425,7 +425,7 @@ class AckOrder(generics.GenericAPIView):
             ['refresh', 'meal', 'ack']
         )
         send_user_feedback(
-            "u_%d" % meal.diner.id,
+            "u_%s" % meal.diner.auth_token.key,
             ['Your order has been processed.']
         )
         return Response(MealDetailSerializer(meal).data,
@@ -456,12 +456,12 @@ class AckRequest(generics.GenericAPIView):
         )
         if (req.request_type == Request.WATER):
             send_user_feedback(
-                "u_%d" % req.diner.id,
+                "u_%s" % req.diner.auth_token.key,
                 ['Water you requested is coming soon.']
             )
         else:
             send_user_feedback(
-                "u_%d" % req.diner.id,
+                "u_%s" % req.diner.auth_token.key,
                 ['Waiter will come to your table soon.']
             )
         return Response(RequestSerializer(req).data,

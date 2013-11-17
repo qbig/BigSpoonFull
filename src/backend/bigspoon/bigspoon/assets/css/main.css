@@ -278,7 +278,7 @@ nav ul li{
 
 nav ul li a {
     margin: 0 -2.5px;
-    padding: 13px 12px;
+    padding: 9px 12px;
     border-left: 1px solid #ddd;
     color: #585858;
     text-decoration:none;
@@ -308,7 +308,7 @@ nav a.logo{
 }
 
 nav a.logo img {
-    width: 40px;
+    width: 95px;
     padding: 0 20px;
 }
 
@@ -316,11 +316,11 @@ nav a.logo img {
 .item {
     float: left;
     margin: 5px;
-    width: 270px;
+    width: 290px;
     height: 290px;
     border-radius: 5px;
     boder: 1px solid #ccc;
-    background: rgba(255,255,255,0.5);
+    background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
     -moz-box-shadow:    0px 2px 2px rgba(50, 50, 50, 0.1);
     box-shadow:         0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -497,8 +497,26 @@ background: #fcf6ef;
     font-size: 14px;
 }
 
+.table a.closebill {
+    position: static;
+    padding: 10px 60px;
+    width: 80px;
+    border-radius: 5px;
+    /*background-color: #61C0B9;*/
+    background-color: #CCC;
+    color: white;
+    text-align:center;
+    text-decoration:none;
+    text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
+    font-size: 14px;
+}
+
 .item a.closebill {
     background-color: rgb(231,76,60);
+}
+
+.table a.closebill:hover, .table a.closebill:active {
+    cursor:pointer;
 }
 
 /*.item a.closebill:hover,.item a.closebill:active, .item a.closebill:focus {
@@ -590,7 +608,7 @@ background-color: #468847;
 
 .view-profile {
     float: left;
-    width: 80px;
+    width: 90px;
     display: block;
     margin-top: 3px;
     padding: 0px 5px;
@@ -609,7 +627,7 @@ background-color: #468847;
     height: 22px;
     font-size:14px;
     float: left;
-    width: 80px;
+    width: 85px;
     display: block;
     margin-top: 3px;
     margin-bottom:0px;
@@ -896,7 +914,7 @@ form.menu-add {
 }
 
 .table .order {
-    width: 270px;
+    width: 290px;
     margin-top: 0px;
 }
 
@@ -1173,10 +1191,15 @@ input#filter {
 .table .active{
     border: 1px solid white;
     float: left;
-    width: 270px;
+    width: 290px;
 }
 
 /*.menu-heading {
     position: relative;
     bottom: 75px;
 }*/
+
+.table-name {
+    display:inline;
+    font-weight:bold;
+}

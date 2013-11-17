@@ -20,8 +20,9 @@
                 <span class="early time countdown" start={{meal.count_down_start}}>
                 {% endif %}
                     <i class="icon-time"></i> waited {{meal.wait_time.0}}m, {{meal.wait_time.1}}s
+
+                    <p class ="table-name">{{ meal.table.name }}</p>
                 </span>
-                <h3>{{ meal.table.name }}</h3>
                 <span class='user'>
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
                         <h4>{{ meal.diner.get_full_name }}</h4>
@@ -46,6 +47,9 @@
                 </p>
                 {% endif %}
 
+                {% if meal.status == 2 %}
+                <img class="icon" src="{% static "img/bill.png" %}"/>
+                {% else %}
                 <ul class="order">
                     {% if meal.note %}
                         <li>
@@ -66,6 +70,7 @@
                         <li>No orders yet.</li>
                     {% endif %}
                 </ul>
+                {% endif %}
 
                 {% if meal.status == 0 %}
                     <a class="acknowledge ack-button" rel="order" model="meal" id="{{meal.id}}"><i class="icon-check-sign"></i> Acknowledge</a>
@@ -83,8 +88,9 @@
                     <span class="early time countdown" start={{request.count_down_start}}>
                         {% endif %}
                         <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
+
+                        [{{ request.table.name }}]
                     </span>
-                    <h3>{{ request.table.name }}</h3>
                     <span class='user'>
                             <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
                             <h4>{{ request.diner.get_full_name }}</h4>

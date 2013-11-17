@@ -185,7 +185,7 @@ $(document).ready(function() {
     $("#main .wrapper").masonry({
         resizeable: true,
         itemSelector: '.item',
-        columnWidth: 40,
+        columnWidth: 30,
     });
 
     // for request and order ack
@@ -219,6 +219,9 @@ $(document).ready(function() {
                 req_data
             ).done(function(data) {
                 console.log("POST success!");
+                button.parent().append("<p class='success'><i class='icon-ok-sign'></i> Note saved!</p>")
+
+
             }).fail(function(data) {
                 console.log("POST failed");
                 console.log(data);
@@ -304,6 +307,7 @@ $(document).ready(function() {
         var req_data = {
             "csrfmiddlewaretoken":csrftoken
         }
+        console.log(req_data);
         req_data[button.attr("model")] = button.attr("id");
         button.click(function() {
             $.post(
