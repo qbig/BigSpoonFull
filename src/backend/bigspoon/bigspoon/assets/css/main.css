@@ -315,8 +315,8 @@ nav a.logo img {
 /* Order Items */
 .item {
     float: left;
-    margin: 5px;
-    width: 290px;
+    margin: 5px 0px;
+    width: 305px;
     height: 290px;
     border-radius: 5px;
     boder: 1px solid #ccc;
@@ -403,6 +403,7 @@ p.note {
 }
 
 .item .icon{
+    width: 100px;
     margin-top: 20px;
     margin-left: 95px;
     margin-bottom: -20px;
@@ -435,8 +436,9 @@ p.note {
 }
 
 .order li p {
+    text-align: left;
     display: inline-block;
-    width: 170px;
+    width: 195px;
     margin: 0px;
 }
 
@@ -608,7 +610,7 @@ background-color: #468847;
 
 .view-profile {
     float: left;
-    width: 90px;
+    width: 105px;
     display: block;
     margin-top: 3px;
     padding: 0px 5px;
@@ -617,6 +619,10 @@ background-color: #468847;
     text-align: center;
     text-decoration: none;
     overflow:hidden;
+}
+
+.table .view-profile {
+    width: 90px;
 }
 
 .view-profile .full {
@@ -1128,11 +1134,10 @@ table thead tr th { }
     margin: 10px auto;
     padding: 5px 20px;
     max-width: 660px;
-    border: 1px dashed rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    background: #fcf6ef;
-    color: #333;
-    font-size: 14px;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    font-size: 14px
 }
 
 .help:hover {
@@ -1163,7 +1168,8 @@ input#filter {
 }
 
 #pick-table label {
-    font-weight: bold;
+    color: #fff;
+    letter-spacing: 0.2px;
 }
 
 #pick-table select {

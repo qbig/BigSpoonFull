@@ -194,7 +194,7 @@ $(document).ready(function() {
     $("#main .wrapper").masonry({
         resizeable: true,
         itemSelector: '.item',
-        columnWidth: 30,
+        columnWidth: 15,
     });
 
     // for request and order ack
