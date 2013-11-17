@@ -80,8 +80,10 @@
 }
 
 + (void) animateRequestButtonWhenClicked: (UIView*) view{
-    NSLog(@"Fuck: %f %f %f %f", view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
     [view setHidden: NO];
+    
+    // For some weired reason, cannot use auto-reverse here,
+    // because that will conflict with the alertView and make the view blink
     
     [UIView animateWithDuration:BUTTON_CLICK_ANIMATION_DURATION
                           delay:0
