@@ -501,7 +501,7 @@ background: #fcf6ef;
 
 .table a.closebill {
     position: static;
-    padding: 10px 60px;
+    padding: 5px 90px;
     width: 80px;
     border-radius: 5px;
     /*background-color: #61C0B9;*/
@@ -619,10 +619,6 @@ background-color: #468847;
     text-align: center;
     text-decoration: none;
     overflow:hidden;
-}
-
-.table .view-profile {
-    width: 90px;
 }
 
 .view-profile .full {
@@ -896,7 +892,7 @@ form.menu-add {
     margin: 5px;
     padding-bottom: 20px;
     min-height: 200px;
-    width: 270px;
+    width: 960px;
     border-radius: 5px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.1);
@@ -921,7 +917,6 @@ form.menu-add {
 }
 
 .table .order {
-    width: 290px;
     margin-top: 0px;
     margin-bottom: 20px;
 }
@@ -1192,14 +1187,12 @@ input#filter {
     text-shadow: rgba(0, 0, 0, 0.22) 0 -1px 0;
 }
 
-.table {
-    width: 820px;
-}
-
 .table .active{
     border: 1px solid white;
     float: left;
+    padding: 0px 6px;
     min-height: 220px;
+    width: 305px;
 }
 
 /*.menu-heading {
