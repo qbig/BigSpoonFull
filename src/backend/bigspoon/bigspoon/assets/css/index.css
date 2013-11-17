@@ -136,6 +136,17 @@ h1 {
   /*color: #9b59b6;*/
 }
 
+.main-scroll section:nth-child(odd) .side h1 {
+  font-size: 28px;
+}
+
+.main-scroll section:nth-child(odd) h1.nopadding {
+  font-size: 48px;
+  padding:0px;
+  margin:0px;
+  margin-bottom: 20px;
+}
+
 .main-scroll section:nth-child(odd) h2 {
   margin-top: 0px;
   color: #999;
@@ -143,9 +154,8 @@ h1 {
   font-weight: 100;
 }
 
-.main-scroll section:nth-child(odd) h2 strong {
+.main-scroll section:nth-child(odd) h1 strong {
   color: #9b59b6;
-  font-weight: normal;
 }
 
 .main-scroll section:nth-child(even) {
@@ -155,7 +165,7 @@ h1 {
 
 .main-scroll section:nth-child(even) h1{
   margin-top:0px;
-  padding: 40px;
+  padding: 20px;
   padding-bottom:0px;
   margin-bottom: 0px;
   color: #fff;
@@ -203,4 +213,40 @@ h1 {
 .autoscroll:hover, .autoscroll:focus, .autoscroll:active, .staff-login:hover, .staff-login:active, .staff-login:focus {
   background: rgba(0,0,0,0.4);
   cursor:pointer;
+}
+
+.logo {
+  display: block;
+  width: 250px;
+  padding-top: 20px;
+  margin: 0 auto;
+}
+
+.side {
+  max-width: 65%;
+  display:block;
+  margin: 0 auto;
+}
+
+.main-scroll .main-scroll section:nth-child(odd) div.side span h1 {
+  font-size: 28px;
+}
+
+.side span {
+  padding: 0 3%;
+  float: left;
+  /*margin-bottom:-20px;*/
+}
+
+.side span.screenshot-ios {
+  width: 30%;
+  padding: 0px;
+  margin: 0px 12.6% 0px 6.5%;
+  margin-top: 40px;
+  /*margin-bottom:-20px;*/
+}
+
+.side span.screenshot {
+  width: 40%;
+  padding-top: 6%;
 }

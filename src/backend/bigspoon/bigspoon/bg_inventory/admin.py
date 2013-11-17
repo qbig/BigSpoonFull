@@ -91,6 +91,7 @@ class DishAdmin(GuardedModelAdmin):
     search_fields += ['outlet__'+x for x in search_fields_of["common"]]
     search_fields += ['categories__'+x for x in search_fields_of["common"]]
     change_list_template = 'admin/dish-changelist.html'
+    list_display = ('id', 'pos', 'name')
 
     def get_urls(self):
         urls = super(DishAdmin, self).get_urls()
