@@ -114,7 +114,7 @@ class OutletTableSerializer(serializers.ModelSerializer):
 
 
 class OutletDetailSerializer(serializers.ModelSerializer):
-    dishes = serializers.SerializerMethodField('get_dishes')
+    # dishes = serializers.SerializerMethodField('get_dishes')
     tables = OutletTableSerializer(many=True)
 
     def get_dishes(self, obj):
