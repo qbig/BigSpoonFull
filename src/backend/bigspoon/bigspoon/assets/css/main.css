@@ -484,11 +484,10 @@ background: #fcf6ef;
 .item a.acknowledge, .item a.respond, .item a.closebill {
     position: absolute;
     left: 15px;
-    bottom: 10px;
-    padding: 10px 60px;
+    bottom: 5px;
+    padding: 5px 70px;
     width: 120px;
     border-radius: 5px;
-    /*background-color: #61C0B9;*/
     background-color: #CCC;
     color: white;
     text-align:center;
@@ -592,7 +591,7 @@ background-color: #468847;
 #main .item p.allergy {
     height: 20px;
     font-size: 14px;
-    background: rgb(97,192,185, 0.5);
+    background: rgba(97,192,185, 0.5);
     padding: 2px 10px;
     margin: 0px;
     color: #FFF;
