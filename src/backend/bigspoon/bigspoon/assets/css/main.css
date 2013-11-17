@@ -706,6 +706,7 @@ background-color: #468847;
     height: 40px;
     overflow-y: hidden;
     margin-bottom: -3px;
+    border-bottom: 1px dashed rgba(0,0,0,0.2);
 }
 
 .user h4 {
