@@ -262,7 +262,7 @@ nav h1, h1.logo{
 }
 
 nav ul {
-    margin: 5px;
+    margin: 2px;
 }
 
 nav ul li{
@@ -308,7 +308,7 @@ nav a.logo{
 }
 
 nav a.logo img {
-    width: 50px;
+    width: 40px;
     padding: 0 20px;
 }
 
