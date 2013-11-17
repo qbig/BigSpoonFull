@@ -21,8 +21,8 @@ NSString* const PROFILE_URL = @"http://122.248.199.242/api/v1/profile";
 NSString* const ORDER_URL = @"http://122.248.199.242/api/v1/meal";
 NSString* const BILL_URL = @"http://122.248.199.242/api/v1/askbill";
 NSString* const RATING_URL = @"http://122.248.199.242/api/v1/rating";
-NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/rating";
-
+NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/review";
+NSString* const DISH_CATEGORY_URL = @"http://122.248.199.242/api/v1/categories";
 
 // Dimentions:
 
@@ -35,6 +35,15 @@ int const ITEM_LIST_TABLE_ROW_HEIGHT = 59;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 int const RATING_STAR_WIDTH = 80;
 int const RATING_STAR_HEIGHT = 15;
+int const AVERAGE_PIXEL_PER_CHAR = 8;
+int const CATEGORY_BUTTON_OFFSET = 5;
+int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
+
+// Colours
+
+float const CATEGORY_BUTTON_COLOR_RED = 0 / 256.0;
+float const CATEGORY_BUTTON_COLOR_GREEN = 135 / 256.0;
+float const CATEGORY_BUTTON_COLOR_BLUE = 198 / 256.0;
 
 // Coordinates:
 
@@ -50,6 +59,11 @@ double const BADGE_ANMINATION_ZOOM_FACTOR = 2.1;
 double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION = 0.6;
 double const BUTTON_CLICK_ANIMATION_DURATION = 0.15;
 double const BUTTON_CLICK_ANIMATION_ALPHA = 0.45;
+
+// Fonts:
+
+double const CATEGORY_BUTTON_FONT = 16.0;
+
 
 // Others:
 

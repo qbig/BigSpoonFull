@@ -19,24 +19,53 @@
         <link rel="stylesheet" href="{% static "css/index.css" %}">
         {% endcompress %}
 
-<body>
+        <body>
+
+        <a class="autoscroll" onclick="start()"><i class="icon-refresh"></i> Autoscroll</a>
+
         <div class="main-scroll">
        <section>
-                <h1>More than just food on the table.</h1>
-                <h2>Made lovingly by team <strong>BigSpoon</strong></h2>
-                <!-- <img src="{% static 'img/logo-wide.jpg' %}"> -->
+        <a class="staff-login" href="{% url "login" %}"><i class="icon-signin"></i>  Staff Login</a>
+                <img class="logo" src="{% static 'img/logo-wide.png' %}">
+                <h1 class="nopadding">Create <strong>great</strong> dining experiences</h1>
+
+                <div class="side">
+
+                    <span class="screenshot-ios">
+                    <img src="{% static "img/ios_screen1.png" %}"/>
+            </span>
+
+<span class="screenshot-ios">
+                    <img src="{% static "img/staff_screen.png" %}"/>
+            </span>
+
+                </div>
+
+
+                <div class="side">
+                <span>
+                <h1><i class="icon-mobile-phone"></i> Mobile Ordering</h1>
+                <h2>For <strong>diners</strong> </h2>
+                </span>
+
+                <span>
+                <h1><i class="icon-bar-chart"></i> Restaurant Management</h1>
+                <h2>For <strong>owners</strong> </h2>
+                </span>
+                </side>
+
             </section>
             <section>
-                <h1>Another heading</h1>
-                <h2>This is really great. Really.</h2>
+                <h1>Mobile Ordering</h1>
+                <h2><i class="icon-mobile-phone"></i> Send orders directly to the waitstaff</h2>
                 <span class="screenshot-ios">
                     <img src="{% static "img/ios_screen1.png" %}"/>
             </span>
 
             </section>
             <section>
-                <h1>Third cool thing</h1>
-                <h2>You heard that right!</h2>
+                <h1>Service at your fingertips</h1>
+                <h2><i class="icon-bell"></i> No more scrambling for waiter attention</h2>
 
                 <span class="screenshot-ios">
                     <img src="{% static "img/ios_screen2.png" %}"/>
@@ -44,8 +73,8 @@
             </section>
 
             <section>
-                <h1>Third cool thing</h1>
-                <h2>You heard that right!</h2>
+                <h1>Authentic recommendations</h1>
+                <h2><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i> User ratings and reviews</h2>
 
                 <span class="screenshot-ios">
                     <img src="{% static "img/ios_screen3.png" %}"/>
@@ -53,7 +82,7 @@
             </section>
             <section>
                 <h1>Keep track of your orders</h1>
-                <h2>Made lovingly by team <strong>BigSpoon</strong></h2>
+                <h2><i class="icon-eye-open"></i> See everything at a glance</h2>
 
                 <span class="screenshot">
                     <img src="{% static "img/staff_screen1.png" %}"/>
@@ -62,7 +91,7 @@
             </section>
             <section>
                 <h1>Easily manage your menu</h1>
-                <h2>Made lovingly by team <strong>BigSpoon</strong></h2>
+                <h2><i class="icon-magic"></i> Your entire menu, at your fingertips</h2>
 
                 <span class="screenshot">
                     <img src="{% static "img/staff_screen2.jpg" %}"/>
@@ -71,7 +100,7 @@
             </section>
             <section>
                 <h1>Get useful analytics about your diners</h1>
-                <h2>Made lovingly by team <strong>BigSpoon</strong></h2>
+                <h2><i class="icon-bar-chart"></i> Learn more about your customers</h2>
 
                 <span class="screenshot">
                     <img src="{% static "img/staff_screen3.jpg" %}"/>
@@ -80,8 +109,8 @@
             </section>
 
             <section>
-                <h1>The Team &#9787;</h1>
-                <h2>Approach any of us for a demo!</h2>
+                <h1>The Team</h1>
+                <h2><i class="icon-smile"></i> Approach any of us for a demo!</h2>
 
                 <div class="team">
 
@@ -93,7 +122,7 @@
                 <span class="person">
                     <a href="http://www.yosriady.com" target="_blank"><img src="{% static "img/yos.png" %}"/></a>
                     <h4>Yos Riady</h4>
-                    <p>Hi! I'm Yos and I love Python! Come talk to me and I'd be happy to give you a demo!</p>
+                    <p>Hi! I'm Yos and I love Python! Come talk to me and I'd be happy to give you a demo of our application! <i class="icon-smile"></i></p>
                 </span>
                 <span class="person">
                     <a href="#"><img src="{% static "img/zx.png" %}"/></a>
@@ -126,6 +155,7 @@
         {% endcompress %}
         {% block morejs %}
         {% endblock %}
+
     </body>
 </html>
 

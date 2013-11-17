@@ -10,13 +10,6 @@
 
 @implementation User
 
-@synthesize firstName;
-@synthesize lastName;
-@synthesize email;
-@synthesize birthday;
-@synthesize profileImage;
-@synthesize auth_token;
-
 + (User *)sharedInstance
 {
     static User *sharedInstance = nil;

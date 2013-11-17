@@ -24,6 +24,8 @@
 @property (nonatomic, strong) UIAlertView *inputTableIDAlertView;
 @property (nonatomic, strong) UIAlertView *placeOrderAlertView;
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
+@property (nonatomic, strong) UIAlertView *afterRequestBillAlertView;
+
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
@@ -109,51 +111,6 @@
     
 }
 
-// Failed to get current location
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-	
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    // Call alert
-	[errorAlert show];
-}
-
-- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
-{
-    CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
-    CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
-    if (distance <= radius) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
-    if ((locationA.coordinate.latitude == locationB.coordinate.latitude) && (locationA.coordinate.longitude == locationB.coordinate.longitude)) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
-        currentUserLocation = newLocation;
-    }
-}
-
-- (NSString *) regulateLengthOfString:(NSString *)String{
-    NSString *toReturn = String;
-    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
-        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
-        toReturn = [toReturn stringByAppendingString:@"..."];
-    }
-    return toReturn;
-}
 
 -(void) viewDidAppear:(BOOL)animated {
     
@@ -223,6 +180,53 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Geo Location
+
+// Failed to get current location
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+	
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    // Call alert
+	[errorAlert show];
+}
+
+- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
+{
+    CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
+    if (distance <= radius) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
+    if ((locationA.coordinate.latitude == locationB.coordinate.latitude) && (locationA.coordinate.longitude == locationB.coordinate.longitude)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
+        currentUserLocation = newLocation;
+    }
+}
+
+- (NSString *) regulateLengthOfString:(NSString *)String{
+    NSString *toReturn = String;
+    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
+        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
+        toReturn = [toReturn stringByAppendingString:@"..."];
+    }
+    return toReturn;
+}
 
 #pragma mark ButtonClick Event Listeners
 
@@ -230,10 +234,10 @@
     NSLog(@"viewModeButtonPressedAtListPage");
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
-        [self changeViewModeButtonIconTo:@"photo_icon.png"];
+        [self changeViewModeButtonIconTo:@"list_icon.png"];
     } else if (self.menuListViewController.displayMethod == kMethodPhoto){
         self.menuListViewController.displayMethod = kMethodList;
-        [self changeViewModeButtonIconTo:@"list_icon.png"];
+        [self changeViewModeButtonIconTo:@"photo_icon.png"];
     } else {
         NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
@@ -248,9 +252,9 @@
     [self.viewModeButton addTarget:self action:@selector(viewModeButtonPressedAtListPage:) forControlEvents:UIControlEventTouchUpInside];
     
     if (self.menuListViewController.displayMethod == kMethodPhoto){
-        [self changeViewModeButtonIconTo:@"photo_icon.png"];
-    } else{
         [self changeViewModeButtonIconTo:@"list_icon.png"];
+    } else{
+        [self changeViewModeButtonIconTo:@"photo_icon.png"];
     }
     
     [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(goToHomePage)];
@@ -346,9 +350,23 @@
 }
 
 - (void) performRequestBillConfirmationPopUp{
+    
+    NSMutableString *message = [[NSMutableString alloc] init];
+    
+    // Append the price information to the message:
+    float subtotal = [self.pastOrder getTotalPrice];
+    float gst = subtotal * self.outlet.gstRate;
+    float serviceCharge = subtotal * self.outlet.serviceChargeRate;
+    float totalPrice = subtotal + gst + serviceCharge;
+    
+    [message appendFormat:@"Subtotal: %.2f\n", subtotal];
+    [message appendFormat:@"GST(%.0f%%): %.2f\n", self.outlet.gstRate * 100, gst];
+    [message appendFormat:@"Service Charge(%.0f%%): %.2f\n", self.outlet.serviceChargeRate * 100, serviceCharge];
+    [message appendFormat:@"Total: %.2f", totalPrice];
+    
     self.requestForBillAlertView = [[UIAlertView alloc]
-                               initWithTitle:@"Call For Service"
-                               message:@"Would you like the bill?"
+                               initWithTitle:@"Would you like your bill?"
+                               message:message
                                delegate:self
                                cancelButtonTitle:@"Yes"
                                otherButtonTitles:@"Cancel", nil];
@@ -410,13 +428,20 @@
 }
 
 - (void) afterSuccessfulRequestBill{
-    UIAlertView *alertView = [[UIAlertView alloc]
+    self.afterRequestBillAlertView = [[UIAlertView alloc]
                               initWithTitle:@"Call For Bill"
                               message:@"The waiter will be right with you"
-                              delegate:nil
+                              delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
-    [alertView show];
+    [self.afterRequestBillAlertView show];
+    
+    // After the "OK" button is clicked, [self afterRequestBillAlertViewOkayButtonClicked] will be clicked;
+}
+
+- (void) afterRequestBillAlertViewOkayButtonClicked{
+    
+    NSLog(@"asdfasdfasfdasdfasdf");
     
     // Load and show the ratingAndFeedbackViewController:
     
@@ -432,7 +457,7 @@
                                                     frame.size.height)];
     
     // Load data
-    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder];
+    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
     
     // Add subview and make it appear
     [self.view addSubview: self.ratingsAndFeedbackView];
@@ -636,6 +661,10 @@
     
     else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
         [self.navigationController popViewControllerAnimated:NO];
+    }
+    
+    else if ([alertView isEqual:self.afterRequestBillAlertView]){
+        [self afterRequestBillAlertViewOkayButtonClicked];
     }
     
     else{
@@ -853,9 +882,10 @@
 
 - (IBAction)requestWaterOkayButtonPressed:(id)sender {
     
-    NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
-
-    [self requestWithType:@0 WithNote:note];
+    if (self.quantityOfColdWater != 0 || self.quantityOfWarmWater != 0) {
+        NSString *note = [NSString stringWithFormat:@"Cold Water: %d cups. Warm Water: %d cups", self.quantityOfColdWater, self.quantityOfWarmWater];
+        [self requestWithType:@0 WithNote:note];
+    }
     
     [self requestWaterCancelButtonPressed:nil];
 }
@@ -961,6 +991,8 @@
     self.inputTableIDAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [self.inputTableIDAlertView show];
 }
+
+#pragma mark - Others
 
 
 @end

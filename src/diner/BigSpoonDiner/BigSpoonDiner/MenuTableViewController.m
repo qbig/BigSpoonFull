@@ -17,10 +17,6 @@
 
 @implementation MenuTableViewController
 
-@synthesize dishesArray;
-@synthesize outlet;
-@synthesize displayMethod;
-@synthesize displayCategory;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,12 +30,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.categoryButtonsArray = [[NSMutableArray alloc] init];
     
+    [self loadCategoriesFromServer];
     [self loadDishesFromServer];
     
     // By default:
-    displayCategory = kCategoryBreakfast;
-    displayMethod = kMethodPhoto;
+    self.displayMethod = kMethodPhoto;
+    self.displayCategoryID = -1;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,25 +64,55 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.dishesArray count];
+    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+    // Add one at the bottom to avoid from hidden by the bar
+    return [dishes count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+    
+    // The very last one: placeholder to avoid from hidden by the bar:
+    if ([indexPath row] == [dishes count]) {
+        if (self.displayMethod == kMethodList) {
+            MenuListCell *cell = [[MenuListCell alloc]init];
+            
+            cell.nameLabel.text = @"";
+            cell.addButton.tag = -1;
+            cell.priceLabel.text = @"";
+            cell.descriptionLabel.text = @"";
+            
+            return cell;
+        } else{
+            
+            MenuPhotoCell *cell = [[MenuPhotoCell alloc] init];
+            [cell.addButton setEnabled:NO];
+            cell.nameLabel.text = @"";
+            cell.addButton.tag = -1;
+            cell.priceLabel.text = @"";
+            cell.descriptionLabel.text = @"";
+            cell.imageView.image = nil;
+
+            return cell;
+        }
+    }
+    
+    
+    Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
+
     if (self.displayMethod == kMethodList) {
         
         MenuListCell *cell = (MenuListCell *)[tableView
                                       dequeueReusableCellWithIdentifier:@"MenuListCell"];
-    
-        Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
-    
+        
         cell.nameLabel.text = dish.name;
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
     
-        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
     
         cell.descriptionLabel.text = dish.description;
         
@@ -98,8 +126,6 @@
                                               dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        Dish *dish = [self.dishesArray objectAtIndex:indexPath.row];
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
@@ -116,7 +142,7 @@
         
         cell.nameLabel.text = dish.name;
         
-        cell.priceLabel.text = [NSString stringWithFormat:@"%.2f", dish.price];
+        cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
         
         cell.descriptionLabel.text = dish.description;
         
@@ -125,6 +151,70 @@
     }
     
 }
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.displayMethod == kMethodList) {
+        return ROW_HEIGHT_LIST_MENU;
+    } else if (self.displayMethod == kMethodPhoto){
+        return ROW_HEIGHT_PHOTO_MENU;
+    } else{
+        NSLog(@"Invalid display method");
+        return 100;
+    }
+}
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
+ */
 
 - (UIImage *)imageForRating:(int)rating
 {
@@ -138,6 +228,8 @@
 	}
 	return nil;
 }
+
+#pragma mark - Loading Data:
 
 - (void) loadDishesFromServer{
 
@@ -155,6 +247,98 @@
     // Create url connection and fire request
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
+
+- (void) loadCategoriesFromServer{
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: DISH_CATEGORY_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPMethod = @"GET";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        long responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                
+                NSArray *categories = (NSArray*)responseObject;
+                
+                int sumOfCategoryButtonWidths = 0;
+                int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
+                UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+                                                              green:CATEGORY_BUTTON_COLOR_GREEN
+                                                               blue:CATEGORY_BUTTON_COLOR_BLUE
+                                                              alpha:1];
+                
+                for (NSDictionary *newCategory in categories) {
+                    NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
+                    NSString *name = [newCategory objectForKey:@"name"];
+                    NSString *description = [newCategory objectForKey:@"desc"];
+                    
+                    DishCategory *newObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
+                                                                       name:name
+                                                             andDescription:description];
+                    // Put the object into dishDategoryArray:
+                    [self.dishCategoryArray addObject:newObj];
+                    
+                    // Add one more category button
+                    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                    button.tag = [categoryID integerValue];
+                    button.layer.borderColor = buttonElementColour.CGColor;
+                    button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
+
+                    [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
+                    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size:20.0];
+                    
+                    [button addTarget:self
+                               action:@selector(dishCategoryButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+                    
+                    // Add spaces before and after the title:
+                    NSString *buttonTitle = [name stringByAppendingString:@" "];
+                    buttonTitle = [@" " stringByAppendingString:buttonTitle];
+                    [button setTitle:buttonTitle forState:UIControlStateNormal];
+                    
+                    [self.categoryButtonsHolderView addSubview:button];
+
+                    int buttonWidth = ([name length] + 2) * AVERAGE_PIXEL_PER_CHAR;
+                    button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
+                    // minus border width so that they will overlap at the border:
+                    sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;
+                    
+                    [self.categoryButtonsArray addObject:button];
+                }
+                
+                self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths, buttonHeight);
+                [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
+                
+            }
+                break;
+            case 403:
+            default:{
+                [self displayErrorInfo: @"Please check your network"];
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo:operation.responseString];
+                                      }];
+    [operation start];
+}
+
+- (void) displayErrorInfo: (NSString *) info{
+    NSLog(@"Error: %@", info);
+    UIAlertView *alertView = [[UIAlertView alloc]
+                              initWithTitle:@"Oops"
+                              message: info
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+    [alertView show];
+}
+
 
 // HTTP callback to add one more new item in the table:
 - (void)addDish:(Dish *)dish
@@ -191,18 +375,6 @@
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.displayMethod == kMethodList) {
-        return ROW_HEIGHT_LIST_MENU;
-    } else if (self.displayMethod == kMethodPhoto){
-        return ROW_HEIGHT_PHOTO_MENU;
-    } else{
-        NSLog(@"Invalid display method");
-        return 100;
-    }
-}
-
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     // Append the new data to the instance variable you declared
     [_responseData appendData:data];
@@ -217,12 +389,7 @@
     NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
                                                                          options:kNilOptions
                                                                            error:&error];
-    
-    //        for (id key in [json allKeys]){
-    //            NSString* obj =(NSString *) [json objectForKey: key];
-    //            NSLog(obj);
-    //        }
-    
+
     switch (statusCode) {
             
         // 200 Okay
@@ -266,7 +433,7 @@
                                                           Price:price
                                                         Ratings:rating
                                                              ID:ID
-                                                    categories:categories
+                                                    categories:categoryIDs
                                                          imgURL:imgURL
                                                             pos:pos
                                                       startTime:startTime
@@ -332,56 +499,7 @@
     [alertView show];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
+#pragma mark - Event Listeners
 
 - (IBAction)breakfastButtonPressed:(id)sender {
     NSLog(@"breakfastButtonPressed");
@@ -408,14 +526,50 @@
     [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
+-(IBAction)dishCategoryButtonPressed:(UIButton*)button{
+    UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+                                                   green:CATEGORY_BUTTON_COLOR_GREEN
+                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
+                                                   alpha:1];
+    
+    [button setBackgroundColor:buttonElementColour];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    for (UIButton *newButton in self.categoryButtonsArray) {
+        if (newButton.tag != button.tag) {
+            NSLog(@"%d %d", newButton.tag, button.tag);
+            [newButton setBackgroundColor:[UIColor whiteColor]];
+            [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
+        }
+    }
+    
+    self.displayCategoryID = button.tag;
+    [self.tableView reloadData];
+}
+
+#pragma mark - Others
+
 - (Dish *) getDishWithID: (int) itemID{
-    for (Dish * dish in dishesArray) {
+    for (Dish * dish in self.dishesArray) {
         if (dish.ID == itemID) {
             return dish;
         }
     }
     NSLog(@"Dish with itemID: %d, was not found when trying to order", itemID);
     return nil;
+}
+
+- (NSArray *) getDishWithCategory: (int) categoryID{
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for (Dish *dish in self.dishesArray) {
+        for (NSNumber *number in dish.categories) {
+            if ([number integerValue] == categoryID) {
+                [result addObject:dish];
+                break;
+            }
+        }
+    }
+    return result;
 }
 
 

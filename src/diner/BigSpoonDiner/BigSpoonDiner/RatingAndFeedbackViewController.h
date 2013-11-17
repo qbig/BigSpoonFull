@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSMutableDictionary *ratings;
 
 @property (strong, nonatomic) Order* currentOrder;
+@property (nonatomic) int outletID;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
 
@@ -29,7 +30,7 @@
 - (IBAction)ratingCancelButtonPressed:(id)sender;
 - (IBAction)textFieldDidEndOnExit:(id)sender;
 
-- (void) reloadDataWithOrder: (Order *) currentOrder;
+- (void) reloadDataWithOrder: (Order *) currentOrder andOutletID: (int) outletID;
 
 
 
