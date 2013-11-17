@@ -219,6 +219,9 @@ $(document).ready(function() {
                 req_data
             ).done(function(data) {
                 console.log("POST success!");
+                button.parent().append("<p class='success'><i class='icon-ok-sign'></i> Note saved!</p>")
+
+
             }).fail(function(data) {
                 console.log("POST failed");
                 console.log(data);
