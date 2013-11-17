@@ -102,7 +102,7 @@
                     {% elif request.request_type == 1%}
                     <img class="icon" src="{% static "img/waiter.png" %}"/>
                     {% endif %}
-                    <a class="respond ack-button" rel="req" model="request" id="{{request.id}}"><i class="icon-glass"></i> Acknowledge</a>
+                    <a class="respond ack-button" rel="req" model="request" id="{{request.id}}"><i class="icon-check-sign"></i> Acknowledge</a>
                 </div>
             {% endwith %}
         {% endif %}
