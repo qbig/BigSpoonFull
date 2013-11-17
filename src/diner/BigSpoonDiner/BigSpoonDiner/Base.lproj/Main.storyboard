@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--Login View Controller - Login-->
@@ -390,9 +390,40 @@
                                 <rect key="frame" x="-5" y="514" width="326" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_circle.png" id="Pv4-sA-esJ">
+                                <rect key="frame" x="278" y="515" width="18" height="18"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AKE-PM-MCP">
+                                <rect key="frame" x="278" y="511" width="18" height="25"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="yyO-yx-G8U" userLabel="Cover view for requesWater">
+                                <rect key="frame" x="0.0" y="515" width="80" height="53"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="PyR-ZX-A9A" userLabel="Cover view for requestWaiter">
+                                <rect key="frame" x="80" y="515" width="79" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="DPP-Ww-pJ9" userLabel="Cover view for requestBill">
+                                <rect key="frame" x="160" y="515" width="76" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="Hew-HO-lva" userLabel="Cover view for itemsButton">
+                                <rect key="frame" x="240" y="515" width="73" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <toolbar clearsContextBeforeDrawing="NO" alpha="0.10000000000000001" contentMode="scaleToFill" id="W4q-pe-P4i">
                                 <rect key="frame" x="14" y="511" width="286" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="              " width="47" id="Bta-gf-M88">
                                         <connections>
@@ -416,17 +447,6 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="red_circle.png" id="Pv4-sA-esJ">
-                                <rect key="frame" x="278" y="515" width="18" height="18"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AKE-PM-MCP">
-                                <rect key="frame" x="278" y="511" width="18" height="25"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
                                 <rect key="frame" x="-44" y="-55" width="93" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -466,7 +486,11 @@
                         <outlet property="container" destination="OY8-ew-AZo" id="3wv-wx-0wk"/>
                         <outlet property="itemQuantityLabel" destination="AKE-PM-MCP" id="nFx-Gv-xYC"/>
                         <outlet property="itemQuantityLabelBackgroundImageView" destination="Pv4-sA-esJ" id="rUk-6Y-j9D"/>
+                        <outlet property="itemsButtonCoverView" destination="Hew-HO-lva" id="qky-qc-dtM"/>
                         <outlet property="navigationItem" destination="8dV-wS-J2x" id="vCK-AL-3zP"/>
+                        <outlet property="requestBillButtonCoverView" destination="DPP-Ww-pJ9" id="OPS-o5-iXc"/>
+                        <outlet property="requestWaiterButtonCoverView" destination="PyR-ZX-A9A" id="cTR-wm-5oH"/>
+                        <outlet property="requestWaterButtonCoverView" destination="yyO-yx-G8U" id="LKy-7j-n7V"/>
                         <outlet property="settingsBarButton" destination="y9B-8i-1fw" id="NFH-rw-YGu"/>
                         <outlet property="settingsButton" destination="Ly9-TU-y8l" id="hfo-LG-PeR"/>
                         <outlet property="viewModeBarButton" destination="uqC-gj-MFU" id="usO-YW-MOx"/>
