@@ -1170,9 +1170,10 @@ input#filter {
 }
 
 .notification {
-    visibility: hidden;
+    /*visibility: hidden;*/
     width:20px;
     height:20px;
+    margin-left: 5px;
     display:inline;
     font-size: 14px;
     background: rgba(231,76,60,0.8);

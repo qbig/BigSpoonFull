@@ -5,8 +5,17 @@ $(document).ready(function() {
         urls: ['{{STATIC_URL}}sounds/notification.mp3']
     })
 
-    function showNotification() {
-        $('.notification').css("visibility", "visible");
+    function getNotification(number){
+        if(!number){
+            return "<p class='notification'><span><i class='icon-bell'> New</i></span></p>";
+        }
+
+        return "<p class='notification'><span><i class='icon-bell'> " + number + "</i></span></p>";
+    }
+
+    function showNotification(number) {
+        $("nav ul li:first-child a p").remove()
+        $("nav ul li:first-child a").append(getNotification(number))
         sound.play();
         setInterval(function() {
             sound.play();
