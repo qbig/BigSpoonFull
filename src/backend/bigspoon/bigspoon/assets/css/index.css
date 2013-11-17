@@ -223,7 +223,7 @@ h1 {
 }
 
 .side {
-  max-width: 65%;
+  max-width: 70%;
   display:block;
   margin: 0 auto;
 }
@@ -233,7 +233,8 @@ h1 {
 }
 
 .side span {
-  padding: 0 3%;
+  width: 50%;
+  margin-left: -1%;
   float: left;
   /*margin-bottom:-20px;*/
 }
@@ -241,7 +242,7 @@ h1 {
 .side span.screenshot-ios {
   width: 30%;
   padding: 0px;
-  margin: 0px 12.6% 0px 6.5%;
+  margin: 0px 10%;
   margin-top: 40px;
   /*margin-bottom:-20px;*/
 }

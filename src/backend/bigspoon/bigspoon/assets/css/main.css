@@ -455,6 +455,7 @@ p.note {
 
 .order li em.pos{
     padding:2px 5px;
+    margin-left: 5px;
     border-radius:5px;
     background-color:#61C0B9;
     color: #fff;
