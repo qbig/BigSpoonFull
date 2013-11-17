@@ -20,7 +20,8 @@
                   lon:(double)longitude
       promotionalText: (NSString *) pro
               gstRate: (double) g
-    serviceChargeRate: (double) s {
+    serviceChargeRate: (double) s
+             isActive:(BOOL)isA{
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -34,6 +35,7 @@
         self.promotionalText = pro;
         self.gstRate = g;
         self.serviceChargeRate = s;
+        self.isActive = isA;
     }
     return self;
 }
