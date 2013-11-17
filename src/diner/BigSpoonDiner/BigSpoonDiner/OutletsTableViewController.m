@@ -168,7 +168,8 @@
                 NSString* opening = [newOutlet objectForKey:@"opening"];
                 NSString* promotionalText = [newOutlet objectForKey:@"discount"];
                 double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
-                double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];;
+                double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
+                BOOL isActive = [[newOutlet objectForKey:@"is_active"] boolValue];
                 
                 NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
                 
@@ -177,12 +178,13 @@
                                                                 Address: address
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
-                                                               OutletID:ID
-                                                                    lat:lat
-                                                                    lon:lon
+                                                               OutletID: ID
+                                                                    lat: lat
+                                                                    lon: lon
                                                         promotionalText: promotionalText
                                                                 gstRate: gstRate
-                                                      serviceChargeRate: serviceChargeRate];
+                                                      serviceChargeRate: serviceChargeRate
+                                                               isActive: isActive];
                 [self addOutlet:newOutletObject];
                 
             }
