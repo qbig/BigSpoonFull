@@ -55,6 +55,13 @@
 - (IBAction)requestBillButtonPressed:(id)sender;
 - (IBAction)itemsButtonPressed:(id)sender;
 
+// Cover views. For animation purpost. When the buttons are clicked, the views will blank.
+@property (strong, nonatomic) IBOutlet UIView *requestWaterButtonCoverView;
+@property (strong, nonatomic) IBOutlet UIView *requestWaiterButtonCoverView;
+@property (strong, nonatomic) IBOutlet UIView *requestBillButtonCoverView;
+@property (strong, nonatomic) IBOutlet UIView *itemsButtonCoverView;
+
+
 // Objects related to Container view:
 
 @property (strong, nonatomic) IBOutlet UIView *container;
