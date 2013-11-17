@@ -169,7 +169,11 @@
                 NSString* promotionalText = [newOutlet objectForKey:@"discount"];
                 double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
                 double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
-                BOOL isActive = [[newOutlet objectForKey:@"is_active"] boolValue];
+                BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
+                
+                if (!isActive) {
+                    promotionalText = @"Coming Soon!";
+                }
                 
                 NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
                 
@@ -185,9 +189,11 @@
                                                                 gstRate: gstRate
                                                       serviceChargeRate: serviceChargeRate
                                                                isActive: isActive];
-                [self addOutlet:newOutletObject];
-                
+                [self.outletsArray addObject:newOutletObject];
+
             }
+            
+            [self.tableView reloadData];
             
             break;
         }
@@ -229,21 +235,6 @@
                                               otherButtonTitles: nil];
     [alertView show];
 }
-
-
-// HTTP Request callback to add one more new item in the table:
-- (void)addOutlet:(Outlet *)Outlet
-{
-	[self.outletsArray addObject:Outlet];
-	NSIndexPath *indexPath =
-    [NSIndexPath indexPathForRow:[self.outletsArray count] - 1
-                       inSection:0];
-    
-	[self.tableView insertRowsAtIndexPaths:
-     [NSArray arrayWithObject:indexPath]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 
 - (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -291,6 +282,26 @@
 
 
 #pragma mark - Navigation
+
+- (void) tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+    
+    // Deselect the row. Otherwise it will remain being selected.
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if (outlet.isActive) {
+        NSLog(@"Is Active haha!!");
+        NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
+        [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
+    } else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:@"The restaurant is coming soon"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Okay"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+    }
+}
 
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

@@ -185,7 +185,7 @@
 // Failed to get current location
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-	
+	return;
     UIAlertView *errorAlert = [[UIAlertView alloc]
 							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     // Call alert
