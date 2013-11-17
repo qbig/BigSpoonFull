@@ -101,8 +101,13 @@
                         <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
                     </span>
 
-                    <p class="note">{{request.note}}
-                    </p>
+                    <ul class="order">
+                    {% if request.note %}
+                        <li>
+                            {{request.note}}
+                        </li>
+                    </ul>
+
                     {% if request.request_type == 0 %}
                     <img class="icon" src="{% static "img/water.png" %}"/>
                     {% elif request.request_type == 1%}
