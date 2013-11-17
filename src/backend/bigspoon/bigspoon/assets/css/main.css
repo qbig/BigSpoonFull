@@ -550,7 +550,7 @@ background-color: #468847;
     padding-top:0px;
     margin-top:10px;
     background: #fff;
-    width: 880px;
+    width: 960px;
     border-radius:5px;
     padding-bottom: 40px;
 }
@@ -662,7 +662,7 @@ background-color: #468847;
     float: left;
     overflow: hidden;
     margin-right:5px;
-    height: 250px;
+    height: 300px;
 }
 
 .menu-item span{
