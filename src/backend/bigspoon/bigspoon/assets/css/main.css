@@ -572,7 +572,7 @@ background-color: #468847;
 #main .item p.allergy {
     height: 20px;
     font-size: 14px;
-    background: rgb(231,76,60);
+    background: #61C0B9;
     padding: 2px 10px;
     margin: 0px;
     color: #FFF;
@@ -987,7 +987,7 @@ form.menu-add {
 /* Vegetarian/Muslim notice */
 .notice {
     margin-bottom: 0px;
-    background: #0C4;
+    background: #4EB2AB;
     color: #fff;
     color: #fff;
     text-align: center;
