@@ -195,7 +195,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OutletCell" rowHeight="100" id="bZU-2o-sDh" customClass="OutletCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OutletCell" rowHeight="100" id="bZU-2o-sDh" customClass="OutletCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bZU-2o-sDh" id="xRc-jP-aKA">
@@ -249,7 +249,6 @@
                                     <outlet property="outletPhoto" destination="leB-4Q-EHN" id="riu-w9-Kjq"/>
                                     <outlet property="phoneNumber" destination="oSa-MY-BB2" id="dbv-hl-Rcv"/>
                                     <outlet property="promotionTextLabel" destination="5BL-lu-BuV" id="YQp-0o-DUL"/>
-                                    <segue destination="fn9-OW-D18" kind="push" identifier="SegueFromOutletsToMenu" id="6PQ-vE-KGr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -273,10 +272,13 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="fn9-OW-D18" kind="push" identifier="SegueFromOutletsToMenu" id="h0Y-o3-BiD"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAk-Dc-Qc1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1188" y="1103"/>
+            <point key="canvasLocation" x="1240" y="1083"/>
         </scene>
         <!--Profile View Controller - Profile-->
         <scene sceneID="8sa-iJ-CvT">
@@ -1092,7 +1094,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qnZ-wN-VZu"/>
         <segue reference="ew3-Pm-EPj"/>
+        <segue reference="TRy-SG-Bfr"/>
     </inferredMetricsTieBreakers>
 </document>
