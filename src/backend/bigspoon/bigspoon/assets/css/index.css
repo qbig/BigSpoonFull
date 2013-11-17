@@ -123,7 +123,7 @@ h1 {
 }
 
 .main-scroll section:nth-child(odd)  {
-  background: url("{{STATIC_URL}}img/bg.png");
+  background: url("{{STATIC_URL}}img/bg_web.png");
   /*box-shadow: inset 0px 0px 40px 5px rgba(0,0,0,0.2);*/
 }
 
