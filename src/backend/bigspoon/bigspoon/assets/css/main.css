@@ -499,13 +499,13 @@ background: #fcf6ef;
     background-color: rgb(231,76,60);
 }
 
-.item a.closebill:hover,.item a.closebill:active, .item a.closebill:focus {
+/*.item a.closebill:hover,.item a.closebill:active, .item a.closebill:focus {
 background-color: #468847;
 }
 
 .item a.acknowledge:hover,.item a.acknowledge:active, .item a.acknowledge:focus {
     background-color: #008cdd;
-}
+}*/
 
 .item a.respond:hover,.item a.respond:active, .item a.respond:focus {
     background-color: #0C4;
