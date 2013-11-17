@@ -34,6 +34,8 @@
     [super viewDidLoad];
     
     [self loadOutletsFromServer];
+    
+    self.isSocketConnected = NO;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -355,6 +357,82 @@
     self.pastOrder = pastOrder;
     self.outletIDOfPreviousSelection = outletID;
     self.tableIDOfPreviousSelection = tableID;
+}
+
+#pragma mark - Socket Connection
+
+// Delegate method which will be called by menuViewController
+- (void) userDidMakeRequests{
+    
+    if (!self.isSocketConnected) {
+        self.isSocketConnected = YES;
+
+        CFReadStreamRef readStream;
+        CFWriteStreamRef writeStream;
+        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)SOCKET_URL, SOCKET_PORT, &readStream, &writeStream);
+        self.inputStream = (__bridge NSInputStream *)readStream;
+        self.outputStream = (__bridge NSOutputStream *)writeStream;
+        
+        [self.inputStream setDelegate:self];
+        [self.outputStream setDelegate:self];
+        
+        [self.inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [self.outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        
+        
+        // Subscribe
+        User *user = [User sharedInstance];
+        NSString *response  = [NSString stringWithFormat:@"subscribe:u_%@", user.auth_token];
+        NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+        [self.outputStream write:[data bytes] maxLength:[data length]];
+    }
+}
+
+- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode{
+    
+    switch (eventCode) {
+            
+		case NSStreamEventOpenCompleted:
+			NSLog(@"Stream opened");
+			break;
+            
+		case NSStreamEventHasBytesAvailable:
+            NSLog(@"Stream has byte available");
+            if (aStream == self.inputStream) {
+                
+                uint8_t buffer[1024];
+                int len;
+                
+                while ([self.inputStream hasBytesAvailable]) {
+                    len = [self.inputStream read:buffer maxLength:sizeof(buffer)];
+                    if (len > 0) {
+                        
+                        NSString *output = [[NSString alloc] initWithBytes:buffer length:len encoding:NSASCIIStringEncoding];
+                        
+                        if (nil != output) {
+                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                                                message:output
+                                                                               delegate:nil
+                                                                      cancelButtonTitle:@"Got it."
+                                                                      otherButtonTitles: nil];
+                            [alertView show];
+                        }
+                    }
+                }
+            }
+
+			break;
+            
+		case NSStreamEventErrorOccurred:
+			NSLog(@"Stream: Can not connect to the host!");
+			break;
+            
+		case NSStreamEventEndEncountered:
+			break;
+            
+		default:
+			NSLog(@"Stream: Unknown event");
+	}
 }
 
 @end
