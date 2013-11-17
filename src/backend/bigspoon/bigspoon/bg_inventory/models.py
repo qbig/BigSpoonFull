@@ -406,6 +406,9 @@ class Dish(models.Model):
     """
     Stores outlet dish information
     """
+    QUANTITY_CHOICES = [(i, i) for i in xrange(0, 51, 10)]
+    QUANTITY_CHOICES += [(100, 100)]
+
     outlet = models.ForeignKey(
         Outlet,
         help_text=_('belong to outlet'),
@@ -441,6 +444,7 @@ class Dish(models.Model):
     quantity = models.IntegerField(
         default=0,
         help_text=_('dish stock'),
+        choices=QUANTITY_CHOICES,
     )
     photo = ImageWithThumbsField(
         upload_to=_image_upload_path,

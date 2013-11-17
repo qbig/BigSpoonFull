@@ -70,11 +70,38 @@
                           delay:0
                         options: UIViewAnimationOptionAutoreverse
                      animations:^{
-                         view.alpha = BUTTON_CLICK_ANIMATION_ALPHA;                     }
+                         view.alpha = BUTTON_CLICK_ANIMATION_ALPHA;
+                     }
                      completion:^(BOOL finished){
                          view.alpha = 1;
                      }];
 
+    
+}
+
++ (void) animateRequestButtonWhenClicked: (UIView*) view{
+    NSLog(@"Fuck: %f %f %f %f", view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    [view setHidden: NO];
+    
+    [UIView animateWithDuration:BUTTON_CLICK_ANIMATION_DURATION
+                          delay:0
+                        options: UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         view.alpha = 0.5;
+                     }
+                     completion:^(BOOL finished){
+                         
+                         [UIView animateWithDuration:BUTTON_CLICK_ANIMATION_DURATION
+                                               delay:0
+                                             options: UIViewAnimationOptionAllowAnimatedContent
+                                          animations:^{
+                                              view.alpha = 0.2;
+                                          }
+                                          completion:^(BOOL finished){
+                                              [view setHidden:YES];
+                                          }];
+                     
+                     }];
     
 }
 

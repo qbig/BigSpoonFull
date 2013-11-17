@@ -18,7 +18,9 @@
 + (void) animateBadgeAfterUpdate: (UIView *)badgeView withOriginalFrame: (CGRect) oldFrameItemBadge;
 
 // Buttons in the table cell will not animate themselves when clicked.
-//Hence this function will be called.
+// Hence this function will be called.
 + (void) animateButtonWhenClicked:(UIView*) view;
+
++ (void) animateRequestButtonWhenClicked: (UIView*) view;
 
 @end

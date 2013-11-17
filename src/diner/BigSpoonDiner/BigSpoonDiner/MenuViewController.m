@@ -276,6 +276,7 @@
 
 - (IBAction)requestWaterButtonPressed:(id)sender {
     NSLog(@"requestWaterButtonPressed");
+    [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaterButtonCoverView];
 
     if (![self isTableIDKnown]) {
         [self askForTableID];
@@ -295,6 +296,7 @@
 }
 
 - (IBAction)requestWaiterButtonPressed:(id)sender {
+    [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaiterButtonCoverView];
     NSLog(@"callWaiterButtonPressed");
     
     if (![self isTableIDKnown]) {
@@ -322,6 +324,9 @@
 
 - (IBAction)requestBillButtonPressed:(id)sender {
     NSLog(@"billButtonPressed");
+    
+    [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestBillButtonCoverView];
+
     
     // If the user hasn't ordered anything:
     if ([self.pastOrder getTotalQuantity] == 0) {
@@ -471,6 +476,7 @@
 
 - (IBAction)itemsButtonPressed:(id)sender {
     NSLog(@"itemsButtonPressed");
+    [BigSpoonAnimationController animateRequestButtonWhenClicked:self.itemsButtonCoverView];
     
     // Can also check in the shouldPerformSegueWithIdentifier:sender
     // But it doesn't work because it's manual segue
