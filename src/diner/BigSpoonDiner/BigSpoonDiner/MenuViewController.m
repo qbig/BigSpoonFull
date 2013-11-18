@@ -928,7 +928,6 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
                 [alertView show];
-                [self.delegate userDidMakeRequests];
             }
                 break;
             case 403:

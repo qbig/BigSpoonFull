@@ -15,5 +15,4 @@
                             PastOrder: (Order *) pastOrder
                              OutletID: (int) outletID
                            andTableID: (int) tableID;
-- (void) userDidMakeRequests;
 @end

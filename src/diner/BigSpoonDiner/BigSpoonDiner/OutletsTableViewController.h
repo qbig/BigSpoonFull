@@ -16,10 +16,12 @@
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
 #import "SocketIO.h"
+#import "SocketIOPacket.h"
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, NSStreamDelegate, SocketIODelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, SocketIODelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
+@property (nonatomic, strong) SocketIO *socketIO;
 
 // Need to record the order items,
 // If the user ordered some items and comes out to the main page.
