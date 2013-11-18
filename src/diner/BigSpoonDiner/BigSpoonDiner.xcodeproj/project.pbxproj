@@ -295,6 +295,14 @@
 			name = SocketRocket;
 			sourceTree = "<group>";
 		};
+		4988FFEA183A236E00AB5CAD /* DelegateProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
+			);
+			name = DelegateProtocol;
+			sourceTree = "<group>";
+		};
 		4999A208180A4FCA00270B0B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,9 +417,9 @@
 		49F107E8180886D600D2C8DD /* BigSpoonDiner */ = {
 			isa = PBXGroup;
 			children = (
+				4988FFEA183A236E00AB5CAD /* DelegateProtocol */,
 				4988FFD8183A089300AB5CAD /* SocketRocket */,
 				4988FFBC183A05C100AB5CAD /* Socket */,
-				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
 				49CAFC50180BB9DE0058C900 /* Images */,
 				E9B7A28D180BF3EC009B6BD1 /* Views */,
 				4999A20F180A50C300270B0B /* Models */,

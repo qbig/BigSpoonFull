@@ -35,8 +35,9 @@
     
     [self loadOutletsFromServer];
     
-    self.isSocketConnected = NO;
-
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate connectSocket];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -358,111 +359,5 @@
     self.outletIDOfPreviousSelection = outletID;
     self.tableIDOfPreviousSelection = tableID;
 }
-
-#pragma mark - Socket Connection
-
-// Delegate method which will be called by menuViewController
-- (void) userDidMakeRequests{
-    
-//    if (!self.isSocketConnected) {
-//        
-//        self.isSocketConnected = YES;
-//
-//        CFReadStreamRef readStream;
-//        CFWriteStreamRef writeStream;
-//    
-//        NSURL *website = [NSURL URLWithString:SOCKET_URL];
-//        CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)[website host], SOCKET_PORT, &readStream, &writeStream);
-//       
-//        if (!website) {
-//            NSLog(@"Socket website is not valid");
-//            return;
-//        }
-//        
-//        self.inputStream = (__bridge_transfer NSInputStream *)readStream;
-//        self.outputStream = (__bridge_transfer NSOutputStream *)writeStream;
-//        
-//        [self.inputStream setDelegate:self];
-//        [self.outputStream setDelegate:self];
-//        
-//        [self.inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-//        [self.outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-//        
-//        [self.inputStream open];
-//        [self.outputStream open];
-//        
-//        // Subscribe
-//        User *user = [User sharedInstance];
-//        NSString *response  = [NSString stringWithFormat:@"subscribe:u_%@", user.auth_token];
-//        
-//        NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
-//        [self.outputStream write:[data bytes] maxLength:[data length]];
-//    }
-    SocketIO *socketIO = [[SocketIO alloc] initWithDelegate:self];
-    [socketIO connectToHost:SOCKET_URL onPort:SOCKET_PORT];
-    
-    
-    User *user = [User sharedInstance];
-
-    [socketIO sendMessage:[NSString stringWithFormat:@"subscribe:u_%@", user.auth_token]];
-}
-
-//
-//- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode{
-//    
-//    switch (eventCode) {
-//            
-//        case NSStreamEventHasSpaceAvailable:
-//            NSLog(@"Stream: NSStreamEventHasSpaceAvailable");
-//            // Usually occours after writing to the stream telling you that stream is ready for writing again and after opening a writable stream
-//            break;
-//        case NSStreamEventNone:
-//            NSLog(@"NSStreamEventNone");
-//            break;
-//		
-//        case NSStreamEventOpenCompleted:
-//			NSLog(@"Stream opened");
-//			break;
-//            
-//		case NSStreamEventHasBytesAvailable:
-//            NSLog(@"Stream has byte available");
-//            if (aStream == self.inputStream) {
-//                
-//                uint8_t buffer[1024];
-//                int len;
-//                
-//                while ([self.inputStream hasBytesAvailable]) {
-//                    len = [self.inputStream read:buffer maxLength:sizeof(buffer)];
-//                    if (len > 0) {
-//                        
-//                        NSString *output = [[NSString alloc] initWithBytes:buffer length:len encoding:NSASCIIStringEncoding];
-//                        
-//                        if (nil != output) {
-//                            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-//                                                                                message:output
-//                                                                               delegate:nil
-//                                                                      cancelButtonTitle:@"Got it."
-//                                                                      otherButtonTitles: nil];
-//                            [alertView show];
-//                        }
-//                        NSLog(@"Output: %@", output);
-//                    }
-//                }
-//            }
-//
-//			break;
-//            
-//		case NSStreamEventErrorOccurred:
-//			NSLog(@"Stream: NSStreamEventErrorOccurred!");
-//			break;
-//            
-//		case NSStreamEventEndEncountered:
-//            NSLog(@"Stream: event end encountered");
-//			break;
-//            
-//		default:
-//			NSLog(@"Stream: Unknown event %u", eventCode);
-//	}
-//}
 
 @end

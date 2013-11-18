@@ -8,9 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "SocketIO.h"
+#import "SocketIOPacket.h"
+#import "Constants.h"
+#import "User.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) SocketIO *socketIO;
+@property (nonatomic) BOOL isSocketConnected;
+
+- (void) connectSocket;
+- (void) disconnectSocket;
 
 @end

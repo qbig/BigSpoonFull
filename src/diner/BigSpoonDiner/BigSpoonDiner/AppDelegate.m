@@ -17,6 +17,7 @@
 {
     // Override point for customization after application launch.
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    self.isSocketConnected = NO;
     return YES;
 }
 
@@ -56,6 +57,79 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation{
     return [FBSession.activeSession handleOpenURL:url];
+}
+
+#pragma mark - Socket Connection
+
+// Delegate method which will be called by menuViewController
+
+- (void) connectSocket{
+    if (!self.isSocketConnected) {
+        self.socketIO = [[SocketIO alloc] initWithDelegate:self];
+        [self.socketIO connectToHost:SOCKET_URL onPort:SOCKET_PORT];
+    } else{
+        NSLog(@"AppDelegate detects that the socket is connected");
+    }
+}
+
+- (void) disconnectSocket{
+    [self.socketIO disconnect];
+    self.isSocketConnected = NO;
+    self.socketIO = nil;
+}
+
+#pragma mark - socketIO Deletage
+
+- (void) socketIODidConnect:(SocketIO *)socket{
+    NSLog(@"In App Delegate: socketIODidConnect");
+    
+    User *user = [User sharedInstance];
+    
+    [self.socketIO sendMessage:[NSString stringWithFormat:@"subscribe:u_%@", user.auth_token]];
+    self.isSocketConnected = YES;
+}
+
+- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error{
+    NSLog(@"In App Delegate: socketIODidDisconnect disconnectedWithError");
+    self.isSocketConnected = NO;
+}
+
+- (void) socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet{
+    NSLog(@"In App Delegate: didReceiveMessage");
+}
+
+- (void) socketIO:(SocketIO *)socket didReceiveJSON:(SocketIOPacket *)packet{
+    NSLog(@"In App Delegate: didReceiveJSON");
+    
+    NSDictionary *response = (NSDictionary *)[packet dataAsJSON];
+    response = (NSDictionary *)[response objectForKey:@"message"];
+    
+    NSString *type = [response objectForKey:@"type"];
+    if ([type isEqualToString:@"message"]) {
+        
+        NSString *messages = [response objectForKey:@"data"];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:messages
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+    }
+    
+}
+
+- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet{
+    NSLog(@"In App Delegate: didReceiveEvent");
+}
+
+- (void) socketIO:(SocketIO *)socket didSendMessage:(SocketIOPacket *)packet{
+    NSLog(@"In App Delegate: didSendMessage %@", packet.data);
+}
+
+- (void) socketIO:(SocketIO *)socket onError:(NSError *)error{
+    NSLog(@"In App Delegate: socketIO onError");
+    self.isSocketConnected = NO;
 }
 
 @end
