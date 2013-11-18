@@ -15,8 +15,9 @@
 #import "Order.h"
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
+#import "SocketIO.h"
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, NSStreamDelegate, SocketIODelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 
@@ -28,5 +29,9 @@
 @property (nonatomic, strong) Order * currentOrder;
 @property (nonatomic, strong) Order * pastOrder;
 
+// For sockets:
+@property (nonatomic) BOOL isSocketConnected;
+@property (nonatomic, strong) NSInputStream *inputStream;
+@property (nonatomic, strong) NSOutputStream *outputStream;
 
 @end

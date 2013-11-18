@@ -528,6 +528,7 @@ class GetSpendingData(generics.GenericAPIView):
                 table__outlet__in=req.user.outlet_ids,
                 created__gte=serializer.data['from_date'],
                 created__lte=serializer.data['to_date'])
-            return Response(MealSpendingSerializer(meals_past_week).data,
-                            status=status.HTTP_200_OK)
+            return Response(
+                MealSpendingSerializer(meals_past_week, many=True).data,
+                status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
