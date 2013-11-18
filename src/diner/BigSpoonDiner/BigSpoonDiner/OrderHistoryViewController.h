@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "HomeAndSettingsButtonView.h"
+#import "Constants.h"
+#import "User.h"
 //#import "PastOrderView.h"
 
 @class OrderHistoryViewController;
 
-@interface OrderHistoryViewController : UIViewController
+@interface OrderHistoryViewController : UIViewController <NSURLConnectionDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
 @property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
