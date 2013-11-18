@@ -177,6 +177,9 @@ $(document).ready(function() {
                         if (data[2] == "new" || data[2] == "askbill") {
                             showNotificationReload();
                         }
+                        else {
+                            location.reload(true);
+                        }
                     }
                     if (data[2] == "new" || data[2] == "askbill") {
                         showNotification();
