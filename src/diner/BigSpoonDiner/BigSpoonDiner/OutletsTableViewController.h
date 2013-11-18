@@ -30,4 +30,6 @@
 @property (nonatomic, strong) Order * currentOrder;
 @property (nonatomic, strong) Order * pastOrder;
 
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end

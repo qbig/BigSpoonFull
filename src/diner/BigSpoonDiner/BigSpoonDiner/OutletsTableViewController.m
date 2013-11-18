@@ -38,6 +38,11 @@
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate connectSocket];
     
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [self.view addSubview: self.activityIndicator];
+    self.activityIndicator.center = self.view.center;
+    [self showLoadingIndicators];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -197,6 +202,7 @@
             }
             
             [self.tableView reloadData];
+            [self stopLoadingIndicators];
             
             break;
         }
@@ -358,6 +364,18 @@
     self.pastOrder = pastOrder;
     self.outletIDOfPreviousSelection = outletID;
     self.tableIDOfPreviousSelection = tableID;
+}
+
+#pragma mark Show and hide indicators
+
+- (void) showLoadingIndicators{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [self.activityIndicator startAnimating];
+}
+
+- (void) stopLoadingIndicators{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+    [self.activityIndicator stopAnimating];
 }
 
 @end

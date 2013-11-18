@@ -99,6 +99,7 @@
         }
     }
     
+    NSLog(@"Asking for cell at: %d", indexPath.row);
     
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
 
@@ -537,7 +538,6 @@
     
     for (UIButton *newButton in self.categoryButtonsArray) {
         if (newButton.tag != button.tag) {
-            NSLog(@"%d %d", newButton.tag, button.tag);
             [newButton setBackgroundColor:[UIColor whiteColor]];
             [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
         }
