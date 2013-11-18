@@ -396,7 +396,7 @@ class CloseBill(generics.GenericAPIView):
         )
         send_user_feedback(
             "u_%s" % meal.diner.auth_token.key,
-            'Your bill has been closed.'
+            'Your bill has been closed by waiter.'
         )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
