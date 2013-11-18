@@ -26,9 +26,6 @@
             {% block content %}{% endblock %}
         </div>
         {% compress js %}
-        <script type="text/javascript"> 
-            var media_url = {{ MEDIA_URL }};
-        </script> 
         <script src="{% static "js/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
         <script src="{% static "js/jquery-1.10.1.min.js" %}"></script>
         <script src="{% static "js/jquery-ui.js" %}"></script>
@@ -45,6 +42,9 @@
         <script src="{% static "js/chart/time.js"%}"></script> <!--Must b AFTER chart.js-->
         <script src="{% static "js/chart/chartmanager.js"%}"></script> <!--Must b AFTER chart.js-->
         {% endcompress %}
+        <script type="text/javascript"> 
+            var media_url = {{ MEDIA_URL }};
+        </script> 
         {% block morejs %}
         {% endblock %}
     </body>
