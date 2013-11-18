@@ -89,11 +89,13 @@ class DishSerializer(serializers.ModelSerializer):
         if obj.photo:
             return {
                 'original': obj.photo.url,
-                'thumbnail': obj.photo.url_640x400,
+                'thumbnail': obj.photo.url_320x200,
+                'thumbnail_large': obj.photo.url_640x200,
             }
         return {
             'original': "media/restaurant/dishes/default.jpg",
             'thumbnail': "media/restaurant/dishes/default.jpg",
+            'thumbnail_large': "media/restaurant/dishes/default.jpg",
         }
 
     class Meta:
