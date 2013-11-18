@@ -5,7 +5,7 @@
 
 {% block nav %}
 <nav>
-
+        <div class="wrapper">
         <a class="logo" href="{% url "staff_main" %}"><img src="{% static 'img/logo-wide.png' %}"></a>
         <ul>
             <li><a href="{% url "staff_main" %}"><i class="icon-bell-alt"></i> New Orders</a></li>
@@ -15,5 +15,6 @@
             <li><a href="{% url "staff_report" %}"><i class="icon-bar-chart"></i> Report</a></li>
             <li><a class="logout" href="{% url "logout" %}"><i class="icon-times"></i> Logout</a></li>
         </ul>
+        </div>
 </nav>
 {% endblock nav %}
