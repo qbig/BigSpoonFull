@@ -23,9 +23,9 @@ NSString* const BILL_URL = @"http://122.248.199.242/api/v1/askbill";
 NSString* const RATING_URL = @"http://122.248.199.242/api/v1/rating";
 NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/review";
 NSString* const DISH_CATEGORY_URL = @"http://122.248.199.242/api/v1/categories";
+NSString* const ORDER_HISTORY_URL = @"http://122.248.199.242/api/v1/mealhistory";
 NSString* const SOCKET_URL = @"122.248.199.242";
 int const SOCKET_PORT = 8000;
-
 
 // Dimentions:
 

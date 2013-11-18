@@ -15,13 +15,12 @@
 #import "Order.h"
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
-#import "SocketIO.h"
-#import "SocketIOPacket.h"
+#import "AppDelegate.h"
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, SocketIODelegate>
+
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
-@property (nonatomic, strong) SocketIO *socketIO;
 
 // Need to record the order items,
 // If the user ordered some items and comes out to the main page.
@@ -30,10 +29,5 @@
 @property (nonatomic) int tableIDOfPreviousSelection;
 @property (nonatomic, strong) Order * currentOrder;
 @property (nonatomic, strong) Order * pastOrder;
-
-// For sockets:
-@property (nonatomic) BOOL isSocketConnected;
-@property (nonatomic, strong) NSInputStream *inputStream;
-@property (nonatomic, strong) NSOutputStream *outputStream;
 
 @end

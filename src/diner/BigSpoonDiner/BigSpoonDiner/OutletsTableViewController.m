@@ -35,8 +35,9 @@
     
     [self loadOutletsFromServer];
     
-    self.isSocketConnected = NO;
-
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate connectSocket];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -357,56 +358,6 @@
     self.pastOrder = pastOrder;
     self.outletIDOfPreviousSelection = outletID;
     self.tableIDOfPreviousSelection = tableID;
-}
-
-#pragma mark - Socket Connection
-
-// Delegate method which will be called by menuViewController
-- (void) userDidMakeRequests{
-    
-    self.socketIO = [[SocketIO alloc] initWithDelegate:self];
-    [self.socketIO connectToHost:SOCKET_URL onPort:SOCKET_PORT];
-}
-
-#pragma mark - socketIO Deletage
-
-- (void) socketIODidConnect:(SocketIO *)socket{
-    NSLog(@"socketIODidConnect");
-    
-    User *user = [User sharedInstance];
-    
-    [self.socketIO sendMessage:[NSString stringWithFormat:@"subscribe:u_%@", user.auth_token]];
-}
-
-- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error{
-    NSLog(@"socketIODidDisconnect disconnectedWithError");
-}
-
-- (void) socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet{
-    NSLog(@"didReceiveMessage");
-    NSDictionary *response = (NSDictionary *)[packet dataAsJSON];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                        message:[response objectForKey: @"data"]
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
-    [alertView show];
-}
-
-- (void) socketIO:(SocketIO *)socket didReceiveJSON:(SocketIOPacket *)packet{
-    NSLog(@"didReceiveJSON");
-}
-
-- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet{
-    NSLog(@"didReceiveEvent");
-}
-
-- (void) socketIO:(SocketIO *)socket didSendMessage:(SocketIOPacket *)packet{
-    NSLog(@"didSendMessage %@", packet.data);
-}
-
-- (void) socketIO:(SocketIO *)socket onError:(NSError *)error{
-    NSLog(@"socketIO onError");
 }
 
 @end
