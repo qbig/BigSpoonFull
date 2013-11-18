@@ -2,11 +2,19 @@ $(document).ready(function() {
 
     var host = "http://"+location.host;
     var sound = new Howl({
-        urls: ['{{STATIC_URL}}sounds/notification.mp3']
+        urls: [media_url + 'sounds/notification.mp3']
     })
 
-    function showNotification() {
-        $('.notification').css("visibility", "visible");
+    function getNotification(number){
+        if(!number){
+            return "<p class='notification'><span><i class='icon-bell'> New</i></span></p>";
+        }
+        return "<p class='notification'><span><i class='icon-bell'> " + number + "</i></span></p>";
+    }
+
+    function showNotification(number) {
+        $("nav ul li:first-child a p").remove();
+        $("nav ul li:first-child a").append(getNotification(number));
         sound.play();
         setInterval(function() {
             sound.play();
@@ -145,23 +153,18 @@ $(document).ready(function() {
     else {
         socket = io.connect(host+":8000");
     }
+
     socket.on("message", function(obj){
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
             var path = location.pathname;
             if (data[0] == "refresh") {
                 if (data[1] == "request" || data[1] == "meal") {
-                    if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
-                        if (data[2] == "new" || data[2] == "askbill") {
-                            sound.play();
-                        }
-                        location.reload(true);
+                    if (data[2] == "new" || data[2] == "askbill") {
+                        showNotification();
                     }
-                    else {
-                        if (localStorage.getItem("notify") != "true") {
-                            showNotification();
-                            localStorage.setItem("notify",true);
-                        }
+                    if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                        location.reload(true);
                     }
                 }
                 else if (data[1] == "menu") {
@@ -175,6 +178,7 @@ $(document).ready(function() {
             }
         }
     });
+
     if (outlet_ids != null) {
         for (var i = 0, len = outlet_ids.length; i < len; i++) {
             socket.send("subscribe:" + outlet_ids[i]);
@@ -185,7 +189,7 @@ $(document).ready(function() {
     $("#main .wrapper").masonry({
         resizeable: true,
         itemSelector: '.item',
-        columnWidth: 30,
+        columnWidth: 15,
     });
 
     // for request and order ack
@@ -307,7 +311,6 @@ $(document).ready(function() {
         var req_data = {
             "csrfmiddlewaretoken":csrftoken
         }
-        console.log(req_data);
         req_data[button.attr("model")] = button.attr("id");
         button.click(function() {
             $.post(

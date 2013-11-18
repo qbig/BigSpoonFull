@@ -75,14 +75,14 @@ h1 {
 .person {
   display:block;
   float: left;
-  padding: 0px 2px;
+  padding: 0px 5px;
   width: 180px;
 }
 
 .person h4 {
   margin-top: 0px;
   margin-bottom:0px;
-  width: 200px;
+  width: 180px;
   color: #fff;
   text-align:center;
   text-shadow: rgba(0, 0, 0, 0.2) 0 2px 0;
@@ -93,10 +93,10 @@ h1 {
 
 .person img {
   overflow-y: hidden;
-  margin: 25px;
+  margin: 0px 30px;
   margin-bottom:0px;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 100px;
   box-shadow: 0px 0px 40px 5px rgba(0,0,0,0.2);
 }
@@ -123,7 +123,7 @@ h1 {
 }
 
 .main-scroll section:nth-child(odd)  {
-  background: url("{{STATIC_URL}}img/bg.png");
+  background: url("{{STATIC_URL}}img/bg_web.png");
   /*box-shadow: inset 0px 0px 40px 5px rgba(0,0,0,0.2);*/
 }
 
@@ -223,7 +223,7 @@ h1 {
 }
 
 .side {
-  max-width: 65%;
+  max-width: 70%;
   display:block;
   margin: 0 auto;
 }
@@ -233,7 +233,8 @@ h1 {
 }
 
 .side span {
-  padding: 0 3%;
+  width: 50%;
+  margin-left: -1%;
   float: left;
   /*margin-bottom:-20px;*/
 }
@@ -241,7 +242,7 @@ h1 {
 .side span.screenshot-ios {
   width: 30%;
   padding: 0px;
-  margin: 0px 12.6% 0px 6.5%;
+  margin: 0px 10%;
   margin-top: 40px;
   /*margin-bottom:-20px;*/
 }
