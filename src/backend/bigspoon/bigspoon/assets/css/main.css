@@ -1205,3 +1205,7 @@ input#filter {
     display:inline;
     font-weight:bold;
 }
+
+.login p input {
+    max-width: 250px;
+}
