@@ -242,7 +242,6 @@ body {
 
 /* Top Navigation */
 nav {
-    display: inline;
     float: left;
     min-width:960px;
     width: 100%;
