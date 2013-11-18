@@ -15,8 +15,9 @@
 #import "Order.h"
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
+#import "SocketIO.h"
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, NSStreamDelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, NSStreamDelegate, SocketIODelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 
