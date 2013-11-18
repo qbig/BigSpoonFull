@@ -31,7 +31,6 @@ class BigSpoonNamespace(BaseNamespace):
 
 
 def socketio(request):
-    logger.info("socket-io request: %s" % (request))
     socketio_manage(
         request.environ,
         {'': BigSpoonNamespace, },
