@@ -6,7 +6,7 @@
 {% block content %}
 
     <div class="help">
-        <p><i class="icon-bar-chart"></i> <strong>Report</strong> shows you your outlet's overall analytics, from monthly revenue to top 5 most ordered dishes.</p>
+        <p><i class="icon-bar-chart"></i> <strong>Report</strong> shows you your outlet's overall analytics.</p>
     </div>
 
 <div class="wrapper">
@@ -15,8 +15,7 @@
 <table class="sortable datatable">
     <thead align="left">
         <tr>
-            <th class=" sorttable_sorted">S/N<span id="sorttable_sortfwdind">&nbsp;▾</span></th><!--Initialize sorttable sorting with the "sorttable_sorted" class and the "sorttable_sortfwdind" inner span.
-            So that there's a downward arrow from the beginning that will be automatically removed when some other column header is clicked. -->
+            <th class=" sorttable_sorted">S/N<span id="sorttable_sortfwdind">&nbsp;▾</span></th>
             <th class="separate-column">Customer</th>
             <th class="separate-column">Meal Creation Date</th>
             <th class="separate-column">Dishes Ordered</th>
@@ -24,46 +23,23 @@
         </tr>
     </thead>
     <tbody>
-    {% for meal in object_list %}
-		<tr>
-			<td><empty></empty>{{forloop.counter}}</td>
+        {% for meal in object_list %}
+        <tr>
+            <td>{{forloop.counter}}</td>
             <td class="separate-column"><a class="user-profile-link" href="/staff/user/{{meal.diner.id}}">{{meal.diner.get_full_name}}</a></td>
-			<td class="separate-column">{{meal.created}}</td>
-			<td class="separate-column">
-			{% for order in meal.orders.all %}
-				{% if order.quantity < 10 %}0{% endif %}{{order.quantity}}
-				&nbsp;&nbsp;{{order.dish.name}}<br> <!--This line is always shown-->
-			{% endfor %}
-			{% if meal.orders.all|length > 1 %}
-			<!--Should we put this at the top of the list of dishes order?-->
-			Meal Total <!--This line can be turned off-->
-			{% endif %}
-			</td>
-			<td class="separate-column"><!--using comment to prevent space between $ & num
-			>--><span class="order-spending"><!--
-			>-->{% for order in meal.orders.all %}{% if meal.orders.all|length > 1 %}<!--
-				Only show if length>1. Else we can just show the total, it's == that order.
-				>-->+ ${{order.get_order_spending|floatformat:2}}<br>{% endif %}
-				{% endfor %}
-				</span>
-				${{meal.get_meal_spending|floatformat:2}} <!--This line is always shown-->
-			</td>
-		</tr><!--
-		{% for order in meal.orders.all %}
-			<tr>
-				<td></td><td></td>
-				<td class="separate-column">{{order.dish.name}} x{{order.quantity}}</td>
-				<td></td>
-			</tr>
-		{% endfor %}-->
-    {% endfor %}
-        <!--<tr>
-            <td>1</td>
-            <td class="separate-column">Jul 6, 2006 8:14 AM</td>
-            <td class="separate-column">fish</td>
-            <td class="separate-column">Yos</td>
-            <td class="separate-column">$9.99</td>
-        </tr>-->
+            <td class="separate-column">{{meal.created}}</td>
+            <td class="separate-column">
+                <ul>
+                    {% for order in meal.orders.all %}
+                    <li><em>{{order.quantity}}x</em> {{order.dish.name}}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td class="separate-column">
+                ${{meal.get_meal_spending|floatformat:2}}
+            </td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
 </div>
@@ -80,8 +56,8 @@
 {% block morejs %}
 <!--Table-->
 <script src="{% static "js/sorttable.js"%}"></script>
-<!-- <script src="{% static "js/chart/Chart.js"%}"></script> -->
-<!-- <script src="{% static "js/chart/Chart.min.js"%}"></script> -->
-<!-- <script src="{% static "js/chart/time.js"%}"></script> --> <!--Must b AFTER chart.js-->
-<!-- <script src="{% static "js/chart/chartmanager.js"%}"></script> --> <!--Must b AFTER chart.js-->
+<script src="{% static "js/chart/Chart.js"%}"></script> 
+<script src="{% static "js/chart/Chart.min.js"%}"></script> 
+<script src="{% static "js/chart/time.js"%}"></script>  <!--Must b AFTER chart.js-->
+<script src="{% static "js/chart/chartmanager.js"%}"></script>  <!--Must b AFTER chart.js-->
 {% endblock morejs %}
