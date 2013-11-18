@@ -78,6 +78,7 @@
     NSError* error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
     NSLog(@"%@", jsonDict);
+    NSLog(@"%@", [User sharedInstance].firstName);
 //    NSArray* outletList = (NSArray*)jsonDict;
 //   switch (statusCode) {
 //            
@@ -170,6 +171,12 @@
 //- (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
 //    [self dismissViewControllerAnimated:YES completion:nil];
 //}
+
+- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
+                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
+    // Return nil to indicate not necessary to store a cached response for this connection
+    return nil;
+}
 
 - (void) viewDidAppear:(BOOL)animated {
     [self loadOrderHistoryFromServer];
