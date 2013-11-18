@@ -4,6 +4,12 @@ $(document).ready(function() {
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     })
+    var reload_sound = new Howl({
+        urls: [media_url + 'sounds/notification.mp3'],
+        onend: function() {
+            location.reload(true);
+        }
+    })
 
     function getNotification(number){
         if(!number){
@@ -21,6 +27,12 @@ $(document).ready(function() {
         }, 60000);
     }
 
+    function showNotificationReload(number) {
+        $("nav ul li:first-child a p").remove();
+        $("nav ul li:first-child a").append(getNotification(number));
+        reload_sound.play();
+    }
+
     if (location.pathname == "/staff/main/") {
         localStorage.removeItem("notify");
     }
@@ -28,6 +40,7 @@ $(document).ready(function() {
     if (localStorage.getItem("notify") == "true") {
         showNotification();
     }
+
     // time picker
     $('input.ui-timepicker-input').timepicker({
         'timeFormat': 'H:i:s',
@@ -140,7 +153,7 @@ $(document).ready(function() {
 
     // for socket io
     var STAFF_MEAL_PAGES = {
-        "new": ['/staff/main/', '/staff/tables/'],
+        "new": ['/staff/main/'],
         "ack": ['/staff/main/', '/staff/history/', '/staff/tables/'],
         "askbill": ['/staff/main/', '/staff/history/', '/staff/tables/'],
         "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
@@ -160,11 +173,13 @@ $(document).ready(function() {
             var path = location.pathname;
             if (data[0] == "refresh") {
                 if (data[1] == "request" || data[1] == "meal") {
+                    if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                        if (data[2] == "new" || data[2] == "askbill") {
+                            showNotificationReload();
+                        }
+                    }
                     if (data[2] == "new" || data[2] == "askbill") {
                         showNotification();
-                    }
-                    if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
-                        location.reload(true);
                     }
                 }
                 else if (data[1] == "menu") {
