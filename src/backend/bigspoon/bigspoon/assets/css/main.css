@@ -1209,3 +1209,11 @@ input#filter {
 .login p input {
     max-width: 250px;
 }
+
+.no-cards {
+    padding-top: 180px;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    text-shadow: rgba(0, 0, 0, 1) 0 1px 1px;
+}
