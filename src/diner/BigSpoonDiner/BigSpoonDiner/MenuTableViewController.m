@@ -99,7 +99,6 @@
         }
     }
     
-    
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
 
     if (self.displayMethod == kMethodList) {
@@ -130,14 +129,25 @@
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
         
-        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+        UIImage *image; // Without cache: = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+
+        
+        if ([[ImageCache sharedImageCache] doesExist:dish.imgURL] == true){
+            image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
+        } else {
+            NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];
+            image = [[UIImage alloc] initWithData:imageData];
+            
+            // Add the image to the cache
+            [[ImageCache sharedImageCache] addImageWithURL:dish.imgURL andImage:image];
+        }
         
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
         
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
         cell.imageView.image =  image;
-        
+
         cell.ratingImageView.image = [self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;
@@ -537,7 +547,6 @@
     
     for (UIButton *newButton in self.categoryButtonsArray) {
         if (newButton.tag != button.tag) {
-            NSLog(@"%d %d", newButton.tag, button.tag);
             [newButton setBackgroundColor:[UIColor whiteColor]];
             [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
         }
