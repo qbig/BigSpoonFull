@@ -129,11 +129,10 @@
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
         
-        UIImage *image; // = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
+        UIImage *image; // Without cache: = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
 
         
         if ([[ImageCache sharedImageCache] doesExist:dish.imgURL] == true){
-            NSLog(@"Got it!");
             image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
         } else {
             NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];

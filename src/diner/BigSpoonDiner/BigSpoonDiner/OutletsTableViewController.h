@@ -16,7 +16,7 @@
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
 #import "AppDelegate.h"
-
+#import "ImageCache.h"
 
 @interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate>
 

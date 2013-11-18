@@ -85,7 +85,24 @@
     // URLImageView *imageView = [[URLImageView alloc] init];
     // [imageView startLoading: [outlet.imgURL absoluteString]];
     
-    cell.outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
+    UIImage *image;
+    
+    // Without cache: [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
+    
+    if ([[ImageCache sharedImageCache] doesExist:outlet.imgURL] == true){
+        
+        image = [[ImageCache sharedImageCache] getImage:outlet.imgURL];
+    
+    } else {
+        
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL: outlet.imgURL];
+        image = [[UIImage alloc] initWithData:imageData];
+        
+        // Add the image to the cache
+        [[ImageCache sharedImageCache] addImageWithURL:outlet.imgURL andImage:image];
+    }
+
+    cell.outletPhoto.image = image;
     
 	cell.name.text = outlet.name;
     
