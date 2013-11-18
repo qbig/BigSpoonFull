@@ -187,5 +187,5 @@ class ReportView(ListView):
         if (outlets.count() == 0):
             raise PermissionDenied
         return super(ReportView, self).get_queryset()\
-            .prefetch_related('diner', 'orders', 'table')\
+            .prefetch_related('diner', 'orders', 'orders__dish', 'table')\
             .filter(table__outlet__in=outlets, is_paid=True)

@@ -1111,6 +1111,15 @@ table tbody tr td,
     background:#fff;
 }
 
+.chartWrapper {
+    margin:10px;
+    margin-top:0px;
+    padding:20px;
+    padding-bottom: 40px;
+    width: 740px;
+    background:#fff;
+}
+
 .datatable {
     margin-top: 10px;
     margin-left: 30px;

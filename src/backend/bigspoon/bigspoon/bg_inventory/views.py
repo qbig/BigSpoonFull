@@ -5,8 +5,11 @@ from gevent.greenlet import Greenlet
 
 from socketio.namespace import BaseNamespace
 from socketio import socketio_manage
+import logging
 
 REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
+
+logger = logging.getLogger('')
 
 
 class BigSpoonNamespace(BaseNamespace):
@@ -21,12 +24,14 @@ class BigSpoonNamespace(BaseNamespace):
 
     def recv_message(self, message):
         action, pk = message.split(':')
+        logger.info("connected - action %s pk %s" % (action, pk))
 
         if action == 'subscribe':
             Greenlet.spawn(self.listener, pk)
 
 
 def socketio(request):
+    logger.info("socket-io request: %s" % (request))
     socketio_manage(
         request.environ,
         {'': BigSpoonNamespace, },

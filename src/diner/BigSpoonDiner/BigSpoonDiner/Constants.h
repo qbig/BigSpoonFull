@@ -23,6 +23,9 @@ extern NSString* const BILL_URL;
 extern NSString* const RATING_URL;
 extern NSString* const FEEDBACK_URL;
 extern NSString* const DISH_CATEGORY_URL;
+extern NSString* const ORDER_HISTORY_URL;
+extern NSString* const SOCKET_URL;
+extern int const SOCKET_PORT;
 
 // Dimentions (length, height, etc..):
 
