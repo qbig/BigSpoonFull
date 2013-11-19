@@ -94,6 +94,8 @@
 		E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B7A29C180D3CA0009B6BD1 /* PastOrderView.m */; };
 		E9B7A29F180D3CA0009B6BD1 /* PastOrderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B7A29D180D3CA0009B6BD1 /* PastOrderView.xib */; };
 		E9CD90D7181D088000139FEC /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD90D6181D088000139FEC /* ProfileViewController.m */; };
+		E9CFA58B183B240300031773 /* PastOrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CFA58A183B240300031773 /* PastOrderDetailViewController.m */; };
+		E9CFA58E183B3F4400031773 /* UIKitCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CFA58D183B3F4400031773 /* UIKitCategories.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,6 +244,10 @@
 		E9B7A29D180D3CA0009B6BD1 /* PastOrderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PastOrderView.xib; sourceTree = "<group>"; };
 		E9CD90D5181D088000139FEC /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		E9CD90D6181D088000139FEC /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		E9CFA589183B240300031773 /* PastOrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastOrderDetailViewController.h; sourceTree = "<group>"; };
+		E9CFA58A183B240300031773 /* PastOrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastOrderDetailViewController.m; sourceTree = "<group>"; };
+		E9CFA58C183B3F4400031773 /* UIKitCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIKitCategories.h; sourceTree = "<group>"; };
+		E9CFA58D183B3F4400031773 /* UIKitCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKitCategories.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +323,8 @@
 		4999A208180A4FCA00270B0B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E9CFA589183B240300031773 /* PastOrderDetailViewController.h */,
+				E9CFA58A183B240300031773 /* PastOrderDetailViewController.m */,
 				E9CD90D5181D088000139FEC /* ProfileViewController.h */,
 				E9CD90D6181D088000139FEC /* ProfileViewController.m */,
 				E951D782180EE285002BE045 /* OrderHistoryViewController.h */,
@@ -447,6 +455,8 @@
 				49558BC1181D0BA800273090 /* SSKeychainQuery.h */,
 				49558BC2181D0BA800273090 /* SSKeychainQuery.m */,
 				49F107F4180886D600D2C8DD /* Main.storyboard */,
+				E9CFA58C183B3F4400031773 /* UIKitCategories.h */,
+				E9CFA58D183B3F4400031773 /* UIKitCategories.m */,
 				49F107FD180886D600D2C8DD /* Images.xcassets */,
 				49F107E9180886D600D2C8DD /* Supporting Files */,
 				49BCF56F183AFCAC0061821A /* UILabel+Alignment.h */,
@@ -682,6 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9CFA58E183B3F4400031773 /* UIKitCategories.m in Sources */,
 				49669B18180CED2D00089254 /* User.m in Sources */,
 				49669B15180CED1D00089254 /* Dish.m in Sources */,
 				49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */,
@@ -716,6 +727,7 @@
 				49048D1E181F9E5500B480A3 /* MultiContainerViewSegue.m in Sources */,
 				4999A216180A744100270B0B /* URLImageView.m in Sources */,
 				49558BC7181D14CD00273090 /* AuthViewController.m in Sources */,
+				E9CFA58B183B240300031773 /* PastOrderDetailViewController.m in Sources */,
 				49048D24181FF71100B480A3 /* ItemsOrderedViewController.m in Sources */,
 				4989729F180C8C9F0090DA75 /* MenuListCell.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,

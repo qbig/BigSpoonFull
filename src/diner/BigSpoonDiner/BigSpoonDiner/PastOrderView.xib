@@ -9,10 +9,11 @@
                 <outlet property="contentView" destination="1" id="VNP-XQ-400"/>
                 <outlet property="orderTime" destination="CM3-rf-7KV" id="i8K-o5-V4I"/>
                 <outlet property="restaurantNameLabel" destination="VKN-RE-FeD" id="3A7-jC-eO6"/>
+                <outlet property="tapGestureRecognizer" destination="PrY-JV-yaG" id="QAj-Ed-x8d"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
+        <view autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="280" height="85"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -40,7 +41,16 @@
             <accessibility key="accessibilityConfiguration">
                 <bool key="isElement" value="YES"/>
             </accessibility>
+            <gestureRecognizers/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="PrY-JV-yaG" appends="YES" id="GqO-Lf-IQH"/>
+            </connections>
         </view>
+        <tapGestureRecognizer id="PrY-JV-yaG">
+            <connections>
+                <action selector="openOrderDetail:" destination="-1" id="Xj1-MW-Hml"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>

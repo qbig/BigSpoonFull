@@ -87,14 +87,17 @@
                 NSString *order_time = [pastOrder objectForKey:@"order_time"];
                 NSDictionary *outlet = [pastOrder objectForKey:@"outlet"];
                 NSString *outletName = [outlet objectForKey:@"name"];
+                NSArray* meals = (NSArray*)
+                [pastOrder objectForKey:@"orders"];
                 CGRect frame;
                 frame.origin.x = 0;
-//                frame.origin.y = PAST_ORDER_VIEW_HEIGHT * pastOrderCount;
-//                PastOrderView *view = [[PastOrderView alloc] initWithFrame:frame];
                 PastOrderView *view = [[PastOrderView alloc] initAtIndex:pastOrderCount];
                 view.restaurantNameLabel.text = outletName;
                 view.orderTime.text = order_time;
+                view.meals = [NSArray arrayWithArray:meals];
                 [self.orderHistoryScrollView addSubview:view];
+                NSLog(@"meals[0] - %@", meals[0]);
+                NSLog(@"view.meals - %@", view.meals);
                 pastOrderCount ++;
             }
             break;

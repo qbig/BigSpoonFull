@@ -41,16 +41,24 @@
 }
 
 - (id) initAtIndex: (int)pastOrderCount {
-    self = [super init];
-    if (self)
-    {
-        [[NSBundle mainBundle] loadNibNamed:@"PastOrderView" owner:self options:nil];
-        CGRect newFrame = self.frame;
-        newFrame.origin.y = self.contentView.frame.size.height * pastOrderCount;
-        self.frame = newFrame;
-        [self addSubview:self.contentView];
-    }
+    [[NSBundle mainBundle] loadNibNamed:@"PastOrderView" owner:self options:nil];
+    CGRect newFrame = self.frame;
+    newFrame.size.width = self.contentView.frame.size.width;
+    newFrame.origin.y = self.contentView.frame.size.height * pastOrderCount;
+    newFrame.size.height = self.contentView.frame.size.height;
+    self = [super initWithFrame:newFrame];
+    [self addSubview:self.contentView];
     return self;
+}
+
+- (IBAction)openOrderDetail:(id)sender {
+    UIViewController * viewController = [self firstAvailableUIViewController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    PastOrderDetailViewController *pastOrderDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"Order History"];
+    pastOrderDetailViewController.restaurantName = self.restaurantNameLabel.text;
+    pastOrderDetailViewController.orderTime = self.orderTime.text;
+    pastOrderDetailViewController.meals = [NSArray arrayWithArray:self.meals];
+    [viewController.navigationController pushViewController:pastOrderDetailViewController animated:YES];
 }
 
 /*

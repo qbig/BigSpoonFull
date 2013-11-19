@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIKitCategories.h"
+#import "PastOrderDetailViewController.h"
 
 @interface PastOrderView : UIView
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
 @property (weak, nonatomic) IBOutlet UILabel *restaurantNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *orderTime;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGestureRecognizer;
+@property NSArray *meals;
 
 - (id) initAtIndex: (int)pastOrderCount;
+- (IBAction)openOrderDetail:(id)sender;
 
 @end
