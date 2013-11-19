@@ -14,6 +14,7 @@
 #import "Constants.h"
 #import "BigSpoonAnimationController.h"
 #import <AFHTTPRequestOperation.h>
+#import "UIViewController+KeyboardEvents.h"
 
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 

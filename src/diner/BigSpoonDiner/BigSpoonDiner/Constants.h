@@ -68,6 +68,7 @@ extern double const BADGE_ANMINATION_ZOOM_FACTOR;
 extern double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
+extern double const KEYBOARD_APPEARING_DURATION;
 
 // Fonts:
 
