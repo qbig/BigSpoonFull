@@ -1,4 +1,4 @@
-(function(){
+// (function(){
 //The host and STAFF_API_URLS is a duplicate from main.js -- cannot access encapsulated variables in mainjs
 var host = "http://"+location.host;
 var STAFF_API_URLS = {
@@ -23,19 +23,19 @@ if (location.pathname == "/staff/report/") {
 //==================================================
 var chartdata = [];
 
-if (dataIsNotLoaded()){
-	console.log("ERROR: Initialize the 'chartdata' variable before this script.");
-	while (dataIsNotLoaded()){
-		//doNothing
-	}
-}
+// if (dataIsNotLoaded()){
+// 	console.log("ERROR: Initialize the 'chartdata' variable before this script.");
+// 	while (dataIsNotLoaded()){
+// 		//doNothing
+// 	}
+// }
 
-if (chartIsNotCreated()){
-	console.log("ERROR: Create the 'reportchart' dom object before this script.");
-	while (chartIsNotCreated()){
-		//doNothing
-	}
-}
+// if (chartIsNotCreated()){
+// 	console.log("ERROR: Create the 'reportchart' dom object before this script.");
+// 	while (chartIsNotCreated()){
+// 		//doNothing
+// 	}
+// }
 
 Time.firstDayOfWeek = 1;
 var currTime = new Time();
@@ -86,16 +86,22 @@ var testData = [100,200,300,500,900];
             datePeriods[i]
         ).done(function(data) {
 			var spending = getSpending(data);
-			spending = (spending==0)? 50: spending;
+			//spending = (spending==0)? 50: spending;
 			lineChartData.datasets[0].data.push(spending);
 			//c!onsole.log(lineChartData.datasets[0].data);
-			updateChart(chartSpending, lineChartData);
+			//c!onsole.log(lineChartData.datasets[0].data.length==datePeriods.length);
+			if(lineChartData.datasets[0].data.length==datePeriods.length){
+				//Must be regulated if we use the full-length non-min chartjs
+				//Otherwise it will hang!! For some unknown reason.
+				updateChart(chartSpending, lineChartData);
+			}
+
         }).fail(function(data) {
             console.log("POST failed");
             console.log(data);
         });
 	}
-	updateChart(chartSpending, lineChartData); //initial drawing
+//	updateChart(chartSpending, lineChartData); //initial drawing
 	//var myLine = new Chart(chartSpending.getContext("2d")).Line(lineChartData);
 
 }
@@ -226,6 +232,6 @@ function chartIsNotCreated(){
 
 }//endof page check
 
-})(); //end of script encapsulation
+// })(); //end of script encapsulation
 
 
