@@ -31,6 +31,11 @@ extern int const SOCKET_PORT;
 
 extern int const ROW_HEIGHT_LIST_MENU;
 extern int const ROW_HEIGHT_PHOTO_MENU;
+extern int const MAX_CHARS_IN_NAME_LABEL_LIST_MENU;
+extern int const MAX_CHARS_IN_NAME_LABEL_PHOTO_MENU;
+extern int const LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
+extern int const LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
+
 extern double const SCALE_OF_BUTTON;
 extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
@@ -64,6 +69,7 @@ extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 
 // Fonts:
+
 extern double const CATEGORY_BUTTON_FONT;
 
 // Others:
