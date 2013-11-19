@@ -172,5 +172,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profilePhotoURL"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstName"];
     [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end

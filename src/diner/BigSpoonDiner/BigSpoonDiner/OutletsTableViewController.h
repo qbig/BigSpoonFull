@@ -17,6 +17,7 @@
 #import "MenuViewController.h"
 #import "AppDelegate.h"
 #import "ImageCache.h"
+#import "SSKeychain.h"
 
 @interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate>
 
@@ -31,5 +32,8 @@
 @property (nonatomic, strong) Order * pastOrder;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+- (IBAction)logoutButtonPressed:(id)sender;
+
 
 @end
