@@ -11,4 +11,9 @@
 @interface PastOrderView : UIView
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
+@property (weak, nonatomic) IBOutlet UILabel *restaurantNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *orderTime;
+
+- (id) initAtIndex: (int)pastOrderCount;
+
 @end

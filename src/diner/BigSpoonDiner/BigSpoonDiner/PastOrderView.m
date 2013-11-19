@@ -13,15 +13,44 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if (self)
+    {
+        // Initialization code.
+        //
+        [[NSBundle mainBundle] loadNibNamed:@"PastOrderView" owner:self options:nil];
+        [self addSubview:self.contentView];
     }
+    return self;
+}
+
+- (id) init
+{
+    self = [super init];
+    if (self)
+    {
+        [[NSBundle mainBundle] loadNibNamed:@"PastOrderView" owner:self options:nil];
+        [self addSubview:self.contentView];
+    }
+    NSLog(@"I am in custom init");
     return self;
 }
 
 -(void)awakeFromNib {
     [[NSBundle mainBundle] loadNibNamed:@"PastOrderView" owner:self options:nil];
     [self addSubview: self.contentView];
+}
+
+- (id) initAtIndex: (int)pastOrderCount {
+    self = [super init];
+    if (self)
+    {
+        [[NSBundle mainBundle] loadNibNamed:@"PastOrderView" owner:self options:nil];
+        CGRect newFrame = self.frame;
+        newFrame.origin.y = self.contentView.frame.size.height * pastOrderCount;
+        self.frame = newFrame;
+        [self addSubview:self.contentView];
+    }
+    return self;
 }
 
 /*
