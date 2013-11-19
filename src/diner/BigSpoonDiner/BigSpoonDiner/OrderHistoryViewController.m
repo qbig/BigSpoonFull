@@ -78,99 +78,45 @@
     NSError* error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
     NSLog(@"%@", jsonDict);
-    NSLog(@"%@", [User sharedInstance].firstName);
-//    NSArray* outletList = (NSArray*)jsonDict;
-//   switch (statusCode) {
-//            
-//            // 200 Okay
-//        case 200:{
-//            
-//            for (NSDictionary *newOutlet in outletList) {
-//                NSDictionary *restaurant = (NSDictionary *)[newOutlet objectForKey:@"restaurant"];
-//                NSDictionary *icon = (NSDictionary *)[restaurant objectForKey:@"icon"];
-//                NSString *thumbnail = (NSString *)[icon objectForKey:@"thumbnail"];
-//                NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
-//                
-//                int ID = [[newOutlet objectForKey:@"id"] intValue];
-//                double lat = [[newOutlet objectForKey:@"lat"] doubleValue];
-//                double lon = [[newOutlet objectForKey:@"lng"] doubleValue];
-//                NSString* name = [newOutlet objectForKey:@"name"];
-//                NSString* phone = [newOutlet objectForKey:@"phone"];
-//                NSString* address = [newOutlet objectForKey:@"address"];
-//                NSString* opening = [newOutlet objectForKey:@"opening"];
-//                NSString* promotionalText = [newOutlet objectForKey:@"discount"];
-//                double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
-//                double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
-//                BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
-//                
-//                if (!isActive) {
-//                    promotionalText = @"Coming Soon!";
-//                }
-//                
-//                NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
-//                
-//                Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
-//                                                                   Name: name
-//                                                                Address: address
-//                                                            PhoneNumber: phone
-//                                                        OperationgHours: opening
-//                                                               OutletID: ID
-//                                                                    lat: lat
-//                                                                    lon: lon
-//                                                        promotionalText: promotionalText
-//                                                                gstRate: gstRate
-//                                                      serviceChargeRate: serviceChargeRate
-//                                                               isActive: isActive];
-//                [self.outletsArray addObject:newOutletObject];
-//                
-//            }
-//            
-//            [self.tableView reloadData];
-//            
-//            break;
-//        }
-//            
-//        default:{
-//            
-//            NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
-//                                                                                 options:kNilOptions
-//                                                                                   error:&error];
-//            
-//            id firstKey = [[json allKeys] firstObject];
-//            
-//            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
-//            
-//            NSLog(@"Error occurred: %@", errorMessage);
-//            
-//            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//            [message show];
-//            
-//            break;
-//        }
-//    }
+    NSArray* pastOrdersList = (NSArray*)jsonDict;
+    switch (statusCode) {
+        case 200:{
+            [self.orderHistoryScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+            int pastOrderCount = 0;
+            for (NSDictionary *pastOrder in pastOrdersList) {
+                NSString *order_time = [pastOrder objectForKey:@"order_time"];
+                NSDictionary *outlet = [pastOrder objectForKey:@"outlet"];
+                NSString *outletName = [outlet objectForKey:@"name"];
+                CGRect frame;
+                frame.origin.x = 0;
+//                frame.origin.y = PAST_ORDER_VIEW_HEIGHT * pastOrderCount;
+//                PastOrderView *view = [[PastOrderView alloc] initWithFrame:frame];
+                PastOrderView *view = [[PastOrderView alloc] initAtIndex:pastOrderCount];
+                view.restaurantNameLabel.text = outletName;
+                view.orderTime.text = order_time;
+                [self.orderHistoryScrollView addSubview:view];
+                pastOrderCount ++;
+            }
+            break;
+        }
+        default: {
+            NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
+            id firstKey = [[json allKeys] firstObject];
+            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
+            NSLog(@"Error occurred: %@", errorMessage);
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [message show];
+            break;
+        }
+    }
 }
-
-//- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-//                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-//    // Return nil to indicate not necessary to store a cached response for this connection
-//    return nil;
-//}
-//
-//- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 //    // The request has failed for some reason!
 //    // Check the error var
-//    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
-//                                                        message:@"Failed to load outlets. Please check your network"
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"Okay"
-//                                              otherButtonTitles: nil];
-//    [alertView show];
-//}
-//
-//- (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
+    NSLog(@"NSURLCoonection encounters error while retreiving past orders.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Failed to load outlets. Please check your network" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [alertView show];
+}
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse*)cachedResponse {
