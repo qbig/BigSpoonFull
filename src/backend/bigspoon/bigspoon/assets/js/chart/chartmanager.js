@@ -132,7 +132,7 @@ function getChartDates(periodInterval){
 function updateChart(chartCanvas, lineChartData, stringCanvas, stringMsg){
 	var myLine = new Chart(chartCanvas.getContext("2d")).Line(lineChartData);
 	var stringCtx = stringCanvas.getContext("2d");
-	
+	stringCtx.font = "bold 20pt sans-serif";
 	stringCtx.fillText(stringMsg, (chartCanvas.width*1/8),(chartCanvas.height*1/3)  );
 
 }
