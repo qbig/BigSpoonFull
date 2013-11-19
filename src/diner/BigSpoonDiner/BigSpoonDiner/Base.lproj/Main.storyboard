@@ -114,7 +114,6 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="0mb-Mn-kdr"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="Plg-fp-UH9"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="aFt-pz-CtD"/>
                                 </connections>
                             </textField>
@@ -125,7 +124,6 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="hXY-nG-gjK"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="bhJ-cf-Z5Q"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="lvu-9U-b08"/>
                                 </connections>
                             </textField>
@@ -137,7 +135,6 @@
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="kxI-Nn-pPe"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="Rv3-7q-Wjx"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="k9C-FD-rsy"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="Fry-53-SdK">
@@ -148,11 +145,10 @@
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="W0a-Hs-u1y"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="ECw-wW-X4z"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="cob-Mm-ycf"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just one more step..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ycu-fN-gDt">
-                                <rect key="frame" x="52" y="66" width="216" height="21"/>
+                                <rect key="frame" x="46" y="105" width="216" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
