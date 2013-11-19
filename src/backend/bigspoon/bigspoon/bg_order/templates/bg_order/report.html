@@ -45,7 +45,9 @@
 </div>
 <div class="sectionHeader"><h2 class="force-clear">Customer Spending Chart</h2></div>
 <div class="chartWrapper">
-	<canvas id="chart-spending" class="reportchart" height="450" width="800" style="width: 800px; height: 450px;"></canvas>
+    <canvas id="chart-spending" class="reportchart" height="450" width="800" style="position:absolute; z-index:0; width: 800px; height: 450px;"></canvas>
+    <canvas id="percent-spending" class="reportchart" height="450" width="800" style="position:absolute; z-index:1; width: 800px; height: 450px;"></canvas>
+    <canvas id="chart-placeholder" class="reportchart" height="450" width="800" style="width: 800px; height: 450px;"></canvas>
 <!-- 	<canvas id="chart-totime" class="reportchart" height="450" width="600" style="width: 600px; height: 450px;"></canvas>
 	<canvas id="chart-customer" class="reportchart" height="450" width="600" style="width: 600px; height: 450px;"></canvas>
 	<canvas id="chart-performance" class="reportchart" height="450" width="600" style="width: 600px; height: 450px;"></canvas> -->
@@ -56,8 +58,12 @@
 {% block morejs %}
 <!--Table-->
 <script src="{% static "js/sorttable.js"%}"></script>
+
+<!--CHART TESTING-->
+<!--<script src="{% static "js/chart/Chart.min.js"%}"></script>--> <!--DONT use MIN-->
+
+<!--Time and ChartManager must be AFTER Chart.js-->
 <script src="{% static "js/chart/Chart.js"%}"></script>
-<script src="{% static "js/chart/Chart.min.js"%}"></script>
-<script src="{% static "js/chart/time.js"%}"></script>  <!--Must b AFTER chart.js-->
-<script src="{% static "js/chart/chartmanager.js"%}"></script>  <!--Must b AFTER chart.js-->
+<script src="{% static "js/chart/time.js"%}"></script>
+<script src="{% static "js/chart/chartmanager.js"%}"></script>
 {% endblock morejs %}
