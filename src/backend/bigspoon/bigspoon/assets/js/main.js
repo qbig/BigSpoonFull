@@ -31,7 +31,9 @@ $(document).ready(function() {
         $("nav ul li:first-child a p").remove();
         $("nav ul li:first-child a").append(getNotification(number));
         reload_sound.play();
-        location.reload(true);
+        setTimeout(function(){
+            location.reload(true);
+        }, 1500);
     }
 
     if (location.pathname == "/staff/main/") {
