@@ -95,6 +95,7 @@ var testData = [100,200,300,500,900];
 				var lastId = lineChartData.datasets[0].data.length-1;
 				var thisWeekRevenue = lineChartData.datasets[0].data[lastId];
 				var prevWeekRevenue = lineChartData.datasets[0].data[lastId-1];
+				prevWeekRevenue = (prevWeekRevenue==0)? 0.01: prevWeekRevenue;
 				var percentChange = (thisWeekRevenue-prevWeekRevenue)/prevWeekRevenue*100;
 				var stringMsg = "Revenue this week is ";
 				if (thisWeekRevenue > prevWeekRevenue){ //GREEN
