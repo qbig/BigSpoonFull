@@ -1276,7 +1276,7 @@ window.Chart = function(context){
 			var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
 			
 			///valueRange = maxValue - minValue;
-			valueRange = maxValue - 0;
+			valueRange = maxValue - (0.3*minValue); //so that we don't have zero-line graph when there is no/small changes for each point.
 			
 			rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
 
