@@ -86,13 +86,18 @@ var testData = [100,200,300,500,900];
             datePeriods[i]
         ).done(function(data) {
 			var spending = getSpending(data);
-			//spending = (spending==0)? 50: spending;
+			//spending = (spending==0)? 20: spending; ///
 			lineChartData.datasets[0].data.push(spending);
 			//c!onsole.log(lineChartData.datasets[0].data);
 			//c!onsole.log(lineChartData.datasets[0].data.length==datePeriods.length);
 			if(lineChartData.datasets[0].data.length==datePeriods.length){
-				//Must be regulated if we use the full-length non-min chartjs
-				//Otherwise it will hang!! For some unknown reason.
+				var stringMsg = "Revenue this week by ";
+				var lastId = lineChartData.datasets[0].data.length-1;
+				if (lineChartData.datasets[0].data[lastId] > lineChartData.datasets[0].data[lastId]){
+					lineChartData.datasets[0].fillColor = "rgba(7,71,0,0.5)";
+					lineChartData.datasets[0].strokeColor = "rgba(7,71,0,1)";
+					lineChartData.datasets[0].pointColor = "rgba(7,71,0,1)";
+				}
 				updateChart(chartSpending, lineChartData);
 			}
 
