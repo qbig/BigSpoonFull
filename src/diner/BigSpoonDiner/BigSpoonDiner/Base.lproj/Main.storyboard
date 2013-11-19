@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--Login View Controller - Login-->
@@ -114,7 +114,6 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="0mb-Mn-kdr"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="Plg-fp-UH9"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="aFt-pz-CtD"/>
                                 </connections>
                             </textField>
@@ -125,7 +124,6 @@
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="hXY-nG-gjK"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="bhJ-cf-Z5Q"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="lvu-9U-b08"/>
                                 </connections>
                             </textField>
@@ -137,7 +135,6 @@
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="kxI-Nn-pPe"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="Rv3-7q-Wjx"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="k9C-FD-rsy"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" id="Fry-53-SdK">
@@ -148,11 +145,10 @@
                                 <connections>
                                     <action selector="textFieldDidBeginEditing:" destination="ffF-mi-uHH" eventType="editingDidBegin" id="W0a-Hs-u1y"/>
                                     <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEndOnExit" id="ECw-wW-X4z"/>
-                                    <action selector="textFinishEditing:" destination="ffF-mi-uHH" eventType="editingDidEnd" id="cob-Mm-ycf"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just one more step..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ycu-fN-gDt">
-                                <rect key="frame" x="52" y="66" width="216" height="21"/>
+                                <rect key="frame" x="46" y="105" width="216" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -266,6 +262,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Outlets" id="Gi1-Ny-QUB">
+                        <barButtonItem key="leftBarButtonItem" id="7ae-tI-83s">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HaO-t6-cDz">
+                                <rect key="frame" x="16" y="9" width="76" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Button" image="logout_button.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="logoutButtonPressed:" destination="SaX-nl-uiI" eventType="touchUpInside" id="4Cc-Mb-qOF"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="4hN-iT-RPX">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fgU-iA-Ffp">
                                 <rect key="frame" x="279" y="9" width="25" height="25"/>
@@ -1095,6 +1104,7 @@
         <image name="gear.png" width="104" height="104"/>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
         <image name="list_icon.png" width="105" height="105"/>
+        <image name="logout_button.png" width="132" height="46"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="105" height="105"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
@@ -1106,7 +1116,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ew3-Pm-EPj"/>
         <segue reference="TRy-SG-Bfr"/>
+        <segue reference="ew3-Pm-EPj"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+ {% extends "base.html" %}
 
 {% load staticfiles %}
 {% load compress %}
@@ -6,7 +6,7 @@
 {% block nav %}
 <nav>
         <div class="wrapper">
-        <a class="logo" href="{% url "staff_main" %}"><img src="{% static 'img/logo-wide.png' %}"></a>
+        <a class="logo" href="{% url "staff_main" %}"><img src="{% static 'img/logo-wide-small.png' %}"></a>
         <ul>
             <li><a href="{% url "staff_main" %}"><i class="icon-bell-alt"></i> New Orders</a></li>
             <li><a href="{% url "staff_table" %}"><i class="icon-group"></i> Tables</a></li>

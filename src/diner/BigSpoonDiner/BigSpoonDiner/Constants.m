@@ -27,7 +27,7 @@ NSString* const ORDER_HISTORY_URL = @"http://122.248.199.242/api/v1/mealhistory"
 NSString* const SOCKET_URL = @"122.248.199.242";
 int const SOCKET_PORT = 8000;
 
-// Dimentions:
+// Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 59;
 int const ROW_HEIGHT_PHOTO_MENU = 196;

@@ -67,6 +67,7 @@
 		49BCF56B183A5E640061821A /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCF56A183A5E640061821A /* ImageCache.m */; };
 		49BCF571183AFCAC0061821A /* UILabel+Alignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCF570183AFCAC0061821A /* UILabel+Alignment.m */; };
 		49BF7FCA183B11C500D286A6 /* UIViewController+KeyboardEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BF7FC9183B11C500D286A6 /* UIViewController+KeyboardEvents.m */; };
+		49BF7FCC183B1CA500D286A6 /* logout_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 49BF7FCB183B1CA500D286A6 /* logout_button.png */; };
 		49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */ = {isa = PBXBuildFile; fileRef = 49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */; };
 		49CB796D180C631300F530C5 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796C180C631300F530C5 /* MenuViewController.m */; };
 		49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49CB796F180C68C500F530C5 /* SignUpViewController.m */; };
@@ -202,6 +203,7 @@
 		49BCF570183AFCAC0061821A /* UILabel+Alignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Alignment.m"; sourceTree = "<group>"; };
 		49BF7FC8183B11C500D286A6 /* UIViewController+KeyboardEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KeyboardEvents.h"; sourceTree = "<group>"; };
 		49BF7FC9183B11C500D286A6 /* UIViewController+KeyboardEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KeyboardEvents.m"; sourceTree = "<group>"; };
+		49BF7FCB183B1CA500D286A6 /* logout_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout_button.png; sourceTree = "<group>"; };
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				49BF7FCB183B1CA500D286A6 /* logout_button.png */,
 				4972BBBA18370F61001DD817 /* button_add_with_circle.png */,
 				4972BBBB18370F61001DD817 /* button_minus_with_circle.png */,
 				4972BBBE18370FFD001DD817 /* button_add_no_circle.png */,
@@ -605,6 +608,7 @@
 				49164203180C590C00080B87 /* list_icon.png in Resources */,
 				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
+				49BF7FCC183B1CA500D286A6 /* logout_button.png in Resources */,
 				49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */,
 				E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */,
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,
