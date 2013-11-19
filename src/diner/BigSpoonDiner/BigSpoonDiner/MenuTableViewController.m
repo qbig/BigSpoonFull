@@ -135,7 +135,6 @@
 
         
         if ([[ImageCache sharedImageCache] doesExist:dish.imgURL] == true){
-            NSLog(@"Already thre");
             image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
         } else {
             NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];
@@ -171,33 +170,48 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
-    Dish *dish;
+    // Code for dynamically determine the height for cell. Not used
+//    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+//    Dish *dish;
+//    
+//    if ([dishes count] == 0) {
+//        return 0;
+//    } else if(indexPath.row == [dishes count]){
+//        dish = [dishes objectAtIndex:0];
+//    } else{
+//        dish = [dishes objectAtIndex:indexPath.row];
+//    }
+//    
+//    if (self.displayMethod == kMethodList) {
+//        
+//        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
+//            return ROW_HEIGHT_LIST_MENU + LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
+//        }else{
+//            return ROW_HEIGHT_LIST_MENU;
+//        }
+//        
+//    } else if (self.displayMethod == kMethodPhoto){
+//        
+//        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
+//            return ROW_HEIGHT_PHOTO_MENU + LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
+//        } else{
+//            return ROW_HEIGHT_PHOTO_MENU;
+//        }
+//        
+//    } else{
+//        NSLog(@"Invalid display method");
+//        return 100;
+//    }
     
-    if ([dishes count] == 0) {
-        return 0;
-    } else if(indexPath.row == [dishes count]){
-        dish = [dishes objectAtIndex:0];
-    } else{
-        dish = [dishes objectAtIndex:indexPath.row];
-    }
     
     if (self.displayMethod == kMethodList) {
-        
-        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
-            return ROW_HEIGHT_LIST_MENU + LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
-        }else{
+
             return ROW_HEIGHT_LIST_MENU;
-        }
-        
+    
     } else if (self.displayMethod == kMethodPhoto){
         
-        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
-            return ROW_HEIGHT_PHOTO_MENU + LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
-        } else{
             return ROW_HEIGHT_PHOTO_MENU;
-        }
-        
+    
     } else{
         NSLog(@"Invalid display method");
         return 100;

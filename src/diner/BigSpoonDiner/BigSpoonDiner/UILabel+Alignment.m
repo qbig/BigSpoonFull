@@ -27,7 +27,6 @@
     CGSize theStringSize = theStringFrame.size;
     
     int newLinesToPad = (finalHeight  - theStringSize.height) / fontSize.height;
-    NSLog(@"hahahahahahahahahahahaha: %d", newLinesToPad);
     for(int i=0; i<newLinesToPad; i++)
         self.text = [self.text stringByAppendingString:@"\n "];
 }
