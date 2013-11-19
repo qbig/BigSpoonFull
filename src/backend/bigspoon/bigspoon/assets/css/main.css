@@ -223,7 +223,8 @@ textarea {
 
 
 body {
-    background: url("{{STATIC_URL}}img/bg.png");
+    /*background: url("{{STATIC_URL}}img/bg.png");*/
+    background: #606060;
 }
 
 .wrapper {
