@@ -156,7 +156,7 @@ function getChartWeekLabels(){ //function weekLabels(){ // weekLabels(currTimeOb
 		var weeknum = (firstDisplayWeekNum+i)%numWeeks;
 		weeknum = (weeknum==0)? numWeeks : weeknum;
 		var currYMD = getTimeYMD(focusDate);
-		labels.push("Week of"+": "+currYMD.d+" "+getMonthStr(currYMD.m)); //weeknum+
+		labels.push("Week of"+" "+currYMD.d+" "+getMonthStr(currYMD.m)); //weeknum+
 		var fromDateStr = currYMD.y+"-"+currYMD.m+"-"+currYMD.d;
 		focusDate.advanceDays(6);
 		currYMD = getTimeYMD(focusDate);
