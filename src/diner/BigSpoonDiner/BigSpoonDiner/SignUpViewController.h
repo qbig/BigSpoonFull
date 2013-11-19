@@ -11,10 +11,9 @@
 #import "Constants.h"
 #import "SSKeychain.h"
 #import <FacebookSDK/FacebookSDK.h>
-
+#import "UIViewController+KeyboardEvents.h"
 
 @interface SignUpViewController : UIViewController <NSURLConnectionDelegate>
-
 
 @property (strong, nonatomic) IBOutlet UITextField *firstNameLabel;
 @property (strong, nonatomic) IBOutlet UITextField *lastNameLabel;
@@ -28,5 +27,8 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) IBOutlet UINavigationItem *navigationItem;
+
+- (IBAction)textFinishEditing:(id)sender;
+- (IBAction)textFieldDidBeginEditing:(id)sender;
 
 @end

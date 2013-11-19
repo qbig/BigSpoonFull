@@ -17,7 +17,6 @@
 
 @implementation MenuTableViewController
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -107,6 +106,7 @@
                                       dequeueReusableCellWithIdentifier:@"MenuListCell"];
         
         cell.nameLabel.text = dish.name;
+        // [cell.nameLabel alignBottom];
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
@@ -114,6 +114,7 @@
         cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
     
         cell.descriptionLabel.text = dish.description;
+        //[cell.descriptionLabel alignTop];
         
         return cell;
 
@@ -151,10 +152,13 @@
         cell.ratingImageView.image = [self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;
+        [cell.nameLabel alignBottom];
+        
         
         cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
         
         cell.descriptionLabel.text = dish.description;
+        [cell.descriptionLabel alignTop];
         
         return cell;
 
@@ -162,13 +166,50 @@
     
 }
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    // Code for dynamically determine the height for cell. Not used
+//    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+//    Dish *dish;
+//    
+//    if ([dishes count] == 0) {
+//        return 0;
+//    } else if(indexPath.row == [dishes count]){
+//        dish = [dishes objectAtIndex:0];
+//    } else{
+//        dish = [dishes objectAtIndex:indexPath.row];
+//    }
+//    
+//    if (self.displayMethod == kMethodList) {
+//        
+//        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
+//            return ROW_HEIGHT_LIST_MENU + LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
+//        }else{
+//            return ROW_HEIGHT_LIST_MENU;
+//        }
+//        
+//    } else if (self.displayMethod == kMethodPhoto){
+//        
+//        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
+//            return ROW_HEIGHT_PHOTO_MENU + LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
+//        } else{
+//            return ROW_HEIGHT_PHOTO_MENU;
+//        }
+//        
+//    } else{
+//        NSLog(@"Invalid display method");
+//        return 100;
+//    }
+    
+    
     if (self.displayMethod == kMethodList) {
-        return ROW_HEIGHT_LIST_MENU;
+
+            return ROW_HEIGHT_LIST_MENU;
+    
     } else if (self.displayMethod == kMethodPhoto){
-        return ROW_HEIGHT_PHOTO_MENU;
+        
+            return ROW_HEIGHT_PHOTO_MENU;
+    
     } else{
         NSLog(@"Invalid display method");
         return 100;

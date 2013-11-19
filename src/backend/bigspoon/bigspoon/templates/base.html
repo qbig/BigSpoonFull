@@ -37,15 +37,16 @@
         <script src="{% static "js/howler.min.js"%}"></script>
         <script src="{% static "js/main.js"%}"></script>
         <!--For Report Page -->
-        <script src="{% static "js/chart/Chart.js"%}"></script>
-        <script src="{% static "js/chart/Chart.min.js"%}"></script>
-        <script src="{% static "js/chart/time.js"%}"></script> <!--Must b AFTER chart.js-->
-        <script src="{% static "js/chart/chartmanager.js"%}"></script> <!--Must b AFTER chart.js-->
         {% endcompress %}
         <script type="text/javascript"> 
             var media_url = {{ MEDIA_URL }};
         </script> 
         {% block morejs %}
         {% endblock %}
+        <script src="{% static "js/chart/Chart.min.js"%}"></script>
+        <!-- <script src="{% static "js/chart/Chart.js"%}"></script> --> <!--Use this, not min-->
+        <!-- <script src="{% static "js/chart/Chart.min.js"%}"></script> -->
+        <script src="{% static "js/chart/time.js"%}"></script> <!--Must b AFTER chart.js-->
+        <script src="{% static "js/chart/chartmanager.js"%}"></script> <!--Must b AFTER chart.js-->
     </body>
 </html>
