@@ -91,9 +91,12 @@ var testData = [100,200,300,500,900];
 			//c!onsole.log(lineChartData.datasets[0].data);
 			//c!onsole.log(lineChartData.datasets[0].data.length==datePeriods.length);
 			if(lineChartData.datasets[0].data.length==datePeriods.length){
-				var stringMsg = "Revenue this week by ";
 				var lastId = lineChartData.datasets[0].data.length-1;
-				if (lineChartData.datasets[0].data[lastId] > lineChartData.datasets[0].data[lastId]){
+				var thisWeekRevenue = lineChartData.datasets[0].data[lastId];
+				var prevWeekRevenue = lineChartData.datasets[0].data[lastId-1];
+				var percentChange = (thisWeekRevenue-prevWeekRevenue)/prevWeekRevenue;
+				var stringMsg = "Revenue this week is ";
+				if (thisWeekRevenue > prevWeekRevenue){
 					lineChartData.datasets[0].fillColor = "rgba(7,71,0,0.5)";
 					lineChartData.datasets[0].strokeColor = "rgba(7,71,0,1)";
 					lineChartData.datasets[0].pointColor = "rgba(7,71,0,1)";
@@ -101,7 +104,7 @@ var testData = [100,200,300,500,900];
 				else{
 					lineChartData.datasets[0].fillColor = "rgba(132,0,8,0.5)";
 					lineChartData.datasets[0].strokeColor = "rgba(132,0,8,1)";
-					lineChartData.datasets[0].pointColor = "rgba(132,0,8,1)";	
+					lineChartData.datasets[0].pointColor = "rgba(132,0,8,1)";
 				}
 				updateChart(chartSpending, lineChartData);
 			}
