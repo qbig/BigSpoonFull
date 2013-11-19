@@ -55,6 +55,7 @@ function getMonthStr(monthNum){
 createChart();
 function createChart(){
 	var chartSpending = document.getElementById("chart-spending");
+	var percentSpending = document.getElementById("percent-spending");
 	var chartTOTime = document.getElementById("chart-totime");
 
 	var chartDates = getChartDates("week");
@@ -86,14 +87,29 @@ var testData = [100,200,300,500,900];
             datePeriods[i]
         ).done(function(data) {
 			var spending = getSpending(data);
-			//spending = (spending==0)? 50: spending;
+			//spending = (spending==0)? 20: spending; ///
 			lineChartData.datasets[0].data.push(spending);
 			//c!onsole.log(lineChartData.datasets[0].data);
 			//c!onsole.log(lineChartData.datasets[0].data.length==datePeriods.length);
 			if(lineChartData.datasets[0].data.length==datePeriods.length){
-				//Must be regulated if we use the full-length non-min chartjs
-				//Otherwise it will hang!! For some unknown reason.
-				updateChart(chartSpending, lineChartData);
+				var lastId = lineChartData.datasets[0].data.length-1;
+				var thisWeekRevenue = lineChartData.datasets[0].data[lastId];
+				var prevWeekRevenue = lineChartData.datasets[0].data[lastId-1];
+				var percentChange = (thisWeekRevenue-prevWeekRevenue)/prevWeekRevenue*100;
+				var stringMsg = "Revenue this week is ";
+				if (thisWeekRevenue > prevWeekRevenue){ //GREEN
+					lineChartData.datasets[0].fillColor = "rgba(7,71,0,0.5)";
+					lineChartData.datasets[0].strokeColor = "rgba(7,71,0,1)";
+					lineChartData.datasets[0].pointColor = "rgba(7,71,0,1)";
+					stringMsg = stringMsg + "UP by +"+percentChange+"%";
+				}
+				else{ //RED
+					lineChartData.datasets[0].fillColor = "rgba(132,0,8,0.5)";
+					lineChartData.datasets[0].strokeColor = "rgba(132,0,8,1)";
+					lineChartData.datasets[0].pointColor = "rgba(132,0,8,1)";
+					stringMsg = stringMsg + "DOWN by "+percentChange+"%";
+				}
+				updateChart(chartSpending, lineChartData, percentSpending, stringMsg);
 			}
 
         }).fail(function(data) {
@@ -113,8 +129,12 @@ function getChartDates(periodInterval){
     return getChartWeekLabels(); break;
   }
 }
-function updateChart(chartCanvas, lineChartData){
+function updateChart(chartCanvas, lineChartData, stringCanvas, stringMsg){
 	var myLine = new Chart(chartCanvas.getContext("2d")).Line(lineChartData);
+	var stringCtx = stringCanvas.getContext("2d");
+	stringCtx.font = "bold 20pt sans-serif";
+	stringCtx.fillText(stringMsg, (chartCanvas.width*1/5),(chartCanvas.height*1/3)  );
+
 }
 
 

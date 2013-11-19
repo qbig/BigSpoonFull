@@ -163,7 +163,8 @@ class OrderSerializer(serializers.ModelSerializer):
     def get_dish(self, obj):
         return {
             "id": obj.dish.id,
-            "name": obj.dish.name
+            "name": obj.dish.name,
+            "price": obj.dish.price
         }
 
     def get_outlet(self, obj):

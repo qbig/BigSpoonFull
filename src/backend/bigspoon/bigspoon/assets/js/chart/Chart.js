@@ -1275,9 +1275,10 @@ window.Chart = function(context){
 	function calculateScale(drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString){
 			var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
 			
-			///valueRange = maxValue - minValue;
-			valueRange = maxValue - (0.3*minValue); //so that we don't have zero-line graph when there is no/small changes for each point.
-			
+			//Adjust minValue so that we don't have zero-line graph when there is no/small changes for recent points. Eg 20, 19, 21, 18
+			minValue = 0.7*minValue; //It should be within 30% diff from minValue (aka 0.7*minValue), so that the bottom-most area remains small but existent.
+			valueRange = maxValue - minValue;
+
 			rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
 
         	graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
