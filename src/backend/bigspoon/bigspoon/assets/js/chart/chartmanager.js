@@ -98,6 +98,11 @@ var testData = [100,200,300,500,900];
 					lineChartData.datasets[0].strokeColor = "rgba(7,71,0,1)";
 					lineChartData.datasets[0].pointColor = "rgba(7,71,0,1)";
 				}
+				else{
+					lineChartData.datasets[0].fillColor = "rgba(132,0,8,0.5)";
+					lineChartData.datasets[0].strokeColor = "rgba(132,0,8,1)";
+					lineChartData.datasets[0].pointColor = "rgba(132,0,8,1)";	
+				}
 				updateChart(chartSpending, lineChartData);
 			}
 
