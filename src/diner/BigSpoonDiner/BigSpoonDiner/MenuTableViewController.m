@@ -107,7 +107,7 @@
                                       dequeueReusableCellWithIdentifier:@"MenuListCell"];
         
         cell.nameLabel.text = dish.name;
-        [cell.nameLabel alignTop];
+        // [cell.nameLabel alignBottom];
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
@@ -115,6 +115,7 @@
         cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
     
         cell.descriptionLabel.text = dish.description;
+        //[cell.descriptionLabel alignTop];
         
         return cell;
 
@@ -134,6 +135,7 @@
 
         
         if ([[ImageCache sharedImageCache] doesExist:dish.imgURL] == true){
+            NSLog(@"Already thre");
             image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
         } else {
             NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];
@@ -158,6 +160,7 @@
         cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
         
         cell.descriptionLabel.text = dish.description;
+        [cell.descriptionLabel alignTop];
         
         return cell;
 
