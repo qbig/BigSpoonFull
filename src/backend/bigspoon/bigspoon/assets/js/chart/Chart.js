@@ -466,7 +466,8 @@ window.Chart = function(context){
 			};
 
 			var maxSteps = Math.floor((scaleHeight / (labelHeight*0.66)));
-			var minSteps = Math.floor((scaleHeight / labelHeight*0.5));
+			///var minSteps = Math.floor((scaleHeight / labelHeight*0.5));
+			var minSteps = (upperValue < Math.floor((scaleHeight / labelHeight*0.5))) ? upperValue : Math.floor((scaleHeight / labelHeight*0.5));
 			
 			return {
 				maxValue : upperValue,
@@ -1274,7 +1275,8 @@ window.Chart = function(context){
 	function calculateScale(drawingHeight,maxSteps,minSteps,maxValue,minValue,labelTemplateString){
 			var graphMin,graphMax,graphRange,stepValue,numberOfSteps,valueRange,rangeOrderOfMagnitude,decimalNum;
 			
-			valueRange = maxValue - minValue;
+			///valueRange = maxValue - minValue;
+			valueRange = maxValue - (0.3*minValue); //so that we don't have zero-line graph when there is no/small changes for each point.
 			
 			rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
 
@@ -1284,7 +1286,7 @@ window.Chart = function(context){
             
             graphRange = graphMax - graphMin;
             
-            stepValue = Math.pow(10, rangeOrderOfMagnitude);
+            stepValue = Math.pow(20, rangeOrderOfMagnitude);
             
 	        numberOfSteps = Math.round(graphRange / stepValue);
 	        
@@ -1292,10 +1294,12 @@ window.Chart = function(context){
 	        while(numberOfSteps < minSteps || numberOfSteps > maxSteps) {
 	        	if (numberOfSteps < minSteps){
 			        stepValue /= 2;
+			        stepValue = Math.round(stepValue); ///
 			        numberOfSteps = Math.round(graphRange/stepValue);
 		        }
 		        else{
 			        stepValue *=2;
+			        stepValue = Math.round(stepValue); ///
 			        numberOfSteps = Math.round(graphRange/stepValue);
 		        }
 	        };
