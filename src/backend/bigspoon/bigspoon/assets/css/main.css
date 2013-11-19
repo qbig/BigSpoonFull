@@ -1231,3 +1231,13 @@ input#filter {
     color: #fff;
     text-shadow: rgba(0, 0, 0, 1) 0 1px 1px;
 }
+
+.login-error {
+    text-align: center;
+    margin: 0 auto;
+    width: 400px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #e74c3c;
+    color: #fff;
+}
