@@ -411,6 +411,10 @@ p.note {
     opacity: .8;;
 }
 
+.item .bill {
+    margin-top: 70px;
+}
+
 .item h4 {
     display: inline-block;
     margin:0px;
