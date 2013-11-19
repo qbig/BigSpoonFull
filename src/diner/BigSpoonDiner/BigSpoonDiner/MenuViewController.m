@@ -187,7 +187,11 @@
 {
 	return;
     UIAlertView *errorAlert = [[UIAlertView alloc]
-							   initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+							   initWithTitle:@"Error"
+                               message:@"Failed to Get Your Location"
+                               delegate:nil
+                               cancelButtonTitle:nil
+                               otherButtonTitles:@"Okay", nil];
     // Call alert
 	[errorAlert show];
 }
@@ -317,8 +321,8 @@
                                  initWithTitle:@"Call For Service"
                                  message:@"Require assistance from the waiter?"
                                  delegate:self
-                                 cancelButtonTitle:@"Yes"
-                                 otherButtonTitles:@"Cancel", nil];
+                                 cancelButtonTitle:@"Cancel"
+                                 otherButtonTitles:@"Yes", nil];
     [self.requestForWaiterAlertView show];
 }
 
@@ -334,8 +338,8 @@
                                      initWithTitle:@"Request Bill"
                                      message:@"You haven't ordered anything."
                                      delegate:nil
-                                     cancelButtonTitle:@"Okay"
-                                     otherButtonTitles:nil];
+                                     cancelButtonTitle:nil
+                                     otherButtonTitles:@"Okay", nil];
         [alertView show];
         
         return;
@@ -373,8 +377,8 @@
                                initWithTitle:@"Would you like your bill?"
                                message:message
                                delegate:self
-                               cancelButtonTitle:@"Yes"
-                               otherButtonTitles:@"Cancel", nil];
+                               cancelButtonTitle:@"Cancel"
+                               otherButtonTitles:@"Yes", nil];
     [self.requestForBillAlertView show];
 }
 
@@ -437,7 +441,7 @@
                               initWithTitle:@"Call For Bill"
                               message:@"The waiter will be right with you"
                               delegate:self
-                              cancelButtonTitle:@"OK"
+                              cancelButtonTitle:@"Okay"
                               otherButtonTitles:nil];
     [self.afterRequestBillAlertView show];
     
@@ -774,7 +778,7 @@
                               message: message
                               delegate:self
                               cancelButtonTitle:@"Cancel"
-                              otherButtonTitles:@"Ok", nil];
+                              otherButtonTitles:@"Okay", nil];
     [self.placeOrderAlertView show];
 }
 
@@ -845,7 +849,7 @@
                               initWithTitle:@"Your order has been sent"
                               message:@"Thank you for waiting"
                               delegate:nil
-                              cancelButtonTitle:@"OK"
+                              cancelButtonTitle:@"Okay"
                               otherButtonTitles:nil];
     [alertView show];
     
@@ -925,10 +929,9 @@
                                           initWithTitle:@"Call For Service"
                                           message:@"The waiter will be right with you"
                                           delegate:nil
-                                          cancelButtonTitle:@"OK"
+                                          cancelButtonTitle:@"Okay"
                                           otherButtonTitles:nil];
                 [alertView show];
-                [self.delegate userDidMakeRequests];
             }
                 break;
             case 403:
@@ -960,7 +963,7 @@
                               initWithTitle:@"Oops"
                               message: message
                               delegate:nil
-                              cancelButtonTitle:@"OK"
+                              cancelButtonTitle:@"Okay"
                               otherButtonTitles:nil];
     [alertView show];
 }

@@ -164,4 +164,15 @@
     }
     [self updateUserDetailsOnServer];
 }
+
+- (IBAction)logout:(id)sender {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profilePhotoURL"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstName"];
+    [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

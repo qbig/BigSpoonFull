@@ -327,9 +327,30 @@
 }
 
 
-- (IBAction)textFieldDidEndOnExit:(id)sender {
+- (IBAction)textFieldDidBeginEditing:(id)sender {
+    
+    if ([sender isEqual:self.feedbackTextField])
+    {
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.view.frame.origin.y >= 0)
+        {
+            [self setViewMovedUp:YES];
+        }
+    }
+}
 
-    [self resignFirstResponder];
+- (IBAction)textFinishEditing:(id)sender {
+    
+    [sender resignFirstResponder];
+    
+    if ([sender isEqual:self.feedbackTextField])
+    {
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.view.frame.origin.y < 0)
+        {
+            [self setViewMovedUp:NO];
+        }
+    }
 }
 
 - (void) fadeOut{
@@ -352,6 +373,5 @@
         [self setRating:5 ofDishID:dish.ID];
     }
 }
-
 
 @end

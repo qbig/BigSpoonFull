@@ -16,6 +16,8 @@
 #import "DishCategory.h"
 #import <AFHTTPRequestOperationManager.h>
 #import "User.h"
+#import "ImageCache.h"
+#import "UILabel+Alignment.h"
 
 enum DishDisplayMethod : NSUInteger {
     kMethodList = 1,

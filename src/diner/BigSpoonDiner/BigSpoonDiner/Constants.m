@@ -27,10 +27,15 @@ NSString* const ORDER_HISTORY_URL = @"http://122.248.199.242/api/v1/mealhistory"
 NSString* const SOCKET_URL = @"122.248.199.242";
 int const SOCKET_PORT = 8000;
 
-// Dimentions:
+// Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 59;
 int const ROW_HEIGHT_PHOTO_MENU = 196;
+int const MAX_CHARS_IN_NAME_LABEL_LIST_MENU = 1120;
+int const MAX_CHARS_IN_NAME_LABEL_PHOTO_MENU = 1120;
+int const LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU = 21;
+int const LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU = 26;
+
 double const SCALE_OF_BUTTON = 2.85;
 int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 1100;
@@ -41,6 +46,8 @@ int const RATING_STAR_HEIGHT = 15;
 int const AVERAGE_PIXEL_PER_CHAR = 8;
 int const CATEGORY_BUTTON_OFFSET = 5;
 int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
+int const OFFSET_FOR_KEYBOARD = 95;
+
 
 // Colours
 
@@ -62,6 +69,7 @@ double const BADGE_ANMINATION_ZOOM_FACTOR = 2.1;
 double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION = 0.6;
 double const BUTTON_CLICK_ANIMATION_DURATION = 0.15;
 double const BUTTON_CLICK_ANIMATION_ALPHA = 0.45;
+double const KEYBOARD_APPEARING_DURATION = 0.3;
 
 // Fonts:
 

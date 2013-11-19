@@ -11,6 +11,7 @@
 #import "User.h"
 #import "Constants.h"
 #import <AFHTTPRequestOperationManager.h>
+#import "SSKeychain.h"
 
 @interface ProfileViewController : UIViewController <UITextFieldDelegate>
 
@@ -22,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *isVegetarianButton;
 
 - (IBAction)toggleIsVegetarianDisplay:(UIButton *)sender;
+- (IBAction)logout:(id)sender;
 
 @end

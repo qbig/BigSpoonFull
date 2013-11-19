@@ -450,7 +450,7 @@ class Dish(models.Model):
         upload_to=_image_upload_path,
         blank=True,
         null=True,
-        sizes=((640, 400),),
+        sizes=((640, 400), (320, 200)),
         help_text=_('dish photo')
     )
     categories = models.ManyToManyField(
