@@ -1098,7 +1098,7 @@ table tbody tr td,
     margin: 10px;
     margin-bottom:0px;
     padding: 10px 20px 10px 20px; /*trbl*/
-    width: 740px;
+    width: 900px;
     /*padding: 5px 10px 5px 10px;*/ /*trbl*/
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -1113,7 +1113,7 @@ table tbody tr td,
     margin-top:0px;
     padding:20px;
     padding-bottom: 40px;
-    width: 740px;
+    width: 900px;
     background:#fff;
 }
 
@@ -1122,7 +1122,7 @@ table tbody tr td,
     margin-top:0px;
     padding:20px;
     padding-bottom: 40px;
-    width: 740px;
+    width: 900px;
     background:#fff;
 }
 
