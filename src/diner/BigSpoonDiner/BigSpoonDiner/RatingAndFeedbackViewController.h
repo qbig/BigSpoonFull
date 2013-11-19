@@ -28,7 +28,9 @@
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
-- (IBAction)textFieldDidEndOnExit:(id)sender;
+
+- (IBAction)textFinishEditing:(id)sender;
+- (IBAction)textFieldDidBeginEditing:(id)sender;
 
 - (void) reloadDataWithOrder: (Order *) currentOrder andOutletID: (int) outletID;
 

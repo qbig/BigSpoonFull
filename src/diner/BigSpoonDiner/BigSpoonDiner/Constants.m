@@ -46,6 +46,8 @@ int const RATING_STAR_HEIGHT = 15;
 int const AVERAGE_PIXEL_PER_CHAR = 8;
 int const CATEGORY_BUTTON_OFFSET = 5;
 int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
+int const OFFSET_FOR_KEYBOARD = 95;
+
 
 // Colours
 

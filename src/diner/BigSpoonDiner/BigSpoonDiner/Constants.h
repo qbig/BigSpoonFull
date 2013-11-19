@@ -46,6 +46,7 @@ extern int const RATING_STAR_HEIGHT;
 extern int const AVERAGE_PIXEL_PER_CHAR;
 extern int const CATEGORY_BUTTON_OFFSET;
 extern int const CATEGORY_BUTTON_BORDER_WIDTH;
+extern int const OFFSET_FOR_KEYBOARD;
 
 // Colours
 

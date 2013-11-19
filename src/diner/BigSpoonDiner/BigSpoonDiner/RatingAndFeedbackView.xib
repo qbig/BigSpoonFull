@@ -72,7 +72,9 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <action selector="textFieldDidEndOnExit:" destination="-1" eventType="editingDidEndOnExit" id="HJO-B1-oU6"/>
+                                <action selector="textFieldDidBeginEditing:" destination="-1" eventType="editingDidBegin" id="99l-9P-2DA"/>
+                                <action selector="textFinishEditing:" destination="-1" eventType="editingDidEndOnExit" id="TJr-XH-reJ"/>
+                                <action selector="textFinishEditing:" destination="-1" eventType="editingDidEnd" id="dDD-UR-6LB"/>
                             </connections>
                         </textField>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Yvv-31-cFB">

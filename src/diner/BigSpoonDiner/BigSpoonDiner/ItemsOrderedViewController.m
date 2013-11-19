@@ -7,7 +7,7 @@
 //
 
 #import "ItemsOrderedViewController.h"
-#define kOFFSET_FOR_KEYBOARD 80.0
+#define kOFFSET_FOR_KEYBOARD 95.0
 
 @interface ItemsOrderedViewController (){
     double GSTRate;
@@ -48,28 +48,6 @@
     [self updateTableHeight];
     
     return;
-    // register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    // unregister for keyboard notifications while not visible.
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,46 +57,6 @@
 }
 
 #pragma mark - Keybaord Events
-
--(void)keyboardWillShow {
-    
-    NSLog(@"will show: self.view.frame.origin.y: %f", self.view.frame.origin.y);
-
-    // Animate the current view out of the way
-    if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.view.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-
--(void)keyboardWillHide {
-    
-    NSLog(@"will hide: self.view.frame.origin.y: %f", self.view.frame.origin.y);
-
-
-    if (self.view.frame.origin.y < 0)
-    {
-        [self setViewMovedUp:YES];
-    }
-    else if (self.view.frame.origin.y >= 0)
-    {
-        [self setViewMovedUp:NO];
-    }
-}
-- (IBAction)textFieldDidBeginEditing:(id)sender {
-    if ([sender isEqual:self.addNotesTextField])
-    {
-        //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y >= 0)
-        {
-            [self setViewMovedUp:YES];
-        }
-    }
-}
 
 //method to move the view up/down whenever the keyboard is shown/dismissed
 -(void)setViewMovedUp:(BOOL)movedUp
@@ -258,6 +196,32 @@
 
 #pragma mark - Button event listeners
 
+- (IBAction)textFieldDidBeginEditing:(id)sender {
+    
+    if ([sender isEqual:self.addNotesTextField])
+    {
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.view.frame.origin.y >= 0)
+        {
+            [self setViewMovedUp:YES];
+        }
+    }
+}
+
+- (IBAction)textFinishEditing:(id)sender {
+    
+    [sender resignFirstResponder];
+    
+    if ([sender isEqual:self.addNotesTextField])
+    {
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.view.frame.origin.y < 0)
+        {
+            [self setViewMovedUp:NO];
+        }
+    }
+}
+
 - (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
     [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     
@@ -322,10 +286,6 @@
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
     [self updateTableHeight];
-}
-
-- (IBAction)textFinishEditing:(id)sender {
-    [sender resignFirstResponder];
 }
 
 - (void) updatePriceLabels{

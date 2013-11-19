@@ -660,6 +660,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <action selector="textFieldDidBeginEditing:" destination="yOQ-Ac-fpM" eventType="editingDidBegin" id="Ugg-Bg-nhk"/>
+                                                    <action selector="textFinishEditing:" destination="yOQ-Ac-fpM" eventType="editingDidEnd" id="8Z6-tV-5nJ"/>
                                                     <action selector="textFinishEditing:" destination="yOQ-Ac-fpM" eventType="editingDidEndOnExit" id="9iO-Zr-2m6"/>
                                                 </connections>
                                             </textField>
