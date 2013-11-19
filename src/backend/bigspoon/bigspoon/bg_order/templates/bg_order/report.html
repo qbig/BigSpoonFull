@@ -58,8 +58,12 @@
 {% block morejs %}
 <!--Table-->
 <script src="{% static "js/sorttable.js"%}"></script>
-<script src="{% static "js/chart/Chart.js"%}"></script> 
+
+<!--CHART TESTING-->
 <!--<script src="{% static "js/chart/Chart.min.js"%}"></script>--> <!--DONT use MIN-->
-<script src="{% static "js/chart/time.js"%}"></script>  <!--Must b AFTER chart.js-->
-<script src="{% static "js/chart/chartmanager.js"%}"></script>  <!--Must b AFTER chart.js-->
+
+<!--Time and ChartManager must be AFTER Chart.js-->
+<script src="{% static "js/chart/Chart.js"%}"></script>
+<script src="{% static "js/chart/time.js"%}"></script>
+<script src="{% static "js/chart/chartmanager.js"%}"></script>
 {% endblock morejs %}
