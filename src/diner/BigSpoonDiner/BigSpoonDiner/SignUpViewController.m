@@ -52,8 +52,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)textFieldReturn:(id)sender {
+- (IBAction)textFieldDidBeginEditing:(id)sender {
+    
+        //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y >= 0){
+        [self setViewMovedUp:YES];
+    }
+}
+
+- (IBAction)textFinishEditing:(id)sender {
+    
     [sender resignFirstResponder];
+    
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y < 0){
+        [self setViewMovedUp:NO];
+    }
 }
 
 - (IBAction)submitButtonPressed:(id)sender {

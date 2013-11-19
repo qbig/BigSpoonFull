@@ -11,6 +11,35 @@
 
 @interface UIViewController (KeyboardEvents)
 
+// Usage:
+
+// Define these metnods in the ViewController:
+// Bind the textField action to them:
+// ==>
+// ==>
+// ==>
+
+ /*
+- (IBAction)textFieldDidBeginEditing:(id)sender {
+    
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y >= 0){
+        [self setViewMovedUp:YES];
+    }
+}
+
+- (IBAction)textFinishEditing:(id)sender {
+    
+    [sender resignFirstResponder];
+    
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y < 0){
+        [self setViewMovedUp:NO];
+    }
+}
+  
+*/
+
 -(void)setViewMovedUp:(BOOL)movedUp;
 
 @end
