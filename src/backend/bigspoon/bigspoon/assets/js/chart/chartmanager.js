@@ -55,6 +55,7 @@ function getMonthStr(monthNum){
 createChart();
 function createChart(){
 	var chartSpending = document.getElementById("chart-spending");
+	var percentSpending = document.getElementById("percent-spending");
 	var chartTOTime = document.getElementById("chart-totime");
 
 	var chartDates = getChartDates("week");
@@ -94,19 +95,21 @@ var testData = [100,200,300,500,900];
 				var lastId = lineChartData.datasets[0].data.length-1;
 				var thisWeekRevenue = lineChartData.datasets[0].data[lastId];
 				var prevWeekRevenue = lineChartData.datasets[0].data[lastId-1];
-				var percentChange = (thisWeekRevenue-prevWeekRevenue)/prevWeekRevenue;
+				var percentChange = (thisWeekRevenue-prevWeekRevenue)/prevWeekRevenue*100;
 				var stringMsg = "Revenue this week is ";
-				if (thisWeekRevenue > prevWeekRevenue){
+				if (thisWeekRevenue > prevWeekRevenue){ //GREEN
 					lineChartData.datasets[0].fillColor = "rgba(7,71,0,0.5)";
 					lineChartData.datasets[0].strokeColor = "rgba(7,71,0,1)";
 					lineChartData.datasets[0].pointColor = "rgba(7,71,0,1)";
+					stringMsg = stringMsg + "UP by +"+percentChange+"%";
 				}
-				else{
+				else{ //RED
 					lineChartData.datasets[0].fillColor = "rgba(132,0,8,0.5)";
 					lineChartData.datasets[0].strokeColor = "rgba(132,0,8,1)";
 					lineChartData.datasets[0].pointColor = "rgba(132,0,8,1)";
+					stringMsg = stringMsg + "DOWN by "+percentChange+"%";
 				}
-				updateChart(chartSpending, lineChartData);
+				updateChart(chartSpending, lineChartData, percentSpending, stringMsg);
 			}
 
         }).fail(function(data) {
@@ -126,8 +129,12 @@ function getChartDates(periodInterval){
     return getChartWeekLabels(); break;
   }
 }
-function updateChart(chartCanvas, lineChartData){
+function updateChart(chartCanvas, lineChartData, stringCanvas, stringMsg){
 	var myLine = new Chart(chartCanvas.getContext("2d")).Line(lineChartData);
+	var stringCtx = stringCanvas.getContext("2d");
+	
+	stringCtx.fillText(stringMsg, (chartCanvas.width*1/8),(chartCanvas.height*1/3)  );
+
 }
 
 
