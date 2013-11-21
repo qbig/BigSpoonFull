@@ -36,6 +36,13 @@
     self.ratings  = [[NSMutableDictionary alloc] init];
 }
 
+- (void) viewDidLoad{
+    [super viewDidLoad];
+    
+    // Initial default value:
+    self.initialY = -1000;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -329,10 +336,15 @@
 
 - (IBAction)textFieldDidBeginEditing:(id)sender {
     
+    // If the initialY is not initialized (and hence with a value of -1000, set in viewDIdLoad)
+    if (self.initialY == -1000) {
+        self.initialY = self.view.frame.origin.y;
+    }
+    
     if ([sender isEqual:self.feedbackTextField])
     {
         //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y >= 0)
+        if  (self.view.frame.origin.y >= self.initialY)
         {
             [self setViewMovedUp:YES];
         }
@@ -343,10 +355,12 @@
     
     [sender resignFirstResponder];
     
+    NSLog(@"Did finish editing %f %f", self.view.frame.origin.y, self.initialY);
+    
     if ([sender isEqual:self.feedbackTextField])
     {
         //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y < 0)
+        if  (self.view.frame.origin.y < self.initialY)
         {
             [self setViewMovedUp:NO];
         }

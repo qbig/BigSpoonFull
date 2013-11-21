@@ -54,13 +54,6 @@ extern float const CATEGORY_BUTTON_COLOR_RED;
 extern float const CATEGORY_BUTTON_COLOR_GREEN;
 extern float const CATEGORY_BUTTON_COLOR_BLUE;
 
-// Coordinates:
-
-extern int const REQUEST_WATER_VIEW_X;
-extern int const REQUEST_WATER_VIEW_Y;
-extern int const RATING_AND_FEEDBACK_X;
-extern int const RATING_AND_FEEDBACK_Y;
-
 // Animations
 
 extern double const BADGE_ANMINATION_DURATION;

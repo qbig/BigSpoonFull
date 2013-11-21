@@ -106,9 +106,9 @@
     self.requestWaterView = [subviewArray objectAtIndex:0];
     [self.view addSubview:self.requestWaterView];
     CGRect frame = self.requestWaterView.frame;
-    [self.requestWaterView setFrame:CGRectMake(REQUEST_WATER_VIEW_X, REQUEST_WATER_VIEW_Y, frame.size.width, frame.size.height)];
-    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
+    [self.requestWaterView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width andHeight:frame.size.height]];
     
+    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
 }
 
 
@@ -460,10 +460,8 @@
     
     // Make the frame correct:
     CGRect frame = self.ratingAndFeedbackViewController.view.frame;
-    [self.ratingsAndFeedbackView setFrame:CGRectMake(RATING_AND_FEEDBACK_X,
-                                                    RATING_AND_FEEDBACK_Y,
-                                                    frame.size.width,
-                                                    frame.size.height)];
+    [self.ratingsAndFeedbackView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width
+                                                                         andHeight:frame.size.height]];
     
     // Load data
     [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
@@ -1003,6 +1001,21 @@
 }
 
 #pragma mark - Others
+
+// @param: width and height of a view
+// @return: the frame if the view is located at the center of the screen
+- (CGRect) getFrameAtCenterOfScreenWithWidth: (int) viewWidth andHeight: (int) viewHeight{
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    CGFloat screenWidth = screenSize.width;
+    CGFloat screenHeight = screenSize.height;
+    
+    
+    return CGRectMake(screenWidth / 2 - viewWidth / 2,
+                      screenHeight / 2 - viewHeight / 2,
+                      viewWidth,
+                      viewHeight);
+}
 
 
 @end
