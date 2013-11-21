@@ -206,7 +206,10 @@
 //        NSLog(@"Invalid display method");
 //        return 100;
 //    }
-    
+    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+    if ([indexPath row] == [dishes count]) {
+        return 210;
+    }
     
     if (self.displayMethod == kMethodList) {
 
@@ -353,13 +356,13 @@
                      forControlEvents:UIControlEventTouchUpInside];
                     
                     // Add spaces before and after the title:
-                    NSString *buttonTitle = [name stringByAppendingString:@" "];
-                    buttonTitle = [@" " stringByAppendingString:buttonTitle];
+                    NSString *buttonTitle = [name stringByAppendingString:@"  "];
+                    buttonTitle = [@"  " stringByAppendingString:buttonTitle];
                     [button setTitle:buttonTitle forState:UIControlStateNormal];
                     
                     [self.categoryButtonsHolderView addSubview:button];
 
-                    int buttonWidth = ([name length] + 2) * AVERAGE_PIXEL_PER_CHAR;
+                    int buttonWidth = [buttonTitle length] * AVERAGE_PIXEL_PER_CHAR;
                     button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
                     // minus border width so that they will overlap at the border:
                     sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;

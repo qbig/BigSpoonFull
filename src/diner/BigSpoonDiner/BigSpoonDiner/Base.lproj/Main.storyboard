@@ -1181,16 +1181,13 @@
         <image name="add_icon.png" width="256" height="256"/>
         <image name="bottom_buttons.png" width="1367" height="253"/>
         <image name="button_add_no_circle.png" width="128" height="128"/>
-        <image name="button_add_no_circle.png" width="128" height="128"/>
         <image name="button_minus_no_circle.png" width="128" height="128"/>
-        <image name="gear.png" width="104" height="104"/>
         <image name="gear.png" width="104" height="104"/>
         <image name="icon_256px_unfilled.png" width="256" height="256"/>
         <image name="list_icon.png" width="105" height="105"/>
         <image name="logout_button.png" width="132" height="46"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="105" height="105"/>
-        <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="red_circle.png" width="184" height="184"/>
     </resources>
