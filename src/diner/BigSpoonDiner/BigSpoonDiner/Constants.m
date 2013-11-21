@@ -46,21 +46,13 @@ int const RATING_STAR_HEIGHT = 15;
 int const AVERAGE_PIXEL_PER_CHAR = 8;
 int const CATEGORY_BUTTON_OFFSET = 5;
 int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
-int const OFFSET_FOR_KEYBOARD = 95;
-
+int const OFFSET_FOR_KEYBOARD = 100;
 
 // Colours
 
 float const CATEGORY_BUTTON_COLOR_RED = 0 / 256.0;
 float const CATEGORY_BUTTON_COLOR_GREEN = 135 / 256.0;
 float const CATEGORY_BUTTON_COLOR_BLUE = 198 / 256.0;
-
-// Coordinates:
-
-int const REQUEST_WATER_VIEW_X = 40;
-int const REQUEST_WATER_VIEW_Y = 150;
-int const RATING_AND_FEEDBACK_X = 18;
-int const RATING_AND_FEEDBACK_Y = 70;
 
 // Animations:
 

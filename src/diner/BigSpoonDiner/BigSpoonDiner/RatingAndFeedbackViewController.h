@@ -25,7 +25,7 @@
 @property (nonatomic) int outletID;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
-
+@property (nonatomic) float initialY;
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
