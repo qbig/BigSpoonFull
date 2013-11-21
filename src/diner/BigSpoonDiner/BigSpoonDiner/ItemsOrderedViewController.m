@@ -49,11 +49,12 @@
     return;
 }
 
-- (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    [self.scrollView setContentOffset:CGPointZero animated:NO];
-}
+// This was for a fix of the bug
+//- (void) viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//    
+//    [self.scrollView setContentOffset:CGPointZero animated:NO];
+//}
 
 - (void)didReceiveMemoryWarning
 {

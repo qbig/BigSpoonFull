@@ -45,11 +45,11 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
-    [self.categoryButtonsHolderView setContentOffset:CGPointZero animated:NO];
-}
+//- (void) viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//    
+//    [self.categoryButtonsHolderView setContentOffset:CGPointZero animated:NO];
+//}
 
 - (void)didReceiveMemoryWarning
 {
