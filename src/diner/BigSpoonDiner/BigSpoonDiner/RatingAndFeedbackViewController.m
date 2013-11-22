@@ -260,8 +260,8 @@
 }
 
 - (void) displaySuccessInfoAfterSubmittingRating{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                        message:@"Thank you, as a valued customer, your feedback is important to us and we will take it into consideration."
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thank you"
+                                                        message:@"As a valued customer, your feedback is important to us and we will take it into consideration."
                                                        delegate:nil
                                               cancelButtonTitle:@"Okay"
                                               otherButtonTitles:nil];
