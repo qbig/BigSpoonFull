@@ -53,14 +53,12 @@
     } else if (fabsf(screenRect.size.height - IPHONE_4_INCH_HEIGHT) < 0.001){
         NSLog(@"Iphone 4 inch screen");
 
-        NSLog(@"Error: invalid iphone screen height: %f", screenRect.size.height);
-
         self.tableView.frame = CGRectMake(frame.origin.x,
                                           frame.origin.y,
                                           frame.size.width,
                                           screenRect.size.height - IPHONE_4_INCH_TABLE_VIEW_OFFSET);
     } else{
-        NSLog(@"Error: invalid iphone screen height: %f", screenRect.size.height);
+        NSLog(@"Error: haha invalid iphone screen height: %f", screenRect.size.height);
         self.tableView.frame = CGRectMake(frame.origin.x,
                                           frame.origin.y,
                                           frame.size.width,
@@ -347,7 +345,7 @@
 - (void) loadCategoriesFromServer{
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: DISH_CATEGORY_URL]];
-    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     request.HTTPMethod = @"GET";
     

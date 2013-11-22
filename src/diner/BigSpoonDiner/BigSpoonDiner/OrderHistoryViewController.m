@@ -51,7 +51,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:ORDER_HISTORY_URL]];
     request.HTTPMethod = @"GET";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request setValue: [@"Token " stringByAppendingString:[User sharedInstance].auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue: [@"Token " stringByAppendingString:[User sharedInstance].authToken] forHTTPHeaderField: @"Authorization"];
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
 
