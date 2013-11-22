@@ -88,7 +88,7 @@
     
     User *user = [User sharedInstance];
     
-    [self.socketIO sendMessage:[NSString stringWithFormat:@"subscribe:u_%@", user.auth_token]];
+    [self.socketIO sendMessage:[NSString stringWithFormat:@"subscribe:u_%@", user.authToken]];
     self.isSocketConnected = YES;
 }
 
