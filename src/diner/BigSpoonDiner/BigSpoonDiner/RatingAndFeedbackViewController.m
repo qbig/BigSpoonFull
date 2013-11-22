@@ -233,6 +233,7 @@
             case 200:
             case 201:{
                 NSLog(@"Submit Rating Success");
+                [self displaySuccessInfoAfterSubmittingRating];
             }
                 break;
             case 403:
@@ -250,11 +251,21 @@
                                           if ([operation.response statusCode] != 200){
                                               [self displayErrorInfo: operation.responseObject];
                                           } else{
-                                              NSLog(@"Submit Rating Success");
+                                              NSLog(@"Submit Rating Success, but in failure block.");
+                                              [self displaySuccessInfoAfterSubmittingRating];
                                           }
                                       }];
     
     [operation start];
+}
+
+- (void) displaySuccessInfoAfterSubmittingRating{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                        message:@"Thank you, as a valued customer, your feedback is important to us and we will take it into consideration."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 - (void) performFeedbackSubmission{
