@@ -674,8 +674,8 @@
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add notes (e.g. no peanut)..." minimumFontSize="17" id="sus-Pe-AR7">
-                                                <rect key="frame" x="45" y="113" width="230" height="30"/>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add notes (e.g. no peanuts)..." minimumFontSize="17" id="sus-Pe-AR7">
+                                                <rect key="frame" x="20" y="107" width="219" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -686,7 +686,7 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5MF-RW-ibQ">
-                                                <rect key="frame" x="77" y="164" width="176" height="43"/>
+                                                <rect key="frame" x="77" y="158" width="176" height="43"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.44705882352941173" green="0.82745098039215681" blue="0.4823529411764706" alpha="1" colorSpace="deviceRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
