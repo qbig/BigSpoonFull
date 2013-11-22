@@ -37,6 +37,41 @@
     // By default:
     self.displayMethod = kMethodPhoto;
     self.displayCategoryID = -1;
+    
+    // Set the table view to be the same height as the screen:
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+    CGRect frame = self.tableView.frame;
+    
+    if (fabsf(screenRect.size.height - IPHONE_35_INCH_HEIGHT) < 0.001) {
+        NSLog(@"Iphone 3.5 inch screen");
+
+        self.tableView.frame = CGRectMake(frame.origin.x,
+                                          frame.origin.y,
+                                          frame.size.width,
+                                          screenRect.size.height - IPHONE_35_INCH_TABLE_VIEW_OFFSET);
+    } else if (fabsf(screenRect.size.height - IPHONE_4_INCH_HEIGHT) < 0.001){
+        NSLog(@"Iphone 4 inch screen");
+
+        NSLog(@"Error: invalid iphone screen height: %f", screenRect.size.height);
+
+        self.tableView.frame = CGRectMake(frame.origin.x,
+                                          frame.origin.y,
+                                          frame.size.width,
+                                          screenRect.size.height - IPHONE_4_INCH_TABLE_VIEW_OFFSET);
+    } else{
+        NSLog(@"Error: invalid iphone screen height: %f", screenRect.size.height);
+        self.tableView.frame = CGRectMake(frame.origin.x,
+                                          frame.origin.y,
+                                          frame.size.width,
+                                          screenRect.size.height - IPHONE_35_INCH_TABLE_VIEW_OFFSET);
+    }
+    
+//    self.tableView.frame = CGRectMake(frame.origin.x,
+//                                      frame.origin.y,
+//                                      frame.size.width,
+//                                      screenRect.size.height - 130);
+
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -206,9 +241,10 @@
 //        NSLog(@"Invalid display method");
 //        return 100;
 //    }
+    
     NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
     if ([indexPath row] == [dishes count]) {
-        return 210;
+        return HEIGHT_REQUEST_BAR;
     }
     
     if (self.displayMethod == kMethodList) {
@@ -221,7 +257,7 @@
     
     } else{
         NSLog(@"Invalid display method");
-        return 100;
+        return 0;
     }
 }
 
@@ -380,7 +416,7 @@
                 [self displayErrorInfo: @"Please check your network"];
             }
         }
-        NSLog(@"JSON: %@", responseObject);
+        //NSLog(@"JSON: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self displayErrorInfo:operation.responseString];
@@ -514,7 +550,6 @@
             NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
             for (NSDictionary *newTable in tables) {
                 NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
-                NSLog(@"Table ID retrieved %d:", [tableID integerValue]);
                 [validTableIDs addObject: tableID];
             }
             
