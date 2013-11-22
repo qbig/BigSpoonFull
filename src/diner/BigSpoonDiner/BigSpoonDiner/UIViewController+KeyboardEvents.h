@@ -43,5 +43,6 @@
 */
 
 -(void)setViewMovedUp:(BOOL)movedUp;
+-(void)setViewMovedUp:(BOOL)movedUp withDistance:(float) distance;
 
 @end

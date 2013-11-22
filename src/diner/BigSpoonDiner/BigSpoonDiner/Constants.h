@@ -39,6 +39,7 @@ extern int const LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
 extern double const SCALE_OF_BUTTON;
 extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
+extern int const CATEGORY_BUTTON_SCROLL_WIDTH;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
@@ -47,6 +48,7 @@ extern int const AVERAGE_PIXEL_PER_CHAR;
 extern int const CATEGORY_BUTTON_OFFSET;
 extern int const CATEGORY_BUTTON_BORDER_WIDTH;
 extern int const OFFSET_FOR_KEYBOARD;
+extern int const OFFSET_FOR_KEYBOARD_SIGN_UP;
 
 // Colours
 

@@ -370,7 +370,7 @@
                     [self.categoryButtonsArray addObject:button];
                 }
                 
-                self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths + 10, buttonHeight);
+                self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths + CATEGORY_BUTTON_SCROLL_WIDTH, buttonHeight);
                 [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
                 
             }
