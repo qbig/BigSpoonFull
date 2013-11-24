@@ -113,17 +113,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # user attributes
     @property
-    def avatar_url(self, sizetype='small'):
+    def avatar_url(self):
         if (self.username):
             return "https://graph.facebook.com/%s/picture?type=%s" % (
-                self.username, sizetype)
-        if sizetype == 'small':
-            s = 50
-        else:
-            s = 180
+                self.username, 'small')
         return "http://www.gravatar.com/avatar/%s?%s" % (
             hashlib.md5(self.email.lower()).hexdigest(),
-            urllib.urlencode({'d': 'mm', 's': str(s)})
+            urllib.urlencode({'d': 'mm', 's': str(50)})
+        )
+
+    @property
+    def avatar_url_large(self):
+        if (self.username):
+            return "https://graph.facebook.com/%s/picture?type=%s" % (
+                self.username, 'large')
+        return "http://www.gravatar.com/avatar/%s?%s" % (
+            hashlib.md5(self.email.lower()).hexdigest(),
+            urllib.urlencode({'d': 'mm', 's': str(180)})
         )
 
     @property
