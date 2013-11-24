@@ -17,16 +17,22 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
 
     avatar_url = serializers.SerializerMethodField('get_avatar')
+    avatar_url_large = serializers.SerializerMethodField('get_avatar_large')
 
     def get_avatar(self, obj):
         if hasattr(obj, 'email'):
             return obj.avatar_url
         return 'None'
 
+    def get_avatar_large(self, obj):
+        if hasattr(obj, 'email'):
+            return obj.avatar_url_large
+        return 'None'
+
     class Meta:
         model = User
         fields = ('email', 'username', 'first_name', 'last_name',
-                  'password', 'auth_token', 'avatar_url')
+                  'password', 'auth_token', 'avatar_url', 'avatar_url_large')
         read_only_fields = ('auth_token',)
 
 
@@ -47,6 +53,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'total': obj.user.get_total_spending(),
             'average': obj.user.get_average_spending(),
             'avatar_url': obj.user.avatar_url,
+            'avatar_url_large': obj.user.avatar_url_large,
         }
 
     class Meta:

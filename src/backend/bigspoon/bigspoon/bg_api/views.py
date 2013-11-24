@@ -95,7 +95,8 @@ class LoginUser(APIView):
                 'first_name': u.first_name,
                 'last_name': u.last_name,
                 'auth_token': token.key,
-                'avatar_url': u.avatar_url
+                'avatar_url': u.avatar_url,
+                'avatar_url_large': u.avatar_url_large
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -124,7 +125,8 @@ class FBLogin(APIView):
                 'first_name': u.first_name,
                 'last_name': u.last_name,
                 'auth_token': token.key,
-                'avatar_url': u.avatar_url
+                'avatar_url': u.avatar_url,
+                'avatar_url_large': u.avatar_url_large
             })
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
