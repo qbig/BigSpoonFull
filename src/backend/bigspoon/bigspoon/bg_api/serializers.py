@@ -1,3 +1,4 @@
+from facepy import GraphAPI
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.utils import timezone
@@ -271,3 +272,37 @@ class TokenSerializer(serializers.Serializer):
         else:
             raise serializers.ValidationError(
                 'Must include "email" and "password"')
+
+
+class FBSerializer(serializers.Serializer):
+    access_token = serializers.CharField()
+
+    def validate(self, attrs):
+        access_token = attrs.get('access_token')
+
+        if access_token:
+            try:
+                graph = GraphAPI(access_token)
+                result = graph.get('me?fields=email')
+            except GraphAPI.OAuthError:
+                result = None
+            if result:
+                try:
+                    user = User.objects.get(email=result['email'])
+                except User.DoesNotExist:
+                    user = None
+                if user:
+                    if not user.is_active:
+                        raise serializers.ValidationError(
+                            'User account is disabled.')
+                    attrs['user'] = user
+                    return attrs
+                else:
+                    raise serializers.ValidationError(
+                        'User not found.')
+            else:
+                raise serializers.ValidationError(
+                    'Invalid access token.')
+        else:
+            raise serializers.ValidationError(
+                'Empty access token.')

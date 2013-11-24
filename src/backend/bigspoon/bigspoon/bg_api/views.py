@@ -22,7 +22,8 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     MealSerializer, RequestSerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
-    SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer
+    SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer, \
+    FBSerializer
 
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
@@ -80,6 +81,35 @@ class LoginUser(APIView):
                       parsers.JSONParser,)
     renderer_classes = (renderers.JSONRenderer,)
     serializer_class = TokenSerializer
+    model = Token
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.DATA)
+        if serializer.is_valid():
+            u = serializer.object['user']
+            token, created = Token.objects.get_or_create(
+                user=u
+            )
+            return Response({
+                'email': u.email,
+                'first_name': u.first_name,
+                'last_name': u.last_name,
+                'auth_token': token.key,
+                'avatar_url': u.avatar_url
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FBLogin(APIView):
+    """
+    Get user token by facebook access_token
+    """
+    throttle_classes = ()
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser,
+                      parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = FBSerializer
     model = Token
 
     def post(self, request):
