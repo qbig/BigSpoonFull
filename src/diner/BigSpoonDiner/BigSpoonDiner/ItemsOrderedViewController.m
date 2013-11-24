@@ -44,7 +44,7 @@
     [super viewWillAppear:animated];
        
     [self updatePriceLabels];
-    [self updateTableHeight];
+    [self updateTablesAndScrollviewHeight];
     
     return;
 }
@@ -272,7 +272,7 @@
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
-    [self updateTableHeight];
+    [self updateTablesAndScrollviewHeight];
 }
 
 - (void) updatePriceLabels{
@@ -320,7 +320,7 @@
 /*
  * The table height is dynamic.
  */
-- (void) updateTableHeight{
+- (void) updateTablesAndScrollviewHeight{
     int currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.currentOrder getNumberOfKindsOfDishes];
     int pastOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
