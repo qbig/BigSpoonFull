@@ -10,6 +10,8 @@
 
 @interface PastOrderDetailViewController ()
 
+-(double)getSubtotal;
+
 @end
 
 @implementation PastOrderDetailViewController
@@ -29,6 +31,28 @@
 	// Do any additional setup after loading the view.
     self.restuarantNameLabel.text = self.restaurantName;
     self.orderTimeLabel.text = self.orderTime;
+}
+
+- (double)getSubtotal {
+    double subtotal = 0.0;
+    for (NSDictionary *meal in self.meals) {
+        NSLog(@"%@", meal);
+        double quantity = [[meal objectForKey:@"quantity"] doubleValue];
+        double price = [[[meal objectForKey:@"dish"] objectForKey:@"price"] doubleValue];
+        subtotal = subtotal + quantity * price;
+    }
+    return subtotal;
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    double subtotal = [self getSubtotal];
+    self.subtotalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal];
+    double serviceCharge = 0.1 * subtotal;
+    self.serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
+    double gst = 0.07 * (subtotal + serviceCharge);
+    self.gstLabel.text = [NSString stringWithFormat:@"$%.2f", gst];
+    self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal + serviceCharge + gst];
 }
 
 - (void)didReceiveMemoryWarning
