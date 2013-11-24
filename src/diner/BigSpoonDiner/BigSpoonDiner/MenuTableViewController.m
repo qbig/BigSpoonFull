@@ -494,7 +494,7 @@
             for (NSDictionary *newDish in dishes) {
                 
                 NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
-                NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail"];
+                NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
                
                 NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
                 
