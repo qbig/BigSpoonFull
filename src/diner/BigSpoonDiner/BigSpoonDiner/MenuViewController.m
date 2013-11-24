@@ -652,7 +652,7 @@
                     return;
                 }
             }
-            [self askForTableIDWithTitle:@"Please enter a valid table ID"];
+            [self askForTableIDWithTitle:@"Please enter your table ID located on the BigSpoon table stand"];
         }
     }
     
@@ -985,7 +985,7 @@
 }
 
 - (void) askForTableID{
-    [self askForTableIDWithTitle: @"Please enter your table ID"];
+    [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
 }
 
 - (void) askForTableIDWithTitle: (NSString *)title{
