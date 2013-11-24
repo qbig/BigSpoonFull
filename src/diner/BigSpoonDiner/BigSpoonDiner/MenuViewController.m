@@ -652,7 +652,7 @@
                     return;
                 }
             }
-            [self askForTableIDWithTitle:@"Please enter your table ID located on the BigSpoon table stand"];
+            [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
         }
     }
     
