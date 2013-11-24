@@ -985,7 +985,13 @@
 }
 
 - (void) askForTableID{
-    [self askForTableIDWithTitle: @"Please enter your table ID"];
+    if (![self isUserLocation:currentUserLocation WithinMeters:10 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, you need to be within the restaurant to complete this request." delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
+        [errorAlert show];
+    }
+    else {
+        [self askForTableIDWithTitle: @"Please enter your table ID"];
+    }
 }
 
 - (void) askForTableIDWithTitle: (NSString *)title{
