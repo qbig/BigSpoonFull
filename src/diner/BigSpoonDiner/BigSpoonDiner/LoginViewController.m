@@ -171,7 +171,7 @@
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
-            NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
+            NSString* profilePhotoURL = [[json objectForKey:@"avatar_url"] stringByReplacingOccurrencesOfString :@"small" withString:@"large"];
             
 
             User *user = [User sharedInstance];

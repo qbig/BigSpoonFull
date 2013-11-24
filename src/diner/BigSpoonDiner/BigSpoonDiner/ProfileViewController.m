@@ -36,6 +36,7 @@
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];
     self.topRightButtonsView = [subviewArray objectAtIndex:0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.topRightButtonsView];
+    self.profilePictureView.contentMode = UIViewContentModeScaleAspectFit;
     self.profilePictureView.image = [User sharedInstance].profileImage;
     [self loadUserDetails];
 }
