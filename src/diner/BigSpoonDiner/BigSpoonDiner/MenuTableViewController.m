@@ -661,7 +661,15 @@
             }
         }
     }
-    return result;
+    
+    // sort according to pos number
+    NSArray *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        int first = [(Dish*)a pos];
+        int second = [(Dish*)b pos];
+        return first >= second;
+    }];
+    
+    return sortedArray;
 }
 
 
