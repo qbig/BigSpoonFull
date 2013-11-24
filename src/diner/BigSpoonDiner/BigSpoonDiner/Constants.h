@@ -31,14 +31,10 @@ extern int const SOCKET_PORT;
 
 extern int const ROW_HEIGHT_LIST_MENU;
 extern int const ROW_HEIGHT_PHOTO_MENU;
-extern int const MAX_CHARS_IN_NAME_LABEL_LIST_MENU;
-extern int const MAX_CHARS_IN_NAME_LABEL_PHOTO_MENU;
-extern int const LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
-extern int const LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
-
 extern double const SCALE_OF_BUTTON;
 extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
+extern int const CATEGORY_BUTTON_SCROLL_WIDTH;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
@@ -47,6 +43,13 @@ extern int const AVERAGE_PIXEL_PER_CHAR;
 extern int const CATEGORY_BUTTON_OFFSET;
 extern int const CATEGORY_BUTTON_BORDER_WIDTH;
 extern int const OFFSET_FOR_KEYBOARD;
+extern int const OFFSET_FOR_KEYBOARD_SIGN_UP;
+extern int const HEIGHT_REQUEST_BAR;
+extern int const HEIGHT_NAVIGATION_BAR;
+extern float const IPHONE_4_INCH_HEIGHT;
+extern float const IPHONE_35_INCH_HEIGHT;
+extern int const IPHONE_4_INCH_TABLE_VIEW_OFFSET;
+extern int const IPHONE_35_INCH_TABLE_VIEW_OFFSET;
 
 // Colours
 

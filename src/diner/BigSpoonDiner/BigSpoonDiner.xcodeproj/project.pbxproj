@@ -362,8 +362,6 @@
 				49048D28182001C900B480A3 /* Order.m */,
 				494AD9701836B69800843B3D /* DishCategory.h */,
 				494AD9711836B69800843B3D /* DishCategory.m */,
-				49BCF569183A5E640061821A /* ImageCache.h */,
-				49BCF56A183A5E640061821A /* ImageCache.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -525,6 +523,8 @@
 				49412B4118352ACB00BF949B /* RatingCellView.xib */,
 				49BBB6FF18350FCE007546E8 /* RatingCell.h */,
 				49BBB70018350FCE007546E8 /* RatingCell.m */,
+				49BCF569183A5E640061821A /* ImageCache.h */,
+				49BCF56A183A5E640061821A /* ImageCache.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";

@@ -1,3 +1,0 @@
-Split History into Table and Report.
-
-Everything you want to do inside History (refer to see which has been acknowledged), can be done in Table.

@@ -51,7 +51,7 @@
         user.firstName = firstName;
         user.lastName = lastName;
         user.email = email;
-        user.auth_token = auth_token;
+        user.authToken = auth_token;
         user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
         
         [self performSegueWithIdentifier:@"SegueFromStartToOutlets" sender:self];

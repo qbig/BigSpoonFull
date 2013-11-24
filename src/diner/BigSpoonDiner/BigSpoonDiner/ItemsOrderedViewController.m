@@ -175,19 +175,27 @@
 
 #pragma mark - Button event listeners
 
-- (IBAction)textFieldDidBeginEditing:(id)sender {
+- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
+    
+    float offsetFromTopToContainerView = sender.superview.frame.origin.y;
+    float offsetFromContainerViewToTextField = sender.frame.origin.y;
+    float offsetScrollView = self.scrollView.contentOffset.y;
+   
+    float offsetFromTopToTextField = offsetFromTopToContainerView + offsetFromContainerViewToTextField - offsetScrollView;
+    
+    NSLog(@"%f %f %f", offsetFromTopToContainerView, offsetFromContainerViewToTextField, offsetScrollView);
     
     if ([sender isEqual:self.addNotesTextField])
     {
         //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y >= 0)
+        if  (self.view.frame.origin.y >= 0 && offsetFromTopToTextField > OFFSET_FOR_KEYBOARD)
         {
             [self setViewMovedUp:YES];
         }
     }
 }
 
-- (IBAction)textFinishEditing:(id)sender {
+- (IBAction)textFinishEditing:(UITextField *)sender {
     
     [sender resignFirstResponder];
     

@@ -215,7 +215,7 @@
     
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: RATING_URL]];
-    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSError* error;
@@ -233,6 +233,7 @@
             case 200:
             case 201:{
                 NSLog(@"Submit Rating Success");
+                [self displaySuccessInfoAfterSubmittingRating];
             }
                 break;
             case 403:
@@ -250,11 +251,21 @@
                                           if ([operation.response statusCode] != 200){
                                               [self displayErrorInfo: operation.responseObject];
                                           } else{
-                                              NSLog(@"Submit Rating Success");
+                                              NSLog(@"Submit Rating Success, but in failure block.");
+                                              [self displaySuccessInfoAfterSubmittingRating];
                                           }
                                       }];
     
     [operation start];
+}
+
+- (void) displaySuccessInfoAfterSubmittingRating{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thank you"
+                                                        message:@"As a valued customer, your feedback is important to us and we will take it into consideration."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 - (void) performFeedbackSubmission{
@@ -271,7 +282,7 @@
     
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: FEEDBACK_URL]];
-    [request setValue: [@"Token " stringByAppendingString:user.auth_token] forHTTPHeaderField: @"Authorization"];
+    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
     NSError* error;
@@ -289,6 +300,7 @@
             case 200:
             case 201:{
                 NSLog(@"Submit Feedback Success");
+                
             }
                 break;
             case 403:

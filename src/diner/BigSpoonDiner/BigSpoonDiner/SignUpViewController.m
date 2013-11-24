@@ -56,7 +56,7 @@
     
         //move the main view, so that the keyboard does not hide it.
     if  (self.view.frame.origin.y >= 0){
-        [self setViewMovedUp:YES];
+        [self setViewMovedUp:YES withDistance:OFFSET_FOR_KEYBOARD_SIGN_UP];
     }
 }
 
@@ -66,14 +66,12 @@
     
     //move the main view, so that the keyboard does not hide it.
     if  (self.view.frame.origin.y < 0){
-        [self setViewMovedUp:NO];
+        [self setViewMovedUp:NO withDistance:OFFSET_FOR_KEYBOARD_SIGN_UP];
     }
 }
 
 - (IBAction)submitButtonPressed:(id)sender {
     
-    
-  
     
     if ([firstNameLabel.text isEqualToString:@""] || [lastNameLabel.text isEqualToString:@""] ||
         [emailAddressLabel.text isEqualToString:@""] || [passwordLabel.text isEqualToString:@""]) {
@@ -177,7 +175,7 @@
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
-            user.auth_token = auth_token;
+            user.authToken = auth_token;
             user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
             
             NSLog(@"New user created:");
