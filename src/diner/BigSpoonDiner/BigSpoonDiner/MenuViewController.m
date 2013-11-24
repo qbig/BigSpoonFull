@@ -845,7 +845,7 @@
     
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"Your order has been sent"
-                              message:@"Thank you for waiting"
+                              message:@"Our food is prepared with love, thank you for being patient"
                               delegate:nil
                               cancelButtonTitle:@"Okay"
                               otherButtonTitles:nil];
