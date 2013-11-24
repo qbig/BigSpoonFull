@@ -20,6 +20,7 @@
 @synthesize emailLabel;
 @synthesize passwordField;
 @synthesize activityIndicator;
+@synthesize mainView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +36,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewDidLoad {
+    //set background color
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.mainView.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
+    [self.mainView.layer insertSublayer:gradient atIndex:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
+
 - (IBAction)textFieldReturn:(id)sender {
     [sender resignFirstResponder];
 }
