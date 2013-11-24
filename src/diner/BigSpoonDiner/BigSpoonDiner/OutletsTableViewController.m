@@ -309,7 +309,7 @@
 
 #pragma mark - Navigation
 
-- (void) tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     
     // Deselect the row. Otherwise it will remain being selected.
