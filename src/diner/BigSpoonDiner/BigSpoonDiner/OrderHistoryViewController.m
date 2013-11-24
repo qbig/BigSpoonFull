@@ -77,7 +77,7 @@
     
     NSError* error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
-    NSLog(@"%@", jsonDict);
+    NSLog(@"jsonDict = %@", jsonDict);
     NSArray* pastOrdersList = (NSArray*)jsonDict;
     switch (statusCode) {
         case 200:{
@@ -96,8 +96,7 @@
                 view.orderTime.text = order_time;
                 view.meals = [NSArray arrayWithArray:meals];
                 [self.orderHistoryScrollView addSubview:view];
-                NSLog(@"meals[0] - %@", meals[0]);
-                NSLog(@"view.meals - %@", view.meals);
+                
                 pastOrderCount ++;
             }
             break;

@@ -42,25 +42,27 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 3;
-    NSLog(@"I am here");
+    NSLog(@"self.meals = %@", self.meals);
+    NSLog(@"%lu", (unsigned long)[self.meals count]);
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     return [self.meals count];
-    NSLog(@"I am here");
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mealItem"];
-    UILabel *lblName = (UILabel *)[cell viewWithTag:101];
-    lblName.text = @"Works";
-//    [lblName setText:[self.meals[[indexPath row]] objectAtIndex:[indexPath row]]];
+    UILabel *lblQuantity = (UILabel *)[cell viewWithTag:101];
+    UILabel *lblName = (UILabel *)[cell viewWithTag:102];
+    UILabel *lblPrice = (UILabel *)[cell viewWithTag:103];
+    [lblQuantity setText:[NSString stringWithFormat:@"%@", [[self.meals objectAtIndex:[indexPath row]] objectForKey:@"quantity"]]];
+    [lblName setText:[NSString stringWithFormat:@"%@", [[[self.meals objectAtIndex:[indexPath row]] objectForKey:@"dish"] objectForKey:@"name"]]];
+    [lblPrice setText:[NSString stringWithFormat:@"$%@", [[[self.meals objectAtIndex:[indexPath row]] objectForKey:@"dish"] objectForKey:@"price"]]];
     return cell;
 }
-
 
 @end
