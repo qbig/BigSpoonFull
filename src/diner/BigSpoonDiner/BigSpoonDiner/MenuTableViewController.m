@@ -620,6 +620,7 @@
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
+    [self.tableView setContentOffset:CGPointZero  animated:NO];
     UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
                                                    green:CATEGORY_BUTTON_COLOR_GREEN
                                                     blue:CATEGORY_BUTTON_COLOR_BLUE
@@ -634,7 +635,6 @@
             [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
         }
     }
-    
     self.displayCategoryID = button.tag;
     [self.tableView reloadData];
 }

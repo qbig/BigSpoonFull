@@ -167,6 +167,39 @@
     [_responseData appendData:data];
 }
 
+- (void)setUserDataAndPrefsWithReturnedData:(NSDictionary *)json {
+    NSString* email =[json objectForKey:@"email"];
+    NSString* firstName = [json objectForKey:@"first_name"];
+    NSString* lastName = [json objectForKey:@"last_name"];
+    NSString* auth_token = [json objectForKey:@"auth_token"];
+    NSString* profilePhotoURL = [json objectForKey:@"avatar_url_large"];
+    
+    
+    User *user = [User sharedInstance];
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.email = email;
+    user.authToken = auth_token;
+    user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
+    
+    
+    NSLog(@"User logged in:");
+    NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
+    NSLog(@"Email: %@", email);
+    NSLog(@"Auth_token: %@", auth_token);
+    NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    // Set
+    [prefs setObject:firstName forKey:@"firstName"];
+    [prefs setObject:lastName forKey:@"lastName"];
+    [prefs setObject:email forKey:@"email"];
+    [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
+    [prefs synchronize];
+    [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
+}
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
@@ -192,36 +225,7 @@
                 // 200 Okay
             case 200:{
                 
-                NSString* email =[json objectForKey:@"email"];
-                NSString* firstName = [json objectForKey:@"first_name"];
-                NSString* lastName = [json objectForKey:@"last_name"];
-                NSString* auth_token = [json objectForKey:@"auth_token"];
-                NSString* profilePhotoURL = [json objectForKey:@"avatar_url_large"];
-                
-                
-                User *user = [User sharedInstance];
-                user.firstName = firstName;
-                user.lastName = lastName;
-                user.email = email;
-                user.authToken = auth_token;
-                user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
-                
-                
-                NSLog(@"User logged in:");
-                NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
-                NSLog(@"Email: %@", email);
-                NSLog(@"Auth_token: %@", auth_token);
-                NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
-                
-                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-                
-                // Set
-                [prefs setObject:firstName forKey:@"firstName"];
-                [prefs setObject:lastName forKey:@"lastName"];
-                [prefs setObject:email forKey:@"email"];
-                [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
-                [prefs synchronize];
-                [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
+                [self setUserDataAndPrefsWithReturnedData:json];
                 
                 [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
                 
@@ -239,6 +243,7 @@
     } else {
         // handle checking token connection
         if ([json count] == 6){
+            [self setUserDataAndPrefsWithReturnedData:json];
             [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
         } else {
             [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
