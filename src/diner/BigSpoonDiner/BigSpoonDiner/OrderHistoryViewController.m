@@ -95,6 +95,7 @@
                 view.restaurantNameLabel.text = outletName;
                 view.orderTime.text = order_time;
                 view.meals = [NSArray arrayWithArray:meals];
+                view.restaurantID = [(NSString*)[outlet objectForKey:@"id"] integerValue];
                 [self.orderHistoryScrollView addSubview:view];
                 
                 pastOrderCount ++;

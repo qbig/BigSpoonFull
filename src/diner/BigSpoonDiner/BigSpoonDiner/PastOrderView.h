@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderTime;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGestureRecognizer;
 @property NSArray *meals;
+@property int restaurantID;
 
 - (id) initAtIndex: (int)pastOrderCount;
 - (IBAction)openOrderDetail:(id)sender;

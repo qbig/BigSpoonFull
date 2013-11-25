@@ -12,6 +12,8 @@
 
 -(double)getSubtotal;
 
+-(BOOL)hasUserComeFromMenuViewController;
+
 @end
 
 @implementation PastOrderDetailViewController
@@ -66,8 +68,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    NSLog(@"self.meals = %@", self.meals);
-    NSLog(@"%lu", (unsigned long)[self.meals count]);
     return 1;
 }
 
@@ -87,6 +87,59 @@
     [lblName setText:[NSString stringWithFormat:@"%@", [[[self.meals objectAtIndex:[indexPath row]] objectForKey:@"dish"] objectForKey:@"name"]]];
     [lblPrice setText:[NSString stringWithFormat:@"$%@", [[[self.meals objectAtIndex:[indexPath row]] objectForKey:@"dish"] objectForKey:@"price"]]];
     return cell;
+}
+
+-(BOOL)hasUserComeFromMenuViewController {
+    if ([[self.navigationController viewControllers] count] == 4) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+- (IBAction)placeTheSameOrder:(id)sender {
+    NSLog(@"%@", [self.navigationController viewControllers]);
+    OutletsTableViewController *outletsTableViewController = (OutletsTableViewController *)[[self.navigationController viewControllers] objectAtIndex:0];
+    NSMutableArray *newViewControllers = [[NSMutableArray alloc] initWithObjects: outletsTableViewController, nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MenuViewController *menuViewController = [storyboard instantiateViewControllerWithIdentifier:@"MENU_VIEW_CONTROLLER"];
+    Outlet *outlet;
+    for (Outlet *restaurant in outletsTableViewController.outletsArray) {
+        if (restaurant.outletID == self.restaurantID) {
+            outlet = restaurant;
+        }
+    }
+    menuViewController.outlet = outlet;
+    menuViewController.delegate = outletsTableViewController;
+    Order* pastOrder = [[Order alloc] init];
+    for (NSDictionary *meal in self.meals) {
+        double quantity = [[meal objectForKey:@"quantity"] doubleValue];
+        int dishID = [[[meal objectForKey:@"dish"] objectForKey:@"id"] integerValue];
+        Dish* pastOrderDish = [[Dish alloc] initWithName:[NSString stringWithFormat:@"%@", [[meal objectForKey:@"dish"] objectForKey:@"name"]] Description:[[NSString alloc] init] Price:-1.0 Ratings:-1 ID:dishID categories:nil imgURL:nil pos:-1 startTime:nil endTime:nil quantity:-1];
+        Order* orderContainingThisMeal = [[Order alloc] init];
+        for (int i = 0; i < quantity; i++) {
+            [orderContainingThisMeal addDish:pastOrderDish];
+        }
+        [pastOrder mergeWithAnotherOrder:orderContainingThisMeal];
+    }
+    NSLog(@"%d", [pastOrder.dishes count]);
+    if ([self hasUserComeFromMenuViewController]) {
+        MenuViewController *oldMenuViewController = (MenuViewController*)[[self.navigationController viewControllers] objectAtIndex:1];
+        if (oldMenuViewController.outlet.outletID == outlet.outletID) {
+            [newViewControllers addObject:menuViewController];
+            [pastOrder mergeWithAnotherOrder:oldMenuViewController.currentOrder];
+            menuViewController.currentOrder = pastOrder;
+            menuViewController.pastOrder = oldMenuViewController.pastOrder;
+            menuViewController.tableID = oldMenuViewController.tableID;
+            menuViewController.isSupposedToShowItems = YES;
+        } else {
+            
+        }
+    } else {
+        //User came straight from the outlets screen
+    }
+    [self.navigationController setViewControllers:newViewControllers animated:YES];
 }
 
 @end

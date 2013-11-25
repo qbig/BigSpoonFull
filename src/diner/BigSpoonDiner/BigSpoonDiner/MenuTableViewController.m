@@ -557,16 +557,15 @@
         }
             
         default:{
-            
+            NSLog(@"%@", json);
             id firstKey = [[json allKeys] firstObject];
-            
+            NSLog(@"Here 1");
             NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
-            
+            NSLog(@"Here 2");
             NSLog(@"Error occurred: %@", errorMessage);
             
             UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [message show];
-            
             break;
         }
     }

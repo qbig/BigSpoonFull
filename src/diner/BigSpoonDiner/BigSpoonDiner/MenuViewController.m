@@ -60,6 +60,12 @@
     return self;
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    if (self.isSupposedToShowItems) {
+        [self itemsButtonPressed:nil];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
