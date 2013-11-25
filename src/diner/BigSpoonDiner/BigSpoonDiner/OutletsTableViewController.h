@@ -10,12 +10,30 @@
 #import "Outlet.h"
 #import "URLImageView.h"
 #import "OutletCell.h"
-#import "MenuViewController.h"
 #import "User.h"
 #import "Constants.h"
+#import "Order.h"
+#import "ExitMenuListDelegate.h"
+#import "MenuViewController.h"
+#import "AppDelegate.h"
+#import "ImageCache.h"
+#import "SSKeychain.h"
 
-@interface OutletsTableViewController : UITableViewController <MenuViewControllerDelegate, NSURLConnectionDelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
+
+// Need to record the order items,
+// If the user ordered some items and comes out to the main page.
+// When the user goes to that outlet again, we should restore his/her previous selection
+@property (nonatomic) int outletIDOfPreviousSelection;
+@property (nonatomic) int tableIDOfPreviousSelection;
+@property (nonatomic, strong) Order * currentOrder;
+@property (nonatomic, strong) Order * pastOrder;
+
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+- (IBAction)logoutButtonPressed:(id)sender;
+
 
 @end

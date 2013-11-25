@@ -23,6 +23,7 @@
 @synthesize lastNameLabel;
 @synthesize emailAddressLabel;
 @synthesize passwordLabel;
+@synthesize navigationItem;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -42,19 +43,35 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)textFieldReturn:(id)sender {
+- (IBAction)textFieldDidBeginEditing:(id)sender {
+    
+        //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y >= 0){
+        [self setViewMovedUp:YES withDistance:OFFSET_FOR_KEYBOARD_SIGN_UP];
+    }
+}
+
+- (IBAction)textFinishEditing:(id)sender {
+    
     [sender resignFirstResponder];
+    
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y < 0){
+        [self setViewMovedUp:NO withDistance:OFFSET_FOR_KEYBOARD_SIGN_UP];
+    }
 }
 
 - (IBAction)submitButtonPressed:(id)sender {
     
-    
-  
     
     if ([firstNameLabel.text isEqualToString:@""] || [lastNameLabel.text isEqualToString:@""] ||
         [emailAddressLabel.text isEqualToString:@""] || [passwordLabel.text isEqualToString:@""]) {
@@ -77,16 +94,19 @@
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
-    NSDictionary* info = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.firstNameLabel.text,
-                          @"first_name",
-                          self.lastNameLabel.text,
-                          @"last_name",
-                          self.passwordLabel.text,
-                          @"password",
-                          self.emailAddressLabel.text,
-                          @"email",
-                          nil];
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject: self.firstNameLabel.text forKey: @"first_name"];
+    [info setObject: self.lastNameLabel.text forKey: @"last_name"];
+    [info setObject: self.passwordLabel.text forKey: @"password"];
+    [info setObject: self.emailAddressLabel.text forKey: @"email"];
+    if (self.facebookUserName) {
+        [info setObject:self.facebookUserName forKey:@"username"];
+    }
+    
+    if (self.facebookUserName != nil && [self.facebookUserName isEqualToString:@""]) {
+        [info setObject:self.facebookUserName forKey:@"username"];
+        NSLog(@"User signed up through Facebook. Username: %@", self.facebookUserName);
+    }
     
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                        options:NSJSONWritingPrettyPrinted error:&error];
@@ -109,7 +129,7 @@
     
     //NSDictionary* headers = [response allHeaderFields];
 
-    NSLog(@"response code: %d",  statusCode);
+    NSLog(@"response code for sign up: %d",  statusCode);
     
     _responseData = [[NSMutableData alloc] init];
 
@@ -148,18 +168,21 @@
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
+            NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
             
             
             User *user = [User sharedInstance];
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
-            user.auth_token = auth_token;
+            user.authToken = auth_token;
+            user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
             
             NSLog(@"New user created:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
             NSLog(@"Auth_token: %@", auth_token);
+            NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
             
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -167,6 +190,7 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
+            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
 
@@ -203,6 +227,14 @@
     // The request has failed for some reason!
     // Check the error var
     NSLog(@"NSURLCoonection encounters error at creating users.");
+    
+    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to sign up. Please check your network."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 #pragma mark Show and hide indicators
@@ -232,6 +264,7 @@
                  self.firstNameLabel.text = user.first_name;
                  self.lastNameLabel.text = user.last_name;
                  self.emailAddressLabel.text = [user objectForKey:@"email"];
+                 self.facebookUserName = user.username;
              }
          }];
     } else{

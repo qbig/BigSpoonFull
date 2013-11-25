@@ -40,17 +40,19 @@
     NSString *firstName = [prefs stringForKey:@"firstName"];
     NSString *lastName = [prefs stringForKey:@"lastName"];
     NSString *email = [prefs stringForKey:@"email"];
+    NSString *profilePhotoURL = [prefs stringForKey:@"profilePhotoURL"];
     NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
     // birthday is not supported for now
     
-    NSLog(@"fistName: %@, lastName: %@, email: %@, auth_token: %@", firstName, lastName, email, auth_token);
+    NSLog(@"fistName: %@, lastName: %@, email: %@, auth_token: %@, profilePhotoURL: %@", firstName, lastName, email, auth_token, profilePhotoURL);
     
-    if (firstName != nil && lastName != nil && email != nil && auth_token != nil) {
+    if (firstName != nil && lastName != nil && email != nil && auth_token != nil && profilePhotoURL != nil) {
         User *user = [User sharedInstance];
         user.firstName = firstName;
         user.lastName = lastName;
         user.email = email;
-        user.auth_token = auth_token;
+        user.authToken = auth_token;
+        user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
         
         [self performSegueWithIdentifier:@"SegueFromStartToOutlets" sender:self];
         

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "Outlet.h"
 #import "OrderHistoryViewController.h"
 #import "MenuTableViewController.h"
@@ -16,34 +17,36 @@
 #import "MultiContainerViewSegue.h"
 #import "Order.h"
 #import "ItemsOrderedViewController.h"
+#import "ExitMenuListDelegate.h"
+#import "RatingAndFeedbackViewController.h"
+#import "BigSpoonAnimationController.h"
 
 @class MenuViewController;
 
-@protocol MenuViewControllerDelegate <NSObject>
-- (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller;
-@end
-
-
-@interface MenuViewController : UIViewController <OrderDishDelegate, SettingsViewControllerDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate>
 
 // Data:
-@property (nonatomic, weak) id <MenuViewControllerDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
 @property (nonatomic) NSArray *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
+@property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
 
 // Buttons:
 
 @property (strong, nonatomic) IBOutlet UIButton *viewModeButton;
-@property (strong, nonatomic) IBOutlet UILabel *outletNameLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *viewModeBarButton;
 
-// Three buttons at the top: (gear button no need here)
+@property (strong, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsBarButton;
 
-- (IBAction)homeButtonPressed:(id)sender;
+@property (strong, nonatomic) IBOutlet UINavigationItem *navigationItem;
+
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender;
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
+- (IBAction)settingsButtonPressed:(id)sender;
+
 
 // Four buttons at the bottom
 
@@ -52,14 +55,25 @@
 - (IBAction)requestBillButtonPressed:(id)sender;
 - (IBAction)itemsButtonPressed:(id)sender;
 
+// Cover views. For animation purpost. When the buttons are clicked, the views will blank.
+@property (strong, nonatomic) IBOutlet UIView *requestWaterButtonCoverView;
+@property (strong, nonatomic) IBOutlet UIView *requestWaiterButtonCoverView;
+@property (strong, nonatomic) IBOutlet UIView *requestBillButtonCoverView;
+@property (strong, nonatomic) IBOutlet UIView *itemsButtonCoverView;
+
+
 // Objects related to Container view:
 
 @property (strong, nonatomic) IBOutlet UIView *container;
 @property (strong, nonatomic) MenuTableViewController *menuListViewController;
 @property (strong, nonatomic) ItemsOrderedViewController *itemsOrderedViewController;
 
-// "Call For Service" Control Panel:
-@property (strong, nonatomic) IBOutlet UIView *requestWaterView;
+/*
+ * "Call For Service" Control Panel:
+ * The view: RequestWaterView.xib
+ * The viewController: self
+ */
+@property (strong, nonatomic) UIView *requestWaterView;
 @property (nonatomic) int quantityOfColdWater;
 @property (nonatomic) int quantityOfWarmWater;
 @property (strong, nonatomic) IBOutlet UILabel *quantityOfColdWaterLabel;
@@ -71,12 +85,15 @@
 - (IBAction)requestWaterOkayButtonPressed:(id)sender;
 - (IBAction)requestWaterCancelButtonPressed:(id)sender;
 
-// "Bill" Control Panel:
-@property (strong, nonatomic) IBOutlet UIView *ratingsView;
-@property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
-@property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
-- (IBAction)ratingSubmitButtonPressed:(id)sender;
-- (IBAction)ratingCancelButtonPressed:(id)sender;
+/*
+ * "RatingsAndFeedback" Control Panel:
+ * The view: RatingsAndFeedbackView.xib
+ * The viewController: RatingsAndFeedbackViewContoller
+ *  (the view contains table, so its controller is not self, in order to seperate concerns)
+ */
+
+@property (strong, nonatomic) RatingAndFeedbackViewController * ratingAndFeedbackViewController;
+@property (strong, nonatomic) UIView *ratingsAndFeedbackView;
 
 // For container view:
 @property (weak,nonatomic) UIViewController *destinationViewController;

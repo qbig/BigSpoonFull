@@ -34,7 +34,15 @@
     [super viewDidLoad];
     
     [self loadOutletsFromServer];
-
+    
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate connectSocket];
+    
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [self.view addSubview: self.activityIndicator];
+    self.activityIndicator.center = self.view.center;
+    [self showLoadingIndicators];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -77,7 +85,24 @@
     // URLImageView *imageView = [[URLImageView alloc] init];
     // [imageView startLoading: [outlet.imgURL absoluteString]];
     
-    cell.outletPhoto.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
+    UIImage *image;
+    
+    // Without cache: [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
+    
+    if ([[ImageCache sharedImageCache] doesExist:outlet.imgURL] == true){
+        
+        image = [[ImageCache sharedImageCache] getImage:outlet.imgURL];
+    
+    } else {
+        
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL: outlet.imgURL];
+        image = [[UIImage alloc] initWithData:imageData];
+        
+        // Add the image to the cache
+        [[ImageCache sharedImageCache] addImageWithURL:outlet.imgURL andImage:image];
+    }
+
+    cell.outletPhoto.image = image;
     
 	cell.name.text = outlet.name;
     
@@ -86,6 +111,8 @@
 	cell.phoneNumber.text = outlet.phoneNumber;
     
 	cell.operatingHours.text = outlet.operatingHours;
+    
+    cell.promotionTextLabel.text = outlet.promotionalText;
 
     return cell;
 }
@@ -96,8 +123,8 @@
 
     self.outletsArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
     
-    // Make ajax calls to the server and get the list of outlets
-    // And call the ajax callback: - (void)addOutlet:(Outlet *)Outlet
+    // Make HTTP request to the server and get the list of outlets
+    // And call the HTTP callback: - (void)addOutlet:(Outlet *)Outlet
     // We could use  [self.tableView reloadData] but it looks nicer to insert the new row with an animation. 
     
     // Create the request.
@@ -158,22 +185,41 @@
                 NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
                 
                 int ID = [[newOutlet objectForKey:@"id"] intValue];
+                double lat = [[newOutlet objectForKey:@"lat"] doubleValue];
+                double lon = [[newOutlet objectForKey:@"lng"] doubleValue];
                 NSString* name = [newOutlet objectForKey:@"name"];
                 NSString* phone = [newOutlet objectForKey:@"phone"];
                 NSString* address = [newOutlet objectForKey:@"address"];
                 NSString* opening = [newOutlet objectForKey:@"opening"];
+                NSString* promotionalText = [newOutlet objectForKey:@"discount"];
+                double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
+                double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
+                BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
                 
-                NSLog(@"Outlet id: %d", ID);
+                if (!isActive) {
+                    promotionalText = @"Coming Soon!";
+                }
+                
+                NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
                 
                 Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
                                                                    Name: name
                                                                 Address: address
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
-                                                               OutletID:ID];
-                [self addOutlet:newOutletObject];
-                
+                                                               OutletID: ID
+                                                                    lat: lat
+                                                                    lon: lon
+                                                        promotionalText: promotionalText
+                                                                gstRate: gstRate
+                                                      serviceChargeRate: serviceChargeRate
+                                                               isActive: isActive];
+                [self.outletsArray addObject:newOutletObject];
+
             }
+            
+            [self.tableView reloadData];
+            [self stopLoadingIndicators];
             
             break;
         }
@@ -207,23 +253,14 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
-    NSLog(@"NSURLCoonection encounters error at creating users.");
+    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to load outlets. Please check your network"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
-
-
-// Ajax callback to add one more new item in the table:
-- (void)addOutlet:(Outlet *)Outlet
-{
-	[self.outletsArray addObject:Outlet];
-	NSIndexPath *indexPath =
-    [NSIndexPath indexPathForRow:[self.outletsArray count] - 1
-                       inSection:0];
-    
-	[self.tableView insertRowsAtIndexPaths:
-     [NSArray arrayWithObject:indexPath]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 
 - (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -272,6 +309,26 @@
 
 #pragma mark - Navigation
 
+- (void) tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
+    Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
+    
+    // Deselect the row. Otherwise it will remain being selected.
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if (outlet.isActive) {
+        NSLog(@"Is Active haha!!");
+        NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
+        [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
+    } else{
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                            message:@"The restaurant is coming soon"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Okay"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+    }
+}
+
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -279,15 +336,74 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
-		menuViewController.delegate = self;
         
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
         menuViewController.outlet = outlet;
+        menuViewController.delegate = self;
+        
+        if (outlet.outletID == self.outletIDOfPreviousSelection) {
+            
+            NSLog(@"In outlets list: going back to a previous page with selected items");
+            
+            // Assign the history to the outlet:
+            menuViewController.currentOrder = self.currentOrder;
+            menuViewController.pastOrder = self.pastOrder;
+            menuViewController.tableID = self.tableIDOfPreviousSelection;
+            
+            // Erase self data. If the user exits from the outlet, these info will be set by delegate.
+            self.currentOrder = nil;
+            self.pastOrder = nil;
+            self.tableIDOfPreviousSelection = -1;
+            self.outletIDOfPreviousSelection = -1;
+            
+        } else{
+            
+            NSLog(@"In outlets list: opening a new page with no selected items");
+            
+        }
+        
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Home" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
         
 	} else{
         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
 
+#pragma mark - Delegate
+
+- (void) exitMenuListWithCurrentOrder: (Order *) currentOrder
+                            PastOrder: (Order *) pastOrder
+                             OutletID: (int) outletID
+                           andTableID: (int) tableID {
+    self.currentOrder = currentOrder;
+    self.pastOrder = pastOrder;
+    self.outletIDOfPreviousSelection = outletID;
+    self.tableIDOfPreviousSelection = tableID;
+}
+
+#pragma mark Show and hide indicators
+
+- (void) showLoadingIndicators{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [self.activityIndicator startAnimating];
+}
+
+- (void) stopLoadingIndicators{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+    [self.activityIndicator stopAnimating];
+}
+
+- (IBAction)logoutButtonPressed:(id)sender {
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profilePhotoURL"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"firstName"];
+    [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

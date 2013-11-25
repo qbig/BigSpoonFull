@@ -21,7 +21,6 @@ class Request(models.Model):
         (WATER, 'Ask for water'),
         (WAITER, 'Ask for waiter'),
     )
-
     diner = models.ForeignKey(
         User,
         help_text=_('diner who create request'),
@@ -69,14 +68,15 @@ class Request(models.Model):
 
     @property
     def count_down_start(self):
-        timetuple = self.created.timetuple()
+        timetuple = timezone.localtime(self.created).timetuple()
         timestamp = time.mktime(timetuple)
         return timestamp * 1000.0
 
     def __unicode__(self):
         request_status = "Active" if self.is_active else "Inactive"
-        return "(%s) %s | %s" % (self.table.name, self.diner.first_name,
-                                 request_status)
+        return "%s. (%s) %s | %s" % (self.id,
+                                     self.table.name, self.diner.first_name,
+                                     request_status)
 
     class Meta:
         verbose_name = _('request')
@@ -137,6 +137,11 @@ class Meal(models.Model):
         blank=True,
         null=True,
     )
+    note = models.TextField(
+        _('note'),
+        blank=True,
+        help_text=_('meal specific note')
+    )
 
     @property
     def wait_time(self):
@@ -146,13 +151,16 @@ class Meal(models.Model):
 
     @property
     def used_time(self):
-        diff = self.bill_time - self.created
+        if (self.bill_time):
+            diff = self.bill_time - self.created
+        else:
+            diff = self.modified - self.created
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return diffmod
 
     @property
     def count_down_start(self):
-        timetuple = self.modified.timetuple()
+        timetuple = timezone.localtime(self.modified).timetuple()
         timestamp = time.mktime(timetuple)
         return timestamp * 1000.0
 
@@ -168,10 +176,12 @@ class Meal(models.Model):
     def __unicode__(self):
         meal_payment = "Paid" if self.is_paid else "Unpaid"
 
-        return "(%s - %s) | %s | %s" % (self.table.outlet.name,
-                                        self.table.name,
-                                        self.STATUS_CHOICES_DIC[self.status],
-                                        meal_payment)
+        return "%s. (%s - %s) | %s | %s" % (self.id,
+                                            self.table.outlet.name,
+                                            self.table.name,
+                                            self.STATUS_CHOICES_DIC[
+                                                self.status],
+                                            meal_payment)
 
     class Meta:
         verbose_name = _('meal')
@@ -196,8 +206,9 @@ class Order(models.Model):
         default=0,
         help_text=_('number of dishes ordered'),
     )
+
     def get_order_spending(self):
-        return self.dish.price *self.quantity #needs self. else refs global.
+        return self.dish.price * self.quantity
 
     def __unicode__(self):
         return "(%s - %s) %s | %s x %s" % (

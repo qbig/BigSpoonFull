@@ -8,7 +8,10 @@
 
 #import "ItemsOrderedViewController.h"
 
-@interface ItemsOrderedViewController ()
+@interface ItemsOrderedViewController (){
+    double GSTRate;
+    double serviceChargeRate;
+}
 
 @end
 
@@ -27,6 +30,8 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
+    
+    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -34,6 +39,22 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+       
+    [self updatePriceLabels];
+    [self updateTableHeight];
+    
+    return;
+}
+
+// This was for a fix of the bug
+//- (void) viewDidAppear:(BOOL)animated{
+//    [super viewDidAppear:animated];
+//    
+//    [self.scrollView setContentOffset:CGPointZero animated:NO];
+//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -59,9 +80,9 @@
 {
     // Return the number of rows in the section.
     if ([tableView isEqual:self.currentOrderTableView]) {
-        return [self.currentOrder getNumberOfDishes];
+        return [self.currentOrder getNumberOfKindsOfDishes];
     } else if ([tableView isEqual:self.pastOrderTableView]){
-        return [self.pastOrder getNumberOfDishes];
+        return [self.pastOrder getNumberOfKindsOfDishes];
     } else{
         NSLog(@"Unrecognized tableView is calling delegate method");
         return 0;
@@ -76,8 +97,8 @@
         Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDish:dish]];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByDish:dish]];
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
@@ -91,8 +112,8 @@
         Dish *dish = [self.pastOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%d", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDish:dish]];
+        cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDishByDish:dish]];
        
         return cell;
     } else{
@@ -152,8 +173,44 @@
 
  */
 
-- (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+#pragma mark - Button event listeners
 
+- (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
+    
+    float offsetFromTopToContainerView = sender.superview.frame.origin.y;
+    float offsetFromContainerViewToTextField = sender.frame.origin.y;
+    float offsetScrollView = self.scrollView.contentOffset.y;
+   
+    float offsetFromTopToTextField = offsetFromTopToContainerView + offsetFromContainerViewToTextField - offsetScrollView;
+    
+    NSLog(@"%f %f %f", offsetFromTopToContainerView, offsetFromContainerViewToTextField, offsetScrollView);
+    
+    if ([sender isEqual:self.addNotesTextField])
+    {
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.view.frame.origin.y >= 0 && offsetFromTopToTextField > OFFSET_FOR_KEYBOARD)
+        {
+            [self setViewMovedUp:YES];
+        }
+    }
+}
+
+- (IBAction)textFinishEditing:(UITextField *)sender {
+    
+    [sender resignFirstResponder];
+    
+    if ([sender isEqual:self.addNotesTextField])
+    {
+        //move the main view, so that the keyboard does not hide it.
+        if  (self.view.frame.origin.y < 0)
+        {
+            [self setViewMovedUp:NO];
+        }
+    }
+}
+
+- (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     
     UITouch * touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.currentOrderTableView];
@@ -168,11 +225,13 @@
     
     
     self.currentOrder = [self.delegate addDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
 
 }
 
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+
     UITouch * touch = [[event allTouches] anyObject];
     CGPoint location = [touch locationInView: self.currentOrderTableView];
     NSIndexPath * indexPath = [self.currentOrderTableView indexPathForRowAtPoint: location];
@@ -185,23 +244,110 @@
     
     
     self.currentOrder = [self.delegate minusDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishID:dishID]];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
 
 }
 - (IBAction)placeOrderButtonPressed:(id)sender {
     
-    [self.delegate placeOrder];
+    [self.delegate placeOrderWithNotes:self.addNotesTextField.text];
+    
+    // Erase the existing text.
+    self.addNotesTextField.text = @"";
+    
+    // Put away the keyboard
+    [self.addNotesTextField resignFirstResponder];
     
 }
 
+- (void) setGSTRate: (double) g andServiceChargeRate: (double) s{
+    GSTRate = g;
+    serviceChargeRate = s;
+}
+
+
+// This function is called when segue from menu list to here is performed
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
     self.currentOrder = currentOrder;
     self.pastOrder = pastOrder;
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
+    [self updatePriceLabels];
+    [self updateTableHeight];
 }
 
-- (IBAction)textFinishEditing:(id)sender {
-    [sender resignFirstResponder];
+- (void) updatePriceLabels{
+    [self updatePriceLabelsWithCurrentORder:self.currentOrder
+                              SubtotalLabel:self.currentSubtotalLabel
+                         ServiceChargeLabel:self.currentServiceChargeLabel
+                    ServiceChargeTitleLabel:self.currentServiceChargeTitleLabel
+                                   GSTLabel:self.currentGSTLabel
+                              GSTTitleLabel:self.currentGSTTitleLabel
+                              andTotalLabel:self.currentTotalLabel];
+    
+    [self updatePriceLabelsWithCurrentORder:self.pastOrder
+                              SubtotalLabel:self.pastSubtotalLabel
+                         ServiceChargeLabel:self.pastServiceChargeLabel
+                    ServiceChargeTitleLabel:self.pastServiceChargeTitleLabel
+                                   GSTLabel:self.pastGSTLabel
+                              GSTTitleLabel:self.pastGSTTitleLabel
+                              andTotalLabel:self.pastTotalLabel];
 }
+
+- (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
+                          SubtotalLabel: (UILabel *) subTotalLabel
+                        ServiceChargeLabel: (UILabel *) serviceChargeLabel
+                   ServiceChargeTitleLabel: (UILabel *) serviceChargeTitleLabel
+                                  GSTLabel: (UILabel *) GSTLabel
+                             GSTTitleLabel: (UILabel *) GSTTitleLabel
+                             andTotalLabel: (UILabel *) totalLabel{
+    
+    
+    float subTotal = [newOrder getTotalPrice];
+    subTotalLabel.text = [NSString stringWithFormat:@"$%.2f", subTotal];
+    
+    float serviceCharge = subTotal * serviceChargeRate;
+    serviceChargeTitleLabel.text = [NSString stringWithFormat:@"Service Charge (%.0f%%):", serviceChargeRate * 100];
+    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceChargeRate];
+ 
+    float GST = subTotal * GSTRate;
+    GSTTitleLabel.text = [NSString stringWithFormat:@"GST (%.0f%%):", GSTRate * 100];
+    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GSTRate];
+    
+    float total = subTotal + serviceCharge + GST;
+    totalLabel.text = [NSString stringWithFormat:@"$%.2f", total];
+}
+
+/*
+ * The table height is dynamic.
+ */
+- (void) updateTableHeight{
+    int currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.currentOrder getNumberOfKindsOfDishes];
+    int pastOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
+    
+    CGRect currentOrderFrame = self.currentOrderTableView.frame;
+    [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
+                                                     currentOrderFrame.origin.y,
+                                                     currentOrderFrame.size.width,
+                                                     currentOrderTableHeight)];
+    
+    CGRect pasrOrderFrame = self.pastOrderTableView.frame;
+    [self.pastOrderTableView setFrame:CGRectMake(pasrOrderFrame.origin.x,
+                                                 pasrOrderFrame.origin.y,
+                                                 pasrOrderFrame.size.width,
+                                                 pastOrderTableHeight)];
+    
+    CGRect viewAfterframe = self.viewContainerForAfterCurrentOrderTable.frame;
+    [self.viewContainerForAfterCurrentOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+                                                                     currentOrderFrame.origin.y + currentOrderTableHeight,
+                                                                     viewAfterframe.size.width,
+                                                                     viewAfterframe.size.height)];
+    
+    viewAfterframe = self.viewContainerForAfterPastOrderTable.frame;
+    [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+                                                                  pasrOrderFrame.origin.y + pastOrderTableHeight,
+                                                                  viewAfterframe.size.width,
+                                                                  viewAfterframe.size.height)];
+}
+
+
 @end

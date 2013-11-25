@@ -68,13 +68,13 @@ class CategoryAdmin(GuardedModelAdmin):
 
 
 class RatingAdmin(GuardedModelAdmin):
-    raw_id_fields = ('dish',)
+    raw_id_fields = ('dish', 'user')
     search_fields = ['dish__'+x for x in search_fields_of["common"]]
     search_fields += ['user__'+x for x in search_fields_of["user"]]
 
 
 class ReviewAdmin(GuardedModelAdmin):
-    raw_id_fields = ('outlet',)
+    raw_id_fields = ('outlet', 'user')
     search_fields = ['outlet__'+x for x in search_fields_of["common"]]
     search_fields += ['user__'+x for x in search_fields_of["user"]]
 
@@ -91,6 +91,7 @@ class DishAdmin(GuardedModelAdmin):
     search_fields += ['outlet__'+x for x in search_fields_of["common"]]
     search_fields += ['categories__'+x for x in search_fields_of["common"]]
     change_list_template = 'admin/dish-changelist.html'
+    list_display = ('id', 'pos', 'name')
 
     def get_urls(self):
         urls = super(DishAdmin, self).get_urls()

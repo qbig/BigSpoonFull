@@ -9,86 +9,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/OrderHistoryViewController.h"
-            timestampString = "403445103.574895"
+            filePath = "BigSpoonDiner/User.h"
+            timestampString = "404913673.464125"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "7"
-            endingLineNumber = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrderHistoryViewController settingsLabel]"
-                  moduleName = "BigSpoonDiner"
-                  urlString = "file://localhost/Users/shubhamgoyal/NUS/Semester%20VII/CS3216/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/OrderHistoryViewController.h"
-                  timestampString = "403533170.937282"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrderHistoryViewController setSettingsLabel:]"
-                  moduleName = "BigSpoonDiner"
-                  urlString = "file://localhost/Users/shubhamgoyal/NUS/Semester%20VII/CS3216/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/OrderHistoryViewController.h"
-                  timestampString = "403533170.93764"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "31">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/OrderHistoryViewController.h"
-            timestampString = "403533477.033336"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9"
-            endingLineNumber = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrderHistoryViewController settingsLabel]"
-                  moduleName = "BigSpoonDiner"
-                  urlString = "file://localhost/Users/shubhamgoyal/NUS/Semester%20VII/CS3216/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/OrderHistoryViewController.h"
-                  timestampString = "403533477.035489"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "24">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrderHistoryViewController setSettingsLabel:]"
-                  moduleName = "BigSpoonDiner"
-                  urlString = "file://localhost/Users/shubhamgoyal/NUS/Semester%20VII/CS3216/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/OrderHistoryViewController.h"
-                  timestampString = "403533477.035766"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "13"
-                  endingLineNumber = "13"
-                  offsetFromSymbolStart = "31">
-               </Location>
-            </Locations>
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "@interface User"
+            landmarkType = "2">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

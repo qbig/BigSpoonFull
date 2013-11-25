@@ -8,7 +8,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>BigSpoon</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
         {% compress css %}
         <link rel="stylesheet" href="{% static "css/normalize.min.css" %}">
@@ -27,16 +28,24 @@
         {% compress js %}
         <script src="{% static "js/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
         <script src="{% static "js/jquery-1.10.1.min.js" %}"></script>
+        <script src="{% static "js/jquery-ui.js" %}"></script>
         <script src="{% static "js/socket.io.js"%}"></script>
         <script src="{% static "js/masonry.pkgd.min.js"%}"></script>
         <script src="{% static "js/jquery.cookie.js"%}"></script>
         <script src="{% static "js/jquery.magnific-popup.js"%}"></script>
-        <script src="{% static "js/timepicker/base.js"%}"></script>
-        <script src="{% static "js/timepicker/jquery.timepicker.js"%}"></script>
-        <script src="{% static "js/timepicker/datepair.js"%}"></script>
-        <script src="{% static "js/timepicker/runtimepicker.js"%}"></script>
+        <script src="{% static "js/jquery.timepicker.js"%}"></script>
+        <script src="{% static "js/howler.min.js"%}"></script>
         <script src="{% static "js/main.js"%}"></script>
+        <!--For Report Page -->
+        <!--<script src="{% static "js/chart/Chart.min.js"%}"></script>--> <!--DONT use MIN-->
+        <!--Time and ChartManager must be AFTER Chart.js-->
+<!--        <script src="{% static "js/chart/Chart.js"%}"></script>
+        <script src="{% static "js/chart/time.js"%}"></script>
+        <script src="{% static "js/chart/chartmanager.js"%}"></script>-->
         {% endcompress %}
+        <script type="text/javascript"> 
+            var media_url = {{ MEDIA_URL }};
+        </script> 
         {% block morejs %}
         {% endblock %}
     </body>

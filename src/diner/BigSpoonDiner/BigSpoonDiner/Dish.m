@@ -10,23 +10,9 @@
 
 @implementation Dish
 
-@synthesize name;
-@synthesize description;
-@synthesize price;
-@synthesize ratings;
-
-
-@synthesize ID;
-@synthesize categories;
-@synthesize imgURL;
-@synthesize pos;
-@synthesize startTime;
-@synthesize endTime;
-@synthesize quantity;
-
 - (id) initWithName: (NSString *) n
         Description: (NSString *) d
-              Price: (int) p
+              Price: (double) p
             Ratings: (int) r
                  ID: (int) I
          categories: (NSArray *) c

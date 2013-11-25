@@ -14,7 +14,8 @@
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSDate *birthday;
-@property (nonatomic, strong) NSString *auth_token;
+@property (nonatomic, strong) UIImage *profileImage;
+@property (nonatomic, strong) NSString *authToken;
 
 + (User *)sharedInstance;
 

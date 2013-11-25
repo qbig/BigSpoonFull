@@ -109,7 +109,7 @@
     
     //NSDictionary* headers = [response allHeaderFields];
     
-    NSLog(@"response code: %d",  statusCode);
+    NSLog(@"response code for log in: %d",  statusCode);
     
     _responseData = [[NSMutableData alloc] init];
     
@@ -143,23 +143,27 @@
             
         // 200 Okay
         case 200:{
-
+        
             NSString* email =[json objectForKey:@"email"];
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
+            NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
             
 
             User *user = [User sharedInstance];
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
-            user.auth_token = auth_token;
+            user.authToken = auth_token;
+            user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
+            
 
             NSLog(@"User logged in:");
             NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
             NSLog(@"Email: %@", email);
             NSLog(@"Auth_token: %@", auth_token);
+            NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
             
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
@@ -167,9 +171,9 @@
             [prefs setObject:firstName forKey:@"firstName"];
             [prefs setObject:lastName forKey:@"lastName"];
             [prefs setObject:email forKey:@"email"];
+            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
-            
 
             [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
             
@@ -195,7 +199,15 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
-    NSLog(@"NSURLCoonection encounters error at creating users.");
+    NSLog(@"NSURLCoonection encounters error at logging in.");
+    
+    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
+                                                        message:@"Failed to log in. Please check your network"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Okay"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 
@@ -274,6 +286,8 @@
                                        allowLoginUI:YES
                                   completionHandler:
      ^(FBSession *session,FBSessionState state, NSError *error) {
+         
+         
          [self sessionStateChanged:session state:state error:error];
          
          FBSession.activeSession = session;

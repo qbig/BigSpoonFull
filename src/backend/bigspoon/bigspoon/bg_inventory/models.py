@@ -1,6 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django_thumbs.db.models import ImageWithThumbsField
 from django.utils.text import slugify
@@ -91,6 +92,17 @@ class User(AbstractBaseUser, PermissionsMixin):
             total_spending += meal.get_meal_spending()
         return total_spending
 
+    def get_average_spending(self):
+        """
+        Returns average of all orders of all meals of this user.
+        """
+        num_meals = self.meals.count()
+        if num_meals == 0:
+            return 0
+        total_spending = self.get_total_spending()
+        #round to two decimal places
+        return int(total_spending / num_meals * 100) / 100.0
+
     def get_short_name(self):
         """
         Returns the user email
@@ -101,17 +113,23 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # user attributes
     @property
-    def avatar_url(self, sizetype='small'):
+    def avatar_url(self):
         if (self.username):
             return "https://graph.facebook.com/%s/picture?type=%s" % (
-                self.username, sizetype)
-        if sizetype == 'small':
-            s = 50
-        else:
-            s = 180
+                self.username, 'small')
         return "http://www.gravatar.com/avatar/%s?%s" % (
             hashlib.md5(self.email.lower()).hexdigest(),
-            urllib.urlencode({'d': 'mm', 's': str(s)})
+            urllib.urlencode({'d': 'mm', 's': str(50)})
+        )
+
+    @property
+    def avatar_url_large(self):
+        if (self.username):
+            return "https://graph.facebook.com/%s/picture?type=%s" % (
+                self.username, 'large')
+        return "http://www.gravatar.com/avatar/%s?%s" % (
+            hashlib.md5(self.email.lower()).hexdigest(),
+            urllib.urlencode({'d': 'mm', 's': str(180)})
         )
 
     @property
@@ -235,7 +253,7 @@ class Profile(models.Model):
     def get_favourite_categories(self):
         favourites = ""
         for category in self.favourite_categories.all():
-            favourites += (category.name+", ")
+            favourites += (category.name + ", ")
         return favourites
 
     class Meta:
@@ -288,6 +306,12 @@ class Outlet(models.Model):
         max_length=255,
         help_text=_('outlet name')
     )
+    discount = models.CharField(
+        _('discount'),
+        max_length=30,
+        blank=True,
+        help_text=_('outlet discount')
+    )
     phone = models.CharField(
         _('phone'),
         max_length=30,
@@ -297,15 +321,43 @@ class Outlet(models.Model):
         _('address'),
         help_text=_('outlet address')
     )
+    lat = models.CharField(
+        _('latitude'),
+        max_length=20,
+        blank=True,
+        help_text=_('outlet latitude')
+    )
+    lng = models.CharField(
+        _('longitude'),
+        max_length=20,
+        blank=True,
+        help_text=_('outlet longitude')
+    )
     opening = models.TextField(
         _('open hours'),
-        blank=False,
         help_text=_('outlet opening hours')
     )
     threshold = models.IntegerField(
         _('threshold'),
         default=10,
         help_text=_('service time threshold'),
+    )
+    is_active = models.BooleanField(
+        default=False,
+    )
+    gst = models.DecimalField(
+        _('gst'),
+        max_digits=3,
+        decimal_places=2,
+        default="0.07",
+        help_text=_('goods and services tax'),
+    )
+    scr = models.DecimalField(
+        _('scr'),
+        max_digits=3,
+        decimal_places=2,
+        default="0.10",
+        help_text=_('service charge rate'),
     )
 
     def __unicode__(self):
@@ -341,6 +393,16 @@ class Table(models.Model):
         """
         return '%s - %s' % (self.outlet.name, self.name)
 
+    def get_table_spending(self):
+        """
+        Returns a table's total spending
+        """
+        total = 0
+        meals = self.meals.all()
+        for meal in meals:
+            total += meal.get_meal_spending()
+        return total
+
     class Meta:
         verbose_name = _('table')
         verbose_name_plural = _('tables')
@@ -350,6 +412,9 @@ class Dish(models.Model):
     """
     Stores outlet dish information
     """
+    QUANTITY_CHOICES = [(i, i) for i in xrange(0, 51, 10)]
+    QUANTITY_CHOICES += [(100, 100)]
+
     outlet = models.ForeignKey(
         Outlet,
         help_text=_('belong to outlet'),
@@ -385,12 +450,13 @@ class Dish(models.Model):
     quantity = models.IntegerField(
         default=0,
         help_text=_('dish stock'),
+        choices=QUANTITY_CHOICES,
     )
     photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
         blank=True,
         null=True,
-        sizes=((640, 400),),
+        sizes=((640, 400), (320, 200)),
         help_text=_('dish photo')
     )
     categories = models.ManyToManyField(
@@ -405,6 +471,15 @@ class Dish(models.Model):
         slug = slugify(self.name)
         return 'restaurant/dishes/%s/%s/%s.%s' % (
             self.outlet.name, self.id, slug, end)
+
+    def get_average_rating(self):
+        average_rating = self.ratings.all().\
+            aggregate(Avg('score'))['score__avg']
+
+        if average_rating is None:
+            return -1
+        else:
+            return int(average_rating)
 
     def __unicode__(self):
         """
@@ -434,6 +509,7 @@ class Rating(models.Model):
     score = models.DecimalField(
         max_digits=2,
         decimal_places=1,
+        default='0.0',
     )
 
     def __unicode__(self):
@@ -445,6 +521,7 @@ class Rating(models.Model):
     class Meta:
         verbose_name = _('rating')
         verbose_name_plural = _('ratings')
+        unique_together = ("dish", "user")
 
 
 class Review(models.Model):
@@ -461,10 +538,6 @@ class Review(models.Model):
         help_text=_('reviewed outlet'),
         related_name='reviews',
     )
-    score = models.DecimalField(
-        max_digits=2,
-        decimal_places=1,
-    )
     feedback = models.TextField(
         _('feedback'),
         help_text=_('feedback text')
@@ -479,6 +552,7 @@ class Review(models.Model):
     class Meta:
         verbose_name = _('review')
         verbose_name_plural = _('reviews')
+        unique_together = ("outlet", "user")
 
 
 class Note(models.Model):

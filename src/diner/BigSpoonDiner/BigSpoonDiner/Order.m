@@ -28,11 +28,11 @@
 
 - (void) addDish: (Dish *) dish{
     // If added before, just update its index:
-    if ([self.dishes containsObject:dish]) {
+    if ([self containsDishWithDishID:dish.ID]) {
         
-        int index = [self getIndexOfDish:dish];
-        int quantity = [self getQuantityOfDish:dish];
-        
+        int index = [self getIndexOfDishByDish:dish];
+        int quantity = [self getQuantityOfDishByDish:dish];
+                
         NSNumber *newQuantity = [NSNumber numberWithInt: quantity + 1];
         [self.quantity setObject:newQuantity atIndexedSubscript: index];
         
@@ -46,37 +46,43 @@
 }
 
 - (void) minusDish:(Dish *)dish{
-    if ([self.dishes containsObject:dish]) {
+    if ([self containsDishWithDishID:dish.ID]) {
         
-        int index = [self getIndexOfDish:dish];
-        int quantity = [self getQuantityOfDish:dish];
-        NSNumber* quantityObject = [self getQuantityObjectOfDish:dish];
+        int index = [self getIndexOfDishByDish:dish];
+        int quantity = [self getQuantityOfDishByDish:dish];
         
         // Still have more than one quantity, just decrease the number:
         if (quantity > 1) {
+            NSLog(@"Quantity minus one!");
             NSNumber *newQuantity = [NSNumber numberWithInt: quantity - 1];
             [self.quantity setObject:newQuantity atIndexedSubscript: index];
         }
         
         // Have less than one quantity, if minus, becomes 0 quantity, so just remove it:
         else{
-            [self.quantity removeObject: quantityObject];
-            [self.dishes removeObject:dish];
+            NSLog(@"Removed!!");
+            NSLog(@"Before removed: dishes: %d", [self.dishes count]);
+            NSLog(@"Before removed: quantity: %d", [self.quantity count]);
+            
+            // Can't use: [self.quantity removeObjectAtIndex: quantityObject]; The object equality comparision ist not be accurate.
+            [self.quantity removeObjectAtIndex: index];
+            [self removeDishWithID:dish.ID];
         }
         
     }
 }
 
-- (int) getQuantityOfDish: (Dish *) dish{
-    if ([self.dishes containsObject:dish]) {
+- (int) getQuantityOfDishByDish: (Dish *) dish{
+    if ([self containsDishWithDishID:dish.ID]) {
         NSNumber *quantity = [self getQuantityObjectOfDish:dish];
+        // NSLog(@"Getting quantity of dish ID: %d, quantity: %d", dish.ID, quantity.integerValue);
         return quantity.integerValue;
     } else{
         return 0;
     }
 }
 
-- (int) getQuantityOfDishID: (int) dishID{
+- (int) getQuantityOfDishByID: (int) dishID{
     
     // Iterate through the dishes:
     for (int i = 0; i < [self.dishes count]; i++) {
@@ -101,39 +107,39 @@
     return totalQuantity;
 }
 
-- (int) getTotalPrice{
-    int totalPrice = 0;
+- (double) getTotalPrice{
+    double totalPrice = 0;
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *newDish = (Dish *)[self.dishes objectAtIndex:i];
-        int quantity = [self getQuantityOfDish:newDish];
+        int quantity = [self getQuantityOfDishByDish:newDish];
         
         totalPrice += newDish.price * quantity;
     }
     return totalPrice;
 }
 
-- (int) getNumberOfDishes{
+- (int) getNumberOfKindsOfDishes{
     return [self.dishes count];
 }
 
 
 - (void) mergeWithAnotherOrder: (Order *)newOrder{
     
-    for (int i = 0; i < [newOrder getNumberOfDishes]; i++) {
+    for (int i = 0; i < [newOrder getNumberOfKindsOfDishes]; i++) {
         
         Dish *newDish = (Dish *)[newOrder.dishes objectAtIndex:i];
         
-        int newQuantity = [newOrder getQuantityOfDish:newDish];
+        int newQuantity = [newOrder getQuantityOfDishByDish:newDish];
         
-        if ([self.dishes containsObject:newDish]) {
+        if ([self containsDishWithDishID: newDish.ID]) {
             
-            int selfQuantity = [self getQuantityOfDish:newDish];
-            int index = [self getIndexOfDish:newDish];
+            int selfQuantity = [self getQuantityOfDishByDish:newDish];
+            int index = [self getIndexOfDishByDish:newDish];
             
             NSNumber *numObject = [NSNumber numberWithInt: newQuantity + selfQuantity];
             [self.quantity setObject: numObject atIndexedSubscript:index];
             
-            NSLog(@"Meging dish... Existing Dish: %d, has new quantity: %d", newDish.ID, newQuantity + selfQuantity);
+            // NSLog(@"Meging dish... Existing Dish: %d, has new quantity: %d", newDish.ID, newQuantity + selfQuantity);
             
         } else{
             
@@ -141,23 +147,56 @@
             NSNumber *newQuantityObject = [NSNumber numberWithInt:newQuantity];
             [self.quantity addObject:newQuantityObject];
             
-            NSLog(@"Meging dish... New Dish: %d, has new quantity: %d", newDish.ID, [newQuantityObject integerValue]);
-
+            // NSLog(@"Meging dish... New Dish: %d, has new quantity: %d", newDish.ID, [newQuantityObject integerValue]);
+            
         }
     }
 }
 
 #pragma mark Private Functions
 
-- (NSNumber *) getQuantityObjectOfDish: (Dish *) dish{
-    int index = [self getIndexOfDish:dish];
+- (NSNumber *) getQuantityObjectOfDish: (Dish *) newDish{
+    int index = [self getIndexOfDishByDish:newDish];
     return (NSNumber *)[self.quantity objectAtIndex: index];
 }
 
-- (int) getIndexOfDish: (Dish *) dish{
-    return [self.dishes indexOfObject:dish];
+- (int) getIndexOfDishByDish: (Dish *) newDish{
+    for (int i = 0; i < [self.dishes count]; i++) {
+        Dish * myDish = [self.dishes objectAtIndex:i];
+        if (myDish.ID == newDish.ID) {
+            return i;
+        }
+    }
+    return -1;
 }
 
+- (Dish *) getDishByID: (int) newDishID{
+    for (Dish *dish in self.dishes) {
+        if (dish.ID == newDishID) {
+           // NSLog(@"Contains: %d!", dishID);
+            return dish;
+        }
+    }
+    //NSLog(@"No Contain: %d!", dishID);
+    return nil;
+}
 
+- (BOOL) containsDishWithDishID: (int) newDishID{
+    return [self getDishByID:newDishID] != nil;
+}
+
+- (void) removeDishWithID: (int) newDishID{
+    
+    Dish *dishToBeRemoved = nil;
+    
+    for (Dish *dish in self.dishes) {
+        if (dish.ID == newDishID) {
+            dishToBeRemoved = dish;
+            break;
+        }
+    }
+    
+    [self.dishes removeObject: dishToBeRemoved];
+}
 
 @end
