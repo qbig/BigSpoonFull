@@ -636,10 +636,41 @@
         }
     }
     self.displayCategoryID = button.tag;
+    [self moveCurrentCategoryButtonToCenter];
     [self.tableView reloadData];
 }
 
 #pragma mark - Others
+
+- (void) moveCurrentCategoryButtonToCenter{
+    float offset = [self getOffsetForCenteringCategoryButton];
+    if (offset > 0) {
+        [self.categoryButtonsHolderView setContentOffset:CGPointMake(offset, 0) animated:YES];
+    }
+}
+
+- (float) getOffsetForCenteringCategoryButton{
+    // rule: content size on both left and right should be >= 160
+    // if legal return offset, else return 0
+    float sumOfButtonWidthOnTheLeft = 0;
+    float sumOfButtonWidthOnTheRight = 0;
+    float currentButtonWidth = 0;
+    for(int i = 0, len = self.categoryButtonsArray.count; i < len; i++ ){
+        if ( i < self.displayCategoryID - 1 ) {
+            sumOfButtonWidthOnTheLeft += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
+        } else if (i > self.displayCategoryID - 1) {
+            sumOfButtonWidthOnTheRight += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
+        } else {
+            currentButtonWidth = ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
+        }
+    }
+    
+    if (sumOfButtonWidthOnTheLeft + currentButtonWidth/2 >= 160 && sumOfButtonWidthOnTheRight + currentButtonWidth/2 >= 160) {
+        return sumOfButtonWidthOnTheLeft - 160 + currentButtonWidth/2;
+    } else {
+        return 0;
+    }
+}
 
 - (Dish *) getDishWithID: (int) itemID{
     for (Dish * dish in self.dishesArray) {
