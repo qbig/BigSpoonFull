@@ -116,7 +116,8 @@
     for (NSDictionary *meal in self.meals) {
         double quantity = [[meal objectForKey:@"quantity"] doubleValue];
         int dishID = [[[meal objectForKey:@"dish"] objectForKey:@"id"] integerValue];
-        Dish* pastOrderDish = [[Dish alloc] initWithName:[NSString stringWithFormat:@"%@", [[meal objectForKey:@"dish"] objectForKey:@"name"]] Description:[[NSString alloc] init] Price:-1.0 Ratings:-1 ID:dishID categories:nil imgURL:nil pos:-1 startTime:nil endTime:nil quantity:-1];
+        double price = [[[meal objectForKey:@"dish"] objectForKey:@"price"] doubleValue];
+        Dish* pastOrderDish = [[Dish alloc] initWithName:[NSString stringWithFormat:@"%@", [[meal objectForKey:@"dish"] objectForKey:@"name"]] Description:[[NSString alloc] init] Price:price Ratings:-1 ID:dishID categories:nil imgURL:nil pos:-1 startTime:nil endTime:nil quantity:-1];
         Order* orderContainingThisMeal = [[Order alloc] init];
         for (int i = 0; i < quantity; i++) {
             [orderContainingThisMeal addDish:pastOrderDish];
@@ -132,13 +133,20 @@
             menuViewController.currentOrder = pastOrder;
             menuViewController.pastOrder = oldMenuViewController.pastOrder;
             menuViewController.tableID = oldMenuViewController.tableID;
-            menuViewController.isSupposedToShowItems = YES;
         } else {
-            
+            [newViewControllers addObject:menuViewController];
+            menuViewController.currentOrder = pastOrder;
         }
     } else {
-        //User came straight from the outlets screen
+        [newViewControllers addObject:menuViewController];
+        if (outlet.outletID == outletsTableViewController.outletIDOfPreviousSelection) {
+            [pastOrder mergeWithAnotherOrder:outletsTableViewController.currentOrder];
+            menuViewController.pastOrder = outletsTableViewController.pastOrder;
+            menuViewController.tableID = outletsTableViewController.tableIDOfPreviousSelection;
+        }
+        menuViewController.currentOrder = pastOrder;
     }
+    menuViewController.isSupposedToShowItems = YES;
     [self.navigationController setViewControllers:newViewControllers animated:YES];
 }
 
