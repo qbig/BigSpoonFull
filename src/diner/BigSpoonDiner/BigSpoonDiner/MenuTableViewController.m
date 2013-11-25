@@ -644,9 +644,7 @@
 
 - (void) moveCurrentCategoryButtonToCenter{
     float offset = [self getOffsetForCenteringCategoryButton];
-    if (offset > 0) {
-        [self.categoryButtonsHolderView setContentOffset:CGPointMake(offset, 0) animated:YES];
-    }
+    [self.categoryButtonsHolderView setContentOffset:CGPointMake(offset, 0) animated:YES];
 }
 
 - (float) getOffsetForCenteringCategoryButton{
@@ -667,8 +665,10 @@
     
     if (sumOfButtonWidthOnTheLeft + currentButtonWidth/2 >= 160 && sumOfButtonWidthOnTheRight + currentButtonWidth/2 >= 160) {
         return sumOfButtonWidthOnTheLeft - 160 + currentButtonWidth/2;
-    } else {
+    } else if (sumOfButtonWidthOnTheLeft + currentButtonWidth/2 < 160){
         return 0;
+    } else {
+        return self.categoryButtonsHolderView.contentSize.width - 320;
     }
 }
 
