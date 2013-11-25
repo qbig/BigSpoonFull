@@ -83,6 +83,7 @@
         case 200:{
             [self.orderHistoryScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             int pastOrderCount = 0;
+            CGFloat scrollViewHeight = 0.0f;
             for (NSDictionary *pastOrder in pastOrdersList) {
                 NSString *order_time = [pastOrder objectForKey:@"order_time"];
                 NSDictionary *outlet = [pastOrder objectForKey:@"outlet"];
@@ -97,9 +98,10 @@
                 view.meals = [NSArray arrayWithArray:meals];
                 view.restaurantID = [(NSString*)[outlet objectForKey:@"id"] integerValue];
                 [self.orderHistoryScrollView addSubview:view];
-                
+                scrollViewHeight += view.frame.size.height;
                 pastOrderCount ++;
             }
+            [self.orderHistoryScrollView setContentSize:(CGSizeMake(self.orderHistoryScrollView.frame.size.width, scrollViewHeight))];
             break;
         }
         default: {
