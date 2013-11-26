@@ -1,0 +1,161 @@
+{% load staticfiles %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>BigSpoon</title>
+        <meta name="description" content="">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no" />
+
+        {% compress css %}
+        <link rel="stylesheet" href="{% static "css/normalize.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/font-awesome.css" %}">
+        <link rel="stylesheet" href="{% static "css/onepage-scroll.css" %}">
+        <link rel="stylesheet" href="{% static "css/index.css" %}">
+        {% endcompress %}
+
+        <body>
+
+        <a class="autoscroll" onclick="start()"><i class="icon-refresh"></i> Autoscroll</a>
+
+        <div class="main-scroll">
+       <section>
+        <a class="staff-login" href="{% url "login" %}"><i class="icon-signin"></i>  Staff Login</a>
+                <img class="logo" src="{% static 'img/logo-wide.png' %}">
+                <h1 class="nopadding">Create <strong>great</strong> dining experiences</h1>
+
+                <div class="side">
+
+                    <span class="screenshot-ios">
+                    <img src="{% static "img/ios_screen1.png" %}"/>
+            </span>
+
+<span class="screenshot-ios">
+                    <img src="{% static "img/staff_screen.png" %}"/>
+            </span>
+
+                </div>
+
+
+                <div class="side">
+                <span>
+                <h1><i class="icon-mobile-phone"></i> Mobile Ordering</h1>
+                <h2>For <strong>diners</strong> </h2>
+                </span>
+
+                <span>
+                <h1><i class="icon-bar-chart"></i> Restaurant Management</h1>
+                <h2>For <strong>owners</strong> </h2>
+                </span>
+                </side>
+
+            </section>
+            <section>
+                <h1>Mobile Ordering</h1>
+                <h2><i class="icon-mobile-phone"></i> Send orders directly to the waitstaff</h2>
+                <span class="screenshot-ios">
+                    <img src="{% static "img/ios_screen1.png" %}"/>
+            </span>
+
+            </section>
+            <section>
+                <h1>Service at your fingertips</h1>
+                <h2><i class="icon-bell"></i> No more scrambling for waiter attention</h2>
+
+                <span class="screenshot-ios">
+                    <img src="{% static "img/ios_screen2.png" %}"/>
+                </span>
+            </section>
+
+            <section>
+                <h1>Authentic recommendations</h1>
+                <h2><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i> User ratings and reviews</h2>
+
+                <span class="screenshot-ios">
+                    <img src="{% static "img/ios_screen3.png" %}"/>
+                </span>
+            </section>
+            <section>
+                <h1>Keep track of your orders</h1>
+                <h2><i class="icon-eye-open"></i> See everything at a glance</h2>
+
+                <span class="screenshot">
+                    <img src="{% static "img/staff_screen1.png" %}"/>
+                </span>
+
+            </section>
+            <section>
+                <h1>Easily manage your menu</h1>
+                <h2><i class="icon-magic"></i> Your entire menu, at your fingertips</h2>
+
+                <span class="screenshot">
+                    <img src="{% static "img/staff_screen2.jpg" %}"/>
+                </span>
+
+            </section>
+            <section>
+                <h1>Get useful analytics about your diners</h1>
+                <h2><i class="icon-bar-chart"></i> Learn more about your customers</h2>
+
+                <span class="screenshot">
+                    <img src="{% static "img/staff_screen3.jpg" %}"/>
+                </span>
+
+            </section>
+
+            <section>
+                <h1>The Team</h1>
+                <h2><i class="icon-smile"></i> Approach any of us for a demo!</h2>
+
+                <div class="team">
+
+                <span class="person">
+                    <a href="http://wgx731.github.io"><img src="{% static "img/wgx.png" %}"/></a>
+                    <h4>Wang Gaoxiang</h4>
+                    <p>This is GaoXiang. One of the guys behind this application, talk to me to know more about it!</p>
+                </span>
+                <span class="person">
+                    <a href="http://www.yosriady.com" target="_blank"><img src="{% static "img/yos.png" %}"/></a>
+                    <h4>Yos Riady</h4>
+                    <p>Hi! I'm Yos! <i class="icon-smile"></i> I like playing guitar, animals, and swimming. My goal in life is to be courageous and to optimize for learning. <br/>(P.S. I coded this page!)</p>
+                </span>
+                <span class="person">
+                    <a href="#"><img src="{% static "img/zx.png" %}"/></a>
+                    <h4>Yang Zhixing</h4>
+                    <p>Hi, I'm Yang Zhixing, I see value in building software because it's a means to make people's lives easier.</p>
+                </span>
+                <span class="person">
+                    <a href="#"><img src="{% static "img/sg.png" %}"/></a>
+                    <h4>Shubham Goyal</h4>
+                    <p>Hi, I'm Shubham. I love food, as might have guessed on seeing me. I have a little dream, that of a perfect world, and this is just the first step.</p>
+                </span>
+                <span class="person">
+                    <a href="#"><img src="{% static "img/cl.png" %}"/></a>
+                    <h4>Chen Liang</h4>
+                    <p>Hi, Chen Liang here. Our application really solves the pain from diner and restaurant owner.</p>
+                </span>
+
+                </div>
+
+                <!-- <p class="copyright">&#169; BigSpoon</p> -->
+
+            </section>
+        </div>
+
+        {% compress js %}
+        <script src="{% static "js/modernizr-2.6.2-respond-1.1.0.min.js" %}"></script>
+        <script src="{% static "js/jquery-1.10.1.min.js" %}"></script>
+        <script src="{% static "js/jquery.onepage-scroll.min.js" %}"></script>
+        <script src="{% static "js/index.js" %}"></script>
+        {% endcompress %}
+        {% block morejs %}
+        {% endblock %}
+
+    </body>
+</html>
+

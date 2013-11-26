@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E61A250D-58B0-407E-84B6-AC0355798CFD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BigSpoonDiner</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>6A733917-65CC-4EF6-AA9B-37FFBFCDEA0B</key>
+		<string>https://github.com/CS3216/2013-final-project-7.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>src/diner/BigSpoonDiner/BigSpoonDiner.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>6A733917-65CC-4EF6-AA9B-37FFBFCDEA0B</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/CS3216/2013-final-project-7.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>6A733917-65CC-4EF6-AA9B-37FFBFCDEA0B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>6A733917-65CC-4EF6-AA9B-37FFBFCDEA0B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>2013-final-project-7</string>
+		</dict>
+	</array>
+</dict>
+</plist>

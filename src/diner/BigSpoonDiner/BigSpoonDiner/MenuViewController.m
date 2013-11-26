@@ -658,7 +658,7 @@
                     return;
                 }
             }
-            [self askForTableIDWithTitle:@"Please enter a valid table ID"];
+            [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
         }
     }
     
@@ -851,7 +851,7 @@
     
     UIAlertView *alertView = [[UIAlertView alloc]
                               initWithTitle:@"Your order has been sent"
-                              message:@"Thank you for waiting"
+                              message:@"Our food is prepared with love, thank you for being patient"
                               delegate:nil
                               cancelButtonTitle:@"Okay"
                               otherButtonTitles:nil];
@@ -991,12 +991,13 @@
 }
 
 - (void) askForTableID{
+
     if (![self isUserLocation:currentUserLocation WithinMeters:10 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, you need to be within the restaurant to complete this request." delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
         [errorAlert show];
     }
     else {
-        [self askForTableIDWithTitle: @"Please enter your table ID"];
+        [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
     }
 }
 

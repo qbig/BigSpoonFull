@@ -31,7 +31,7 @@
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
     
-    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
+    //self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -44,7 +44,7 @@
     [super viewWillAppear:animated];
        
     [self updatePriceLabels];
-    [self updateTableHeight];
+    [self updateTablesAndScrollviewHeight];
     
     return;
 }
@@ -273,7 +273,7 @@
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
-    [self updateTableHeight];
+    [self updateTablesAndScrollviewHeight];
 }
 
 - (void) updatePriceLabels{
@@ -321,7 +321,7 @@
 /*
  * The table height is dynamic.
  */
-- (void) updateTableHeight{
+- (void) updateTablesAndScrollviewHeight{
     int currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.currentOrder getNumberOfKindsOfDishes];
     int pastOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
@@ -348,6 +348,7 @@
                                                                   pasrOrderFrame.origin.y + pastOrderTableHeight,
                                                                   viewAfterframe.size.width,
                                                                   viewAfterframe.size.height)];
+    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + currentOrderTableHeight + pastOrderTableHeight);
 }
 
 

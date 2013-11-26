@@ -15,6 +15,7 @@
 extern NSString* const BASE_URL;
 extern NSString* const  USER_SIGNUP;
 extern NSString* const  USER_LOGIN;
+extern NSString* const  USER_LOGIN_WITH_FB;
 extern NSString* const  LIST_OUTLETS;
 extern NSString* const REQUEST_URL;
 extern NSString* const PROFILE_URL;

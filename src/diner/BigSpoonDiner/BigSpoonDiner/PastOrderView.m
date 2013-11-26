@@ -60,6 +60,7 @@
     pastOrderDetailViewController.orderTime = self.orderTime.text;
     pastOrderDetailViewController.meals = [NSArray arrayWithArray:self.meals];
     [viewController.navigationController pushViewController:pastOrderDetailViewController animated:YES];
+
 }
 
 /*

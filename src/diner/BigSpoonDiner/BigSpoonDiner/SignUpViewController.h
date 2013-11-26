@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *emailAddressLabel;
 @property (strong, nonatomic) IBOutlet UITextField *passwordLabel;
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
+@property (strong, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) NSString * facebookUserName;
 

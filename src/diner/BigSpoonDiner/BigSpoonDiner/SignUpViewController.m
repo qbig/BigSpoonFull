@@ -24,7 +24,7 @@
 @synthesize emailAddressLabel;
 @synthesize passwordLabel;
 @synthesize navigationItem;
-
+@synthesize mainView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,8 +39,12 @@
 {
     [super viewDidLoad];
     [self populateUserDetails];
-
-	// Do any additional setup after loading the view.
+    
+    // set background color
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.mainView.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
+    [self.mainView.layer insertSublayer:gradient atIndex:0];
 }
 
 - (void) viewDidAppear:(BOOL)animated{

@@ -494,7 +494,7 @@
             for (NSDictionary *newDish in dishes) {
                 
                 NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
-                NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail"];
+                NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
                
                 NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
                 
@@ -619,6 +619,7 @@
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
+    [self.tableView setContentOffset:CGPointZero  animated:NO];
     UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
                                                    green:CATEGORY_BUTTON_COLOR_GREEN
                                                     blue:CATEGORY_BUTTON_COLOR_BLUE
@@ -633,12 +634,42 @@
             [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
         }
     }
-    
     self.displayCategoryID = button.tag;
+    [self moveCurrentCategoryButtonToCenter];
     [self.tableView reloadData];
 }
 
 #pragma mark - Others
+
+- (void) moveCurrentCategoryButtonToCenter{
+    float offset = [self getOffsetForCenteringCategoryButton];
+    [self.categoryButtonsHolderView setContentOffset:CGPointMake(offset, 0) animated:YES];
+}
+
+- (float) getOffsetForCenteringCategoryButton{
+    // rule: content size on both left and right should be >= 160
+    // if legal return offset, else return 0
+    float sumOfButtonWidthOnTheLeft = 0;
+    float sumOfButtonWidthOnTheRight = 0;
+    float currentButtonWidth = 0;
+    for(int i = 0, len = self.categoryButtonsArray.count; i < len; i++ ){
+        if ( i < self.displayCategoryID - 1 ) {
+            sumOfButtonWidthOnTheLeft += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
+        } else if (i > self.displayCategoryID - 1) {
+            sumOfButtonWidthOnTheRight += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
+        } else {
+            currentButtonWidth = ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
+        }
+    }
+    
+    if (sumOfButtonWidthOnTheLeft + currentButtonWidth/2 >= 160 && sumOfButtonWidthOnTheRight + currentButtonWidth/2 >= 160) {
+        return sumOfButtonWidthOnTheLeft - 160 + currentButtonWidth/2;
+    } else if (sumOfButtonWidthOnTheLeft + currentButtonWidth/2 < 160){
+        return 0;
+    } else {
+        return self.categoryButtonsHolderView.contentSize.width - 320;
+    }
+}
 
 - (Dish *) getDishWithID: (int) itemID{
     for (Dish * dish in self.dishesArray) {
@@ -660,7 +691,15 @@
             }
         }
     }
-    return result;
+    
+    // sort according to pos number
+    NSArray *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        int first = [(Dish*)a pos];
+        int second = [(Dish*)b pos];
+        return first >= second;
+    }];
+    
+    return sortedArray;
 }
 
 

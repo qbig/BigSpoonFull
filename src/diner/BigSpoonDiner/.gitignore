@@ -1,0 +1,119 @@
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+###################################################
+## Linux.gitignore
+###################################################
+.*
+!.gitignore
+*~
+
+###################################################
+## OSX.gitignore
+###################################################
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+# Thumbnails
+._*
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+###################################################
+## Windows.gitignore
+###################################################
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+# Folder config file
+Desktop.ini
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+###################################################
+## Vim.gitignore
+###################################################
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+#*************************************************#
+
+###################################################
+## Python.gitignore
+###################################################
+*.py[cod]
+# C extensions
+*.so
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+# Installer logs
+pip-log.txt
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+# Translations
+*.mo
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+###################################################
+## Django.gitignore
+###################################################
+logs/
+*.log
+*.pot
+*.pyc
+
+#*************************************************#
+
+###################################################
+## iOS.gitignore
+###################################################
+build/
+**/*.pbxuser
+*.mode2v3
+*.mode1v3
+**/*.perspectivev*
+
+#*************************************************#
+
+###################################################
+## Project.gitignore
+###################################################
+# for python virtualenv
+env/
+migrations/
+src/backend/bigspoon/bigspoon/media/
+bg_dev.db
+
+# for django-compressor
+src/backend/bigspoon/bigspoon/static/
+
+src/testf/djn

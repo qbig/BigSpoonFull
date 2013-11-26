@@ -1,0 +1,80 @@
+{% extends "staff.html" %}
+
+{% load staticfiles %}
+{% load compress %}
+
+{% block content %}
+
+    <div class="help">
+        <p><i class="icon-group"></i> <strong>Tables</strong> shows you a bird's-eye view of all your current tables' unpaid orders.</p>
+    </div>
+
+<div class="wrapper">
+
+    <span id="pick-table">
+        <label> View
+        <select>
+            <option value="All Tables">
+            All Tables
+            </option>
+            {% for table in table_list %}
+            <option value="{{table.name}}">
+            {{table.name|capfirst}}
+            </option>
+            {% endfor %}
+        </select> </label>
+    </span>
+
+    {% for table in table_list %}
+
+    <div class="table">
+        <h3>{{table.name|capfirst}}</h3>
+
+        {% if table.meals.count > 0 %}
+            {% for meal in table.meals.all %}
+                {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
+                <div class='active'>
+                    <span class='user'>
+                        <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
+                        <h4>{{ meal.diner.get_full_name }}</h4>
+                    </span>
+                    <span class="user-summary">
+                    <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
+                    <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+                    <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
+                    </span>
+
+                    <ul class="order">
+                        {% if meal.note %}
+                            <li>
+                                {{meal.note}}
+                            </li>
+                        {% endif %}
+
+                        {% if meal.orders.count > 0 %}
+                            {% for order in meal.orders.all %}
+                            <li>
+                                <em class='quantity'>{{order.quantity}}x</em>
+                                <p>{{order.dish.name}}</p>
+
+                                {% if order.dish.pos %}
+                                <em class='pos'>{{order.dish.pos}}</em>
+                                {% endif %}
+
+                            </li>
+                            {% endfor %}
+                        {% else %}
+                            <li>No orders yet.</li>
+                        {% endif %}
+                    </ul>
+
+                    <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
+
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

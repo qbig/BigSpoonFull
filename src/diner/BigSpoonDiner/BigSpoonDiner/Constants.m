@@ -15,6 +15,7 @@
 NSString* const BASE_URL = @"http://122.248.199.242/";
 NSString* const  USER_SIGNUP = @"http://122.248.199.242/api/v1/user";
 NSString* const USER_LOGIN = @"http://122.248.199.242/api/v1/login";
+NSString* const USER_LOGIN_WITH_FB = @"http://122.248.199.242/api/v1/fblogin";
 NSString* const LIST_OUTLETS = @"http://122.248.199.242/api/v1/outlets";
 NSString* const REQUEST_URL = @"http://122.248.199.242/api/v1/request";
 NSString* const PROFILE_URL = @"http://122.248.199.242/api/v1/profile";
@@ -30,10 +31,10 @@ int const SOCKET_PORT = 8000;
 // Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 59;
-int const ROW_HEIGHT_PHOTO_MENU = 196;
+int const ROW_HEIGHT_PHOTO_MENU = 246;
 double const SCALE_OF_BUTTON = 2.85;
 int const ITEM_LIST_SCROLL_WIDTH = 320;
-int const ITEM_LIST_SCROLL_HEIGHT = 1100;
+int const ITEM_LIST_SCROLL_HEIGHT = 900;
 int const CATEGORY_BUTTON_SCROLL_WIDTH = 20;
 int const ITEM_LIST_TABLE_ROW_HEIGHT = 59;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;

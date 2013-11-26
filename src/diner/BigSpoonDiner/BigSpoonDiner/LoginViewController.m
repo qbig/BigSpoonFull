@@ -12,7 +12,8 @@
     NSMutableData *_responseData;
     int statusCode;
 }
-
+@property NSURLConnection* connectionForLogin;
+@property NSURLConnection* connectionForCheckingFBToken;
 @end
 
 @implementation LoginViewController
@@ -20,6 +21,9 @@
 @synthesize emailLabel;
 @synthesize passwordField;
 @synthesize activityIndicator;
+@synthesize mainView;
+@synthesize connectionForLogin;
+@synthesize connectionForCheckingFBToken;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +39,28 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewDidLoad {
+    //set background color
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = self.mainView.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
+    [self.mainView.layer insertSublayer:gradient atIndex:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [super viewWillDisappear:animated];
+}
+
+
 - (IBAction)textFieldReturn:(id)sender {
     [sender resignFirstResponder];
 }
@@ -64,9 +90,30 @@
     if ([self isTableValid]){
         // Create url connection and fire request
         [self showLoadingIndicators];
-        [NSURLConnection connectionWithRequest:request delegate:self];
+        self.connectionForLogin = [NSURLConnection connectionWithRequest:request delegate:self];
     }
 }
+
+- (void) checkTokenValidity {
+    [self showLoadingIndicators];
+    
+    // Create the request.
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: USER_LOGIN_WITH_FB]];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:[FBSession.activeSession accessTokenData].accessToken forKey: @"access_token"];
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    
+    request.HTTPBody = jsonData;
+    
+    // Create url connection and fire request
+    self.connectionForCheckingFBToken = [NSURLConnection connectionWithRequest:request delegate:self];
+}
+
 
 - (BOOL) isTableValid{
     NSString *errorMessage = @"";
@@ -120,6 +167,39 @@
     [_responseData appendData:data];
 }
 
+- (void)setUserDataAndPrefsWithReturnedData:(NSDictionary *)json {
+    NSString* email =[json objectForKey:@"email"];
+    NSString* firstName = [json objectForKey:@"first_name"];
+    NSString* lastName = [json objectForKey:@"last_name"];
+    NSString* auth_token = [json objectForKey:@"auth_token"];
+    NSString* profilePhotoURL = [json objectForKey:@"avatar_url_large"];
+    
+    
+    User *user = [User sharedInstance];
+    user.firstName = firstName;
+    user.lastName = lastName;
+    user.email = email;
+    user.authToken = auth_token;
+    user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
+    
+    
+    NSLog(@"User logged in:");
+    NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
+    NSLog(@"Email: %@", email);
+    NSLog(@"Auth_token: %@", auth_token);
+    NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    // Set
+    [prefs setObject:firstName forKey:@"firstName"];
+    [prefs setObject:lastName forKey:@"lastName"];
+    [prefs setObject:email forKey:@"email"];
+    [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
+    [prefs synchronize];
+    [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
+}
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
@@ -139,55 +219,37 @@
     
     [self stopLoadingIndicators];
     
-    switch (statusCode) {
-            
-        // 200 Okay
-        case 200:{
-        
-            NSString* email =[json objectForKey:@"email"];
-            NSString* firstName = [json objectForKey:@"first_name"];
-            NSString* lastName = [json objectForKey:@"last_name"];
-            NSString* auth_token = [json objectForKey:@"auth_token"];
-            NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
-            
-
-            User *user = [User sharedInstance];
-            user.firstName = firstName;
-            user.lastName = lastName;
-            user.email = email;
-            user.authToken = auth_token;
-            user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
-            
-
-            NSLog(@"User logged in:");
-            NSLog(@"FirstName: %@, LastName: %@", firstName, lastName);
-            NSLog(@"Email: %@", email);
-            NSLog(@"Auth_token: %@", auth_token);
-            NSLog(@"ProfilePhotoURL: %@", profilePhotoURL);
-            
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            
-            // Set
-            [prefs setObject:firstName forKey:@"firstName"];
-            [prefs setObject:lastName forKey:@"lastName"];
-            [prefs setObject:email forKey:@"email"];
-            [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
-            [prefs synchronize];
-            [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
-
-            [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
-            
-            break;
+    if (connection == self.connectionForLogin) {
+        switch (statusCode) {
+                
+                // 200 Okay
+            case 200:{
+                
+                [self setUserDataAndPrefsWithReturnedData:json];
+                
+                [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
+                
+                break;
+            }
+                
+            default:{
+                
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Unable to login with provided credentials." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [message show];
+                
+                break;
+            }
         }
-            
-        default:{
-            
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Unable to login with provided credentials." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [message show];
-            
-            break;
+    } else {
+        // handle checking token connection
+        if ([json count] == 6){
+            [self setUserDataAndPrefsWithReturnedData:json];
+            [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
+        } else {
+            [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
         }
     }
+   
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
@@ -231,7 +293,8 @@
     
     if (FBSession.activeSession.isOpen) {
         NSLog(@"FBSession.activeSession.isOpen IS open!");
-        [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+        // check token validity and login successfully
+        [self checkTokenValidity];
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];
@@ -246,7 +309,7 @@
             NSLog(@"Successfully logged in with Facebook");
             if (FBSession.activeSession.isOpen) {
                 NSLog(@"YAY! Finally Become open!");
-                [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+                [self checkTokenValidity];
             } else{
                 NSLog(@"Nope not yet");
             }
