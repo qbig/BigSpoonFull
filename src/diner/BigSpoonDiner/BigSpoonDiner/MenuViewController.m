@@ -191,19 +191,34 @@
 // Failed to get current location
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-	return;
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-							   initWithTitle:@"Error"
-                               message:@"Failed to Get Your Location"
-                               delegate:nil
-                               cancelButtonTitle:nil
-                               otherButtonTitles:@"Okay", nil];
-    // Call alert
-	[errorAlert show];
+    NSString *errorString;
+    [manager stopUpdatingLocation];
+    NSLog(@"Error: %@",[error localizedDescription]);
+    switch([error code]) {
+        case kCLErrorDenied:
+            //Access denied by user
+            errorString = @"Dear customer, you may want to enable location to use BigSpoon";
+            break;
+        case kCLErrorLocationUnknown:
+            //Probably temporary...
+            errorString = @"Location data unavailable";
+            //Do something else...
+            break;
+        default:
+            errorString = @"An unknown error has occurred";
+            break;
+    }
+
+ //   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+ //   [alert show];
 }
 
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
 {
+    if (userLocation == nil){
+        return false;
+    }
+    
     CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
     CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
     if (distance <= radius) {
@@ -226,6 +241,7 @@
 {
 	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
         currentUserLocation = newLocation;
+        NSLog(@"Lcoation updated");
     }
 }
 
@@ -991,12 +1007,16 @@
 }
 
 - (void) askForTableID{
-
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Dear customer, you may want to enable location to do this:)" delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
+        [errorAlert show];
+        return;
+    }
+    
     if (![self isUserLocation:currentUserLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, you need to be within the restaurant to complete this request." delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
         [errorAlert show];
-    }
-    else {
+    } else {
         [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
     }
 }
@@ -1008,7 +1028,7 @@
                               delegate:self
                               cancelButtonTitle:@"Cancel"
                               otherButtonTitles:@"Okay", nil];
-    
+
     self.inputTableIDAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     [self.inputTableIDAlertView show];
 }
