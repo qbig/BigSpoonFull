@@ -31,7 +31,7 @@ int const SOCKET_PORT = 8000;
 // Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 59;
-int const ROW_HEIGHT_PHOTO_MENU = 246;
+int const ROW_HEIGHT_PHOTO_MENU = 280;
 double const SCALE_OF_BUTTON = 2.85;
 int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 900;
