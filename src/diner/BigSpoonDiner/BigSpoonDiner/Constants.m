@@ -76,6 +76,6 @@ double const CATEGORY_BUTTON_FONT = 16.0;
 
 int const NUM_OF_RATINGS = 5;
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
-double const LOCATION_CHECKING_DIAMETER = 100;
+double const LOCATION_CHECKING_DIAMETER = 10;
 
 @end
