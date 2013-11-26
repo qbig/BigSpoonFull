@@ -75,6 +75,6 @@ extern double const CATEGORY_BUTTON_FONT;
 
 extern int const NUM_OF_RATINGS;
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
-
+extern double const LOCATION_CHECKING_DIAMETER;
 
 @end

@@ -992,7 +992,7 @@
 
 - (void) askForTableID{
 
-    if (![self isUserLocation:currentUserLocation WithinMeters:10 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
+    if (![self isUserLocation:currentUserLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, you need to be within the restaurant to complete this request." delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
         [errorAlert show];
     }
