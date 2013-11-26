@@ -16,8 +16,10 @@
 
 @end
 
-@implementation PastOrderDetailViewController
 
+@implementation PastOrderDetailViewController
+@synthesize subtotalContainterView;
+@synthesize scrollview;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,6 +35,7 @@
 	// Do any additional setup after loading the view.
     self.restuarantNameLabel.text = self.restaurantName;
     self.orderTimeLabel.text = self.orderTime;
+    [self updateTablesAndScrollviewHeight];
 }
 
 - (double)getSubtotal {
@@ -98,6 +101,26 @@
     }
 }
 
+- (void) updateTablesAndScrollviewHeight{
+    int currentOrderTableHeight = 35 * [self.meals count];
+    
+    CGRect currentOrderFrame = self.mealsTableView.frame;
+    [self.mealsTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
+                                                     currentOrderFrame.origin.y,
+                                                     currentOrderFrame.size.width,
+                                                     currentOrderTableHeight + currentOrderFrame.size.height)];
+    
+    CGRect viewAfterframe = self.subtotalContainterView.frame;
+    [self.subtotalContainterView setFrame:CGRectMake(viewAfterframe.origin.x,
+                                                                     currentOrderFrame.origin.y + currentOrderTableHeight,
+                                                                     viewAfterframe.size.width,
+                                                                     viewAfterframe.size.height)];
+    
+
+    self.scrollview.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, currentOrderTableHeight + self.scrollview.contentSize.height);
+}
+
+#warning refactor this
 - (IBAction)placeTheSameOrder:(id)sender {
     NSLog(@"%@", [self.navigationController viewControllers]);
     OutletsTableViewController *outletsTableViewController = (OutletsTableViewController *)[[self.navigationController viewControllers] objectAtIndex:0];

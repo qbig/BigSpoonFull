@@ -24,6 +24,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *gstLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *subtotalContainterView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
+
 - (IBAction)placeTheSameOrder:(id)sender;
 
 @end
