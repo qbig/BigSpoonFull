@@ -60,6 +60,12 @@
     return self;
 }
 
+-(void) viewWillAppear:(BOOL)animated {
+    if (self.isSupposedToShowItems) {
+        [self itemsButtonPressed:nil];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -985,7 +991,14 @@
 }
 
 - (void) askForTableID{
-    [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
+
+    if (![self isUserLocation:currentUserLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, you need to be within the restaurant to complete this request." delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
+        [errorAlert show];
+    }
+    else {
+        [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
+    }
 }
 
 - (void) askForTableIDWithTitle: (NSString *)title{

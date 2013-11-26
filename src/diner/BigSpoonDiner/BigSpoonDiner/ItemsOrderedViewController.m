@@ -248,6 +248,7 @@
 
 }
 - (IBAction)placeOrderButtonPressed:(id)sender {
+    NSLog(@"%@", [self.navigationController viewControllers]);
     
     [self.delegate placeOrderWithNotes:self.addNotesTextField.text];
     

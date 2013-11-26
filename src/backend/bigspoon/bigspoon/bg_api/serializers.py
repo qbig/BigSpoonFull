@@ -1,3 +1,4 @@
+from facepy import GraphAPI
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
 from django.utils import timezone
@@ -16,16 +17,22 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
 
     avatar_url = serializers.SerializerMethodField('get_avatar')
+    avatar_url_large = serializers.SerializerMethodField('get_avatar_large')
 
     def get_avatar(self, obj):
         if hasattr(obj, 'email'):
             return obj.avatar_url
         return 'None'
 
+    def get_avatar_large(self, obj):
+        if hasattr(obj, 'email'):
+            return obj.avatar_url_large
+        return 'None'
+
     class Meta:
         model = User
         fields = ('email', 'username', 'first_name', 'last_name',
-                  'password', 'auth_token', 'avatar_url')
+                  'password', 'auth_token', 'avatar_url', 'avatar_url_large')
         read_only_fields = ('auth_token',)
 
 
@@ -46,6 +53,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'total': obj.user.get_total_spending(),
             'average': obj.user.get_average_spending(),
             'avatar_url': obj.user.avatar_url,
+            'avatar_url_large': obj.user.avatar_url_large,
         }
 
     class Meta:
@@ -271,3 +279,37 @@ class TokenSerializer(serializers.Serializer):
         else:
             raise serializers.ValidationError(
                 'Must include "email" and "password"')
+
+
+class FBSerializer(serializers.Serializer):
+    access_token = serializers.CharField()
+
+    def validate(self, attrs):
+        access_token = attrs.get('access_token')
+
+        if access_token:
+            try:
+                graph = GraphAPI(access_token)
+                result = graph.get('me?fields=email')
+            except GraphAPI.OAuthError:
+                result = None
+            if result:
+                try:
+                    user = User.objects.get(email=result['email'])
+                except User.DoesNotExist:
+                    user = None
+                if user:
+                    if not user.is_active:
+                        raise serializers.ValidationError(
+                            'User account is disabled.')
+                    attrs['user'] = user
+                    return attrs
+                else:
+                    raise serializers.ValidationError(
+                        'User not found.')
+            else:
+                raise serializers.ValidationError(
+                    'Invalid access token.')
+        else:
+            raise serializers.ValidationError(
+                'Empty access token.')
