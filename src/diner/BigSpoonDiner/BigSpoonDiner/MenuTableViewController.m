@@ -323,6 +323,16 @@
 	return nil;
 }
 
+#pragma mark - Table view Delegate
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.displayMethod == kMethodList){
+        self.displayMethod = kMethodPhoto;
+    }
+    [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointMake(0, indexPath.row * ROW_HEIGHT_PHOTO_MENU)  animated:NO];
+}
+
 #pragma mark - Loading Data:
 
 - (void) loadDishesFromServer{
@@ -593,21 +603,6 @@
 }
 
 #pragma mark - Event Listeners
-
-- (IBAction)breakfastButtonPressed:(id)sender {
-    NSLog(@"breakfastButtonPressed");
-}
-
-- (IBAction)mainsButtonPressed:(id)sender {
-    NSLog(@"mainButtonPressed");
-}
-
-- (IBAction)beveragesButtonPressed:(id)sender {
-    NSLog(@"beveragesButtonPressed");
-}
-- (IBAction)sidesAndSnacksButtonPressed:(id)sender {
-    NSLog(@"sidesButtonPressed");
-}
 
 - (IBAction)addNewItemButtonClicked:(id)sender {
     UIButton *btn = (UIButton *)sender;
