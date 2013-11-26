@@ -276,4 +276,74 @@
     }
 }
 
+
+
+- (IBAction)fbButtonPressed:(id)sender {
+    
+    if (FBSession.activeSession.isOpen) {
+        NSLog(@"FBSession.activeSession.isOpen IS open!");
+        // check token validity and login successfully
+        [self populateUserDetails];
+    }else{
+        NSLog(@"FBSession.activeSession.isOpen NOT open!");
+        [self openSession];
+    }
+}
+#warning TODO: refactor this later...
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error{
+    switch (state) {
+        case FBSessionStateOpen: {
+            NSLog(@"Successfully logged in with Facebook");
+            if (FBSession.activeSession.isOpen) {
+                NSLog(@"YAY! Finally Become open!");
+                [self populateUserDetails];
+            } else{
+                NSLog(@"Nope not yet");
+            }
+        }
+            break;
+        case FBSessionStateClosed:{
+            NSLog(@"FBSessionStateClosed");
+        }
+            break;
+        case FBSessionStateClosedLoginFailed:
+            // Once the user has logged in, we want them to
+            // be looking at the root view.
+            NSLog(@"Failed logging with Facebook");
+            [FBSession.activeSession closeAndClearTokenInformation];
+            
+            break;
+        default:
+            NSLog(@"Other cases");
+            break;
+    }
+    
+    if (error) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+- (void)openSession
+{
+    NSArray *permissions = [[NSArray alloc] initWithObjects:@"email", @"basic_info", nil];
+    [FBSession openActiveSessionWithReadPermissions:permissions
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session,FBSessionState state, NSError *error) {
+         
+         
+         [self sessionStateChanged:session state:state error:error];
+         
+         FBSession.activeSession = session;
+     }];
+}
+
 @end

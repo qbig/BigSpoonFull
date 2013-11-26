@@ -16,7 +16,6 @@
 		03D411FB184209DB00ED4F46 /* login_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411FA184209DB00ED4F46 /* login_bt.png */; };
 		03D411FD18420E9600ED4F46 /* tagline.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411FC18420E9600ED4F46 /* tagline.png */; };
 		03D411FF184210EC00ED4F46 /* done_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411FE184210EC00ED4F46 /* done_bt.png */; };
-		03D9C6D31844A5DA004110AA /* signup_fb_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D9C6D21844A5DA004110AA /* signup_fb_bt.png */; };
 		49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49044D1E180AD5AB0006F567 /* OutletCell.m */; };
 		49048D0B181F463A00B480A3 /* photo_cell_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D0A181F463A00B480A3 /* photo_cell_gradient.png */; };
 		49048D11181F489C00B480A3 /* 1StarSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D0C181F489C00B480A3 /* 1StarSmall@2x.png */; };
@@ -127,7 +126,6 @@
 		03D411FA184209DB00ED4F46 /* login_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_bt.png; sourceTree = "<group>"; };
 		03D411FC18420E9600ED4F46 /* tagline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tagline.png; sourceTree = "<group>"; };
 		03D411FE184210EC00ED4F46 /* done_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = done_bt.png; sourceTree = "<group>"; };
-		03D9C6D21844A5DA004110AA /* signup_fb_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_fb_bt.png; sourceTree = "<group>"; };
 		2F63AF821F7C4274ACFCBE67 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49044D1D180AD5AB0006F567 /* OutletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletCell.h; sourceTree = "<group>"; };
 		49044D1E180AD5AB0006F567 /* OutletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletCell.m; sourceTree = "<group>"; };
@@ -387,7 +385,6 @@
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				03D9C6D21844A5DA004110AA /* signup_fb_bt.png */,
 				03D411FE184210EC00ED4F46 /* done_bt.png */,
 				03D411F81842091800ED4F46 /* or_separator.png */,
 				03D411F61842091000ED4F46 /* login_box_bg.png */,
@@ -603,7 +600,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
-				ORGANIZATIONNAME = nus.cs3217;
+				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					49F107DE180886D600D2C8DD = {
 						DevelopmentTeam = DY7X6833VR;
@@ -613,7 +610,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 49F107DA180886D600D2C8DD /* Build configuration list for PBXProject "BigSpoonDiner" */;
+			buildConfigurationList = 49F107DA180886D600D2C8DD /* Build configuration list for PBXProject "BigSpoon" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -642,7 +639,6 @@
 				49412B4218352ACB00BF949B /* RatingCellView.xib in Resources */,
 				4972BBBD18370F61001DD817 /* button_minus_with_circle.png in Resources */,
 				49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */,
-				03D9C6D31844A5DA004110AA /* signup_fb_bt.png in Resources */,
 				497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */,
 				03D411FD18420E9600ED4F46 /* tagline.png in Resources */,
 				49164203180C590C00080B87 /* list_icon.png in Resources */,
@@ -899,8 +895,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Liang Qiao (LJR8Q2BS5A)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Liang Qiao (LJR8Q2BS5A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					$SRCROOT/,
@@ -921,8 +917,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Liang Qiao (LJR8Q2BS5A)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Liang Qiao (LJR8Q2BS5A)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					$SRCROOT/,
@@ -982,7 +978,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		49F107DA180886D600D2C8DD /* Build configuration list for PBXProject "BigSpoonDiner" */ = {
+		49F107DA180886D600D2C8DD /* Build configuration list for PBXProject "BigSpoon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				49F10812180886D600D2C8DD /* Debug */,
