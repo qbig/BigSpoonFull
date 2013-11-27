@@ -11,6 +11,7 @@
 @interface OutletsTableViewController (){
     NSMutableData *_responseData;
     int statusCode;
+    CLLocationManager* locationManager;
 }
 
 @end
@@ -18,7 +19,7 @@
 @implementation OutletsTableViewController
 
 @synthesize outletsArray;
-
+@synthesize intro;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,10 +30,73 @@
     return self;
 }
 
+
+- (void)showIntroWithCustomView {
+
+    EAIntroPage *page1 = [EAIntroPage page];
+    page1.title = @"Hello world";
+    page1.desc = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    page1.bgImage = [UIImage imageNamed:@"1"];
+    page1.titleImage = [UIImage imageNamed:@"original"];
+    
+    UIView *viewForPage2 = [[UIView alloc] initWithFrame:self.view.bounds];
+    UILabel *labelForPage2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, 300, 30)];
+    labelForPage2.text = @"Some custom view";
+    labelForPage2.font = [UIFont systemFontOfSize:32];
+    labelForPage2.textColor = [UIColor whiteColor];
+    labelForPage2.backgroundColor = [UIColor clearColor];
+    labelForPage2.transform = CGAffineTransformMakeRotation(M_PI_2*3);
+    // Add one more category button
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
+    
+    [button setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size:20.0];
+    button.layer.borderColor = [UIColor whiteColor].CGColor;
+    [button addTarget:self
+               action:@selector(askForLocationPermit)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    // Add spaces before and after the title:
+    NSString *buttonTitle = [@"Click to enable location" stringByAppendingString:@"  "];
+    buttonTitle = [@"  " stringByAppendingString:buttonTitle];
+    [button setTitle:buttonTitle forState:UIControlStateNormal];
+    
+    button.frame = CGRectMake(100, 0, 180, 40);
+
+    
+    [viewForPage2 addSubview:labelForPage2];
+    [viewForPage2 addSubview:button];
+    EAIntroPage *page2 = [EAIntroPage pageWithCustomView:viewForPage2];
+    
+    EAIntroPage *page3 = [EAIntroPage page];
+    page3.title = @"This is page 3";
+    page3.desc = @"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.";
+    page3.bgImage = [UIImage imageNamed:@"3"];
+    page3.titleImage = [UIImage imageNamed:@"femalecodertocat"];
+    
+    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
+    
+    [self.intro setDelegate:self];
+    [self.intro showInView:self.view animateDuration:0.0];
+}
+
+- (void) askForLocationPermit{
+    //initialize geolocation
+    locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self;
+	locationManager.distanceFilter = kCLDistanceFilterNone;
+	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    //Geofencing starts working as soon as this view is loaded
+    [locationManager startUpdatingLocation];
+    NSLog(@"location bt clicked");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self showIntroWithCustomView];
     [self loadOutletsFromServer];
     
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -405,5 +469,11 @@
     [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Intro
+
+- (void)introDidFinish {
+    [self.intro removeFromSuperview];
 }
 @end

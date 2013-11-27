@@ -18,8 +18,9 @@
 #import "AppDelegate.h"
 #import "ImageCache.h"
 #import "SSKeychain.h"
+#import "EAIntroView.h"
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, EAIntroDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 
@@ -32,7 +33,7 @@
 @property (nonatomic, strong) Order * pastOrder;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-
+@property (strong, nonatomic) EAIntroView *intro;
 - (IBAction)logoutButtonPressed:(id)sender;
 
 
