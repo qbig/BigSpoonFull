@@ -23,6 +23,7 @@
 @interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, EAIntroDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
+@property (strong, nonatomic) IBOutlet UITableView *outletsTableView;
 
 // Need to record the order items,
 // If the user ordered some items and comes out to the main page.

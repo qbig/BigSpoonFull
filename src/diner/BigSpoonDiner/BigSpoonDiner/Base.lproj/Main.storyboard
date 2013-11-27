@@ -336,6 +336,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="outletsTableView" destination="dzt-CF-04m" id="ClF-z8-PnB"/>
                         <segue destination="fn9-OW-D18" kind="push" identifier="SegueFromOutletsToMenu" id="h0Y-o3-BiD"/>
                     </connections>
                 </tableViewController>
@@ -1311,14 +1312,17 @@
         <image name="button_minus_no_circle.png" width="128" height="128"/>
         <image name="done_bt.png" width="246" height="74"/>
         <image name="gear.png" width="104" height="104"/>
+        <image name="gear.png" width="104" height="104"/>
         <image name="list_icon.png" width="105" height="105"/>
         <image name="login_box_bg.png" width="843" height="336"/>
         <image name="login_bt.png" width="843" height="150"/>
         <image name="login_fb_bt.png" width="842" height="188"/>
         <image name="logout_button.png" width="132" height="46"/>
         <image name="or_separator.png" width="798" height="97"/>
+        <image name="or_separator.png" width="798" height="97"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="105" height="105"/>
+        <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="red_circle.png" width="184" height="184"/>
         <image name="signup_bt.png" width="494" height="150"/>
@@ -1331,6 +1335,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="qnZ-wN-VZu"/>
+        <segue reference="TRy-SG-Bfr"/>
     </inferredMetricsTieBreakers>
 </document>

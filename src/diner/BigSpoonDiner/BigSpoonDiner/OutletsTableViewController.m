@@ -20,7 +20,7 @@
 
 @synthesize outletsArray;
 @synthesize intro;
-
+@synthesize outletsTableView;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -32,7 +32,8 @@
 
 
 - (void)showIntroWithCustomView {
-
+    self.outletsTableView.scrollEnabled = NO;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     EAIntroPage *page1 = [EAIntroPage page];
     page1.title = @"Hello world";
     page1.desc = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -475,5 +476,7 @@
 
 - (void)introDidFinish {
     [self.intro removeFromSuperview];
+    self.outletsTableView.scrollEnabled = YES;
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 @end
