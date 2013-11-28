@@ -218,10 +218,25 @@
     if (userLocation == nil){
         return false;
     }
+    if ([self meAtPgpBusStop:userLocation WithinMeters:radius]){
+        return true;
+    }
     
     CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
     CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
     if (distance <= radius) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) meAtPgpBusStop :(CLLocation *)userLocation WithinMeters:(double)radius{
+    // assuming location available
+    CLLocation *pgpBusStopLocation = [[CLLocation alloc] initWithLatitude:1.292026 longitude:103.780304];
+    CLLocationDistance distance = [userLocation distanceFromLocation:pgpBusStopLocation];
+    User *user = [User sharedInstance];
+    if (distance <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
         return true;
     } else {
         return false;
