@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *fbButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 
 - (IBAction)submitButtonPressed:(id)sender;
 

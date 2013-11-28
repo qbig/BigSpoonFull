@@ -25,7 +25,7 @@
 @synthesize passwordLabel;
 @synthesize navigationItem;
 @synthesize mainView;
-
+@synthesize taglineLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,6 +47,7 @@
     [self.mainView.layer insertSublayer:gradient atIndex:0];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:172.0f/255.0 green:234.0/255.0 blue:241.0/255.0 alpha:0];
     self.navigationController.navigationBar.translucent = NO;
+    [self.taglineLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:17]];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
