@@ -17,7 +17,7 @@
 @end
 
 @implementation OutletsTableViewController
-
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 @synthesize outletsArray;
 @synthesize intro;
 @synthesize outletsTableView;
@@ -35,16 +35,21 @@
     self.outletsTableView.scrollEnabled = NO;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     EAIntroPage *welcome_page = [EAIntroPage page];
-//    page1.title = @"Hello world";
-//    page1.desc = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome"];
-    
     EAIntroPage *page1 = [EAIntroPage page];
-    page1.bgImage = [UIImage imageNamed:@"intro_1"];
     EAIntroPage *page2 = [EAIntroPage page];
-    page2.bgImage = [UIImage imageNamed:@"intro_2"];
     EAIntroPage *page3 = [EAIntroPage page];
-    page3.bgImage = [UIImage imageNamed:@"intro_3"];
+
+    if( IS_IPHONE_5 ){
+        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome_long"];
+        page1.bgImage = [UIImage imageNamed:@"intro_1_long"];
+        page2.bgImage = [UIImage imageNamed:@"intro_2_long"];
+        page3.bgImage = [UIImage imageNamed:@"intro_3_long"];
+    } else {
+        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome"];
+        page1.bgImage = [UIImage imageNamed:@"intro_1"];
+        page2.bgImage = [UIImage imageNamed:@"intro_2"];
+        page3.bgImage = [UIImage imageNamed:@"intro_3"];
+    }
     self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[welcome_page, page1,page2,page3]];
     
     [self.intro setDelegate:self];
