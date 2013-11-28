@@ -34,49 +34,18 @@
 - (void)showIntroWithCustomView {
     self.outletsTableView.scrollEnabled = NO;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    EAIntroPage *welcome_page = [EAIntroPage page];
+//    page1.title = @"Hello world";
+//    page1.desc = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome"];
+    
     EAIntroPage *page1 = [EAIntroPage page];
-    page1.title = @"Hello world";
-    page1.desc = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    page1.bgImage = [UIImage imageNamed:@"1"];
-    page1.titleImage = [UIImage imageNamed:@"original"];
-    
-    UIView *viewForPage2 = [[UIView alloc] initWithFrame:self.view.bounds];
-    UILabel *labelForPage2 = [[UILabel alloc] initWithFrame:CGRectMake(0, 220, 300, 30)];
-    labelForPage2.text = @"Some custom view";
-    labelForPage2.font = [UIFont systemFontOfSize:32];
-    labelForPage2.textColor = [UIColor whiteColor];
-    labelForPage2.backgroundColor = [UIColor clearColor];
-    labelForPage2.transform = CGAffineTransformMakeRotation(M_PI_2*3);
-    // Add one more category button
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
-    
-    [button setTitleColor: [UIColor whiteColor] forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size:20.0];
-    button.layer.borderColor = [UIColor whiteColor].CGColor;
-    [button addTarget:self
-               action:@selector(askForLocationPermit)
-     forControlEvents:UIControlEventTouchUpInside];
-    
-    // Add spaces before and after the title:
-    NSString *buttonTitle = [@"Click to enable location" stringByAppendingString:@"  "];
-    buttonTitle = [@"  " stringByAppendingString:buttonTitle];
-    [button setTitle:buttonTitle forState:UIControlStateNormal];
-    
-    button.frame = CGRectMake(100, 0, 180, 40);
-
-    
-    [viewForPage2 addSubview:labelForPage2];
-    [viewForPage2 addSubview:button];
-    EAIntroPage *page2 = [EAIntroPage pageWithCustomView:viewForPage2];
-    
+    page1.bgImage = [UIImage imageNamed:@"intro_1"];
+    EAIntroPage *page2 = [EAIntroPage page];
+    page2.bgImage = [UIImage imageNamed:@"intro_2"];
     EAIntroPage *page3 = [EAIntroPage page];
-    page3.title = @"This is page 3";
-    page3.desc = @"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.";
-    page3.bgImage = [UIImage imageNamed:@"3"];
-    page3.titleImage = [UIImage imageNamed:@"femalecodertocat"];
-    
-    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3]];
+    page3.bgImage = [UIImage imageNamed:@"intro_3"];
+    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[welcome_page, page1,page2,page3]];
     
     [self.intro setDelegate:self];
     [self.intro showInView:self.view animateDuration:0.0];
@@ -478,5 +447,6 @@
     [self.intro removeFromSuperview];
     self.outletsTableView.scrollEnabled = YES;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self askForLocationPermit];
 }
 @end

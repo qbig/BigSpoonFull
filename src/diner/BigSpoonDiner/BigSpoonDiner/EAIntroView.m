@@ -229,6 +229,10 @@
     [self.skipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
     [self.skipButton setTitle:NSLocalizedString(@"Skip", nil) forState:UIControlStateNormal];
     [self.skipButton addTarget:self action:@selector(skipIntroduction) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.skipButton.hidden = YES;
+    
+    
     [self addSubview:self.skipButton];
 }
 
