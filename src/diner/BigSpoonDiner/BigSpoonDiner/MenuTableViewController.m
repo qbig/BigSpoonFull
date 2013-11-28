@@ -132,7 +132,7 @@
             cell.priceLabel.text = @"";
             cell.descriptionLabel.text = @"";
             cell.imageView.image = nil;
-
+            
             return cell;
         }
     }
@@ -176,7 +176,7 @@
             image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
         } else {
             NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];
-            image = [[UIImage alloc] initWithData:imageData];
+            image = [self imageWithImage:[[UIImage alloc] initWithData:imageData] scaledToSize:cell.imageView.frame.size];
             
             // Add the image to the cache
             [[ImageCache sharedImageCache] addImageWithURL:dish.imgURL andImage:image];
@@ -187,7 +187,12 @@
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
         cell.imageView.image =  image;
-
+        
+        CGRect frame = cell.imageView.frame;
+        frame.origin.x = 0;
+        frame.origin.y = 0;
+        cell.imageView.frame = frame;
+        
         cell.ratingImageView.image = [self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;
@@ -203,6 +208,17 @@
 
     }
     
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
