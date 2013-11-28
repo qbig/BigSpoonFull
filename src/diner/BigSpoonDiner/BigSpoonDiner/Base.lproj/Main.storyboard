@@ -489,32 +489,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <toolbar clearsContextBeforeDrawing="NO" alpha="0.10000000000000001" contentMode="scaleToFill" id="W4q-pe-P4i">
-                                <rect key="frame" x="14" y="511" width="286" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="              " width="47" id="Bta-gf-M88">
-                                        <connections>
-                                            <action selector="requestWaterButtonPressed:" destination="fn9-OW-D18" id="Wj9-BS-LYm"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="              " width="74" id="DPa-qq-Tgf">
-                                        <connections>
-                                            <action selector="requestWaiterButtonPressed:" destination="fn9-OW-D18" id="Xg3-LU-KZI"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="             " width="68" id="rIN-Oc-HPD" userLabel="Bar Button Item -">
-                                        <connections>
-                                            <action selector="requestBillButtonPressed:" destination="fn9-OW-D18" id="aUM-Nq-T1h"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="              " width="50" id="HGw-0r-0uf">
-                                        <connections>
-                                            <action selector="itemsButtonPressed:" destination="fn9-OW-D18" id="pZS-Fx-Skx"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
                                 <rect key="frame" x="-44" y="-55" width="93" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -545,6 +519,46 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zcg-9t-cNy">
+                                <rect key="frame" x="-1" y="512" width="80" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestWaterButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="OJs-uD-178"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="erQ-iJ-I5k">
+                                <rect key="frame" x="80" y="511" width="80" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestWaiterButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="xzH-UC-Ijf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iMM-Ee-kIu">
+                                <rect key="frame" x="160" y="511" width="80" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="requestBillButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="Ck1-He-Mq6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5xQ-kW-wVi">
+                                <rect key="frame" x="239" y="511" width="80" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="itemsButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="nN2-Jn-zw5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1312,14 +1326,17 @@
         <image name="button_minus_no_circle.png" width="128" height="128"/>
         <image name="done_bt.png" width="246" height="74"/>
         <image name="gear.png" width="104" height="104"/>
+        <image name="gear.png" width="104" height="104"/>
         <image name="list_icon.png" width="105" height="105"/>
         <image name="login_box_bg.png" width="843" height="336"/>
         <image name="login_bt.png" width="843" height="150"/>
         <image name="login_fb_bt.png" width="842" height="188"/>
         <image name="logout_button.png" width="132" height="46"/>
         <image name="or_separator.png" width="798" height="97"/>
+        <image name="or_separator.png" width="798" height="97"/>
         <image name="photo_cell_gradient.png" width="710" height="372"/>
         <image name="photo_icon.png" width="105" height="105"/>
+        <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="red_circle.png" width="184" height="184"/>
         <image name="signup_bt.png" width="494" height="150"/>
@@ -1331,7 +1348,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="qnZ-wN-VZu"/>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="TRy-SG-Bfr"/>
     </inferredMetricsTieBreakers>
 </document>
