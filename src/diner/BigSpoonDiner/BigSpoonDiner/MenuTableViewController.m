@@ -138,7 +138,7 @@
     }
     
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
-
+    
     if (self.displayMethod == kMethodList) {
         
         MenuListCell *cell = (MenuListCell *)[tableView
@@ -154,7 +154,15 @@
     
         cell.descriptionLabel.text = dish.description;
         //[cell.descriptionLabel alignTop];
-        
+        if (dish.price < 0.01){
+            cell.addButton.hidden = YES;
+            cell.priceLabel.hidden = YES;
+            [cell.nameLabel setFont:[UIFont boldSystemFontOfSize:11]];
+        } else {
+            cell.addButton.hidden = NO;
+            cell.priceLabel.hidden = NO;
+            [cell.nameLabel setFont:[UIFont italicSystemFontOfSize:11]];
+        }
         return cell;
 
     }
@@ -203,7 +211,13 @@
         
         cell.descriptionLabel.text = dish.description;
         [cell.descriptionLabel alignTop];
-        
+        if (dish.price < 0.01){
+            cell.addButton.hidden = YES;
+            cell.priceLabel.hidden = YES;
+        } else {
+            cell.addButton.hidden = NO;
+            cell.priceLabel.hidden = NO;
+        }
         return cell;
 
     }
