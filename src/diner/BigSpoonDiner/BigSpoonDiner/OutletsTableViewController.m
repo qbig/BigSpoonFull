@@ -71,7 +71,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showIntroWithCustomView];
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self showIntroWithCustomView];
+        [userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
+    }
+    
     [self loadOutletsFromServer];
     
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];

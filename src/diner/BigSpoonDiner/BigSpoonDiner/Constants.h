@@ -26,6 +26,7 @@ extern NSString* const FEEDBACK_URL;
 extern NSString* const DISH_CATEGORY_URL;
 extern NSString* const ORDER_HISTORY_URL;
 extern NSString* const SOCKET_URL;
+extern NSString* const KEY_FOR_SHOW_TUT_DEFAULT;
 extern int const SOCKET_PORT;
 
 // Dimentions (length, height, etc..):
