@@ -389,11 +389,11 @@
     float gst = subtotal * self.outlet.gstRate;
     float serviceCharge = subtotal * self.outlet.serviceChargeRate;
     float totalPrice = subtotal + gst + serviceCharge;
-    
-    [message appendFormat:@"Subtotal: %.2f\n", subtotal];
-    [message appendFormat:@"GST(%.0f%%): %.2f\n", self.outlet.gstRate * 100, gst];
-    [message appendFormat:@"Service Charge(%.0f%%): %.2f\n", self.outlet.serviceChargeRate * 100, serviceCharge];
-    [message appendFormat:@"Total: %.2f", totalPrice];
+    int spaces_needed = 25;
+    [message appendFormat:@" Subtotal:%@%-3.2f\n",[@" " stringByPaddingToLength:spaces_needed withString:@" " startingAtIndex:0], subtotal];
+    [message appendFormat:@"GST(%.0f%%):%@%-3.2f\n", self.outlet.gstRate * 100, [@" " stringByPaddingToLength:spaces_needed withString:@" " startingAtIndex:0], gst];
+    [message appendFormat:@"Service Charge(%.0f%%):%@%-3.2f\n", self.outlet.serviceChargeRate * 100, [@" " stringByPaddingToLength:spaces_needed-17 withString:@" " startingAtIndex:0], serviceCharge];
+    [message appendFormat:@"      Total:%@%-3.2f", [@" " stringByPaddingToLength:spaces_needed withString:@" " startingAtIndex:0], totalPrice];
     
     self.requestForBillAlertView = [[UIAlertView alloc]
                                initWithTitle:@"Would you like your bill?"
@@ -401,6 +401,7 @@
                                delegate:self
                                cancelButtonTitle:@"Cancel"
                                otherButtonTitles:@"Yes", nil];
+
     [self.requestForBillAlertView show];
 }
 
