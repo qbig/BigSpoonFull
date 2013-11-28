@@ -1019,7 +1019,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UbY-Ez-zJc">
-                                                    <rect key="frame" x="265" y="23" width="45" height="45"/>
+                                                    <rect key="frame" x="265" y="9" width="45" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                                     <state key="normal" image="add_button_with_circle.png">
