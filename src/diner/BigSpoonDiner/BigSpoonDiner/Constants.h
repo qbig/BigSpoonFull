@@ -51,6 +51,10 @@ extern float const IPHONE_4_INCH_HEIGHT;
 extern float const IPHONE_35_INCH_HEIGHT;
 extern int const IPHONE_4_INCH_TABLE_VIEW_OFFSET;
 extern int const IPHONE_35_INCH_TABLE_VIEW_OFFSET;
+extern int const ORDER_ITEM_VIEW_WIDTH;
+extern int const ORDER_ITEM_VIEW_HEIGHT;
+extern int const ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
+extern int const ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
 
 // Colours
 

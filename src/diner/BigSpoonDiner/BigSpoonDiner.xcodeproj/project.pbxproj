@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034C6D601846D4BA008D42C4 /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */; };
+		034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C6D651846DA83008D42C4 /* OrderItemView.m */; };
+		034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034C6D671846DA96008D42C4 /* OrderItemView.xib */; };
 		03503998183E666400F26A72 /* button_minus_no_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03503997183E666400F26A72 /* button_minus_no_circle.png */; };
 		03D411F1184206B400ED4F46 /* signup_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F0184206B400ED4F46 /* signup_bt.png */; };
 		03D411F3184207A500ED4F46 /* login_fb_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F2184207A500ED4F46 /* login_fb_bt.png */; };
@@ -124,6 +127,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034C6D5E1846D4BA008D42C4 /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
+		034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
+		034C6D641846DA83008D42C4 /* OrderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemView.h; sourceTree = "<group>"; };
+		034C6D651846DA83008D42C4 /* OrderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItemView.m; sourceTree = "<group>"; };
+		034C6D671846DA96008D42C4 /* OrderItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderItemView.xib; sourceTree = "<group>"; };
 		03503997183E666400F26A72 /* button_minus_no_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_minus_no_circle.png; sourceTree = "<group>"; };
 		03D411F0184206B400ED4F46 /* signup_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_bt.png; sourceTree = "<group>"; };
 		03D411F2184207A500ED4F46 /* login_fb_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_fb_bt.png; sourceTree = "<group>"; };
@@ -312,6 +320,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		034C6D611846D4E2008D42C4 /* CustomAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				034C6D5E1846D4BA008D42C4 /* CustomIOS7AlertView.h */,
+				034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */,
+			);
+			name = CustomAlertView;
+			sourceTree = "<group>";
+		};
 		03D9C6DA18451075004110AA /* EAIntroView */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,6 +510,7 @@
 		49F107E8180886D600D2C8DD /* BigSpoonDiner */ = {
 			isa = PBXGroup;
 			children = (
+				034C6D611846D4E2008D42C4 /* CustomAlertView */,
 				03D9C6DA18451075004110AA /* EAIntroView */,
 				4988FFEA183A236E00AB5CAD /* DelegateProtocol */,
 				4988FFD8183A089300AB5CAD /* SocketRocket */,
@@ -565,6 +583,9 @@
 				49669B19180CF2A000089254 /* MenuPhotoCell.h */,
 				49669B1A180CF2A000089254 /* MenuPhotoCell.m */,
 				E9B7A29B180D3CA0009B6BD1 /* PastOrderView.h */,
+				034C6D641846DA83008D42C4 /* OrderItemView.h */,
+				034C6D651846DA83008D42C4 /* OrderItemView.m */,
+				034C6D671846DA96008D42C4 /* OrderItemView.xib */,
 				E9B7A29C180D3CA0009B6BD1 /* PastOrderView.m */,
 				E9B7A29D180D3CA0009B6BD1 /* PastOrderView.xib */,
 				49048D1C181F9E5500B480A3 /* MultiContainerViewSegue.h */,
@@ -681,6 +702,7 @@
 				49BF7FCC183B1CA500D286A6 /* logout_button.png in Resources */,
 				49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */,
 				03D9C6DE1845129F004110AA /* 3.png in Resources */,
+				034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */,
 				03D411F1184206B400ED4F46 /* signup_bt.png in Resources */,
 				E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */,
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,
@@ -781,6 +803,7 @@
 				49048D29182001C900B480A3 /* Order.m in Sources */,
 				49BBB70118350FCE007546E8 /* RatingCell.m in Sources */,
 				03D9C6D818451063004110AA /* EAIntroPage.m in Sources */,
+				034C6D601846D4BA008D42C4 /* CustomIOS7AlertView.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				4988FFE0183A08AA00AB5CAD /* base64.c in Sources */,
@@ -793,6 +816,7 @@
 				E99E9A261821B464002ECD29 /* HomeAndSettingsButtonView.m in Sources */,
 				49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */,
 				4988FFE2183A08AA00AB5CAD /* SRWebSocket.m in Sources */,
+				034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */,
 				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
 				49558BC4181D0BA800273090 /* SSKeychainQuery.m in Sources */,
 				4988FFCA183A067700AB5CAD /* SocketIOPacket.m in Sources */,

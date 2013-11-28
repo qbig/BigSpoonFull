@@ -776,30 +776,69 @@
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performPlaceOrderConfirmationPopUp];
+            [weakSelf showPlaceOrderConfirmationPopUp];
         };
     } else{
-        [self performPlaceOrderConfirmationPopUp];
+        [self showPlaceOrderConfirmationPopUp];
     }
 }
 
-- (void) performPlaceOrderConfirmationPopUp{
+
+- (void) showPlaceOrderConfirmationPopUp {
+    // Here we need to pass a full frame
+    CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
     
-    NSMutableString *message = [[NSMutableString alloc] init];
+    // Add some custom content to the alert view
+    [alertView setContainerView:[self createConfirmOrderViewContent]];
     
-    // For every dish that is currently in the order, we print out something like: "3X Samon Fish"
-    for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
-        Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
-        [message appendFormat:@"%dX %@\n", [self.currentOrder getQuantityOfDishByDish: dish], dish.name];
+    // Modify the parameters
+    [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"Cancel", @"Okay", nil]];
+    [alertView setDelegate:self];
+    
+    // You may use a Block, rather than a delegate.
+    [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
+        if (buttonIndex == 1) {
+            [self performPlaceOrderNetWorkRequest];
+        }
+        [alertView close];
+    }];
+    
+    [alertView setUseMotionEffects:true];
+    
+    // And launch the dialog
+    [alertView show];
+
+}
+
+- (void)customIOS7dialogButtonTouchUpInside: (CustomIOS7AlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    NSLog(@"Delegate: Button at position %d is clicked on alertView %d.", buttonIndex, [alertView tag]);
+    [alertView close];
+}
+
+- (UIView *)createConfirmOrderViewContent
+{
+    UIScrollView *scrollingViewContent = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, ORDER_ITEM_VIEW_WIDTH, ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT)];
+    UILabel* titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ORDER_ITEM_VIEW_WIDTH, ORDER_CONFIRM_ALERT_TITLE_HEIGHT)];
+    titleLabel.text = @"New Order";
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [titleLabel setFont: [UIFont boldSystemFontOfSize:17.0]];
+    [scrollingViewContent addSubview:titleLabel];
+    for(int i = 0, len = [self.currentOrder.dishes count]; i < len; i++){
+        OrderItemView* itemView = [[OrderItemView alloc] initAtIndex:i];
+        Dish* dish = [self.currentOrder.dishes objectAtIndex:i];
+        itemView.quantityLabel.text = [NSString stringWithFormat:@"%d",[self.currentOrder getQuantityOfDishByDish: dish]];
+        itemView.dishNameLabel.text = dish.name;
+        
+        [scrollingViewContent addSubview:itemView];
     }
+    int currentScollingContentHeight = [self.currentOrder.dishes count] * ORDER_ITEM_VIEW_HEIGHT + ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
     
-     self.placeOrderAlertView = [[UIAlertView alloc]
-                              initWithTitle:@"New Order"
-                              message: message
-                              delegate:self
-                              cancelButtonTitle:@"Cancel"
-                              otherButtonTitles:@"Okay", nil];
-    [self.placeOrderAlertView show];
+    int alertViewHeight = ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT > currentScollingContentHeight ? currentScollingContentHeight + 20: ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
+    [scrollingViewContent setFrame:CGRectMake(0,0,scrollingViewContent.frame.size.width, alertViewHeight)];
+    [scrollingViewContent setContentSize:CGSizeMake(ORDER_ITEM_VIEW_WIDTH, alertViewHeight + 10)];
+    
+    return scrollingViewContent;
 }
 
 - (void) performPlaceOrderNetWorkRequest{

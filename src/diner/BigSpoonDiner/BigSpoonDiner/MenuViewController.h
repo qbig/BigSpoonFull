@@ -20,10 +20,12 @@
 #import "ExitMenuListDelegate.h"
 #import "RatingAndFeedbackViewController.h"
 #import "BigSpoonAnimationController.h"
+#import "CustomIOS7AlertView.h"
+#import "OrderItemView.h"
 
 @class MenuViewController;
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate>
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;
