@@ -45,6 +45,8 @@
     gradient.frame = self.mainView.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
     [self.mainView.layer insertSublayer:gradient atIndex:0];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:172.0f/255.0 green:234.0/255.0 blue:241.0/255.0 alpha:0];
+    self.navigationController.navigationBar.translucent = NO;
 }
 
 - (void) viewDidAppear:(BOOL)animated{
