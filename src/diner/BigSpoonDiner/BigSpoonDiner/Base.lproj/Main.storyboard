@@ -993,7 +993,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo_cell_gradient.png" id="6Fm-7d-8MW">
-                                                    <rect key="frame" x="0.0" y="14" width="320" height="214"/>
+                                                    <rect key="frame" x="0.0" y="11" width="320" height="214"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="IA3-5n-3yL" userLabel="Rating">
