@@ -12,11 +12,11 @@
     NSMutableData *_responseData;
     int statusCode;
 }
-
+@property NSMutableDictionary* dishesByCategory;
 @end
 
 @implementation MenuTableViewController
-
+@synthesize dishesByCategory;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,6 +30,7 @@
 {
     [super viewDidLoad];
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
+    self.dishesByCategory = [[NSMutableDictionary alloc] init];
     
     [self loadCategoriesFromServer];
     [self loadDishesFromServer];
@@ -707,6 +708,11 @@
 }
 
 - (NSArray *) getDishWithCategory: (int) categoryID{
+    NSString* keyForCat = [NSString stringWithFormat:@"%d", categoryID];
+    if ([self.dishesByCategory objectForKey:keyForCat] != nil){
+        return (NSArray *)[self.dishesByCategory objectForKey:keyForCat];
+    }
+    
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (Dish *dish in self.dishesArray) {
         for (NSNumber *number in dish.categories) {
@@ -723,7 +729,7 @@
         int second = [(Dish*)b pos];
         return first >= second;
     }];
-    
+    [self.dishesByCategory setObject:sortedArray forKey:keyForCat];
     return sortedArray;
 }
 
