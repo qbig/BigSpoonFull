@@ -218,7 +218,7 @@
     if (userLocation == nil){
         return false;
     }
-    if ([self meAtPgpBusStop:userLocation WithinMeters:radius]){
+    if ([self meAtPgpBusStop:userLocation WithinMeters:1500]){
         return true;
     }
     
