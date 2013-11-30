@@ -40,15 +40,15 @@
     EAIntroPage *page3 = [EAIntroPage page];
 
     if( IS_IPHONE_5 ){
-        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome_long"];
-        page1.bgImage = [UIImage imageNamed:@"intro_1_long"];
-        page2.bgImage = [UIImage imageNamed:@"intro_2_long"];
-        page3.bgImage = [UIImage imageNamed:@"intro_3_long"];
+        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome_long.jpg"];
+        page1.bgImage = [UIImage imageNamed:@"intro_1_long.jpg"];
+        page2.bgImage = [UIImage imageNamed:@"intro_2_long.jpg"];
+        page3.bgImage = [UIImage imageNamed:@"intro_3_long.jpg"];
     } else {
-        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome"];
-        page1.bgImage = [UIImage imageNamed:@"intro_1"];
-        page2.bgImage = [UIImage imageNamed:@"intro_2"];
-        page3.bgImage = [UIImage imageNamed:@"intro_3"];
+        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome.jpg"];
+        page1.bgImage = [UIImage imageNamed:@"intro_1.jpg"];
+        page2.bgImage = [UIImage imageNamed:@"intro_2.jpg"];
+        page3.bgImage = [UIImage imageNamed:@"intro_3.jpg"];
     }
     self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[welcome_page, page1,page2,page3]];
     
