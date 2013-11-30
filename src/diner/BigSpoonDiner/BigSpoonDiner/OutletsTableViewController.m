@@ -87,6 +87,8 @@
     self.activityIndicator.center = self.view.center;
     [self showLoadingIndicators];
     
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

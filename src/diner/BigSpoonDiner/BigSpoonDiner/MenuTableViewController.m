@@ -358,9 +358,9 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.displayMethod == kMethodList){
         self.displayMethod = kMethodPhoto;
+        [self.tableView reloadData];
+        [self.tableView setContentOffset:CGPointMake(0, indexPath.row * ROW_HEIGHT_PHOTO_MENU)  animated:NO];
     }
-    [self.tableView reloadData];
-    [self.tableView setContentOffset:CGPointMake(0, indexPath.row * ROW_HEIGHT_PHOTO_MENU)  animated:NO];
 }
 
 #pragma mark - Loading Data:

@@ -93,6 +93,8 @@
         [self showLoadingIndicators];
         self.connectionForLogin = [NSURLConnection connectionWithRequest:request delegate:self];
     }
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Loggin in with email"];
 }
 
 - (void) checkTokenValidity {
@@ -296,6 +298,7 @@
         NSLog(@"FBSession.activeSession.isOpen IS open!");
         // check token validity and login successfully
         [self checkTokenValidity];
+        [TestFlight passCheckpoint:@"CheckPoint:User Logging with FB"];
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];

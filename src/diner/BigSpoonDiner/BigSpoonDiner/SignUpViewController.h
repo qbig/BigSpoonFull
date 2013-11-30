@@ -12,6 +12,7 @@
 #import "SSKeychain.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIViewController+KeyboardEvents.h"
+#import "TestFlight.h"
 
 @interface SignUpViewController : UIViewController <NSURLConnectionDelegate>
 

@@ -290,6 +290,7 @@
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];
+        [TestFlight passCheckpoint:@"CheckPoint:User Signing up with FB"];
     }
 }
 #warning TODO: refactor this later...

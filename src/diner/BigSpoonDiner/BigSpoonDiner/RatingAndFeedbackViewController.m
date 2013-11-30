@@ -115,8 +115,7 @@
     cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
                                                  scale:1.0 orientation: UIImageOrientationUpMirrored];
     [self setRating:newRating ofDishID:dishID];
-    
-    
+    [TestFlight passCheckpoint:@"CheckPoint:User set rating stars"];
 }
 
 - (void) setRating: (int) newRating ofDishID: (int) dishID{
@@ -198,6 +197,7 @@
     [self performFeedbackSubmission];
     
     [self ratingCancelButtonPressed:sender];
+    [TestFlight passCheckpoint:@"CheckPoint:User Submitting rating"];
 }
 
 - (void) performRatingSubmission{
@@ -343,6 +343,7 @@
 - (IBAction)ratingCancelButtonPressed:(id)sender{
     
     [self fadeOut];
+    [TestFlight passCheckpoint:@"CheckPoint:User Cancelled Rating popup"];
 }
 
 

@@ -15,6 +15,7 @@
 #import "Constants.h"
 #import "BigSpoonAnimationController.h"
 #import "UIViewController+KeyboardEvents.h"
+#import "TestFlight.h"
 
 @class ItemsOrderedViewController;
 

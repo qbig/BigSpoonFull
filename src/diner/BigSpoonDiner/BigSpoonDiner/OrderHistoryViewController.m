@@ -38,6 +38,8 @@
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];
     self.topRightButtonsView = [subviewArray objectAtIndex:0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.topRightButtonsView];
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order"];
 
 }
 

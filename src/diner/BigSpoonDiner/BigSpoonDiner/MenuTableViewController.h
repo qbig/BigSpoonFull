@@ -18,6 +18,7 @@
 #import "User.h"
 #import "ImageCache.h"
 #import "UILabel+Alignment.h"
+#import "TestFlight.h"
 
 enum DishDisplayMethod : NSUInteger {
     kMethodList = 1,

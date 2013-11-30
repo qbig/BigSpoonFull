@@ -276,9 +276,13 @@
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
         [self changeViewModeButtonIconTo:@"list_icon.png"];
+        
+        [TestFlight passCheckpoint:@"CheckPoint:User Checking Picture Menu"];
     } else if (self.menuListViewController.displayMethod == kMethodPhoto){
         self.menuListViewController.displayMethod = kMethodList;
         [self changeViewModeButtonIconTo:@"photo_icon.png"];
+        
+        [TestFlight passCheckpoint:@"CheckPoint:User Checking List Menu"];
     } else {
         NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
@@ -351,6 +355,7 @@
     } else{
         [self performRequestWaiterConfirmationPopUp];
     }
+    [TestFlight passCheckpoint:@"CheckPoint:User Asking for Waiters"];
 }
 
 - (void) performRequestWaiterConfirmationPopUp{
@@ -393,6 +398,8 @@
     } else{
         [self performRequestBillConfirmationPopUp];
     }
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Asked For Bill"];
 }
 
 - (void) performRequestBillConfirmationPopUp{
@@ -973,6 +980,7 @@
     }
     
     [self requestWaterCancelButtonPressed:nil];
+    [TestFlight passCheckpoint:@"CheckPoint:User Asking for water"];
 }
 
 - (void) requestWithType: (id) requestType WithNote: (NSString *)note{
@@ -1065,14 +1073,17 @@
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Dear customer, you may want to enable location to do this:)" delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
         [errorAlert show];
+        [TestFlight passCheckpoint:@"CheckPoint:User Location not enabled"];
         return;
     }
     
     if (![self isUserLocation:currentUserLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry, you need to be within the restaurant to complete this request." delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
+        [TestFlight passCheckpoint:@"CheckPoint:User Action outside restaurant"];
         [errorAlert show];
     } else {
         [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
+        [TestFlight passCheckpoint:@"CheckPoint:User Action inside restaurant"];
     }
 }
 

@@ -58,6 +58,8 @@
     double gst = 0.07 * (subtotal + serviceCharge);
     self.gstLabel.text = [NSString stringWithFormat:@"$%.2f", gst];
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal + serviceCharge + gst];
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order Details"];
 }
 
 - (void)didReceiveMemoryWarning

@@ -39,6 +39,8 @@
     self.profilePictureView.contentMode = UIViewContentModeScaleAspectFit;
     self.profilePictureView.image = [User sharedInstance].profileImage;
     [self loadUserDetails];
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Profile"];
 }
 
 - (void) updateUserDetailsOnServer {
