@@ -13,10 +13,12 @@
     int statusCode;
 }
 @property NSMutableDictionary* dishesByCategory;
+@property NSDate* now;
 @end
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
+@synthesize now;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,7 +33,7 @@
     [super viewDidLoad];
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
-    
+    self.now = [NSDate date];
     [self loadCategoriesFromServer];
     [self loadDishesFromServer];
     
@@ -612,6 +614,46 @@
     }
 }
 
+- (NSDate *)dateByNeutralizingDateComponentsOfDate:(NSDate *)originalDate {
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    // Get the components for this date
+    NSDateComponents *components = [gregorian components:  (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate: originalDate];
+    
+    // Set the year, month and day to some values (the values are arbitrary)
+    [components setYear:2000];
+    [components setMonth:1];
+    [components setDay:1];
+    
+    return [gregorian dateFromComponents:components];
+}
+
+- (BOOL)isCurrentTimeBetweenStartDate:(NSString* )startDate andEndDate:(NSString *)endDate {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_SG"]];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    
+    NSDate* firstDate = [dateFormatter dateFromString:startDate];
+    NSDate* secondDate = [dateFormatter dateFromString:endDate];
+   
+    if (!self.now || !startDate || !endDate) {
+        return NO;
+    }
+    
+    // Make sure all the dates have the same date component.
+    NSDate *newStartDate = [self dateByNeutralizingDateComponentsOfDate:firstDate];
+    NSDate *newEndDate = [self dateByNeutralizingDateComponentsOfDate:secondDate];
+    NSDate *newTargetDate = [self dateByNeutralizingDateComponentsOfDate:self.now];
+    
+    // Compare the target with the start and end dates
+    NSComparisonResult compareTargetToStart = [newTargetDate compare:newStartDate];
+    NSComparisonResult compareTargetToEnd = [newTargetDate compare:newEndDate];
+    
+    return (compareTargetToStart == NSOrderedDescending && compareTargetToEnd == NSOrderedAscending);
+}
+
+
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse*)cachedResponse {
     // Return nil to indicate not necessary to store a cached response for this connection
@@ -639,9 +681,20 @@
     int itemID = btn.tag;
     
     NSLog(@"New item added to order list with ID: %d", itemID);
+    Dish* clickedDish = [self getDishWithID: itemID];
+    if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime]){
+        [self.delegate dishOrdered:clickedDish];
+        [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message: @"This dish is only available at certain time of the day."
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
     
-    [self.delegate dishOrdered:[self getDishWithID: itemID]];
-    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
