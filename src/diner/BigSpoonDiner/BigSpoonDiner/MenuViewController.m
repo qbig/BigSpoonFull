@@ -685,14 +685,13 @@
 
         if(![title isEqualToString:@"Cancel"])
         {
-            NSString *name = [alertView textFieldAtIndex:0].text;
-            int value = [name integerValue];
-            NSLog(@"User input ID: %d", value);
+            NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
-            for (NSNumber *validID in self.validTableIDs) {
-                if ([validID integerValue] == value) {
+            for (NSNumber *validID in [self.validTableIDs allKeys]) {
+                NSLog(@"%@", [self.validTableIDs objectForKey:validID]);
+                if ([inputCodeFromDiner isEqualToString: [self.validTableIDs objectForKey:validID]]) {
                     NSLog(@"The table ID is valid");
-                    self.tableID = value;
+                    self.tableID = [validID integerValue];
                     self.taskAfterAskingForTableID();
                     return;
                 }
@@ -753,7 +752,7 @@
     }
 }
 
-- (void)validTableRetrieved: (NSArray *)vIDs{
+- (void)validTableRetrieved: (NSDictionary *)vIDs{
     self.validTableIDs = vIDs;
 }
 

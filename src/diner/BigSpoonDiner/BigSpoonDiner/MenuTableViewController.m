@@ -587,11 +587,12 @@
             [self.tableView reloadData];
             
             // Retrieve valid table IDs:
-            NSMutableArray *validTableIDs = [[NSMutableArray alloc] init];
+            NSMutableDictionary *validTableIDs = [[NSMutableDictionary alloc] init];
             NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
             for (NSDictionary *newTable in tables) {
                 NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
-                [validTableIDs addObject: tableID];
+                NSString *tableCode = [newTable objectForKey: @"code"];
+                [validTableIDs setObject:tableCode forKey:tableID];
             }
             
             [self.delegate validTableRetrieved:validTableIDs];

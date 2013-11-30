@@ -29,7 +29,7 @@ enum DishDisplayMethod : NSUInteger {
 
 @protocol OrderDishDelegate <NSObject>
 - (void)dishOrdered: (Dish *)dish;
-- (void)validTableRetrieved: (NSArray *)validTableIDs;
+- (void)validTableRetrieved: (NSDictionary *)validTableIDs;
 @end
 
 @interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
