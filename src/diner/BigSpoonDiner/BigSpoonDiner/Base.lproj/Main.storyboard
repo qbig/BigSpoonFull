@@ -623,7 +623,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t6q-QS-67e">
-                                                            <rect key="frame" x="0.0" y="7" width="40" height="40"/>
+                                                            <rect key="frame" x="48" y="7" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                             <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
@@ -635,7 +635,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kmj-Hz-HU3">
-                                                            <rect key="frame" x="48" y="7" width="40" height="40"/>
+                                                            <rect key="frame" x="0.0" y="7" width="40" height="40"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                             <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
