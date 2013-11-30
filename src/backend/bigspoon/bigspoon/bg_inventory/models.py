@@ -386,6 +386,11 @@ class Table(models.Model):
         unique=True,
         help_text=_('table name')
     )
+    code = models.CharField(
+        _('code'),
+        max_length=255,
+        help_text=_('table code')
+    )
 
     def __unicode__(self):
         """
