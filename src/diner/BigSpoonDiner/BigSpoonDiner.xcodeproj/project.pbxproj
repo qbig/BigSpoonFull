@@ -23,6 +23,8 @@
 		034C6DA818499E04008D42C4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 034C6DA218499E04008D42C4 /* README.md */; };
 		034C6DA918499E04008D42C4 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 034C6DA318499E04008D42C4 /* release_notes.md */; };
 		034C6DAC18499ED9008D42C4 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 034C6DAB18499ED9008D42C4 /* libz.dylib */; };
+		034C6DAE1849B782008D42C4 /* tell_us_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 034C6DAD1849B781008D42C4 /* tell_us_bt.png */; };
+		034C6DB01849B93B008D42C4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 034C6DAF1849B93B008D42C4 /* MessageUI.framework */; };
 		03503998183E666400F26A72 /* button_minus_no_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03503997183E666400F26A72 /* button_minus_no_circle.png */; };
 		03D411F1184206B400ED4F46 /* signup_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F0184206B400ED4F46 /* signup_bt.png */; };
 		03D411F3184207A500ED4F46 /* login_fb_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F2184207A500ED4F46 /* login_fb_bt.png */; };
@@ -161,6 +163,8 @@
 		034C6DA518499E04008D42C4 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		034C6DA618499E04008D42C4 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		034C6DAB18499ED9008D42C4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		034C6DAD1849B781008D42C4 /* tell_us_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tell_us_bt.png; path = ../../../../../../Desktop/tell_us_bt.png; sourceTree = "<group>"; };
+		034C6DAF1849B93B008D42C4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		03503997183E666400F26A72 /* button_minus_no_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_minus_no_circle.png; sourceTree = "<group>"; };
 		03D411F0184206B400ED4F46 /* signup_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = signup_bt.png; sourceTree = "<group>"; };
 		03D411F2184207A500ED4F46 /* login_fb_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_fb_bt.png; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				034C6DB01849B93B008D42C4 /* MessageUI.framework in Frameworks */,
 				034C6DAC18499ED9008D42C4 /* libz.dylib in Frameworks */,
 				4988FFE6183A098500AB5CAD /* CFNetwork.framework in Frameworks */,
 				4988FFE4183A097A00AB5CAD /* libicucore.dylib in Frameworks */,
@@ -498,6 +503,7 @@
 		49CAFC50180BB9DE0058C900 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				034C6DAD1849B781008D42C4 /* tell_us_bt.png */,
 				03D9C6D21844A5DA004110AA /* signup_fb_bt.png */,
 				034C6D931847A85C008D42C4 /* intro_3.png */,
 				034C6D9E1849818C008D42C4 /* intro_1_long.png */,
@@ -570,6 +576,7 @@
 		49F107E1180886D600D2C8DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				034C6DAF1849B93B008D42C4 /* MessageUI.framework */,
 				034C6DAB18499ED9008D42C4 /* libz.dylib */,
 				4988FFE5183A098500AB5CAD /* CFNetwork.framework */,
 				4988FFE3183A097A00AB5CAD /* libicucore.dylib */,
@@ -787,6 +794,7 @@
 				03D411FB184209DB00ED4F46 /* login_bt.png in Resources */,
 				4972BBB918370D73001DD817 /* add_button_with_circle.png in Resources */,
 				03D411FF184210EC00ED4F46 /* done_bt.png in Resources */,
+				034C6DAE1849B782008D42C4 /* tell_us_bt.png in Resources */,
 				49048D12181F489C00B480A3 /* 2StarsSmall@2x.png in Resources */,
 				49164200180C58BB00080B87 /* home.png in Resources */,
 				03D411F71842091000ED4F46 /* login_box_bg.png in Resources */,
