@@ -591,8 +591,8 @@
             NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
             for (NSDictionary *newTable in tables) {
                 NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
-                NSString *tableCode = [newTable objectForKey: @"code"];
-                [validTableIDs setObject:tableCode forKey:tableID];
+                NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
+                [validTableIDs setObject:tableCode  forKey:tableID];
             }
             
             [self.delegate validTableRetrieved:validTableIDs];

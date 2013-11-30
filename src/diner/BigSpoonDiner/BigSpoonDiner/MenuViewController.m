@@ -689,7 +689,7 @@
             
             for (NSNumber *validID in [self.validTableIDs allKeys]) {
                 NSLog(@"%@", [self.validTableIDs objectForKey:validID]);
-                if ([inputCodeFromDiner isEqualToString: [self.validTableIDs objectForKey:validID]]) {
+                if ([[inputCodeFromDiner lowercaseString] isEqualToString: [self.validTableIDs objectForKey:validID]]) {
                     NSLog(@"The table ID is valid");
                     self.tableID = [validID integerValue];
                     self.taskAfterAskingForTableID();
