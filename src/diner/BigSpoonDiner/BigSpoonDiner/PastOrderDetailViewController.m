@@ -53,9 +53,9 @@
 {
     double subtotal = [self getSubtotal];
     self.subtotalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal];
-    double serviceCharge = 0.1 * subtotal;
+    double serviceCharge = 0 * subtotal;
     self.serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
-    double gst = 0.07 * (subtotal + serviceCharge);
+    double gst = 0 * (subtotal + serviceCharge);
     self.gstLabel.text = [NSString stringWithFormat:@"$%.2f", gst];
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal + serviceCharge + gst];
     
