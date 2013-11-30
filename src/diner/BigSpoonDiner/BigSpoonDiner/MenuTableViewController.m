@@ -783,7 +783,10 @@
         int second = [(Dish*)b pos];
         return first >= second;
     }];
-    [self.dishesByCategory setObject:sortedArray forKey:keyForCat];
+    if ( [sortedArray count] > 0){
+        [self.dishesByCategory setObject:sortedArray forKey:keyForCat];
+    }
+    
     return sortedArray;
 }
 
