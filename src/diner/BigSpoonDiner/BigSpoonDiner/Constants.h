@@ -56,7 +56,7 @@ extern int const ORDER_ITEM_VIEW_WIDTH;
 extern int const ORDER_ITEM_VIEW_HEIGHT;
 extern int const ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
 extern int const ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
-
+extern int const HISTORY_DETAIL_SCROLLING_EXTRA;
 // Colours
 
 extern float const CATEGORY_BUTTON_COLOR_RED;
