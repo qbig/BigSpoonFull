@@ -25,7 +25,7 @@
 
 @class MenuViewController;
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate>
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;

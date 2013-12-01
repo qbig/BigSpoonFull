@@ -271,7 +271,7 @@
 
 #pragma mark ButtonClick Event Listeners
 
-- (IBAction)viewModeButtonPressedAtListPage:(id)sender {
+- (void)toggleDisplayModeAndReloadData {
     NSLog(@"viewModeButtonPressedAtListPage");
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
@@ -288,6 +288,10 @@
     }
     
     [self.menuListViewController.tableView reloadData];
+}
+
+- (IBAction)viewModeButtonPressedAtListPage:(id)sender {
+    [self toggleDisplayModeAndReloadData];
 }
 
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender{
@@ -754,6 +758,10 @@
 
 - (void)validTableRetrieved: (NSDictionary *)vIDs{
     self.validTableIDs = vIDs;
+}
+
+- (void)displayModeDidChange{
+    [self toggleDisplayModeAndReloadData];
 }
 
 // PlaceOrderDelegate:

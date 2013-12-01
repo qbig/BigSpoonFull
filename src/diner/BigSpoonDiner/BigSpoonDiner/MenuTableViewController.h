@@ -32,13 +32,17 @@ enum DishDisplayMethod : NSUInteger {
 - (void)validTableRetrieved: (NSDictionary *)validTableIDs;
 @end
 
+@protocol MenuDisplayModeDelegate <NSObject>
+- (void)displayModeDidChange;
+@end
+
 @interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
 @property (nonatomic, strong) NSMutableArray *dishCategoryArray;
 @property (nonatomic) int displayCategoryID;
 
-@property (nonatomic, strong) id <OrderDishDelegate> delegate;
+@property (nonatomic, strong) id <OrderDishDelegate, MenuDisplayModeDelegate> delegate;
 
 @property (nonatomic, strong) Outlet *outlet;
 
