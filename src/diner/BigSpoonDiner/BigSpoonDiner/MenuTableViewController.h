@@ -16,7 +16,6 @@
 #import "DishCategory.h"
 #import <AFHTTPRequestOperationManager.h>
 #import "User.h"
-#import "ImageCache.h"
 #import "UILabel+Alignment.h"
 #import "TestFlight.h"
 
