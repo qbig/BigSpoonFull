@@ -324,7 +324,7 @@
  */
 - (void) updateTablesAndScrollviewHeight{
     int currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.currentOrder getNumberOfKindsOfDishes];
-    int pastOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
+    int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
     CGRect currentOrderFrame = self.currentOrderTableView.frame;
     [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
