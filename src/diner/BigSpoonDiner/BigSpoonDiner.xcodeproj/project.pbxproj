@@ -1069,7 +1069,7 @@
 					"/Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/TestFlightSDK2.0.2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3CBC3BBA-0715-41E4-96AB-42D0850C233B";
+				PROVISIONING_PROFILE = "3F5D6350-F49F-4FB4-81E3-4BA1819E08DE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1095,7 +1095,7 @@
 					"/Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/TestFlightSDK2.0.2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3CBC3BBA-0715-41E4-96AB-42D0850C233B";
+				PROVISIONING_PROFILE = "3F5D6350-F49F-4FB4-81E3-4BA1819E08DE";
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
