@@ -68,6 +68,12 @@
 
 - (void) connectSocket{
     if (!self.isSocketConnected) {
+        
+        // If the socket fails to connect. This field will be set to NO in delegate method:
+        // - (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
+        
+        self.isSocketConnected = YES;
+
         self.socketIO = [[SocketIO alloc] initWithDelegate:self];
         [self.socketIO connectToHost:SOCKET_URL onPort:SOCKET_PORT];
     } else{
