@@ -30,7 +30,12 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(dismissKeyboard)];
     
+    [self.view addGestureRecognizer:tapGesture];
+
     //self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
 
     // Uncomment the following line to preserve selection between presentations.
@@ -61,6 +66,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dismissKeyboard {
+    [self.addNotesTextField resignFirstResponder];
 }
 
 #pragma mark - Table view data source

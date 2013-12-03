@@ -13,6 +13,7 @@
     @private
     int statusCode;
     NSMutableData *orderHistoryDataFromServer;
+    UIActivityIndicatorView *indicator;
 }
 
 - (void) loadOrderHistoryFromServer;
@@ -34,6 +35,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];
     self.topRightButtonsView = [subviewArray objectAtIndex:0];
@@ -50,6 +57,7 @@
 }
 
 - (void) loadOrderHistoryFromServer {
+    [indicator startAnimating];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:ORDER_HISTORY_URL]];
     request.HTTPMethod = @"GET";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -76,7 +84,8 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
-    
+    [indicator stopAnimating];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     NSError* error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
     NSLog(@"jsonDict = %@", jsonDict);
@@ -137,8 +146,8 @@
     // Email Content
     NSString *messageBody = @"";
     // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"jay@bigspoon.com"];
-    NSArray *toCCRecipents = [NSArray arrayWithObject:@"leon@bigspoon.com"];
+    NSArray *toRecipents = [NSArray arrayWithObject:@"jay@bigspoon.sg"];
+    NSArray *toCCRecipents = [NSArray arrayWithObject:@"leon@bigspoon.sg"];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;

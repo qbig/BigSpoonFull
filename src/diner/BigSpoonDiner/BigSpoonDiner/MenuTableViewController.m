@@ -664,7 +664,7 @@
     } else {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Sorry"
-                                  message: @"This dish is only available at certain time of the day."
+                                  message: @"This dish is only available at certain times of the day."
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
