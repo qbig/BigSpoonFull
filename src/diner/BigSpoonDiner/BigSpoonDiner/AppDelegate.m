@@ -19,7 +19,7 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     self.isSocketConnected = NO;
     
-    //[TestFlight takeOff:@"069657b9-d915-4404-bad9-9aa6bb1968dc"];
+    [TestFlight takeOff:@"069657b9-d915-4404-bad9-9aa6bb1968dc"];
     
     return YES;
 }
