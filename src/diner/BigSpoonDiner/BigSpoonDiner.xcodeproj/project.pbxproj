@@ -32,7 +32,6 @@
 		03B0CC27184E2E730044EB28 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B0CC25184E2E730044EB28 /* EXTScope.m */; };
 		03B0CC2E184E2F370044EB28 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 03B0CC29184E2F370044EB28 /* release_notes.md */; };
 		03B0CC30184E300D0044EB28 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 034C6DAB18499ED9008D42C4 /* libz.dylib */; };
-		03B0CC31184E30200044EB28 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B0CC28184E2F370044EB28 /* libTestFlight.a */; };
 		03D411F1184206B400ED4F46 /* signup_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F0184206B400ED4F46 /* signup_bt.png */; };
 		03D411F3184207A500ED4F46 /* login_fb_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F2184207A500ED4F46 /* login_fb_bt.png */; };
 		03D411F51842085500ED4F46 /* bg_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F41842085500ED4F46 /* bg_logo.png */; };
@@ -76,6 +75,7 @@
 		49669B15180CED1D00089254 /* Dish.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B14180CED1D00089254 /* Dish.m */; };
 		49669B18180CED2D00089254 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B17180CED2D00089254 /* User.m */; };
 		49669B1B180CF2A000089254 /* MenuPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49669B1A180CF2A000089254 /* MenuPhotoCell.m */; };
+		496C47C6184E313D00BADDDF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B0CC28184E2F370044EB28 /* libTestFlight.a */; };
 		496DD1AF18200BCC001EBA6D /* red_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 496DD1AE18200BCC001EBA6D /* red_circle.png */; };
 		496DD1B218202633001EBA6D /* NewOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 496DD1B118202633001EBA6D /* NewOrderCell.m */; };
 		496DD1B518202672001EBA6D /* PastOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 496DD1B418202672001EBA6D /* PastOrderCell.m */; };
@@ -348,12 +348,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				03B0CC30184E300D0044EB28 /* libz.dylib in Frameworks */,
+				496C47C6184E313D00BADDDF /* libTestFlight.a in Frameworks */,
 				034C6DB01849B93B008D42C4 /* MessageUI.framework in Frameworks */,
 				4988FFE6183A098500AB5CAD /* CFNetwork.framework in Frameworks */,
 				4988FFE4183A097A00AB5CAD /* libicucore.dylib in Frameworks */,
 				E972A39B1832D21C00976CA1 /* CoreLocation.framework in Frameworks */,
 				49558BBE181D0B3F00273090 /* Security.framework in Frameworks */,
-				03B0CC31184E30200044EB28 /* libTestFlight.a in Frameworks */,
 				49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */,
 				4999A2071809518C00270B0B /* FacebookSDK.framework in Frameworks */,
 				49F107E7180886D600D2C8DD /* UIKit.framework in Frameworks */,
@@ -1138,6 +1138,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner",
+					"$(SYSTEM_APPS_DIR)/XAMPP/xamppfiles/htdocs/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "3F5D6350-F49F-4FB4-81E3-4BA1819E08DE";
@@ -1165,6 +1166,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner",
+					"$(SYSTEM_APPS_DIR)/XAMPP/xamppfiles/htdocs/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "3F5D6350-F49F-4FB4-81E3-4BA1819E08DE";
