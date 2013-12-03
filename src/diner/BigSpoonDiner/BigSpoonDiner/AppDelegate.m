@@ -70,6 +70,16 @@
 // Delegate method which will be called by menuViewController
 
 - (void) connectSocket{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    NSString *email = [prefs stringForKey:@"email"];
+    NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
+    
+    if (auth_token == nil) {
+        NSLog(@"In AppDelegate, connectSocket detects that the user is not registered");
+        return;
+    }
+    
     if (!self.isSocketConnected) {
         
         // If the socket fails to connect. This field will be set to NO in delegate method:
@@ -80,7 +90,7 @@
         self.socketIO = [[SocketIO alloc] initWithDelegate:self];
         [self.socketIO connectToHost:SOCKET_URL onPort:SOCKET_PORT];
     } else{
-        NSLog(@"AppDelegate detects that the socket is connected");
+        NSLog(@"In AppDelegate, connectSocket detects that the socket is connected");
     }
 }
 
