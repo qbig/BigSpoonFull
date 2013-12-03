@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import <AFHTTPRequestOperationManager.h>
 #import "SSKeychain.h"
+#import "TestFlight.h"
 
 @interface ProfileViewController : UIViewController <UITextFieldDelegate>
 

@@ -38,6 +38,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [TestFlight passCheckpoint:@"CheckPoint:User at Items Page"];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -323,7 +324,7 @@
  */
 - (void) updateTablesAndScrollviewHeight{
     int currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.currentOrder getNumberOfKindsOfDishes];
-    int pastOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
+    int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
     CGRect currentOrderFrame = self.currentOrderTableView.frame;
     [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,

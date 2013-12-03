@@ -24,7 +24,7 @@
 @synthesize mainView;
 @synthesize connectionForLogin;
 @synthesize connectionForCheckingFBToken;
-
+@synthesize taglineLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +46,7 @@
     gradient.frame = self.mainView.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
     [self.mainView.layer insertSublayer:gradient atIndex:0];
+    [self.taglineLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:17]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -92,6 +93,8 @@
         [self showLoadingIndicators];
         self.connectionForLogin = [NSURLConnection connectionWithRequest:request delegate:self];
     }
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Loggin in with email"];
 }
 
 - (void) checkTokenValidity {
@@ -295,6 +298,7 @@
         NSLog(@"FBSession.activeSession.isOpen IS open!");
         // check token validity and login successfully
         [self checkTokenValidity];
+        [TestFlight passCheckpoint:@"CheckPoint:User Logging with FB"];
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];

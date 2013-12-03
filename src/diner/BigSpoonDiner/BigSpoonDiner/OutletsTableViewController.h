@@ -20,7 +20,7 @@
 #import "SSKeychain.h"
 #import "EAIntroView.h"
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, EAIntroDelegate,CLLocationManagerDelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, EAIntroDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 @property (strong, nonatomic) IBOutlet UITableView *outletsTableView;

@@ -53,11 +53,13 @@
 {
     double subtotal = [self getSubtotal];
     self.subtotalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal];
-    double serviceCharge = 0.1 * subtotal;
+    double serviceCharge = 0 * subtotal;
     self.serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
-    double gst = 0.07 * (subtotal + serviceCharge);
+    double gst = 0 * (subtotal + serviceCharge);
     self.gstLabel.text = [NSString stringWithFormat:@"$%.2f", gst];
     self.totalLabel.text = [NSString stringWithFormat:@"$%.2f", subtotal + serviceCharge + gst];
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order Details"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,13 +104,13 @@
 }
 
 - (void) updateTablesAndScrollviewHeight{
-    int currentOrderTableHeight = 35 * [self.meals count];
+    int currentOrderTableHeight = 29 * [self.meals count];
     
     CGRect currentOrderFrame = self.mealsTableView.frame;
     [self.mealsTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
                                                      currentOrderFrame.origin.y,
                                                      currentOrderFrame.size.width,
-                                                     currentOrderTableHeight + currentOrderFrame.size.height)];
+                                                     currentOrderTableHeight)];
     
     CGRect viewAfterframe = self.subtotalContainterView.frame;
     [self.subtotalContainterView setFrame:CGRectMake(viewAfterframe.origin.x,
@@ -117,7 +119,7 @@
                                                                      viewAfterframe.size.height)];
     
 
-    self.scrollview.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, currentOrderTableHeight + self.scrollview.contentSize.height);
+    self.scrollview.contentSize = CGSizeMake(ITEM_LIST_SCROLL_WIDTH, self.subtotalContainterView.frame.origin.y + self.subtotalContainterView.frame.size.height + HISTORY_DETAIL_SCROLLING_EXTRA);
 }
 
 #warning refactor this

@@ -11,12 +11,14 @@
 #import "Constants.h"
 #import "User.h"
 #import "PastOrderView.h"
+#import <MessageUI/MessageUI.h> 
 
 @class OrderHistoryViewController;
 
-@interface OrderHistoryViewController : UIViewController <NSURLConnectionDelegate>
+@interface OrderHistoryViewController : UIViewController <NSURLConnectionDelegate, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
 @property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
+@property (weak, nonatomic) IBOutlet UILabel *suggestionLabel;
 
 @end

@@ -26,17 +26,19 @@ NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/review";
 NSString* const DISH_CATEGORY_URL = @"http://122.248.199.242/api/v1/categories";
 NSString* const ORDER_HISTORY_URL = @"http://122.248.199.242/api/v1/mealhistory";
 NSString* const SOCKET_URL = @"122.248.199.242";
+NSString* const KEY_FOR_SHOW_TUT_DEFAULT = @"hasShownTutorial";
 int const SOCKET_PORT = 8000;
 
 // Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 59;
-int const ROW_HEIGHT_PHOTO_MENU = 280;
+int const ROW_HEIGHT_PHOTO_MENU = 210;
 double const SCALE_OF_BUTTON = 2.85;
 int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 900;
 int const CATEGORY_BUTTON_SCROLL_WIDTH = 20;
-int const ITEM_LIST_TABLE_ROW_HEIGHT = 59;
+int const ITEM_LIST_TABLE_ROW_HEIGHT = 56;
+int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT = 44;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 int const RATING_STAR_WIDTH = 80;
 int const RATING_STAR_HEIGHT = 15;
@@ -51,6 +53,11 @@ float const IPHONE_4_INCH_HEIGHT = 568.0;
 float const IPHONE_35_INCH_HEIGHT = 480.0;
 int const IPHONE_4_INCH_TABLE_VIEW_OFFSET = 45;
 int const IPHONE_35_INCH_TABLE_VIEW_OFFSET = 133;
+int const ORDER_ITEM_VIEW_HEIGHT = 21;
+int const ORDER_ITEM_VIEW_WIDTH = 280;
+int const ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT = 280;
+int const ORDER_CONFIRM_ALERT_TITLE_HEIGHT = 30;
+int const HISTORY_DETAIL_SCROLLING_EXTRA = 220;
 
 // Colours
 
@@ -76,6 +83,6 @@ double const CATEGORY_BUTTON_FONT = 16.0;
 
 int const NUM_OF_RATINGS = 5;
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
-double const LOCATION_CHECKING_DIAMETER = 10;
+double const LOCATION_CHECKING_DIAMETER = 100;
 
 @end

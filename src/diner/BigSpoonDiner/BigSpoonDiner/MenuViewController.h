@@ -20,15 +20,17 @@
 #import "ExitMenuListDelegate.h"
 #import "RatingAndFeedbackViewController.h"
 #import "BigSpoonAnimationController.h"
+#import "CustomIOS7AlertView.h"
+#import "OrderItemView.h"
 
 @class MenuViewController;
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate>
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
-@property (nonatomic) NSArray *validTableIDs;
+@property (nonatomic) NSDictionary *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;

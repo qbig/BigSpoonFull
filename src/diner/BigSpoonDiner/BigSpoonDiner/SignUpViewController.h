@@ -12,6 +12,7 @@
 #import "SSKeychain.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIViewController+KeyboardEvents.h"
+#import "TestFlight.h"
 
 @interface SignUpViewController : UIViewController <NSURLConnectionDelegate>
 
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) NSString * facebookUserName;
+@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 
 - (IBAction)submitButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

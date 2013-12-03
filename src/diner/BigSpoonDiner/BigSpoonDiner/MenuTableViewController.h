@@ -16,8 +16,8 @@
 #import "DishCategory.h"
 #import <AFHTTPRequestOperationManager.h>
 #import "User.h"
-#import "ImageCache.h"
 #import "UILabel+Alignment.h"
+#import "TestFlight.h"
 
 enum DishDisplayMethod : NSUInteger {
     kMethodList = 1,
@@ -28,7 +28,11 @@ enum DishDisplayMethod : NSUInteger {
 
 @protocol OrderDishDelegate <NSObject>
 - (void)dishOrdered: (Dish *)dish;
-- (void)validTableRetrieved: (NSArray *)validTableIDs;
+- (void)validTableRetrieved: (NSDictionary *)validTableIDs;
+@end
+
+@protocol MenuDisplayModeDelegate <NSObject>
+- (void)displayModeDidChange;
 @end
 
 @interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
@@ -37,7 +41,7 @@ enum DishDisplayMethod : NSUInteger {
 @property (nonatomic, strong) NSMutableArray *dishCategoryArray;
 @property (nonatomic) int displayCategoryID;
 
-@property (nonatomic, strong) id <OrderDishDelegate> delegate;
+@property (nonatomic, strong) id <OrderDishDelegate, MenuDisplayModeDelegate> delegate;
 
 @property (nonatomic, strong) Outlet *outlet;
 

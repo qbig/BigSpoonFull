@@ -12,11 +12,13 @@
     NSMutableData *_responseData;
     int statusCode;
 }
-
+@property NSMutableDictionary* dishesByCategory;
+@property NSDate* now;
 @end
 
 @implementation MenuTableViewController
-
+@synthesize dishesByCategory;
+@synthesize now;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -30,7 +32,8 @@
 {
     [super viewDidLoad];
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
-    
+    self.dishesByCategory = [[NSMutableDictionary alloc] init];
+    self.now = [NSDate date];
     [self loadCategoriesFromServer];
     [self loadDishesFromServer];
     
@@ -132,13 +135,13 @@
             cell.priceLabel.text = @"";
             cell.descriptionLabel.text = @"";
             cell.imageView.image = nil;
-
+            
             return cell;
         }
     }
     
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
-
+    
     if (self.displayMethod == kMethodList) {
         
         MenuListCell *cell = (MenuListCell *)[tableView
@@ -154,7 +157,15 @@
     
         cell.descriptionLabel.text = dish.description;
         //[cell.descriptionLabel alignTop];
-        
+        if (dish.price < 0.01){
+            cell.addButton.hidden = YES;
+            cell.priceLabel.hidden = YES;
+            [cell.nameLabel setFont:[UIFont boldSystemFontOfSize:11]];
+        } else {
+            cell.addButton.hidden = NO;
+            cell.priceLabel.hidden = NO;
+            [cell.nameLabel setFont:[UIFont italicSystemFontOfSize:11]];
+        }
         return cell;
 
     }
@@ -168,26 +179,18 @@
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
-        
-        UIImage *image; // Without cache: = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
 
-        
-        if ([[ImageCache sharedImageCache] doesExist:dish.imgURL] == true){
-            image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
-        } else {
-            NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];
-            image = [[UIImage alloc] initWithData:imageData];
-            
-            // Add the image to the cache
-            [[ImageCache sharedImageCache] addImageWithURL:dish.imgURL andImage:image];
-        }
-        
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
-        cell.imageView.image =  image;
-
+        // !! placeholderImage CANNOT be nil
+        [cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
+        
+        CGRect frame = cell.imageView.frame;
+        frame.origin.x = 0;
+        frame.origin.y = 0;
+        cell.imageView.frame = frame;
+        
         cell.ratingImageView.image = [self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;
@@ -198,7 +201,13 @@
         
         cell.descriptionLabel.text = dish.description;
         [cell.descriptionLabel alignTop];
-        
+        if (dish.price < 0.01){
+            cell.addButton.hidden = YES;
+            cell.priceLabel.hidden = YES;
+        } else {
+            cell.addButton.hidden = NO;
+            cell.priceLabel.hidden = NO;
+        }
         return cell;
 
     }
@@ -327,10 +336,9 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.displayMethod == kMethodList){
-        self.displayMethod = kMethodPhoto;
+        [self.delegate displayModeDidChange];
+        [self.tableView setContentOffset:CGPointMake(0, indexPath.row * ROW_HEIGHT_PHOTO_MENU)  animated:NO];
     }
-    [self.tableView reloadData];
-    [self.tableView setContentOffset:CGPointMake(0, indexPath.row * ROW_HEIGHT_PHOTO_MENU)  animated:NO];
 }
 
 #pragma mark - Loading Data:
@@ -554,11 +562,12 @@
             [self.tableView reloadData];
             
             // Retrieve valid table IDs:
-            NSMutableArray *validTableIDs = [[NSMutableArray alloc] init];
+            NSMutableDictionary *validTableIDs = [[NSMutableDictionary alloc] init];
             NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
             for (NSDictionary *newTable in tables) {
                 NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
-                [validTableIDs addObject: tableID];
+                NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
+                [validTableIDs setObject:tableCode  forKey:tableID];
             }
             
             [self.delegate validTableRetrieved:validTableIDs];
@@ -580,6 +589,46 @@
         }
     }
 }
+
+- (NSDate *)dateByNeutralizingDateComponentsOfDate:(NSDate *)originalDate {
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    // Get the components for this date
+    NSDateComponents *components = [gregorian components:  (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate: originalDate];
+    
+    // Set the year, month and day to some values (the values are arbitrary)
+    [components setYear:2000];
+    [components setMonth:1];
+    [components setDay:1];
+    
+    return [gregorian dateFromComponents:components];
+}
+
+- (BOOL)isCurrentTimeBetweenStartDate:(NSString* )startDate andEndDate:(NSString *)endDate {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_SG"]];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    
+    NSDate* firstDate = [dateFormatter dateFromString:startDate];
+    NSDate* secondDate = [dateFormatter dateFromString:endDate];
+   
+    if (!self.now || !startDate || !endDate) {
+        return NO;
+    }
+    
+    // Make sure all the dates have the same date component.
+    NSDate *newStartDate = [self dateByNeutralizingDateComponentsOfDate:firstDate];
+    NSDate *newEndDate = [self dateByNeutralizingDateComponentsOfDate:secondDate];
+    NSDate *newTargetDate = [self dateByNeutralizingDateComponentsOfDate:self.now];
+    
+    // Compare the target with the start and end dates
+    NSComparisonResult compareTargetToStart = [newTargetDate compare:newStartDate];
+    NSComparisonResult compareTargetToEnd = [newTargetDate compare:newEndDate];
+    
+    return (compareTargetToStart == NSOrderedDescending && compareTargetToEnd == NSOrderedAscending);
+}
+
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse*)cachedResponse {
@@ -608,9 +657,20 @@
     int itemID = btn.tag;
     
     NSLog(@"New item added to order list with ID: %d", itemID);
+    Dish* clickedDish = [self getDishWithID: itemID];
+    if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime]){
+        [self.delegate dishOrdered:clickedDish];
+        [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message: @"This dish is only available at certain time of the day."
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
     
-    [self.delegate dishOrdered:[self getDishWithID: itemID]];
-    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
@@ -677,6 +737,11 @@
 }
 
 - (NSArray *) getDishWithCategory: (int) categoryID{
+    NSString* keyForCat = [NSString stringWithFormat:@"%d", categoryID];
+    if ([self.dishesByCategory objectForKey:keyForCat] != nil){
+        return (NSArray *)[self.dishesByCategory objectForKey:keyForCat];
+    }
+    
     NSMutableArray *result = [[NSMutableArray alloc] init];
     for (Dish *dish in self.dishesArray) {
         for (NSNumber *number in dish.categories) {
@@ -693,6 +758,9 @@
         int second = [(Dish*)b pos];
         return first >= second;
     }];
+    if ( [sortedArray count] > 0){
+        [self.dishesByCategory setObject:sortedArray forKey:keyForCat];
+    }
     
     return sortedArray;
 }

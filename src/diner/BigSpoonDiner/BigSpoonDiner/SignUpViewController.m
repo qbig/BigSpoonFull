@@ -25,7 +25,7 @@
 @synthesize passwordLabel;
 @synthesize navigationItem;
 @synthesize mainView;
-
+@synthesize taglineLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,6 +45,9 @@
     gradient.frame = self.mainView.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
     [self.mainView.layer insertSublayer:gradient atIndex:0];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:172.0f/255.0 green:234.0/255.0 blue:241.0/255.0 alpha:0];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.taglineLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:17]];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -287,6 +290,7 @@
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];
+        [TestFlight passCheckpoint:@"CheckPoint:User Signing up with FB"];
     }
 }
 #warning TODO: refactor this later...

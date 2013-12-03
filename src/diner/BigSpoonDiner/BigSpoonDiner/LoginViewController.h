@@ -11,7 +11,7 @@
 #import "User.h"
 #import "SSKeychain.h"
 #import <FacebookSDK/FacebookSDK.h>
-
+#import "TestFlight.h"
 @interface LoginViewController : UIViewController <NSURLConnectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *fbButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 
 - (IBAction)submitButtonPressed:(id)sender;
 

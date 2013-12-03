@@ -26,6 +26,7 @@ extern NSString* const FEEDBACK_URL;
 extern NSString* const DISH_CATEGORY_URL;
 extern NSString* const ORDER_HISTORY_URL;
 extern NSString* const SOCKET_URL;
+extern NSString* const KEY_FOR_SHOW_TUT_DEFAULT;
 extern int const SOCKET_PORT;
 
 // Dimentions (length, height, etc..):
@@ -37,6 +38,7 @@ extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
 extern int const CATEGORY_BUTTON_SCROLL_WIDTH;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
+extern int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
 extern int const RATING_STAR_HEIGHT;
@@ -51,7 +53,11 @@ extern float const IPHONE_4_INCH_HEIGHT;
 extern float const IPHONE_35_INCH_HEIGHT;
 extern int const IPHONE_4_INCH_TABLE_VIEW_OFFSET;
 extern int const IPHONE_35_INCH_TABLE_VIEW_OFFSET;
-
+extern int const ORDER_ITEM_VIEW_WIDTH;
+extern int const ORDER_ITEM_VIEW_HEIGHT;
+extern int const ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
+extern int const ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
+extern int const HISTORY_DETAIL_SCROLLING_EXTRA;
 // Colours
 
 extern float const CATEGORY_BUTTON_COLOR_RED;

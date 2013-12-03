@@ -20,7 +20,7 @@
 @end
 
 @implementation OrderHistoryViewController
-
+@synthesize  suggestionLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,7 +38,9 @@
     NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];
     self.topRightButtonsView = [subviewArray objectAtIndex:0];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.topRightButtonsView];
-
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order"];
+    [self.suggestionLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:8]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,6 +129,51 @@
                   willCacheResponse:(NSCachedURLResponse*)cachedResponse {
     // Return nil to indicate not necessary to store a cached response for this connection
     return nil;
+}
+
+- (IBAction)showEmail:(id)sender {
+    // Email Subject
+    NSString *emailTitle = @"Hello BigSpoon!";
+    // Email Content
+    NSString *messageBody = @"";
+    // To address
+    NSArray *toRecipents = [NSArray arrayWithObject:@"jay@bigspoon.com"];
+    NSArray *toCCRecipents = [NSArray arrayWithObject:@"leon@bigspoon.com"];
+    
+    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+    mc.mailComposeDelegate = self;
+    [mc setSubject:emailTitle];
+    [mc setMessageBody:messageBody isHTML:NO];
+    [mc setToRecipients:toRecipents];
+    [mc setCcRecipients:toCCRecipents];
+    
+    // Present mail view controller on screen
+    [self presentViewController:mc animated:YES completion:NULL];
+    
+}
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            NSLog(@"Mail sent");
+            break;
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
