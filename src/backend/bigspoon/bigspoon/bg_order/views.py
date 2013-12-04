@@ -34,11 +34,13 @@ class MainView(TemplateView):
             raise PermissionDenied
         context = super(MainView, self).get_context_data(**kwargs)
         meals = Meal.objects\
-            .prefetch_related('diner', 'orders', 'table')\
+            .prefetch_related('diner', 'orders', 'table', 'table__outlet')\
             .filter(table__outlet__in=outlets)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
         requests = Request.objects\
-            .prefetch_related('diner', 'table')\
+            .prefetch_related('diner', 'table', 'diner__meals',
+                              'diner__meals__orders',
+                              'table__outlet')\
             .filter(table__outlet__in=outlets)\
             .filter(is_active=True)
         cards = list(meals) + list(requests)
