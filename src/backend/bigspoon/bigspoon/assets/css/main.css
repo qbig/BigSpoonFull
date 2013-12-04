@@ -1254,3 +1254,8 @@ input#filter {
     color: #fff;
     text-decoration: none;
 }
+
+.order li.finished {
+    background-color: #000;
+    opacity: 0.6;
+}

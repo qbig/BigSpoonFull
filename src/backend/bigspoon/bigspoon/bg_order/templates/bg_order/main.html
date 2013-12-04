@@ -53,7 +53,7 @@
                         {% endif %}
                         {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.all %}
-                            <li>
+                            <li {% if order.is_finished %} class="finished" {% endif %}>
                                 <em class='quantity'>{{order.quantity}}x</em>
                                 <p>{{order.dish.name}}</p>
                                 {% if order.dish.pos %}
