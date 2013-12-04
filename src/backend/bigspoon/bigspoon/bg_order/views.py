@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.contrib import messages
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
@@ -5,6 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.http import Http404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from guardian.shortcuts import get_objects_for_user
 
@@ -34,7 +37,8 @@ class MainView(TemplateView):
             raise PermissionDenied
         context = super(MainView, self).get_context_data(**kwargs)
         meals = Meal.objects\
-            .prefetch_related('diner', 'orders', 'table', 'table__outlet')\
+            .prefetch_related('diner', 'orders',
+                              'table', 'table__outlet')\
             .filter(table__outlet__in=outlets)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
         requests = Request.objects\
@@ -43,10 +47,21 @@ class MainView(TemplateView):
                               'table__outlet')\
             .filter(table__outlet__in=outlets)\
             .filter(is_active=True)
-        cards = list(meals) + list(requests)
-        context["cards"] = sorted(cards,
+        context["cards"] = sorted(chain(meals, requests),
                                   key=lambda card: card.count_down_start)
         return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        paginator = Paginator(context["cards"], 6)
+        page = request.GET.get('page')
+        try:
+            context["cards"] = paginator.page(page)
+        except PageNotAnInteger:
+            context["cards"] = paginator.page(1)
+        except EmptyPage:
+            context["cards"] = paginator.page(paginator.num_pages)
+        return self.render_to_response(context)
 
 
 class HistoryView(TemplateView):

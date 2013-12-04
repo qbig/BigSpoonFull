@@ -1243,3 +1243,14 @@ input#filter {
     background: #e74c3c;
     color: #fff;
 }
+
+.pagination a {
+    top: 310px;
+    width: 30px;
+    height: 30px;
+    font-size: 40px;
+    line-height: 35px;
+    left: 145px;
+    color: #fff;
+    text-decoration: none;
+}
