@@ -249,6 +249,12 @@
 - (void) showLoadingIndicators{
     [[self submitButton] setEnabled: NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenHeight = screenRect.size.height;
+    
+    CGRect frame = activityIndicator.frame;
+    activityIndicator.frame = CGRectMake(frame.origin.x, screenHeight / 2 - 30, frame.size.width, frame.size.height);
     [activityIndicator startAnimating];
 }
 

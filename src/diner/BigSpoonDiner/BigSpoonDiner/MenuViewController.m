@@ -271,7 +271,7 @@
 
 #pragma mark ButtonClick Event Listeners
 
-- (IBAction)viewModeButtonPressedAtListPage:(id)sender {
+- (void)toggleDisplayModeAndReloadData {
     NSLog(@"viewModeButtonPressedAtListPage");
     if (self.menuListViewController.displayMethod == kMethodList){
         self.menuListViewController.displayMethod = kMethodPhoto;
@@ -288,6 +288,10 @@
     }
     
     [self.menuListViewController.tableView reloadData];
+}
+
+- (IBAction)viewModeButtonPressedAtListPage:(id)sender {
+    [self toggleDisplayModeAndReloadData];
 }
 
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender{
@@ -685,14 +689,13 @@
 
         if(![title isEqualToString:@"Cancel"])
         {
-            NSString *name = [alertView textFieldAtIndex:0].text;
-            int value = [name integerValue];
-            NSLog(@"User input ID: %d", value);
+            NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
-            for (NSNumber *validID in self.validTableIDs) {
-                if ([validID integerValue] == value) {
+            for (NSNumber *validID in [self.validTableIDs allKeys]) {
+                NSLog(@"%@", [self.validTableIDs objectForKey:validID]);
+                if ([[inputCodeFromDiner lowercaseString] isEqualToString: [self.validTableIDs objectForKey:validID]]) {
                     NSLog(@"The table ID is valid");
-                    self.tableID = value;
+                    self.tableID = [validID integerValue];
                     self.taskAfterAskingForTableID();
                     return;
                 }
@@ -753,8 +756,12 @@
     }
 }
 
-- (void)validTableRetrieved: (NSArray *)vIDs{
+- (void)validTableRetrieved: (NSDictionary *)vIDs{
     self.validTableIDs = vIDs;
+}
+
+- (void)displayModeDidChange{
+    [self toggleDisplayModeAndReloadData];
 }
 
 // PlaceOrderDelegate:
@@ -859,7 +866,7 @@
     
     int alertViewHeight = ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT > currentScollingContentHeight ? currentScollingContentHeight + 20: ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
     [scrollingViewContent setFrame:CGRectMake(0,0,scrollingViewContent.frame.size.width, alertViewHeight)];
-    [scrollingViewContent setContentSize:CGSizeMake(ORDER_ITEM_VIEW_WIDTH, alertViewHeight + 10)];
+    [scrollingViewContent setContentSize:CGSizeMake(ORDER_ITEM_VIEW_WIDTH, currentScollingContentHeight + 10)];
     
     return scrollingViewContent;
 }

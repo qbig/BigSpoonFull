@@ -29,7 +29,7 @@
 
 @end
 
-@interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, weak) id <PlaceOrderDelegate> delegate;
 @property (nonatomic, strong) Order *currentOrder;

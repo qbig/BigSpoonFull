@@ -13,10 +13,12 @@
     int statusCode;
 }
 @property NSMutableDictionary* dishesByCategory;
+@property NSDate* now;
 @end
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
+@synthesize now;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,7 +33,7 @@
     [super viewDidLoad];
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
-    
+    self.now = [NSDate date];
     [self loadCategoriesFromServer];
     [self loadDishesFromServer];
     
@@ -177,25 +179,12 @@
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
-        
-        UIImage *image; // Without cache: = [UIImage imageWithData:[NSData dataWithContentsOfURL:dish.imgURL]];
 
-        
-        if ([[ImageCache sharedImageCache] doesExist:dish.imgURL] == true){
-            image = [[ImageCache sharedImageCache] getImage:dish.imgURL];
-        } else {
-            NSData *imageData = [[NSData alloc] initWithContentsOfURL: dish.imgURL];
-            image = [self imageWithImage:[[UIImage alloc] initWithData:imageData] scaledToSize:cell.imageView.frame.size];
-            
-            // Add the image to the cache
-            [[ImageCache sharedImageCache] addImageWithURL:dish.imgURL andImage:image];
-        }
-        
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
-        
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
-        cell.imageView.image =  image;
+        // !! placeholderImage CANNOT be nil
+        [cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
         
         CGRect frame = cell.imageView.frame;
         frame.origin.x = 0;
@@ -223,17 +212,6 @@
 
     }
     
-}
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -358,8 +336,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.displayMethod == kMethodList){
-        self.displayMethod = kMethodPhoto;
-        [self.tableView reloadData];
+        [self.delegate displayModeDidChange];
         [self.tableView setContentOffset:CGPointMake(0, indexPath.row * ROW_HEIGHT_PHOTO_MENU)  animated:NO];
     }
 }
@@ -585,11 +562,12 @@
             [self.tableView reloadData];
             
             // Retrieve valid table IDs:
-            NSMutableArray *validTableIDs = [[NSMutableArray alloc] init];
+            NSMutableDictionary *validTableIDs = [[NSMutableDictionary alloc] init];
             NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
             for (NSDictionary *newTable in tables) {
                 NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
-                [validTableIDs addObject: tableID];
+                NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
+                [validTableIDs setObject:tableCode  forKey:tableID];
             }
             
             [self.delegate validTableRetrieved:validTableIDs];
@@ -611,6 +589,46 @@
         }
     }
 }
+
+- (NSDate *)dateByNeutralizingDateComponentsOfDate:(NSDate *)originalDate {
+    NSCalendar *gregorian = [[NSCalendar alloc]
+                              initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    // Get the components for this date
+    NSDateComponents *components = [gregorian components:  (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate: originalDate];
+    
+    // Set the year, month and day to some values (the values are arbitrary)
+    [components setYear:2000];
+    [components setMonth:1];
+    [components setDay:1];
+    
+    return [gregorian dateFromComponents:components];
+}
+
+- (BOOL)isCurrentTimeBetweenStartDate:(NSString* )startDate andEndDate:(NSString *)endDate {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_SG"]];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    
+    NSDate* firstDate = [dateFormatter dateFromString:startDate];
+    NSDate* secondDate = [dateFormatter dateFromString:endDate];
+   
+    if (!self.now || !startDate || !endDate) {
+        return NO;
+    }
+    
+    // Make sure all the dates have the same date component.
+    NSDate *newStartDate = [self dateByNeutralizingDateComponentsOfDate:firstDate];
+    NSDate *newEndDate = [self dateByNeutralizingDateComponentsOfDate:secondDate];
+    NSDate *newTargetDate = [self dateByNeutralizingDateComponentsOfDate:self.now];
+    
+    // Compare the target with the start and end dates
+    NSComparisonResult compareTargetToStart = [newTargetDate compare:newStartDate];
+    NSComparisonResult compareTargetToEnd = [newTargetDate compare:newEndDate];
+    
+    return (compareTargetToStart == NSOrderedDescending && compareTargetToEnd == NSOrderedAscending);
+}
+
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
                   willCacheResponse:(NSCachedURLResponse*)cachedResponse {
@@ -639,9 +657,20 @@
     int itemID = btn.tag;
     
     NSLog(@"New item added to order list with ID: %d", itemID);
+    Dish* clickedDish = [self getDishWithID: itemID];
+    if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime]){
+        [self.delegate dishOrdered:clickedDish];
+        [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message: @"This dish is only available at certain times of the day."
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
     
-    [self.delegate dishOrdered:[self getDishWithID: itemID]];
-    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
@@ -729,7 +758,10 @@
         int second = [(Dish*)b pos];
         return first >= second;
     }];
-    [self.dishesByCategory setObject:sortedArray forKey:keyForCat];
+    if ( [sortedArray count] > 0){
+        [self.dishesByCategory setObject:sortedArray forKey:keyForCat];
+    }
+    
     return sortedArray;
 }
 

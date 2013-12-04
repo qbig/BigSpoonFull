@@ -38,6 +38,7 @@ extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
 extern int const CATEGORY_BUTTON_SCROLL_WIDTH;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
+extern int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
 extern int const RATING_STAR_HEIGHT;
@@ -56,7 +57,7 @@ extern int const ORDER_ITEM_VIEW_WIDTH;
 extern int const ORDER_ITEM_VIEW_HEIGHT;
 extern int const ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
 extern int const ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
-
+extern int const HISTORY_DETAIL_SCROLLING_EXTRA;
 // Colours
 
 extern float const CATEGORY_BUTTON_COLOR_RED;

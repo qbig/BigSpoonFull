@@ -13,6 +13,7 @@
 #import "Constants.h"
 #import "User.h"
 #import "TestFlight.h"
+#import "SSKeychain.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate>
 

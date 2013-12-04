@@ -177,5 +177,9 @@
     [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    // Disconnect the current socket with server. When the user loggs in and loads outlet page, the new user info will be registered and new socket will be established.
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate disconnectSocket];
 }
 @end
