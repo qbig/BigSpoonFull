@@ -1256,6 +1256,12 @@ input#filter {
 }
 
 .order li.finished {
-    background-color: #000;
+    background-color: #6d6d6d;
     opacity: 0.6;
+}
+
+.order li.end {
+    color: #ff0000;
+    background-color: #ffffff;
+    text-align: center;
 }
