@@ -4,17 +4,8 @@
 {% load compress %}
 
 {% block content %}
-
-<!--     <div class="help">
-        <p><i class="icon-bell-alt"></i> <strong>Home</strong> shows you all orders and requests waiting for your response right now. Here, you can acknowledge that the order has been accepted and let diners know that waiters will soon be with them.</p>
-    </div> -->
-
     <div class="wrapper">
     {% if cards %}
-
-
-
-
         {% for card in cards %}
             {% if card.orders %}
                 {% with card as meal %}
@@ -62,7 +53,7 @@
                         {% endif %}
                         {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.all %}
-                            <li>
+                            <li {% if order.is_finished %} class="finished" {% endif %}>
                                 <em class='quantity'>{{order.quantity}}x</em>
                                 <p>{{order.dish.name}}</p>
                                 {% if order.dish.pos %}
@@ -70,6 +61,9 @@
                                 {% endif %}
                             </li>
                             {% endfor %}
+                            <li class="end">
+                                --- end ---
+                            </li>
                         {% else %}
                             <li>No orders yet.</li>
                         {% endif %}
@@ -120,13 +114,20 @@
                 {% endwith %}
             {% endif %}
         {% endfor %}
-
-
-    {% else %}
-
-        <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
-
-
-    {% endif %}
     </div>
+    <center>
+        <div class="pagination">
+            {% if cards.has_previous %}
+            <a href="?page={{ cards.previous_page_number }}"><i class="icon-circle-arrow-left"></i></a>
+            {% endif %}
+
+            {% if cards.has_next %}
+            <a href="?page={{ cards.next_page_number }}"><i class="icon-circle-arrow-right"></i></a>
+            {% endif %}
+        </div>
+    </center>
+    {% else %}
+        <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
+    </div>
+    {% endif %}
 {% endblock content %}

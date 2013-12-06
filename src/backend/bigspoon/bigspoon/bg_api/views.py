@@ -451,6 +451,9 @@ class AckOrder(generics.GenericAPIView):
             }, status=status.HTTP_403_FORBIDDEN)
         meal.status = Meal.INACTIVE
         meal.modified = timezone.now()
+        for order in meal.orders.all():
+            order.is_finished = True
+            order.save()
         meal.save()
         send_socketio_message(
             request.user.outlet_ids,

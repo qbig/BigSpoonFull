@@ -428,7 +428,7 @@ p.note {
     margin-top: 0px;
     margin-bottom: 5px;
     padding-left: 1px;
-    height: 115px;
+    height: 155px;
 }
 
 .order li {
@@ -1242,4 +1242,26 @@ input#filter {
     border-radius: 5px;
     background: #e74c3c;
     color: #fff;
+}
+
+.pagination a {
+    top: 310px;
+    width: 30px;
+    height: 30px;
+    font-size: 40px;
+    line-height: 35px;
+    left: 145px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.order li.finished {
+    background-color: #6d6d6d;
+    opacity: 0.6;
+}
+
+.order li.end {
+    color: #ff0000;
+    background-color: #ffffff;
+    text-align: center;
 }

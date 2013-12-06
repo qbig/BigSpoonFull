@@ -25,14 +25,5 @@
         "domain": "127.0.0.1:8924",
         "name": "testserver"
     }
-},
-{
-    "pk": 1,
-    "model": "auth.group",
-    "fields":
-    {
-        "name": "normaluser",
-        "permissions": []
-    }
 }
 ]

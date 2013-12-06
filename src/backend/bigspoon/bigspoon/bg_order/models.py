@@ -206,6 +206,9 @@ class Order(models.Model):
         default=0,
         help_text=_('number of dishes ordered'),
     )
+    is_finished = models.BooleanField(
+        default=False,
+    )
 
     def get_order_spending(self):
         return self.dish.price * self.quantity
