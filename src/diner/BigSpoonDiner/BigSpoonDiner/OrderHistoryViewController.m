@@ -48,6 +48,7 @@
     
     [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order"];
     [self.suggestionLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:8]];
+    [self loadOrderHistoryFromServer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -185,8 +186,6 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-    [self loadOrderHistoryFromServer];
-}
+
 
 @end
