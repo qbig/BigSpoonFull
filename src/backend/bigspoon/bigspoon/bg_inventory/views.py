@@ -22,16 +22,12 @@ class BigSpoonNamespace(BaseNamespace):
             for i in red.listen():
                 self.send({'message': i}, json=True)
 
-    def recv_connect(self):
-        logger.info("connected")
-        self.spawn(self.listener, pk)   
+    def recv_message(self, message):
+        action, pk = message.split(':')
+        logger.info("connected - action %s pk %s" % (action, pk))
 
-    # def recv_message(self, message):
-    #     action, pk = message.split(':')
-    #     logger.info("connected - action %s pk %s" % (action, pk))
-
-    #     if action == 'subscribe':
-    #         self.spawn(self.listener, pk)
+        if action == 'subscribe':
+            self.spawn(self.listener, pk)
 
 
     # red = None
