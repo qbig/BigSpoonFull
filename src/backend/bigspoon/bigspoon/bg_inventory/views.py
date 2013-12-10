@@ -52,6 +52,7 @@ class BigSpoonNamespace(BaseNamespace):
     #         self.spawn(self.listener, pk)
 
     def recv_disconnect(self):
+        logger.info("dis-connected)
         super(BigSpoonNamespace, self).recv_disconnect()
         if self.pubsub:    
             self.pubsub.close()
