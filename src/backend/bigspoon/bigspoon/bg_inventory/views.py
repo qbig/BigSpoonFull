@@ -17,6 +17,7 @@ class BigSpoonNamespace(BaseNamespace):
         red = redis.StrictRedis(REDIS_HOST)
         red = red.pubsub()
         red.subscribe(chan)
+        self.pubsub = red
         while True:
             for i in red.listen():
                 self.send({'message': i}, json=True)
@@ -50,9 +51,10 @@ class BigSpoonNamespace(BaseNamespace):
     #     if action == 'subscribe':
     #         self.spawn(self.listener, pk)
 
-    # def recv_disconnect(self):
-    #     super(BigSpoonNamespace, self).recv_disconnect()
-    #     self.pubsub.close()
+    def recv_disconnect(self):
+        super(BigSpoonNamespace, self).recv_disconnect()
+        if self.pubsub.close():    
+            self.pubsub.close()
 
 
 def socketio(request):
