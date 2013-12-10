@@ -32,7 +32,7 @@ class BigSpoonNamespace(BaseNamespace):
         logger.info("connected - action %s pk %s" % (action, pk))
 
         if action == 'subscribe':
-            Greenlet.spawn(self.listener, pk)
+            self.spawn(self.listener, pk)
 
     def recv_disconnect(self):
         super(BigSpoonNamespace, self).recv_disconnect()
