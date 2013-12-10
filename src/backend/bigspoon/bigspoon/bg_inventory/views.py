@@ -13,14 +13,19 @@ logger = logging.getLogger('')
 
 
 class BigSpoonNamespace(BaseNamespace):
+    red = None
+    pubsub = None
+    def recv_connect(self):
+        self.red = redis.StrictRedis(REDIS_HOST) 
 
     def listener(self, chan):
-            red = redis.StrictRedis(REDIS_HOST)
-            red = red.pubsub()
-            red.subscribe(chan)
-            while True:
-                for i in red.listen():
-                    self.send({'message': i}, json=True)
+        if self.red is None:
+            self.red = redis.StrictRedis(REDIS_HOST)
+        self.pubsub = self.red.pubsub()
+        self.pubsub.subscribe(chan)
+        while True:
+            for i in self.pubsub.listen():
+                self.send({'message': i}, json=True)
 
     def recv_message(self, message):
         action, pk = message.split(':')
@@ -28,6 +33,10 @@ class BigSpoonNamespace(BaseNamespace):
 
         if action == 'subscribe':
             Greenlet.spawn(self.listener, pk)
+
+    def recv_disconnect(self):
+        super(BigSpoonNamespace, self).recv_disconnect()
+        self.pubsub.close()
 
 
 def socketio(request):
