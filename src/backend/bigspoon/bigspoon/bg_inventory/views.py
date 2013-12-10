@@ -34,9 +34,9 @@ class BigSpoonNamespace(BaseNamespace):
         if action == 'subscribe':
             self.spawn(self.listener, pk)
 
-    def recv_disconnect(self):
-        super(BigSpoonNamespace, self).recv_disconnect()
-        self.pubsub.close()
+    # def recv_disconnect(self):
+    #     super(BigSpoonNamespace, self).recv_disconnect()
+    #     self.pubsub.close()
 
 
 def socketio(request):
