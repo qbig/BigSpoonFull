@@ -53,10 +53,11 @@ class BigSpoonNamespace(BaseNamespace):
 
     def recv_disconnect(self):
         logger.info("disconnect!")
-        super(BigSpoonNamespace, self).recv_disconnect()
         if self.pubsub:    
+            logger.info("pubsub closed!")
             self.pubsub.close()
         self.disconnect(silent=True)
+        super(BigSpoonNamespace, self).recv_disconnect()
 
 
 def socketio(request):
