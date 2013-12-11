@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var page_start_time_in_seconds = new Date().getTime()/1000;
+    var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
@@ -36,7 +37,7 @@ $(document).ready(function() {
         }, 1500);
     }
 
-    function handleRefresh(data){
+    function handleRefresh(data, path){        
         if (data[1] == "request" || data[1] == "meal") {
             if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
                 if (data[2] == "new" || data[2] == "askbill") {
@@ -51,7 +52,6 @@ $(document).ready(function() {
             }
         
         } else if (data[1] == "menu") {
-            
             if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
                 location.reload(true);
             }
@@ -199,13 +199,13 @@ $(document).ready(function() {
             var data = eval(obj.message.data);
             var path = location.pathname;
             if (data[0] == "refresh") {
-                var seconds_since_page_load = new Date().getTime/1000 - page_start_time_in_seconds;
-                if (seconds_since_page_load  < 60) {
+                var seconds_since_page_load = new Date().getTime()/1000 - page_start_time_in_seconds;
+                if (seconds_since_page_load  < REFRESH_INTEVAL_CAP) {
                     setTimeout(function(){
-                        handleRefresh(data);        
-                    }, (60 - seconds_since_page_load) * 1000);
+                        handleRefresh(data, path);        
+                    }, (REFRESH_INTEVAL_CAP - seconds_since_page_load) * 1000);
                 } else {
-                    handleRefresh(data);    
+                    handleRefresh(data, path);    
                 }
                 
 
