@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    var page_start_time_in_seconds = new Date().getTime()/1000;
     var host = "http://"+location.host;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
@@ -34,6 +34,30 @@ $(document).ready(function() {
         setTimeout(function(){
             location.reload(true);
         }, 1500);
+    }
+
+    function handleRefresh(data){
+        if (data[1] == "request" || data[1] == "meal") {
+            if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                if (data[2] == "new" || data[2] == "askbill") {
+                    showNotificationReload();
+                } else {
+                    location.reload(true);
+                }
+            }
+            
+            if (data[2] == "new" || data[2] == "askbill") {
+                showNotification();
+            }
+        
+        } else if (data[1] == "menu") {
+            
+            if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
+                location.reload(true);
+            }
+        } else {
+                        // other instructions
+        }
     }
 
     if (location.pathname == "/staff/main/") {
@@ -175,27 +199,37 @@ $(document).ready(function() {
             var data = eval(obj.message.data);
             var path = location.pathname;
             if (data[0] == "refresh") {
-                if (data[1] == "request" || data[1] == "meal") {
-                    if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
-                        if (data[2] == "new" || data[2] == "askbill") {
-                            showNotificationReload();
-                        }
-                        else {
-                            location.reload(true);
-                        }
-                    }
-                    if (data[2] == "new" || data[2] == "askbill") {
-                        showNotification();
-                    }
+                var seconds_since_page_load = new Date().getTime/1000 - page_start_time_in_seconds;
+                if (seconds_since_page_load  < 60) {
+                    setTimeout(function(){
+                        handleRefresh(data);        
+                    }, (60 - seconds_since_page_load) * 1000);
+                } else {
+                    handleRefresh(data);    
                 }
-                else if (data[1] == "menu") {
-                    if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
-                        location.reload(true);
-                    }
-                }
-                else {
-                    // other instructions
-                }
+                
+
+                // if (data[1] == "request" || data[1] == "meal") {
+                //     if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                //         if (data[2] == "new" || data[2] == "askbill") {
+                //             showNotificationReload();
+                //         }
+                //         else {
+                //             location.reload(true);
+                //         }
+                //     }
+                //     if (data[2] == "new" || data[2] == "askbill") {
+                //         showNotification();
+                //     }
+                // }
+                // else if (data[1] == "menu") {
+                //     if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
+                //         location.reload(true);
+                //     }
+                // }
+                // else {
+                //     // other instructions
+                // }
             }
         }
     });
