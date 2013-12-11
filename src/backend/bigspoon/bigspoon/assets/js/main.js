@@ -199,9 +199,7 @@ $(document).ready(function() {
             var data = eval(obj.message.data);
             var path = location.pathname;
             if (data[0] == "refresh") {
-                 var seconds_since_page_load = new Date().getTime()/1000 - page_start_time_in_seconds;
-                 alert(page_start_time_in_seconds)
-                 alert(seconds_since_page_load)
+                var seconds_since_page_load = new Date().getTime()/1000 - page_start_time_in_seconds;
                 if (seconds_since_page_load  < REFRESH_INTEVAL_CAP) {
                     setTimeout(function(){
                         handleRefresh(data, path);        
