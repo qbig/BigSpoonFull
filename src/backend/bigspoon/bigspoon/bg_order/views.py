@@ -49,6 +49,8 @@ class MainView(TemplateView):
             .filter(is_active=True)
         context["cards"] = sorted(chain(meals, requests),
                                   key=lambda card: card.count_down_start)
+        context["cards_num"] = len(context["cards"]) 
+        self.request.session["cards_num"] = context["cards_num"]
         return context
 
     def get(self, request, *args, **kwargs):
@@ -88,6 +90,7 @@ class HistoryView(TemplateView):
             .filter(table__outlet__in=outlets)\
             .filter(created__lte=limit[1], created__gte=limit[0])\
             .filter(is_active=False)
+        context["cards_num"] = self.request.session.get("cards_num")
         return context
 
 
@@ -111,6 +114,7 @@ class MenuView(ListView):
     def get_context_data(self, **kwargs):
         context = super(MenuView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context["cards_num"] = self.request.session.get("cards_num")
         return context
 
     def get(self, request, *args, **kwargs):
@@ -161,6 +165,11 @@ class TableView(ListView):
                               'meals', 'meals__orders')\
             .filter(outlet__in=outlets)
 
+    def get_context_data(self, **kwargs):
+        context = super(TableView, self).get_context_data(**kwargs)
+        context["cards_num"] = self.request.session.get("cards_num")
+        return context
+
 
 class UserView(TemplateView):
     template_name = "bg_order/user.html"
@@ -193,7 +202,11 @@ class UserView(TemplateView):
 class ReportView(ListView):
     model = Meal
     template_name = "bg_order/report.html"
-
+    def get_context_data(self, **kwargs):
+        context = super(ReportView, self).get_context_data(**kwargs)
+        context["cards_num"] = self.request.session.get("cards_num")
+        return context
+        
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
         outlets = get_objects_for_user(

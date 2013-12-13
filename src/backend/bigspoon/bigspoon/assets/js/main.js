@@ -2,6 +2,7 @@ $(document).ready(function() {
     var page_start_time_in_seconds = new Date().getTime()/1000;
     var REFRESH_INTEVAL_CAP = 0;
     var host = "http://"+location.host;
+    var timeout_obj;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     })
@@ -25,7 +26,7 @@ $(document).ready(function() {
         sound.play();
         setInterval(function() {
             sound.play();
-        }, 60000);
+        }, 120000);
     }
 
     function showNotificationReload(number) {
@@ -58,14 +59,13 @@ $(document).ready(function() {
         } else {
                         // other instructions
         }
+        if (timeout_obj) {
+            clearTimeout(timeout_obj);
+        }
     }
 
-    if (location.pathname == "/staff/main/") {
-        localStorage.removeItem("notify");
-    }
-
-    if (localStorage.getItem("notify") == "true") {
-        showNotification();
+    if ( cards_num > 0) {
+        showNotification(cards_num);
     }
 
     // time picker
@@ -201,7 +201,7 @@ $(document).ready(function() {
             if (data[0] == "refresh") {
                 var seconds_since_page_load = new Date().getTime()/1000 - page_start_time_in_seconds;
                 if (seconds_since_page_load  < REFRESH_INTEVAL_CAP) {
-                    setTimeout(function(){
+                    timeout_obj = setTimeout(function(){
                         handleRefresh(data, path);        
                     }, (REFRESH_INTEVAL_CAP - seconds_since_page_load) * 1000);
                 } else {
