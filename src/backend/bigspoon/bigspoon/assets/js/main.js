@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var page_start_time_in_seconds = new Date().getTime()/1000;
-    var REFRESH_INTEVAL_CAP = 30;
+    var REFRESH_INTEVAL_CAP = 0;
     var host = "http://"+location.host;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
@@ -207,29 +207,6 @@ $(document).ready(function() {
                 } else {
                     handleRefresh(data, path);    
                 }
-                
-
-                // if (data[1] == "request" || data[1] == "meal") {
-                //     if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
-                //         if (data[2] == "new" || data[2] == "askbill") {
-                //             showNotificationReload();
-                //         }
-                //         else {
-                //             location.reload(true);
-                //         }
-                //     }
-                //     if (data[2] == "new" || data[2] == "askbill") {
-                //         showNotification();
-                //     }
-                // }
-                // else if (data[1] == "menu") {
-                //     if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
-                //         location.reload(true);
-                //     }
-                // }
-                // else {
-                //     // other instructions
-                // }
             }
         }
     });
