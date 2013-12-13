@@ -84,7 +84,7 @@
 
             {% if diner.meals.count > 0 %}
 
-                {% for meal in diner.meals.all %}
+                {% for meal in diner.meals.all reversed %}
 
                 <h5>{{meal.get_created}}</h5>
                 <ul class="order">
