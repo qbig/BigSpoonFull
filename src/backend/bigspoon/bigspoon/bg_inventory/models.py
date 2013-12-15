@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django_thumbs.db.models import ImageWithThumbsField
 from django.utils.text import slugify
 from guardian.shortcuts import get_objects_for_user
-
+from cache_utils.decorators import cached
 from bg_inventory.managers import UserManager
 
 import urllib
@@ -91,7 +91,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         for meal in self.meals.all():
             total_spending += meal.get_meal_spending()
         return total_spending
-
+    @cached(60*60*2)
     def get_average_spending(self):
         """
         Returns average of all orders of all meals of this user.

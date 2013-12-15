@@ -49,7 +49,7 @@ class MainView(TemplateView):
             .filter(is_active=True)
         context["cards"] = sorted(chain(meals, requests),
                                   key=lambda card: card.count_down_start)
-        context["cards_num"] = len(context["cards"]) 
+        context["cards_num"] = meals.count() + requests.count()
         self.request.session["cards_num"] = context["cards_num"]
         return context
 
@@ -206,7 +206,7 @@ class ReportView(ListView):
         context = super(ReportView, self).get_context_data(**kwargs)
         context["cards_num"] = self.request.session.get("cards_num")
         return context
-        
+
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
         outlets = get_objects_for_user(

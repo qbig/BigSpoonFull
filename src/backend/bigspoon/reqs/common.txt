@@ -24,3 +24,5 @@ django-rest-framework-docs>=0.1.7,<0.2
 redis>=2.8.0,<2.9
 # facebook
 facepy>=0.8.4,<0.9
+# method cache util
+django-cache-utils>=0.7.2
