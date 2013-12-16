@@ -28,3 +28,5 @@ facepy>=0.8.4,<0.9
 django-cache-utils>=0.7.2
 # import export util
 django-import-export>=0.1.5
+# grappli !!
+django-grappelli==2.4.5
