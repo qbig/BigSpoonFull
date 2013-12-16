@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 {% load compress %}
-
+{% load cache %}
 {% block content %}
 
     <div class="help">
@@ -38,12 +38,13 @@
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
                         <h4>{{ meal.diner.get_full_name }}</h4>
                     </span>
+                    {% cache 300 "diner-table"|add:meal.diner_id %}
                     <span class="user-summary">
                     <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
                     <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
                     <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
                     </span>
-
+                    {% endcache %}
                     <ul class="order">
                         {% if meal.note %}
                             <li>
@@ -52,7 +53,7 @@
                         {% endif %}
 
                         {% if meal.orders.count > 0 %}
-                            {% for order in meal.orders.all %}
+                            {% for order in meal.orders.select_related %}
                             <li>
                                 <em class='quantity'>{{order.quantity}}x</em>
                                 <p>{{order.dish.name}}</p>
