@@ -237,6 +237,7 @@
     self.currentOrder = [self.delegate addDishWithID: dishID];
     cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
 
+    [self updatePriceLabels];
 }
 
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -255,6 +256,8 @@
     
     self.currentOrder = [self.delegate minusDishWithID: dishID];
     cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
+    
+    [self updatePriceLabels];
 
 }
 - (IBAction)placeOrderButtonPressed:(id)sender {
