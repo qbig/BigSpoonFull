@@ -76,7 +76,7 @@ double const KEYBOARD_APPEARING_DURATION = 0.3;
 
 // Fonts:
 
-double const CATEGORY_BUTTON_FONT = 16.0;
+double const CATEGORY_BUTTON_FONT = 19.0;
 
 
 // Others:
