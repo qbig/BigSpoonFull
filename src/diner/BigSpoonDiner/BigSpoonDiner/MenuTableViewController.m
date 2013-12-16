@@ -401,8 +401,8 @@
                     button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
 
                     [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
-                    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size:20.0];
-                    
+                    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size: CATEGORY_BUTTON_FONT];
+                  
                     [button addTarget:self
                                action:@selector(dishCategoryButtonPressed:)
                      forControlEvents:UIControlEventTouchUpInside];
