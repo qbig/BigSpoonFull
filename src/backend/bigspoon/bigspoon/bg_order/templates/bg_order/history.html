@@ -38,7 +38,7 @@
                 </li>
             {% endif %}
             {% if meal.orders.count > 0 %}
-                {% for order in meal.orders.all %}
+                {% for order in meal.orders.select_related %}
                 <li>
                     <em class='quantity'>{{order.quantity}}x</em>
                     <p>{{order.dish.name}}</p>
