@@ -33,6 +33,7 @@
 @property (nonatomic, strong) Order * currentOrder;
 @property (nonatomic, strong) Order * pastOrder;
 
+
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) EAIntroView *intro;
 - (IBAction)logoutButtonPressed:(id)sender;

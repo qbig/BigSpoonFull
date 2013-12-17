@@ -1365,7 +1365,11 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="TRy-SG-Bfr"/>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="qnZ-wN-VZu"/>
+<<<<<<< HEAD
+=======
+        <segue reference="TRy-SG-Bfr"/>
+>>>>>>> ca6495cc4b946af69f9ae76b46c1dd9db49e5142
     </inferredMetricsTieBreakers>
 </document>

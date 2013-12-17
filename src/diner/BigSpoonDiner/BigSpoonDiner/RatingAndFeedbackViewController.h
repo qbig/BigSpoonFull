@@ -16,6 +16,8 @@
 #import <AFHTTPRequestOperation.h>
 #import "UIViewController+KeyboardEvents.h"
 #import "TestFlight.h"
+#import "Toast+UIView.h"
+
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
 // Key: dishID; Value: rating between 0 to 5.

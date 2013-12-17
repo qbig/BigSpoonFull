@@ -244,7 +244,7 @@
         NSLog(@"Response: %@", responseObject);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          // TODO.
+                                          // TODO
                                           // For some weird reason, even if it's successful, it still come to this
                                           // block. So we check the response code. If it's 200, it's successful.
                                           // This might be a backend error, though.
@@ -260,12 +260,11 @@
 }
 
 - (void) displaySuccessInfoAfterSubmittingRating{
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thank you"
-                                                        message:@"As a valued customer, your feedback is important to us and we will take it into consideration."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Okay"
-                                              otherButtonTitles:nil];
-    [alertView show];
+    
+    [self.view.superview    makeToast:@"As a valued customer, your feedback is important to us and we will take it into consideration."
+                           duration:TOAST_VIEW_DURATION
+                           position:@"bottom"
+                              title:@"Thank you"];
 }
 
 - (void) performFeedbackSubmission{
@@ -383,7 +382,7 @@
 - (void) fadeOut{
     // Perform the fade-out animation first. Then remove the view.
     [BigSpoonAnimationController animateTransitionOfUIView:self.view willShow:NO];
-    [self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:REQUEST_CONTROL_PANEL_TRANSITION_DURATION];
+    [self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:LONGEST_NETWORK_WAITING_TIME];
 }
 
 - (void) removeSelfFromParent{

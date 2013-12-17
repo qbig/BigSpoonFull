@@ -24,7 +24,6 @@
 @property (nonatomic, strong) UIAlertView *inputTableIDAlertView;
 @property (nonatomic, strong) UIAlertView *placeOrderAlertView;
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
-@property (nonatomic, strong) UIAlertView *afterRequestBillAlertView;
 
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 
@@ -144,7 +143,7 @@
 
 - (void) viewWillDisappear:(BOOL)animated{
     
-    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
         
         NSString *message = @"";
         if ([self.currentOrder getTotalQuantity] != 0) {
@@ -160,19 +159,11 @@
         // If the user has selected/ordered anything:
         if (![message isEqualToString:@""]) {
             
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                                 initWithTitle:nil
-                                                 message:message
-                                                 delegate:self
-                                                 cancelButtonTitle:nil
-                                                 otherButtonTitles:@"Okay", nil];
-            
-            [alertView show];
-            
             [self.delegate exitMenuListWithCurrentOrder:self.currentOrder
                                               PastOrder:self.pastOrder
                                                OutletID:self.outlet.outletID
-                                             andTableID:self.tableID];
+                                             andTableID:self.tableID
+                                             andMessage:message];
 
         }
     }
@@ -486,20 +477,12 @@
 }
 
 - (void) afterSuccessfulRequestBill{
-    self.afterRequestBillAlertView = [[UIAlertView alloc]
-                              initWithTitle:@"Call For Bill"
-                              message:@"The waiter will be right with you"
-                              delegate:self
-                              cancelButtonTitle:@"Okay"
-                              otherButtonTitles:nil];
-    [self.afterRequestBillAlertView show];
     
-    // After the "OK" button is clicked, [self afterRequestBillAlertViewOkayButtonClicked] will be clicked;
-}
-
-- (void) afterRequestBillAlertViewOkayButtonClicked{
-    
-    NSLog(@"asdfasdfasfdasdfasdf");
+    // Show success message
+    [self.view makeToast:@"The waiter will be right with you."
+                duration:TOAST_VIEW_DURATION
+                position:@"bottom"
+                   title:nil];
     
     // Load and show the ratingAndFeedbackViewController:
     
@@ -507,7 +490,7 @@
     self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
     self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
     
-    // Make the frame correct:
+    // Make the frame appear in the center of the screen:
     CGRect frame = self.ratingAndFeedbackViewController.view.frame;
     [self.ratingsAndFeedbackView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width
                                                                          andHeight:frame.size.height]];
@@ -526,7 +509,7 @@
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
-    NSLog(@"itemsButtonPressed");
+
     [BigSpoonAnimationController animateRequestButtonWhenClicked:self.itemsButtonCoverView];
     
     // Can also check in the shouldPerformSegueWithIdentifier:sender
@@ -719,10 +702,6 @@
         [self.navigationController popViewControllerAnimated:NO];
     }
     
-    else if ([alertView isEqual:self.afterRequestBillAlertView]){
-        [self afterRequestBillAlertViewOkayButtonClicked];
-    }
-    
     else{
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
@@ -854,6 +833,7 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [titleLabel setFont: [UIFont boldSystemFontOfSize:17.0]];
     [scrollingViewContent addSubview:titleLabel];
+    
     for(int i = 0, len = [self.currentOrder.dishes count]; i < len; i++){
         OrderItemView* itemView = [[OrderItemView alloc] initAtIndex:i];
         Dish* dish = [self.currentOrder.dishes objectAtIndex:i];
@@ -862,6 +842,7 @@
         
         [scrollingViewContent addSubview:itemView];
     }
+    
     int currentScollingContentHeight = [self.currentOrder.dishes count] * ORDER_ITEM_VIEW_HEIGHT + ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
     
     int alertViewHeight = ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT > currentScollingContentHeight ? currentScollingContentHeight + 20: ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
@@ -934,13 +915,10 @@
     self.currentOrder = [[Order alloc] init];
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
     
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Your order has been sent"
-                              message:@"Our food is prepared with love, thank you for being patient"
-                              delegate:nil
-                              cancelButtonTitle:@"Okay"
-                              otherButtonTitles:nil];
-    [alertView show];
+    [self.view makeToast:@"Your order has been sent. Our food is prepared with love, thank you for being patient."
+                duration:TOAST_VIEW_DURATION
+                position:@"bottom"
+                   title:nil];
     
     [self updateItemQuantityBadge];
 }
@@ -1014,14 +992,11 @@
         switch (responseCode) {
             case 200:
             case 201:{
-                NSLog(@"Success");
-                UIAlertView *alertView = [[UIAlertView alloc]
-                                          initWithTitle:@"Call For Service"
-                                          message:@"The waiter will be right with you"
-                                          delegate:nil
-                                          cancelButtonTitle:@"Okay"
-                                          otherButtonTitles:nil];
-                [alertView show];
+
+                [self.view makeToast:@"The waiter will be right with you"
+                            duration:TOAST_VIEW_DURATION
+                            position:@"bottom"
+                               title:nil];
             }
                 break;
             case 403:

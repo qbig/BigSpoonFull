@@ -72,6 +72,7 @@ extern double const REQUEST_CONTROL_PANEL_TRANSITION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 extern double const KEYBOARD_APPEARING_DURATION;
+extern double const TOAST_VIEW_DURATION;
 
 // Fonts:
 
@@ -82,5 +83,6 @@ extern double const CATEGORY_BUTTON_FONT;
 extern int const NUM_OF_RATINGS;
 extern int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM;
 extern double const LOCATION_CHECKING_DIAMETER;
+extern double const LONGEST_NETWORK_WAITING_TIME;
 
 @end
