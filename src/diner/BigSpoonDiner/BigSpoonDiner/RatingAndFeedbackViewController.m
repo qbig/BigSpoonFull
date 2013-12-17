@@ -111,9 +111,8 @@
 
     location = [gesture locationInView: cell.ratingImage];
     int newRating = ((int) location.x) / (RATING_STAR_WIDTH / NUM_OF_RATINGS) + 1;
-    UIImage *ratingImage = [self imageForRating:newRating];
-    cell.ratingImage.image = [UIImage imageWithCGImage:ratingImage.CGImage
-                                                 scale:1.0 orientation: UIImageOrientationUpMirrored];
+
+    cell.ratingImage.image = [self imageForRating:newRating];
     [self setRating:newRating ofDishID:dishID];
     [TestFlight passCheckpoint:@"CheckPoint:User set rating stars"];
 }
