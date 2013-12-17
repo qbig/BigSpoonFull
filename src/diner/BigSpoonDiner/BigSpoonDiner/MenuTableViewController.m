@@ -604,22 +604,37 @@
     return [gregorian dateFromComponents:components];
 }
 
-- (BOOL)isCurrentTimeBetweenStartDate:(NSString* )startDate andEndDate:(NSString *)endDate {
+/*
+ *  @param: timeString, a string of format @"HH:mm:ss"
+ *  @return: NSDate with neutralized year, month and day.
+ *
+ */
+- (NSDate *)neutrilizedDateFromTimeString: (NSString*) timeString{
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_SG"]];
     [dateFormatter setDateFormat:@"HH:mm:ss"];
     
-    NSDate* firstDate = [dateFormatter dateFromString:startDate];
-    NSDate* secondDate = [dateFormatter dateFromString:endDate];
-   
-    if (!startDate || !endDate) {
-        return NO;
+    NSDate* date = [dateFormatter dateFromString:timeString];
+    
+    if (!timeString) {
+        return nil;
     }
     
     // Make sure all the dates have the same date component.
-    NSDate *newStartDate = [self dateByNeutralizingDateComponentsOfDate:firstDate];
-    NSDate *newEndDate = [self dateByNeutralizingDateComponentsOfDate:secondDate];
+    NSDate *newDate = [self dateByNeutralizingDateComponentsOfDate:date];
+    
+    return newDate;
+}
+
+- (BOOL)isCurrentTimeBetweenStartDate:(NSString* )startDate andEndDate:(NSString *)endDate {
+    
+    NSDate *newStartDate = [self neutrilizedDateFromTimeString:startDate];
+    NSDate *newEndDate = [self neutrilizedDateFromTimeString:endDate];
     NSDate *newTargetDate = [self dateByNeutralizingDateComponentsOfDate:[NSDate date]];
+    
+    if (newStartDate == nil || newEndDate == nil) {
+        return NO;
+    }
     
     // Compare the target with the start and end dates
     NSComparisonResult compareTargetToStart = [newTargetDate compare:newStartDate];
@@ -663,31 +678,26 @@
         [self.delegate dishOrdered:clickedDish];
         [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     } else {
+        
+        NSDate* startDate = [self neutrilizedDateFromTimeString:clickedDish.startTime];
+        NSDate* endDate = [self neutrilizedDateFromTimeString:clickedDish.endTime];
+        
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"hh:mm"];
+        dateFormatter.timeStyle = kCFDateFormatterShortStyle;
+        
+        NSString* startDateString = [dateFormatter stringFromDate:startDate];
+        NSString* endDateString = [dateFormatter stringFromDate:endDate];
+        
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Sorry"
-                                  message: [NSString stringWithFormat:@"This dish is only available from\n%@ to %@",                    [clickedDish.startTime substringToIndex:5],
-                                            [clickedDish.endTime substringToIndex:5]]
+                                  message: [NSString stringWithFormat:@"This dish is only available from\n%@ to %@",                    startDateString, endDateString]
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
     }
     
-}
-
-/*
- *  @param: dateString: a string of format: "23:59:59"
- *  @return: an NSDate object
- */
-- (NSDate *)dateFromString:(NSString *)dateString{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat: @"hh:mm:ss"];
-    
-    NSDate *destDate= [dateFormatter dateFromString:dateString];
-    
-    return destDate;
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
