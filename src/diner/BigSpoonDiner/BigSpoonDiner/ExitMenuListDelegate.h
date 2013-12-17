@@ -14,5 +14,6 @@
 - (void) exitMenuListWithCurrentOrder: (Order *) currentOrder
                             PastOrder: (Order *) pastOrder
                              OutletID: (int) outletID
-                           andTableID: (int) tableID;
+                           andTableID: (int) tableID
+                           andMessage: (NSString *) message;
 @end

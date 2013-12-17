@@ -12,15 +12,19 @@
     NSMutableData *_responseData;
     int statusCode;
     CLLocationManager* locationManager;
+    NSString* messageFromMenuPage;
 }
 
 @end
 
 @implementation OutletsTableViewController
+
 #define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @synthesize outletsArray;
 @synthesize intro;
 @synthesize outletsTableView;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -89,11 +93,29 @@
     
     
     [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    // The "bottom" is not precise
+    // Need to set the position manually:
+    CGRect screenBound = [[UIScreen mainScreen] bounds];
+    CGSize screenSize = screenBound.size;
+    CGFloat screenWidth = screenSize.width;
+    CGFloat screenHeight = screenSize.height;
+    if (messageFromMenuPage != nil && ![messageFromMenuPage isEqualToString:@""]) {
+        [self.view makeToast:messageFromMenuPage
+                    duration:TOAST_VIEW_DURATION
+                    position:[NSValue valueWithCGPoint:CGPointMake(screenWidth / 2, screenHeight - 110)]
+                       title:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -422,11 +444,13 @@
 - (void) exitMenuListWithCurrentOrder: (Order *) currentOrder
                             PastOrder: (Order *) pastOrder
                              OutletID: (int) outletID
-                           andTableID: (int) tableID {
+                           andTableID: (int) tableID
+                           andMessage: (NSString *)message{
     self.currentOrder = currentOrder;
     self.pastOrder = pastOrder;
     self.outletIDOfPreviousSelection = outletID;
     self.tableIDOfPreviousSelection = tableID;
+    messageFromMenuPage = message;
 }
 
 #pragma mark Show and hide indicators
