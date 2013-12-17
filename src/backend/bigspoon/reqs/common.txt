@@ -29,4 +29,4 @@ django-cache-utils>=0.7.2
 # import export util
 django-import-export>=0.1.5
 # grappli !!
-django-grappelli==2.4.5
+django-grappelli==2.4.7
