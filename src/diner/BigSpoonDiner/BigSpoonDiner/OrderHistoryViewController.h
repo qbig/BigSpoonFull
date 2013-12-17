@@ -18,7 +18,6 @@
 @interface OrderHistoryViewController : UIViewController <NSURLConnectionDelegate, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *orderHistoryScrollView;
-@property (weak, nonatomic) HomeAndSettingsButtonView *topRightButtonsView;
 @property (weak, nonatomic) IBOutlet UILabel *suggestionLabel;
 
 @end

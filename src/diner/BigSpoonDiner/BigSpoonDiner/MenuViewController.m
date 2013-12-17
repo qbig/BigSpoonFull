@@ -735,7 +735,7 @@
     }
 }
 
-- (void)validTableRetrieved: (NSDictionary *)vIDs{
+- (void)setValidTableRetrieved: (NSDictionary *)vIDs{
     self.validTableIDs = vIDs;
 }
 
