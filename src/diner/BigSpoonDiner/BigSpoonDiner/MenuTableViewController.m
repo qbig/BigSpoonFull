@@ -569,7 +569,7 @@
                 [validTableIDs setObject:tableCode  forKey:tableID];
             }
             
-            [self.delegate validTableRetrieved:validTableIDs];
+            [self.delegate setValidTableRetrieved:validTableIDs];
             
             break;
         }

@@ -31,30 +31,29 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)initActivityIndicator
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
     indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
     indicator.center = self.view.center;
     [self.view addSubview:indicator];
     [indicator bringSubviewToFront:self.view];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    
-    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"HomeAndSettingsButtonView" owner:self options:nil];
-    self.topRightButtonsView = [subviewArray objectAtIndex:0];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.topRightButtonsView];
-    
-    [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order"];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self initActivityIndicator];
     [self.suggestionLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:8]];
     [self loadOrderHistoryFromServer];
+    
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order"];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void) loadOrderHistoryFromServer {
@@ -67,24 +66,15 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    
     statusCode = [response statusCode];
     orderHistoryDataFromServer = [[NSMutableData alloc] init];
-    
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
     [orderHistoryDataFromServer appendData:data];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
     [indicator stopAnimating];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     NSError* error;
@@ -128,8 +118,6 @@
     }
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-//    // The request has failed for some reason!
-//    // Check the error var
     NSLog(@"NSURLCoonection encounters error while retreiving past orders.");
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops" message:@"Failed to load outlets. Please check your network" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
     [alertView show];
