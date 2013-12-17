@@ -25,7 +25,7 @@ class MealResource(resources.ModelResource):
         return meal.diner.email
 
     def dehydrate_name(self, meal):
-        return meal.diner.first_name + meal.diner.last_name
+        return meal.diner.first_name + " " + meal.diner.last_name
     
     def dehydrate_visit(self, meal):
         return meal.diner.meals.count()
