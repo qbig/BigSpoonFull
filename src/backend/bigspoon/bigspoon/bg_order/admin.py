@@ -2,6 +2,7 @@ from django.contrib import admin
 from guardian.admin import GuardedModelAdmin
 from bg_order.models import Request, Meal, Order
 from import_export.admin import ImportExportModelAdmin
+from import_export import resources, fields, instance_loaders
 
 class RequestAdmin(GuardedModelAdmin):
     raw_id_fields = ('diner', 'table')
@@ -10,8 +11,27 @@ class RequestAdmin(GuardedModelAdmin):
     list_display_links = ('diner', 'table',)
     search_fields = ['diner__first_name', 'diner__last_name']
 
+class MealResource(resources.ModelResource):
+    name = fields.Field()
+
+    email = fields.Field()
+
+    visit = fields.Field()
+
+    class Meta:
+        model = Meal
+        
+    def dehydrate_email(self, meal):
+        return meal.diner.email
+
+    def dehydrate_name(self, meal):
+        return meal.diner.first_name + meal.diner.last_name
+    
+    def dehydrate_visit(self, meal):
+        return meal.diner.meals.count()
 
 class MealAdmin(GuardedModelAdmin, ImportExportModelAdmin):
+    resource_class = MealResource
     raw_id_fields = ('diner', 'table')
     list_display = ['id','email', 'diner', 'table', 'status', 'is_paid',
                     'created', 'modified', 'bill_time']
