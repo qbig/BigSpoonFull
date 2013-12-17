@@ -11,7 +11,7 @@ from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note, Profile
 from bg_inventory.forms import BGUserCreationForm
 from bg_inventory.utils import import_dish_csv
-
+from import_export.admin import ImportExportModelAdmin
 
 search_fields_of = {}
 search_fields_of["user"] = ['email', 'username', 'first_name', 'last_name']
@@ -19,7 +19,7 @@ search_fields_of["common"] = ['name']
 search_fields_of["dish"] = search_fields_of["common"] + ['pos', 'price']
 
 
-class UserAdmin(AuthUserAdmin):
+class UserAdmin(AuthUserAdmin, ImportExportModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),

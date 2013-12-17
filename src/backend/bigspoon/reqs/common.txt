@@ -26,3 +26,7 @@ redis>=2.8.0,<2.9
 facepy>=0.8.4,<0.9
 # method cache util
 django-cache-utils>=0.7.2
+# import export util
+django-import-export>=0.1.5
+# grappli !!
+django-grappelli==2.4.5

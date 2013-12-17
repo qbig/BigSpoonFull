@@ -188,6 +188,7 @@ DJANGO_APPS = (
     'django.contrib.humanize',
 
     # Admin panel and documentation:
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.admindocs',
 )
@@ -213,6 +214,9 @@ THIRD_PARTY_APPS = (
 
     # Django thumbs
     'django_thumbs',
+
+    # Django import & export util
+    'import_export',
 )
 
 LOCAL_APPS = (
