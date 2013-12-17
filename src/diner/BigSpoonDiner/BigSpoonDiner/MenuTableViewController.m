@@ -13,12 +13,12 @@
     int statusCode;
 }
 @property NSMutableDictionary* dishesByCategory;
-@property NSDate* now;
+
 @end
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
-@synthesize now;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -33,7 +33,6 @@
     [super viewDidLoad];
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
-    self.now = [NSDate date];
     [self loadCategoriesFromServer];
     [self loadDishesFromServer];
     
@@ -613,14 +612,14 @@
     NSDate* firstDate = [dateFormatter dateFromString:startDate];
     NSDate* secondDate = [dateFormatter dateFromString:endDate];
    
-    if (!self.now || !startDate || !endDate) {
+    if (!startDate || !endDate) {
         return NO;
     }
     
     // Make sure all the dates have the same date component.
     NSDate *newStartDate = [self dateByNeutralizingDateComponentsOfDate:firstDate];
     NSDate *newEndDate = [self dateByNeutralizingDateComponentsOfDate:secondDate];
-    NSDate *newTargetDate = [self dateByNeutralizingDateComponentsOfDate:self.now];
+    NSDate *newTargetDate = [self dateByNeutralizingDateComponentsOfDate:[NSDate date]];
     
     // Compare the target with the start and end dates
     NSComparisonResult compareTargetToStart = [newTargetDate compare:newStartDate];
@@ -656,21 +655,39 @@
     UIButton *btn = (UIButton *)sender;
     int itemID = btn.tag;
     
-    NSLog(@"New item added to order list with ID: %d", itemID);
+//    NSLog(@"New item added to order list with ID: %d", itemID);
+    
     Dish* clickedDish = [self getDishWithID: itemID];
+    
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime]){
         [self.delegate dishOrdered:clickedDish];
         [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     } else {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Sorry"
-                                  message: @"This dish is only available at certain times of the day."
+                                  message: [NSString stringWithFormat:@"This dish is only available from\n%@ to %@",                    [clickedDish.startTime substringToIndex:5],
+                                            [clickedDish.endTime substringToIndex:5]]
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
     }
     
+}
+
+/*
+ *  @param: dateString: a string of format: "23:59:59"
+ *  @return: an NSDate object
+ */
+- (NSDate *)dateFromString:(NSString *)dateString{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat: @"hh:mm:ss"];
+    
+    NSDate *destDate= [dateFormatter dateFromString:dateString];
+    
+    return destDate;
 }
 
 -(IBAction)dishCategoryButtonPressed:(UIButton*)button{
