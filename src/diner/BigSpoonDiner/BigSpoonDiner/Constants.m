@@ -11,7 +11,8 @@
 @implementation Constants
 
 // Request URLs:
-
+bool const PRODUCTION = FALSE;
+#if PRODUCTION
 NSString* const BASE_URL = @"http://122.248.199.242/";
 NSString* const  USER_SIGNUP = @"http://122.248.199.242/api/v1/user";
 NSString* const USER_LOGIN = @"http://122.248.199.242/api/v1/login";
@@ -26,6 +27,23 @@ NSString* const FEEDBACK_URL = @"http://122.248.199.242/api/v1/review";
 NSString* const DISH_CATEGORY_URL = @"http://122.248.199.242/api/v1/categories";
 NSString* const ORDER_HISTORY_URL = @"http://122.248.199.242/api/v1/mealhistory";
 NSString* const SOCKET_URL = @"122.248.199.242";
+#else
+NSString* const BASE_URL = @"http://54.255.0.38/";
+NSString* const  USER_SIGNUP = @"http://54.255.0.38/api/v1/user";
+NSString* const USER_LOGIN = @"http://54.255.0.38/api/v1/login";
+NSString* const USER_LOGIN_WITH_FB = @"http://54.255.0.38/api/v1/fblogin";
+NSString* const LIST_OUTLETS = @"http://54.255.0.38/api/v1/outlets";
+NSString* const REQUEST_URL = @"http://54.255.0.38/api/v1/request";
+NSString* const PROFILE_URL = @"http://54.255.0.38/api/v1/profile";
+NSString* const ORDER_URL = @"http://54.255.0.38/api/v1/meal";
+NSString* const BILL_URL = @"http://54.255.0.38/api/v1/askbill";
+NSString* const RATING_URL = @"http://54.255.0.38/api/v1/rating";
+NSString* const FEEDBACK_URL = @"http://54.255.0.38/api/v1/review";
+NSString* const DISH_CATEGORY_URL = @"http://54.255.0.38/api/v1/categories";
+NSString* const ORDER_HISTORY_URL = @"http://54.255.0.38/api/v1/mealhistory";
+NSString* const SOCKET_URL = @"54.255.0.38";
+#endif
+
 NSString* const KEY_FOR_SHOW_TUT_DEFAULT = @"hasShownTutorial";
 int const SOCKET_PORT = 8000;
 
