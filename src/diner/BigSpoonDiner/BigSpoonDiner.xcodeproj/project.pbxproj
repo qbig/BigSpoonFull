@@ -96,6 +96,7 @@
 		4988FFE4183A097A00AB5CAD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4988FFE3183A097A00AB5CAD /* libicucore.dylib */; };
 		4988FFE6183A098500AB5CAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4988FFE5183A098500AB5CAD /* CFNetwork.framework */; };
 		4989729F180C8C9F0090DA75 /* MenuListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4989729E180C8C9F0090DA75 /* MenuListCell.m */; };
+		49937D5A186017F700DDD8F9 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49937D59186017F700DDD8F9 /* Toast+UIView.m */; };
 		4999A2071809518C00270B0B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4999A2061809518C00270B0B /* FacebookSDK.framework */; };
 		4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A20D180A506100270B0B /* OutletsTableViewController.m */; };
 		4999A212180A50EC00270B0B /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A211180A50EC00270B0B /* Outlet.m */; };
@@ -280,6 +281,8 @@
 		4988FFE5183A098500AB5CAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4989729D180C8C9F0090DA75 /* MenuListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuListCell.h; sourceTree = "<group>"; };
 		4989729E180C8C9F0090DA75 /* MenuListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuListCell.m; sourceTree = "<group>"; };
+		49937D58186017F700DDD8F9 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		49937D59186017F700DDD8F9 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		4999A2061809518C00270B0B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		4999A20C180A506100270B0B /* OutletsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletsTableViewController.h; sourceTree = "<group>"; };
 		4999A20D180A506100270B0B /* OutletsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletsTableViewController.m; sourceTree = "<group>"; };
@@ -393,23 +396,16 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		034C6DA018499E04008D42C4 /* TestFlightSDK2.0.2 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TestFlightSDK2.0.2;
-			sourceTree = "<group>";
-		};
 		034C6DAA18499E59008D42C4 /* 3rdPartyLib */ = {
 			isa = PBXGroup;
 			children = (
+				49937D57186017D600DDD8F9 /* ToastUI */,
 				03B0CC2F184E2F4A0044EB28 /* TestFlight */,
 				03B0CBEE184CBB8A0044EB28 /* NPRImageView */,
 				4988FFD8183A089300AB5CAD /* SocketRocket */,
 				4988FFBC183A05C100AB5CAD /* Socket */,
 				034C6D611846D4E2008D42C4 /* CustomAlertView */,
 				03D9C6DA18451075004110AA /* EAIntroView */,
-				034C6DA018499E04008D42C4 /* TestFlightSDK2.0.2 */,
 			);
 			name = 3rdPartyLib;
 			path = ..;
@@ -516,6 +512,15 @@
 				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
 			);
 			name = DelegateProtocol;
+			sourceTree = "<group>";
+		};
+		49937D57186017D600DDD8F9 /* ToastUI */ = {
+			isa = PBXGroup;
+			children = (
+				49937D58186017F700DDD8F9 /* Toast+UIView.h */,
+				49937D59186017F700DDD8F9 /* Toast+UIView.m */,
+			);
+			name = ToastUI;
 			sourceTree = "<group>";
 		};
 		4999A208180A4FCA00270B0B /* ViewControllers */ = {
@@ -950,6 +955,7 @@
 				49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */,
 				49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */,
 				E951D784180EE285002BE045 /* OrderHistoryViewController.m in Sources */,
+				49937D5A186017F700DDD8F9 /* Toast+UIView.m in Sources */,
 				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
 				4988FFC8183A067700AB5CAD /* SocketIO.m in Sources */,
 				49091B9E1834CFEF006AC7FE /* BigSpoonAnimationController.m in Sources */,
