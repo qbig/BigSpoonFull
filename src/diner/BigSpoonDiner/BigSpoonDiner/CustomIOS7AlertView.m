@@ -50,7 +50,7 @@ CGFloat buttonSpacerHeight = 0;
 
 - (id)init
 {
-    return [self initWithParentView:NULL];
+    return [super init];
 }
 
 // Create the dialog view, and animate opening the dialog

@@ -32,9 +32,7 @@
         
         int index = [self getIndexOfDishByDish:dish];
         int quantity = [self getQuantityOfDishByDish:dish];
-                
-        NSNumber *newQuantity = [NSNumber numberWithInt: quantity + 1];
-        [self.quantity setObject:newQuantity atIndexedSubscript: index];
+        [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: index];
         
     }
     

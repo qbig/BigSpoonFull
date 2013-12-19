@@ -12,7 +12,7 @@
 
 @interface PastOrderDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property int restaurantID;
+@property int selectedPastOrderOutletId;
 @property NSString *restaurantName;
 @property (weak, nonatomic) IBOutlet UILabel *restuarantNameLabel;
 @property NSString *orderTime;

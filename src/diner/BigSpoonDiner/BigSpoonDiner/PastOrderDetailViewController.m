@@ -95,12 +95,7 @@
 }
 
 -(BOOL)hasUserComeFromMenuViewController {
-    if ([[self.navigationController viewControllers] count] == 4) {
-        return YES;
-    }
-    else {
-        return NO;
-    }
+    return [[self.navigationController viewControllers] count] == 4;
 }
 
 - (void) updateTablesAndScrollviewHeight{
@@ -123,20 +118,7 @@
 }
 
 #warning refactor this
-- (IBAction)placeTheSameOrder:(id)sender {
-    NSLog(@"%@", [self.navigationController viewControllers]);
-    OutletsTableViewController *outletsTableViewController = (OutletsTableViewController *)[[self.navigationController viewControllers] objectAtIndex:0];
-    NSMutableArray *newViewControllers = [[NSMutableArray alloc] initWithObjects: outletsTableViewController, nil];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MenuViewController *menuViewController = [storyboard instantiateViewControllerWithIdentifier:@"MENU_VIEW_CONTROLLER"];
-    Outlet *outlet;
-    for (Outlet *restaurant in outletsTableViewController.outletsArray) {
-        if (restaurant.outletID == self.restaurantID) {
-            outlet = restaurant;
-        }
-    }
-    menuViewController.outlet = outlet;
-    menuViewController.delegate = outletsTableViewController;
+- (Order *)getFlattenedSelectedPastOrder {
     Order* pastOrder = [[Order alloc] init];
     for (NSDictionary *meal in self.meals) {
         double quantity = [[meal objectForKey:@"quantity"] doubleValue];
@@ -149,29 +131,47 @@
         }
         [pastOrder mergeWithAnotherOrder:orderContainingThisMeal];
     }
-    NSLog(@"%d", [pastOrder.dishes count]);
+    return pastOrder;
+}
+
+- (IBAction)placeTheSameOrder:(id)sender {
+
+    OutletsTableViewController *outletsTableViewController = (OutletsTableViewController *)[[self.navigationController viewControllers] objectAtIndex:0];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MenuViewController *menuViewController = [storyboard instantiateViewControllerWithIdentifier:@"MENU_VIEW_CONTROLLER"];
+    menuViewController.delegate = outletsTableViewController;
+    menuViewController.isSupposedToShowItems = YES;
+    
+    // set outlet
+    for (Outlet *outlet in outletsTableViewController.outletsArray) {
+        if (outlet.outletID == self.selectedPastOrderOutletId) {
+            menuViewController.outlet = outlet;
+        }
+    }
+    
+    Order *pastOrder = [self getFlattenedSelectedPastOrder];
+    
+    // merge selected order from history with current order
     if ([self hasUserComeFromMenuViewController]) {
         MenuViewController *oldMenuViewController = (MenuViewController*)[[self.navigationController viewControllers] objectAtIndex:1];
-        if (oldMenuViewController.outlet.outletID == outlet.outletID) {
-            [newViewControllers addObject:menuViewController];
+        if (oldMenuViewController.outlet.outletID == self.selectedPastOrderOutletId) {
             [pastOrder mergeWithAnotherOrder:oldMenuViewController.currentOrder];
             menuViewController.currentOrder = pastOrder;
             menuViewController.pastOrder = oldMenuViewController.pastOrder;
             menuViewController.tableID = oldMenuViewController.tableID;
         } else {
-            [newViewControllers addObject:menuViewController];
             menuViewController.currentOrder = pastOrder;
         }
     } else {
-        [newViewControllers addObject:menuViewController];
-        if (outlet.outletID == outletsTableViewController.outletIDOfPreviousSelection) {
+        if (self.selectedPastOrderOutletId == outletsTableViewController.outletIDOfPreviousSelection) {
             [pastOrder mergeWithAnotherOrder:outletsTableViewController.currentOrder];
             menuViewController.pastOrder = outletsTableViewController.pastOrder;
             menuViewController.tableID = outletsTableViewController.tableIDOfPreviousSelection;
         }
         menuViewController.currentOrder = pastOrder;
     }
-    menuViewController.isSupposedToShowItems = YES;
+
+    NSMutableArray *newViewControllers = [[NSMutableArray alloc] initWithObjects: outletsTableViewController, menuViewController, nil];
     [self.navigationController setViewControllers:newViewControllers animated:YES];
 }
 
