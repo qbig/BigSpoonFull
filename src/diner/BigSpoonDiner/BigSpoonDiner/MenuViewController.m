@@ -61,7 +61,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    if (self.isSupposedToShowItems) {
+    if (self.arrivedFromOrderHistory) {
         [self itemsButtonPressed:nil];
     }
 }
@@ -753,18 +753,18 @@
 
 // PlaceOrderDelegate:
 - (Order *) addDishWithID: (int) dishID{
-    Dish *dish = [self.menuListViewController getDishWithID:dishID];
-    [self.currentOrder addDish:dish];
-    [self updateItemQuantityBadge];
+    // require: in item page
     
+    [self.currentOrder incrementDishWithId:dishID];
+    [self updateItemQuantityBadge];
     return self.currentOrder;
 }
 
 - (Order *) minusDishWithID: (int) dishID{
-    Dish *dish = [self.menuListViewController getDishWithID:dishID];
-    [self.currentOrder minusDish:dish];
-    [self updateItemQuantityBadge];
+    // require: in item page
     
+    [self.currentOrder decrementDishWithId:dishID];
+    [self updateItemQuantityBadge];
     return self.currentOrder;
 }
 

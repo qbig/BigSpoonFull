@@ -107,6 +107,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *itemQuantityLabelBackgroundImageView;
 
 //For the case when user wants to place an order from order history
-@property BOOL isSupposedToShowItems;
+@property BOOL arrivedFromOrderHistory;
 
 @end

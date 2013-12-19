@@ -140,7 +140,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MenuViewController *menuViewController = [storyboard instantiateViewControllerWithIdentifier:@"MENU_VIEW_CONTROLLER"];
     menuViewController.delegate = outletsTableViewController;
-    menuViewController.isSupposedToShowItems = YES;
+    menuViewController.arrivedFromOrderHistory = YES;
     
     // set outlet
     for (Outlet *outlet in outletsTableViewController.outletsArray) {

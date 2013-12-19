@@ -105,7 +105,7 @@
                   symbolName = "-[MenuViewController alertView:clickedButtonAtIndex:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/MenuViewController.m"
-                  timestampString = "409141088.542936"
+                  timestampString = "409143970.356134"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "677"
@@ -119,7 +119,7 @@
                   symbolName = "-[MenuViewController alertView:clickedButtonAtIndex:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/MenuViewController.m"
-                  timestampString = "409141088.543164"
+                  timestampString = "409143970.356302"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "677"
@@ -127,6 +127,70 @@
                   offsetFromSymbolStart = "2043">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/Order.m"
+            timestampString = "409141226.323092"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "-addDish:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/ItemsOrderedViewController.m"
+            timestampString = "409141253.034056"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "-plusButtonPressed:forEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/ItemsOrderedViewController.m"
+            timestampString = "409141254.825282"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "-minusButtonPressed:forEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/MenuViewController.m"
+            timestampString = "409143970.044681"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "756"
+            endingLineNumber = "756"
+            landmarkName = "-addDishWithID:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
