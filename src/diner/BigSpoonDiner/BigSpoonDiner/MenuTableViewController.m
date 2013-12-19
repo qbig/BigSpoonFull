@@ -343,20 +343,101 @@
 #pragma mark - Loading Data:
 
 - (void) loadDishesFromServer{
-
-    NSLog(@"Loading dishes from server...");
     
-    self.dishesArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
-    NSString *appendURL = [NSString stringWithFormat:@"/%d", self.outlet.outletID];
+    NSLog(@"Loading dishes from server...using AFNetworking..");
     
-    NSString *requestURL = [LIST_OUTLETS stringByAppendingString:appendURL];
+    User *user = [User sharedInstance];
+    NSString *requestURL = [NSString stringWithFormat:@"%@/%d", LIST_OUTLETS, self.outlet.outletID];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestURL]];
-    request.HTTPMethod = @"GET";
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: requestURL]];
+    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPMethod = @"GET";
     
-    // Create url connection and fire request
-    [NSURLConnection connectionWithRequest:request delegate:self];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        long responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSDictionary* json = (NSDictionary*)responseObject;
+                NSArray *dishes = (NSArray *)[json objectForKey:@"dishes"];
+                self.dishesArray = [[NSMutableArray alloc] init];
+                for (NSDictionary *newDish in dishes) {
+                    
+                    NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
+                    NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
+                    
+                    NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
+                    
+                    NSArray *categories = (NSArray *)[newDish objectForKey:@"categories"];
+                    NSMutableArray *categoryIDs = [[NSMutableArray alloc]init];
+                    
+                    for (NSDictionary *newCategory in categories) {
+                        int integerValue = [[newCategory objectForKey:@"id"] intValue];
+                        [categoryIDs addObject: [[NSNumber alloc] initWithInt: integerValue]];
+                    }
+                    
+                    int ID = [[newDish objectForKey:@"id"] intValue];
+                    NSString* name = [newDish objectForKey:@"name"];
+                    int pos = [[newDish objectForKey:@"pos"] intValue];
+                    NSString* desc = [newDish objectForKey:@"desc"];
+                    
+                    NSString* startTime = [newDish objectForKey:@"start_time"];
+                    NSString* endTime = [newDish objectForKey:@"end_time"];
+                    
+                    double price = [[newDish objectForKey:@"price"] floatValue];
+                    int quantity = [[newDish objectForKey:@"quantity"] intValue];
+                    
+                    int rating = [[newDish objectForKey:@"average_rating"] intValue];
+                    if (rating == -1) {
+                        rating = 0;
+                    }
+                    
+                    Dish *newDishObject = [[Dish alloc]initWithName:name
+                                                        Description:desc
+                                                              Price:price
+                                                            Ratings:rating
+                                                                 ID:ID
+                                                         categories:categoryIDs
+                                                             imgURL:imgURL
+                                                                pos:pos
+                                                          startTime:startTime
+                                                            endTime:endTime
+                                                           quantity:quantity
+                                           ];
+                    if ([categories count] > 0) {
+                        [self.dishesArray insertObject:newDishObject atIndex:0];
+                    } else{
+                        [self.dishesArray addObject:newDishObject];
+                    }
+                }
+                
+                [self.tableView reloadData];
+                
+                // Retrieve valid table IDs:
+                NSMutableDictionary *validTableIDs = [[NSMutableDictionary alloc] init];
+                NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
+                for (NSDictionary *newTable in tables) {
+                    NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
+                    NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
+                    [validTableIDs setObject:tableID  forKey:tableCode];
+                }
+                
+                [self.delegate setValidTableIDs:validTableIDs];
+            }
+                break;
+            case 403:
+            default:{
+                [self displayErrorInfo: @"Please check your network"];
+            }
+        }
+        //NSLog(@"JSON: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          [self displayErrorInfo:operation.responseString];
+                                      }];
+    [operation start];
 }
 
 - (void) loadCategoriesFromServer{
@@ -569,7 +650,7 @@
                 [validTableIDs setObject:tableCode  forKey:tableID];
             }
             
-            [self.delegate setValidTableRetrieved:validTableIDs];
+            [self.delegate setValidTableIDs:validTableIDs];
             
             break;
         }

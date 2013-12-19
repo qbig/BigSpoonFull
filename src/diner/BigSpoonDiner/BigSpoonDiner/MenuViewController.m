@@ -17,6 +17,7 @@
 	CLPlacemark *placemark;
     CLLocationManager *locationManager;
     CLLocation *currentUserLocation;
+    NSDictionary *_validTableIDs;
 }
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
@@ -68,7 +69,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     // Record the frame of badge
     oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
     
@@ -674,11 +674,11 @@
         {
             NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
-            for (NSNumber *validID in [self.validTableIDs allKeys]) {
-                NSLog(@"%@", [self.validTableIDs objectForKey:validID]);
-                if ([[inputCodeFromDiner lowercaseString] isEqualToString: [self.validTableIDs objectForKey:validID]]) {
+            for (NSString *validTableCode in [self.validTableIDs allKeys]) {
+                NSLog(@"%@", validTableCode);
+                if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
                     NSLog(@"The table ID is valid");
-                    self.tableID = [validID integerValue];
+                    self.tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
                     self.taskAfterAskingForTableID();
                     return;
                 }
@@ -735,8 +735,16 @@
     }
 }
 
-- (void)setValidTableRetrieved: (NSDictionary *)vIDs{
-    self.validTableIDs = vIDs;
+- (void)setValidTableIDs: (NSDictionary *)vIDs{
+    [[NSUserDefaults standardUserDefaults] setObject: vIDs forKey: [NSString stringWithFormat:@"%@%d",OUTLET_ID_PREFIX ,self.outlet.outletID]];
+    _validTableIDs = vIDs;
+}
+
+- (NSDictionary *)validTableIDs {
+    if (_validTableIDs){
+        return _validTableIDs;
+    }
+    return [[NSUserDefaults standardUserDefaults] objectForKey: [NSString stringWithFormat:@"%@%d",OUTLET_ID_PREFIX ,self.outlet.outletID]];
 }
 
 - (void)displayModeDidChange{
