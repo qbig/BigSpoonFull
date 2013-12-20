@@ -11,8 +11,8 @@
 @implementation Constants
 
 // Request URLs:
-bool const PRODUCTION = FALSE;
-#if PRODUCTION
+//#define PRODUCTION  1;
+#ifdef PRODUCTION
 NSString* const BASE_URL = @"http://122.248.199.242/";
 NSString* const USER_SIGNUP = @"http://122.248.199.242/api/v1/user";
 NSString* const USER_LOGIN = @"http://122.248.199.242/api/v1/login";
