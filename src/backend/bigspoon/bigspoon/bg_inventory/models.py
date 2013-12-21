@@ -301,6 +301,14 @@ class Outlet(models.Model):
         help_text=_('belong to restaurant'),
         related_name='outlets',
     )
+
+    categories = models.ManyToManyField(
+        Category,
+        blank=True,
+        help_text=_('categories of food offered'),
+        related_name='from_outlet',
+    )
+
     name = models.CharField(
         _('name'),
         max_length=255,
