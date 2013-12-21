@@ -114,6 +114,7 @@
              case 200:
              case 201:{
                  NSDictionary* json = (NSDictionary*)responseObject;
+                 [[NSUserDefaults standardUserDefaults] setObject: json forKey: [NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_RETRIEVED object:json];
                 // [self handleJsonWithDishesAndTableInfos:json];
              }

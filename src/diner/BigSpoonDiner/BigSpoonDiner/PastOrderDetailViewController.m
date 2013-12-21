@@ -141,7 +141,7 @@
     MenuViewController *menuViewController = [storyboard instantiateViewControllerWithIdentifier:@"MENU_VIEW_CONTROLLER"];
     menuViewController.delegate = outletsTableViewController;
     menuViewController.arrivedFromOrderHistory = YES;
-    
+    menuViewController.jsonForDishesTablesAndCategories = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,self.selectedPastOrderOutletId]];
     // set outlet
     for (Outlet *outlet in outletsTableViewController.outletsArray) {
         if (outlet.outletID == self.selectedPastOrderOutletId) {
@@ -170,7 +170,7 @@
         }
         menuViewController.currentOrder = pastOrder;
     }
-
+    
     NSMutableArray *newViewControllers = [[NSMutableArray alloc] initWithObjects: outletsTableViewController, menuViewController, nil];
     [self.navigationController setViewControllers:newViewControllers animated:YES];
 }

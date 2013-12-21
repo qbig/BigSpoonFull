@@ -106,6 +106,7 @@ int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 double const LOCATION_CHECKING_DIAMETER = 100;
 double const LONGEST_NETWORK_WAITING_TIME = 3.0;
 NSString* const OUTLET_ID_PREFIX = @"outlet";
+NSString* const OUTLET_INFO_FOR_ID_PREFIX = @"outletWithId";
 NSString* const FB_SESSION_IS_OPEN = @"FBSessionIsOpen";
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";
 NSString* const NOTIF_NEW_DISH_INFO_FAILED = @"DishAndTableRequestNetworkFailure";
