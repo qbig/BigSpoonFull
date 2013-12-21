@@ -53,12 +53,14 @@
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTokenValidity) name:FB_SESSION_IS_OPEN object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -215,11 +217,6 @@
                           options:kNilOptions
                           error:&error];
     
-    //        for (id key in [json allKeys]){
-    //            NSString* obj =(NSString *) [json objectForKey: key];
-    //            NSLog(obj);
-    //        }
-    
     [self stopLoadingIndicators];
     
     if (connection == self.connectionForLogin) {
@@ -301,71 +298,7 @@
 #pragma mark fbLogin
 
 - (IBAction)fbButtonPressed:(id)sender {
-    
-    if (FBSession.activeSession.isOpen) {
-        NSLog(@"FBSession.activeSession.isOpen IS open!");
-        // check token validity and login successfully
-        [self checkTokenValidity];
-        [TestFlight passCheckpoint:@"CheckPoint:User Logging with FB"];
-    }else{
-        NSLog(@"FBSession.activeSession.isOpen NOT open!");
-        [self openSession];
-    }
+    [[User sharedInstance] attemptToLoginToFB];
 }
 
-- (void)sessionStateChanged:(FBSession *)session
-                      state:(FBSessionState) state
-                      error:(NSError *)error{
-    switch (state) {
-        case FBSessionStateOpen: {
-            NSLog(@"Successfully logged in with Facebook");
-            if (FBSession.activeSession.isOpen) {
-                NSLog(@"YAY! Finally Become open!");
-                [self checkTokenValidity];
-            } else{
-                NSLog(@"Nope not yet");
-            }
-        }
-            break;
-        case FBSessionStateClosed:{
-            NSLog(@"FBSessionStateClosed");
-        }
-            break;
-        case FBSessionStateClosedLoginFailed:
-            // Once the user has logged in, we want them to
-            // be looking at the root view.
-            NSLog(@"Failed logging with Facebook");
-            [FBSession.activeSession closeAndClearTokenInformation];
-            
-            break;
-        default:
-            NSLog(@"Other cases");
-            break;
-    }
-    
-    if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
-    }
-}
-
-- (void)openSession
-{
-    NSArray *permissions = [[NSArray alloc] initWithObjects:@"email", @"basic_info", nil];
-    [FBSession openActiveSessionWithReadPermissions:permissions
-                                       allowLoginUI:YES
-                                  completionHandler:
-     ^(FBSession *session,FBSessionState state, NSError *error) {
-         
-         
-         [self sessionStateChanged:session state:state error:error];
-         
-         FBSession.activeSession = session;
-     }];
-}
 @end

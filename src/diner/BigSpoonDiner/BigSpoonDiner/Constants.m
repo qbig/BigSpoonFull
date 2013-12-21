@@ -106,5 +106,5 @@ int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 double const LOCATION_CHECKING_DIAMETER = 100;
 double const LONGEST_NETWORK_WAITING_TIME = 3.0;
 NSString* const OUTLET_ID_PREFIX = @"outlet";
-
+NSString* const FB_SESSION_IS_OPEN = @"FBSessionIsOpen";
 @end
