@@ -117,7 +117,6 @@
     self.scrollview.contentSize = CGSizeMake(ITEM_LIST_SCROLL_WIDTH, self.subtotalContainterView.frame.origin.y + self.subtotalContainterView.frame.size.height + HISTORY_DETAIL_SCROLLING_EXTRA);
 }
 
-#warning refactor this
 - (Order *)getFlattenedSelectedPastOrder {
     Order* pastOrder = [[Order alloc] init];
     for (NSDictionary *meal in self.meals) {
@@ -132,6 +131,17 @@
         [pastOrder mergeWithAnotherOrder:orderContainingThisMeal];
     }
     return pastOrder;
+}
+
+- (void)mergeSelectedPastOrderWithCurretOrder {
+    Order *pastOrder = [self getFlattenedSelectedPastOrder];
+    User *user = [User sharedInstance];
+    if (self.selectedPastOrderOutletId == user.currentOutlet.outletID){
+        [pastOrder mergeWithAnotherOrder:user.currentOrder];
+        user.currentOrder = pastOrder;
+    } else {
+        user.currentOrder = pastOrder;
+    }
 }
 
 - (IBAction)placeTheSameOrder:(id)sender {
@@ -149,28 +159,7 @@
         }
     }
     
-    Order *pastOrder = [self getFlattenedSelectedPastOrder];
-    
-    // merge selected order from history with current order
-    if ([self hasUserComeFromMenuViewController]) {
-        MenuViewController *oldMenuViewController = (MenuViewController*)[[self.navigationController viewControllers] objectAtIndex:1];
-        if (oldMenuViewController.outlet.outletID == self.selectedPastOrderOutletId) {
-            [pastOrder mergeWithAnotherOrder:oldMenuViewController.currentOrder];
-            menuViewController.currentOrder = pastOrder;
-            menuViewController.pastOrder = oldMenuViewController.pastOrder;
-            menuViewController.tableID = oldMenuViewController.tableID;
-        } else {
-            menuViewController.currentOrder = pastOrder;
-        }
-    } else {
-        if (self.selectedPastOrderOutletId == outletsTableViewController.outletIDOfPreviousSelection) {
-            [pastOrder mergeWithAnotherOrder:outletsTableViewController.currentOrder];
-            menuViewController.pastOrder = outletsTableViewController.pastOrder;
-            menuViewController.tableID = outletsTableViewController.tableIDOfPreviousSelection;
-        }
-        menuViewController.currentOrder = pastOrder;
-    }
-    
+    [self mergeSelectedPastOrderWithCurretOrder];
     NSMutableArray *newViewControllers = [[NSMutableArray alloc] initWithObjects: outletsTableViewController, menuViewController, nil];
     [self.navigationController setViewControllers:newViewControllers animated:YES];
 }

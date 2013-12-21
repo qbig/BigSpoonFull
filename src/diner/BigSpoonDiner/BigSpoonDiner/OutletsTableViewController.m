@@ -411,6 +411,7 @@
         NSLog(@"Is Active haha!!");
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
+        [User sharedInstance].currentOutlet = outlet;
         [indicator startAnimating];
     } else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""

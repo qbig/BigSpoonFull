@@ -50,6 +50,7 @@
 @synthesize taskAfterAskingForTableID;
 @synthesize navigationItem;
 @synthesize jsonForDishesTablesAndCategories;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -308,6 +309,21 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) setCurrentOrder:(Order*) currentOrder {
+    [User sharedInstance].currentOrder = currentOrder;
+}
+
+- (Order *)currentOrder {
+    return [User sharedInstance].currentOrder;
+}
+
+- (void)setPastOrder:(Order *)pastOrder{
+    [User sharedInstance].pastOrder = pastOrder;
+}
+
+- (Order *)pastOrder {
+    return [User sharedInstance].pastOrder;
+}
 
 - (IBAction)settingsButtonPressed:(id)sender {
 
@@ -922,6 +938,11 @@
 - (void) afterSuccessfulPlacedOrder{
     [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
     self.currentOrder = [[Order alloc] init];
+    
+    User *user = [User sharedInstance];
+    user.pastOrder = self.pastOrder;
+    user.currentOrder = self.currentOrder;
+    
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
     
     [self.view makeToast:@"Your order has been sent. Our food is prepared with love, thank you for being patient."
