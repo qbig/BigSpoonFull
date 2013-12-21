@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <AFHTTPRequestOperationManager.h>
+#import "Constants.h"
 #import "Outlet.h"
 #import "Order.h"
 

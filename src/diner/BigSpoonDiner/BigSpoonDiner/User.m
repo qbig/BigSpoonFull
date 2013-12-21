@@ -25,7 +25,7 @@
     return sharedInstance;
 }
 
-
+#pragma mark FB Login Methods
 - (void)attemptToLoginToFB {
     
     if (FBSession.activeSession.isOpen) {
@@ -95,4 +95,72 @@
      }];
 }
 
+#pragma mark Loading Outlet Dish & Categories & Table info Methods
+- (void) loadDishesAndTableInfosFromServerForOutlet: (int) outletID{
+    
+    NSLog(@"Loading dishes from server...using AFNetworking..");
+    NSString *requestURL = [NSString stringWithFormat:@"%@/%d", LIST_OUTLETS, outletID];
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: requestURL]];
+    [request setValue: [@"Token " stringByAppendingString:self.authToken] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPMethod = @"GET";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation
+     setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+         long responseCode = [operation.response statusCode];
+         switch (responseCode) {
+             case 200:
+             case 201:{
+                 NSDictionary* json = (NSDictionary*)responseObject;
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RetrievedNewDishesAndTableInfo" object:json];
+                // [self handleJsonWithDishesAndTableInfos:json];
+             }
+                 break;
+             case 403:
+             default:{
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"DishAndTableRequestNetworkFailure" object:nil];
+             }
+         }
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"DishAndTableRequestNetworkFailure" object:nil];
+     }];
+    [operation start];
+}
+
+
+- (void) loadCategoriesFromServer{
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: DISH_CATEGORY_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    request.HTTPMethod = @"GET";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation
+     setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+         long responseCode = [operation.response statusCode];
+         switch (responseCode) {
+             case 200:
+             case 201:{
+                 NSArray *categories = (NSArray*)responseObject;
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RetrievedNewCategoriesInfo" object:categories];
+                 //[self parseFromJsonArrToCategories:categories];
+                 
+             }
+                 break;
+             case 403:
+             default:{
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoriesRequestNetworkFailure" object:nil];
+             }
+         }
+         //NSLog(@"JSON: %@", responseObject);
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoriesRequestNetworkFailure" object:nil];
+     }];
+    [operation start];
+}
 @end
