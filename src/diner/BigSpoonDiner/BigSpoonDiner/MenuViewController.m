@@ -49,7 +49,7 @@
 @synthesize inputTableIDAlertView;
 @synthesize taskAfterAskingForTableID;
 @synthesize navigationItem;
-
+@synthesize jsonForDishesTablesAndCategories;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -590,6 +590,7 @@
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
+                self.menuListViewController.jsonForDishesTablesAndCategories = self.jsonForDishesTablesAndCategories;
                 
             } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
                 

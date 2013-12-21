@@ -13,6 +13,7 @@
     int statusCode;
     CLLocationManager* locationManager;
     NSString* messageFromMenuPage;
+    NSDictionary *jsonForMenuView;
 }
 
 @end
@@ -118,6 +119,15 @@
     }
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -386,7 +396,7 @@
     if (outlet.isActive) {
         NSLog(@"Is Active haha!!");
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
-        [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
+        [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
     } else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                             message:@"The restaurant is coming soon"
@@ -397,6 +407,11 @@
     }
 }
 
+- (void) moveToMenuView: (NSNotification*) notif{
+    jsonForMenuView = (NSDictionary* )[notif object];
+    [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
+}
+
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -404,12 +419,11 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
-        
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
         menuViewController.outlet = outlet;
         menuViewController.delegate = self;
-        
+        menuViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
         if (outlet.outletID == self.outletIDOfPreviousSelection) {
             
             NSLog(@"In outlets list: going back to a previous page with selected items");

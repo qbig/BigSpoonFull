@@ -18,6 +18,7 @@
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
+@synthesize jsonForDishesTablesAndCategories;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,12 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.displayCategoryID = -1;
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
-    //[self loadDishesAndTableInfosFromServer];
-    [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: self.outlet.outletID];
+    self.dishesByCategory = [[NSMutableDictionary alloc] init];
     // By default:
     self.displayMethod = kMethodPhoto;
-    self.displayCategoryID = -1;
     
     // Set the table view to be the same height as the screen:
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -76,16 +76,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleJsonWithDishesAndTableInfos:) name:@"RetrievedNewDishesAndTableInfo" object:nil];
 }
 
 - (void) viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -140,7 +139,7 @@
             return cell;
         }
     }
-    
+
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
     
     if (self.displayMethod == kMethodList) {
@@ -432,50 +431,13 @@
     return validTableIDs;
 }
 
-- (void)handleJsonWithDishesAndTableInfos: (NSNotification *)notif{
-    NSDictionary *json = (NSDictionary *) [notif object];
+- (void)handleJsonWithDishesAndTableInfos: (NSDictionary *)json{
     self.dishesArray = [self parseFromJsonsToDishes:json];
     [self renderCategoryButtons];
     [self.tableView reloadData];
     
     NSMutableDictionary *validTableIDs = [self parseFromJsonToValidTableIDs:json];
     [self.delegate setValidTableIDs:validTableIDs];
-}
-
-- (void) loadDishesAndTableInfosFromServer{
-    
-    NSLog(@"Loading dishes from server...using AFNetworking..");
-    
-    User *user = [User sharedInstance];
-    NSString *requestURL = [NSString stringWithFormat:@"%@/%d", LIST_OUTLETS, self.outlet.outletID];
-    
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: requestURL]];
-    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    request.HTTPMethod = @"GET";
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    [operation
-     setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-         long responseCode = [operation.response statusCode];
-         switch (responseCode) {
-             case 200:
-             case 201:{
-                 NSDictionary* json = (NSDictionary*)responseObject;
-                 [self handleJsonWithDishesAndTableInfos:json];
-             }
-                 break;
-             case 403:
-             default:{
-                 [self displayErrorInfo: @"Please check your network"];
-             }
-         }
-         //NSLog(@"JSON: %@", responseObject);
-     }
-     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [self displayErrorInfo:operation.responseString];
-     }];
-    [operation start];
 }
 
 - (void)renderCategoryButtons {

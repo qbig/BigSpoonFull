@@ -34,7 +34,7 @@
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
-
+@property (nonatomic, strong) NSDictionary *jsonForDishesTablesAndCategories;
 // Buttons:
 
 @property (strong, nonatomic) IBOutlet UIButton *viewModeButton;
