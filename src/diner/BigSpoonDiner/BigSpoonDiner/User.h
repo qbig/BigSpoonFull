@@ -29,5 +29,6 @@
 
 + (User *)sharedInstance;
 - (void) attemptToLoginToFB;
+- (void) loadDishesAndTableInfosFromServerForOutlet: (int) outletID;
 
 @end

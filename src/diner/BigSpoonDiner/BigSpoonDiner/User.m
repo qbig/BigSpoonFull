@@ -114,53 +114,20 @@
              case 200:
              case 201:{
                  NSDictionary* json = (NSDictionary*)responseObject;
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RetrievedNewDishesAndTableInfo" object:json];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_RETRIEVED object:json];
                 // [self handleJsonWithDishesAndTableInfos:json];
              }
                  break;
              case 403:
              default:{
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"DishAndTableRequestNetworkFailure" object:nil];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
              }
          }
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"DishAndTableRequestNetworkFailure" object:nil];
+         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
      }];
     [operation start];
 }
 
-
-- (void) loadCategoriesFromServer{
-    User *user = [User sharedInstance];
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: DISH_CATEGORY_URL]];
-    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    request.HTTPMethod = @"GET";
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    [operation
-     setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-         long responseCode = [operation.response statusCode];
-         switch (responseCode) {
-             case 200:
-             case 201:{
-                 NSArray *categories = (NSArray*)responseObject;
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"RetrievedNewCategoriesInfo" object:categories];
-                 //[self parseFromJsonArrToCategories:categories];
-                 
-             }
-                 break;
-             case 403:
-             default:{
-                 [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoriesRequestNetworkFailure" object:nil];
-             }
-         }
-         //NSLog(@"JSON: %@", responseObject);
-     }
-     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoriesRequestNetworkFailure" object:nil];
-     }];
-    [operation start];
-}
 @end

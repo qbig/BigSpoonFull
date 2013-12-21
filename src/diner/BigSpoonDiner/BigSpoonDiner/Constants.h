@@ -86,4 +86,6 @@ extern double const LOCATION_CHECKING_DIAMETER;
 extern double const LONGEST_NETWORK_WAITING_TIME;
 extern NSString* const OUTLET_ID_PREFIX;
 extern NSString* const FB_SESSION_IS_OPEN;
+extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;
+extern NSString* const NOTIF_NEW_DISH_INFO_FAILED;
 @end
