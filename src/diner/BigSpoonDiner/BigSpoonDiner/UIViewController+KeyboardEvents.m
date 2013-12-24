@@ -27,15 +27,15 @@
     if (movedUp)
     {
         // 1. move the view's origin up so that the text field that will be hidden come above the keyboard
-        // 2. increase the size of the view so that the area behind the keyboard is covered up.
+        // 2. [NO need]increase the size of the view so that the area behind the keyboard is covered up. This conflicts with Auto-layout. So no need.
         rect.origin.y -= distance;
-        rect.size.height += distance;
+        //rect.size.height += distance;
     }
     else
     {
         // revert back to the normal state.
         rect.origin.y += distance;
-        rect.size.height -= distance;
+        //rect.size.height -= distance;
     }
     self.view.frame = rect;
     

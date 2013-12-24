@@ -124,11 +124,14 @@
 
 -(void) viewDidAppear:(BOOL)animated {
     
+    NSLog(@"View Did Appear asdfasdfa");
+    
+    [super viewDidAppear:animated];
+    
     // Put back the button
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
     
-    [super viewDidAppear:animated];
     
     if (self.childViewControllers.count < 1) {
         [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
