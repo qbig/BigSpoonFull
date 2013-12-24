@@ -28,12 +28,7 @@
 {
     [super loadView];
     
-    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RatingAndFeedbackView" owner:self options:nil];
-    self.view = [subviewArray objectAtIndex:0];
-    
-    [self.ratingsTableView registerNib:[UINib nibWithNibName:@"RatingCellView" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"RatingCell"];
-    
-    self.ratings  = [[NSMutableDictionary alloc] init];
+    self.ratings = [[NSMutableDictionary alloc] init];
 }
 
 - (void) viewDidLoad{
@@ -379,9 +374,10 @@
 }
 
 - (void) fadeOut{
+    [self.delegate modalSegueDidExit];
     // Perform the fade-out animation first. Then remove the view.
-    [BigSpoonAnimationController animateTransitionOfUIView:self.view willShow:NO];
-    [self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:LONGEST_NETWORK_WAITING_TIME];
+    //[BigSpoonAnimationController animateTransitionOfUIView:self.view willShow:NO];
+    //[self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:LONGEST_NETWORK_WAITING_TIME];
 }
 
 - (void) removeSelfFromParent{

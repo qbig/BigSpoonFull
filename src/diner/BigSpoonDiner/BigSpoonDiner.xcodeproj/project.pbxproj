@@ -64,7 +64,6 @@
 		49164203180C590C00080B87 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164201180C590C00080B87 /* list_icon.png */; };
 		49164204180C590C00080B87 /* photo_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 49164202180C590C00080B87 /* photo_icon.png */; };
 		49320E4018166CAE00F5C190 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 49320E3F18166CAE00F5C190 /* Constants.m */; };
-		49412B4218352ACB00BF949B /* RatingCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49412B4118352ACB00BF949B /* RatingCellView.xib */; };
 		494AD9721836B69800843B3D /* DishCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 494AD9711836B69800843B3D /* DishCategory.m */; };
 		49558BBE181D0B3F00273090 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49558BBD181D0B3F00273090 /* Security.framework */; };
 		49558BC3181D0BA800273090 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 49558BC0181D0BA800273090 /* SSKeychain.m */; };
@@ -102,7 +101,6 @@
 		4999A212180A50EC00270B0B /* Outlet.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A211180A50EC00270B0B /* Outlet.m */; };
 		4999A216180A744100270B0B /* URLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4999A215180A744100270B0B /* URLImageView.m */; };
 		49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B8587718335F9700F32BB0 /* RequestWaterView.xib */; };
-		49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */; };
 		49B858801833658500F32BB0 /* RatingAndFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */; };
 		49BBB70118350FCE007546E8 /* RatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BBB70018350FCE007546E8 /* RatingCell.m */; };
 		49BCF571183AFCAC0061821A /* UILabel+Alignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCF570183AFCAC0061821A /* UILabel+Alignment.m */; };
@@ -229,7 +227,7 @@
 		49164202180C590C00080B87 /* photo_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo_icon.png; sourceTree = "<group>"; };
 		491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExitMenuListDelegate.h; sourceTree = "<group>"; };
 		49320E3F18166CAE00F5C190 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		49412B4118352ACB00BF949B /* RatingCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingCellView.xib; sourceTree = "<group>"; };
+		4948C6CD18607663003EF882 /* ModalSegueDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalSegueDelegate.h; sourceTree = "<group>"; };
 		494AD9701836B69800843B3D /* DishCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishCategory.h; sourceTree = "<group>"; };
 		494AD9711836B69800843B3D /* DishCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishCategory.m; sourceTree = "<group>"; };
 		49558BBD181D0B3F00273090 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -291,7 +289,6 @@
 		4999A214180A744100270B0B /* URLImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLImageView.h; sourceTree = "<group>"; };
 		4999A215180A744100270B0B /* URLImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = URLImageView.m; path = BigSpoonDiner/URLImageView.m; sourceTree = "<group>"; };
 		49B8587718335F9700F32BB0 /* RequestWaterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestWaterView.xib; sourceTree = "<group>"; };
-		49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingAndFeedbackView.xib; sourceTree = "<group>"; };
 		49B8587E1833658500F32BB0 /* RatingAndFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingAndFeedbackViewController.h; sourceTree = "<group>"; };
 		49B8587F1833658500F32BB0 /* RatingAndFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingAndFeedbackViewController.m; sourceTree = "<group>"; };
 		49BBB6FF18350FCE007546E8 /* RatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingCell.h; sourceTree = "<group>"; };
@@ -510,6 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
+				4948C6CD18607663003EF882 /* ModalSegueDelegate.h */,
 			);
 			name = DelegateProtocol;
 			sourceTree = "<group>";
@@ -748,10 +746,8 @@
 				496DD1B318202672001EBA6D /* PastOrderCell.h */,
 				496DD1B418202672001EBA6D /* PastOrderCell.m */,
 				49B8587718335F9700F32BB0 /* RequestWaterView.xib */,
-				49B85879183364C600F32BB0 /* RatingAndFeedbackView.xib */,
 				49091B9C1834CFEF006AC7FE /* BigSpoonAnimationController.h */,
 				49091B9D1834CFEF006AC7FE /* BigSpoonAnimationController.m */,
-				49412B4118352ACB00BF949B /* RatingCellView.xib */,
 				49BBB6FF18350FCE007546E8 /* RatingCell.h */,
 				49BBB70018350FCE007546E8 /* RatingCell.m */,
 				03B0CBFA184CD8D30044EB28 /* ImageCache.h */,
@@ -843,7 +839,6 @@
 			files = (
 				496DD1AF18200BCC001EBA6D /* red_circle.png in Resources */,
 				03503998183E666400F26A72 /* button_minus_no_circle.png in Resources */,
-				49412B4218352ACB00BF949B /* RatingCellView.xib in Resources */,
 				034C6DC71849CCF5008D42C4 /* intro_welcome.jpg in Resources */,
 				4972BBBD18370F61001DD817 /* button_minus_with_circle.png in Resources */,
 				49CAFC52180BB9F10058C900 /* X-Large_278x44_glowy.png in Resources */,
@@ -855,7 +850,6 @@
 				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
 				49BF7FCC183B1CA500D286A6 /* logout_button.png in Resources */,
-				49B8587A183364C600F32BB0 /* RatingAndFeedbackView.xib in Resources */,
 				03D9C6DE1845129F004110AA /* 3.png in Resources */,
 				034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */,
 				03D411F1184206B400ED4F46 /* signup_bt.png in Resources */,

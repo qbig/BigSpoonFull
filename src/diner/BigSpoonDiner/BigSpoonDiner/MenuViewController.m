@@ -63,6 +63,18 @@
     if (self.isSupposedToShowItems) {
         [self itemsButtonPressed:nil];
     }
+    
+    [super viewWillAppear:animated];
+    
+    
+    // The toolbar that contains the bar button items
+    // The toolbar is hidden (set in storyboard, x = -100)
+    // Its bar button items is inserted to the navigationController
+    // The buttons are hidden by default. Because don't wanna show their moving trace.
+    // They will shown in viewDidAppear:
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+    
 }
 
 - (void)viewDidLoad
@@ -84,14 +96,6 @@
     } else{
         [self updateItemQuantityBadge];
     }
-    
-    // The toolbar that contains the bar button items
-    // The toolbar is hidden (set in storyboard, x = -100)
-    // Its bar button items is inserted to the navigationController
-    // The buttons are hidden by default. Because don't wanna show their moving trace.
-    // They will shown in viewDidAppear:
-    self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
     
     //initialize geolocation
     locationManager = [[CLLocationManager alloc] init];
@@ -485,22 +489,24 @@
                    title:nil];
     
     // Load and show the ratingAndFeedbackViewController:
+    [self performSegueWithIdentifier:@"SegueFromMenuToRating" sender:self];
     
-    // Initialize the controller and the view
-    self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
-    self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
-    
-    // Make the frame appear in the center of the screen:
-    CGRect frame = self.ratingAndFeedbackViewController.view.frame;
-    [self.ratingsAndFeedbackView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width
-                                                                         andHeight:frame.size.height]];
-    
-    // Load data
-    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
-    
-    // Add subview and make it appear
-    [self.view addSubview: self.ratingsAndFeedbackView];
-    [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
+    // The following old code is used in earlier version, when the rating view is part of the view of menuViewController.
+//    // Initialize the controller and the view
+//    self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
+//    self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
+//    
+//    // Make the frame appear in the center of the screen:
+//    CGRect frame = self.ratingAndFeedbackViewController.view.frame;
+//    [self.ratingsAndFeedbackView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width
+//                                                                         andHeight:frame.size.height]];
+//    
+//    // Load data
+//    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
+//    
+//    // Add subview and make it appear
+//    [self.view addSubview: self.ratingsAndFeedbackView];
+//    [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
     
     // After everything, set the order items to null
     self.currentOrder = [[Order alloc] init];
@@ -581,8 +587,6 @@
         //if view controller isn't already contained in the viewControllers-Dictionary
         if (![_viewControllersByIdentifier objectForKey:segue.identifier]) {
             
-            NSLog(@"New viewController generated when performing segue: %@", segue.identifier);
-            
             [_viewControllersByIdentifier setObject:segue.destinationViewController forKey:segue.identifier];
             
             if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
@@ -603,13 +607,9 @@
         
         if ([segue.identifier isEqualToString:@"SegueFromMenuToList"]){
             
-            NSLog(@"Going SegueFromMenuToList");
-        
         }
         
         if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
-
-            NSLog(@"Going SegueFromMenuToItems");
             
             // Make a new goBackButton
             [self changeBackButtonTo:@"back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
@@ -622,7 +622,14 @@
             [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
         }
         
-    } else{
+    } else if ([segue.identifier isEqualToString:@"SegueFromMenuToRating"]){
+        RatingAndFeedbackViewController* ratingAndFeedbackViewController = segue.destinationViewController;
+        ratingAndFeedbackViewController.delegate = self;
+        ratingAndFeedbackViewController.currentOrder = self.pastOrder;
+        ratingAndFeedbackViewController.outletID = self.outlet.outletID;
+    }
+    
+    else{
         NSLog(@"Segure in the menuViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
@@ -633,6 +640,10 @@
 }
 
 #pragma mark Delegate Methods
+
+- (void)modalSegueDidExit{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

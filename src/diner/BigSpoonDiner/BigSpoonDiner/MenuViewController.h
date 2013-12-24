@@ -22,10 +22,11 @@
 #import "BigSpoonAnimationController.h"
 #import "CustomIOS7AlertView.h"
 #import "OrderItemView.h"
+#import "ModalSegueDelegate.h"
 
 @class MenuViewController;
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate, ModalSegueDelegate>
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;
@@ -48,7 +49,7 @@
 - (IBAction)viewModeButtonPressedAtListPage:(id)sender;
 - (IBAction)viewModeButtonPressedAtOrderPage:(id)sender;
 - (IBAction)settingsButtonPressed:(id)sender;
-
+- (void)modalSegueDidExit;
 
 // Four buttons at the bottom
 

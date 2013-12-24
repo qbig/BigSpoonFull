@@ -17,6 +17,7 @@
 #import "UIViewController+KeyboardEvents.h"
 #import "TestFlight.h"
 #import "Toast+UIView.h"
+#import "ModalSegueDelegate.h"
 
 @interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
 
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
 @property (nonatomic) float initialY;
+@property (weak, nonatomic) id <ModalSegueDelegate> delegate;
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
