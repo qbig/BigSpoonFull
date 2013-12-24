@@ -32,9 +32,7 @@
         
         int index = [self getIndexOfDishByDish:dish];
         int quantity = [self getQuantityOfDishByDish:dish];
-                
-        NSNumber *newQuantity = [NSNumber numberWithInt: quantity + 1];
-        [self.quantity setObject:newQuantity atIndexedSubscript: index];
+        [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: index];
         
     }
     
@@ -43,6 +41,18 @@
         [self.dishes addObject: dish];
         [self.quantity addObject: [NSNumber numberWithInt:1]];
     }
+}
+
+- (void) incrementDishWithId: (int)dishId {
+    int index = [self getIndexOfDishByDishID:dishId];
+    int quantity = [self getQuantityOfDishByID:dishId];
+    [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: index];
+}
+
+- (void) decrementDishWithId: (int)dishId {
+    int index = [self getIndexOfDishByDishID:dishId];
+    int quantity = [self getQuantityOfDishByID:dishId];
+    [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
 }
 
 - (void) minusDish:(Dish *)dish{
@@ -161,9 +171,13 @@
 }
 
 - (int) getIndexOfDishByDish: (Dish *) newDish{
+    return [self getIndexOfDishByDishID:newDish.ID];
+}
+
+- (int) getIndexOfDishByDishID: (int) dishID{
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish * myDish = [self.dishes objectAtIndex:i];
-        if (myDish.ID == newDish.ID) {
+        if (myDish.ID == dishID) {
             return i;
         }
     }

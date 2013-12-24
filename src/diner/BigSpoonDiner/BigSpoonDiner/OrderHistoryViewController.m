@@ -86,7 +86,7 @@
             [self.orderHistoryScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
             int pastOrderCount = 0;
             CGFloat scrollViewHeight = 0.0f;
-            for (NSDictionary *pastOrder in pastOrdersList) {
+            for (NSDictionary *pastOrder in [pastOrdersList reverseObjectEnumerator]) {
                 NSString *order_time = [pastOrder objectForKey:@"order_time"];
                 NSDictionary *outlet = [pastOrder objectForKey:@"outlet"];
                 NSString *outletName = [outlet objectForKey:@"name"];
@@ -98,7 +98,7 @@
                 view.restaurantNameLabel.text = outletName;
                 view.orderTime.text = order_time;
                 view.meals = [NSArray arrayWithArray:meals];
-                view.restaurantID = [(NSString*)[outlet objectForKey:@"id"] integerValue];
+                view.pastOrderOutletId = [(NSString*)[outlet objectForKey:@"id"] integerValue];
                 [self.orderHistoryScrollView addSubview:view];
                 scrollViewHeight += view.frame.size.height;
                 pastOrderCount ++;

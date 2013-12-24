@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 {% load compress %}
-
+{% load cache %}
 {% block content %}
     <div class="help">
         <p><i class="icon-time"></i> <strong>History</strong> shows you all of today's acknowledged orders and requests. Here, you can review all your inactive orders and see how long it took to respond to
@@ -13,6 +13,7 @@
     {% for meal in meal_cards %}
     <div class="item history">
         <span class="passed time"><i class="icon-time"></i> responded in {{meal.used_time.0}} mins {{meal.used_time.1}} seconds</span>
+        {% cache 300 "diner"|add:meal.diner_id %}
         <h3>{{ meal.table.name }}</h3>
         <span class='user'>
                 <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
@@ -23,6 +24,7 @@
         <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
         <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
         </span>
+        {% endcache %}
 
 
 <!--         {% if meal.is_paid %}

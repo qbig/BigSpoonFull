@@ -28,7 +28,7 @@ enum DishDisplayMethod : NSUInteger {
 
 @protocol OrderDishDelegate <NSObject>
 - (void)dishOrdered: (Dish *)dish;
-- (void)setValidTableRetrieved: (NSDictionary *)validTableIDs;
+- (void)setValidTableIDs: (NSDictionary *)validTableIDs;
 @end
 
 @protocol MenuDisplayModeDelegate <NSObject>
@@ -44,7 +44,7 @@ enum DishDisplayMethod : NSUInteger {
 @property (nonatomic, strong) id <OrderDishDelegate, MenuDisplayModeDelegate> delegate;
 
 @property (nonatomic, strong) Outlet *outlet;
-
+@property (nonatomic, strong) NSDictionary* jsonForDishesTablesAndCategories;
 @property (nonatomic) enum DishDisplayMethod displayMethod;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIScrollView *categoryButtonsHolderView;

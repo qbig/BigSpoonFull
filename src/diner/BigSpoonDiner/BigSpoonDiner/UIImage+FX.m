@@ -397,7 +397,7 @@
     //create alpha image
     NSInteger bytesPerRow = ((width + 3) / 4) * 4;
     void *data = calloc(bytesPerRow * height, sizeof(unsigned char *));
-    CGContextRef context = CGBitmapContextCreate(data, width, height, 8, bytesPerRow, NULL, kCGImageAlphaOnly);
+    CGContextRef context = CGBitmapContextCreate(data, width, height, 8, bytesPerRow, NULL, (CGBitmapInfo)kCGImageAlphaOnly);
     CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, width, height), self.CGImage);
     
     //invert alpha pixels

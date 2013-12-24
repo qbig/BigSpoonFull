@@ -17,6 +17,7 @@
 	CLPlacemark *placemark;
     CLLocationManager *locationManager;
     CLLocation *currentUserLocation;
+    NSDictionary *_validTableIDs;
 }
 
 @property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
@@ -48,6 +49,7 @@
 @synthesize inputTableIDAlertView;
 @synthesize taskAfterAskingForTableID;
 @synthesize navigationItem;
+@synthesize jsonForDishesTablesAndCategories;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,7 +62,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated {
-    if (self.isSupposedToShowItems) {
+    if (self.arrivedFromOrderHistory) {
         [self itemsButtonPressed:nil];
     }
     
@@ -80,7 +82,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     // Record the frame of badge
     oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
     
@@ -312,6 +313,21 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void) setCurrentOrder:(Order*) currentOrder {
+    [User sharedInstance].currentOrder = currentOrder;
+}
+
+- (Order *)currentOrder {
+    return [User sharedInstance].currentOrder;
+}
+
+- (void)setPastOrder:(Order *)pastOrder{
+    [User sharedInstance].pastOrder = pastOrder;
+}
+
+- (Order *)pastOrder {
+    return [User sharedInstance].pastOrder;
+}
 
 - (IBAction)settingsButtonPressed:(id)sender {
 
@@ -594,6 +610,7 @@
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
+                self.menuListViewController.jsonForDishesTablesAndCategories = self.jsonForDishesTablesAndCategories;
                 
             } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
                 
@@ -685,11 +702,11 @@
         {
             NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
-            for (NSNumber *validID in [self.validTableIDs allKeys]) {
-                NSLog(@"%@", [self.validTableIDs objectForKey:validID]);
-                if ([[inputCodeFromDiner lowercaseString] isEqualToString: [self.validTableIDs objectForKey:validID]]) {
+            for (NSString *validTableCode in [self.validTableIDs allKeys]) {
+                NSLog(@"%@", validTableCode);
+                if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
                     NSLog(@"The table ID is valid");
-                    self.tableID = [validID integerValue];
+                    self.tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
                     self.taskAfterAskingForTableID();
                     return;
                 }
@@ -746,8 +763,16 @@
     }
 }
 
-- (void)setValidTableRetrieved: (NSDictionary *)vIDs{
-    self.validTableIDs = vIDs;
+- (void)setValidTableIDs: (NSDictionary *)vIDs{
+    [[NSUserDefaults standardUserDefaults] setObject: vIDs forKey: [NSString stringWithFormat:@"%@%d",OUTLET_ID_PREFIX ,self.outlet.outletID]];
+    _validTableIDs = vIDs;
+}
+
+- (NSDictionary *)validTableIDs {
+    if (_validTableIDs){
+        return _validTableIDs;
+    }
+    return [[NSUserDefaults standardUserDefaults] objectForKey: [NSString stringWithFormat:@"%@%d",OUTLET_ID_PREFIX ,self.outlet.outletID]];
 }
 
 - (void)displayModeDidChange{
@@ -756,18 +781,18 @@
 
 // PlaceOrderDelegate:
 - (Order *) addDishWithID: (int) dishID{
-    Dish *dish = [self.menuListViewController getDishWithID:dishID];
-    [self.currentOrder addDish:dish];
-    [self updateItemQuantityBadge];
+    // require: in item page
     
+    [self.currentOrder incrementDishWithId:dishID];
+    [self updateItemQuantityBadge];
     return self.currentOrder;
 }
 
 - (Order *) minusDishWithID: (int) dishID{
-    Dish *dish = [self.menuListViewController getDishWithID:dishID];
-    [self.currentOrder minusDish:dish];
-    [self updateItemQuantityBadge];
+    // require: in item page
     
+    [self.currentOrder decrementDishWithId:dishID];
+    [self updateItemQuantityBadge];
     return self.currentOrder;
 }
 
@@ -924,6 +949,11 @@
 - (void) afterSuccessfulPlacedOrder{
     [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
     self.currentOrder = [[Order alloc] init];
+    
+    User *user = [User sharedInstance];
+    user.pastOrder = self.pastOrder;
+    user.currentOrder = self.currentOrder;
+    
     [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
     
     [self.view makeToast:@"Your order has been sent. Our food is prepared with love, thank you for being patient."

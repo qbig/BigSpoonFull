@@ -18,6 +18,7 @@
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
+@synthesize jsonForDishesTablesAndCategories;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,14 +32,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.displayCategoryID = -1;
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
-    [self loadCategoriesFromServer];
-    [self loadDishesFromServer];
-    
     // By default:
     self.displayMethod = kMethodPhoto;
-    self.displayCategoryID = -1;
     
     // Set the table view to be the same height as the screen:
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -78,13 +76,16 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
-//- (void) viewDidAppear:(BOOL)animated{
-//    [super viewDidAppear:animated];
-//    
-//    [self.categoryButtonsHolderView setContentOffset:CGPointZero animated:NO];
-//}
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
+- (void) viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -138,7 +139,7 @@
             return cell;
         }
     }
-    
+
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
     
     if (self.displayMethod == kMethodList) {
@@ -342,101 +343,142 @@
 
 #pragma mark - Loading Data:
 
-- (void) loadDishesFromServer{
-
-    NSLog(@"Loading dishes from server...");
-    
-    self.dishesArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
-    NSString *appendURL = [NSString stringWithFormat:@"/%d", self.outlet.outletID];
-    
-    NSString *requestURL = [LIST_OUTLETS stringByAppendingString:appendURL];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestURL]];
-    request.HTTPMethod = @"GET";
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    // Create url connection and fire request
-    [NSURLConnection connectionWithRequest:request delegate:self];
+- (NSMutableArray *)parseFromJsonsToDishes:(NSDictionary *)json {
+    NSArray *dishes = (NSArray *)[json objectForKey:@"dishes"];
+    NSMutableArray *resultingDishes = [[NSMutableArray alloc] init];
+    NSMutableDictionary *allCategoriesForCurrentOutlet = [[NSMutableDictionary alloc] init];
+    self.dishCategoryArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *newDish in dishes) {
+        
+        NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
+        NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
+        
+        NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
+        
+        NSArray *categories = (NSArray *)[newDish objectForKey:@"categories"];
+        NSMutableArray *categoryIDs = [[NSMutableArray alloc]init];
+        
+        for (NSDictionary *newCategory in categories) {
+            int integerValue = [[newCategory objectForKey:@"id"] intValue];
+            [categoryIDs addObject: [[NSNumber alloc] initWithInt: integerValue]];
+        }
+        
+        if( [categories count] > 0 && [[[categories objectAtIndex:0] allKeys] count] == 3 && ![[allCategoriesForCurrentOutlet allKeys] containsObject: [[categories objectAtIndex:0] objectForKey:@"name"]]) {
+            NSDictionary *newCategory = [categories objectAtIndex:0];
+            [allCategoriesForCurrentOutlet setObject:newCategory forKey: [newCategory objectForKey:@"name"]];
+            NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
+            NSString *name = [newCategory objectForKey:@"name"];
+            NSString *description = [newCategory objectForKey:@"desc"];
+            
+            DishCategory *newObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
+                                                               name:name
+                                                     andDescription:description];
+            [self.dishCategoryArray addObject:newObj];
+        }
+      
+        
+        int ID = [[newDish objectForKey:@"id"] intValue];
+        NSString* name = [newDish objectForKey:@"name"];
+        int pos = [[newDish objectForKey:@"pos"] intValue];
+        NSString* desc = [newDish objectForKey:@"desc"];
+        
+        NSString* startTime = [newDish objectForKey:@"start_time"];
+        NSString* endTime = [newDish objectForKey:@"end_time"];
+        
+        double price = [[newDish objectForKey:@"price"] floatValue];
+        int quantity = [[newDish objectForKey:@"quantity"] intValue];
+        
+        int rating = [[newDish objectForKey:@"average_rating"] intValue];
+        if (rating == -1) {
+            rating = 0;
+        }
+        
+        Dish *newDishObject = [[Dish alloc]initWithName:name
+                                            Description:desc
+                                                  Price:price
+                                                Ratings:rating
+                                                     ID:ID
+                                             categories:categoryIDs
+                                                 imgURL:imgURL
+                                                    pos:pos
+                                              startTime:startTime
+                                                endTime:endTime
+                                               quantity:quantity
+                               ];
+        if ([categories count] > 0) {
+            [resultingDishes insertObject:newDishObject atIndex:0];
+        } else{
+            [resultingDishes addObject:newDishObject];
+        }
+    }
+    self.dishCategoryArray = [[self.dishCategoryArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        int first = [(DishCategory*)a ID];
+        int second = [(DishCategory*)b ID];
+        return first >= second;
+    }] mutableCopy];
+    return resultingDishes;
 }
 
-- (void) loadCategoriesFromServer{
-    User *user = [User sharedInstance];
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: DISH_CATEGORY_URL]];
-    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    request.HTTPMethod = @"GET";
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        long responseCode = [operation.response statusCode];
-        switch (responseCode) {
-            case 200:
-            case 201:{
-                
-                NSArray *categories = (NSArray*)responseObject;
-                
-                int sumOfCategoryButtonWidths = 0;
-                int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
-                UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
-                                                              green:CATEGORY_BUTTON_COLOR_GREEN
-                                                               blue:CATEGORY_BUTTON_COLOR_BLUE
-                                                              alpha:1];
-                
-                for (NSDictionary *newCategory in categories) {
-                    NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
-                    NSString *name = [newCategory objectForKey:@"name"];
-                    NSString *description = [newCategory objectForKey:@"desc"];
-                    
-                    DishCategory *newObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
-                                                                       name:name
-                                                             andDescription:description];
-                    // Put the object into dishDategoryArray:
-                    [self.dishCategoryArray addObject:newObj];
-                    
-                    // Add one more category button
-                    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                    button.tag = [categoryID integerValue];
-                    button.layer.borderColor = buttonElementColour.CGColor;
-                    button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
-
-                    [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
-                    button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size: CATEGORY_BUTTON_FONT];
-                  
-                    [button addTarget:self
-                               action:@selector(dishCategoryButtonPressed:)
-                     forControlEvents:UIControlEventTouchUpInside];
-                    
-                    // Add spaces before and after the title:
-                    NSString *buttonTitle = [name stringByAppendingString:@"  "];
-                    buttonTitle = [@"  " stringByAppendingString:buttonTitle];
-                    [button setTitle:buttonTitle forState:UIControlStateNormal];
-                    
-                    [self.categoryButtonsHolderView addSubview:button];
-
-                    int buttonWidth = [buttonTitle length] * AVERAGE_PIXEL_PER_CHAR;
-                    button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
-                    // minus border width so that they will overlap at the border:
-                    sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;
-                    
-                    [self.categoryButtonsArray addObject:button];
-                }
-                
-                self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths + CATEGORY_BUTTON_SCROLL_WIDTH, buttonHeight);
-                [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
-                
-            }
-                break;
-            case 403:
-            default:{
-                [self displayErrorInfo: @"Please check your network"];
-            }
-        }
-        //NSLog(@"JSON: %@", responseObject);
+- (NSMutableDictionary *)parseFromJsonToValidTableIDs:(NSDictionary *)json {
+    // Retrieve valid table IDs:
+    NSMutableDictionary *validTableIDs = [[NSMutableDictionary alloc] init];
+    NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
+    for (NSDictionary *newTable in tables) {
+        NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
+        NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
+        [validTableIDs setObject:tableID  forKey:tableCode];
     }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          [self displayErrorInfo:operation.responseString];
-                                      }];
-    [operation start];
+    return validTableIDs;
+}
+
+- (void)handleJsonWithDishesAndTableInfos: (NSDictionary *)json{
+    self.dishesArray = [self parseFromJsonsToDishes:json];
+    [self renderCategoryButtons];
+    [self.tableView reloadData];
+    
+    NSMutableDictionary *validTableIDs = [self parseFromJsonToValidTableIDs:json];
+    [self.delegate setValidTableIDs:validTableIDs];
+}
+
+- (void)renderCategoryButtons {
+    int sumOfCategoryButtonWidths = 0;
+    int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
+    UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+                                                   green:CATEGORY_BUTTON_COLOR_GREEN
+                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
+                                                   alpha:1];
+    
+    for (DishCategory *newCategory in self.dishCategoryArray) {
+        // Add one more category button
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.tag = (NSInteger) newCategory.ID;
+        button.layer.borderColor = buttonElementColour.CGColor;
+        button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
+        
+        [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size: CATEGORY_BUTTON_FONT];
+        
+        [button addTarget:self
+                   action:@selector(dishCategoryButtonPressed:)
+         forControlEvents:UIControlEventTouchUpInside];
+        
+        // Add spaces before and after the title:
+        NSString *buttonTitle = [newCategory.name stringByAppendingString:@"  "];
+        buttonTitle = [@"  " stringByAppendingString:buttonTitle];
+        [button setTitle:buttonTitle forState:UIControlStateNormal];
+        
+        [self.categoryButtonsHolderView addSubview:button];
+        
+        int buttonWidth = [buttonTitle length] * AVERAGE_PIXEL_PER_CHAR;
+        button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
+        // minus border width so that they will overlap at the border:
+        sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;
+        
+        [self.categoryButtonsArray addObject:button];
+    }
+    
+    self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths + CATEGORY_BUTTON_SCROLL_WIDTH, buttonHeight);
+    [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
 }
 
 - (void) displayErrorInfo: (NSString *) info{
@@ -468,126 +510,7 @@
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
-    
-    statusCode = [response statusCode];
-    
-    //NSDictionary* headers = [response allHeaderFields];
-    
-    NSLog(@"response code: %d",  statusCode);
-    
-    _responseData = [[NSMutableData alloc] init];
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [_responseData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    //parse out the json data
-    
-    NSError* error;
-    NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
-                                                                         options:kNilOptions
-                                                                           error:&error];
-
-    switch (statusCode) {
-            
-        // 200 Okay
-        case 200:{
-            
-            NSArray *dishes = (NSArray *)[json objectForKey:@"dishes"];
-            
-            for (NSDictionary *newDish in dishes) {
-                
-                NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
-                NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
-               
-                NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
-                
-                NSArray *categories = (NSArray *)[newDish objectForKey:@"categories"];
-                NSMutableArray *categoryIDs = [[NSMutableArray alloc]init];
-                
-                for (NSDictionary *newCategory in categories) {
-                    int integerValue = [[newCategory objectForKey:@"id"] intValue];
-                    [categoryIDs addObject: [[NSNumber alloc] initWithInt: integerValue]];
-                }
-                
-                int ID = [[newDish objectForKey:@"id"] intValue];
-                NSString* name = [newDish objectForKey:@"name"];
-                int pos = [[newDish objectForKey:@"pos"] intValue];
-                NSString* desc = [newDish objectForKey:@"desc"];
-                
-                NSString* startTime = [newDish objectForKey:@"start_time"];
-                NSString* endTime = [newDish objectForKey:@"end_time"];
-                
-                double price = [[newDish objectForKey:@"price"] floatValue];
-                int quantity = [[newDish objectForKey:@"quantity"] intValue];
-                
-                int rating = [[newDish objectForKey:@"average_rating"] intValue];
-                if (rating == -1) {
-                    rating = 0;
-                }
-                
-                Dish *newDishObject = [[Dish alloc]initWithName:name
-                                                    Description:desc
-                                                          Price:price
-                                                        Ratings:rating
-                                                             ID:ID
-                                                    categories:categoryIDs
-                                                         imgURL:imgURL
-                                                            pos:pos
-                                                      startTime:startTime
-                                                        endTime:endTime
-                                                       quantity:quantity
-                                       ];
-                if ([categories count] > 0) {
-                    [self.dishesArray insertObject:newDishObject atIndex:0];
-                } else{
-                    [self.dishesArray addObject:newDishObject];
-                }
-            }
-            
-            [self.tableView reloadData];
-            
-            // Retrieve valid table IDs:
-            NSMutableDictionary *validTableIDs = [[NSMutableDictionary alloc] init];
-            NSArray *tables = (NSArray *)[json objectForKey:@"tables"];
-            for (NSDictionary *newTable in tables) {
-                NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
-                NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
-                [validTableIDs setObject:tableCode  forKey:tableID];
-            }
-            
-            [self.delegate setValidTableRetrieved:validTableIDs];
-            
-            break;
-        }
-            
-        default:{
-            NSLog(@"%@", json);
-            id firstKey = [[json allKeys] firstObject];
-            NSLog(@"Here 1");
-            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
-            NSLog(@"Here 2");
-            NSLog(@"Error occurred: %@", errorMessage);
-            
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [message show];
-            break;
-        }
-    }
-}
+#pragma mark Time parsing Methods
 
 - (NSDate *)dateByNeutralizingDateComponentsOfDate:(NSDate *)originalDate {
     NSCalendar *gregorian = [[NSCalendar alloc]

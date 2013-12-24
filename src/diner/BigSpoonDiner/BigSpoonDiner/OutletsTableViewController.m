@@ -13,6 +13,8 @@
     int statusCode;
     CLLocationManager* locationManager;
     NSString* messageFromMenuPage;
+    NSDictionary *jsonForMenuView;
+    UIActivityIndicatorView *indicator;
 }
 
 @end
@@ -75,6 +77,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initActivityIndicator];
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
     if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         [self showIntroWithCustomView];
@@ -93,13 +96,25 @@
     
     
     [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
-    
+    self.outletsTableView.allowsSelection = YES;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+
+- (void)initActivityIndicator
+{
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+}
+
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -118,6 +133,15 @@
     }
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -381,12 +405,14 @@
     Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     
     // Deselect the row. Otherwise it will remain being selected.
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (outlet.isActive) {
         NSLog(@"Is Active haha!!");
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
-        [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
+        [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
+        [User sharedInstance].currentOutlet = outlet;
+        [indicator startAnimating];
     } else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                             message:@"The restaurant is coming soon"
@@ -397,6 +423,12 @@
     }
 }
 
+- (void) moveToMenuView: (NSNotification*) notif{
+    [indicator stopAnimating];
+    jsonForMenuView = (NSDictionary* )[notif object];
+    [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
+}
+
 // In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -404,12 +436,11 @@
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
-        
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
         Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
         menuViewController.outlet = outlet;
         menuViewController.delegate = self;
-        
+        menuViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
         if (outlet.outletID == self.outletIDOfPreviousSelection) {
             
             NSLog(@"In outlets list: going back to a previous page with selected items");

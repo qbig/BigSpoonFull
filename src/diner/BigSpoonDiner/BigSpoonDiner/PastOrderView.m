@@ -55,7 +55,7 @@
     UIViewController * viewController = [self firstAvailableUIViewController];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PastOrderDetailViewController *pastOrderDetailViewController = [storyboard instantiateViewControllerWithIdentifier:@"Order History"];
-    pastOrderDetailViewController.restaurantID = self.restaurantID;
+    pastOrderDetailViewController.selectedPastOrderOutletId = self.pastOrderOutletId;
     pastOrderDetailViewController.restaurantName = self.restaurantNameLabel.text;
     pastOrderDetailViewController.orderTime = self.orderTime.text;
     pastOrderDetailViewController.meals = [NSArray arrayWithArray:self.meals];

@@ -35,7 +35,7 @@
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
-
+@property (nonatomic, strong) NSDictionary *jsonForDishesTablesAndCategories;
 // Buttons:
 
 @property (strong, nonatomic) IBOutlet UIButton *viewModeButton;
@@ -108,6 +108,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *itemQuantityLabelBackgroundImageView;
 
 //For the case when user wants to place an order from order history
-@property BOOL isSupposedToShowItems;
+@property BOOL arrivedFromOrderHistory;
 
 @end

@@ -38,5 +38,7 @@
 - (void) mergeWithAnotherOrder: (Order *)newOrder;
 
 - (int) getNumberOfKindsOfDishes;
+- (void) incrementDishWithId: (int)dishId;
+- (void) decrementDishWithId: (int)dishId;
 
 @end
