@@ -38,6 +38,16 @@
     self.initialY = -1000;
 }
 
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    // Show success message of the request of bill
+    [self.view makeToast:@"The waiter will be right with you."
+                duration:TOAST_VIEW_DURATION
+                position:@"center"
+                   title:@"Request for bill is submitted"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -254,11 +264,7 @@
 }
 
 - (void) displaySuccessInfoAfterSubmittingRating{
-    
-    [self.view.superview    makeToast:@"As a valued customer, your feedback is important to us and we will take it into consideration."
-                           duration:TOAST_VIEW_DURATION
-                           position:@"bottom"
-                              title:@"Thank you"];
+    [self.delegate ratingAndFeedbackDidSubmitted];
 }
 
 - (void) performFeedbackSubmission{
@@ -335,7 +341,7 @@
 
 - (IBAction)ratingCancelButtonPressed:(id)sender{
     
-    [self fadeOut];
+    [self.delegate modalSegueDidExit];
     [TestFlight passCheckpoint:@"CheckPoint:User Cancelled Rating popup"];
 }
 
@@ -371,13 +377,6 @@
             [self setViewMovedUp:NO];
         }
     }
-}
-
-- (void) fadeOut{
-    [self.delegate modalSegueDidExit];
-    // Perform the fade-out animation first. Then remove the view.
-    //[BigSpoonAnimationController animateTransitionOfUIView:self.view willShow:NO];
-    //[self performSelector:@selector(removeSelfFromParent) withObject:nil afterDelay:LONGEST_NETWORK_WAITING_TIME];
 }
 
 - (void) removeSelfFromParent{

@@ -501,34 +501,11 @@
 }
 
 - (void) afterSuccessfulRequestBill{
-    
-    // Show success message
-    [self.view makeToast:@"The waiter will be right with you."
-                duration:TOAST_VIEW_DURATION
-                position:@"bottom"
-                   title:nil];
-    
+
     // Load and show the ratingAndFeedbackViewController:
     [self performSegueWithIdentifier:@"SegueFromMenuToRating" sender:self];
     
-    // The following old code is used in earlier version, when the rating view is part of the view of menuViewController.
-//    // Initialize the controller and the view
-//    self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
-//    self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
-//    
-//    // Make the frame appear in the center of the screen:
-//    CGRect frame = self.ratingAndFeedbackViewController.view.frame;
-//    [self.ratingsAndFeedbackView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width
-//                                                                         andHeight:frame.size.height]];
-//    
-//    // Load data
-//    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
-//    
-//    // Add subview and make it appear
-//    [self.view addSubview: self.ratingsAndFeedbackView];
-//    [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
-    
-    // After everything, set the order items to null
+    // Set the order items to null
     self.currentOrder = [[Order alloc] init];
     self.pastOrder = [[Order alloc] init];
     self.tableID = -1;
@@ -664,6 +641,13 @@
 
 - (void)modalSegueDidExit{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)ratingAndFeedbackDidSubmitted{
+    [self.view    makeToast:@"As a valued customer, your feedback is important to us and we will take it into consideration."
+                             duration:TOAST_VIEW_DURATION
+                             position:@"bottom"
+                                title:@"Thank you"];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

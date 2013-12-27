@@ -23,10 +23,11 @@
 #import "CustomIOS7AlertView.h"
 #import "OrderItemView.h"
 #import "ModalSegueDelegate.h"
+#import "SubmitRatingAndFeedbackSuccessDelegate.h"
 
 @class MenuViewController;
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate, ModalSegueDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate, ModalSegueDelegate, SubmitRatingAndFeedbackSuccessDelegate>
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;

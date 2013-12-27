@@ -298,6 +298,7 @@
 		49BF7FC8183B11C500D286A6 /* UIViewController+KeyboardEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+KeyboardEvents.h"; sourceTree = "<group>"; };
 		49BF7FC9183B11C500D286A6 /* UIViewController+KeyboardEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+KeyboardEvents.m"; sourceTree = "<group>"; };
 		49BF7FCB183B1CA500D286A6 /* logout_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logout_button.png; sourceTree = "<group>"; };
+		49C02545186D30DB00C581BA /* SubmitRatingAndFeedbackSuccessDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitRatingAndFeedbackSuccessDelegate.h; sourceTree = "<group>"; };
 		49CAFC51180BB9F10058C900 /* X-Large_278x44_glowy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X-Large_278x44_glowy.png"; sourceTree = "<group>"; };
 		49CB796B180C631300F530C5 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		49CB796C180C631300F530C5 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
@@ -508,6 +509,7 @@
 			children = (
 				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
 				4948C6CD18607663003EF882 /* ModalSegueDelegate.h */,
+				49C02545186D30DB00C581BA /* SubmitRatingAndFeedbackSuccessDelegate.h */,
 			);
 			name = DelegateProtocol;
 			sourceTree = "<group>";
