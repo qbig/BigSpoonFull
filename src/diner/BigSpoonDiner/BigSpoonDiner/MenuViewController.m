@@ -61,24 +61,6 @@
     return self;
 }
 
--(void) viewWillAppear:(BOOL)animated {
-    if (self.arrivedFromOrderHistory) {
-        [self itemsButtonPressed:nil];
-    }
-    
-    [super viewWillAppear:animated];
-    
-    
-    // The toolbar that contains the bar button items
-    // The toolbar is hidden (set in storyboard, x = -100)
-    // Its bar button items is inserted to the navigationController
-    // The buttons are hidden by default. Because don't wanna show their moving trace.
-    // They will shown in viewDidAppear:
-    self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -111,27 +93,33 @@
 
 }
 
-- (void) loadControlPanels{
-    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RequestWaterView" owner:self options:nil];
-    self.requestWaterView = [subviewArray objectAtIndex:0];
-    [self.view addSubview:self.requestWaterView];
-    CGRect frame = self.requestWaterView.frame;
-    [self.requestWaterView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width andHeight:frame.size.height]];
-    
-    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
-}
 
+-(void) viewWillAppear:(BOOL)animated {
+    
+    NSLog(@"View will appear lah");
+    if (self.arrivedFromOrderHistory) {
+        [self itemsButtonPressed:nil];
+    }
+    
+    [super viewWillAppear:animated];
+    
+    // The toolbar that contains the bar button items
+    // The toolbar is hidden (set in storyboard, x = -100)
+    // Its bar button items is inserted to the navigationController
+    // The buttons are hidden by default. Because don't wanna show their moving trace.
+    // They will shown in viewDidAppear:
+    [self.settingsButton setHidden:YES];
+    [self.viewModeButton setHidden:YES];
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+    
+}
 
 -(void) viewDidAppear:(BOOL)animated {
     
     NSLog(@"View Did Appear asdfasdfa");
     
     [super viewDidAppear:animated];
-    
-    // Put back the button
-    self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    
     
     if (self.childViewControllers.count < 1) {
         [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
@@ -142,11 +130,14 @@
     if ([self.destinationIdentifier isEqualToString:@"SegueFromMenuToItems"]) {
         [self.viewModeButton setHidden:YES];
         [self.settingsButton setHidden:NO];
+        
+        // Put back the "gear" button. Otherwise the "gear" button will be located at the top-left corner.
+        [self changeBackButtonTo:@"back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
+
     } else{
         [self.viewModeButton setHidden:NO];
         [self.settingsButton setHidden:NO];
     }
-
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -172,11 +163,21 @@
                                                OutletID:self.outlet.outletID
                                              andTableID:self.tableID
                                              andMessage:message];
-
+            
         }
     }
     
     [super viewWillDisappear:animated];
+}
+
+- (void) loadControlPanels{
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RequestWaterView" owner:self options:nil];
+    self.requestWaterView = [subviewArray objectAtIndex:0];
+    [self.view addSubview:self.requestWaterView];
+    CGRect frame = self.requestWaterView.frame;
+    [self.requestWaterView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width andHeight:frame.size.height]];
+    
+    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -305,14 +306,14 @@
         [self changeViewModeButtonIconTo:@"photo_icon.png"];
     }
     
-    [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(goToHomePage)];
+    [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(popTopViewControllerInNavigationStack)];
     
     [self.viewModeButton setHidden:NO];
     
     [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
 }
 
-- (void) goToHomePage{
+- (void) popTopViewControllerInNavigationStack{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
