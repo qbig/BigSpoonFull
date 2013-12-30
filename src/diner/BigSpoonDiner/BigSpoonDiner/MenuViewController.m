@@ -61,24 +61,6 @@
     return self;
 }
 
--(void) viewWillAppear:(BOOL)animated {
-    if (self.arrivedFromOrderHistory) {
-        [self itemsButtonPressed:nil];
-    }
-    
-    [super viewWillAppear:animated];
-    
-    
-    // The toolbar that contains the bar button items
-    // The toolbar is hidden (set in storyboard, x = -100)
-    // Its bar button items is inserted to the navigationController
-    // The buttons are hidden by default. Because don't wanna show their moving trace.
-    // They will shown in viewDidAppear:
-    self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -111,27 +93,33 @@
 
 }
 
-- (void) loadControlPanels{
-    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RequestWaterView" owner:self options:nil];
-    self.requestWaterView = [subviewArray objectAtIndex:0];
-    [self.view addSubview:self.requestWaterView];
-    CGRect frame = self.requestWaterView.frame;
-    [self.requestWaterView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width andHeight:frame.size.height]];
-    
-    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
-}
 
+-(void) viewWillAppear:(BOOL)animated {
+    
+    NSLog(@"View will appear lah");
+    if (self.arrivedFromOrderHistory) {
+        [self itemsButtonPressed:nil];
+    }
+    
+    [super viewWillAppear:animated];
+    
+    // The toolbar that contains the bar button items
+    // The toolbar is hidden (set in storyboard, x = -100)
+    // Its bar button items is inserted to the navigationController
+    // The buttons are hidden by default. Because don't wanna show their moving trace.
+    // They will shown in viewDidAppear:
+    [self.settingsButton setHidden:YES];
+    [self.viewModeButton setHidden:YES];
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+    
+}
 
 -(void) viewDidAppear:(BOOL)animated {
     
     NSLog(@"View Did Appear asdfasdfa");
     
     [super viewDidAppear:animated];
-    
-    // Put back the button
-    self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    
     
     if (self.childViewControllers.count < 1) {
         [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
@@ -142,11 +130,14 @@
     if ([self.destinationIdentifier isEqualToString:@"SegueFromMenuToItems"]) {
         [self.viewModeButton setHidden:YES];
         [self.settingsButton setHidden:NO];
+        
+        // Put back the "gear" button. Otherwise the "gear" button will be located at the top-left corner.
+        [self changeBackButtonTo:@"back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
+
     } else{
         [self.viewModeButton setHidden:NO];
         [self.settingsButton setHidden:NO];
     }
-
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -172,11 +163,21 @@
                                                OutletID:self.outlet.outletID
                                              andTableID:self.tableID
                                              andMessage:message];
-
+            
         }
     }
     
     [super viewWillDisappear:animated];
+}
+
+- (void) loadControlPanels{
+    NSArray *subviewArray = [[NSBundle mainBundle] loadNibNamed:@"RequestWaterView" owner:self options:nil];
+    self.requestWaterView = [subviewArray objectAtIndex:0];
+    [self.view addSubview:self.requestWaterView];
+    CGRect frame = self.requestWaterView.frame;
+    [self.requestWaterView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width andHeight:frame.size.height]];
+    
+    [BigSpoonAnimationController animateTransitionOfUIView:self.requestWaterView willShow:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -305,14 +306,14 @@
         [self changeViewModeButtonIconTo:@"photo_icon.png"];
     }
     
-    [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(goToHomePage)];
+    [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(popTopViewControllerInNavigationStack)];
     
     [self.viewModeButton setHidden:NO];
     
     [self performSegueWithIdentifier:@"SegueFromMenuToList" sender:self];
 }
 
-- (void) goToHomePage{
+- (void) popTopViewControllerInNavigationStack{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -500,34 +501,11 @@
 }
 
 - (void) afterSuccessfulRequestBill{
-    
-    // Show success message
-    [self.view makeToast:@"The waiter will be right with you."
-                duration:TOAST_VIEW_DURATION
-                position:@"bottom"
-                   title:nil];
-    
+
     // Load and show the ratingAndFeedbackViewController:
     [self performSegueWithIdentifier:@"SegueFromMenuToRating" sender:self];
     
-    // The following old code is used in earlier version, when the rating view is part of the view of menuViewController.
-//    // Initialize the controller and the view
-//    self.ratingAndFeedbackViewController = [[RatingAndFeedbackViewController alloc] init];
-//    self.ratingsAndFeedbackView = self.ratingAndFeedbackViewController.view;
-//    
-//    // Make the frame appear in the center of the screen:
-//    CGRect frame = self.ratingAndFeedbackViewController.view.frame;
-//    [self.ratingsAndFeedbackView setFrame: [self getFrameAtCenterOfScreenWithWidth:frame.size.width
-//                                                                         andHeight:frame.size.height]];
-//    
-//    // Load data
-//    [self.ratingAndFeedbackViewController reloadDataWithOrder: self.pastOrder andOutletID:self.outlet.outletID];
-//    
-//    // Add subview and make it appear
-//    [self.view addSubview: self.ratingsAndFeedbackView];
-//    [BigSpoonAnimationController animateTransitionOfUIView:self.ratingsAndFeedbackView willShow:YES];
-    
-    // After everything, set the order items to null
+    // Set the order items to null
     self.currentOrder = [[Order alloc] init];
     self.pastOrder = [[Order alloc] init];
     self.tableID = -1;
@@ -663,6 +641,13 @@
 
 - (void)modalSegueDidExit{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)ratingAndFeedbackDidSubmitted{
+    [self.view    makeToast:@"As a valued customer, your feedback is important to us and we will take it into consideration."
+                             duration:TOAST_VIEW_DURATION
+                             position:@"bottom"
+                                title:@"Thank you"];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
