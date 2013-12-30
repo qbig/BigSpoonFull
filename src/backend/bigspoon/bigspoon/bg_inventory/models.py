@@ -302,13 +302,6 @@ class Outlet(models.Model):
         related_name='outlets',
     )
 
-    categories = models.ManyToManyField(
-        Category,
-        blank=True,
-        help_text=_('categories of food offered'),
-        related_name='from_outlet',
-    )
-
     name = models.CharField(
         _('name'),
         max_length=255,
@@ -366,6 +359,13 @@ class Outlet(models.Model):
         decimal_places=2,
         default="0.10",
         help_text=_('service charge rate'),
+    )
+
+    categories = models.ManyToManyField(
+        Category,
+        blank=True,
+        help_text=_('categories of food offered'),
+        related_name='from_outlet',
     )
 
     def __unicode__(self):
