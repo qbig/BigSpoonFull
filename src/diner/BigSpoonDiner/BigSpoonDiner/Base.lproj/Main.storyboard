@@ -733,11 +733,11 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="NewOrderCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewOrderCell" rowHeight="56" id="DCr-pl-LLM" customClass="NewOrderCell">
-                                                <rect key="frame" x="0.0" y="22" width="320" height="56"/>
+                                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="NewOrderCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewOrderCell" rowHeight="86" id="DCr-pl-LLM" customClass="NewOrderCell">
+                                                <rect key="frame" x="0.0" y="22" width="320" height="86"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DCr-pl-LLM" id="HHE-mv-gOe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t6q-QS-67e">
@@ -782,6 +782,12 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add notes (e.g. no peanuts)..." minimumFontSize="17" id="CJ7-4b-00v">
+                                                            <rect key="frame" x="14" y="45" width="286" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                                 <connections>

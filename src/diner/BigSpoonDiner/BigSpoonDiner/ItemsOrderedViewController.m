@@ -72,7 +72,7 @@
 }
 
 -(void)dismissKeyboard {
-    [self.addNotesTextField resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 #pragma mark - Table view data source
