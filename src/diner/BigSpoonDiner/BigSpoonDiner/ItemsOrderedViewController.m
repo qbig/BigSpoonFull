@@ -19,7 +19,7 @@
 @implementation ItemsOrderedViewController
 @synthesize addNotesButton;
 @synthesize isAddingNotes;
-
+@synthesize placeOrderButton;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -203,6 +203,7 @@
 
 #pragma mark - Button event listeners
 - (IBAction)addNotesButtonPressed:(id)sender {
+    NSLog(@"Add notes btn pressed");
     self.isAddingNotes = !self.isAddingNotes;
     [self.currentOrderTableView beginUpdates];
     [self.currentOrderTableView endUpdates];
@@ -363,53 +364,32 @@
     int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
     CGRect currentOrderFrame = self.currentOrderTableView.frame;
-//    [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
-//                                                     currentOrderFrame.origin.y,
-//                                                     currentOrderFrame.size.width,
-//                                                     currentOrderTableHeight)];
+    [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
+                                                     currentOrderFrame.origin.y,
+                                                     currentOrderFrame.size.width,
+                                                     currentOrderTableHeight)];
     
     CGRect pasrOrderFrame = self.pastOrderTableView.frame;
-//    [self.pastOrderTableView setFrame:CGRectMake(pasrOrderFrame.origin.x,
-//                                                 pasrOrderFrame.origin.y,
-//                                                 pasrOrderFrame.size.width,
-//                                                 pastOrderTableHeight)];
+    [self.pastOrderTableView setFrame:CGRectMake(pasrOrderFrame.origin.x,
+                                                 pasrOrderFrame.origin.y,
+                                                 pasrOrderFrame.size.width,
+                                                 pastOrderTableHeight)];
     
     CGRect viewAfterframe = self.viewContainerForAfterCurrentOrderTable.frame;
-//    [self.viewContainerForAfterCurrentOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
-//                                                                     currentOrderFrame.origin.y + currentOrderTableHeight,
-//                                                                     viewAfterframe.size.width,
-//                                                                     viewAfterframe.size.height)];
-    
-    viewAfterframe = self.viewContainerForAfterPastOrderTable.frame;
-//    [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
-//                                                                  pasrOrderFrame.origin.y + pastOrderTableHeight,
-//                                                                  viewAfterframe.size.width,
-//                                                                  viewAfterframe.size.height)];
-//    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + currentOrderTableHeight + pastOrderTableHeight);
-    
     [UIView animateWithDuration:0.25 animations:^{
-        [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,
-                                                         currentOrderFrame.origin.y,
-                                                         currentOrderFrame.size.width,
-                                                         currentOrderTableHeight)];
-        
-        [self.pastOrderTableView setFrame:CGRectMake(pasrOrderFrame.origin.x,
-                                                     pasrOrderFrame.origin.y,
-                                                     pasrOrderFrame.size.width,
-                                                     pastOrderTableHeight)];
-        
         [self.viewContainerForAfterCurrentOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
                                                                          currentOrderFrame.origin.y + currentOrderTableHeight,
                                                                          viewAfterframe.size.width,
                                                                          viewAfterframe.size.height)];
-        [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
-                                                                      pasrOrderFrame.origin.y + pastOrderTableHeight,
-                                                                      viewAfterframe.size.width,
-                                                                      viewAfterframe.size.height)];
-        self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + currentOrderTableHeight + pastOrderTableHeight);
-
-
     }];
+    
+    viewAfterframe = self.viewContainerForAfterPastOrderTable.frame;
+    [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+                                                                  pasrOrderFrame.origin.y + pastOrderTableHeight,
+                                                                  viewAfterframe.size.width,
+                                                                  viewAfterframe.size.height)];
+    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + currentOrderTableHeight + pastOrderTableHeight);
+    
 }
 
 

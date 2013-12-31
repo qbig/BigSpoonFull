@@ -39,12 +39,13 @@
 
 - (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
-
+- (IBAction)placeOrderButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *addNotesButton;
 @property (strong, nonatomic) IBOutlet UITableView *currentOrderTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pastOrderTableView;
+@property (strong, nonatomic) IBOutlet __block UIButton *placeOrderButton;
 
-- (IBAction)placeOrderButtonPressed:(id)sender;
+
 
 - (void) setGSTRate: (double) gstRate andServiceChargeRate: (double) serviceChargeRate;
 - (void) reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
