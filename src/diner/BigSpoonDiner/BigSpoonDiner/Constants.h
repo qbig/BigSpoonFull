@@ -38,6 +38,7 @@ extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
 extern int const CATEGORY_BUTTON_SCROLL_WIDTH;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
+extern int const ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED;
 extern int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;

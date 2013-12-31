@@ -40,6 +40,7 @@
 - (IBAction)plusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event;
 
+@property (strong, nonatomic) IBOutlet UIButton *addNotesButton;
 @property (strong, nonatomic) IBOutlet UITableView *currentOrderTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pastOrderTableView;
 
