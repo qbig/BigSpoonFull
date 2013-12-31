@@ -360,7 +360,20 @@
  * The table height is dynamic.
  */
 - (void) updateTablesAndScrollviewHeight{
-    int currentOrderTableHeight = (self.isAddingNotes ? ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED : ITEM_LIST_TABLE_ROW_HEIGHT )* [self.currentOrder getNumberOfKindsOfDishes];
+    int currentOrderTableHeight, oldOrderTableHeight;
+    int numOfCurrentOrder = [self.currentOrder getNumberOfKindsOfDishes];
+    if (self.isAddingNotes){
+        currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED * numOfCurrentOrder;
+        oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * numOfCurrentOrder;
+    } else {
+        currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * numOfCurrentOrder;
+        oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED * numOfCurrentOrder;
+    }
+    
+    // set view point
+    CGPoint oldContentOffset = self.scrollView.contentOffset;
+    [self.scrollView setContentOffset:CGPointMake(0, oldContentOffset.y + (currentOrderTableHeight - oldOrderTableHeight))  animated:YES];
+    
     int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
     CGRect currentOrderFrame = self.currentOrderTableView.frame;
