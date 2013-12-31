@@ -227,6 +227,9 @@
         {
             [self setViewMovedUp:YES];
         }
+    } else {
+        NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        [self.scrollView setContentOffset:CGPointMake(0, indexPath.row * ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED)  animated:YES];
     }
 }
 
