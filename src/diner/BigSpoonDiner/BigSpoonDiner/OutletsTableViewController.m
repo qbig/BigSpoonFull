@@ -406,7 +406,9 @@
     
     // Deselect the row. Otherwise it will remain being selected.
     //[tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+    if ([indicator isAnimating]){
+        return;
+    }
     if (outlet.isActive) {
         NSLog(@"Is Active haha!!");
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
