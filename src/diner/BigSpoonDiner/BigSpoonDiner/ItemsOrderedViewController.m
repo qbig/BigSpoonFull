@@ -53,7 +53,7 @@
     [super viewWillAppear:animated];
        
     [self updatePriceLabels];
-    [self updateTablesAndScrollviewHeight];
+    [self updateTablesAndScrollviewHeight: NO];
     
     return;
 }
@@ -207,7 +207,7 @@
     self.isAddingNotes = !self.isAddingNotes;
     [self.currentOrderTableView beginUpdates];
     [self.currentOrderTableView endUpdates];
-    [self updateTablesAndScrollviewHeight];
+    [self updateTablesAndScrollviewHeight: YES];
 }
 
 - (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
@@ -311,7 +311,7 @@
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
-    [self updateTablesAndScrollviewHeight];
+    [self updateTablesAndScrollviewHeight : NO];
 }
 
 - (void) updatePriceLabels{
@@ -359,7 +359,7 @@
 /*
  * The table height is dynamic.
  */
-- (void) updateTablesAndScrollviewHeight{
+- (void) updateTablesAndScrollviewHeight: (BOOL) shouldUpdateViewPoint{
     int currentOrderTableHeight, oldOrderTableHeight;
     int numOfCurrentOrder = [self.currentOrder getNumberOfKindsOfDishes];
     if (self.isAddingNotes){
@@ -370,9 +370,11 @@
         oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED * numOfCurrentOrder;
     }
     
-    // set view point
-    CGPoint oldContentOffset = self.scrollView.contentOffset;
-    [self.scrollView setContentOffset:CGPointMake(0, oldContentOffset.y + (currentOrderTableHeight - oldOrderTableHeight))  animated:YES];
+    if (shouldUpdateViewPoint) {
+        // set view point
+        CGPoint oldContentOffset = self.scrollView.contentOffset;
+        [self.scrollView setContentOffset:CGPointMake(0, oldContentOffset.y + (currentOrderTableHeight - oldOrderTableHeight))  animated:YES];
+    }
     
     int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
     
