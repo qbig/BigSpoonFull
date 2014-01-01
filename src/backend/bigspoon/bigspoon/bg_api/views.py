@@ -245,10 +245,17 @@ class CreateMeal(generics.CreateAPIView):
             meal.note += "\r\n" + note
         meal.save()
 
+        if ('notes' in request.DATA):
+            notes = request.DATA['notes']
+
         for dish_pair in dishes:
-            dish = Dish.objects.get(id=int(dish_pair.keys()[0]))
+            dish_id = dish_pair.keys()[0]
+            dish = Dish.objects.get(id=int(dish_id))
             quantity = dish_pair.values()[0]
-            Order.objects.create(meal=meal, dish=dish, quantity=quantity)
+            if notes and dish_id in notes:
+                Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(dish_id))   
+            else : 
+                Order.objects.create(meal=meal, dish=dish, quantity=quantity)
             dish.quantity -= quantity
             dish.save()
 

@@ -86,9 +86,9 @@
 
 - (void) addNote: (NSString*) note forDish: (Dish*) dish {
     if ([note length] > 0) {
-        [self.notes setObject:note forKey:dish.name];
+        [self.notes setObject:note forKey:[NSString stringWithFormat:@"%d", dish.ID]];
     } else {
-        [self.notes removeObjectForKey:dish.name];
+        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
     }
     
 }

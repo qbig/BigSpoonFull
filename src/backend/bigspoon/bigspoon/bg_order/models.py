@@ -209,6 +209,11 @@ class Order(models.Model):
     is_finished = models.BooleanField(
         default=False,
     )
+    note = models.TextField(
+        _('note'),
+        blank=True,
+        help_text=_('order specific note')
+    )
 
     def get_order_spending(self):
         return self.dish.price * self.quantity

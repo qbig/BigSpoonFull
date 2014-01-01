@@ -901,6 +901,10 @@
     if (notesWhenPlacingOrder != nil && ![notesWhenPlacingOrder isEqualToString:@""] ) {
         [parameters setObject:notesWhenPlacingOrder forKey:@"note"];
     }
+    
+    if (self.currentOrder.notes != nil && [self.currentOrder.notes count] > 0) {
+        [parameters setObject:self.currentOrder.notes forKey:@"notes"];
+    }
 
     User *user = [User sharedInstance];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: ORDER_URL]];
