@@ -784,6 +784,11 @@
     return self.currentOrder;
 }
 
+- (Order *) addNote: (NSString*)note toDish: (Dish *)dish {
+    [self.currentOrder addNote:note forDish:dish];
+    return self.currentOrder;
+}
+
 - (void) placeOrderWithNotes:(NSString *)notes{
     
     // If the user hasn't ordered anything:

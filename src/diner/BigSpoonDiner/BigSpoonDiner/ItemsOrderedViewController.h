@@ -23,6 +23,7 @@
 
 - (Order *) addDishWithID: (int) dishID;
 - (Order *) minusDishWithID: (int) dishID;
+- (Order *) addNote: (NSString*)note toDish: (Dish *)dish;
 - (void) placeOrderWithNotes: (NSString*)notes;
 - (Order *) getCurrentOrder;
 - (Order *) getPastOrder;

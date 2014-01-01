@@ -247,6 +247,10 @@
         {
             [self setViewMovedUp:NO];
         }
+    } else {
+        NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
+        self.currentOrder = [self.delegate addNote:sender.text toDish:dish];
     }
 }
 
@@ -288,12 +292,13 @@
     self.currentOrder = [self.delegate minusDishWithID: dishID];
     cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
     
-    [self updatePriceLabels];
+    [self update    PriceLabels];
 
 }
 - (IBAction)placeOrderButtonPressed:(id)sender {
     NSLog(@"%@", [self.navigationController viewControllers]);
-    
+    [self dismissKeyboard];
+    NSLog(@"%@", [self.delegate getCurrentOrder].notes);
     [self.delegate placeOrderWithNotes:self.addNotesTextField.text];
     
     // Erase the existing text.
