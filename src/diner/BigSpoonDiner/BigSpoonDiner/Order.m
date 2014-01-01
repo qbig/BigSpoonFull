@@ -85,7 +85,12 @@
 }
 
 - (void) addNote: (NSString*) note forDish: (Dish*) dish {
-    [self.notes setObject:note forKey:dish.name];
+    if ([note length] > 0) {
+        [self.notes setObject:note forKey:dish.name];
+    } else {
+        [self.notes removeObjectForKey:dish.name];
+    }
+    
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
