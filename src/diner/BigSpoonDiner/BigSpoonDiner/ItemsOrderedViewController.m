@@ -204,6 +204,9 @@
 #pragma mark - Button event listeners
 - (IBAction)addNotesButtonPressed:(id)sender {
     NSLog(@"Add notes btn pressed");
+    if (self.isAddingNotes) {
+        [self dismissKeyboard];
+    }
     self.isAddingNotes = !self.isAddingNotes;
     [self.currentOrderTableView beginUpdates];
     [self.currentOrderTableView endUpdates];

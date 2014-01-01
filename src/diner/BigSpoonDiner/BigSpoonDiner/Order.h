@@ -15,6 +15,7 @@
 // When the order is displayed, other information is needed.
 @property (nonatomic, strong) NSMutableArray *dishes;
 @property (nonatomic, strong) NSMutableArray *quantity;
+@property (nonatomic, strong) NSMutableDictionary *notes;
 
 // Note:
 // In self.dishes, object equlity is NOT assumed, for example:
@@ -28,6 +29,7 @@
 
 - (void) addDish: (Dish *) dish;
 - (void) minusDish: (Dish *) dish;
+- (void) addNote: (NSString*) note forDish: (Dish*) dish;
 
 - (int) getQuantityOfDishByDish: (Dish *) dish;
 - (int) getQuantityOfDishByID: (int) dishID;

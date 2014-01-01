@@ -22,9 +22,11 @@
         // Initialization code
         self.dishes = [[NSMutableArray alloc] init];
         self.quantity = [[NSMutableArray alloc] init];
+        self.notes = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
+
 
 - (void) addDish: (Dish *) dish{
     // If added before, just update its index:
@@ -80,6 +82,10 @@
         }
         
     }
+}
+
+- (void) addNote: (NSString*) note forDish: (Dish*) dish {
+    [self.notes setObject:note forKey:dish.name];
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
