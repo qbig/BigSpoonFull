@@ -436,6 +436,7 @@ p.note {
     color: #333;
     list-style-type: none;
     word-wrap: break-word;
+    text-align: left;
 }
 
 .order li p {
