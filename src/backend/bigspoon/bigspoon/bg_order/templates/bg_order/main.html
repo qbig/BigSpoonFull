@@ -61,6 +61,9 @@
                                     <em class='pos'>{{order.dish.pos}}</em>
                                     {% endif %}
                                 </li>
+                                    {% if order.note %}
+                                        <li>{{order.note}}</li>
+                                    {% endif%}
                                 {% endif %}
                             {% endfor %}
                             <li class="end">
