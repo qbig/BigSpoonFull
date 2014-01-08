@@ -245,6 +245,7 @@ class CreateMeal(generics.CreateAPIView):
             meal.note += "\r\n" + note
         meal.save()
 
+        notes = None
         if ('notes' in request.DATA):
             notes = request.DATA['notes']
 
