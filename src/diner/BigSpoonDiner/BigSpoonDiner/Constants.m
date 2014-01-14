@@ -99,6 +99,14 @@ double const TOAST_VIEW_DURATION = 1.5;
 
 double const CATEGORY_BUTTON_FONT = 19.0;
 
+// Texts:
+NSString* const ENABLE_LOCATION_ALERT_TITLE = @"One more thing" ;
+NSString* const ENABLE_LOCATION_ALERT = @"BigSpoon requires your location to send orders. \nEnable BigSpoon in iPhone's Settings>Privacy>Location services" ;
+
+NSString* const CANNOT_DETECT_LOCATION_ALERT_TITLE = @"BigSpoon couldn't find you" ;
+NSString* const CANNOT_DETECT_LOCATION_ALERT = @"Orders can only be sent when you are at the restaurant.\nIf you are already there, kindly speak to the friendly waiter for your orders. ";
+
+
 
 // Others:
 

@@ -79,6 +79,15 @@ extern double const TOAST_VIEW_DURATION;
 
 extern double const CATEGORY_BUTTON_FONT;
 
+
+// Texts:
+extern NSString* const ENABLE_LOCATION_ALERT_TITLE;
+extern NSString* const ENABLE_LOCATION_ALERT;
+
+extern NSString* const CANNOT_DETECT_LOCATION_ALERT_TITLE;
+extern NSString* const CANNOT_DETECT_LOCATION_ALERT;
+
+
 // Others:
 
 extern int const NUM_OF_RATINGS;
