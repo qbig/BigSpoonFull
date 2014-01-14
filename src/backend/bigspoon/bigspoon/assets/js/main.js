@@ -5,13 +5,13 @@ $(document).ready(function() {
     var timeout_obj;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
-    })
+    });
     var reload_sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3'],
         onend: function() {
             location.reload(true);
         }
-    })
+    });
 
     function getNotification(number){
         if(!number){
@@ -202,16 +202,16 @@ $(document).ready(function() {
                 var seconds_since_page_load = new Date().getTime()/1000 - page_start_time_in_seconds;
                 if (seconds_since_page_load  < REFRESH_INTEVAL_CAP) {
                     timeout_obj = setTimeout(function(){
-                        handleRefresh(data, path);        
+                        handleRefresh(data, path);
                     }, (REFRESH_INTEVAL_CAP - seconds_since_page_load) * 1000);
                 } else {
-                    handleRefresh(data, path);    
+                    handleRefresh(data, path);
                 }
             }
         }
     });
 
-    if (outlet_ids != null) {
+    if (outlet_ids !== null) {
         for (var i = 0, len = outlet_ids.length; i < len; i++) {
             socket.send("subscribe:" + outlet_ids[i]);
         }
@@ -232,7 +232,7 @@ $(document).ready(function() {
         "note": host+"/api/v1/note",
         "dish": host+"/api/v1/dish",
         "spending": host+"/api/v1/spending"
-    }
+    };
 
     var csrftoken = $.cookie('csrftoken');
 
@@ -247,7 +247,7 @@ $(document).ready(function() {
                 "outlet": outlet,
                 "user": user,
                 "content":content,
-            }
+            };
 
 
             $.post(
@@ -255,22 +255,22 @@ $(document).ready(function() {
                 req_data
             ).done(function(data) {
                 console.log("POST success!");
-                button.parent().append("<p class='success'><i class='icon-ok-sign'></i> Note saved!</p>")
+                button.parent().append("<p class='success'><i class='icon-ok-sign'></i> Note saved!</p>");
 
 
             }).fail(function(data) {
                 console.log("POST failed");
                 console.log(data);
             });
-    }
+    };
 
     window.successMessage = function(name){
-        var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>"
+        var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>";
         return successMessage;
-    }
+    };
 
-    function errorMessage(name){
-        var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>"
+    function getErrorMessage(name){
+        var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>";
         return errorMessage;
     }
 
@@ -297,11 +297,10 @@ $(document).ready(function() {
             "pos":pos,
             "desc":desc,
             "quantity":quantity,
-            "desc":desc,
             "start_time":start_time,
             "end_time":end_time,
             // "categories":categories
-        }
+        };
 
         $.post(
             STAFF_API_URLS["dish"] + "/" + id,
@@ -309,17 +308,17 @@ $(document).ready(function() {
         ).done(function(data) {
             var notice_id = '#notice-' + id;
             $(notice_id).empty();
-            $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);;
+            $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
             console.log("POST success!");
         }).fail(function(data) {
             var notice_id = '#notice-' + id;
             $(notice_id).empty();
-            $(notice_id).append(errorMessage(name)).effect("highlight", {}, 3000);;
+            $(notice_id).append(getErrorMessage(name)).effect("highlight", {}, 3000);
             console.log("POST failed");
             console.log(data);
         });
 
-    }
+    };
 
     // for User profile pop up
     $(".user-profile-link").magnificPopup({
@@ -342,7 +341,7 @@ $(document).ready(function() {
         var item = button.parent();
         var req_data = {
             "csrfmiddlewaretoken":csrftoken
-        }
+        };
         req_data[button.attr("model")] = button.attr("id");
         button.click(function() {
             $.post(
@@ -367,8 +366,8 @@ $(document).ready(function() {
             var seconds_left = (new Date() - new Date(Number(start_time))) / 1000;
 
             // console.log(seconds_left);
-            minutes = parseInt(seconds_left / 60);
-            seconds = parseInt(seconds_left % 60);
+            var minutes = parseInt(seconds_left / 60, 10);
+            var seconds = parseInt(seconds_left % 60, 10);
 
             // format countdown string + set tag value
             card.html('<i class="icon-time"></i> waited ' + minutes + " m, " + seconds + " s");
