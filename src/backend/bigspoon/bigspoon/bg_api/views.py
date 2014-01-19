@@ -4,6 +4,7 @@ from django.http import Http404
 from django.contrib.auth.models import Group
 from django.utils import timezone
 from django.db.models import Q
+from datetime import datetime, timedelta
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -236,7 +237,17 @@ class CreateMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         diner = request.user
-        meal, created = Meal.objects.get_or_create(table=table, diner=diner,
+        #meal, created = Meal.objects.get_or_create(table=table, diner=diner,
+        #                                           is_paid=False)
+        # Note: here there may exist a discrepency between the table_id sent from user and the table id 
+        #       from meal, as it could be edited by staff to avoid confusion after diner change their table
+        startdate = datetime.today()
+        enddate = startdate + timedelta(days = 2)
+        try:
+            meal = Meal.objects.get(date__range=[startdate, enddate], diner=diner, is_paid=False)
+            table = meal.table
+        except Meal.DoesNotExist:
+            meal, created = Meal.objects.get_or_create(table=table, diner=diner,
                                                    is_paid=False)
         meal.modified = timezone.now()
         meal.status = Meal.ACTIVE
