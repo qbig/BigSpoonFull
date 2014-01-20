@@ -916,11 +916,26 @@ form.menu-add {
     margin-top: 10px;
     margin-bottom: 0px;
     padding-left:10px;
-    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
     color: rgb(85,85,85);
     font-size: 32px;
     font-family: "Scholar";
+    display:inline-block;
 }
+
+.table input {
+    padding-left:10px;    
+    font-size: 20px;
+    font-family: "Scholar";
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px; 
+    border-radius: 5px;
+    display:inline-block;
+    background-color: #fff;
+}
+
+.table_title {
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.2);  
+} 
 
 .table h4 {
     margin: 0;

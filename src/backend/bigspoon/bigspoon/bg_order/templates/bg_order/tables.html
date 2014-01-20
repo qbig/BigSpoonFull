@@ -28,8 +28,10 @@
     {% for table in table_list %}
 
     <div class="table">
-        <h3>{{table.name|capfirst}}</h3>
-
+        <div class="table_title">
+            <h3>{{table.name|capfirst}}</h3>
+            <input type="button" value="Change Table" data-dropdown="#dropdown-1" class="">
+        </div>
         {% if table.meals.count > 0 %}
             {% for meal in table.meals.all %}
                 {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
@@ -89,4 +91,15 @@
         </div>
         {% endfor %}
     </div>
+
+    <div id="dropdown-1" class="dropdown dropdown-tip">
+        <ul class="dropdown-menu">
+            {% for table in table_list %}
+            <li><a href="#{{table.name|capfirst}}">
+            to table {{table.name|capfirst}}
+            </a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock content %}
+
