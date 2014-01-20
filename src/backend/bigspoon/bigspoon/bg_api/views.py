@@ -33,6 +33,13 @@ from utils import send_socketio_message, send_user_feedback, today_limit
 
 from decimal import Decimal
 
+# import the logging library
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
+
 User = get_user_model()
 
 
@@ -190,6 +197,50 @@ class MealHistory(generics.ListAPIView):
             diner=self.request.user,
             is_paid=True
         )
+
+class UpdateTableForMeal(generics.CreateAPIView):
+    """
+    Modify table for a meal record
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealSerializer
+    model = Meal
+
+    def post(self, req, *args, **kwargs):
+        submitted_user_id = int(req.DATA['user'])
+        targe_table_id = int(req.DATA['table_id'])
+        try:
+            target_table = Table.objects.get(id=int(targe_table_id))
+        except Table.DoesNotExist:
+            return Response({"error": "Unknown table id " + str(targe_table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            diner = User.objects.get(id=submitted_user_id)
+        except User.DoesNotExist:
+            return Response({"error": "Unknown diner id " + str(submitted_user_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            current_table_meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
+            current_table = current_table_meal.table
+            current_table_meal.table = target_table
+            current_table_meal.save()
+            try:
+                target_table_meal = Meal.objects.get(created__range=today_limit(), table=target_table, is_paid=False)
+                target_table_meal.table = current_table
+                target_table_meal.save()
+            except Meal.DoesNotExist:
+                logger.error('target table is empty. that\'s ok')
+            except:
+                logger.error('unexpected error when transfering table')
+        except Meal.DoesNotExist:
+            return Response({"error": "Cannot retrieve current meal for " + str(submitted_user_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"meal": current_table_meal.id, "table_id":target_table.id }, status=status.HTTP_205_RESET_CONTENT)
+       
 
 
 #NOTE: Use serializer to check and get post data here
