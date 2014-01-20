@@ -298,6 +298,8 @@ class CreateRequest(generics.CreateAPIView):
 
     def pre_save(self, obj):
         obj.diner = self.request.user
+        meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False)
+        obj.table = meal.table
 
     def post_save(self, obj, created=False):
         send_socketio_message(
