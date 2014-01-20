@@ -244,7 +244,7 @@ class CreateMeal(generics.CreateAPIView):
         startdate = datetime.today()
         enddate = startdate + timedelta(days = 2)
         try:
-            meal = Meal.objects.get(date__range=[startdate, enddate], diner=diner, is_paid=False)
+            meal = Meal.objects.get(created__range=[startdate, enddate], diner=diner, is_paid=False)
             table = meal.table
         except Meal.DoesNotExist:
             meal, created = Meal.objects.get_or_create(table=table, diner=diner,
