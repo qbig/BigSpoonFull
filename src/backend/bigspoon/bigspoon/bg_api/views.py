@@ -29,7 +29,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
-from utils import send_socketio_message, send_user_feedback
+from utils import send_socketio_message, send_user_feedback, today_limit
 
 from decimal import Decimal
 
@@ -240,11 +240,10 @@ class CreateMeal(generics.CreateAPIView):
         #meal, created = Meal.objects.get_or_create(table=table, diner=diner,
         #                                           is_paid=False)
         # Note: here there may exist a discrepency between the table_id sent from user and the table id 
-        #       from meal, as it could be edited by staff to avoid confusion after diner change their table
-        startdate = datetime.today()
-        enddate = startdate + timedelta(days = 2)
+        #       from meal, as it could be edited by staff to avoid confusion after diner change their table        
+        
         try:
-            meal = Meal.objects.get(created__range=[startdate, enddate], diner=diner, is_paid=False)
+            meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
             table = meal.table
         except Meal.DoesNotExist:
             meal, created = Meal.objects.get_or_create(table=table, diner=diner,
