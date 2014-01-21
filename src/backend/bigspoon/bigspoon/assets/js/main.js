@@ -407,4 +407,24 @@ $(document).ready(function() {
                 console.log("table transfer fail");
             });
     });
+
+    //for cancel an order 
+    $(function () {
+        $('.popup-modal').magnificPopup({
+          type: 'inline',
+          preloader: false,
+          focus: '#username',
+          modal: true
+      });
+        $(document).on('click', '.popup-modal-dismiss', function (e) {
+          e.preventDefault();
+          $.magnificPopup.close();
+      });
+        $(document).on('click', '.popup-modal-ok', function (e) {
+          e.preventDefault();
+          $.magnificPopup.close();
+      });
+    });
+
+                                
 });
