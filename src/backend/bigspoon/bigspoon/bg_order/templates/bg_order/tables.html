@@ -31,10 +31,11 @@
             <h3>{{table.name|capfirst}}</h3>
             <input type="button" value="Change Table" data-dropdown="#dropdown-table" class="tableDropdown" data-tableId="{{ table.id }}">
         </div>
+        <div class="table_content" id="table-{{table.id}}">
         {% if table.meals.count > 0 %}
             {% for meal in table.meals.all %}
                 {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
-                <div class='active' id="table-{{table.id}}">
+                <div class='active'>
                     {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
                     <span class="urgent time countdown" start={{meal.count_down_start}}>
                     {% else %}
@@ -83,13 +84,14 @@
 
                     <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
 
-                </div>
+                </div> <!-- end of class="active" -->
                 {% endif %}
             {% endfor %}
         {% endif %}
-        </div>
+        </div> <!-- end of <div class="table_content"> -->
+        </div> <!-- end of <div class="table"> -->
         {% endfor %}
-    </div>
+    </div> <!-- end of <div class="wrapper"> -->
 
     <div id="dropdown-table" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
