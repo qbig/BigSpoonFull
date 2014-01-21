@@ -380,7 +380,7 @@ class CreateRequest(generics.CreateAPIView):
             meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False)
             obj.table = meal.table
         except Meal.DoesNotExist:
-            Meal.objects.create(table=obj.table, diner=obj.diner,
+            Meal.objects.create(table=obj.table, diner=obj.diner, modified=timezone.now(),
                                                    is_paid=False)
 
     def post_save(self, obj, created=False):
