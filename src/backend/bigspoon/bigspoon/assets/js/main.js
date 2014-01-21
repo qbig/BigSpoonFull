@@ -3,6 +3,7 @@ $(document).ready(function() {
     var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var timeout_obj;
+    var transfer_from_table, transfer_to_table;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     });
@@ -231,7 +232,8 @@ $(document).ready(function() {
         "order": host+"/api/v1/ackorder",
         "note": host+"/api/v1/note",
         "dish": host+"/api/v1/dish",
-        "spending": host+"/api/v1/spending"
+        "spending": host+"/api/v1/spending",
+        "table" : host + "/api/v1/table",
     };
 
     var csrftoken = $.cookie('csrftoken');
@@ -373,5 +375,36 @@ $(document).ready(function() {
             card.html('<i class="icon-time"></i> waited ' + minutes + " m, " + seconds + " s");
 
         }, 1000);
+    });
+
+    //for table transfer
+    $('.tableDropdown').click(function(){
+        var self = $(this);
+        transfer_from_table = self.attr("data-tableId");
+    });
+
+    $('.targetTable').click(function() {
+        var self = $(this);
+        var targetTableId = self.attr("data-toTableId");
+        var from_table_obj = $("#table-"+transfer_from_table);
+        var to_table_obj = $("#table-" + targetTableId);
+        var content_from_table = from_table_obj.html();
+        var content_target_table = to_table_obj.html();
+        var req_data = {
+                "csrfmiddlewaretoken":csrftoken,
+                "from_table" : transfer_from_table,
+                "to_table" : targetTableId,
+            };
+
+
+            $.post(
+                STAFF_API_URLS["table"],
+                req_data
+            ).done(function(data) {
+                from_table_obj.html(content_target_table);
+                to_table_obj.html(content_from_table);
+            }).fail(function(data) {
+                console.log("table transfer fail");
+            });
     });
 });

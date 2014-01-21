@@ -21,10 +21,12 @@ def send_user_feedback(user, message_data):
 def today_limit():
     today = timezone.now().date()
     tomorrow = today + timedelta(1)
-    today_start = datetime.combine(today, time())
-    today_end = datetime.combine(tomorrow, time())
+    today_start = make_time_zone_aware(datetime.combine(today, time()))
+    today_end = make_time_zone_aware(datetime.combine(tomorrow, time()))
     return (today_start, today_end)
 
+def make_time_zone_aware(to_update):
+    return timezone.make_aware(to_update, timezone.get_current_timezone())
 
 def one_hour_ago():
     return timezone.now() - timedelta(hours=1)

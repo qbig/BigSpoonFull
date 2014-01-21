@@ -8,7 +8,6 @@
     <div class="help">
         <p><i class="icon-group"></i> <strong>Tables</strong> shows you a bird's-eye view of all your current tables' unpaid orders.</p>
     </div>
-
 <div class="wrapper">
 
     <span id="pick-table">
@@ -30,12 +29,12 @@
     <div class="table">
         <div class="table_title">
             <h3>{{table.name|capfirst}}</h3>
-            <input type="button" value="Change Table" data-dropdown="#dropdown-1" class="">
+            <input type="button" value="Change Table" data-dropdown="#dropdown-table" class="tableDropdown" data-tableId="{{ table.id }}">
         </div>
         {% if table.meals.count > 0 %}
             {% for meal in table.meals.all %}
                 {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
-                <div class='active'>
+                <div class='active' id="table-{{table.id}}">
                     {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
                     <span class="urgent time countdown" start={{meal.count_down_start}}>
                     {% else %}
@@ -92,10 +91,10 @@
         {% endfor %}
     </div>
 
-    <div id="dropdown-1" class="dropdown dropdown-tip">
+    <div id="dropdown-table" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for table in table_list %}
-            <li><a href="#{{table.name|capfirst}}">
+            <li><a href="#" data-toTableId="{{table.id}}" class="targetTable">
             to table {{table.name|capfirst}}
             </a></li>
             {% endfor %}

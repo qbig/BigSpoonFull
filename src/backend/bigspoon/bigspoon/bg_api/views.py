@@ -4,7 +4,6 @@ from django.http import Http404
 from django.contrib.auth.models import Group
 from django.utils import timezone
 from django.db.models import Q
-from datetime import datetime, timedelta
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -218,20 +217,25 @@ class UpdateTableForMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            current_table_meals = Meal.objects.filter(created__range=today_limit(), table=from_table, is_paid=False)
-            current_table_meals.update(table=target_table)
+            current_table_meals = list(Meal.objects.filter(created__range=today_limit(), table=from_table, is_paid=False))
             try:
-                target_table_meals = Meal.objects.filter(created__range=today_limit(), table=target_table, is_paid=False)
-                target_table_meals.update(table=from_table)                
+                target_table_meals = list(Meal.objects.filter(created__range=today_limit(), table=target_table, is_paid=False))                
             except Meal.DoesNotExist:
                 logger.error('target table is empty. that\'s ok')
             except:
                 logger.error('unexpected error when transfering table')
+            for meal in current_table_meals:
+                meal.table = target_table
+                meal.save()
+            for meal in target_table_meals:
+                meal.table = from_table
+                meal.save()
+            
         except Meal.DoesNotExist:
             return Response({"error": "Cannot retrieve current meal for table " + str(from_table_id)},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        return Response("updated", status=status.HTTP_205_RESET_CONTENT)
+        return Response("updated", status=status.HTTP_201_CREATED)
        
 
 
