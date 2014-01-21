@@ -63,19 +63,11 @@
 
                         {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.select_related %}
-                            <li>
+                            <li id="order-container-{{order.id}}">
                                 <em class='quantity'>{{order.quantity}}x</em>
                                 <p>{{order.dish.name}}</p>
                                 
-                                <a class='popup-modal cancel_order_icon_btn' href="#test-modal"><i class="icon-remove-sign icon-2"></i></a>
-                                <div id="test-modal" class="mfp-hide wrapper-no-bg white-popup">
-                                    <h1>Modify this order?</h1>
-                                    <p>You are going to reduce the quantity of this dish by 1 from this order.</p>
-
-                                    <a class="popup-button popup-modal-dismiss" href="#">Dismiss</a>
-                                    <a class="popup-button popup-modal-ok" href="#">Yes</a>
-                                </div>
-
+                                <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-remove-sign icon-2"></i></a>
                                 <!--{% if order.dish.pos %}
                                 <em class='pos'>{{order.dish.pos}}</em>
                                 {% endif %}    -->
@@ -111,6 +103,13 @@
             </a></li>
             {% endfor %}
         </ul>
+    </div>
+    <div id="test-modal" class="mfp-hide wrapper-no-bg white-popup">
+        <h1>Modify this order?</h1>
+        <p>You are going to reduce the quantity of this dish by 1 from this order.</p>
+
+        <a class="popup-button popup-modal-dismiss" >Dismiss</a>
+        <a class="popup-button popup-modal-ok" >Yes</a>
     </div>
 {% endblock content %}
 

@@ -209,7 +209,7 @@ class UpdateOrder(generics.CreateAPIView):
         order_id = int(req.DATA['order_id'])
 
         try:
-            order_to_modify = Order.orders.get(id = int(order_id))
+            order_to_modify = Order.objects.get(id = int(order_id))
         except Order.DoesNotExist:
             return Response({"error": "Unknown order id " + str(order_id)},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -217,7 +217,8 @@ class UpdateOrder(generics.CreateAPIView):
         if updated_quantity == 0:
             order_to_modify.delete()
         else:
-            order_to_modify.update(quantity=updated_quantity)
+            order_to_modify.quantity = updated_quantity
+            order_to_modify.save()
 
         send_user_feedback(
             "u_%s" % order_to_modify.meal.diner.auth_token.key,

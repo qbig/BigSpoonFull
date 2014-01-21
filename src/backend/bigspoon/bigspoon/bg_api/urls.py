@@ -13,6 +13,7 @@ urlpatterns = patterns(
     url(r'^mealhistory$', views.MealHistory.as_view()),
     url(r'^meal$', views.CreateMeal.as_view()),
     url(r'^table$', views.UpdateTableForMeal.as_view()),
+    url(r'^order$', views.UpdateOrder.as_view()),
     url(r'^askbill$', views.AskForBill.as_view()),
     url(r'^meal/(?P<pk>[0-9]+)$', views.MealDetail.as_view()),
     url(r'^dish/(?P<pk>[0-9]+)$', views.UpdateDish.as_view()),

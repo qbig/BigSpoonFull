@@ -4,6 +4,7 @@ $(document).ready(function() {
     var host = "http://"+location.host;
     var timeout_obj;
     var transfer_from_table, transfer_to_table;
+    var order_to_modify;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     });
@@ -52,22 +53,22 @@ $(document).ready(function() {
             if (data[2] == "new" || data[2] == "askbill") {
                 showNotification();
             }
-        
+
         } else if (data[1] == "menu") {
             if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
                 location.reload(true);
             }
         } else {
                         // other instructions
-        }
-        if (timeout_obj) {
-            clearTimeout(timeout_obj);
-        }
-    }
+                    }
+                    if (timeout_obj) {
+                        clearTimeout(timeout_obj);
+                    }
+                }
 
-    if ( cards_num > 0) {
-        showNotification(cards_num);
-    }
+                if ( cards_num > 0) {
+                    showNotification(cards_num);
+                }
 
     // time picker
     $('input.ui-timepicker-input').timepicker({
@@ -96,11 +97,11 @@ $(document).ready(function() {
 
         closeAllMenu();
         $('#accordion h3').hide()
-            .each(function() {
-                if($(this).text().match(regex)) {
-                    $(this).show();
-                }
-            });
+        .each(function() {
+            if($(this).text().match(regex)) {
+                $(this).show();
+            }
+        });
     });
 
     // filter by dish category
@@ -110,11 +111,11 @@ $(document).ready(function() {
 
         closeAllMenu();
         $('#accordion h3').hide()
-            .each(function() {
-                if($(this).find("input").val().match(regex)) {
-                    $(this).show();
-                }
-            });
+        .each(function() {
+            if($(this).find("input").val().match(regex)) {
+                $(this).show();
+            }
+        });
     });
 
     $('#pick-table select').on("change", function() {
@@ -139,26 +140,26 @@ $(document).ready(function() {
 
         beforeActivate: function(event, ui) {
              // The accordion believes a panel is being opened
-            if (ui.newHeader[0]) {
+             if (ui.newHeader[0]) {
                 var currHeader  = ui.newHeader;
                 var currContent = currHeader.next('.ui-accordion-content');
              // The accordion believes a panel is being closed
-            } else {
-                var currHeader  = ui.oldHeader;
-                var currContent = currHeader.next('.ui-accordion-content');
-            }
+         } else {
+            var currHeader  = ui.oldHeader;
+            var currContent = currHeader.next('.ui-accordion-content');
+        }
              // Since we've changed the default behavior, this detects the actual status
-            var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+             var isPanelSelected = currHeader.attr('aria-selected') == 'true';
 
              // Toggle the panel's header
-            currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+             currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
 
             // Toggle the panel's icon
             currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
 
              // Toggle the panel's content
-            currContent.toggleClass('accordion-content-active',!isPanelSelected)
-            if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
+             currContent.toggleClass('accordion-content-active',!isPanelSelected)
+             if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
 
             return false; // Cancel the default action
         }
@@ -234,27 +235,28 @@ $(document).ready(function() {
         "dish": host+"/api/v1/dish",
         "spending": host+"/api/v1/spending",
         "table" : host + "/api/v1/table",
+        "order_update" : host + "/api/v1/order",
     };
 
     var csrftoken = $.cookie('csrftoken');
 
     window.saveNote = function(elem){
-            var button = $(elem);
-            var user = button.attr('user');
-            var outlet = button.attr('outlet');
-            var content = button.parent().find('.notes').val();
+        var button = $(elem);
+        var user = button.attr('user');
+        var outlet = button.attr('outlet');
+        var content = button.parent().find('.notes').val();
 
-            var req_data = {
-                "csrfmiddlewaretoken":csrftoken,
-                "outlet": outlet,
-                "user": user,
-                "content":content,
-            };
+        var req_data = {
+            "csrfmiddlewaretoken":csrftoken,
+            "outlet": outlet,
+            "user": user,
+            "content":content,
+        };
 
 
-            $.post(
-                STAFF_API_URLS["note"],
-                req_data
+        $.post(
+            STAFF_API_URLS["note"],
+            req_data
             ).done(function(data) {
                 console.log("POST success!");
                 button.parent().append("<p class='success'><i class='icon-ok-sign'></i> Note saved!</p>");
@@ -264,17 +266,17 @@ $(document).ready(function() {
                 console.log("POST failed");
                 console.log(data);
             });
-    };
+        };
 
-    window.successMessage = function(name){
-        var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>";
-        return successMessage;
-    };
+        window.successMessage = function(name){
+            var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>";
+            return successMessage;
+        };
 
-    function getErrorMessage(name){
-        var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>";
-        return errorMessage;
-    }
+        function getErrorMessage(name){
+            var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>";
+            return errorMessage;
+        }
 
     // Makes AJAX call to update dish API endpoint
     window.updateDish = function(elem){
@@ -307,20 +309,20 @@ $(document).ready(function() {
         $.post(
             STAFF_API_URLS["dish"] + "/" + id,
             req_data
-        ).done(function(data) {
-            var notice_id = '#notice-' + id;
-            $(notice_id).empty();
-            $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
-            console.log("POST success!");
-        }).fail(function(data) {
-            var notice_id = '#notice-' + id;
-            $(notice_id).empty();
-            $(notice_id).append(getErrorMessage(name)).effect("highlight", {}, 3000);
-            console.log("POST failed");
-            console.log(data);
-        });
+            ).done(function(data) {
+                var notice_id = '#notice-' + id;
+                $(notice_id).empty();
+                $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
+                console.log("POST success!");
+            }).fail(function(data) {
+                var notice_id = '#notice-' + id;
+                $(notice_id).empty();
+                $(notice_id).append(getErrorMessage(name)).effect("highlight", {}, 3000);
+                console.log("POST failed");
+                console.log(data);
+            });
 
-    };
+        };
 
     // for User profile pop up
     $(".user-profile-link").magnificPopup({
@@ -349,13 +351,13 @@ $(document).ready(function() {
             $.post(
                 STAFF_API_URLS[type],
                 req_data
-            ).done(function(data) {
-                location.reload(true);
-            }).fail(function(data) {
-                console.log("POST failed");
-                console.log(data);
+                ).done(function(data) {
+                    location.reload(true);
+                }).fail(function(data) {
+                    console.log("POST failed");
+                    console.log(data);
+                });
             });
-        });
     });
 
 
@@ -391,40 +393,64 @@ $(document).ready(function() {
         var content_from_table = from_table_obj.html();
         var content_target_table = to_table_obj.html();
         var req_data = {
-                "csrfmiddlewaretoken":csrftoken,
-                "from_table" : transfer_from_table,
-                "to_table" : targetTableId,
-            };
+            "csrfmiddlewaretoken":csrftoken,
+            "from_table" : transfer_from_table,
+            "to_table" : targetTableId,
+        };
 
 
-            $.post(
-                STAFF_API_URLS["table"],
-                req_data
+        $.post(
+            STAFF_API_URLS["table"],
+            req_data
             ).done(function(data) {
                 from_table_obj.html(content_target_table);
                 to_table_obj.html(content_from_table);
             }).fail(function(data) {
                 console.log("table transfer fail");
             });
-    });
+        });
 
     //for cancel an order 
-    $(function () {
-        $('.popup-modal').magnificPopup({
-          type: 'inline',
-          preloader: false,
-          focus: '#username',
-          modal: true
-      });
-        $(document).on('click', '.popup-modal-dismiss', function (e) {
-          e.preventDefault();
-          $.magnificPopup.close();
-      });
-        $(document).on('click', '.popup-modal-ok', function (e) {
-          e.preventDefault();
-          $.magnificPopup.close();
-      });
+    
+    $('.popup-modal').magnificPopup({
+        type: 'inline',
+        preloader: false,
+        focus: '#username',
+        modal: true
+    });
+    $(document).on('click', '.popup-modal-dismiss', function (e) {
+        e.preventDefault();
+        $.magnificPopup.close();
+    });
+    $(document).on('click', '.popup-modal-ok', function (e) {
+        e.preventDefault();
+        $.magnificPopup.close();
+        var order_li_obj = $("#order-container-" + order_to_modify);
+        var order_li_num_obj = order_li_obj.find("em").first();
+
+        var req_data = {
+            "csrfmiddlewaretoken":csrftoken,
+            "order_id" : order_to_modify,
+        };
+        $.post(
+            STAFF_API_URLS["order_update"],
+            req_data
+        ).done(function(data) {
+            if(data.quantity >= 1){
+                order_li_num_obj.html(data.quantity + "x");
+            } else {
+                order_li_obj.remove();
+            }
+                
+        }).fail(function(data) {
+                console.log("order update failed");
+        });
+
     });
 
-                                
+    $('.cancel_order_icon_btn').click(function(){
+        var icon_clicked = $(this);
+        order_to_modify = icon_clicked.attr('data-orderId');
+    });
+    
 });
