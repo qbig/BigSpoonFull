@@ -217,9 +217,9 @@ class UpdateTableForMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            current_table_meals = list(Meal.objects.filter(created__range=today_limit(), table=from_table, is_paid=False))
+            current_table_meals = list(Meal.objects.filter(modified__range=today_limit(), table=from_table, is_paid=False))
             try:
-                target_table_meals = list(Meal.objects.filter(created__range=today_limit(), table=target_table, is_paid=False))                
+                target_table_meals = list(Meal.objects.filter(modified__range=today_limit(), table=target_table, is_paid=False))                
             except Meal.DoesNotExist:
                 logger.error('target table is empty. that\'s ok')
             except:
