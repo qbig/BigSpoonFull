@@ -324,7 +324,7 @@ class CreateMeal(generics.CreateAPIView):
             meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
             table = meal.table
         except Meal.DoesNotExist:
-            meal, created = Meal.objects.get_or_create(table=table, diner=diner,
+            meal = Meal.objects.create(table=table, diner=diner,
                                                    is_paid=False)
         meal.modified = timezone.now()
         meal.status = Meal.ACTIVE
@@ -376,8 +376,12 @@ class CreateRequest(generics.CreateAPIView):
 
     def pre_save(self, obj):
         obj.diner = self.request.user
-        meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False)
-        obj.table = meal.table
+        try:
+            meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False)
+            obj.table = meal.table
+        except Meal.DoesNotExist:
+            Meal.objects.create(table=obj.table, diner=obj.diner,
+                                                   is_paid=False)
 
     def post_save(self, obj, created=False):
         send_socketio_message(
