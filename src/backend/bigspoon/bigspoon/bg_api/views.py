@@ -24,7 +24,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
     SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer, \
-    FBSerializer
+    FBSerializer, OutletTableSerializer
 
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
@@ -204,42 +204,34 @@ class UpdateTableForMeal(generics.CreateAPIView):
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
-    serializer_class = MealSerializer
-    model = Meal
+    serializer_class = OutletTableSerializer
+    model = Table
 
     def post(self, req, *args, **kwargs):
-        submitted_user_id = int(req.DATA['user'])
-        targe_table_id = int(req.DATA['table_id'])
+        from_table_id = int(req.DATA['from_table'])
+        targe_table_id = int(req.DATA['to_table'])
         try:
             target_table = Table.objects.get(id=int(targe_table_id))
+            from_table = Table.objects.get(id=int(from_table_id))
         except Table.DoesNotExist:
-            return Response({"error": "Unknown table id " + str(targe_table_id)},
+            return Response({"error": "Unknown table id " + str(from_table_id) + " or " +str(targe_table_id)},
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            diner = User.objects.get(id=submitted_user_id)
-        except User.DoesNotExist:
-            return Response({"error": "Unknown diner id " + str(submitted_user_id)},
-                            status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            current_table_meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
-            current_table = current_table_meal.table
-            current_table_meal.table = target_table
-            current_table_meal.save()
+            current_table_meals = Meal.objects.filter(created__range=today_limit(), table=from_table, is_paid=False)
+            current_table_meals.update(table=target_table)
             try:
-                target_table_meal = Meal.objects.get(created__range=today_limit(), table=target_table, is_paid=False)
-                target_table_meal.table = current_table
-                target_table_meal.save()
+                target_table_meals = Meal.objects.filter(created__range=today_limit(), table=target_table, is_paid=False)
+                target_table_meals.update(table=from_table)                
             except Meal.DoesNotExist:
                 logger.error('target table is empty. that\'s ok')
             except:
                 logger.error('unexpected error when transfering table')
         except Meal.DoesNotExist:
-            return Response({"error": "Cannot retrieve current meal for " + str(submitted_user_id)},
+            return Response({"error": "Cannot retrieve current meal for table " + str(from_table_id)},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({"meal": current_table_meal.id, "table_id":target_table.id }, status=status.HTTP_205_RESET_CONTENT)
+        return Response("updated", status=status.HTTP_205_RESET_CONTENT)
        
 
 
