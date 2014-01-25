@@ -66,4 +66,5 @@ def socketio(request):
         {'': BigSpoonNamespace, },
         request=request
     )
+    logger.info("Connecting "+ request.user.id)
     return HttpResponse()
