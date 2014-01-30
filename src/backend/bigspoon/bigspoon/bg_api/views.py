@@ -357,7 +357,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         diner = request.user
         try:
             meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
-            return Response(MealDetailSerializer(meal).data,
+            return Response(MealSerializer(meal).data,
                         status=status.HTTP_200_OK)
         except Meal.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

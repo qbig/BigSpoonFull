@@ -476,7 +476,7 @@ NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL U
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
                                                        options:NSJSONWritingPrettyPrinted error:&error];
-    request.HTTPBody = jsonData;
+//    request.HTTPBody = jsonData;
 //request.HTTPMethod = @"POST";
 request.HTTPMethod = @"GET";
     
@@ -487,6 +487,7 @@ request.HTTPMethod = @"GET";
             case 200:
             case 201:{
                 NSLog(@"Request Bill Success");
+
 //[self afterSuccessfulRequestBill];
             }
                 break;
