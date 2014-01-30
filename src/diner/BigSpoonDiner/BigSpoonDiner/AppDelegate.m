@@ -134,7 +134,12 @@
         int endIndexForDishName = [messages rangeOfString:@"]" options:NSBackwardsSearch].location;
         if (startIndexForDishName != NSNotFound){
             NSString *nameForUpdatedDish = [messages substringWithRange:NSMakeRange(startIndexForDishName  + 1, endIndexForDishName - startIndexForDishName - 1)];
-            [[User sharedInstance].pastOrder decrementDishName:nameForUpdatedDish];
+            @try {
+                [[User sharedInstance].pastOrder decrementDishName:nameForUpdatedDish];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception);
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         }
         

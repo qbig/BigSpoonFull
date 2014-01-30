@@ -349,6 +349,7 @@
                                    GSTLabel:self.pastGSTLabel
                               GSTTitleLabel:self.pastGSTTitleLabel
                               andTotalLabel:self.pastTotalLabel];
+    [self.pastOrderTableView reloadData];
 }
 
 - (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
