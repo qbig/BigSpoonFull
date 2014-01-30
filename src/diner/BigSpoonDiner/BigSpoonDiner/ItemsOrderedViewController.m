@@ -33,6 +33,7 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePriceLabels) name:NOTIF_ORDER_UPDATE object:nil];
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(dismissKeyboard)];
@@ -48,6 +49,13 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [TestFlight passCheckpoint:@"CheckPoint:User at Items Page"];
 }
+
+
+- (void) viewDidUnload {
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

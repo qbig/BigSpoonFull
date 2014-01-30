@@ -135,6 +135,7 @@
         if (startIndexForDishName != NSNotFound){
             NSString *nameForUpdatedDish = [messages substringWithRange:NSMakeRange(startIndexForDishName  + 1, endIndexForDishName - startIndexForDishName - 1)];
             [[User sharedInstance].pastOrder decrementDishName:nameForUpdatedDish];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         }
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];

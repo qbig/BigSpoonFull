@@ -70,7 +70,7 @@
     // Set the Outlet Name to be the title
     [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateItemQuantityBadge) name:NOTIF_ORDER_UPDATE object:nil];
     // If the ordered items are null, init them.
     // If not, update the badge.
     if ([self.userInfo.currentOrder getTotalQuantity] + [self.userInfo.pastOrder getTotalQuantity] == 0) {
@@ -91,6 +91,11 @@
     
     [self loadControlPanels];
 
+}
+
+- (void) viewDidUnload {
+    [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
