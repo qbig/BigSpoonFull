@@ -7,6 +7,7 @@
 //
 
 #import "User.h"
+#import "SSKeychain.h"
 
 @implementation User
 @synthesize currentOutlet;
@@ -19,6 +20,11 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[User alloc] init];
         sharedInstance.userDefault = [NSUserDefaults standardUserDefaults];
+        sharedInstance.email =[sharedInstance.userDefault objectForKey:@"email"];
+        sharedInstance.firstName = [sharedInstance.userDefault objectForKey:@"first_name"];
+        sharedInstance.lastName = [sharedInstance.userDefault objectForKey:@"last_name"];
+        sharedInstance.authToken = [sharedInstance.userDefault objectForKey:@"auth_token"];
+
         if(sharedInstance.currentOrder == nil ){
             sharedInstance.currentOrder = [[Order alloc] init];
         }
