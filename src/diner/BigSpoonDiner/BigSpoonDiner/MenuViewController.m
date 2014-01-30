@@ -468,7 +468,8 @@
                                  };
     
     User *user = [User sharedInstance];
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: BILL_URL]];
+//NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: BILL_URL]];
+NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: ORDER_URL]];
     [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     
@@ -476,7 +477,8 @@
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:parameters
                                                        options:NSJSONWritingPrettyPrinted error:&error];
     request.HTTPBody = jsonData;
-    request.HTTPMethod = @"POST";
+//request.HTTPMethod = @"POST";
+request.HTTPMethod = @"GET";
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
     [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -485,7 +487,7 @@
             case 200:
             case 201:{
                 NSLog(@"Request Bill Success");
-                [self afterSuccessfulRequestBill];
+//[self afterSuccessfulRequestBill];
             }
                 break;
             case 403:

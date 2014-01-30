@@ -270,7 +270,7 @@ class UpdateTableForMeal(generics.CreateAPIView):
 
 
 #NOTE: Use serializer to check and get post data here
-class CreateMeal(generics.CreateAPIView):
+class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
     """
     Create new meal
     """
@@ -352,6 +352,15 @@ class CreateMeal(generics.CreateAPIView):
             ['refresh', 'meal', 'new']
         )
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        diner = request.user
+        try:
+            meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
+            return Response(MealDetailSerializer(meal).data,
+                        status=status.HTTP_200_OK)
+        except Meal.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class MealDetail(generics.RetrieveAPIView):
