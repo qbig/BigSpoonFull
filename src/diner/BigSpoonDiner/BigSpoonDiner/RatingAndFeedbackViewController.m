@@ -65,7 +65,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.currentOrder getNumberOfKindsOfDishes];
+    return [self.orderToRate getNumberOfKindsOfDishes];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,7 +76,7 @@
     
     //RatingCell *cell = [[RatingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RatingCell"];
 
-    Dish *dish = [[self.currentOrder dishes] objectAtIndex:indexPath.row];
+    Dish *dish = [[self.orderToRate dishes] objectAtIndex:indexPath.row];
     
     cell.dishNameLabel.text = dish.name;
     
@@ -386,7 +386,7 @@
 
 - (void) reloadDataWithOrder: (Order *) c andOutletID:(int) o{
     self.outletID = o;
-    self.currentOrder = c;
+    self.orderToRate = c;
     [self.ratingsTableView reloadData];
     self.ratings = [[NSMutableDictionary alloc] init];
     for (Dish *dish in c.dishes) {

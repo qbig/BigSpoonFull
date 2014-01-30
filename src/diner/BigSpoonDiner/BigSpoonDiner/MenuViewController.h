@@ -33,8 +33,7 @@
 @property (nonatomic, strong) Outlet *outlet;
 @property (nonatomic) int tableID;
 @property (nonatomic) NSDictionary *validTableIDs;
-@property (nonatomic, strong) Order *currentOrder;
-@property (nonatomic, strong) Order *pastOrder;
+@property (strong, nonatomic) User* userInfo;
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
 @property (nonatomic, strong) NSDictionary *jsonForDishesTablesAndCategories;
 // Buttons:

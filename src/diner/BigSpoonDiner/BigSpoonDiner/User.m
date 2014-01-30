@@ -11,8 +11,6 @@
 @implementation User
 @synthesize currentOutlet;
 @synthesize validTableIDs;
-@synthesize currentOrder;
-@synthesize pastOrder;
 
 + (User *)sharedInstance
 {
@@ -21,6 +19,12 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[User alloc] init];
         sharedInstance.userDefault = [NSUserDefaults standardUserDefaults];
+        if(sharedInstance.currentOrder == nil ){
+            sharedInstance.currentOrder = [[Order alloc] init];
+        }
+        if(sharedInstance.pastOrder == nil) {
+            sharedInstance.pastOrder = [[Order alloc] init];
+        }
     });
     return sharedInstance;
 }

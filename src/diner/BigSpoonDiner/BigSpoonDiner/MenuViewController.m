@@ -66,16 +66,16 @@
     [super viewDidLoad];
     // Record the frame of badge
     oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
-    
+    self.userInfo = [User sharedInstance];
     // Set the Outlet Name to be the title
     [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     
     // If the ordered items are null, init them.
     // If not, update the badge.
-    if ([self.currentOrder getTotalQuantity] + [self.pastOrder getTotalQuantity] == 0) {
-        self.currentOrder = [[Order alloc]init];
-        self.pastOrder = [[Order alloc]init];
+    if ([self.userInfo.currentOrder getTotalQuantity] + [self.userInfo.pastOrder getTotalQuantity] == 0) {
+        self.userInfo.currentOrder = [[Order alloc]init];
+        self.userInfo.pastOrder = [[Order alloc]init];
     } else{
         [self updateItemQuantityBadge];
     }
@@ -100,7 +100,7 @@
     if (self.arrivedFromOrderHistory) {
         [self itemsButtonPressed:nil];
     }
-    
+    self.userInfo = [User sharedInstance];
     [super viewWillAppear:animated];
     
     // The toolbar that contains the bar button items
@@ -145,21 +145,21 @@
     if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
         
         NSString *message = @"";
-        if ([self.currentOrder getTotalQuantity] != 0) {
+        if ([self.userInfo.currentOrder getTotalQuantity] != 0) {
             message = @"You have selected some food but haven't placed the order. You can come back later to place the order";
         }
-        if ([self.pastOrder getTotalQuantity] != 0){
+        if ([self.userInfo.pastOrder getTotalQuantity] != 0){
             message = @"You have unpaid items. You can come back later to pay the bill";
         }
-        if ([self.currentOrder getTotalQuantity] != 0 && [self.pastOrder getTotalQuantity] != 0) {
+        if ([self.userInfo.currentOrder getTotalQuantity] != 0 && [self.userInfo.pastOrder getTotalQuantity] != 0) {
             message = @"You have unorderd and unpaid items. You can come back later";
         }
         
         // If the user has selected/ordered anything:
         if (![message isEqualToString:@""]) {
             
-            [self.delegate exitMenuListWithCurrentOrder:self.currentOrder
-                                              PastOrder:self.pastOrder
+            [self.delegate exitMenuListWithCurrentOrder:self.userInfo.currentOrder
+                                              PastOrder:self.userInfo.pastOrder
                                                OutletID:self.outlet.outletID
                                              andTableID:self.tableID
                                              andMessage:message];
@@ -320,22 +320,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void) setCurrentOrder:(Order*) currentOrder {
-    [User sharedInstance].currentOrder = currentOrder;
-}
-
-- (Order *)currentOrder {
-    return [User sharedInstance].currentOrder;
-}
-
-- (void)setPastOrder:(Order *)pastOrder{
-    [User sharedInstance].pastOrder = pastOrder;
-}
-
-- (Order *)pastOrder {
-    return [User sharedInstance].pastOrder;
-}
-
 - (IBAction)settingsButtonPressed:(id)sender {
 
     [self performSegueWithIdentifier:@"SegueFromMenuListToOrderHistory" sender:self];
@@ -397,7 +381,7 @@
 
     
     // If the user hasn't ordered anything:
-    if ([self.pastOrder getTotalQuantity] == 0) {
+    if ([self.userInfo.pastOrder getTotalQuantity] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                      initWithTitle:@"Request Bill"
                                      message:@"You haven't ordered anything."
@@ -429,7 +413,7 @@
     NSMutableString *message = [[NSMutableString alloc] init];
     
     // Append the price information to the message:
-//    float subtotal = [self.pastOrder getTotalPrice];
+//    float subtotal = [self.userInfo.pastOrder getTotalPrice];
 //    float gst = subtotal * self.outlet.gstRate;
 //    float serviceCharge = subtotal * self.outlet.serviceChargeRate;
 //    float totalPrice = subtotal + gst + serviceCharge;
@@ -454,9 +438,9 @@
     NSMutableArray *dishesArray = [[NSMutableArray alloc] init];
     
     // For every dish that is currently in the order, we add it to the dishes dictionary:
-    for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
-        Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
-        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDishByDish: dish]];
+    for (int i = 0; i < [self.userInfo.currentOrder.dishes count]; i++) {
+        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:i];
+        NSNumber * quantity = [NSNumber numberWithInt:[self.userInfo.currentOrder getQuantityOfDishByDish: dish]];
         NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
         
         NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
@@ -542,8 +526,8 @@
     [self performSegueWithIdentifier:@"SegueFromMenuToRating" sender:self];
     
     // Set the order items to null
-    self.currentOrder = [[Order alloc] init];
-    self.pastOrder = [[Order alloc] init];
+    self.userInfo.currentOrder = [[Order alloc] init];
+    self.userInfo.pastOrder = [[Order alloc] init];
     self.tableID = -1;
 }
 
@@ -653,13 +637,13 @@
             
             [self.itemsOrderedViewController setGSTRate: outlet.gstRate andServiceChargeRate:outlet.serviceChargeRate];
             
-            [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
+            [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.userInfo.currentOrder andPastOrder:self.userInfo.pastOrder];
         }
         
     } else if ([segue.identifier isEqualToString:@"SegueFromMenuToRating"]){
         RatingAndFeedbackViewController* ratingAndFeedbackViewController = segue.destinationViewController;
         ratingAndFeedbackViewController.delegate = self;
-        ratingAndFeedbackViewController.currentOrder = self.pastOrder;
+        ratingAndFeedbackViewController.orderToRate = self.userInfo.pastOrder;
         ratingAndFeedbackViewController.outletID = self.outlet.outletID;
     }
     
@@ -760,7 +744,7 @@
 }
 
 - (void) dishOrdered:(Dish *)dish{
-    [self.currentOrder addDish:dish];
+    [self.userInfo.currentOrder addDish:dish];
     [self updateItemQuantityBadge];
 }
 
@@ -771,7 +755,7 @@
 
 - (void) updateItemQuantityBadge{
     
-    int totalQuantity = [self.currentOrder getTotalQuantity];
+    int totalQuantity = [self.userInfo.currentOrder getTotalQuantity];
     
     if (totalQuantity == 0) {
         [self.itemQuantityLabel setHidden:YES];
@@ -807,28 +791,28 @@
 - (Order *) addDishWithID: (int) dishID{
     // require: in item page
     
-    [self.currentOrder incrementDishWithId:dishID];
+    [self.userInfo.currentOrder incrementDishWithId:dishID];
     [self updateItemQuantityBadge];
-    return self.currentOrder;
+    return self.userInfo.currentOrder;
 }
 
 - (Order *) minusDishWithID: (int) dishID{
     // require: in item page
     
-    [self.currentOrder decrementDishWithId:dishID];
+    [self.userInfo.currentOrder decrementDishWithId:dishID];
     [self updateItemQuantityBadge];
-    return self.currentOrder;
+    return self.userInfo.currentOrder;
 }
 
 - (Order *) addNote: (NSString*)note toDish: (Dish *)dish {
-    [self.currentOrder addNote:note forDish:dish];
-    return self.currentOrder;
+    [self.userInfo.currentOrder addNote:note forDish:dish];
+    return self.userInfo.currentOrder;
 }
 
 - (void) placeOrderWithNotes:(NSString *)notes{
     
     // If the user hasn't ordered anything:
-    if ([self.currentOrder getTotalQuantity] == 0) {
+    if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Place Order"
                                   message:@"You haven't selected anything."
@@ -899,16 +883,16 @@
     [titleLabel setFont: [UIFont boldSystemFontOfSize:17.0]];
     [scrollingViewContent addSubview:titleLabel];
     
-    for(int i = 0, len = [self.currentOrder.dishes count]; i < len; i++){
+    for(int i = 0, len = [self.userInfo.currentOrder.dishes count]; i < len; i++){
         OrderItemView* itemView = [[OrderItemView alloc] initAtIndex:i];
-        Dish* dish = [self.currentOrder.dishes objectAtIndex:i];
-        itemView.quantityLabel.text = [NSString stringWithFormat:@"%d",[self.currentOrder getQuantityOfDishByDish: dish]];
+        Dish* dish = [self.userInfo.currentOrder.dishes objectAtIndex:i];
+        itemView.quantityLabel.text = [NSString stringWithFormat:@"%d",[self.userInfo.currentOrder getQuantityOfDishByDish: dish]];
         itemView.dishNameLabel.text = dish.name;
         
         [scrollingViewContent addSubview:itemView];
     }
     
-    int currentScollingContentHeight = [self.currentOrder.dishes count] * ORDER_ITEM_VIEW_HEIGHT + ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
+    int currentScollingContentHeight = [self.userInfo.currentOrder.dishes count] * ORDER_ITEM_VIEW_HEIGHT + ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
     
     int alertViewHeight = ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT > currentScollingContentHeight ? currentScollingContentHeight + 20: ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
     [scrollingViewContent setFrame:CGRectMake(0,0,scrollingViewContent.frame.size.width, alertViewHeight)];
@@ -922,9 +906,9 @@
     NSMutableArray *dishesArray = [[NSMutableArray alloc] init];
     
     // For every dish that is currently in the order, we add it to the dishes dictionary:
-    for (int i = 0; i < [self.currentOrder.dishes count]; i++) {
-        Dish *dish = [self.currentOrder.dishes objectAtIndex:i];
-        NSNumber * quantity = [NSNumber numberWithInt:[self.currentOrder getQuantityOfDishByDish: dish]];
+    for (int i = 0; i < [self.userInfo.currentOrder.dishes count]; i++) {
+        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:i];
+        NSNumber * quantity = [NSNumber numberWithInt:[self.userInfo.currentOrder getQuantityOfDishByDish: dish]];
         NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
         
         NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
@@ -938,8 +922,8 @@
         [parameters setObject:notesWhenPlacingOrder forKey:@"note"];
     }
     
-    if (self.currentOrder.notes != nil && [self.currentOrder.notes count] > 0) {
-        [parameters setObject:self.currentOrder.notes forKey:@"notes"];
+    if (self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) {
+        [parameters setObject:self.userInfo.currentOrder.notes forKey:@"notes"];
     }
 
     User *user = [User sharedInstance];
@@ -980,14 +964,14 @@
 }
 
 - (void) afterSuccessfulPlacedOrder{
-    [self.pastOrder mergeWithAnotherOrder:self.currentOrder];
-    self.currentOrder = [[Order alloc] init];
+    [self.userInfo.pastOrder mergeWithAnotherOrder:self.userInfo.currentOrder];
+    self.userInfo.currentOrder = [[Order alloc] init];
     
     User *user = [User sharedInstance];
-    user.pastOrder = self.pastOrder;
-    user.currentOrder = self.currentOrder;
+    user.pastOrder = self.userInfo.pastOrder;
+    user.currentOrder = self.userInfo.currentOrder;
     
-    [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.currentOrder andPastOrder:self.pastOrder];
+    [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.userInfo.currentOrder andPastOrder:self.userInfo.pastOrder];
     
     [self.view makeToast:@"Your order has been sent. Our food is prepared with love, thank you for being patient."
                 duration:TOAST_VIEW_DURATION
@@ -998,11 +982,11 @@
 }
 
 - (Order *) getCurrentOrder{
-    return self.currentOrder;
+    return self.userInfo.currentOrder;
 }
 
 - (Order *) getPastOrder{
-    return self.pastOrder;
+    return self.userInfo.pastOrder;
 }
 
 #pragma mark Request For Service (water and waiter)

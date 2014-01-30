@@ -51,7 +51,7 @@
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-       
+    self.userInfo = [User sharedInstance];
     [self updatePriceLabels];
     [self updateTablesAndScrollviewHeight: NO];
     
@@ -93,9 +93,9 @@
 {
     // Return the number of rows in the section.
     if ([tableView isEqual:self.currentOrderTableView]) {
-        return [self.currentOrder getNumberOfKindsOfDishes];
+        return [self.userInfo.currentOrder getNumberOfKindsOfDishes];
     } else if ([tableView isEqual:self.pastOrderTableView]){
-        return [self.pastOrder getNumberOfKindsOfDishes];
+        return [self.userInfo.pastOrder getNumberOfKindsOfDishes];
     } else{
         NSLog(@"Unrecognized tableView is calling delegate method");
         return 0;
@@ -107,11 +107,11 @@
     if ([tableView isEqual:self.currentOrderTableView]) {
         NewOrderCell *cell = (NewOrderCell *)[tableView
                                               dequeueReusableCellWithIdentifier:@"NewOrderCell"];
-        Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
+        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.currentOrder getQuantityOfDishByDish:dish]];
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
@@ -122,11 +122,11 @@
         PastOrderCell *cell = (PastOrderCell *)[tableView
                                               dequeueReusableCellWithIdentifier:@"PastOrderCell"];
         
-        Dish *dish = [self.pastOrder.dishes objectAtIndex:indexPath.row];
+        Dish *dish = [self.userInfo.pastOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.pastOrder getQuantityOfDishByDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.pastOrder getQuantityOfDishByDish:dish]];
        
         return cell;
     } else{
@@ -249,8 +249,8 @@
         }
     } else {
         NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
-        Dish *dish = [self.currentOrder.dishes objectAtIndex:indexPath.row];
-        self.currentOrder = [self.delegate addNote:sender.text toDish:dish];
+        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
+        self.userInfo.currentOrder = [self.delegate addNote:sender.text toDish:dish];
     }
 }
 
@@ -269,8 +269,8 @@
     NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
     
     
-    self.currentOrder = [self.delegate addDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
+    self.userInfo.currentOrder = [self.delegate addDishWithID: dishID];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.currentOrder getQuantityOfDishByID:dishID]];
 
     [self updatePriceLabels];
 }
@@ -289,8 +289,8 @@
     NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
     
     
-    self.currentOrder = [self.delegate minusDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.currentOrder getQuantityOfDishByID:dishID]];
+    self.userInfo.currentOrder = [self.delegate minusDishWithID: dishID];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.currentOrder getQuantityOfDishByID:dishID]];
     
     [self updatePriceLabels];
 
@@ -317,8 +317,8 @@
 
 // This function is called when segue from menu list to here is performed
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
-    self.currentOrder = currentOrder;
-    self.pastOrder = pastOrder;
+    self.userInfo.currentOrder = currentOrder;
+    self.userInfo.pastOrder = pastOrder;
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
@@ -326,7 +326,7 @@
 }
 
 - (void) updatePriceLabels{
-    [self updatePriceLabelsWithCurrentORder:self.currentOrder
+    [self updatePriceLabelsWithCurrentORder:self.userInfo.currentOrder
                               SubtotalLabel:self.currentSubtotalLabel
                          ServiceChargeLabel:self.currentServiceChargeLabel
                     ServiceChargeTitleLabel:self.currentServiceChargeTitleLabel
@@ -334,7 +334,7 @@
                               GSTTitleLabel:self.currentGSTTitleLabel
                               andTotalLabel:self.currentTotalLabel];
     
-    [self updatePriceLabelsWithCurrentORder:self.pastOrder
+    [self updatePriceLabelsWithCurrentORder:self.userInfo.pastOrder
                               SubtotalLabel:self.pastSubtotalLabel
                          ServiceChargeLabel:self.pastServiceChargeLabel
                     ServiceChargeTitleLabel:self.pastServiceChargeTitleLabel
@@ -372,7 +372,7 @@
  */
 - (void) updateTablesAndScrollviewHeight: (BOOL) shouldUpdateViewPoint{
     int currentOrderTableHeight, oldOrderTableHeight;
-    int numOfCurrentOrder = [self.currentOrder getNumberOfKindsOfDishes];
+    int numOfCurrentOrder = [self.userInfo.currentOrder getNumberOfKindsOfDishes];
     if (self.isAddingNotes){
         currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED * numOfCurrentOrder;
         oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * numOfCurrentOrder;
@@ -387,7 +387,7 @@
         [self.scrollView setContentOffset:CGPointMake(0, oldContentOffset.y + (currentOrderTableHeight - oldOrderTableHeight))  animated:YES];
     }
     
-    int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.pastOrder getNumberOfKindsOfDishes];
+    int pastOrderTableHeight = ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT * [self.userInfo.pastOrder getNumberOfKindsOfDishes];
     
     CGRect currentOrderFrame = self.currentOrderTableView.frame;
     [self.currentOrderTableView setFrame: CGRectMake(currentOrderFrame.origin.x,

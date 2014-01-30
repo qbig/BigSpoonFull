@@ -16,6 +16,7 @@
 #import "BigSpoonAnimationController.h"
 #import "UIViewController+KeyboardEvents.h"
 #import "TestFlight.h"
+#import "User.h"
 
 @class ItemsOrderedViewController;
 
@@ -33,8 +34,6 @@
 @interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, weak) id <PlaceOrderDelegate> delegate;
-@property (nonatomic, strong) Order *currentOrder;
-@property (nonatomic, strong) Order *pastOrder;
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
@@ -45,7 +44,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *currentOrderTableView;
 @property (strong, nonatomic) IBOutlet UITableView *pastOrderTableView;
 @property (strong, nonatomic) IBOutlet __block UIButton *placeOrderButton;
-
+@property (strong, nonatomic) User * userInfo;
 
 
 - (void) setGSTRate: (double) gstRate andServiceChargeRate: (double) serviceChargeRate;

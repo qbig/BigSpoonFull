@@ -25,7 +25,7 @@
 // Key: dishID; Value: rating between 0 to 5.
 @property (strong, nonatomic) NSMutableDictionary *ratings;
 
-@property (strong, nonatomic) Order* currentOrder;
+@property (strong, nonatomic) Order* orderToRate;
 @property (nonatomic) int outletID;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
 @property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
