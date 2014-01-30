@@ -234,9 +234,12 @@
 - (BOOL) meAtPgpBusStop :(CLLocation *)userLocation WithinMeters:(double)radius{
     // assuming location available
     CLLocation *pgpBusStopLocation = [[CLLocation alloc] initWithLatitude:1.292026 longitude:103.780304];
-    CLLocationDistance distance = [userLocation distanceFromLocation:pgpBusStopLocation];
+    CLLocation *pgp5Location = [[CLLocation alloc] initWithLatitude:1.293208 longitude:103.778376];
+    
+    CLLocationDistance distanceFromBusStop = [userLocation distanceFromLocation:pgpBusStopLocation];
+    CLLocationDistance distanceFromPgp5 = [userLocation distanceFromLocation:pgp5Location];
     User *user = [User sharedInstance];
-    if (distance <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
+    if (distanceFromBusStop <= radius && distanceFromPgp5 <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
         return true;
     } else {
         return false;
