@@ -130,7 +130,14 @@
     if ([type isEqualToString:@"message"]) {
         
         NSString *messages = [response objectForKey:@"data"];
+        int startIndexForDishName = [messages rangeOfString:@"[" options:NSBackwardsSearch].location;
+        int endIndexForDishName = [messages rangeOfString:@"]" options:NSBackwardsSearch].location;
+        if (startIndexForDishName != NSNotFound){
+            NSString *nameForUpdatedDish = [messages substringWithRange:NSMakeRange(startIndexForDishName  + 1, endIndexForDishName - startIndexForDishName - 1)];
+            [[User sharedInstance].pastOrder decrementDishName:nameForUpdatedDish];
+        }
         
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                             message:messages
                                                            delegate:nil

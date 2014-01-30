@@ -57,6 +57,12 @@
     [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
 }
 
+- (void) decrementDishName: (NSString*) dishName{
+    int index = [self getIndexOfDishByDishName:dishName];
+    int quantity = [self getQuantityOfDishByName:dishName];
+    [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
+}
+
 - (void) minusDish:(Dish *)dish{
     if ([self containsDishWithDishID:dish.ID]) {
         
@@ -109,6 +115,21 @@
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *dish = [self.dishes objectAtIndex:i];
         if (dish.ID == dishID) {
+            NSNumber *quantity = [self getQuantityObjectOfDish:dish];
+            return quantity.integerValue;
+        }
+    }
+    
+    // The dishID not found:
+    return 0;
+}
+
+- (int) getQuantityOfDishByName: (NSString*) dishName{
+    
+    // Iterate through the dishes:
+    for (int i = 0; i < [self.dishes count]; i++) {
+        Dish *dish = [self.dishes objectAtIndex:i];
+        if ([dish.name isEqualToString:dishName]) {
             NSNumber *quantity = [self getQuantityObjectOfDish:dish];
             return quantity.integerValue;
         }
@@ -189,6 +210,16 @@
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish * myDish = [self.dishes objectAtIndex:i];
         if (myDish.ID == dishID) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+- (int) getIndexOfDishByDishName: (NSString*) dishName{
+    for (int i = 0; i < [self.dishes count]; i++) {
+        Dish * myDish = [self.dishes objectAtIndex:i];
+        if ([myDish.name isEqualToString:dishName]) {
             return i;
         }
     }

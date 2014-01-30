@@ -97,8 +97,11 @@ extern double const LONGEST_NETWORK_WAITING_TIME;
 extern NSString* const OUTLET_ID_PREFIX;
 extern NSString* const OUTLET_INFO_FOR_ID_PREFIX;
 extern NSString* const FB_SESSION_IS_OPEN;
+
+// Notification Name
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;
 extern NSString* const NOTIF_NEW_DISH_INFO_FAILED;
+extern NSString* const NOTIF_ORDER_UPDATE;
 
 // Dictionary keys:
 extern NSString* const BIGSPOON_SSKEYCHAIN_NAME;

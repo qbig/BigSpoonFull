@@ -44,5 +44,6 @@
 - (int) getNumberOfKindsOfDishes;
 - (void) incrementDishWithId: (int)dishId;
 - (void) decrementDishWithId: (int)dishId;
+- (void) decrementDishName: (NSString*) dishName;
 
 @end
