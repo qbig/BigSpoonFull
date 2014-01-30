@@ -20,7 +20,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[User alloc] init];
-        // Do any other initialisation stuff here
+        sharedInstance.userDefault = [NSUserDefaults standardUserDefaults];
     });
     return sharedInstance;
 }
@@ -116,7 +116,6 @@
                  NSDictionary* json = (NSDictionary*)responseObject;
                  [[NSUserDefaults standardUserDefaults] setObject: json forKey: [NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_RETRIEVED object:json];
-                // [self handleJsonWithDishesAndTableInfos:json];
              }
                  break;
              case 403:
@@ -130,5 +129,31 @@
      }];
     [operation start];
 }
+
+- (void) saveInfoString:(NSString *)info ForKey: (NSString*) key{
+    [self.userDefault setObject:info forKey:key];
+}
+
+- (NSString *) getInfoStringForKey: (NSString *) key{
+    return [self.userDefault objectForKey:key];
+}
+
+- (void) saveObject:(id) obj forKey: (NSString*) key{
+    [self.userDefault setObject:obj forKey:key];
+}
+
+- (id) getObjectForKey: (NSString*) key{
+    return [self.userDefault objectForKey:key];
+}
+
+- (void) setOutletData: (id) obj forOutletID:(int) outletID{
+    [self.userDefault setObject: obj forKey:[NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
+}
+
+- (id) getOutletDataWithID: (int) outletID{
+    return [self.userDefault objectForKey:[NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
+}
+
+
 
 @end

@@ -99,4 +99,11 @@ extern NSString* const OUTLET_INFO_FOR_ID_PREFIX;
 extern NSString* const FB_SESSION_IS_OPEN;
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;
 extern NSString* const NOTIF_NEW_DISH_INFO_FAILED;
+
+// Dictionary keys:
+extern NSString* const BIGSPOON_SSKEYCHAIN_NAME;
+extern NSString* const EMAIL_USER_INFO_KEY;
+extern NSString* const FIRSTNAME_USER_INFO_KEY;
+extern NSString* const LASTNAME_USER_INFO_KEY;
+extern NSString* const PROFILE_PHOTO_URL_USER_INFO_KEY;
 @end

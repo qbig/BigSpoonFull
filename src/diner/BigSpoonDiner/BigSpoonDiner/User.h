@@ -26,9 +26,15 @@
 @property (nonatomic) NSDictionary *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
+@property (nonatomic, strong) NSUserDefaults *userDefault;
 
 + (User *)sharedInstance;
 - (void) attemptToLoginToFB;
 - (void) loadDishesAndTableInfosFromServerForOutlet: (int) outletID;
-
+- (void) saveInfoString:(NSString *)info ForKey: (NSString*) key;
+- (NSString *) getInfoStringForKey: (NSString *) key;
+- (void) saveObject:(id) obj forKey: (NSString*) key;
+- (id) getObjectForKey: (NSString*) key;
+- (void) setOutletData: (id) obj forOutletID:(int) outletID;
+- (id) getOutletDataWithID: (int) outletID;
 @end
