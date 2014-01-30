@@ -505,7 +505,11 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profilePhotoURL"];
     [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
-    
+    User *user = [User sharedInstance];
+    user.pastOrder = nil;
+    user.currentOrder = nil;
+    user.currentOutlet = nil;
+    user.validTableIDs = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
     
     

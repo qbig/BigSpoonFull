@@ -107,6 +107,13 @@ NSString* const CANNOT_DETECT_LOCATION_ALERT_TITLE = @"BigSpoon couldn't find yo
 NSString* const CANNOT_DETECT_LOCATION_ALERT = @"Orders can only be sent when you are at the restaurant.\nIf you are already there, kindly speak to the friendly waiter for your orders. ";
 
 
+// Dictionary keys:
+NSString* const BIGSPOON_SSKEYCHAIN_NAME = @"BigSpoon";
+NSString* const EMAIL_USER_INFO_KEY = @"email";
+NSString* const FIRSTNAME_USER_INFO_KEY = @"firstName";
+NSString* const LASTNAME_USER_INFO_KEY = @"lastName";
+NSString* const PROFILE_PHOTO_URL_USER_INFO_KEY = @"profilePhotoURL";
+
 
 // Others:
 
@@ -119,4 +126,5 @@ NSString* const OUTLET_INFO_FOR_ID_PREFIX = @"outletWithId";
 NSString* const FB_SESSION_IS_OPEN = @"FBSessionIsOpen";
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";
 NSString* const NOTIF_NEW_DISH_INFO_FAILED = @"DishAndTableRequestNetworkFailure";
+
 @end
