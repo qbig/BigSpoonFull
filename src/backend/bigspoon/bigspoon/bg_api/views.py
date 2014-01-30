@@ -222,10 +222,9 @@ class UpdateOrder(generics.CreateAPIView):
 
         send_user_feedback(
             "u_%s" % order_to_modify.meal.diner.auth_token.key,
-            "Sorry, one of your order has been cancelled, as it's not available for the moment."
+            "Sorry, one of your order, [{dish_name}] has been cancelled, as it's not available for the moment.".format(dish_name=order_to_modify.dish.name)
         )
         return Response({"quantity": updated_quantity }, status=status.HTTP_201_CREATED)
-
 
 
 class UpdateTableForMeal(generics.CreateAPIView):
@@ -401,8 +400,8 @@ class AskForBill(generics.GenericAPIView):
         table = get_object_or_404(Table, id=int(request.DATA['table']))
         diner = request.user
         meals = Meal.objects.filter(table=table, diner=diner,
-                                    is_paid=False)
-        if meals.count() == 1:
+                                    is_paid=False).order_by('-modified')
+        if meals.count() >= 1:
             meal = meals[0]
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
