@@ -36,5 +36,5 @@
 - (void) saveObject:(id) obj forKey: (NSString*) key;
 - (id) getObjectForKey: (NSString*) key;
 - (void) setOutletData: (id) obj forOutletID:(int) outletID;
-- (id) getOutletDataWithID: (NSString *) outletID;
+- (id) getOutletDataWithID: (int) outletID;
 @end

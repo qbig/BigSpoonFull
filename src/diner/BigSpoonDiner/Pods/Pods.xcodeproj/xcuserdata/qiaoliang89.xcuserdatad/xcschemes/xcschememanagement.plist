@@ -2,14 +2,37 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Mixpanel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>702E32F3452049429C624738</key>
+		<key>BD90588A06E14B96A2C7A928</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E4EDC09A43D401796BD15E6</key>
+		<key>C4C1E49E197E426E91A17B9A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5A2714AA3F54EBDACFCA939</key>
 		<dict>
 			<key>primary</key>
 			<true/>
