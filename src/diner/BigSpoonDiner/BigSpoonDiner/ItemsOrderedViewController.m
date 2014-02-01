@@ -33,7 +33,6 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePriceLabels) name:NOTIF_ORDER_UPDATE object:nil];
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(dismissKeyboard)];
@@ -58,12 +57,18 @@
 
 
 - (void) viewWillAppear:(BOOL)animated{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePriceLabels) name:NOTIF_ORDER_UPDATE object:nil];
     [super viewWillAppear:animated];
     self.userInfo = [User sharedInstance];
     [self updatePriceLabels];
     [self updateTablesAndScrollviewHeight: NO];
     
     return;
+}
+
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 // This was for a fix of the bug

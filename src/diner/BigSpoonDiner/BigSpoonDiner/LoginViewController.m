@@ -182,12 +182,14 @@
     NSString* auth_token = [json objectForKey:@"auth_token"];
     NSString* profilePhotoURL = [json objectForKey:@"avatar_url_large"];
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel identify:mixpanel.distinctId];
     [mixpanel createAlias:email
             forDistinctID:mixpanel.distinctId];
     [mixpanel registerSuperProperties:@{@"First Name": firstName,
                                         @"Last Name" : lastName,
                                         @"Email" : email
                                         }];
+    [mixpanel.people set:@"$email" to:email];
     
     User *user = [User sharedInstance];
     user.firstName = firstName;

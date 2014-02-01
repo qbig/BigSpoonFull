@@ -152,7 +152,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         }
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                             message:messages
                                                            delegate:nil
@@ -180,7 +179,18 @@
             case 201:{
                 NSLog(@"Update Order request success");
                 NSDictionary* json = (NSDictionary*)responseObject;
+                int previousOrderQuantity = [[User sharedInstance].pastOrder getTotalQuantity];
                 [self updateOrderWithJson: json];
+                int updateOrderQuantity = [[User sharedInstance].pastOrder getTotalQuantity];
+                if (previousOrderQuantity > updateOrderQuantity){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+                                                                        message:@"Sorry. Some of the dish you orderd is not available."
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"OK"
+                                                              otherButtonTitles: nil];
+                    [alertView show];
+                }
             }
                 break;
             case 403:
