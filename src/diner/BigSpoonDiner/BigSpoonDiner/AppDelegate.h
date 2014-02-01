@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <Mixpanel.h>
 #import "SocketIO.h"
 #import "SocketIOPacket.h"
 #import "Constants.h"
@@ -20,6 +21,10 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) SocketIO *socketIO;
 @property (nonatomic) BOOL isSocketConnected;
+
+@property (strong, nonatomic) Mixpanel *mixpanel;
+@property (nonatomic) UIBackgroundTaskIdentifier bgTask;
+@property (nonatomic, strong) NSDate *bgUsageStart;
 
 - (void) connectSocket;
 - (void) disconnectSocket;

@@ -21,6 +21,12 @@
     
     [TestFlight takeOff:@"069657b9-d915-4404-bad9-9aa6bb1968dc"];
     
+    self.mixpanel = [Mixpanel sharedInstanceWithToken:@"cd299a9c637a72d3d95d6cec378ad91e"];
+    [self.mixpanel identify:self.mixpanel.distinctId];
+    self.mixpanel.checkForSurveysOnActive = YES;
+    self.mixpanel.showSurveyOnActive = YES;
+    self.mixpanel.flushInterval = 60;
+    
     return YES;
 }
 
@@ -33,12 +39,6 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     [self disconnectSocket];
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -56,6 +56,8 @@
     @catch (NSException *exception) {
         NSLog(@"%@", exception);
     }
+    self.bgUsageStart = [NSDate date];
+    [self.mixpanel track:@"Usage Starts" properties:@{@"time": self.bgUsageStart}];
 
 }
 
@@ -224,5 +226,56 @@
     NSLog(@"In App Delegate: socketIO onError");
     self.isSocketConnected = NO;
 }
+
+
+#pragma mark - Background task tracking test
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    self.bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        
+        NSLog(@"%@ background task %lu cut short", self, (unsigned long)self.bgTask);
+        
+        [application endBackgroundTask:self.bgTask];
+        self.bgTask = UIBackgroundTaskInvalid;
+    }];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSLog(@"%@ starting background task %lu", self, (unsigned long)self.bgTask);
+        [self.mixpanel track:@"Usage Ends" properties:@{@"time": [NSDate date]}];
+        NSLog(@"%@ ending background task %lu", self, (unsigned long)self.bgTask);
+        [application endBackgroundTask:self.bgTask];
+        self.bgTask = UIBackgroundTaskInvalid;
+    });
+    
+    NSLog(@"%@ dispatched background task %lu", self, (unsigned long)self.bgTask);
+}
+
+#pragma mark - Push notifications
+
+//- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
+//    [self.mixpanel.people addPushDeviceToken:devToken];
+//}
+//
+//- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+//#if TARGET_IPHONE_SIMULATOR
+//    NSLog(@"%@ push registration error is expected on simulator", self);
+//#else
+//    NSLog(@"%@ push registration error: %@", self, err);
+//#endif
+//}
+//
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+//{
+//    // Show alert for push notifications recevied while the app is running
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                    message:userInfo[@"aps"][@"alert"]
+//                                                   delegate:nil
+//                                          cancelButtonTitle:@"OK"
+//                                          otherButtonTitles:nil];
+//    [alert show];
+//}
+
 
 @end
