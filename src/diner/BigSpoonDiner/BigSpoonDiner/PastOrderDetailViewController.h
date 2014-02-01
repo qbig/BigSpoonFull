@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MenuViewController.h"
 #import "OutletsTableViewController.h"
-
+#import <Mixpanel.h>
 @interface PastOrderDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property int selectedPastOrderOutletId;

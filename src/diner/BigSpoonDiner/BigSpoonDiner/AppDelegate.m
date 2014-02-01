@@ -58,7 +58,7 @@
     }
     self.bgUsageStart = [NSDate date];
     [self.mixpanel track:@"Usage Starts" properties:@{@"time": self.bgUsageStart}];
-
+    [self.mixpanel.people increment:@"Number of App Launch" by: [NSNumber numberWithInt:1]];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

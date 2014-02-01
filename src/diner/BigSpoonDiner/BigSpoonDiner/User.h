@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "Outlet.h"
 #import "Order.h"
+#import <Mixpanel.h>
 
 @interface User : NSObject
 

@@ -19,6 +19,7 @@
 #import "ImageCache.h"
 #import "SSKeychain.h"
 #import "EAIntroView.h"
+#import <Mixpanel.h>
 
 @interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, EAIntroDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 

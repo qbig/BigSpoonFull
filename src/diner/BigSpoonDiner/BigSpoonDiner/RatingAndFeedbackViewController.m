@@ -107,7 +107,8 @@
 }
 
 -(void)tappedRatingImageView: (UITapGestureRecognizer *)gesture{
-
+    
+    [[Mixpanel sharedInstance] track:@"RatingView: User rate with Stars"];
     CGPoint location = [gesture locationInView: self.ratingsTableView];
     NSIndexPath * indexPath = [self.ratingsTableView indexPathForRowAtPoint: location];
     RatingCell *cell = (RatingCell *)[self.ratingsTableView cellForRowAtIndexPath: indexPath];
@@ -196,7 +197,7 @@
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender{
     // Perfrom HTTP Call:
-    
+    [[Mixpanel sharedInstance] track:@"RatingView: User submit rating"];
     [self performRatingSubmission];
     [self performFeedbackSubmission];
     
@@ -340,14 +341,14 @@
 
 
 - (IBAction)ratingCancelButtonPressed:(id)sender{
-    
+    [[Mixpanel sharedInstance] track:@"RatingView: user cancelled rating"];
     [self.delegate modalSegueDidExit];
     [TestFlight passCheckpoint:@"CheckPoint:User Cancelled Rating popup"];
 }
 
 
 - (IBAction)textFieldDidBeginEditing:(id)sender {
-    
+    [[Mixpanel sharedInstance] track:@"RatingView: user rate by writing review"];
     // If the initialY is not initialized (and hence with a value of -1000, set in viewDIdLoad)
     if (self.initialY == -1000) {
         self.initialY = self.view.frame.origin.y;

@@ -279,11 +279,13 @@
         [self changeViewModeButtonIconTo:@"list_icon.png"];
         
         [TestFlight passCheckpoint:@"CheckPoint:User Checking Picture Menu"];
+        [[Mixpanel sharedInstance].people increment:@"MenuView: User at Pic Menu" by: [NSNumber numberWithInt:1]];
     } else if (self.menuListViewController.displayMethod == kMethodPhoto){
         self.menuListViewController.displayMethod = kMethodList;
         [self changeViewModeButtonIconTo:@"photo_icon.png"];
         
         [TestFlight passCheckpoint:@"CheckPoint:User Checking List Menu"];
+        [[Mixpanel sharedInstance].people increment:@"User at List Menu" by: [NSNumber numberWithInt:1]];
     } else {
         NSLog(@"Error: In viewModeButtonPressedAtListPage(), displayMethod not found");
     }
@@ -325,9 +327,11 @@
 
 - (IBAction)requestWaterButtonPressed:(id)sender {
     NSLog(@"requestWaterButtonPressed");
+
     [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaterButtonCoverView];
 
     if (![self isTableIDKnown]) {
+        [[Mixpanel sharedInstance] track:@"MenuView: Request for Water(Not verified)"];
         [self askForTableID];
         
         __weak MenuViewController *weakSelf = self;
@@ -336,6 +340,7 @@
             [weakSelf performRequestWaterSelectQuantityPopUp];
         };
     } else{
+        [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
         [self performRequestWaterSelectQuantityPopUp];
     }
 }
@@ -346,9 +351,11 @@
 
 - (IBAction)requestWaiterButtonPressed:(id)sender {
     [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaiterButtonCoverView];
+
     NSLog(@"callWaiterButtonPressed");
     
     if (![self isTableIDKnown]) {
+        [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters(Not verified) "];
         [self askForTableID];
         
         __weak MenuViewController *weakSelf = self;
@@ -358,6 +365,7 @@
         };
     } else{
         [self performRequestWaiterConfirmationPopUp];
+        [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters"];
     }
     [TestFlight passCheckpoint:@"CheckPoint:User Asking for Waiters"];
 }
@@ -373,8 +381,7 @@
 }
 
 - (IBAction)requestBillButtonPressed:(id)sender {
-    NSLog(@"billButtonPressed");
-    
+
     [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestBillButtonCoverView];
 
     
@@ -393,7 +400,7 @@
     
     if (![self isTableIDKnown]) {
         [self askForTableID];
-        
+        [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill(Not verified)"];
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
@@ -401,6 +408,8 @@
         };
     } else{
         [self performRequestBillConfirmationPopUp];
+        [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill"];
+        [[Mixpanel sharedInstance].people increment:@"Number of Bill" by:[NSNumber numberWithInt:1]];
     }
     
     [TestFlight passCheckpoint:@"CheckPoint:User Asked For Bill"];
@@ -497,7 +506,7 @@
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
-
+    [[Mixpanel sharedInstance] track:@"MenuView: User reach Item page"];
     [BigSpoonAnimationController animateRequestButtonWhenClicked:self.itemsButtonCoverView];
     
     // Can also check in the shouldPerformSegueWithIdentifier:sender
@@ -673,6 +682,7 @@
 
         if(![title isEqualToString:@"Cancel"])
         {
+
             NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
             for (NSString *validTableCode in [self.validTableIDs allKeys]) {
@@ -681,6 +691,7 @@
                     NSLog(@"The table ID is valid");
                     self.tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
                     self.taskAfterAskingForTableID();
+                    [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
                     return;
                 }
             }
@@ -795,13 +806,14 @@
     
     if (![self isTableIDKnown]) {
         [self askForTableID];
-        
+         [[Mixpanel sharedInstance] track:@"MenuView: Order placed(Not verified)"];
         __weak MenuViewController *weakSelf = self;
         
         self.taskAfterAskingForTableID = ^(void){
             [weakSelf showPlaceOrderConfirmationPopUp];
         };
     } else{
+        [[Mixpanel sharedInstance] track:@"MenuView: Order placed"];
         [self showPlaceOrderConfirmationPopUp];
     }
 }

@@ -95,7 +95,7 @@
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
-        
+        [[Mixpanel sharedInstance] track:@"clicked 'Done' in signup page with blank field"];
         return;
     }
     
@@ -176,13 +176,20 @@
         
         // 201 Created
         case 201:{
-            
+
             NSString* email =[json objectForKey:@"email"];
             NSString* firstName = [json objectForKey:@"first_name"];
             NSString* lastName = [json objectForKey:@"last_name"];
             NSString* auth_token = [json objectForKey:@"auth_token"];
             NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
-            
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            [mixpanel createAlias:email
+                    forDistinctID:mixpanel.distinctId];
+            [mixpanel registerSuperProperties:@{@"First Name": firstName,
+                                                @"Last Name" : lastName,
+                                                @"Email" : email
+                                                }];
+
             
             User *user = [User sharedInstance];
             user.firstName = firstName;
@@ -215,7 +222,7 @@
         }
             
         default:{
-            
+            [[Mixpanel sharedInstance] track:@"signup fail"];
             id firstKey = [[json allKeys] firstObject];
 
             NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
@@ -275,6 +282,7 @@
 - (void)populateUserDetails
 {
     if (FBSession.activeSession.isOpen) {
+        [[Mixpanel sharedInstance] track:@"signup with fb"];
         [[FBRequest requestForMe] startWithCompletionHandler:
          ^(FBRequestConnection *connection,
            NSDictionary<FBGraphUser> *user,

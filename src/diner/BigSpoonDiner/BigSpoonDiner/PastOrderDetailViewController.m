@@ -36,6 +36,7 @@
     self.restuarantNameLabel.text = self.restaurantName;
     self.orderTimeLabel.text = self.orderTime;
     [self updateTablesAndScrollviewHeight];
+    [[Mixpanel sharedInstance] track:@"User reach history Detail View"];
 }
 
 - (double)getSubtotal {
@@ -145,7 +146,8 @@
 }
 
 - (IBAction)placeTheSameOrder:(id)sender {
-
+    
+    [[Mixpanel sharedInstance] track:@"User click Same order in history"];
     OutletsTableViewController *outletsTableViewController = (OutletsTableViewController *)[[self.navigationController viewControllers] objectAtIndex:0];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MenuViewController *menuViewController = [storyboard instantiateViewControllerWithIdentifier:@"MENU_VIEW_CONTROLLER"];

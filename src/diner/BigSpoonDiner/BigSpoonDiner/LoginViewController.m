@@ -94,8 +94,10 @@
         // Create url connection and fire request
         [self showLoadingIndicators];
         self.connectionForLogin = [NSURLConnection connectionWithRequest:request delegate:self];
+    } else {
+        [[Mixpanel sharedInstance] track:@"Failed to login using email, with blank field" properties:@{@"email": self.emailLabel.text, @"password": self.passwordField.text}];
     }
-    
+    [[Mixpanel sharedInstance] track:@"Try to log in with Email" properties:@{@"email": self.emailLabel.text, @"password": self.passwordField.text}];
     [TestFlight passCheckpoint:@"CheckPoint:User Loggin in with email"];
 }
 
@@ -173,12 +175,19 @@
 }
 
 - (void)setUserDataAndPrefsWithReturnedData:(NSDictionary *)json {
+    NSLog(@"%@", json);
     NSString* email =[json objectForKey:@"email"];
     NSString* firstName = [json objectForKey:@"first_name"];
     NSString* lastName = [json objectForKey:@"last_name"];
     NSString* auth_token = [json objectForKey:@"auth_token"];
     NSString* profilePhotoURL = [json objectForKey:@"avatar_url_large"];
-    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel createAlias:email
+            forDistinctID:mixpanel.distinctId];
+    [mixpanel registerSuperProperties:@{@"First Name": firstName,
+                                        @"Last Name" : lastName,
+                                        @"Email" : email
+                                        }];
     
     User *user = [User sharedInstance];
     user.firstName = firstName;
@@ -228,12 +237,12 @@
                 [self setUserDataAndPrefsWithReturnedData:json];
                 
                 [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
-                
+                [[Mixpanel sharedInstance] track:@"Log in with email success" properties:@{@"email": self.emailLabel.text, @"password": self.passwordField.text}];
                 break;
             }
                 
             default:{
-                
+                [[Mixpanel sharedInstance] track:@"Log in with email failure" properties:@{@"email": self.emailLabel.text, @"password": self.passwordField.text}];
                 UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Unable to login with provided credentials." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                 [message show];
                 
@@ -247,9 +256,16 @@
             [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
         } else {
             [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
+            [[Mixpanel sharedInstance] track:@"Signup with FB"];
         }
     }
    
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if (!self.connectionForLogin){
+        [[Mixpanel sharedInstance] track:@"Signup with email"];
+    }
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection
@@ -299,6 +315,7 @@
 
 - (IBAction)fbButtonPressed:(id)sender {
     [[User sharedInstance] attemptToLoginToFB];
+    [[Mixpanel sharedInstance] track:@"Try to login using FB"];
 }
 
 @end

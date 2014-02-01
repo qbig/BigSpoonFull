@@ -17,6 +17,7 @@
 #import "UIViewController+KeyboardEvents.h"
 #import "TestFlight.h"
 #import "User.h"
+#import <Mixpanel.h>
 
 @class ItemsOrderedViewController;
 

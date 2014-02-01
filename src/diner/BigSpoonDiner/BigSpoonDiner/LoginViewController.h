@@ -12,6 +12,7 @@
 #import "SSKeychain.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "TestFlight.h"
+#import <Mixpanel.h>
 @interface LoginViewController : UIViewController <NSURLConnectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;

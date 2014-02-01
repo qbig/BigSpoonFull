@@ -307,6 +307,11 @@
     NSLog(@"%@", [self.navigationController viewControllers]);
     [self dismissKeyboard];
     NSLog(@"%@", [self.delegate getCurrentOrder].notes);
+    [[Mixpanel sharedInstance] track:@"ItemView: Order placed"];
+    [[Mixpanel sharedInstance].people increment:@"Number of Order placed" by:[NSNumber numberWithInt:1]];
+    [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"ItemView: Spent %@",self.pastTotalLabel.text]];
+    [[Mixpanel sharedInstance].people increment:@"Total Spending" by: [NSNumber numberWithDouble: self.pastTotalLabel.text.doubleValue]];
+    [[Mixpanel sharedInstance].people increment:@"Number of Dish" by: [NSNumber numberWithInt: [[User sharedInstance].pastOrder getTotalQuantity]]];
     [self.delegate placeOrderWithNotes:self.addNotesTextField.text];
     
     // Erase the existing text.
@@ -423,7 +428,14 @@
                                                                   pasrOrderFrame.origin.y + pastOrderTableHeight,
                                                                   viewAfterframe.size.width,
                                                                   viewAfterframe.size.height)];
-    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + currentOrderTableHeight + pastOrderTableHeight);
+    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + 100 + currentOrderTableHeight + pastOrderTableHeight);
+    
+    // hack for 3.5 and 4 screen size
+    if (fabsf([[UIScreen mainScreen] bounds].size.height - IPHONE_35_INCH_HEIGHT) < 0.001) {
+       self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + 100 + currentOrderTableHeight + pastOrderTableHeight);
+    } else { // 4 inch
+        self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + currentOrderTableHeight + pastOrderTableHeight);
+    }
     
 }
 

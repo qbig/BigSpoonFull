@@ -47,7 +47,7 @@
     [self initActivityIndicator];
     [self.suggestionLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:8]];
     [self loadOrderHistoryFromServer];
-    
+    [[Mixpanel sharedInstance] track: @"User reach History View"];
     [TestFlight passCheckpoint:@"CheckPoint:User Checking Past Order"];
 }
 

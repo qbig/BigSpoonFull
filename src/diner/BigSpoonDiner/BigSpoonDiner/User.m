@@ -58,6 +58,7 @@
             if (FBSession.activeSession.isOpen) {
                 NSLog(@"YAY! Finally Become open!");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"FBSessionIsOpen" object:self];
+                [[Mixpanel sharedInstance] track:@"Facebook login sucess"];
             } else{
                 NSLog(@"Nope not yet");
             }
@@ -72,7 +73,7 @@
             // be looking at the root view.
             NSLog(@"Failed logging with Facebook");
             [FBSession.activeSession closeAndClearTokenInformation];
-            
+            [[Mixpanel sharedInstance] track:@"Facebook login failure"];
             break;
         default:
             NSLog(@"Other cases");

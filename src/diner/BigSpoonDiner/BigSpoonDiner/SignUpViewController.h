@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Mixpanel.h>
 #import "User.h"
 #import "Constants.h"
 #import "SSKeychain.h"

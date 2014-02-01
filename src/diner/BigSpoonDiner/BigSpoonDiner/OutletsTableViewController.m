@@ -38,6 +38,7 @@
 
 
 - (void)showIntroWithCustomView {
+    [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
     self.outletsTableView.scrollEnabled = NO;
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     EAIntroPage *welcome_page = [EAIntroPage page];
@@ -76,6 +77,8 @@
 
 - (void)viewDidLoad
 {
+    [[Mixpanel sharedInstance] track:@"OutletView: User at Outlet View"];
+    [[Mixpanel sharedInstance].people increment:@"Reach Outlet View" by: [NSNumber numberWithInt:1]];
     [super viewDidLoad];
     [self initActivityIndicator];
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
@@ -402,6 +405,12 @@
 #pragma mark - Navigation
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([CLLocationManager locationServicesEnabled] &&
+       [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied){
+        [[Mixpanel sharedInstance] registerSuperProperties:@{@"Location Enabled" : @"Yes"}];
+    } else {
+        [[Mixpanel sharedInstance] registerSuperProperties:@{@"Location Enabled" : @"No"}];
+    }
     Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     
     // Deselect the row. Otherwise it will remain being selected.
@@ -409,8 +418,9 @@
     if ([indicator isAnimating]){
         return;
     }
+    [[Mixpanel sharedInstance] track: [NSString stringWithFormat: @"OutletView: Clicked outlet: %@",outlet.name]];
     if (outlet.isActive) {
-        NSLog(@"Is Active haha!!");
+
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
         [User sharedInstance].currentOutlet = outlet;
@@ -524,5 +534,6 @@
     self.outletsTableView.scrollEnabled = YES;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self askForLocationPermit];
+    [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
 }
 @end

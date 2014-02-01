@@ -12,6 +12,7 @@
 #import "User.h"
 #import "PastOrderView.h"
 #import <MessageUI/MessageUI.h> 
+#import <Mixpanel.h>
 
 @class OrderHistoryViewController;
 
