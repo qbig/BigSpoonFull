@@ -185,7 +185,7 @@
                 if (previousOrderQuantity > updateOrderQuantity){
                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                                        message:@"Sorry. Some of the dish you orderd is not available."
+                                                                        message:@"Sorry, one of your order has been cancelled, as it's not available for the moment."
                                                                        delegate:nil
                                                               cancelButtonTitle:@"OK"
                                                               otherButtonTitles: nil];
