@@ -302,12 +302,14 @@
 }
 
 - (void)proceedToOutletView{
+    [self stopLoadingIndicators];
     [self performSegueWithIdentifier:@"SegueFromSingUpToOutlets" sender:self];
 }
 
 
 
 - (IBAction)fbButtonPressed:(id)sender {
+    [self showLoadingIndicators];
     [[User sharedInstance] attemptToLoginToFB];
 }
 

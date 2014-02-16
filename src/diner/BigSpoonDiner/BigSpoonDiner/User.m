@@ -162,6 +162,12 @@
          [self sessionStateChanged:session state:state error:error];
          
          FBSession.activeSession = session;
+         if (FBSession.activeSession.isOpen) {
+             NSLog(@"FBSession.activeSession.isOpen IS open!");
+             // check token validity and login successfully
+             [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
+             [self checkTokenValidity];
+         }
      }];
 }
 
