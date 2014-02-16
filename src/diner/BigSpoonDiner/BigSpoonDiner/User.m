@@ -41,7 +41,7 @@
     if (FBSession.activeSession.isOpen) {
         NSLog(@"FBSession.activeSession.isOpen IS open!");
         // check token validity and login successfully
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"FBSessionIsOpen" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];
