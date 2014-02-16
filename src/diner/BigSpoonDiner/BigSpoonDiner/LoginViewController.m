@@ -52,8 +52,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTokenValidity) name:FB_SESSION_IS_OPEN object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -101,24 +101,9 @@
     [TestFlight passCheckpoint:@"CheckPoint:User Loggin in with email"];
 }
 
-- (void) checkTokenValidity {
-    [self showLoadingIndicators];
-    
-    // Create the request.
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: USER_LOGIN_WITH_FB]];
-    request.HTTPMethod = @"POST";
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
-    [info setObject:[FBSession.activeSession accessTokenData].accessToken forKey: @"access_token"];
-    NSError* error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                       options:NSJSONWritingPrettyPrinted error:&error];
-    
-    request.HTTPBody = jsonData;
-    
-    // Create url connection and fire request
-    self.connectionForCheckingFBToken = [NSURLConnection connectionWithRequest:request delegate:self];
+- (void)proceedToOutletView{
+    [self stopLoadingIndicators];
+    [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
 }
 
 
@@ -251,17 +236,7 @@
                 break;
             }
         }
-    } else {
-        // handle checking token connection
-        if ([json count] == 6){
-            [self setUserDataAndPrefsWithReturnedData:json];
-            [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
-        } else {
-            [self performSegueWithIdentifier:@"SegueFromLoginToSignup" sender:self];
-            [[Mixpanel sharedInstance] track:@"Signup with FB"];
-        }
-    }
-   
+    }   
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -316,6 +291,7 @@
 #pragma mark fbLogin
 
 - (IBAction)fbButtonPressed:(id)sender {
+    [self showLoadingIndicators];
     [[User sharedInstance] attemptToLoginToFB];
     [[Mixpanel sharedInstance] track:@"Try to login using FB"];
 }

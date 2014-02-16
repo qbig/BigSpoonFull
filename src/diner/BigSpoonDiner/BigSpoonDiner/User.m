@@ -93,6 +93,16 @@
                  user.authToken = auth_token;
                  user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:self];
+                 
+                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                 
+                 // Set
+                 [prefs setObject:firstName forKey:@"firstName"];
+                 [prefs setObject:lastName forKey:@"lastName"];
+                 [prefs setObject:email forKey:@"email"];
+                 [prefs setObject:profilePhotoURL forKey:@"profilePhotoURL"];
+                 [prefs synchronize];
+                 [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
              }
                  break;
              case 403:

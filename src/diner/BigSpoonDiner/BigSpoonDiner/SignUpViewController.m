@@ -53,7 +53,7 @@
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateUserDetails) name:FB_SESSION_IS_OPEN object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
