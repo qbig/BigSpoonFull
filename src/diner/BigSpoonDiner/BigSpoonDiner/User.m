@@ -42,10 +42,69 @@
         NSLog(@"FBSession.activeSession.isOpen IS open!");
         // check token validity and login successfully
         [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
+        [self checkTokenValidity];
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
         [self openSession];
     }
+}
+
+- (void) checkTokenValidity {
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: USER_LOGIN_WITH_FB]];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
+    [info setObject:[FBSession.activeSession accessTokenData].accessToken forKey: @"access_token"];
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                       options:NSJSONWritingPrettyPrinted error:&error];
+    
+    request.HTTPBody = jsonData;
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation
+     setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+         long responseCode = [operation.response statusCode];
+         switch (responseCode) {
+             case 200:
+             case 201:{
+                 NSDictionary* json = (NSDictionary*)responseObject;
+                 NSString* email =[json objectForKey:@"email"];
+                 NSString* firstName = [json objectForKey:@"first_name"];
+                 NSString* lastName = [json objectForKey:@"last_name"];
+                 NSString* auth_token = [json objectForKey:@"auth_token"];
+                 NSString* profilePhotoURL = [json objectForKey:@"avatar_url"];
+                 Mixpanel *mixpanel = [Mixpanel sharedInstance];
+                 [mixpanel identify:mixpanel.distinctId];
+                 [mixpanel createAlias:email
+                         forDistinctID:mixpanel.distinctId];
+                 [mixpanel registerSuperProperties:@{@"First Name": firstName,
+                                                     @"Last Name" : lastName,
+                                                     @"Email" : email
+                                                     }];
+                 [mixpanel.people set:@"$email" to:email];
+                 
+                 User *user = [User sharedInstance];
+                 user.firstName = firstName;
+                 user.lastName = lastName;
+                 user.email = email;
+                 user.authToken = auth_token;
+                 user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:self];
+             }
+                 break;
+             case 403:
+             default:{
+                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+             }
+         }
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+     }];
+    [operation start];
 }
 
 
@@ -57,7 +116,7 @@
             NSLog(@"Successfully logged in with Facebook");
             if (FBSession.activeSession.isOpen) {
                 NSLog(@"YAY! Finally Become open!");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"FBSessionIsOpen" object:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
                 [[Mixpanel sharedInstance] track:@"Facebook login sucess"];
             } else{
                 NSLog(@"Nope not yet");

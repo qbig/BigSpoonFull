@@ -233,7 +233,7 @@
                   symbolName = "-[AppDelegate socketIO:didReceiveJSON:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/AppDelegate.m"
-                  timestampString = "414228475.233159"
+                  timestampString = "414235862.830518"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -247,7 +247,7 @@
                   symbolName = "-[AppDelegate socketIO:didReceiveJSON:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/AppDelegate.m"
-                  timestampString = "414228475.23333"
+                  timestampString = "414235862.830772"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "150"
@@ -279,7 +279,7 @@
                   symbolName = "-[AppDelegate applicationDidBecomeActive:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/AppDelegate.m"
-                  timestampString = "414228475.233507"
+                  timestampString = "414235862.831042"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "54"
@@ -293,7 +293,7 @@
                   symbolName = "-[AppDelegate applicationDidBecomeActive:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/AppDelegate.m"
-                  timestampString = "414228475.233743"
+                  timestampString = "414235862.831289"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "54"
@@ -363,7 +363,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
-            landmarkName = "-updateOrderWithJson:"
+            landmarkName = "-updateOrder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -411,8 +411,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "234"
             endingLineNumber = "234"
-            landmarkName = "-applicationDidEnterBackground:"
-            landmarkType = "5">
+            landmarkName = "@implementation AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -437,7 +437,7 @@
                   symbolName = "-[AppDelegate applicationDidEnterBackground:]"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/AppDelegate.m"
-                  timestampString = "414228475.235176"
+                  timestampString = "414235862.833408"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "245"
@@ -451,7 +451,7 @@
                   symbolName = "__45-[AppDelegate applicationDidEnterBackground:]_block_invoke"
                   moduleName = "BigSpoonDiner"
                   urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/AppDelegate.m"
-                  timestampString = "414228475.235336"
+                  timestampString = "414235862.833581"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "245"
@@ -548,11 +548,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/User.m"
-            timestampString = "414228476.085424"
+            timestampString = "414235703.101542"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "-attemptToLoginToFB"
             landmarkType = "5">
          </BreakpointContent>
