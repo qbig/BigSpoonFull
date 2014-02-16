@@ -1,6 +1,7 @@
 from facepy import GraphAPI
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import Group
 from django.utils import timezone
 
 from rest_framework import serializers
@@ -291,7 +292,7 @@ class FBSerializer(serializers.Serializer):
         if access_token:
             try:
                 graph = GraphAPI(access_token)
-                result = graph.get('me?fields=email')
+                result = graph.get('me?fields=email,username,first_name,last_name')
             except GraphAPI.OAuthError:
                 result = None
             if result:
@@ -306,8 +307,20 @@ class FBSerializer(serializers.Serializer):
                     attrs['user'] = user
                     return attrs
                 else:
-                    raise serializers.ValidationError(
-                        'User not found.')
+                    user = User()
+                    user.is_active = True
+                    user.set_password(access_token)
+                    user.email = result['email']
+                    user.username = result['username']
+                    user.first_name = result['first_name']
+                    user.last_name = result['last_name']
+                    user.save()
+
+                    g = Group.objects.get(name='normaluser')
+                    g.user_set.add(user)
+                    g.save()
+                    attrs['user'] = user
+                    return attrs
             else:
                 raise serializers.ValidationError(
                     'Invalid access token.')
