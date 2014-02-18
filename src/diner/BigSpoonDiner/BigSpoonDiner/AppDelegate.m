@@ -26,12 +26,47 @@
     self.mixpanel.checkForSurveysOnActive = YES;
     self.mixpanel.showSurveyOnActive = YES;
     self.mixpanel.flushInterval = 60;
-    
+    [self initLocationManager];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startTrackingLocation) name:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
     return YES;
 }
 
-- (void)loadOutlets{
-    
+- (void)initLocationManager{
+    //initialize geolocation
+    if(self.locationManager == nil){
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+    }
+}
+
+- (void)startTrackingLocation{
+    [self.locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+
+        NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+        if (locationAge > 5.0) {
+            // cached!
+            return;
+        }
+        if (newLocation.horizontalAccuracy < 0) {
+            // accuracy invalid
+            [User sharedInstance].locationAvailableForChecking = NO;
+            return;
+        }
+        // test the measurement to see if it is more accurate than the previous measurement
+        if ([User sharedInstance].userLocation == nil ||[User sharedInstance].userLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+            [User sharedInstance].userLocation = newLocation;
+            if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
+                // we have a measurement that meets our requirements, so we can stop updating the location
+            [self.locationManager stopUpdatingLocation];
+            [User sharedInstance].locationAvailableForChecking = YES;
+            }
+        }
+ 
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -44,6 +79,17 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self beginBackgroundUpdateTask];
+            
+            [self initLocationManager];
+            [self.locationManager stopMonitoringSignificantLocationChanges];
+            [self startTrackingLocation];
+            
+            [self endBackgroundUpdateTask];
+        });
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -239,24 +285,38 @@
 
 
 #pragma mark - Background task tracking test
+- (void) beginBackgroundUpdateTask
+{
+    self.bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self endBackgroundUpdateTask];
+    }];
+}
+
+- (void) endBackgroundUpdateTask
+{
+    [[UIApplication sharedApplication] endBackgroundTask: self.bgTask];
+    self.bgTask = UIBackgroundTaskInvalid;
+}
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    self.bgTask = [application beginBackgroundTaskWithExpirationHandler:^{
-        
-        NSLog(@"%@ background task %lu cut short", self, (unsigned long)self.bgTask);
-        
-        [application endBackgroundTask:self.bgTask];
-        self.bgTask = UIBackgroundTaskInvalid;
-    }];
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self beginBackgroundUpdateTask];
         
         NSLog(@"%@ starting background task %lu", self, (unsigned long)self.bgTask);
+        [self initLocationManager];
+        [self.locationManager stopUpdatingLocation];
+        [self.locationManager startMonitoringSignificantLocationChanges];
         [self.mixpanel track:@"Usage Ends" properties:@{@"time": [NSDate date]}];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:60 * 5
+                                                      target:self.locationManager
+                                                    selector:@selector(startUpdatingLocation)
+                                                    userInfo:nil
+                                                     repeats:YES];
         NSLog(@"%@ ending background task %lu", self, (unsigned long)self.bgTask);
-        [application endBackgroundTask:self.bgTask];
-        self.bgTask = UIBackgroundTaskInvalid;
+
+        [self endBackgroundUpdateTask];
     });
     
     NSLog(@"%@ dispatched background task %lu", self, (unsigned long)self.bgTask);

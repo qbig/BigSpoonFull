@@ -64,14 +64,7 @@
 }
 
 - (void) askForLocationPermit{
-    //initialize geolocation
-    locationManager = [[CLLocationManager alloc] init];
-	locationManager.delegate = self;
-	locationManager.distanceFilter = kCLDistanceFilterNone;
-	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    //Geofencing starts working as soon as this view is loaded
-    [locationManager startUpdatingLocation];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
     NSLog(@"location bt clicked");
 }
 
@@ -84,7 +77,6 @@
     NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
     if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         [self showIntroWithCustomView];
-        [userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
     }
     
     [self loadOutletsFromServer];
@@ -534,6 +526,7 @@
     self.outletsTableView.scrollEnabled = YES;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self askForLocationPermit];
+    [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
     [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
 }
 @end

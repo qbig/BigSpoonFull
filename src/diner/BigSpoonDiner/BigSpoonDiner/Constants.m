@@ -130,5 +130,6 @@ NSString* const FB_TOKEN_VERIFIED = @"FBTokenIsVerified";
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";
 NSString* const NOTIF_NEW_DISH_INFO_FAILED = @"DishAndTableRequestNetworkFailure";
 NSString* const NOTIF_ORDER_UPDATE = @"OrderUpdated";
+NSString* const NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT = @"ShouldAskLocationPermitNow";
 
 @end

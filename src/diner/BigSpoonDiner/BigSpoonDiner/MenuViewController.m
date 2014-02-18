@@ -13,10 +13,6 @@
     NSMutableDictionary *_viewControllersByIdentifier;
     NSString *notesWhenPlacingOrder;
     CGRect oldFrameItemBadge;
-    CLGeocoder *geocoder;
-	CLPlacemark *placemark;
-    CLLocationManager *locationManager;
-    CLLocation *currentUserLocation;
     NSDictionary *_validTableIDs;
 }
 
@@ -79,17 +75,7 @@
         [self updateItemQuantityBadge];
     }
     
-    //initialize geolocation
-    locationManager = [[CLLocationManager alloc] init];
-	locationManager.delegate = self;
-	locationManager.distanceFilter = kCLDistanceFilterNone;
-	locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    //Geofencing starts working as soon as this view is loaded
-    [locationManager startUpdatingLocation];
-    
     [self loadControlPanels];
-
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -250,14 +236,6 @@
     }
     else {
         return false;
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-	if (![self isLocation:currentUserLocation SameAsLocation:newLocation]) {
-        currentUserLocation = newLocation;
-        NSLog(@"Lcoation updated");
     }
 }
 
@@ -1094,7 +1072,7 @@
         return;
     }
     
-    if (![self isUserLocation:currentUserLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
+    if ([User sharedInstance].locationAvailableForChecking && ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle: CANNOT_DETECT_LOCATION_ALERT_TITLE message:CANNOT_DETECT_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
         [TestFlight passCheckpoint:@"CheckPoint:User Action outside restaurant"];
         [errorAlert show];

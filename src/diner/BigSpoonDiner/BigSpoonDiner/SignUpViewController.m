@@ -216,7 +216,7 @@
             [prefs synchronize];
             [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
 
-            
+            [User sharedInstance].isLoggedIn = YES;
             [self performSegueWithIdentifier:@"SegueFromSingUpToOutlets" sender:self];
 
             
@@ -303,6 +303,7 @@
 
 - (void)proceedToOutletView{
     [self stopLoadingIndicators];
+    [User sharedInstance].isLoggedIn = YES;
     [self performSegueWithIdentifier:@"SegueFromSingUpToOutlets" sender:self];
 }
 

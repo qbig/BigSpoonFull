@@ -104,6 +104,7 @@
 - (void)proceedToOutletView{
     [self stopLoadingIndicators];
     [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
+    [User sharedInstance].isLoggedIn = YES;
 }
 
 
@@ -224,6 +225,7 @@
                 [self setUserDataAndPrefsWithReturnedData:json];
                 
                 [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
+                [User sharedInstance].isLoggedIn = YES;
                 [[Mixpanel sharedInstance] track:@"Log in with email success" properties:@{@"email": self.emailLabel.text, @"password": self.passwordField.text}];
                 break;
             }

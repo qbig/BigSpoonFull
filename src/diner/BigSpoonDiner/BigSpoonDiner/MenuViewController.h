@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 #import "Outlet.h"
 #import "OrderHistoryViewController.h"
 #import "MenuTableViewController.h"
@@ -27,7 +26,7 @@
 
 @class MenuViewController;
 
-@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CLLocationManagerDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate, ModalSegueDelegate, SubmitRatingAndFeedbackSuccessDelegate>
+@interface MenuViewController : UIViewController <OrderDishDelegate, UITextFieldDelegate, NSURLConnectionDelegate,PlaceOrderDelegate, CustomIOS7AlertViewDelegate, MenuDisplayModeDelegate, ModalSegueDelegate, SubmitRatingAndFeedbackSuccessDelegate>
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;

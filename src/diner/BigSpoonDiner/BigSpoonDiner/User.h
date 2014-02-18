@@ -27,7 +27,10 @@
 @property (nonatomic) NSDictionary *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;
+@property (nonatomic, strong) CLLocation* userLocation;
+@property (nonatomic) BOOL isLoggedIn;
 @property (nonatomic, strong) NSUserDefaults *userDefault;
+@property (nonatomic) BOOL locationAvailableForChecking;
 
 + (User *)sharedInstance;
 - (void) attemptToLoginToFB;

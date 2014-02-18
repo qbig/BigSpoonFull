@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <CoreLocation/CoreLocation.h>
 #import <Mixpanel.h>
 #import "SocketIO.h"
 #import "SocketIOPacket.h"
@@ -16,7 +17,7 @@
 #import "TestFlight.h"
 #import "SSKeychain.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, SocketIODelegate, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) SocketIO *socketIO;
@@ -25,6 +26,8 @@
 @property (strong, nonatomic) Mixpanel *mixpanel;
 @property (nonatomic) UIBackgroundTaskIdentifier bgTask;
 @property (nonatomic, strong) NSDate *bgUsageStart;
+@property (nonatomic, strong) CLLocationManager* locationManager;
+@property (nonatomic, strong) NSTimer* timer;
 
 - (void) connectSocket;
 - (void) disconnectSocket;
