@@ -52,7 +52,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.tableID = -1;
     }
     return self;
 }
@@ -145,7 +144,7 @@
             [self.delegate exitMenuListWithCurrentOrder:self.userInfo.currentOrder
                                               PastOrder:self.userInfo.pastOrder
                                                OutletID:self.outlet.outletID
-                                             andTableID:self.tableID
+                                             andTableID:[User sharedInstance].tableID
                                              andMessage:message];
             
         }
@@ -433,7 +432,7 @@
     }
     
     NSDictionary *parameters = @{
-                                 @"table": [NSNumber numberWithInt: self.tableID],
+                                 @"table": [NSNumber numberWithInt: [User sharedInstance].tableID],
                                  };
     
     User *user = [User sharedInstance];
@@ -480,7 +479,7 @@
     // Set the order items to null
     self.userInfo.currentOrder = [[Order alloc] init];
     self.userInfo.pastOrder = [[Order alloc] init];
-    self.tableID = -1;
+    [User sharedInstance].tableID = -1;
 }
 
 - (IBAction)itemsButtonPressed:(id)sender {
@@ -667,7 +666,7 @@
                 NSLog(@"%@", validTableCode);
                 if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
                     NSLog(@"The table ID is valid");
-                    self.tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
+                    [User sharedInstance].tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
                     self.taskAfterAskingForTableID();
                     [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
                     return;
@@ -872,7 +871,7 @@
     
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:[NSArray arrayWithArray: dishesArray] forKey:@"dishes"];
-    [parameters setObject:[NSNumber numberWithInt: self.tableID] forKey:@"table"];
+    [parameters setObject:[NSNumber numberWithInt: [User sharedInstance].tableID] forKey:@"table"];
     if (notesWhenPlacingOrder != nil && ![notesWhenPlacingOrder isEqualToString:@""] ) {
         [parameters setObject:notesWhenPlacingOrder forKey:@"note"];
     }
@@ -983,7 +982,7 @@
 
 - (void) requestWithType: (id) requestType WithNote: (NSString *)note{
     NSDictionary *parameters = @{
-                                 @"table": [NSNumber numberWithInt: self.tableID],
+                                 @"table": [NSNumber numberWithInt: [User sharedInstance].tableID],
                                  @"request_type": requestType,
                                  @"note": note
                                  };
@@ -1059,9 +1058,9 @@
 #pragma mark - Dealing with table number
 
 - (BOOL) isTableIDKnown{
-    NSLog(@"Current table ID: %d", self.tableID);
+    NSLog(@"Current table ID: %d", [User sharedInstance].tableID);
     // If tableID is 0 or -1, we conclude that the tableID is not known from the user.
-    return self.tableID > 0;
+    return [User sharedInstance].tableID > 0;
 }
 
 - (void) askForTableID{

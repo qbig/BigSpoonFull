@@ -88,6 +88,9 @@ extern NSString* const CANNOT_DETECT_LOCATION_ALERT_TITLE;
 extern NSString* const CANNOT_DETECT_LOCATION_ALERT;
 
 
+// SocketIO Message Token:
+extern NSString* const SOCKET_IO_TOKEN_BILL_CLOSED;
+
 // Others:
 
 extern int const NUM_OF_RATINGS;

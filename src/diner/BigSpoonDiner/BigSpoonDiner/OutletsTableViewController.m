@@ -451,7 +451,7 @@
             
             // Assign the history to the outlet:
 
-            menuViewController.tableID = self.tableIDOfPreviousSelection;
+            [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
             
             // Erase self data. If the user exits from the outlet, these info will be set by delegate.
             // self.currentOrder = nil;

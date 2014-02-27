@@ -115,6 +115,9 @@ NSString* const LASTNAME_USER_INFO_KEY = @"lastName";
 NSString* const PROFILE_PHOTO_URL_USER_INFO_KEY = @"profilePhotoURL";
 
 
+// SocketIO Message Token:
+NSString* const SOCKET_IO_TOKEN_BILL_CLOSED = @"bill has been closed";
+
 // Others:
 
 int const NUM_OF_RATINGS = 5;

@@ -196,6 +196,9 @@
                 NSLog(@"%@", exception);
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
+        } else if ([messages rangeOfString:SOCKET_IO_TOKEN_BILL_CLOSED].location != NSNotFound){
+            // clean user session
+            [User sharedInstance].tableID = -1;
         }
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""

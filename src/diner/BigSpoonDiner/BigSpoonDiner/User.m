@@ -24,7 +24,7 @@
         sharedInstance.firstName = [sharedInstance.userDefault objectForKey:@"first_name"];
         sharedInstance.lastName = [sharedInstance.userDefault objectForKey:@"last_name"];
         sharedInstance.authToken = [sharedInstance.userDefault objectForKey:@"auth_token"];
-
+        sharedInstance.tableID = -1;
         if(sharedInstance.currentOrder == nil ){
             sharedInstance.currentOrder = [[Order alloc] init];
         }

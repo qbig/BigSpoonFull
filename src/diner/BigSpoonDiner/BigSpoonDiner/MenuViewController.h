@@ -30,7 +30,6 @@
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;
-@property (nonatomic) int tableID;
 @property (nonatomic) NSDictionary *validTableIDs;
 @property (strong, nonatomic) User* userInfo;
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
