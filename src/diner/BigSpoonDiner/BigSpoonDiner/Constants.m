@@ -44,6 +44,27 @@ NSString* const ORDER_HISTORY_URL = @"http://54.255.0.38/api/v1/mealhistory";
 NSString* const SOCKET_URL = @"54.255.0.38";
 #endif
 
+//#define PROD @"54.255.3.255/"
+//#define DEV @"54.255.0.38/"
+//#define LOCAL @"127.0.0.1/"
+//#define kBASE_URL DEV
+//
+//NSString* const BASE_URL = @"http://" kBASE_URL;
+//NSString* const USER_SIGNUP = @"http://" kBASE_URL @"api/v1/user";
+//NSString* const USER_LOGIN = @"http://" kBASE_URL @"api/v1/login";
+//NSString* const USER_LOGIN_WITH_FB = @"http://" kBASE_URL @"api/v1/fblogin";
+//NSString* const LIST_OUTLETS = @"http://" kBASE_URL @"api/v1/outlets";
+//NSString* const REQUEST_URL = @"http://" kBASE_URL @"api/v1/request";
+//NSString* const PROFILE_URL = @"http://" kBASE_URL @"api/v1/profile";
+//NSString* const ORDER_URL = @"http://" kBASE_URL @"api/v1/meal";
+//NSString* const BILL_URL = @"http://" kBASE_URL @"api/v1/askbill";
+//NSString* const RATING_URL = @"http://" kBASE_URL @"api/v1/rating";
+//NSString* const FEEDBACK_URL = @"http://" kBASE_URL @"api/v1/review";
+//NSString* const DISH_CATEGORY_URL = @"http://" kBASE_URL @"api/v1/categories";
+//NSString* const ORDER_HISTORY_URL = @"http://" kBASE_URL @"api/v1/mealhistory";
+//NSString* const SOCKET_URL = kBASE_URL; // without 'http://' !!
+
+
 NSString* const KEY_FOR_SHOW_TUT_DEFAULT = @"hasShownTutorial";
 int const SOCKET_PORT = 8000;
 
