@@ -1,10 +1,14 @@
 <div class="wrapper-no-bg white-popup">
     <div class="user-info">
-        <span class='user'>
+        <div class='user'>
             <img class="thumbnail-navigation" src="{{diner.avatar_url}}" />
-            <h3>{{diner.first_name}} {{diner.last_name}}</h3>
-        </span>
-
+            <h3>{{diner.first_name}} {{diner.last_name}}</h3>    
+            <div class="popup_table_title">
+                <h3>Table {{current_table.name|capfirst}}</h3>
+                <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}">
+            </div>       
+        </div>
+       
         <span class='user-stats'>
             {% if diner.profile.gender == 'M' %}
             <p class='visits'><i class="icon-male"></i></p>
@@ -80,13 +84,10 @@
 
         <!-- order history -->
         <div class="past-orders">            
-
-            <h3><i class="icon-time"></i> Past Orders</h3>
-
+            <h3><i class="icon-time"></i> Current Orders</h3>
             {% if diner.meals.count > 0 %}
-
                 {% for meal in diner.meals.all reversed %}
-
+                {% if not meal.is_paid %}                                    
                 <h5>{{meal.get_created}}</h5>
                 <ul class="order">
                     {% if meal.orders.count > 0 %}
@@ -103,7 +104,36 @@
                         <li>No orders yet.</li>
                     {% endif %}
                 </ul>
+                {% endif %}
+                {% endfor %}
+            {% else%}
 
+                <p>This user has no current orders.</p>
+
+            {% endif %}
+            <h3><i class="icon-time"></i> Past Orders</h3>
+
+            {% if diner.meals.count > 0 %}
+
+                {% for meal in diner.meals.all reversed %}
+                {% if  meal.is_paid%}                                    
+                <h5>{{meal.get_created}}</h5>
+                <ul class="order">
+                    {% if meal.orders.count > 0 %}
+                        {% for order in meal.orders.all %}
+                        <li>
+                            <em class='quantity'>{{order.quantity}}x</em>
+                            <p>{{order.dish.name}}</p>
+                            {% if order.dish.pos %}
+                            <em class='pos'>{{order.dish.pos}}</em>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li>No orders yet.</li>
+                    {% endif %}
+                </ul>
+                {% endif %}
                 {% endfor %}
             {% else%}
 
@@ -115,3 +145,4 @@
 
     </div>
 </div>
+

@@ -769,6 +769,10 @@ background-color: #468847;
     border-bottom: 1px dashed rgba(0,0,0,0.2);
 }
 
+.white-popup .user{
+    padding-bottom: 20px;
+}
+
 .user h4 {
     display: inline-block;
     padding-top: 15px;
@@ -989,6 +993,11 @@ form.menu-add {
 .table_title {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);  
 } 
+
+.popup_table_title {
+    float: right;
+    padding-right: 30%;
+}
 
 .table h4 {
     margin: 0;

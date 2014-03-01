@@ -50,6 +50,7 @@ class MainView(TemplateView):
         context["cards"] = sorted(chain(meals, requests),
                                   key=lambda card: card.count_down_start)
         context["cards_num"] = meals.count() + requests.count()
+        context["table_list"] = list(outlets[0].tables.all())
         self.request.session["cards_num"] = context["cards_num"]
         return context
 
@@ -189,6 +190,9 @@ class UserView(TemplateView):
             raise Http404
 
         context['diner'] = diner
+        context['current_meal'] = diner.meals.latest('created')
+        context['current_table'] = context['current_meal'].table
+        #context['table_list'] = list(context['current_table'].outlet.tables.all())
         context['reviews'] = Review.objects.filter(
             user=diner,
             outlet__in=outlets

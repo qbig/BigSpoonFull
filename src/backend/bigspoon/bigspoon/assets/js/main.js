@@ -3,8 +3,12 @@ $(document).ready(function() {
     var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var timeout_obj;
-    var transfer_from_table, transfer_to_table;
-    var order_to_modify;
+    window.transfer_from_table; 
+    window.transfer_to_table;
+    window.order_to_modify;
+    window.selected_userId;
+
+    var is_in_popup = false;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     });
@@ -266,17 +270,17 @@ $(document).ready(function() {
                 console.log("POST failed");
                 console.log(data);
             });
-        };
+    };
 
-        window.successMessage = function(name){
-            var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>";
-            return successMessage;
-        };
+    window.successMessage = function(name){
+        var successMessage = "<p class='success'><i class='icon-ok-sign'></i> Dish details updated! </p>";
+        return successMessage;
+    };
 
-        function getErrorMessage(name){
-            var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>";
-            return errorMessage;
-        }
+    function getErrorMessage(name){
+        var errorMessage = "<p class='error'><i class='icon-frown'></i> Form error. Changes are not saved. </p>";
+        return errorMessage;
+    }
 
     // Makes AJAX call to update dish API endpoint
     window.updateDish = function(elem){
@@ -320,24 +324,47 @@ $(document).ready(function() {
                 $(notice_id).append(getErrorMessage(name)).effect("highlight", {}, 3000);
                 console.log("POST failed");
                 console.log(data);
-            });
+        });
 
-        };
+    };
 
-    // for User profile pop up
-    $(".user-profile-link").magnificPopup({
-        type: 'ajax',
-        alignTop: true,
-        closeBtnInside: true,
-        overflowY: 'scroll',
-    });
+    // after change table in bulk, need to bind the popup event again
+    function bind_popup(){
+        // for User profile pop up
+        $(".user-profile-link").magnificPopup({
+            type: 'ajax',
+            alignTop: true,
+            closeBtnInside: true,
+            overflowY: 'scroll',
+            callbacks: {
+                open: function() {
+                    is_in_popup = true;
+                    console.log(is_in_popup);                    
+                }
+            },
+        });
 
-    $(".view-profile").magnificPopup({
-        type: 'ajax',
-        alignTop: true,
-        closeBtnInside: true,
-        overflowY: 'scroll',
-    });
+        $(".view-profile").magnificPopup({
+            type: 'ajax',
+            alignTop: true,
+            closeBtnInside: true,
+            overflowY: 'scroll',
+            callbacks: {
+                open: function() {
+                    is_in_popup = true;
+                    console.log(is_in_popup);
+                }
+            },
+        });
+
+        $('.popup-modal').magnificPopup({
+            type: 'inline',
+            preloader: false,
+            focus: '#username',
+            modal: true
+        });
+    }
+    bind_popup();
 
     $('.ack-button').each(function() {
         var button = $(this);
@@ -379,45 +406,56 @@ $(document).ready(function() {
         }, 1000);
     });
 
-    //for table transfer
+    $('.pageDropdown').click(function(){
+        is_in_popup = false;
+    });
+
     $('.tableDropdown').click(function(){
         var self = $(this);
-        transfer_from_table = self.attr("data-tableId");
+        window.transfer_from_table = self.attr("data-tableId");
+        console.log(transfer_from_table);
     });
+
+    window.setOriginTable = function (object){
+        var self = $(object);
+        window.transfer_from_table = self.attr("data-tableId");
+        window.selected_userId = self.attr("data-userId");
+    };
 
     $('.targetTable').click(function() {
         var self = $(this);
-        var targetTableId = self.attr("data-toTableId");
-        var from_table_obj = $("#table-"+transfer_from_table);
+        targetTableId = self.attr("data-toTableId");
+        var from_table_obj = $("#table-"+window.transfer_from_table);
         var to_table_obj = $("#table-" + targetTableId);
         var content_from_table = from_table_obj.html();
         var content_target_table = to_table_obj.html();
         var req_data = {
             "csrfmiddlewaretoken":csrftoken,
-            "from_table" : transfer_from_table,
+            "from_table" : window.transfer_from_table,
             "to_table" : targetTableId,
         };
 
-
-        $.post(
-            STAFF_API_URLS["table"],
-            req_data
+        if(!is_in_popup){
+            $.post(
+                STAFF_API_URLS["table"],
+                req_data
             ).done(function(data) {
                 from_table_obj.html(content_target_table);
                 to_table_obj.html(content_from_table);
+                bind_popup();
             }).fail(function(data) {
                 console.log("table transfer fail");
             });
-        });
+        } else {
+            console.log("targetTableId:" + window.targetTableId);
+            console.log("transfer_from_table:" + window.transfer_from_table);
+            console.log("selected_userId:" + window.selected_userId);
+        }
+    });
 
     //for cancel an order 
     
-    $('.popup-modal').magnificPopup({
-        type: 'inline',
-        preloader: false,
-        focus: '#username',
-        modal: true
-    });
+    
     $(document).on('click', '.popup-modal-dismiss', function (e) {
         e.preventDefault();
         $.magnificPopup.close();

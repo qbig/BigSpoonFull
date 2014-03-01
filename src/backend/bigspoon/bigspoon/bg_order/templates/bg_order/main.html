@@ -136,4 +136,13 @@
         <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
     </div>
     {% endif %}
+    <div id="dropdown-for-page" class="dropdown dropdown-tip">
+        <ul class="dropdown-menu">
+            {% for table in table_list %}
+            <li><a data-toTableId="{{table.id}}" class="targetTable">
+            to table {{table.name|capfirst}}
+            </a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock content %}

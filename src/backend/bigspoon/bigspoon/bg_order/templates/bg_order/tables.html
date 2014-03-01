@@ -29,7 +29,7 @@
     <div class="table">
         <div class="table_title">
             <h3>{{table.name|capfirst}}</h3>
-            <input type="button" value="Change Table" data-dropdown="#dropdown-table" class="tableDropdown" data-tableId="{{ table.id }}">
+            <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown pageDropdown" data-tableId="{{ table.id }}">
         </div>
         <div class="table_content" id="table-{{table.id}}">
         {% if table.meals.count > 0 %}
@@ -95,7 +95,7 @@
         {% endfor %}
     </div> <!-- end of <div class="wrapper"> -->
 
-    <div id="dropdown-table" class="dropdown dropdown-tip">
+    <div id="dropdown-for-page" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for table in table_list %}
             <li><a data-toTableId="{{table.id}}" class="targetTable">
