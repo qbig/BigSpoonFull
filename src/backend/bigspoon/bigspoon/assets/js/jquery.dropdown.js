@@ -125,7 +125,7 @@ if (jQuery) (function ($) {
 					trigger.offset().left - (dropdown.outerWidth() - trigger.outerWidth()) + hOffset : trigger.offset().left + hOffset,
                 top: trigger.offset().top + trigger.outerHeight() + vOffset,
                 height: dropdown.height() >  768 ? 768 - triggerToBottom : dropdown.height(),
-                overflow: 'scroll'
+                overflow: dropdown.height() >  768 ? 'scroll' : 'visible'
             });
         } else {
             // ...or relative to document
