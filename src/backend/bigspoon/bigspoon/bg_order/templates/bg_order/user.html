@@ -83,7 +83,7 @@
         {% endif %}
 
         <!-- order history -->
-        <div class="past-orders">            
+        <div class="current-orders">            
             <h3><i class="icon-time"></i> Current Orders</h3>
             {% if diner.meals.count > 0 %}
                 {% for meal in diner.meals.all reversed %}
@@ -111,6 +111,8 @@
                 <p>This user has no current orders.</p>
 
             {% endif %}
+        </div>
+        <div class="past-orders">      
             <h3><i class="icon-time"></i> Past Orders</h3>
 
             {% if diner.meals.count > 0 %}

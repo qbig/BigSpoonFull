@@ -1028,10 +1028,16 @@ form.menu-add {
     width: 300px;
 }
 
+.current-orders {
+    display: block;
+    float: left;
+    width: 300px;
+}
+
 .user-preferences {
     display: block;
     float: left;
-    width: 340px;
+    width: 300px;
 }
 
 .user-info .user img {
@@ -1059,7 +1065,7 @@ form.menu-add {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
 }
 
-.user-info .past-orders {
+.user-info .past-orders .current-orders {
     margin-left: 20px;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
 }
@@ -1078,7 +1084,7 @@ form.menu-add {
     display: inline-block;
     margin-top: 0px;
     padding:20px;
-    width: 300px;
+    width: 260px;
     height: 80px;
     border-top: 1px dashed rgba(0, 0, 0, 0.2);
     border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
