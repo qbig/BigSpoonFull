@@ -119,11 +119,13 @@ if (jQuery) (function ($) {
                 top: trigger.position().top + trigger.outerHeight(true) - parseInt(trigger.css('margin-top'), 10) + vOffset
             });
         } else if (window.is_in_popup){
-            
+            var triggerToBottom = (trigger.offset().top + trigger.outerHeight() + vOffset);
             dropdown.css({
                 left: dropdown.hasClass('dropdown-anchor-right') ?
 					trigger.offset().left - (dropdown.outerWidth() - trigger.outerWidth()) + hOffset : trigger.offset().left + hOffset,
-                top: trigger.offset().top + trigger.outerHeight() + vOffset
+                top: trigger.offset().top + trigger.outerHeight() + vOffset,
+                height: dropdown.height() >  768 ? 768 - triggerToBottom : dropdown.height(),
+                overflow: 'scroll'
             });
         } else {
             // ...or relative to document

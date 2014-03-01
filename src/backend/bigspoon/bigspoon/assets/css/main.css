@@ -761,6 +761,10 @@ background-color: #468847;
     margin: 0px;
 }
 
+.dish-dropDown-btn {
+    margin-left: 10px;
+}
+
 .user {
     display:block;
     overflow-y: hidden;
