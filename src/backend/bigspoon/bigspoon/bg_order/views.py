@@ -52,6 +52,16 @@ class MainView(TemplateView):
         context["cards_num"] = meals.count() + requests.count()
         context["table_list"] = list(outlets[0].tables.all())
         self.request.session["cards_num"] = context["cards_num"]
+
+        context['categories'] = list(outlets[0].categories.all())
+        dishes = list(outlets[0].dishes.prefetch_related("categories").all())
+        dic = {}
+        for dish in dishes:
+            if dish.categories.all()[0].id in dic:
+                dic[dish.categories.all()[0].id].append(dish)
+            else:
+                dic[dish.categories.all()[0].id] = [dish,]
+        context['dishes'] = dic
         return context
 
     def get(self, request, *args, **kwargs):

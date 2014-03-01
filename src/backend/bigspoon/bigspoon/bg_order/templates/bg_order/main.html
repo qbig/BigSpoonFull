@@ -3,6 +3,7 @@
 {% load staticfiles %}
 {% load compress %}
 {% load cache %}
+{% load menufilters %}
 {% block content %}
     <div class="wrapper">
     {% if cards %}
@@ -145,4 +146,27 @@
             {% endfor %}
         </ul>
     </div>
+
+    <div id="dropdown-for-categories" class="dropdown dropdown-tip">
+        <ul class="dropdown-menu">
+            {% for category in categories %}
+            <li><a data-categoryId="{{category.id}}" class="targetCategory">
+            {{category.name|capfirst}}
+            </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% for category in categories %}
+    <div id="dropdown-for-dish-category-{{category.id}}" class="dropdown dropdown-tip">
+        <ul class="dropdown-menu">     
+        {% for dish in dishes|key:category.id %}
+               
+            <li><a data-dishId="{{dish.id}}" class="targetDish">
+            {{dish.name|capfirst}}
+            </a></li>                    
+        {% endfor %}
+        </ul>
+    </div>                    
+    {% endfor %}
 {% endblock content %}
