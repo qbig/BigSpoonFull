@@ -92,11 +92,13 @@
                 <ul class="order">
                     {% if meal.orders.count > 0 %}
                         {% for order in meal.orders.all %}
-                        <li>
-                            <em class='quantity'>{{order.quantity}}x</em>
+                        <li>                            
                             <p>{{order.dish.name}}</p>
                             {% if order.dish.pos %}
                             <em class='pos'>{{order.dish.pos}}</em>
+                            <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>
+                            <em class='quantity'>{{order.quantity}}x</em>
+                            <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a>
                             {% endif %}
                         </li>
                         {% endfor %}
@@ -111,6 +113,7 @@
                 <p>This user has no current orders.</p>
 
             {% endif %}
+            <input type="button" value="Choose Category" data-dropdown="#dropdown-for-categories" class="tableDropdown" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}" style="display:none;"><input type="button" value="Choose Dish" data-dropdown="#dropdown-for-dish-category-1" class="tableDropdown" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}" style="display:none;"><a href="#" class="add-order-btn" onclick="startToSelectDishForNewOrder(this);" user="{{diner.id}}" outlet="{{outlet_id}}"> Add Order</a>
         </div>
         <div class="past-orders">      
             <h3><i class="icon-time"></i> Past Orders</h3>

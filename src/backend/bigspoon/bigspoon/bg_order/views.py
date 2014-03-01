@@ -67,6 +67,69 @@ class MainView(TemplateView):
         return self.render_to_response(context)
 
 
+class TableView(ListView):
+    model = Table
+    template_name = "bg_order/tables.html"
+
+    def get_queryset(self):
+        #filter queryset based on user's permitted outlet
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        return super(TableView, self).get_queryset()\
+            .prefetch_related('meals__diner',
+                              'meals__diner__meals',
+                              'meals', 'meals__orders')\
+            .filter(outlet__in=outlets)
+
+    def get_context_data(self, **kwargs):
+        context = super(TableView, self).get_context_data(**kwargs)
+        context["cards_num"] = self.request.session.get("cards_num")
+        context['categories'] = list(context['table_list'][0].outlet.categories.all())
+        dishes = list(context['table_list'][0].outlet.dishes.prefetch_related("categories").all())
+        dic = {}
+        for dish in dishes:
+            if dish.categories.all()[0].id in dic:
+                dic[dish.categories.all()[0].id].append(dish)
+            else:
+                dic[dish.categories.all()[0].id] = [dish,]
+        context['dishes'] = dic
+        return context
+
+
+class UserView(TemplateView):
+    template_name = "bg_order/user.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(UserView, self).get_context_data(**kwargs)
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        try:
+            diner = User.objects.prefetch_related(
+                'meals', 'meals__orders', 'meals__orders__dish',
+                'profile', 'notes').get(pk=self.kwargs['pk'])
+        except User.DoesNotExist:
+            raise Http404
+
+        context['diner'] = diner
+        context['current_meal'] = diner.meals.latest('created')
+        context['current_table'] = context['current_meal'].table
+        #context['table_list'] = list(context['current_table'].outlet.tables.all())
+        context['reviews'] = Review.objects.filter(
+            user=diner,
+            outlet__in=outlets
+        ).all()
+        context['notes'] = Note.objects.filter(
+            user=diner,
+            outlet__in=outlets).all()
+        return context
+
+
 class HistoryView(TemplateView):
     template_name = "bg_order/history.html"
     model = Meal
@@ -147,60 +210,6 @@ class MenuAddView(CreateView):
             request.user.outlet_ids,
             ['refresh', 'menu', 'add'])
         return result
-
-
-class TableView(ListView):
-    model = Table
-    template_name = "bg_order/tables.html"
-
-    def get_queryset(self):
-        #filter queryset based on user's permitted outlet
-        outlets = get_objects_for_user(
-            self.request.user,
-            "change_outlet",
-            Outlet.objects.all()
-        )
-        return super(TableView, self).get_queryset()\
-            .prefetch_related('meals__diner',
-                              'meals__diner__meals',
-                              'meals', 'meals__orders')\
-            .filter(outlet__in=outlets)
-
-    def get_context_data(self, **kwargs):
-        context = super(TableView, self).get_context_data(**kwargs)
-        context["cards_num"] = self.request.session.get("cards_num")
-        return context
-
-
-class UserView(TemplateView):
-    template_name = "bg_order/user.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(UserView, self).get_context_data(**kwargs)
-        outlets = get_objects_for_user(
-            self.request.user,
-            "change_outlet",
-            Outlet.objects.all()
-        )
-        try:
-            diner = User.objects.prefetch_related(
-                'meals', 'meals__orders', 'meals__orders__dish',
-                'profile', 'notes').get(pk=self.kwargs['pk'])
-        except User.DoesNotExist:
-            raise Http404
-
-        context['diner'] = diner
-        context['current_meal'] = diner.meals.latest('created')
-        context['current_table'] = context['current_meal'].table
-        #context['table_list'] = list(context['current_table'].outlet.tables.all())
-        context['reviews'] = Review.objects.filter(
-            user=diner,
-            outlet__in=outlets
-        ).all()
-        context['notes'] = Note.objects.filter(
-            user=diner,
-            outlet__in=outlets).all()
-        return context
 
 
 class ReportView(ListView):

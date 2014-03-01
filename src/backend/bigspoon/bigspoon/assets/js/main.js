@@ -7,8 +7,7 @@ $(document).ready(function() {
     window.transfer_to_table;
     window.order_to_modify;
     window.selected_userId;
-
-    var is_in_popup = false;
+    window.is_in_popup = false;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     });
@@ -420,6 +419,19 @@ $(document).ready(function() {
         var self = $(object);
         window.transfer_from_table = self.attr("data-tableId");
         window.selected_userId = self.attr("data-userId");
+    };
+
+    window.startToSelectDishForNewOrder = function(object){
+        var self = $(object);
+        if(self.html() != "Add"){
+            self.html("Add");
+            self.css({'margin-left': 30});
+        } else {
+            self.html("Add Order");
+            self.css({'margin-left': 0});
+        }
+        
+        self.parent("div").find("input").toggle();
     };
 
     $('.targetTable').click(function() {
