@@ -246,7 +246,7 @@ class UpdateNewOrderForMeal(generics.CreateAPIView):
             return Response({"error": "Unknown table id " + str(table_id) + " or " +str(table_id)},
                             status=status.HTTP_400_BAD_REQUEST)
         try:
-            current_table_meal = Meal.objects.get( table=target_table, diner_id=diner_id, is_paid=False)
+            current_table_meal = Meal.objects.filter(table=target_table, diner_id=diner_id, is_paid=False).latest('created')
         except Meal.DoesNotExist:            
             print "2"
             return Response({"error": "Cannot retrieve current meal for table " + str(table_id)},
@@ -281,9 +281,9 @@ class UpdateTableForMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            current_table_meals = list(Meal.objects.filter(modified__range=today_limit(), table=from_table, is_paid=False))
+            current_table_meals = list(Meal.objects.filter(table=from_table, is_paid=False))
             try:
-                target_table_meals = list(Meal.objects.filter(modified__range=today_limit(), table=target_table, is_paid=False))                
+                target_table_meals = list(Meal.objects.filter(table=target_table, is_paid=False))                
             except Meal.DoesNotExist:
                 logger.error('target table is empty. that\'s ok')
             except:
@@ -322,7 +322,7 @@ class UpdateTableForMealForSingleDiner(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            current_table_meal = Meal.objects.get(modified__range=today_limit(), table=from_table, diner_id=for_diner, is_paid=False)
+            current_table_meal = Meal.objects.filter(table=from_table, diner_id=for_diner, is_paid=False).latest('created')
             current_table_meal.table = target_table
             current_table_meal.save()
             Request.objects.filter(created__range=today_limit(), diner_id=for_diner, is_active=True).update(table=target_table)
