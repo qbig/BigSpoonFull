@@ -266,6 +266,36 @@ class UpdateTableForMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         return Response("updated", status=status.HTTP_201_CREATED)
+
+class UpdateTableForMealForSingleDiner(generics.CreateAPIView):
+    """
+    Modify table for a meal record
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = OutletTableSerializer
+    model = Table
+
+    def post(self, req, *args, **kwargs):
+        from_table_id = int(req.DATA['from_table'])
+        targe_table_id = int(req.DATA['to_table'])
+        for_diner = int(req.DATA['diner_id'])
+        try:
+            target_table = Table.objects.get(id=int(targe_table_id))
+            from_table = Table.objects.get(id=int(from_table_id))
+        except Table.DoesNotExist:
+            return Response({"error": "Unknown table id " + str(from_table_id) + " or " +str(targe_table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            current_table_meal = Meal.objects.get(modified__range=today_limit(), table=from_table, diner_id=for_diner, is_paid=False)
+            current_table_meal.table = target_table
+            current_table_meal.save()            
+        except Meal.DoesNotExist:
+            return Response({"error": "Cannot retrieve current meal for table " + str(from_table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        return Response("updated", status=status.HTTP_201_CREATED)
        
 
 

@@ -35,7 +35,7 @@
         {% if table.meals.count > 0 %}
             {% for meal in table.meals.all %}
                 {% if meal.status == 1 and meal.is_paid == False %} <!-- Show only inactive and unpaid orders -->
-                <div class='active'>
+                <div class='active' id="card-{{meal.diner.id}}">
                     {% if meal.wait_time.0 >= meal.table.outlet.threshold %}
                     <span class="urgent time countdown" start={{meal.count_down_start}}>
                     {% else %}

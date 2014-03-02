@@ -4,8 +4,8 @@
             <img class="thumbnail-navigation" src="{{diner.avatar_url}}" />
             <h3>{{diner.first_name}} {{diner.last_name}}</h3>    
             <div class="popup_table_title">
-                <h3>Table {{current_table.name|capfirst}}</h3>
-                <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown popupDropdownChangeTable" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}">
+                <h3 id="popup-table-{{diner.id}}" data-tableId="{{ current_table.id }}">Table {{current_table.name|capfirst}}</h3>
+                <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown popupDropdownChangeTable" onClick="setOriginTable(this);"  data-userId="{{ diner.id }}">
             </div>       
         </div>
        

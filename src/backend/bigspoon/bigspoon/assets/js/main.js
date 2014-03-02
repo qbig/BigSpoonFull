@@ -238,6 +238,7 @@ $(document).ready(function() {
         "dish": host+"/api/v1/dish",
         "spending": host+"/api/v1/spending",
         "table" : host + "/api/v1/table",
+        "table-single" : host + "/api/v1/table-single-diner",
         "order_update" : host + "/api/v1/order",
     };
 
@@ -417,8 +418,9 @@ $(document).ready(function() {
 
     window.setOriginTable = function (object){
         var self = $(object);
-        window.transfer_from_table = self.attr("data-tableId");
         window.selected_userId = self.attr("data-userId");
+        var table_title = $("#popup-table-" + selected_userId);
+        window.transfer_from_table = table_title.attr("data-tableId");
     };
 
     window.startToSelectDishForNewOrder = function(object){
@@ -482,6 +484,20 @@ $(document).ready(function() {
                 console.log("table transfer fail");
             });
         } else {
+            req_data["diner_id"] = window.selected_userId;
+            $.post(
+                STAFF_API_URLS["table-single"],
+                req_data
+            ).done(function(data) {
+                var card = $("#card-" + selected_userId);
+                var cur_table = $("#popup-table-" + selected_userId);
+                cur_table.html("Table " + $.trim(self.html()).substring(9));
+                cur_table.attr("data-tableId", targetTableId);
+                $(".user-"+selected_userId).html($.trim(self.html()).substring(9));
+                card.appendTo("#table-" + targetTableId);
+            }).fail(function(data) {
+                console.log("table transfer fail");
+            });
             console.log("targetTableId:" + window.targetTableId);
             console.log("transfer_from_table:" + window.transfer_from_table);
             console.log("selected_userId:" + window.selected_userId);
