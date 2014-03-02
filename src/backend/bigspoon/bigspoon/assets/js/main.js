@@ -429,6 +429,8 @@ $(document).ready(function() {
         } else {
             self.html("Add Order");
             self.css({'margin-left': 0});
+            alert("userId:" + window.selected_userId);
+            alert("dishId:" + window.chosenDishId);
         }
         
         self.parent("div").find("input").toggle();
@@ -442,7 +444,7 @@ $(document).ready(function() {
     window.chooseCategory = function(object){
         var chosenCat = $(object);
         var catButton = $('.cat-dropDown-btn');
-        var dishButton = $('.dish-dropDown-btn');        
+        var dishButton = $('.dish-dropDown-btn');
         catButton.val(trimToLen($.trim(chosenCat.html()), 20));
         window.chosenCatId = chosenCat.attr("data-categoryId");
         dishButton.attr("data-dropdown", dishButton.attr("data-dropdown").substring(0, 28) + window.chosenCatId);
