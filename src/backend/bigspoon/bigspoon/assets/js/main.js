@@ -425,7 +425,7 @@ $(document).ready(function() {
         var self = $(object);
         if(self.html() != "Add"){
             self.html("Add");
-            self.css({'margin-left': 30});
+            self.css({'margin-left': 10});
         } else {
             self.html("Add Order");
             self.css({'margin-left': 0});
@@ -442,8 +442,10 @@ $(document).ready(function() {
     window.chooseCategory = function(object){
         var chosenCat = $(object);
         var catButton = $('.cat-dropDown-btn');
+        var dishButton = $('.dish-dropDown-btn');        
         catButton.val(trimToLen($.trim(chosenCat.html()), 20));
         window.chosenCatId = chosenCat.attr("data-categoryId");
+        dishButton.attr("data-dropdown", dishButton.attr("data-dropdown").substring(0, 28) + window.chosenCatId);
     };
 
     window.chooseDish = function(object){
