@@ -290,7 +290,8 @@ class UpdateTableForMealForSingleDiner(generics.CreateAPIView):
         try:
             current_table_meal = Meal.objects.get(modified__range=today_limit(), table=from_table, diner_id=for_diner, is_paid=False)
             current_table_meal.table = target_table
-            current_table_meal.save()            
+            current_table_meal.save()
+            Request.objects.filter(created__range=today_limit(), diner_id=for_diner, is_active=True).update(table=target_table)
         except Meal.DoesNotExist:
             return Response({"error": "Cannot retrieve current meal for table " + str(from_table_id)},
                             status=status.HTTP_400_BAD_REQUEST)

@@ -94,7 +94,7 @@
                     {% endif %}
                             <i class="icon-time"></i> waited {{request.wait_time.0}} m, {{request.wait_time.1}} s
                         </span>
-                        <h3 class="user-{{meal.diner.id}}">{{ request.table.name }}</h3>
+                        <h3 class="user-{{request.diner.id}}">{{ request.table.name }}</h3>
                         {% cache 300 "diner"|add:request.diner_id %}
                         <span class='user'>
                             <a class="user-profile-link" href="/staff/user/{{request.diner.id}}"><img src="{{request.diner.avatar_url}}" /></a>
