@@ -29,7 +29,7 @@
     <div class="table">
         <div class="table_title">
             <h3>{{table.name|capfirst}}</h3>
-            <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown pageDropdown" data-tableId="{{ table.id }}">
+            <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown pageDropdownChangeTable" data-tableId="{{ table.id }}">
         </div>
         <div class="table_content" id="table-{{table.id}}">
         {% if table.meals.count > 0 %}
@@ -107,7 +107,7 @@
     <div id="dropdown-for-categories" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for category in categories %}
-            <li><a data-categoryId="{{category.id}}" class="targetCategory">
+            <li><a data-categoryId="{{category.id}}" class="targetCategory" onclick="chooseCategory(this);">
             {{category.name|capfirst}}
             </a></li>
             {% endfor %}
@@ -119,7 +119,7 @@
         <ul class="dropdown-menu">     
         {% for dish in dishes|key:category.id %}
                
-            <li><a data-dishId="{{dish.id}}" class="targetDish">
+            <li><a data-dishId="{{dish.id}}" class="targetDish" onclick="chooseDish(this);">
             {{dish.name|capfirst}}
             </a></li>                    
         {% endfor %}

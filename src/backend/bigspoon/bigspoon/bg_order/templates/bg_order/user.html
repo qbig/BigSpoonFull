@@ -5,7 +5,7 @@
             <h3>{{diner.first_name}} {{diner.last_name}}</h3>    
             <div class="popup_table_title">
                 <h3>Table {{current_table.name|capfirst}}</h3>
-                <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}">
+                <input type="button" value="Change Table" data-dropdown="#dropdown-for-page" class="tableDropdown popupDropdownChangeTable" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}">
             </div>       
         </div>
        
@@ -113,7 +113,9 @@
                 <p>This user has no current orders.</p>
 
             {% endif %}
-            <input type="button" value="Choose Category" data-dropdown="#dropdown-for-categories" class="tableDropdown" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}" style="display:none;"><input type="button" value="Choose Dish" data-dropdown="#dropdown-for-dish-category-1" class="tableDropdown dish-dropDown-btn" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}" style="display:none;"><a href="#" class="add-order-btn" onclick="startToSelectDishForNewOrder(this);" user="{{diner.id}}" outlet="{{outlet_id}}"> Add Order</a>
+            <input type="button" value="Choose Category" data-dropdown="#dropdown-for-categories" class="tableDropdown cat-dropDown-btn" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}" style="display:none;">
+            <input type="button" value="Choose Dish" data-dropdown="#dropdown-for-dish-category-1" class="tableDropdown dish-dropDown-btn" onClick="setOriginTable(this);" data-tableId="{{ current_table.id }}" data-userId="{{ diner.id }}" style="display:none;">
+            <a href="#" class="add-order-btn" onclick="startToSelectDishForNewOrder(this);" outlet="{{outlet_id}}"> Add Order</a>
         </div>
         <div class="past-orders">      
             <h3><i class="icon-time"></i> Past Orders</h3>
