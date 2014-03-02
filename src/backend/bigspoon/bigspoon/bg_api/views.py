@@ -227,6 +227,40 @@ class UpdateOrder(generics.CreateAPIView):
         return Response({"quantity": updated_quantity }, status=status.HTTP_201_CREATED)
 
 
+class UpdateNewOrderForMeal(generics.CreateAPIView):
+    """
+    Modify a meal record by adding a new dish with quantity 1
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealSerializer
+    model = Meal
+    def post(self, req, *args, **kwargs):
+        table_id = int(req.DATA['from_table'])
+        diner_id = int(req.DATA['diner_id'])
+        dish_id = int(req.DATA['dish_id'])
+        try:
+            target_table = Table.objects.get(id=int(table_id))
+        except Table.DoesNotExist:
+            print "1"
+            return Response({"error": "Unknown table id " + str(table_id) + " or " +str(table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+        try:
+            current_table_meal = Meal.objects.get( table=target_table, diner_id=diner_id, is_paid=False)
+        except Meal.DoesNotExist:            
+            print "2"
+            return Response({"error": "Cannot retrieve current meal for table " + str(table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+        dish = Dish.objects.get(id=int(dish_id))
+        try:
+            od = Order.objects.create(meal=current_table_meal, dish=dish, quantity=1)
+            return Response(OrderSerializer(od).data, status=status.HTTP_201_CREATED)
+        except:
+            print "3"
+            return Response({"error": "Cannot create updating order for " + str(diner_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+
 class UpdateTableForMeal(generics.CreateAPIView):
     """
     Modify table for a meal record

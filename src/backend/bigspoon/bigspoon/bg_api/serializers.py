@@ -174,7 +174,8 @@ class OrderSerializer(serializers.ModelSerializer):
         return {
             "id": obj.dish.id,
             "name": obj.dish.name,
-            "price": obj.dish.price
+            "price": obj.dish.price,
+            "pos" : obj.dish.pos
         }
 
     def get_outlet(self, obj):
@@ -185,7 +186,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("quantity", "dish")
+        fields = ("quantity", "dish", "id")
 
 
 class MealHistorySerializer(serializers.ModelSerializer):

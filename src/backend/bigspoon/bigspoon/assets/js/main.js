@@ -237,6 +237,7 @@ $(document).ready(function() {
         "note": host+"/api/v1/note",
         "dish": host+"/api/v1/dish",
         "spending": host+"/api/v1/spending",
+        "newOrder": host+"/api/v1/meal-update",
         "table" : host + "/api/v1/table",
         "table-single" : host + "/api/v1/table-single-diner",
         "order_update" : host + "/api/v1/order",
@@ -431,8 +432,29 @@ $(document).ready(function() {
         } else {
             self.html("Add Order");
             self.css({'margin-left': 0});
-            alert("userId:" + window.selected_userId);
-            alert("dishId:" + window.chosenDishId);
+            
+            var req_data = {
+                "csrfmiddlewaretoken":csrftoken,
+                "from_table" : window.transfer_from_table,
+                "diner_id" : selected_userId,
+                "dish_id" : chosenDishId
+            };
+            $.post(
+                STAFF_API_URLS["newOrder"],
+                req_data
+            ).done(function(data) {
+                //{"quantity":1,"dish":
+                //{"price":"9.5","id":35,"name":"Crabbies Strawberry & Lime Ginger Beer"}}
+                var source = '<li>' +
+                '<p>'+data.dish.name+'</p>'+
+                '<em class="pos">'+data.dish.pos+'</em>' +
+                '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>' +
+                '<em class="quantity">'+data.quantity+'x</em>' +
+                '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a></li>';
+                $(source).appendTo(".current-orders .order");
+            }).fail(function(data) {
+                console.log("adding new order fail");
+            });
         }
         
         self.parent("div").find("input").toggle();
@@ -498,9 +520,6 @@ $(document).ready(function() {
             }).fail(function(data) {
                 console.log("table transfer fail");
             });
-            console.log("targetTableId:" + window.targetTableId);
-            console.log("transfer_from_table:" + window.transfer_from_table);
-            console.log("selected_userId:" + window.selected_userId);
         }
     });
 

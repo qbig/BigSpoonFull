@@ -12,6 +12,7 @@ urlpatterns = patterns(
     # ordering
     url(r'^mealhistory$', views.MealHistory.as_view()),
     url(r'^meal$', views.CreateMeal.as_view()),
+    url(r'^meal-update$', views.UpdateNewOrderForMeal.as_view()),
     url(r'^table$', views.UpdateTableForMeal.as_view()),
     url(r'^table-single-diner$', views.UpdateTableForMealForSingleDiner.as_view()),
     url(r'^order$', views.UpdateOrder.as_view()),
