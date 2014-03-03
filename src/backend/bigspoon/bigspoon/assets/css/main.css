@@ -466,7 +466,7 @@ p.note {
     font-size:12px;
 }
 
-.order .cancel_order_icon_btn {
+.order .cancel_order_icon_btn, .order .plus_order_icon_btn, .order .minus_order_icon_btn {
     color: #000000;
     text-decoration: none;
 }

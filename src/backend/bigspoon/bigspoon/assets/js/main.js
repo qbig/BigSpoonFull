@@ -3,10 +3,11 @@ $(document).ready(function() {
     var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var timeout_obj;
-    window.transfer_from_table; 
+    window.transfer_from_table;
     window.transfer_to_table;
     window.order_to_modify;
     window.selected_userId;
+    window.order_quant_before_change;
     window.is_in_popup = false;
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
@@ -468,12 +469,17 @@ $(document).ready(function() {
                     '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a></li>';
                     $(source_for_popup).appendTo(popup_order_container);
 
-                    var source_page = '<li id="order-container-'+ data.id +'">' +
+                    var source_page = '<li id="page-order-container-'+ data.id +'">' +
                                     '<em class="quantity">' + data.quantity + 'x</em>' +
-                                    '<p>' + data.dish.name + '</p>'+
-                                    '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+ data.id +'" href="#test-modal"><i class="icon-remove-sign icon-2"></i></a>'+
-                                '</li>';
+                                    '<p>' + data.dish.name + '</p>';
+                    if(data.is_finished){
+                        source_page += '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+ data.id +'" href="#test-modal"><i class="icon-remove-sign icon-2"></i></a>';
+                    } else {
+                        source_page += '<em class="pos">'+ data.dish.pos +'</em>';
+                    }
+                    source_page += '</li>';
                     page_order_container.find(".end").before(source_page);
+                    
                     bind_popup();
                 }).fail(function(data) {
                     console.log("adding new order fail");
@@ -546,7 +552,13 @@ $(document).ready(function() {
     });
 
     //for cancel an order 
-    
+    window.incrementQuantityForOrder = function (object) {
+
+    };
+
+    window.decrementQuantityForOrder = function(object) {
+
+    };
     
     $(document).on('click', '.popup-modal-dismiss', function (e) {
         e.preventDefault();
@@ -555,7 +567,7 @@ $(document).ready(function() {
     $(document).on('click', '.popup-modal-ok', function (e) {
         e.preventDefault();
         $.magnificPopup.close();
-        var order_li_obj = $("#order-container-" + order_to_modify);
+        var order_li_obj = $("#page-order-container-" + order_to_modify);
         var order_li_num_obj = order_li_obj.find("em").first();
 
         var req_data = {

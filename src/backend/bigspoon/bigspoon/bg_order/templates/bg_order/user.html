@@ -96,9 +96,9 @@
                             <p>{{order.dish.name}}{% if order.is_finished %}<span class="processed">(processed)</span>{% endif %}</p>
                             {% if order.dish.pos %}
                             <em class='pos'>{{order.dish.pos}}</em>                            
-                            <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>
+                            <a class='plus_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>
                             <em class='quantity'>{{order.quantity}}x</em>
-                            <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a>
+                            <a class='minus_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a>
                             {% endif %}
                         </li>
                         {% endfor %}
