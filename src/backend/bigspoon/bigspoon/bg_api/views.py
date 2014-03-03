@@ -199,7 +199,7 @@ class MealHistory(generics.ListAPIView):
 
 class UpdateOrder(generics.CreateAPIView):
     """
-    Modify order for a meal record, by reducing the quantity by 1, and remove the order if quantity is 0
+    Modify order quantity for a meal record
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -207,24 +207,25 @@ class UpdateOrder(generics.CreateAPIView):
     model = Order
     def post(self, req, *args, **kwargs):
         order_id = int(req.DATA['order_id'])
+        new_quant = int(req.DATA['new_quant'])
 
         try:
             order_to_modify = Order.objects.get(id = int(order_id))
         except Order.DoesNotExist:
             return Response({"error": "Unknown order id " + str(order_id)},
                             status=status.HTTP_400_BAD_REQUEST)
-        updated_quantity = order_to_modify.quantity - 1;
-        if updated_quantity == 0:
+        
+        if new_quant == 0:
             order_to_modify.delete()
         else:
-            order_to_modify.quantity = updated_quantity
+            order_to_modify.quantity = new_quant
             order_to_modify.save()
 
         send_user_feedback(
             "u_%s" % order_to_modify.meal.diner.auth_token.key,
-            "Sorry, one of your order, [{dish_name}] has been cancelled, as it's not available for the moment.".format(dish_name=order_to_modify.dish.name)
+            "Your order of [{dish_name}] has been modified.".format(dish_name=order_to_modify.dish.name)
         )
-        return Response({"quantity": updated_quantity }, status=status.HTTP_201_CREATED)
+        return Response({"quantity": new_quant }, status=status.HTTP_201_CREATED)
 
 
 class UpdateNewOrderForMeal(generics.CreateAPIView):

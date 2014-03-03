@@ -56,7 +56,7 @@
                         {% if meal.orders.count > 0 %}
                             {% for order in meal.orders.select_related %}
                                 {% if not order.is_finished %} 
-                                <li>
+                                <li id="page-order-container-{{order.id}}">
                                     <em class='quantity'>{{order.quantity}}x</em>
                                     <p>{{order.dish.name}}</p>
                                     {% if order.dish.pos %}

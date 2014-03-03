@@ -91,14 +91,14 @@
                 <h5>{{meal.get_created}}</h5>
                 <ul class="order">
                     {% if meal.orders.count > 0 %}
-                        {% for order in meal.orders.all %}
-                        <li>                            
+                        {% for order in meal.orders.all reversed%}
+                        <li id="popup-order-container-{{order.id}}">
                             <p>{{order.dish.name}}{% if order.is_finished %}<span class="processed">(processed)</span>{% endif %}</p>
                             {% if order.dish.pos %}
                             <em class='pos'>{{order.dish.pos}}</em>                            
-                            <a class='plus_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>
+                            <a class='plus_order_icon_btn' data-orderId="{{order.id}}" href="#" onclick="incrementQuantityForOrder(this);"><i class="icon-plus-sign icon-2"></i></a>
                             <em class='quantity'>{{order.quantity}}x</em>
-                            <a class='minus_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a>
+                            <a class='minus_order_icon_btn' data-orderId="{{order.id}}" href="#" onclick="decrementQuantityForOrder(this);"><i class="icon-minus-sign icon-2"></i></a>
                             {% endif %}
                         </li>
                         {% endfor %}

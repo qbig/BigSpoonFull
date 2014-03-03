@@ -244,7 +244,7 @@ $(document).ready(function() {
         "order_update" : host + "/api/v1/order",
     };
 
-    var csrftoken = $.cookie('csrftoken');
+    window.csrftoken = $.cookie('csrftoken');
 
     window.saveNote = function(elem){
         var button = $(elem);
@@ -457,16 +457,16 @@ $(document).ready(function() {
                     popup_order_container.find(".no-order").remove();
                     page_order_container.find(".no-order").remove();
 
-                    var source_for_popup = '<li>' +
+                    var source_for_popup = '<li id="popup-order-container-'+ data.id +'">' +
                     '<p>'+data.dish.name;
                     if(data.is_finished){
                         source_for_popup += '<span class="processed">(processed)</span>';
                     }
                     source_for_popup += '</p>'+
                     '<em class="pos">'+data.dish.pos+'</em>' +
-                    '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>' +
+                    '<a class="plus_order_icon_btn" data-orderId="'+data.id+'" href="#" onclick="incrementQuantityForOrder(this);"><i class="icon-plus-sign icon-2"></i></a>' +
                     '<em class="quantity">'+data.quantity+'x</em>' +
-                    '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a></li>';
+                    '<a class="minus_order_icon_btn" data-orderId="'+data.id+'" href="#" onclick="decrementQuantityForOrder(this);"><i class="icon-minus-sign icon-2"></i></a></li>';
                     $(source_for_popup).appendTo(popup_order_container);
 
                     var source_page = '<li id="page-order-container-'+ data.id +'">' +
@@ -479,7 +479,7 @@ $(document).ready(function() {
                     }
                     source_page += '</li>';
                     page_order_container.find(".end").before(source_page);
-                    
+
                     bind_popup();
                 }).fail(function(data) {
                     console.log("adding new order fail");
@@ -553,11 +553,61 @@ $(document).ready(function() {
 
     //for cancel an order 
     window.incrementQuantityForOrder = function (object) {
-
+        var plus_icon_clicked = $(object);
+        var order_id = plus_icon_clicked.attr("data-orderId");
+        var popup_order_container = $("#popup-order-container-" + order_id);
+        var quantity_element = popup_order_container.find(".quantity");
+        var page_order_container = $("#page-order-container-" + order_id);
+        var quantity = parseInt(quantity_element.html(), 10);
+        var req_data = {
+            "csrfmiddlewaretoken":csrftoken,
+            "order_id" : order_id,
+            "new_quant" : quantity + 1
+        };
+        $.post(
+            STAFF_API_URLS["order_update"],
+            req_data
+        ).done(function(data) {
+            if(data.quantity >= 1){
+                quantity_element.html(data.quantity + "x");
+                page_order_container.find(".quantity").html(data.quantity + "x");
+            } else {
+                popup_order_container.remove();
+                page_order_container.remove();
+            }
+                
+        }).fail(function(data) {
+                console.log("order update failed");
+        });
     };
 
     window.decrementQuantityForOrder = function(object) {
-
+        var minus_icon_clicked = $(object);
+        var order_id = minus_icon_clicked.attr("data-orderId");
+        var popup_order_container = $("#popup-order-container-" + order_id);
+        var page_order_container = $("#page-order-container-" + order_id);
+        var quantity_element = popup_order_container.find(".quantity");
+        var quantity = parseInt(quantity_element.html(), 10);
+        var req_data = {
+            "csrfmiddlewaretoken":csrftoken,
+            "order_id" : order_id,
+            "new_quant" : quantity - 1
+        };
+        $.post(
+            STAFF_API_URLS["order_update"],
+            req_data
+        ).done(function(data) {
+            if(data.quantity >= 1){
+                quantity_element.html(data.quantity + "x");
+                page_order_container.find(".quantity").html(data.quantity + "x");
+            } else {
+                popup_order_container.remove();
+                page_order_container.remove();
+            }
+                
+        }).fail(function(data) {
+                console.log("order update failed");
+        });
     };
     
     $(document).on('click', '.popup-modal-dismiss', function (e) {
@@ -569,10 +619,11 @@ $(document).ready(function() {
         $.magnificPopup.close();
         var order_li_obj = $("#page-order-container-" + order_to_modify);
         var order_li_num_obj = order_li_obj.find("em").first();
-
+        var quantity = parseInt(order_li_obj.find(".quantity").html(), 10);
         var req_data = {
             "csrfmiddlewaretoken":csrftoken,
             "order_id" : order_to_modify,
+            "new_quant" : quantity - 1
         };
         $.post(
             STAFF_API_URLS["order_update"],
