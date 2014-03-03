@@ -105,10 +105,13 @@ class TableView(ListView):
         dishes = list(context['table_list'][0].outlet.dishes.prefetch_related("categories").all())
         dic = {}
         for dish in dishes:
-            if dish.categories.all()[0].id in dic:
-                dic[dish.categories.all()[0].id].append(dish)
-            else:
-                dic[dish.categories.all()[0].id] = [dish,]
+            try:
+                if dish.categories.all()[0].id in dic:
+                    dic[dish.categories.all()[0].id].append(dish)
+                else:
+                    dic[dish.categories.all()[0].id] = [dish,]
+            except:
+                pass
         context['dishes'] = dic
         return context
 
