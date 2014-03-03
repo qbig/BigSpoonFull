@@ -340,7 +340,7 @@ $(document).ready(function() {
             callbacks: {
                 open: function() {
                     is_in_popup = true;
-                    console.log(is_in_popup);                    
+                    console.log(is_in_popup);
                 }
             },
         });
@@ -363,6 +363,11 @@ $(document).ready(function() {
             preloader: false,
             focus: '#username',
             modal: true
+        });
+
+        $('.cancel_order_icon_btn').click(function(){
+            var icon_clicked = $(this);
+            order_to_modify = icon_clicked.attr('data-orderId');
         });
     }
     bind_popup();
@@ -447,18 +452,29 @@ $(document).ready(function() {
                     //{"quantity":1,"dish":
                     //{"price":"9.5","id":35,"name":"Crabbies Strawberry & Lime Ginger Beer"}}
                     var popup_order_container = $(".current-orders .order");
-                    order_container.find(".no-order").remove();
-                    var source = '<li>' +
+                    var page_order_container = $("#card-" + selected_userId + " .order");
+                    popup_order_container.find(".no-order").remove();
+                    page_order_container.find(".no-order").remove();
+
+                    var source_for_popup = '<li>' +
                     '<p>'+data.dish.name;
                     if(data.is_finished){
-                        source += '<span class="processed">(processed)</span>';
+                        source_for_popup += '<span class="processed">(processed)</span>';
                     }
-                    source += '</p>'+
+                    source_for_popup += '</p>'+
                     '<em class="pos">'+data.dish.pos+'</em>' +
                     '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>' +
                     '<em class="quantity">'+data.quantity+'x</em>' +
                     '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a></li>';
-                    $(source).appendTo(order_container);
+                    $(source_for_popup).appendTo(popup_order_container);
+
+                    var source_page = '<li id="order-container-'+ data.id +'">' +
+                                    '<em class="quantity">' + data.quantity + 'x</em>' +
+                                    '<p>' + data.dish.name + '</p>'+
+                                    '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+ data.id +'" href="#test-modal"><i class="icon-remove-sign icon-2"></i></a>'+
+                                '</li>';
+                    page_order_container.find(".end").before(source_page);
+                    bind_popup();
                 }).fail(function(data) {
                     console.log("adding new order fail");
                 });
@@ -561,10 +577,4 @@ $(document).ready(function() {
         });
 
     });
-
-    $('.cancel_order_icon_btn').click(function(){
-        var icon_clicked = $(this);
-        order_to_modify = icon_clicked.attr('data-orderId');
-    });
-    
 });

@@ -67,7 +67,7 @@
                                 <em class='quantity'>{{order.quantity}}x</em>
                                 <p>{{order.dish.name}}</p>
                                 
-                                <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-remove-sign icon-2"></i></a>
+                                <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal" onclick="setOrderToReduce(this);"><i class="icon-remove-sign icon-2" ></i></a>
                                 <!--{% if order.dish.pos %}
                                 <em class='pos'>{{order.dish.pos}}</em>
                                 {% endif %}    -->
@@ -76,12 +76,12 @@
                                     <li> note: {{order.note}}</li>
                                 {% endif%}
                             {% endfor %}
-                            <li class="end">
-                                --- end ---
-                            </li>
                         {% else %}
-                            <li>No orders yet.</li>
+                            <li class="no-order">No orders yet.</li>
                         {% endif %}
+                        <li class="end">
+                            --- end ---
+                        </li>
                     </ul>
 
                     <a class="closebill ack-button" rel="bill" model="meal" id={{meal.id}}><i class="icon-money"></i> Close Bill</a>
