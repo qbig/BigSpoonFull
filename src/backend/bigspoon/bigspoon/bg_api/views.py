@@ -253,7 +253,10 @@ class UpdateNewOrderForMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
         dish = Dish.objects.get(id=int(dish_id))
         try:
-            od = Order.objects.create(meal=current_table_meal, dish=dish, quantity=1)
+            if current_table_meal.status == 0: # ACTIVE
+                od = Order.objects.create(meal=current_table_meal, dish=dish, quantity=1)
+            else :
+                od = Order.objects.create(meal=current_table_meal, dish=dish, quantity=1, is_finished=True)
             return Response(OrderSerializer(od).data, status=status.HTTP_201_CREATED)
         except:
             print "3"

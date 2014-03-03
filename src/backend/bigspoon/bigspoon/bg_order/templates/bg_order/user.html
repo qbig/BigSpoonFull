@@ -93,9 +93,9 @@
                     {% if meal.orders.count > 0 %}
                         {% for order in meal.orders.all %}
                         <li>                            
-                            <p>{{order.dish.name}}</p>
+                            <p>{{order.dish.name}}{% if order.is_finished %}<span class="processed">(processed)</span>{% endif %}</p>
                             {% if order.dish.pos %}
-                            <em class='pos'>{{order.dish.pos}}</em>
+                            <em class='pos'>{{order.dish.pos}}</em>                            
                             <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>
                             <em class='quantity'>{{order.quantity}}x</em>
                             <a class='popup-modal cancel_order_icon_btn' data-orderId="{{order.id}}" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a>
@@ -103,7 +103,7 @@
                         </li>
                         {% endfor %}
                     {% else %}
-                        <li>No orders yet.</li>
+                        <li class="no-order">No orders yet.</li>
                     {% endif %}
                 </ul>
                 {% endif %}

@@ -1038,6 +1038,11 @@ form.menu-add {
     width: 380px;
 }
 
+.processed {
+    font-size: 0.8em;
+    color: orange;
+}
+
 .user-preferences {
     display: block;
     float: left;

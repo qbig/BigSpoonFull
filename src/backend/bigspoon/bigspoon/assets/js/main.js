@@ -426,38 +426,44 @@ $(document).ready(function() {
 
     window.startToSelectDishForNewOrder = function(object){
         var self = $(object);
+        self.parent("div").find("input").toggle();
         if(self.html() != "Add"){
             self.html("Add");
             self.css({'margin-left': 10});
         } else {
             self.html("Add Order");
             self.css({'margin-left': 0});
-            
-            var req_data = {
-                "csrfmiddlewaretoken":csrftoken,
-                "from_table" : window.transfer_from_table,
-                "diner_id" : selected_userId,
-                "dish_id" : chosenDishId
-            };
-            $.post(
-                STAFF_API_URLS["newOrder"],
-                req_data
-            ).done(function(data) {
-                //{"quantity":1,"dish":
-                //{"price":"9.5","id":35,"name":"Crabbies Strawberry & Lime Ginger Beer"}}
-                var source = '<li>' +
-                '<p>'+data.dish.name+'</p>'+
-                '<em class="pos">'+data.dish.pos+'</em>' +
-                '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>' +
-                '<em class="quantity">'+data.quantity+'x</em>' +
-                '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a></li>';
-                $(source).appendTo(".current-orders .order");
-            }).fail(function(data) {
-                console.log("adding new order fail");
-            });
+            if (window.transfer_from_table && window.selected_userId && chosenDishId){
+                var req_data = {
+                    "csrfmiddlewaretoken":csrftoken,
+                    "from_table" : window.transfer_from_table,
+                    "diner_id" : selected_userId,
+                    "dish_id" : chosenDishId
+                };
+                $.post(
+                    STAFF_API_URLS["newOrder"],
+                    req_data
+                ).done(function(data) {
+                    //{"quantity":1,"dish":
+                    //{"price":"9.5","id":35,"name":"Crabbies Strawberry & Lime Ginger Beer"}}
+                    var popup_order_container = $(".current-orders .order");
+                    order_container.find(".no-order").remove();
+                    var source = '<li>' +
+                    '<p>'+data.dish.name;
+                    if(data.is_finished){
+                        source += '<span class="processed">(processed)</span>';
+                    }
+                    source += '</p>'+
+                    '<em class="pos">'+data.dish.pos+'</em>' +
+                    '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-plus-sign icon-2"></i></a>' +
+                    '<em class="quantity">'+data.quantity+'x</em>' +
+                    '<a class="popup-modal cancel_order_icon_btn" data-orderId="'+data.id+'" href="#test-modal"><i class="icon-minus-sign icon-2"></i></a></li>';
+                    $(source).appendTo(order_container);
+                }).fail(function(data) {
+                    console.log("adding new order fail");
+                });
+            }
         }
-        
-        self.parent("div").find("input").toggle();
     };
 
     function trimToLen(str, len){
