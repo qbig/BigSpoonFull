@@ -192,12 +192,16 @@ $(document).ready(function() {
         "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
     };
     var STAFF_MENU_PAGES = ['/staff/menu/'];
-
+    var details = {
+      'reconnect': true,
+      'reconnection delay': 500,
+      'max reconnection attempts': 10
+    };
     if (host.indexOf("8000") !== -1) {
-        socket = io.connect();
+        socket = io.connect(host, details);
     }
     else {
-        socket = io.connect(host+":8000");
+        socket = io.connect(host+":8000", details);
     }
 
     socket.on("message", function(obj){
