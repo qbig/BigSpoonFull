@@ -169,6 +169,7 @@
 - (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error{
     NSLog(@"In App Delegate: socketIODidDisconnect disconnectedWithError");
     self.isSocketConnected = NO;
+    [self connectSocket];
 }
 
 - (void) socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet{
