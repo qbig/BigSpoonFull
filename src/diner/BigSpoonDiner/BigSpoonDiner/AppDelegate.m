@@ -47,11 +47,11 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 
-        NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
-        if (locationAge > 5.0) {
-            // cached!
-            return;
-        }
+//        NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+//        if (locationAge > 5.0) {
+//            // cached!
+//            return;
+//        }
         if (newLocation.horizontalAccuracy < 0) {
             // accuracy invalid
             [User sharedInstance].locationAvailableForChecking = NO;

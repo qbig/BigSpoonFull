@@ -20,7 +20,7 @@ class BigSpoonNamespace(BaseNamespace):
         self.pubsub = red
         while True:
             for i in red.listen():
-                self.send({'message': i}, json=True)
+                self.send({'message': i, 'payload': 'trial'}, json=True)
 
     def recv_message(self, message):
         action, pk = message.split(':')

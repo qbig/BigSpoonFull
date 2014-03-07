@@ -199,6 +199,7 @@
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
 {
     if (userLocation == nil){
+        [[Mixpanel sharedInstance] track:@"Location Check Failed: No location available"];
         return false;
     }
     if ([self meAtPgpBusStop:userLocation WithinMeters:1500]){
@@ -208,8 +209,10 @@
     CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
     CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
     if (distance <= radius) {
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (limit: %g, actual: %g)",radius, distance]];
         return true;
     } else {
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Failed: Out of bound, (limit: %g, actual: %g)",radius, distance]];
         return false;
     }
 }
