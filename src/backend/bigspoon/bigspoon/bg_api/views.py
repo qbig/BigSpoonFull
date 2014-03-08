@@ -259,7 +259,7 @@ class UpdateNewOrderForMeal(generics.CreateAPIView):
             else :
                 od = Order.objects.create(meal=current_table_meal, dish=dish, quantity=1, is_finished=True)
             send_user_feedback(
-                "u_%s" % order_to_modify.meal.diner.auth_token.key,
+                "u_%s" % od.meal.diner.auth_token.key,
                 "[{dish_name}] has been added.".format(dish_name=dish.name)
             )
             return Response(OrderSerializer(od).data, status=status.HTTP_201_CREATED)
