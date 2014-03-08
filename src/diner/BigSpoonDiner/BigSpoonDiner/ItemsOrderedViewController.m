@@ -61,7 +61,6 @@
     [super viewWillAppear:animated];
     self.userInfo = [User sharedInstance];
     [self updatePriceLabels];
-    [self updateTablesAndScrollviewHeight: NO];
     
     return;
 }
@@ -340,7 +339,6 @@
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
-    [self updateTablesAndScrollviewHeight : NO];
 }
 
 - (void) updatePriceLabels{
@@ -360,6 +358,7 @@
                               GSTTitleLabel:self.pastGSTTitleLabel
                               andTotalLabel:self.pastTotalLabel];
     [self.pastOrderTableView reloadData];
+    [self updateTablesAndScrollviewHeight : YES];
 }
 
 - (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder

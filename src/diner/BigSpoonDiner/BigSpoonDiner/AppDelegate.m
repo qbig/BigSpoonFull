@@ -19,6 +19,11 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
     self.isSocketConnected = NO;
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *email = [prefs stringForKey:@"email"];
+    NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
+    [User sharedInstance].authToken = auth_token;
+
     [TestFlight takeOff:@"069657b9-d915-4404-bad9-9aa6bb1968dc"];
     
     self.mixpanel = [Mixpanel sharedInstanceWithToken:@"cd299a9c637a72d3d95d6cec378ad91e"];
@@ -125,16 +130,11 @@
 // Delegate method which will be called by menuViewController
 
 - (void) connectSocket{
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
-    NSString *email = [prefs stringForKey:@"email"];
-    NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
-    
-    if (auth_token == nil) {
+    if ([User sharedInstance].authToken == nil) {
         NSLog(@"In AppDelegate, connectSocket detects that the user is not registered");
         return;
     }
-    
     if (!self.isSocketConnected) {
         
         // If the socket fails to connect. This field will be set to NO in delegate method:
@@ -198,7 +198,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         } else if ([messages rangeOfString:SOCKET_IO_TOKEN_BILL_CLOSED].location != NSNotFound){
             // clean user session
-            [User sharedInstance].tableID = -1;
+            [self closeCurrentSession];
         }
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
@@ -211,6 +211,11 @@
     
 }
 
+- (void) closeCurrentSession{
+    [User sharedInstance].tableID = -1;
+    [User sharedInstance].pastOrder = [[Order alloc] init];
+    [User sharedInstance].currentOrder = [[Order alloc] init];
+}
 
 - (void) updateOrder{
     User *user = [User sharedInstance];
@@ -232,14 +237,11 @@
                 
                 if (changed){
                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                                        message:@"Sorry, one of your order has been cancelled, as it's not available for the moment."
-                                                                       delegate:nil
-                                                              cancelButtonTitle:@"OK"
-                                                              otherButtonTitles: nil];
-                    [alertView show];
                 }
             }
+                break;
+            case 404:
+                [self closeCurrentSession];
                 break;
             case 403:
             default:{
@@ -266,12 +268,15 @@
         tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
         tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
         int quantity = [[dict objectForKey:@"quantity"] integerValue];
+        for(int i = 0; i < quantity ;i ++){
+            [updatedOrder addDish:tmpDish];
+        }
         if ([user.pastOrder getQuantityOfDishByID:tmpDish.ID] != quantity){
-            for(int i = 0; i < quantity ;i ++){
-                [updatedOrder addDish:tmpDish];
-            }
             changed = TRUE;
         }
+    }
+    if([updatedOrder getTotalPrice] != [user.pastOrder getTotalPrice] || [updatedOrder getTotalQuantity] != [user.pastOrder getTotalQuantity]){
+        changed = TRUE;
     }
     if(changed){
         user.pastOrder = updatedOrder;
@@ -291,6 +296,7 @@
 - (void) socketIO:(SocketIO *)socket onError:(NSError *)error{
     NSLog(@"In App Delegate: socketIO onError");
     self.isSocketConnected = NO;
+    [self connectSocket];
 }
 
 
