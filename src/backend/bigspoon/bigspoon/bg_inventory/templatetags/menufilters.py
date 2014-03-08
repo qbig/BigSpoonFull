@@ -1,4 +1,5 @@
 from django import template
+import time
 
 register = template.Library()
 
@@ -15,3 +16,7 @@ def key(d, key_name):
         from django.conf import settings
         value = settings.TEMPLATE_STRING_IF_INVALID
     return value
+
+@register.assignment_tag
+def time_num():
+	return int(round(time.time() * 100000))
