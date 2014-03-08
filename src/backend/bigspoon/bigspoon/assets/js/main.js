@@ -339,6 +339,7 @@ $(document).ready(function() {
         // for User profile pop up
         $(".user-profile-link").magnificPopup({
             type: 'ajax',
+            settings: {cache:false},
             alignTop: true,
             closeBtnInside: true,
             overflowY: 'scroll',
@@ -352,6 +353,7 @@ $(document).ready(function() {
 
         $(".view-profile").magnificPopup({
             type: 'ajax',
+            settings: {cache:false},
             alignTop: true,
             closeBtnInside: true,
             overflowY: 'scroll',
