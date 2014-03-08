@@ -322,7 +322,7 @@
     } else if(! [self isLocationServiceDisabled] && ! [self isUserOutsideRestaurant]){
         [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
         [self performRequestWaterSelectQuantityPopUp];
-    } 
+    }
 }
 
 - (void) performRequestWaterSelectQuantityPopUp{
