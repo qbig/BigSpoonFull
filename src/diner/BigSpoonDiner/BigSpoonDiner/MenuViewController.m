@@ -319,10 +319,10 @@
         self.taskAfterAskingForTableID = ^(void){
             [weakSelf performRequestWaterSelectQuantityPopUp];
         };
-    } else{
+    } else if(! [self isLocationServiceDisabled] && ! [self isUserOutsideRestaurant]){
         [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
         [self performRequestWaterSelectQuantityPopUp];
-    }
+    } 
 }
 
 - (void) performRequestWaterSelectQuantityPopUp{
@@ -1066,16 +1066,24 @@
     return [User sharedInstance].tableID > 0;
 }
 
+- (BOOL) isUserOutsideRestaurant{
+    return [User sharedInstance].locationAvailableForChecking && ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon];
+}
+
+- (BOOL) isLocationServiceDisabled{
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+}
+
 - (void) askForTableID{
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
-        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:ENABLE_LOCATION_ALERT_TITLE message: ENABLE_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
+    if ([self isLocationServiceDisabled]){
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:ENABLE_LOCATION_ALERT_TITLE message: ENABLE_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         [TestFlight passCheckpoint:@"CheckPoint:User Location not enabled"];
         return;
     }
     
-    if ([User sharedInstance].locationAvailableForChecking && ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]) {
-        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle: CANNOT_DETECT_LOCATION_ALERT_TITLE message:CANNOT_DETECT_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK"                            otherButtonTitles:nil];
+    if ([self isUserOutsideRestaurant]) {
+        UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle: CANNOT_DETECT_LOCATION_ALERT_TITLE message:CANNOT_DETECT_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [TestFlight passCheckpoint:@"CheckPoint:User Action outside restaurant"];
         [errorAlert show];
     } else {

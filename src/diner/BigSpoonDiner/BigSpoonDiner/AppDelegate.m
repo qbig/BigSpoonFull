@@ -67,8 +67,10 @@
             [User sharedInstance].userLocation = newLocation;
             if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
                 // we have a measurement that meets our requirements, so we can stop updating the location
-            [self.locationManager stopUpdatingLocation];
+            //[self.locationManager stopUpdatingLocation];
             [User sharedInstance].locationAvailableForChecking = YES;
+            } else {
+            [User sharedInstance].locationAvailableForChecking = NO;
             }
         }
  
