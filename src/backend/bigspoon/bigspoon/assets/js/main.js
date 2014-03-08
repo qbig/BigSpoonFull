@@ -341,6 +341,7 @@ $(document).ready(function() {
             type: 'ajax',
             settings: {cache:false},
             alignTop: true,
+            cache: false,
             closeBtnInside: true,
             overflowY: 'scroll',
             callbacks: {
@@ -355,6 +356,7 @@ $(document).ready(function() {
             type: 'ajax',
             settings: {cache:false},
             alignTop: true,
+            cache: false,
             closeBtnInside: true,
             overflowY: 'scroll',
             callbacks: {
