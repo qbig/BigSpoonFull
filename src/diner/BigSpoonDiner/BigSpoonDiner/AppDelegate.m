@@ -186,12 +186,11 @@
     if ([type isEqualToString:@"message"]) {
         
         NSString *messages = [response objectForKey:@"data"];
-        int startIndexForDishName = [messages rangeOfString:@"[" options:NSBackwardsSearch].location;
-        int endIndexForDishName = [messages rangeOfString:@"]" options:NSBackwardsSearch].location;
-        if (startIndexForDishName != NSNotFound){
-            NSString *nameForUpdatedDish = [messages substringWithRange:NSMakeRange(startIndexForDishName  + 1, endIndexForDishName - startIndexForDishName - 1)];
+        int startTockenForDishName = [messages rangeOfString:@"[" options:NSBackwardsSearch].location;
+        //int endTockenForDishName = [messages rangeOfString:@"]" options:NSBackwardsSearch].location;
+        if (startTockenForDishName != NSNotFound){
             @try {
-                [[User sharedInstance].pastOrder decrementDishName:nameForUpdatedDish];
+                [self updateOrder];
             }
             @catch (NSException *exception) {
                 NSLog(@"%@", exception);
