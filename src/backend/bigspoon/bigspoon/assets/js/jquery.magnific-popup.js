@@ -1083,7 +1083,7 @@ $.magnificPopup.registerModule(AJAX_NS, {
 			mfp.updateStatus('loading');
 
 			var opts = $.extend({
-				url: item.src,
+				url: item.src + "?nocache=" + (new Date().getTime()),
 				success: function(data, textStatus, jqXHR) {
 					var temp = {
 						data:data,
