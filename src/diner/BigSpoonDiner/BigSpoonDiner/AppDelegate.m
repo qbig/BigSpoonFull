@@ -228,10 +228,9 @@
             case 201:{
                 NSLog(@"Update Order request success");
                 NSDictionary* json = (NSDictionary*)responseObject;
-                int previousOrderQuantity = [[User sharedInstance].pastOrder getTotalQuantity];
-                [self updateOrderWithJson: json];
-                int updateOrderQuantity = [[User sharedInstance].pastOrder getTotalQuantity];
-                if (previousOrderQuantity > updateOrderQuantity){
+                BOOL changed = [self updateOrderWithJsonIfNecessary: json];
+                
+                if (changed){
                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
                                                                         message:@"Sorry, one of your order has been cancelled, as it's not available for the moment."
@@ -255,10 +254,11 @@
     [operation start];
 }
 
-- (void) updateOrderWithJson:(NSDictionary *)json {
+- (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
+    BOOL changed = FALSE;
     NSDictionary *ordersDict = [json objectForKey:@"orders"];
     User *user = [User sharedInstance];
-    user.pastOrder = [[Order alloc] init];
+    Order *updatedOrder = [[Order alloc] init];
     for(NSDictionary * dict in ordersDict){
         NSDictionary* dishDic = [dict objectForKey:@"dish"];
         Dish *tmpDish = [[Dish alloc] init];
@@ -266,10 +266,17 @@
         tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
         tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
         int quantity = [[dict objectForKey:@"quantity"] integerValue];
-        for(int i = 0; i < quantity ;i ++){
-            [user.pastOrder addDish:tmpDish];
+        if ([user.pastOrder getQuantityOfDishByID:tmpDish.ID] != quantity){
+            for(int i = 0; i < quantity ;i ++){
+                [updatedOrder addDish:tmpDish];
+            }
+            changed = TRUE;
         }
     }
+    if(changed){
+        user.pastOrder = updatedOrder;
+    }
+    return changed;
 }
 
 
