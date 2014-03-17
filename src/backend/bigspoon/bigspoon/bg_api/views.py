@@ -481,7 +481,7 @@ class AskForBill(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         table = get_object_or_404(Table, id=int(request.DATA['table']))
         diner = request.user
-        meals = Meal.objects.filter(table=table, diner=diner,
+        meals = Meal.objects.filter(diner=diner,
                                     is_paid=False).order_by('-modified')
         if meals.count() >= 1:
             meal = meals[0]

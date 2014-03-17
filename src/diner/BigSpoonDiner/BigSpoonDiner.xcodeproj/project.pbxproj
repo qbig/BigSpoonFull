@@ -1146,6 +1146,7 @@
 					$SRCROOT/BigSpoonDiner,
 					"/Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "3F5D6350-F49F-4FB4-81E3-4BA1819E08DE";
 				VALID_ARCHS = "armv7 armv7s";
@@ -1174,6 +1175,7 @@
 					$SRCROOT/BigSpoonDiner,
 					"/Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "3F5D6350-F49F-4FB4-81E3-4BA1819E08DE";
 				VALID_ARCHS = "armv7 armv7s";
