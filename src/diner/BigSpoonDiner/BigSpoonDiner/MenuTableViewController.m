@@ -640,6 +640,7 @@
         }
     }
     self.displayCategoryID = button.tag;
+    self.displayCategoryPosition = [self getPositionForCategoryWithId: button.tag];
     [self moveCurrentCategoryButtonToCenter];
     [self.tableView reloadData];
 }
@@ -658,9 +659,9 @@
     float sumOfButtonWidthOnTheRight = 0;
     float currentButtonWidth = 0;
     for(int i = 0, len = self.categoryButtonsArray.count; i < len; i++ ){
-        if ( i < self.displayCategoryID - 1 ) {
+        if ( i < self.displayCategoryPosition) {
             sumOfButtonWidthOnTheLeft += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
-        } else if (i > self.displayCategoryID - 1) {
+        } else if (i > self.displayCategoryPosition) {
             sumOfButtonWidthOnTheRight += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
         } else {
             currentButtonWidth = ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
@@ -713,6 +714,15 @@
     }
     
     return sortedArray;
+}
+
+- (int) getPositionForCategoryWithId: (int)categoryId{
+    for(int i = 0 ; i< [self.dishCategoryArray count]; i ++){
+        if (((DishCategory*)[self.dishCategoryArray objectAtIndex:i]).ID == categoryId){
+            return i;
+        }
+    }
+    return 0;
 }
 
 

@@ -40,6 +40,8 @@ enum DishDisplayMethod : NSUInteger {
 @property (nonatomic, strong) NSMutableArray *dishesArray;
 @property (nonatomic, strong) NSMutableArray *dishCategoryArray;
 @property (nonatomic) int displayCategoryID;
+@property (nonatomic) int displayCategoryPosition;
+
 
 @property (nonatomic, strong) id <OrderDishDelegate, MenuDisplayModeDelegate> delegate;
 
