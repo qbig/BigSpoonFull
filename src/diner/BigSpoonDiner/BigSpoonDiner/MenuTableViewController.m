@@ -191,7 +191,7 @@
         frame.origin.y = 0;
         cell.imageView.frame = frame;
         
-        cell.ratingImageView.image = [self imageForRating:dish.ratings];
+        cell.ratingImageView.image = nil;//[self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;
         [cell.nameLabel alignBottom];
