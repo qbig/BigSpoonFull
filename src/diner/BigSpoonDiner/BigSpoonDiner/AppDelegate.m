@@ -32,7 +32,7 @@
     self.mixpanel.showSurveyOnActive = YES;
     self.mixpanel.flushInterval = 60;
     [self initLocationManager];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startTrackingLocation) name:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self.locationManager selector:@selector(startUpdatingLocation) name:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
     return YES;
 }
 
@@ -47,7 +47,9 @@
 }
 
 - (void)startTrackingLocation{
-    [self.locationManager startUpdatingLocation];
+    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
@@ -75,7 +77,6 @@
             [self initLocationManager];
             [self.locationManager stopMonitoringSignificantLocationChanges];
             [self startTrackingLocation];
-            
             [self endBackgroundUpdateTask];
         });
     }
@@ -308,11 +309,13 @@
         NSLog(@"%@ starting background task %lu", self, (unsigned long)self.bgTask);
         [self initLocationManager];
         [self.locationManager stopUpdatingLocation];
-        [self.locationManager startMonitoringSignificantLocationChanges];
+        if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+            [self.locationManager startMonitoringSignificantLocationChanges];
+        }
         [self.mixpanel track:@"Usage Ends" properties:@{@"time": [NSDate date]}];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:60 * 5
-                                                      target:self.locationManager
-                                                    selector:@selector(startUpdatingLocation)
+                                                      target:self
+                                                    selector:@selector(startTrackingLocation)
                                                     userInfo:nil
                                                      repeats:YES];
         NSLog(@"%@ ending background task %lu", self, (unsigned long)self.bgTask);
