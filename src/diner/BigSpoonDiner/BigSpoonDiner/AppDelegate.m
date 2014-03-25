@@ -51,15 +51,10 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-
         if (newLocation.horizontalAccuracy < 0) {
-            // accuracy invalid
             return;
         }
-        // test the measurement to see if it is more accurate than the previous measurement
-        if ([User sharedInstance].userLocation == nil ||[User sharedInstance].userLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
-            [User sharedInstance].userLocation = newLocation;
-        }
+        [User sharedInstance].userLocation = newLocation;
  
 }
 
