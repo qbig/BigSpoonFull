@@ -121,6 +121,7 @@
         [self.viewModeButton setHidden:NO];
         [self.settingsButton setHidden:NO];
     }
+    [self toggleDisplayModeAndReloadData];
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
