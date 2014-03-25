@@ -348,7 +348,7 @@
         self.taskAfterAskingForTableID = ^(void){
             [weakSelf performRequestWaiterConfirmationPopUp];
         };
-    } else{
+    } else if(![self isLocationServiceDisabled] && ! [self isUserOutsideRestaurant]){
         [self performRequestWaiterConfirmationPopUp];
         [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters"];
     }
@@ -391,7 +391,7 @@
         self.taskAfterAskingForTableID = ^(void){
             [weakSelf performRequestBillConfirmationPopUp];
         };
-    } else{
+    } else if(![self isLocationServiceDisabled] && ! [self isUserOutsideRestaurant]){
         [self performRequestBillConfirmationPopUp];
         [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill"];
         [[Mixpanel sharedInstance].people increment:@"Number of Bill" by:[NSNumber numberWithInt:1]];
@@ -794,7 +794,7 @@
         self.taskAfterAskingForTableID = ^(void){
             [weakSelf showPlaceOrderConfirmationPopUp];
         };
-    } else{
+    } else if(![self isLocationServiceDisabled] && ! [self isUserOutsideRestaurant]){
         [[Mixpanel sharedInstance] track:@"MenuView: Order placed"];
         [self showPlaceOrderConfirmationPopUp];
     }
