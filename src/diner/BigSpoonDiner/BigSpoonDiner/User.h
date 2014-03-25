@@ -31,7 +31,6 @@
 @property (nonatomic, strong) CLLocation* userLocation;
 @property (nonatomic) BOOL isLoggedIn;
 @property (nonatomic, strong) NSUserDefaults *userDefault;
-@property (nonatomic) BOOL locationAvailableForChecking;
 
 + (User *)sharedInstance;
 - (void) attemptToLoginToFB;

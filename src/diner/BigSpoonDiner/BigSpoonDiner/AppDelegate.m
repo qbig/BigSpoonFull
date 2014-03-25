@@ -52,26 +52,13 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
 
-//        NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
-//        if (locationAge > 5.0) {
-//            // cached!
-//            return;
-//        }
         if (newLocation.horizontalAccuracy < 0) {
             // accuracy invalid
-            [User sharedInstance].locationAvailableForChecking = NO;
             return;
         }
         // test the measurement to see if it is more accurate than the previous measurement
         if ([User sharedInstance].userLocation == nil ||[User sharedInstance].userLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
             [User sharedInstance].userLocation = newLocation;
-            if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
-                // we have a measurement that meets our requirements, so we can stop updating the location
-            //[self.locationManager stopUpdatingLocation];
-            [User sharedInstance].locationAvailableForChecking = YES;
-            } else {
-            [User sharedInstance].locationAvailableForChecking = NO;
-            }
         }
  
 }

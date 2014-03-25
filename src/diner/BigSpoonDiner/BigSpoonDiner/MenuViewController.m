@@ -203,6 +203,7 @@
         return false;
     }
     if ([self meAtPgpBusStop:userLocation WithinMeters:1500]){
+        [[Mixpanel sharedInstance] track:@"Location Check Success(Admin): Admin condition met"];
         return true;
     }
     
@@ -210,9 +211,11 @@
     CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
     if (distance <= radius) {
     [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (limit: %g, actual: %g)",radius, distance]];
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
         return true;
     } else {
     [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Failed: Out of bound, (limit: %g, actual: %g)",radius, distance]];
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
         return false;
     }
 }
@@ -226,6 +229,8 @@
     CLLocationDistance distanceFromPgp5 = [userLocation distanceFromLocation:pgp5Location];
     User *user = [User sharedInstance];
     if (distanceFromBusStop <= radius && distanceFromPgp5 <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (dist from pgp bus stop: %g, dist from pgp 5: %g)",distanceFromBusStop, distanceFromPgp5]];
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
         return true;
     } else {
         return false;
@@ -1064,7 +1069,13 @@
 }
 
 - (BOOL) isUserOutsideRestaurant{
-    return [User sharedInstance].locationAvailableForChecking && ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:LOCATION_CHECKING_DIAMETER OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon];
+    
+    if([self isUserLocation:[User sharedInstance].userLocation WithinMeters:[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]){
+        [[Mixpanel sharedInstance] track:@"Action Success: Location Inbound"];
+    } else {
+        [[Mixpanel sharedInstance] track:@"Action Failed: Location Out of bound"];
+    }
+    return ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon];
 }
 
 - (BOOL) isLocationServiceDisabled{
@@ -1075,15 +1086,18 @@
     if ([self isLocationServiceDisabled]){
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:ENABLE_LOCATION_ALERT_TITLE message: ENABLE_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
+        [[Mixpanel sharedInstance] track:@"Action Failed: Location disabled"];
         [TestFlight passCheckpoint:@"CheckPoint:User Location not enabled"];
         return;
     }
     
     if ([self isUserOutsideRestaurant]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle: CANNOT_DETECT_LOCATION_ALERT_TITLE message:CANNOT_DETECT_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [[Mixpanel sharedInstance] track:@"Action Failed: detected as outside"];
         [TestFlight passCheckpoint:@"CheckPoint:User Action outside restaurant"];
         [errorAlert show];
     } else {
+        [[Mixpanel sharedInstance] track:@"Action Success: Asking for table code"];
         [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
         [TestFlight passCheckpoint:@"CheckPoint:User Action inside restaurant"];
     }
