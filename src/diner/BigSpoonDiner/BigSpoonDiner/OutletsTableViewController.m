@@ -74,11 +74,6 @@
     [[Mixpanel sharedInstance].people increment:@"Reach Outlet View" by: [NSNumber numberWithInt:1]];
     [super viewDidLoad];
     [self initActivityIndicator];
-    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-        [self showIntroWithCustomView];
-    }
-    
     [self loadOutletsFromServer];
     
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -97,6 +92,11 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self showIntroWithCustomView];
+        self.tableView.separatorColor = [UIColor clearColor];
+    }
 }
 
 
@@ -523,6 +523,7 @@
 
 - (void)introDidFinish {
     [self.intro removeFromSuperview];
+    self.tableView.separatorColor = [UIColor lightGrayColor];
     self.outletsTableView.scrollEnabled = YES;
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self askForLocationPermit];
