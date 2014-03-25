@@ -1070,12 +1070,12 @@
 
 - (BOOL) isUserOutsideRestaurant{
     
-    if([self isUserLocation:[User sharedInstance].userLocation WithinMeters:[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]){
+    if([self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon]){
         [[Mixpanel sharedInstance] track:@"Action Success: Location Inbound"];
     } else {
         [[Mixpanel sharedInstance] track:@"Action Failed: Location Out of bound"];
     }
-    return ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon];
+    return ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.outlet.lat AndLongitude:self.outlet.lon];
 }
 
 - (BOOL) isLocationServiceDisabled{
