@@ -22,6 +22,7 @@
 		034C6DD01849CD27008D42C4 /* intro_2_long.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 034C6DCC1849CD27008D42C4 /* intro_2_long.jpg */; };
 		03503998183E666400F26A72 /* button_minus_no_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03503997183E666400F26A72 /* button_minus_no_circle.png */; };
 		039436E418E5CFE900865D32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039436E318E5CFE900865D32 /* SystemConfiguration.framework */; };
+		039436E718E5D74400865D32 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 039436E618E5D74400865D32 /* Reachability.m */; };
 		03A4634118CB06B200B40D34 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A4633B18CB06B200B40D34 /* libTestFlight.a */; };
 		03A4634218CB06B200B40D34 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 03A4633C18CB06B200B40D34 /* README.md */; };
 		03A4634318CB06B200B40D34 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 03A4633D18CB06B200B40D34 /* release_notes.md */; };
@@ -167,6 +168,8 @@
 		034C6DCC1849CD27008D42C4 /* intro_2_long.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = intro_2_long.jpg; sourceTree = "<group>"; };
 		03503997183E666400F26A72 /* button_minus_no_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_minus_no_circle.png; sourceTree = "<group>"; };
 		039436E318E5CFE900865D32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		039436E518E5D74400865D32 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		039436E618E5D74400865D32 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		03A4633B18CB06B200B40D34 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		03A4633C18CB06B200B40D34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		03A4633D18CB06B200B40D34 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -402,6 +405,7 @@
 		034C6DAA18499E59008D42C4 /* 3rdPartyLib */ = {
 			isa = PBXGroup;
 			children = (
+				039436E818E5D74B00865D32 /* Reachability */,
 				49937D57186017D600DDD8F9 /* ToastUI */,
 				03B0CC2F184E2F4A0044EB28 /* TestFlight */,
 				03B0CBEE184CBB8A0044EB28 /* NPRImageView */,
@@ -412,6 +416,15 @@
 			);
 			name = 3rdPartyLib;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		039436E818E5D74B00865D32 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				039436E518E5D74400865D32 /* Reachability.h */,
+				039436E618E5D74400865D32 /* Reachability.m */,
+			);
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		03B0CBEE184CBB8A0044EB28 /* NPRImageView */ = {
@@ -963,6 +976,7 @@
 				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
 				4988FFC8183A067700AB5CAD /* SocketIO.m in Sources */,
 				49091B9E1834CFEF006AC7FE /* BigSpoonAnimationController.m in Sources */,
+				039436E718E5D74400865D32 /* Reachability.m in Sources */,
 				4988FFCB183A067700AB5CAD /* SocketIOTransportWebsocket.m in Sources */,
 				03B0CC27184E2E730044EB28 /* EXTScope.m in Sources */,
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,

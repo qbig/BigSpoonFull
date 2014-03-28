@@ -7,9 +7,11 @@
 //
 
 #import "LoginViewController.h"
+#import "Reachability.h"
 
 @interface LoginViewController (){
     NSMutableData *_responseData;
+    Reachability *internetReachableFoo;
     int statusCode;
 }
 @property NSURLConnection* connectionForLogin;
@@ -293,9 +295,36 @@
 #pragma mark fbLogin
 
 - (IBAction)fbButtonPressed:(id)sender {
-    [self showLoadingIndicators];
-    [[User sharedInstance] attemptToLoginToFB];
-    [[Mixpanel sharedInstance] track:@"Try to login using FB"];
+    internetReachableFoo = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    // Internet is reachable
+    __weak id weakSelf = self;
+    internetReachableFoo.reachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf showLoadingIndicators];
+            [[User sharedInstance] attemptToLoginToFB];
+            [[Mixpanel sharedInstance] track:@"Try to login using FB"];
+        });
+    };
+    
+    // Internet is not reachable
+    internetReachableFoo.unreachableBlock = ^(Reachability*reach)
+    {
+        // Update the UI on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Network Unavailable"
+                                                                message:@"Try again when you are connected."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles: nil];
+            [alertView show];
+
+        });
+    };
+    
+    [internetReachableFoo startNotifier];
 }
 
 @end
