@@ -23,7 +23,7 @@
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
 
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
-
+@property (nonatomic) BOOL hasInit;
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
 - (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB;
 
@@ -51,7 +51,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.hasInit = NO;
     }
     return self;
 }
@@ -121,7 +121,11 @@
         [self.viewModeButton setHidden:NO];
         [self.settingsButton setHidden:NO];
     }
-    [self toggleDisplayModeAndReloadData];
+    if(!self.hasInit){
+        [self toggleDisplayModeAndReloadData];
+        self.hasInit = YES;
+    }
+    
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
