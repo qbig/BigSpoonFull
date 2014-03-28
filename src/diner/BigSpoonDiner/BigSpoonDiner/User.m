@@ -52,7 +52,10 @@
 }
 
 - (void) checkTokenValidity {
-    
+
+    if(self.authToken != nil && [[self userDefault] boolForKey: self.authToken]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:self];
+    }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: USER_LOGIN_WITH_FB]];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -93,6 +96,7 @@
                  user.lastName = lastName;
                  user.email = email;
                  user.authToken = auth_token;
+                 [[[User sharedInstance] userDefault] setBool:true forKey:auth_token];
                  user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:self];
                  [[Mixpanel sharedInstance] track:@"FB Login: Token verified. About to move to outletView"];
