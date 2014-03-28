@@ -16,5 +16,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *plusButton;
 @property (strong, nonatomic) IBOutlet UIButton *minusButton;
 
+@property (strong, nonatomic) IBOutlet UITextField *orderNote;
+
+- (void) hideNote;
+- (void) displayNote;
 
 @end

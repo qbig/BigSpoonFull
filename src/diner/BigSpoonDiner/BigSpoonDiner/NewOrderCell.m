@@ -7,6 +7,7 @@
 //
 
 #import "NewOrderCell.h"
+#import "Constants.h"
 
 @implementation NewOrderCell
 
@@ -14,7 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+
     }
     return self;
 }
@@ -24,6 +25,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void) hideNote{
+    self.orderNote.hidden = YES;
+}
+
+- (void) displayNote {
+    self.orderNote.hidden = NO;
 }
 
 @end

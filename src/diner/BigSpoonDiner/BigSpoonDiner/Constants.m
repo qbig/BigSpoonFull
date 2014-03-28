@@ -170,5 +170,7 @@ NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo
 NSString* const NOTIF_NEW_DISH_INFO_FAILED = @"DishAndTableRequestNetworkFailure";
 NSString* const NOTIF_ORDER_UPDATE = @"OrderUpdated";
 NSString* const NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT = @"ShouldAskLocationPermitNow";
+NSString* const SHOW_NOTE = @"showNote";
+NSString* const HIDE_NOTE = @"hideNote";
 
 @end

@@ -107,6 +107,8 @@ extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;
 extern NSString* const NOTIF_NEW_DISH_INFO_FAILED;
 extern NSString* const NOTIF_ORDER_UPDATE;
 extern NSString* const NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT;
+extern NSString* const SHOW_NOTE;
+extern NSString* const HIDE_NOTE;
 
 // Dictionary keys:
 extern NSString* const BIGSPOON_SSKEYCHAIN_NAME;

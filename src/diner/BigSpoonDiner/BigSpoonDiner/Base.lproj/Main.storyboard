@@ -782,7 +782,7 @@
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add notes (e.g. no peanuts)..." minimumFontSize="17" clearButtonMode="unlessEditing" id="CJ7-4b-00v">
+                                                        <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add notes (e.g. no peanuts)..." minimumFontSize="17" clearButtonMode="unlessEditing" id="CJ7-4b-00v">
                                                             <rect key="frame" x="14" y="49" width="286" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -798,6 +798,7 @@
                                                 <connections>
                                                     <outlet property="minusButton" destination="kmj-Hz-HU3" id="fjP-58-3bq"/>
                                                     <outlet property="nameLabel" destination="4Cc-Ge-yPu" id="h7p-U5-swa"/>
+                                                    <outlet property="orderNote" destination="CJ7-4b-00v" id="uzc-lw-asQ"/>
                                                     <outlet property="plusButton" destination="t6q-QS-67e" id="1fh-KY-Y99"/>
                                                     <outlet property="priceLabel" destination="h6b-hE-R6K" id="0k6-WI-eIq"/>
                                                     <outlet property="quantityLabel" destination="UCp-9c-PEo" id="pgs-TF-vJd"/>

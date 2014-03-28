@@ -42,9 +42,11 @@
         NSLog(@"FBSession.activeSession.isOpen IS open!");
         // check token validity and login successfully
         [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
+        [[Mixpanel sharedInstance] track:@"FB Login: Session open, notification sent. Start Token Validation"];
         [self checkTokenValidity];
     }else{
         NSLog(@"FBSession.activeSession.isOpen NOT open!");
+        [[Mixpanel sharedInstance] track:@"FB Login: Session closed. Try openning"];
         [self openSession];
     }
 }
@@ -54,9 +56,9 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: USER_LOGIN_WITH_FB]];
     request.HTTPMethod = @"POST";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
     [info setObject:[FBSession.activeSession accessTokenData].accessToken forKey: @"access_token"];
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"FB Login: checking token: %@", [FBSession.activeSession accessTokenData].accessToken]];
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                        options:NSJSONWritingPrettyPrinted error:&error];
@@ -93,7 +95,7 @@
                  user.authToken = auth_token;
                  user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:self];
-                 
+                 [[Mixpanel sharedInstance] track:@"FB Login: Token verified. About to move to outletView"];
                  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                  
                  // Set
@@ -107,11 +109,13 @@
                  break;
              case 403:
              default:{
+                 [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"FB Login: TokenVerifying failed with code %ld", responseCode]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
              }
          }
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [[Mixpanel sharedInstance] track: @"FB Login: TokenVerifying failed(operation failed)"];
          [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
      }];
     [operation start];
@@ -176,6 +180,7 @@
              NSLog(@"FBSession.activeSession.isOpen IS open!");
              // check token validity and login successfully
              [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
+             [[Mixpanel sharedInstance] track:@"FB Login: Session open, notification sent. Start Token Validation"];
              [self checkTokenValidity];
          }
      }];

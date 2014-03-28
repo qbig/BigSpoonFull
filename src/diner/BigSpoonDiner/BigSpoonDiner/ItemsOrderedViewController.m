@@ -36,7 +36,7 @@
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(dismissKeyboard)];
-    
+    self.isAddingNotes = NO;
     [self.view addGestureRecognizer:tapGesture];
 
     //self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
@@ -119,6 +119,8 @@
     if ([tableView isEqual:self.currentOrderTableView]) {
         NewOrderCell *cell = (NewOrderCell *)[tableView
                                               dequeueReusableCellWithIdentifier:@"NewOrderCell"];
+        [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(hideNote) name:HIDE_NOTE object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(displayNote) name:SHOW_NOTE object:nil];
         Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
         
         cell.nameLabel.text = dish.name;
@@ -127,7 +129,6 @@
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
-        
         
         return cell;
     } else if ([tableView isEqual:self.pastOrderTableView]){
@@ -217,7 +218,10 @@
 - (IBAction)addNotesButtonPressed:(id)sender {
     NSLog(@"Add notes btn pressed");
     if (self.isAddingNotes) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:HIDE_NOTE object:nil];
         [self dismissKeyboard];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:SHOW_NOTE object:nil];
     }
     self.isAddingNotes = !self.isAddingNotes;
     [self.currentOrderTableView beginUpdates];
