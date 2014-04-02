@@ -601,18 +601,20 @@ class CloseBill(generics.GenericAPIView):
             return Response({
                 "details": "You do not have permission to perform this action."
             }, status=status.HTTP_403_FORBIDDEN)
-        meal.status = Meal.INACTIVE
-        meal.is_paid = True
-        meal.bill_time = timezone.now()
-        meal.save()
+        meals = Meal.objects.filter(table=meal.table, is_paid=False)
+        for theMeal in meals:
+            theMeal.status = Meal.INACTIVE
+            theMeal.is_paid = True
+            theMeal.bill_time = timezone.now()
+            theMeal.save()
+            send_user_feedback(
+                "u_%s" % theMeal.diner.auth_token.key,
+                'Your bill has been closed by waiter.'
+            )
         send_socketio_message(
-            request.user.outlet_ids,
-            ['refresh', 'meal', 'closebill']
-        )
-        send_user_feedback(
-            "u_%s" % meal.diner.auth_token.key,
-            'Your bill has been closed by waiter.'
-        )
+                request.user.outlet_ids,
+                ['refresh', 'meal', 'closebill']
+            )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
