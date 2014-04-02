@@ -160,11 +160,11 @@
         if (dish.price < 0.01){
             cell.addButton.hidden = YES;
             cell.priceLabel.hidden = YES;
-            [cell.nameLabel setFont:[UIFont boldSystemFontOfSize:11]];
+            [cell.nameLabel setFont:[UIFont italicSystemFontOfSize:13]];
         } else {
             cell.addButton.hidden = NO;
             cell.priceLabel.hidden = NO;
-            [cell.nameLabel setFont:[UIFont italicSystemFontOfSize:11]];
+            [cell.nameLabel setFont:[UIFont boldSystemFontOfSize:14]];
         }
         return cell;
 
