@@ -54,7 +54,9 @@
 - (void) decrementDishWithId: (int)dishId {
     int index = [self getIndexOfDishByDishID:dishId];
     int quantity = [self getQuantityOfDishByID:dishId];
-    [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
+    if(quantity >= 1){
+        [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
+    }
 }
 
 - (void) decrementDishName: (NSString*) dishName{
