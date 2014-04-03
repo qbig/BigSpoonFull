@@ -33,11 +33,11 @@
 {
     [super viewDidLoad];
     NSLog(@"ItemsOrderedViewController Loading view");
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
+    UITapGestureRecognizer * tapGestureToDismissKeyboard = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(dismissKeyboard)];
     self.isAddingNotes = NO;
-    [self.view addGestureRecognizer:tapGesture];
+    [self.view addGestureRecognizer:tapGestureToDismissKeyboard];
 
     //self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
 
@@ -362,7 +362,7 @@
                               GSTTitleLabel:self.pastGSTTitleLabel
                               andTotalLabel:self.pastTotalLabel];
     [self.pastOrderTableView reloadData];
-    [self updateTablesAndScrollviewHeight : YES];
+    [self updateTablesAndScrollviewHeight : NO];
 }
 
 - (void) updatePriceLabelsWithCurrentORder: (Order *) newOrder
