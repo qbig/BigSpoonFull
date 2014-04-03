@@ -226,7 +226,9 @@
     self.isAddingNotes = !self.isAddingNotes;
     [self.currentOrderTableView beginUpdates];
     [self.currentOrderTableView endUpdates];
-    [self updateTablesAndScrollviewHeight: YES];
+    // Update view point when the resulting state is "isAddingNotes"
+    // Otherwise, do note update view point
+    [self updateTablesAndScrollviewHeight: self.isAddingNotes];
 }
 
 - (IBAction)textFieldDidBeginEditing:(UITextField *)sender {
