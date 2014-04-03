@@ -570,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/ItemsOrderedViewController.m"
-            timestampString = "418186540.350758"
+            timestampString = "418188156.381621"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
             landmarkName = "-updatePriceLabels"
             landmarkType = "5">
          </BreakpointContent>

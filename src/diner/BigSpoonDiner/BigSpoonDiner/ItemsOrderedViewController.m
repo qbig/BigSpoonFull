@@ -301,18 +301,12 @@
     NSIndexPath * indexPath = [self.currentOrderTableView indexPathForRowAtPoint: location];
     
     int dishID = sender.tag;
-    
     NSLog(@"Minus dish at row: %d with ID: %d", indexPath.row, dishID);
-    
-    NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
-    
-    
     self.userInfo.currentOrder = [self.delegate minusDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.currentOrder getQuantityOfDishByID:dishID]];
     
     [self updatePriceLabels];
-
 }
+
 - (IBAction)placeOrderButtonPressed:(id)sender {
     NSLog(@"%@", [self.navigationController viewControllers]);
     [self dismissKeyboard];
@@ -364,6 +358,7 @@
                               GSTTitleLabel:self.pastGSTTitleLabel
                               andTotalLabel:self.pastTotalLabel];
     [self.pastOrderTableView reloadData];
+    [self.currentOrderTableView reloadData];
     [self updateTablesAndScrollviewHeight : NO];
 }
 

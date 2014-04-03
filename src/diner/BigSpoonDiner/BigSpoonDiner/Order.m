@@ -54,8 +54,10 @@
 - (void) decrementDishWithId: (int)dishId {
     int index = [self getIndexOfDishByDishID:dishId];
     int quantity = [self getQuantityOfDishByID:dishId];
-    if(quantity >= 1){
+    if(quantity > 1){
         [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
+    } else if (quantity == 1){
+        [self removeDishWithID:dishId];
     }
 }
 
@@ -253,8 +255,10 @@
             break;
         }
     }
-    
+    int index = [self getIndexOfDishByDish:dishToBeRemoved];
+    [self.quantity removeObjectAtIndex:index];
     [self.dishes removeObject: dishToBeRemoved];
+    [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishToBeRemoved.ID]];
 }
 
 @end
