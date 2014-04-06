@@ -129,7 +129,11 @@
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
-        
+        if (self.isAddingNotes){
+            cell.orderNote.hidden = NO;
+        } else {
+            cell.orderNote.hidden = YES;
+        }
         return cell;
     } else if ([tableView isEqual:self.pastOrderTableView]){
         PastOrderCell *cell = (PastOrderCell *)[tableView

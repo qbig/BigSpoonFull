@@ -52,6 +52,7 @@
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
     [self.mainView.layer insertSublayer:gradient atIndex:0];
     [self.taglineLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:17]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLoginFailureHandler) name:NOTIF_NEW_DISH_INFO_FAILED object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,8 +107,6 @@
     NSLog(@"location bt clicked");
 }
 
-
-
 - (IBAction)textFieldReturn:(id)sender {
     [sender resignFirstResponder];
 }
@@ -143,6 +142,16 @@
     }
     [[Mixpanel sharedInstance] track:@"Try to log in with Email" properties:@{@"email": self.emailLabel.text, @"password": self.passwordField.text}];
     [TestFlight passCheckpoint:@"CheckPoint:User Loggin in with email"];
+}
+
+- (void) fbLoginFailureHandler{
+    [self stopLoadingIndicators];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"This is embarrassing"
+                                                        message:@"Facebook login failed. Please try again."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+    [alertView show];
 }
 
 - (void)proceedToOutletView{

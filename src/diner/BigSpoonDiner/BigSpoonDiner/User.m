@@ -119,7 +119,12 @@
          }
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         [[Mixpanel sharedInstance] track: @"FB Login: TokenVerifying failed(operation failed)"];
+         if (error != nil){
+             [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"FB Login: TokenVerifying failed(operation failed), Error: %@", [error description]]];
+         } else {
+             [[Mixpanel sharedInstance] track: @"FB Login: TokenVerifying failed(operation failed)"];
+         }
+         
          [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
      }];
     [operation start];
