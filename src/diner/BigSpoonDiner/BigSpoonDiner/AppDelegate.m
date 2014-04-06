@@ -64,25 +64,25 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSString *errorString;
+    UIAlertView *alert ;
     [manager stopUpdatingLocation];
     NSLog(@"Error: %@",[error localizedDescription]);
     switch([error code]) {
         case kCLErrorDenied:
             //Access denied by user
             errorString = @"Dear customer, you may want to enable location to use BigSpoon";
+            alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
             break;
         case kCLErrorLocationUnknown:
             //Probably temporary...
-            errorString = @"Dear customer, you may want to enable location to use BigSpoon.";
-            //Do something else...
+            [self.mixpanel track:@"Location Failed: kCLErrorLocationUnknown"];
             break;
         default:
-            errorString = @"Dear customer, you may want to enable location to use BigSpoon";
+            [self.mixpanel track:@"Location Failed: Default"];
             break;
     }
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    [alert show];
 }
 
 
@@ -223,10 +223,7 @@
 }
 
 - (void) closeCurrentSession{
-    User *currentUser = [User sharedInstance];
-    if (![currentUser isLocationServiceDisabled] && [currentUser isUserOutsideRestaurant]){
-        [User sharedInstance].tableID = -1;
-    }
+    [User sharedInstance].tableID = -1;
     [User sharedInstance].pastOrder = [[Order alloc] init];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
 }
