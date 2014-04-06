@@ -130,23 +130,33 @@
 }
 
 - (IBAction)showEmail:(id)sender {
-    // Email Subject
-    NSString *emailTitle = @"Hello BigSpoon!";
-    // Email Content
-    NSString *messageBody = @"";
-    // To address
-    NSArray *toRecipents = [NSArray arrayWithObject:@"jay@bigspoon.sg"];
-    NSArray *toCCRecipents = [NSArray arrayWithObject:@"leon@bigspoon.sg"];
+    if ([MFMailComposeViewController canSendMail]) {
+        // Email Subject
+        NSString *emailTitle = @"Hello BigSpoon!";
+        // Email Content
+        NSString *messageBody = @"";
+        // To address
+        NSArray *toRecipents = [NSArray arrayWithObject:@"jay@bigspoon.sg"];
+        NSArray *toCCRecipents = [NSArray arrayWithObject:@"leon@bigspoon.sg"];
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:toRecipents];
+        [mc setCcRecipients:toCCRecipents];
+        
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:NULL];
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Thanks for your feedback"
+                                                            message:@"Feel free to drop us a message at jay@bigspoon.sg"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles: nil];
+        [alertView show];
+    }
     
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
-    [mc setToRecipients:toRecipents];
-    [mc setCcRecipients:toCCRecipents];
-    
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
     
 }
 
