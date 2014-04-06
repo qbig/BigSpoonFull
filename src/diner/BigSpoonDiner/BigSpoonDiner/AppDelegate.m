@@ -60,6 +60,32 @@
  
 }
 
+// Failed to get current location
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSString *errorString;
+    [manager stopUpdatingLocation];
+    NSLog(@"Error: %@",[error localizedDescription]);
+    switch([error code]) {
+        case kCLErrorDenied:
+            //Access denied by user
+            errorString = @"Dear customer, you may want to enable location to use BigSpoon";
+            break;
+        case kCLErrorLocationUnknown:
+            //Probably temporary...
+            errorString = @"Location data unavailable.";
+            //Do something else...
+            break;
+        default:
+            errorString = @"An unknown error has occurred";
+            break;
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+}
+
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -197,9 +223,11 @@
 }
 
 - (void) closeCurrentSession{
-    [User sharedInstance].tableID = -1;
+    User *currentUser = [User sharedInstance];
+    if (![currentUser isLocationServiceDisabled] && [currentUser isUserOutsideRestaurant]){
+        [User sharedInstance].tableID = -1;
+    }
     [User sharedInstance].pastOrder = [[Order alloc] init];
-    [User sharedInstance].currentOrder = [[Order alloc] init];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
 }
 

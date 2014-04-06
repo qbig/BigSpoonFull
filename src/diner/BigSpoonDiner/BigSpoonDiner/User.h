@@ -41,4 +41,7 @@
 - (id) getObjectForKey: (NSString*) key;
 - (void) setOutletData: (id) obj forOutletID:(int) outletID;
 - (id) getOutletDataWithID: (int) outletID;
+- (BOOL) isUserOutsideRestaurant;
+- (BOOL) isLocationServiceDisabled;
+- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
 @end

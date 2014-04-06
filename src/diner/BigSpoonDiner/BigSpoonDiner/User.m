@@ -250,5 +250,70 @@
 }
 
 
+#pragma mark Geo Location
+
+- (BOOL) isUserOutsideRestaurant{
+    
+    if([self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.currentOutlet.lat AndLongitude:self.currentOutlet.lon]){
+        [[Mixpanel sharedInstance] track:@"Action Success: Location Inbound"];
+    } else {
+        [[Mixpanel sharedInstance] track:@"Action Failed: Location Out of bound"];
+    }
+    return ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.currentOutlet.lat AndLongitude:self.currentOutlet.lon];
+}
+
+- (BOOL) isLocationServiceDisabled{
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+}
+
+- (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
+{
+    if (userLocation == nil){
+        [[Mixpanel sharedInstance] track:@"Location Check Failed: No location available"];
+        return false;
+    }
+    if ([self meAtPgpBusStop:userLocation WithinMeters:1500]){
+        [[Mixpanel sharedInstance] track:@"Location Check Success(Admin): Admin condition met"];
+        return true;
+    }
+    
+    CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
+    CLLocationDistance distance = [userLocation distanceFromLocation:outletLocation];
+    if (distance <= radius) {
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (limit: %g, actual: %g)",radius, distance]];
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
+        return true;
+    } else {
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Failed: Out of bound, (limit: %g, actual: %g)",radius, distance]];
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
+        return false;
+    }
+}
+
+- (BOOL) meAtPgpBusStop :(CLLocation *)userLocation WithinMeters:(double)radius{
+    // assuming location available
+    CLLocation *pgpBusStopLocation = [[CLLocation alloc] initWithLatitude:1.292026 longitude:103.780304];
+    CLLocation *pgp5Location = [[CLLocation alloc] initWithLatitude:1.293208 longitude:103.778376];
+    
+    CLLocationDistance distanceFromBusStop = [userLocation distanceFromLocation:pgpBusStopLocation];
+    CLLocationDistance distanceFromPgp5 = [userLocation distanceFromLocation:pgp5Location];
+    User *user = [User sharedInstance];
+    if (distanceFromBusStop <= radius && distanceFromPgp5 <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (dist from pgp bus stop: %g, dist from pgp 5: %g)",distanceFromBusStop, distanceFromPgp5]];
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
+    if ((locationA.coordinate.latitude == locationB.coordinate.latitude) && (locationA.coordinate.longitude == locationB.coordinate.longitude)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 @end
