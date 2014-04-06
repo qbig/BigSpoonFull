@@ -21,10 +21,7 @@
 
 @implementation OutletsTableViewController
 
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
-
 @synthesize outletsArray;
-@synthesize intro;
 @synthesize outletsTableView;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -34,38 +31,6 @@
 
     }
     return self;
-}
-
-
-- (void)showIntroWithCustomView {
-    [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
-    self.outletsTableView.scrollEnabled = NO;
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    EAIntroPage *welcome_page = [EAIntroPage page];
-    EAIntroPage *page1 = [EAIntroPage page];
-    EAIntroPage *page2 = [EAIntroPage page];
-    EAIntroPage *page3 = [EAIntroPage page];
-
-    if( IS_IPHONE_5 ){
-        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome_long.jpg"];
-        page1.bgImage = [UIImage imageNamed:@"intro_1_long.jpg"];
-        page2.bgImage = [UIImage imageNamed:@"intro_2_long.jpg"];
-        page3.bgImage = [UIImage imageNamed:@"intro_3_long.jpg"];
-    } else {
-        welcome_page.bgImage = [UIImage imageNamed:@"intro_welcome.jpg"];
-        page1.bgImage = [UIImage imageNamed:@"intro_1.jpg"];
-        page2.bgImage = [UIImage imageNamed:@"intro_2.jpg"];
-        page3.bgImage = [UIImage imageNamed:@"intro_3.jpg"];
-    }
-    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[welcome_page, page1,page2,page3]];
-    
-    [self.intro setDelegate:self];
-    [self.intro showInView:self.view animateDuration:0.0];
-}
-
-- (void) askForLocationPermit{
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
-    NSLog(@"location bt clicked");
 }
 
 - (void)viewDidLoad
@@ -92,11 +57,6 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-        [self showIntroWithCustomView];
-        self.tableView.separatorColor = [UIColor clearColor];
-    }
 }
 
 
@@ -519,15 +479,4 @@
     [delegate disconnectSocket];
 }
 
-#pragma mark - Intro
-
-- (void)introDidFinish {
-    [self.intro removeFromSuperview];
-    self.tableView.separatorColor = [UIColor lightGrayColor];
-    self.outletsTableView.scrollEnabled = YES;
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self askForLocationPermit];
-    [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
-    [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
-}
 @end

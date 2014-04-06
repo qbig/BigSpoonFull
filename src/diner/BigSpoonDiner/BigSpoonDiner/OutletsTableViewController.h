@@ -18,10 +18,9 @@
 #import "AppDelegate.h"
 #import "ImageCache.h"
 #import "SSKeychain.h"
-#import "EAIntroView.h"
 #import <Mixpanel.h>
 
-@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate, EAIntroDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+@interface OutletsTableViewController : UITableViewController <ExitMenuListDelegate, NSURLConnectionDelegate,CLLocationManagerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *outletsArray;
 @property (strong, nonatomic) IBOutlet UITableView *outletsTableView;
@@ -35,7 +34,6 @@
 
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) EAIntroView *intro;
 - (IBAction)logoutButtonPressed:(id)sender;
 
 

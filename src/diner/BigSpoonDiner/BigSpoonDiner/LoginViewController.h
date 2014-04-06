@@ -13,8 +13,9 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "TestFlight.h"
 #import <Mixpanel.h>
+#import "EAIntroView.h"
 
-@interface LoginViewController : UIViewController <NSURLConnectionDelegate>
+@interface LoginViewController : UIViewController <NSURLConnectionDelegate,EAIntroDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 @property (strong, nonatomic) IBOutlet UITextField *emailLabel;
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *fbButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
+@property (strong, nonatomic) EAIntroView *intro;
 
 - (IBAction)submitButtonPressed:(id)sender;
 

@@ -73,11 +73,11 @@
             break;
         case kCLErrorLocationUnknown:
             //Probably temporary...
-            errorString = @"Location data unavailable.";
+            errorString = @"Dear customer, you may want to enable location to use BigSpoon.";
             //Do something else...
             break;
         default:
-            errorString = @"An unknown error has occurred";
+            errorString = @"Dear customer, you may want to enable location to use BigSpoon";
             break;
     }
     

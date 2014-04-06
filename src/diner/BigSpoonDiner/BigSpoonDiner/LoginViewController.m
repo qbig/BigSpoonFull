@@ -20,6 +20,8 @@
 
 @implementation LoginViewController
 
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
 @synthesize emailLabel;
 @synthesize passwordField;
 @synthesize activityIndicator;
@@ -27,6 +29,7 @@
 @synthesize connectionForLogin;
 @synthesize connectionForCheckingFBToken;
 @synthesize taglineLabel;
+@synthesize intro;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -56,6 +59,10 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
     [super viewWillAppear:animated];
+    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
+    if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self showIntroWithCustomView];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -64,6 +71,41 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+
+- (void)showIntroWithCustomView {
+    [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    EAIntroPage *page1 = [EAIntroPage page];
+    EAIntroPage *page2 = [EAIntroPage page];
+    EAIntroPage *page3 = [EAIntroPage page];
+    EAIntroPage *page4 = [EAIntroPage page];
+    EAIntroPage *page5 = [EAIntroPage page];
+    
+    if( IS_IPHONE_5 ){
+        page1.bgImage = [UIImage imageNamed:@"intro_1_long.png"];
+        page2.bgImage = [UIImage imageNamed:@"intro_2_long.png"];
+        page3.bgImage = [UIImage imageNamed:@"intro_3_long.png"];
+        page4.bgImage = [UIImage imageNamed:@"intro_4_long.png"];
+        page5.bgImage = [UIImage imageNamed:@"intro_5_long.png"];
+    } else {
+        page1.bgImage = [UIImage imageNamed:@"intro_1.png"];
+        page2.bgImage = [UIImage imageNamed:@"intro_2.png"];
+        page3.bgImage = [UIImage imageNamed:@"intro_3.png"];
+        page4.bgImage = [UIImage imageNamed:@"intro_4.png"];
+        page5.bgImage = [UIImage imageNamed:@"intro_5.png"];
+    }
+    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4,page5]];
+    
+    [self.intro setDelegate:self];
+    [self.intro showInView:self.view animateDuration:0.0];
+}
+
+- (void) askForLocationPermit{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
+    NSLog(@"location bt clicked");
+}
+
 
 
 - (IBAction)textFieldReturn:(id)sender {
@@ -327,4 +369,12 @@
     [internetReachableFoo startNotifier];
 }
 
+#pragma mark - Intro
+
+- (void)introDidFinish {
+    [self.intro removeFromSuperview];
+    [self askForLocationPermit];
+    [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
+    [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
+}
 @end
