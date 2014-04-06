@@ -97,7 +97,7 @@
 
 -(void) viewDidAppear:(BOOL)animated {
     
-    NSLog(@"View Did Appear asdfasdfa");
+    NSLog(@"MenuViewController: View Did Appear");
     
     [super viewDidAppear:animated];
     

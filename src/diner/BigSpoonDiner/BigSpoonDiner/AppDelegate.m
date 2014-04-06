@@ -33,6 +33,12 @@
     self.mixpanel.flushInterval = 60;
     [self initLocationManager];
     [[NSNotificationCenter defaultCenter] addObserver:self.locationManager selector:@selector(startUpdatingLocation) name:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
+    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        // for instance access for geo-point
+        [self.locationManager startMonitoringSignificantLocationChanges];
+    }
+    // for more accurate update
+    [self performSelector:@selector(startTrackingLocation) withObject:nil afterDelay:5.0];
     return YES;
 }
 
@@ -48,6 +54,7 @@
 
 - (void)startTrackingLocation{
     if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self.locationManager stopMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
 }

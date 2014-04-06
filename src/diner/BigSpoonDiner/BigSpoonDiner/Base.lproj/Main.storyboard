@@ -610,7 +610,7 @@
                             </label>
                             <toolbar clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="b6V-UP-LVk">
                                 <rect key="frame" x="-44" y="-55" width="93" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem id="uqC-gj-MFU">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ArR-XE-dvZ">
@@ -627,7 +627,7 @@
                                     <barButtonItem id="y9B-8i-1fw">
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
                                             <rect key="frame" x="56" y="7" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <state key="normal" title="Gear" image="gear.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -1516,7 +1516,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="TRy-SG-Bfr"/>
         <segue reference="ew3-Pm-EPj"/>
+        <segue reference="qnZ-wN-VZu"/>
     </inferredMetricsTieBreakers>
 </document>
