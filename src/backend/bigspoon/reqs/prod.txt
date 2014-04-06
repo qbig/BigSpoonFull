@@ -2,7 +2,7 @@
 # Database
 # PyMySQL>=0.6,<0.7
 # TODO: change to PyMySQL when it's ready
-MySQL-python>=1.2.4,<1.2.5
+MySQL-python>=1.2.4
 dj-database-url>=0.2.1,<0.3
 # AWS S3
 # for issue with admin calandar icon
