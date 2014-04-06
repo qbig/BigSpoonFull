@@ -122,7 +122,6 @@
         [self toggleDisplayModeAndReloadData];
         self.hasInit = YES;
     }
-    
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
@@ -538,7 +537,9 @@
 #pragma mark Delegate Methods
 
 - (void)modalSegueDidExit{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self popTopViewControllerInNavigationStack];
+    }];
 }
 
 - (void)ratingAndFeedbackDidSubmitted{
