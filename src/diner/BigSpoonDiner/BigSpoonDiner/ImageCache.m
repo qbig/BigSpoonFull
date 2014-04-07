@@ -55,7 +55,11 @@ static ImageCache* sharedImageCache = nil;
 // Public methods:
 
 - (void) addImageWithURL:(NSURL *)imageURL andImage:(UIImage *)image{
-    [imgCache setObject:image forKey:[imageURL absoluteString]];
+    if(image != nil){
+        [imgCache setObject:image forKey:[imageURL absoluteString]];
+    } else {
+        NSLog(@"Error in - (void) addImageWithURL:(NSURL *)imageURL andImage:(UIImage *)image : inserting nil");
+    }
 }
 
 - (NSString*) getImage:(NSURL *)imageURL{
