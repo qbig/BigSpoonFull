@@ -77,29 +77,27 @@
 - (void)showIntroWithCustomView {
     [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    EAIntroPage *page1 = [EAIntroPage page];
-    EAIntroPage *page2 = [EAIntroPage page];
-    EAIntroPage *page3 = [EAIntroPage page];
-    EAIntroPage *page4 = [EAIntroPage page];
-    EAIntroPage *page5 = [EAIntroPage page];
-    
+    NSMutableArray *pagesToAdd = [[NSMutableArray alloc] init];
+    int numOfPagesInTutorial = 5;
+    NSString *imageNameformat;
     if( IS_IPHONE_5 ){
-        page1.bgImage = [UIImage imageNamed:@"intro_1_long.png"];
-        page2.bgImage = [UIImage imageNamed:@"intro_2_long.png"];
-        page3.bgImage = [UIImage imageNamed:@"intro_3_long.png"];
-        page4.bgImage = [UIImage imageNamed:@"intro_4_long.png"];
-        page5.bgImage = [UIImage imageNamed:@"intro_5_long.png"];
+        imageNameformat = @"intro_%d_long.png";
     } else {
-        page1.bgImage = [UIImage imageNamed:@"intro_1.png"];
-        page2.bgImage = [UIImage imageNamed:@"intro_2.png"];
-        page3.bgImage = [UIImage imageNamed:@"intro_3.png"];
-        page4.bgImage = [UIImage imageNamed:@"intro_4.png"];
-        page5.bgImage = [UIImage imageNamed:@"intro_5.png"];
+        imageNameformat = @"intro_%d.png";
     }
-    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:@[page1,page2,page3,page4,page5]];
+    
+    for(int i = 0; i < numOfPagesInTutorial; i++){
+        UIImageView *viewForPage = [[UIImageView alloc] initWithImage:
+                                    [UIImage imageNamed: [NSString stringWithFormat:imageNameformat, (i+1)]]
+                                   ];
+        viewForPage.frame = self.view.frame;
+        [pagesToAdd addObject:[EAIntroPage pageWithCustomView:viewForPage]];
+    }
+    
+    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:pagesToAdd];
     
     [self.intro setDelegate:self];
-    [self.intro showInView:self.view animateDuration:0.0];
+    [self.intro showInView:self.view animateDuration:0.3];
 }
 
 - (void) askForLocationPermit{
