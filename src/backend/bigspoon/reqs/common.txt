@@ -1,13 +1,11 @@
 Django>=1.5,<1.6
-Cython>=0.18
- greenlet==0.4.0
 # database migration
 South>=0.8.2,<0.9
 # django object level permission
 django-guardian>=1.1.1,<1.2
 # django imagefield with thumbnail
 django-thumbs>=0.4,<0.5
-Pillow>=2.4.0
+PIL>=1.1.6,<1.2
 # REST
 djangorestframework>=2.3.8,<2.4
 # socketio
