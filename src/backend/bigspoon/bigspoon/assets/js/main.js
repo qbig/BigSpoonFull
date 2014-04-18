@@ -9,6 +9,13 @@ $(document).ready(function() {
     window.selected_userId;
     window.order_quant_before_change;
     window.is_in_popup = false;
+
+    
+    $(document).on("click", "a.main-nav", function(event){
+        event.preventDefault();
+        window.location = $(this).attr("href");
+    });
+
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     });
