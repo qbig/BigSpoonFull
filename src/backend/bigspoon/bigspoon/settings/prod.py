@@ -114,6 +114,7 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 ########## ALLOWED HOSTS CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
+    '54.255.17.69',
     '54.255.3.255',
     '54.255.0.38',
     '122.248.199.242',
