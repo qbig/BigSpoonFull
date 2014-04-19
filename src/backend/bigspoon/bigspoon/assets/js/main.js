@@ -129,12 +129,19 @@ $(document).ready(function() {
         });
     });
 
-    $('#pick-table select').on("change", function() {
+    var filterTable = function() {
         var table = $(this).val();
-        if (table == "All Tables") {
+        if (table == "Occupied Tables"){
+            $('.table').hide()
+            .each(function() {
+                var currentTable = $(this);
+                if(currentTable.find('.active').size() >= 1) {
+                    currentTable.show();
+                }
+            });
+        } else if (table == "All Tables") {
             $('.table').show();
-        }
-        else {
+        } else {
             $('.table').hide()
             .each(function() {
                 if($(this).find('h3').text() == table) {
@@ -142,8 +149,10 @@ $(document).ready(function() {
                 }
             });
         }
-    });
-
+    };
+    
+    $('#pick-table select').on("change", filterTable);
+    $('#pick-table select').trigger("change");
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,
