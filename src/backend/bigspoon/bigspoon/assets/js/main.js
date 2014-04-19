@@ -405,7 +405,7 @@ $(document).ready(function() {
         };
         req_data[button.attr("model")] = button.attr("id");
         button.click(function() {
-            button.hide();
+            item.hide();
             $.post(
                 STAFF_API_URLS[type],
                 req_data
