@@ -430,12 +430,20 @@ p.note {
     height: 155px;
 }
 
-div:not(.active) .order {
+.item .order {
     overflow:scroll;
     margin-top: 0px;
     margin-bottom: 25px;
     padding-left: 1px;
     height: 315px;
+}
+
+.active .order {
+    overflow:scroll;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    padding-left: 1px;
+    height: 155px;
 }
 
 .order li {
