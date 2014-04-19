@@ -70,7 +70,7 @@ class MainView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
-        paginator = Paginator(context["cards"], 6)
+        paginator = Paginator(context["cards"], 3)
         page = request.GET.get('page')
         try:
             context["cards"] = paginator.page(page)
