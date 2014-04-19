@@ -152,7 +152,6 @@ $(document).ready(function() {
     };
     
     $('#pick-table select').on("change", filterTable);
-    $('#pick-table select').trigger("change");
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,

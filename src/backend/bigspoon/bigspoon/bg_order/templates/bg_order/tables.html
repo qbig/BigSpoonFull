@@ -13,11 +13,11 @@
     <span id="pick-table">
         <label> View
         <select>
-            <option value="Occupied Tables">
-            Occupied Tables
-            </option>
             <option value="All Tables">
             All Tables
+            </option>
+            <option value="Occupied Tables">
+            Occupied Tables
             </option>
             {% for table in table_list %}
             <option value="{{table.name}}">

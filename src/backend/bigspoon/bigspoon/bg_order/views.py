@@ -96,7 +96,7 @@ class TableView(ListView):
             .prefetch_related('meals__diner',
                               'meals__diner__meals',
                               'meals', 'meals__orders')\
-            .filter(outlet__in=outlets)
+            .filter(outlet__in=outlets).order_by("name")
 
     def get_context_data(self, **kwargs):
         context = super(TableView, self).get_context_data(**kwargs)
