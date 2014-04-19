@@ -458,11 +458,11 @@ class CreateRequest(generics.CreateAPIView):
     def pre_save(self, obj):
         obj.diner = self.request.user
         try:
-            meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False, status=Meal.INACTIVE)
+            meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False)
             obj.table = meal.table
         except Meal.DoesNotExist:
             Meal.objects.create(table=obj.table, diner=obj.diner, modified=timezone.now(),
-                                                   is_paid=False)
+                                                   is_paid=False, status=Meal.INACTIVE)
 
     def post_save(self, obj, created=False):
         send_socketio_message(
