@@ -1,4 +1,6 @@
 -r common.txt
+#PIL
+PIL>=1.1.6,<1.2
 # Database
 # PyMySQL>=0.6,<0.7
 # TODO: change to PyMySQL when it's ready
