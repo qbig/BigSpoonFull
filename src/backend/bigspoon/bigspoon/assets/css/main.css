@@ -317,7 +317,6 @@ nav a.logo img {
     float: left;
     margin: 5px 0px;
     width: 305px;
-    height: 290px;
     border-radius: 9px;
     background: #fff;
     -webkit-box-shadow: 0px 2px 2px rgba(50, 50, 50, 0.6);
@@ -431,7 +430,7 @@ p.note {
     height: 155px;
 }
 
-div:not(.table) .order {
+div:not(.active) .order {
     overflow:scroll;
     margin-top: 0px;
     margin-bottom: 25px;
