@@ -12,8 +12,8 @@ $(document).ready(function() {
 
     window.idleTime = 0;
     window.timerIncrement = function () {
-        idleTime = idleTime + 1;
-        if (idleTime >= 1) { // 2 minutes
+        window.idleTime = window.idleTime + 1;
+        if (window.idleTime >= 2) { // 2 minutes
             window.location = "/staff/main/";
         }
     };
@@ -23,7 +23,7 @@ $(document).ready(function() {
     $(this).mousemove(function (e) {
         window.idleTime = 0;
     });
-    $(this).keypress(function (e) {
+    $(this).mouseup(function (e) {
         window.idleTime = 0;
     });
 
