@@ -21,11 +21,9 @@ $(document).ready(function() {
 
     //Zero the idle timer on mouse movement.
     $(this).mousemove(function (e) {
-        alert(1);
         idleTime = 0;
     });
     $(this).keypress(function (e) {
-        alert(2);
         idleTime = 0;
     });
 
