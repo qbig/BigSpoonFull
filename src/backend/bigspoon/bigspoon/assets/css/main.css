@@ -438,7 +438,7 @@ p.note {
     height: 315px;
 }
 
-.active .order {
+.active .order, .item .history .order {
     overflow:scroll;
     margin-top: 0px;
     margin-bottom: 25px;

@@ -21,10 +21,10 @@ $(document).ready(function() {
 
     //Zero the idle timer on mouse movement.
     $(this).mousemove(function (e) {
-        idleTime = 0;
+        window.idleTime = 0;
     });
     $(this).keypress(function (e) {
-        idleTime = 0;
+        window.idleTime = 0;
     });
 
     $(document).on("click", "a.main-nav", function(event){
