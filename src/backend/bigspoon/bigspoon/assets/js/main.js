@@ -13,8 +13,8 @@ $(document).ready(function() {
     window.idleTime = 0;
     window.timerIncrement = function () {
         idleTime = idleTime + 1;
-        if (idleTime >= 2) { // 2 minutes
-            window.location.href = "bigspoon.biz/staff/main/";
+        if (idleTime >= 1) { // 2 minutes
+            window.location = "/staff/main/";
         }
     };
     var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
