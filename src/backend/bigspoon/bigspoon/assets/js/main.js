@@ -10,7 +10,25 @@ $(document).ready(function() {
     window.order_quant_before_change;
     window.is_in_popup = false;
 
-    
+    window.idleTime = 0;
+    window.timerIncrement = function () {
+        idleTime = idleTime + 1;
+        if (idleTime >= 2) { // 2 minutes
+            window.location = "bigspoon.biz/staff/main/";
+        }
+    };
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {
+        alert(1);
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        alert(2);
+        idleTime = 0;
+    });
+
     $(document).on("click", "a.main-nav", function(event){
         event.preventDefault();
         window.location = $(this).attr("href");
