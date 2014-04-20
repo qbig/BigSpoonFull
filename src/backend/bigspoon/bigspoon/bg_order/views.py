@@ -165,12 +165,12 @@ class HistoryView(TemplateView):
             .prefetch_related('diner', 'diner__meals', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(created__lte=limit[1], created__gte=limit[0])\
-            .filter(status=Meal.INACTIVE).filter(is_paid=True)
+            .filter(status=Meal.INACTIVE).filter(is_paid=True).order_by('created')
         context['requests_cards'] = Request.objects\
             .prefetch_related('diner', 'diner__meals', 'table')\
             .filter(table__outlet__in=outlets)\
             .filter(created__lte=limit[1], created__gte=limit[0])\
-            .filter(is_active=False)
+            .filter(is_active=False).order_by('created')
         context["cards_num"] = self.request.session.get("cards_num")
         return context
 
