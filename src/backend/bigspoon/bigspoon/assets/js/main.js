@@ -14,7 +14,7 @@ $(document).ready(function() {
     window.timerIncrement = function () {
         idleTime = idleTime + 1;
         if (idleTime >= 2) { // 2 minutes
-            window.location = "bigspoon.biz/staff/main/";
+            window.location.href = "bigspoon.biz/staff/main/";
         }
     };
     var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
