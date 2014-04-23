@@ -118,10 +118,11 @@
         [self.viewModeButton setHidden:NO];
         [self.settingsButton setHidden:NO];
     }
-    if(!self.hasInit){
-        [self toggleDisplayModeAndReloadData];
-        self.hasInit = YES;
-    }
+    //if(!self.hasInit){
+        // set default display as list view
+        //[self toggleDisplayModeAndReloadData];
+        //self.hasInit = YES;
+    //}
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
