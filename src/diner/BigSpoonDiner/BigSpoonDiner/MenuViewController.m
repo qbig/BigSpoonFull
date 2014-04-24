@@ -11,7 +11,7 @@
 @interface MenuViewController (){
     void (^taskAfterAskingForTableID)(void);
     NSMutableDictionary *_viewControllersByIdentifier;
-    NSString *notesWhenPlacingOrder;
+    NSString *generalNote;
     CGRect oldFrameItemBadge;
     NSDictionary *_validTableIDs;
 }
@@ -19,8 +19,8 @@
 @property (nonatomic, strong) UIAlertView *requestForWaiterAlertView;
 @property (nonatomic, strong) UIAlertView *requestForBillAlertView;
 @property (nonatomic, strong) UIAlertView *inputTableIDAlertView;
-@property (nonatomic, strong) UIAlertView *placeOrderAlertView;
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
+@property (nonatomic, strong) UIAlertView *whenToServeDessertAlertView;
 
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 @property (nonatomic) BOOL hasInit;
@@ -567,27 +567,12 @@
         }else{
             NSLog(@"Unrecognized button pressed");
         }
-    }
-    
-    else if ([alertView isEqual:self.requestForWaiterAlertView]){
-        if([title isEqualToString:@"Yes"])
-        {
-            NSLog(@"Request For Waiter");
-            
+    } else if ([alertView isEqual:self.requestForWaiterAlertView]){
+        if([title isEqualToString:@"Yes"]) {
             [self requestWithType:@1 WithNote:@"Request For Waiter"];
         }
-        else if([title isEqualToString:@"Cancel"])
-        {
-            NSLog(@"Request For waiter Canceled");
-        }else{
-            NSLog(@"Unrecognized button pressed");
-        }
-    }
-    
-    else if ([alertView isEqual:self.inputTableIDAlertView]){
-
-        if(![title isEqualToString:@"Cancel"])
-        {
+    } else if ([alertView isEqual:self.inputTableIDAlertView]){
+        if(![title isEqualToString:@"Cancel"]) {
 
             NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
@@ -603,24 +588,16 @@
             }
             [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
         }
-    }
-    
-    else if ([alertView isEqual:self.placeOrderAlertView]){
-        
-        NSLog(@"Place Order Alert View Clicked");
-    
-        if(![title isEqualToString:@"Cancel"])
-        {
-            [self performPlaceOrderNetWorkRequest];
+    } else if ([alertView isEqual:self.whenToServeDessertAlertView]){
+        if ([title isEqualToString:@"Now"]){
+            generalNote = @"Serve dessert now";
+        } else {
+            generalNote = @"Serve dessert later";
         }
-        
-    }
-    
-    else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
+        [self performPlaceOrderNetWorkRequest];
+    } else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
         [self.navigationController popViewControllerAnimated:NO];
-    }
-    
-    else{
+    } else{
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
 }
@@ -708,7 +685,7 @@
     
     NSLog(@"Placing order");
     
-    notesWhenPlacingOrder = notes;
+    generalNote = notes;
     
     if (![self isTableIDKnown]) {
         [self askForTableID];
@@ -739,7 +716,17 @@
     // You may use a Block, rather than a delegate.
     [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
         if (buttonIndex == 1) {
-            [self performPlaceOrderNetWorkRequest];
+            if ([self.userInfo.currentOrder containDessert]){
+                self.whenToServeDessertAlertView = [[UIAlertView alloc]
+                                                initWithTitle:@"Would you like your dessert to be served now?"
+                                                message:nil
+                                                delegate:self
+                                                cancelButtonTitle:@"Now"
+                                                otherButtonTitles:@"Serve later", nil];
+                [self.whenToServeDessertAlertView show];
+            } else {
+                [self performPlaceOrderNetWorkRequest];
+            }
         }
         [alertView close];
     }];
@@ -801,8 +788,8 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setObject:[NSArray arrayWithArray: dishesArray] forKey:@"dishes"];
     [parameters setObject:[NSNumber numberWithInt: [User sharedInstance].tableID] forKey:@"table"];
-    if (notesWhenPlacingOrder != nil && ![notesWhenPlacingOrder isEqualToString:@""] ) {
-        [parameters setObject:notesWhenPlacingOrder forKey:@"note"];
+    if (generalNote != nil && ![generalNote isEqualToString:@""] ) {
+        [parameters setObject:generalNote forKey:@"note"];
     }
     
     if (self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) {

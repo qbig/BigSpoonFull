@@ -45,5 +45,5 @@
 - (void) incrementDishWithId: (int)dishId;
 - (void) decrementDishWithId: (int)dishId;
 - (void) decrementDishName: (NSString*) dishName;
-
+- (BOOL) containDessert;
 @end

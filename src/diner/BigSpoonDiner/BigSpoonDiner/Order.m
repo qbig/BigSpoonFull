@@ -245,6 +245,16 @@
     return [self getDishByID:newDishID] != nil;
 }
 
+- (BOOL) containDessert {
+    for (Dish *dish in self.dishes) {
+        // 4 is the dessert category
+        if ( ((NSNumber*)[dish.categories objectAtIndex:0]).intValue == 4) {
+            return true;
+        }
+    }
+    return false;
+}
+
 - (void) removeDishWithID: (int) newDishID{
     
     Dish *dishToBeRemoved = nil;
