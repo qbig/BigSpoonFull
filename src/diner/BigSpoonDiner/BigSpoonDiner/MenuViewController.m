@@ -237,21 +237,27 @@
 
 - (IBAction)requestWaterButtonPressed:(id)sender {
     NSLog(@"requestWaterButtonPressed");
-    [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaterButtonCoverView];
-
-    if (![self isTableIDKnown]) {
-        [[Mixpanel sharedInstance] track:@"MenuView: Request for Water(Not verified)"];
-        [self askForTableID];
-        
-        __weak MenuViewController *weakSelf = self;
-        
-        self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performRequestWaterSelectQuantityPopUp];
-        };
-    } else if(![self.userInfo isLocationServiceDisabled] && ![self.userInfo isUserOutsideRestaurant]){
-        [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
-        [self performRequestWaterSelectQuantityPopUp];
-    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                      message:@"To ensure speedy service for all customers, please help yourself with the water at the counter."
+                                      delegate:self
+                                      cancelButtonTitle:@"Thank you!"
+                                      otherButtonTitles:nil];
+    [alert show];
+//    [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaterButtonCoverView];
+//
+//    if (![self isTableIDKnown]) {
+//        [[Mixpanel sharedInstance] track:@"MenuView: Request for Water(Not verified)"];
+//        [self askForTableID];
+//        
+//        __weak MenuViewController *weakSelf = self;
+//        
+//        self.taskAfterAskingForTableID = ^(void){
+//            [weakSelf performRequestWaterSelectQuantityPopUp];
+//        };
+//    } else if(![self.userInfo isLocationServiceDisabled] && ![self.userInfo isUserOutsideRestaurant]){
+//        [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
+//        [self performRequestWaterSelectQuantityPopUp];
+//    }
 }
 
 - (void) performRequestWaterSelectQuantityPopUp{

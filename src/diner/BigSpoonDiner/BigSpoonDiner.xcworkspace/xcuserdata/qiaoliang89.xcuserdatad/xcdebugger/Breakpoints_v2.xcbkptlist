@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "420000176.444667"
+            timestampString = "420001719.507004"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "991"
-            endingLineNumber = "991"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
             landmarkName = "-askForTableID"
             landmarkType = "5">
          </BreakpointContent>
