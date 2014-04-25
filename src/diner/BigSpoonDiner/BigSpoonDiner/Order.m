@@ -99,8 +99,11 @@
         [self.notes setObject:note forKey:[NSString stringWithFormat:@"%d", dish.ID]];
     } else {
         [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
-    }
-    
+    }    
+}
+
+- (NSString*) getNoteForDish: (Dish*) dish {
+    return [self.notes objectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{

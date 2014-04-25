@@ -820,7 +820,7 @@
             case 200:
             case 201:{
                 NSLog(@"Place Order Success");
-                [self afterSuccessfulPlacedOrder];
+                [self processAfterSuccessfulPlacedOrder];
             }
                 break;
             case 403:
@@ -839,7 +839,7 @@
     [operation start];
 }
 
-- (void) afterSuccessfulPlacedOrder{
+- (void) processAfterSuccessfulPlacedOrder{
     [self.userInfo.pastOrder mergeWithAnotherOrder:self.userInfo.currentOrder];
     self.userInfo.currentOrder = [[Order alloc] init];
     

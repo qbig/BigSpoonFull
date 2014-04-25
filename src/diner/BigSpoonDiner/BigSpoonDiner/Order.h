@@ -32,6 +32,7 @@
 - (void) addDish: (Dish *) dish;
 - (void) minusDish: (Dish *) dish;
 - (void) addNote: (NSString*) note forDish: (Dish*) dish;
+- (NSString*) getNoteForDish: (Dish*) dish;
 
 - (int) getQuantityOfDishByDish: (Dish *) dish;
 - (int) getQuantityOfDishByID: (int) dishID;

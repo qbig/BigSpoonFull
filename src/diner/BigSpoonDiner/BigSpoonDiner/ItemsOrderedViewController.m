@@ -129,6 +129,7 @@
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
+        cell.orderNote.text = [self.userInfo.currentOrder getNoteForDish:dish];
         if (self.isAddingNotes){
             cell.orderNote.hidden = NO;
         } else {

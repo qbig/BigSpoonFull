@@ -1516,7 +1516,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ew3-Pm-EPj"/>
         <segue reference="qnZ-wN-VZu"/>
+        <segue reference="NcF-ES-z1f"/>
     </inferredMetricsTieBreakers>
 </document>
