@@ -451,11 +451,13 @@
 - (void) showLoadingIndicators{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     [self.activityIndicator startAnimating];
+    [self.tableView setUserInteractionEnabled:NO];
 }
 
 - (void) stopLoadingIndicators{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     [self.activityIndicator stopAnimating];
+    [self.tableView setUserInteractionEnabled:YES];
 }
 
 - (IBAction)logoutButtonPressed:(id)sender {
