@@ -2,6 +2,7 @@
 
 
 from os import environ
+from os.path import join, normpath
 
 from common import *
 
@@ -55,11 +56,6 @@ CACHES = {
 # Not save media files on S3
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 ########## END STORAGE CONFIGURATION
-
-# See: http://django-storages.readthedocs.org/en/latest/index.html
-INSTALLED_APPS += (
-    'storages',
-)
 
 ########## COMPRESSION CONFIGURATION
 COMPRESS_URL = STATIC_URL
