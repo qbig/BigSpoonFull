@@ -27,7 +27,7 @@ $(document).ready(function() {
         window.idleTime = 0;
     });
 
-    $(document).on("click", "a.main-nav", function(event){
+    $(document).on("click", "a.main-nav, a.add", function(event){
         event.preventDefault();
         window.location = $(this).attr("href");
     });
@@ -320,7 +320,8 @@ $(document).ready(function() {
     }
 
     // Makes AJAX call to update dish API endpoint
-    window.updateDish = function(elem){
+    window.updateDish = function(event, elem){
+        event.preventDefault();
         var button = $(elem);
         var form = button.parent();
 
