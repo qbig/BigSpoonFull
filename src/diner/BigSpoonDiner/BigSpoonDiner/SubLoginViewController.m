@@ -193,6 +193,7 @@
                 [self setUserDataAndPrefsWithReturnedData:json];
                 
                 [self performSegueWithIdentifier:@"segueLoginWithEmail" sender:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:nil];
                 [User sharedInstance].isLoggedIn = YES;
                 [[Mixpanel sharedInstance] track:@"Log in with email success" properties:@{@"email": self.emailTextField.text, @"password": self.passwordTextField.text}];
                 break;

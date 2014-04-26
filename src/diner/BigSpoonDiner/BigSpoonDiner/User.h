@@ -44,4 +44,7 @@
 - (BOOL) isUserOutsideRestaurant;
 - (BOOL) isLocationServiceDisabled;
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
+- (void) updateOrder;
+- (void) closeCurrentSession;
+- (void) attemptToUpdateOrder;
 @end

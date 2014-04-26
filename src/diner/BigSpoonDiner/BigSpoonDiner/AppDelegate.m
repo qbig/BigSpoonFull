@@ -119,12 +119,8 @@
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self connectSocket];
-    @try {
-        [self updateOrder];
-    }
-    @catch (NSException *exception) {
-        NSLog(@"%@", exception);
-    }
+
+    [[User sharedInstance] attemptToUpdateOrder];
     self.bgUsageStart = [NSDate date];
     [self.mixpanel track:@"Usage Starts" properties:@{@"time": self.bgUsageStart}];
     [self.mixpanel.people increment:@"Number of App Launch" by: [NSNumber numberWithInt:1]];
@@ -207,16 +203,11 @@
         int startTockenForDishName = [messages rangeOfString:@"[" options:NSBackwardsSearch].location;
         //int endTockenForDishName = [messages rangeOfString:@"]" options:NSBackwardsSearch].location;
         if (startTockenForDishName != NSNotFound){
-            @try {
-                [self updateOrder];
-            }
-            @catch (NSException *exception) {
-                NSLog(@"%@", exception);
-            }
+            [[User sharedInstance] attemptToUpdateOrder];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
         } else if ([messages rangeOfString:SOCKET_IO_TOKEN_BILL_CLOSED].location != NSNotFound){
             // clean user session
-            [self closeCurrentSession];
+            [[User sharedInstance] closeCurrentSession];
         }
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
@@ -228,80 +219,6 @@
     }
     
 }
-
-- (void) closeCurrentSession{
-    [User sharedInstance].tableID = -1;
-    [User sharedInstance].pastOrder = [[Order alloc] init];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
-}
-
-- (void) updateOrder{
-    User *user = [User sharedInstance];
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: ORDER_URL]];
-    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    request.HTTPMethod = @"GET";
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        int responseCode = [operation.response statusCode];
-        switch (responseCode) {
-            case 200:
-            case 201:{
-                NSLog(@"Update Order request success");
-                NSDictionary* json = (NSDictionary*)responseObject;
-                BOOL changed = [self updateOrderWithJsonIfNecessary: json];
-                
-                if (changed){
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
-                }
-            }
-                break;
-            case 404:
-                [self closeCurrentSession];
-                break;
-            case 403:
-            default:{
-                NSLog(@"Update Order Fail");
-            }
-        }
-        NSLog(@"JSON: %@", responseObject);
-    }
-                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSLog(@"%@", error);
-                                      }];
-    [operation start];
-}
-
-- (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
-    BOOL changed = FALSE;
-    NSDictionary *ordersDict = [json objectForKey:@"orders"];
-    User *user = [User sharedInstance];
-    Order *updatedOrder = [[Order alloc] init];
-    for(NSDictionary * dict in ordersDict){
-        NSDictionary* dishDic = [dict objectForKey:@"dish"];
-        Dish *tmpDish = [[Dish alloc] init];
-        tmpDish.name = [dishDic objectForKey:@"name"];
-        tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
-        tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
-        int quantity = [[dict objectForKey:@"quantity"] integerValue];
-        for(int i = 0; i < quantity ;i ++){
-            [updatedOrder addDish:tmpDish];
-        }
-        if ([user.pastOrder getQuantityOfDishByID:tmpDish.ID] != quantity){
-            changed = TRUE;
-        }
-    }
-    if([updatedOrder getTotalPrice] != [user.pastOrder getTotalPrice] || [updatedOrder getTotalQuantity] != [user.pastOrder getTotalQuantity]){
-        changed = TRUE;
-    }
-    if(changed){
-        user.pastOrder = updatedOrder;
-    }
-    return changed;
-}
-
 
 - (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet{
     NSLog(@"In App Delegate: didReceiveEvent");

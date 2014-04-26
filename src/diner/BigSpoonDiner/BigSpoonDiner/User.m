@@ -31,8 +31,15 @@
         if(sharedInstance.pastOrder == nil) {
             sharedInstance.pastOrder = [[Order alloc] init];
         }
+       
     });
     return sharedInstance;
+}
+
+- (User* ) init {
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attemptToUpdateOrder) name:FB_TOKEN_VERIFIED object:nil];
+    return  [super init];
 }
 
 #pragma mark FB Login Methods
@@ -310,6 +317,88 @@
     } else {
         return false;
     }
+}
+
+- (void) attemptToUpdateOrder {
+    @try {
+        [self updateOrder];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception);
+    }
+}
+
+- (void) updateOrder{
+    User *user = [User sharedInstance];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: ORDER_URL]];
+    [request setValue: [@"Token " stringByAppendingString:user.authToken] forHTTPHeaderField: @"Authorization"];
+    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    
+    request.HTTPMethod = @"GET";
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        int responseCode = [operation.response statusCode];
+        switch (responseCode) {
+            case 200:
+            case 201:{
+                NSLog(@"Update Order request success");
+                NSDictionary* json = (NSDictionary*)responseObject;
+                BOOL changed = [self updateOrderWithJsonIfNecessary: json];
+                
+                if (changed){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
+                }
+            }
+                break;
+            case 404:
+                [self closeCurrentSession];
+                break;
+            case 403:
+            default:{
+                NSLog(@"Update Order Fail");
+            }
+        }
+        NSLog(@"JSON: %@", responseObject);
+    }
+                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"%@", error);
+                                      }];
+    [operation start];
+}
+
+- (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
+    BOOL changed = FALSE;
+    NSDictionary *ordersDict = [json objectForKey:@"orders"];
+    User *user = [User sharedInstance];
+    Order *updatedOrder = [[Order alloc] init];
+    for(NSDictionary * dict in ordersDict){
+        NSDictionary* dishDic = [dict objectForKey:@"dish"];
+        Dish *tmpDish = [[Dish alloc] init];
+        tmpDish.name = [dishDic objectForKey:@"name"];
+        tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
+        tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
+        int quantity = [[dict objectForKey:@"quantity"] integerValue];
+        for(int i = 0; i < quantity ;i ++){
+            [updatedOrder addDish:tmpDish];
+        }
+        if ([user.pastOrder getQuantityOfDishByID:tmpDish.ID] != quantity){
+            changed = TRUE;
+        }
+    }
+    if([updatedOrder getTotalPrice] != [user.pastOrder getTotalPrice] || [updatedOrder getTotalQuantity] != [user.pastOrder getTotalQuantity]){
+        changed = TRUE;
+    }
+    if(changed){
+        user.pastOrder = updatedOrder;
+    }
+    return changed;
+}
+
+- (void) closeCurrentSession{
+    [User sharedInstance].tableID = -1;
+    [User sharedInstance].pastOrder = [[Order alloc] init];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
 }
 
 - (BOOL) isLocation:(CLLocation *)locationA SameAsLocation:(CLLocation *)locationB {
