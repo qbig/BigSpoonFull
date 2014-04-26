@@ -79,6 +79,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         if self.first_name and self.last_name:
             full_name = '%s %s' % (self.first_name, self.last_name)
+        elif self.first_name:
+            full_name = self.first_name
         else:
             full_name = self.email
         return full_name.strip()
