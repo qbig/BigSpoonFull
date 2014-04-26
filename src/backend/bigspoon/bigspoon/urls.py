@@ -32,7 +32,10 @@ if settings.DEBUG:
         document_root=settings.MEDIA_ROOT
     )
 else :
-    urlpatterns += patterns(
-        '',
-        (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
-        )
+    try:
+        urlpatterns += patterns(
+            '',
+            (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
+            )
+    except:
+        pass
