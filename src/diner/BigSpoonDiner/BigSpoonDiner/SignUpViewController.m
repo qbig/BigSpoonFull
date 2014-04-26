@@ -20,12 +20,10 @@
 @synthesize activityIndicator;
 @synthesize submitButton;
 @synthesize firstNameLabel;
-@synthesize lastNameLabel;
 @synthesize emailAddressLabel;
 @synthesize passwordLabel;
 @synthesize navigationItem;
 @synthesize mainView;
-@synthesize taglineLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,7 +45,9 @@
     [self.mainView.layer insertSublayer:gradient atIndex:0];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:172.0f/255.0 green:234.0/255.0 blue:241.0/255.0 alpha:0];
     self.navigationController.navigationBar.translucent = NO;
-    [self.taglineLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:17]];
+    
+    [self.signupLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:20]];
+    [self.backButton.titleLabel setFont:[UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:15]];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -64,7 +64,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
     [super viewWillDisappear:animated];
 }
 
@@ -79,6 +78,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)backButtonPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (IBAction)textFieldDidBeginEditing:(id)sender {
     
         //move the main view, so that the keyboard does not hide it.
@@ -100,7 +105,7 @@
 - (IBAction)submitButtonPressed:(id)sender {
     
     
-    if ([firstNameLabel.text isEqualToString:@""] || [lastNameLabel.text isEqualToString:@""] ||
+    if ([firstNameLabel.text isEqualToString:@""] ||
         [emailAddressLabel.text isEqualToString:@""] || [passwordLabel.text isEqualToString:@""]) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Oops"
@@ -123,7 +128,6 @@
     
     NSMutableDictionary *info = [[NSMutableDictionary alloc] init];
     [info setObject: self.firstNameLabel.text forKey: @"first_name"];
-    [info setObject: self.lastNameLabel.text forKey: @"last_name"];
     [info setObject: self.passwordLabel.text forKey: @"password"];
     [info setObject: self.emailAddressLabel.text forKey: @"email"];
     if (self.facebookUserName) {
@@ -304,7 +308,6 @@
            NSError *error) {
              if (!error) {
                  self.firstNameLabel.text = user.first_name;
-                 self.lastNameLabel.text = user.last_name;
                  self.emailAddressLabel.text = [user objectForKey:@"email"];
                  self.facebookUserName = user.username;
              }

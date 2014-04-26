@@ -18,14 +18,15 @@
 @interface SignUpViewController : UIViewController <NSURLConnectionDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *firstNameLabel;
-@property (strong, nonatomic) IBOutlet UITextField *lastNameLabel;
 @property (strong, nonatomic) IBOutlet UITextField *emailAddressLabel;
 @property (strong, nonatomic) IBOutlet UITextField *passwordLabel;
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 
 @property (strong, nonatomic) NSString * facebookUserName;
-@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *signupLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
 
 - (IBAction)submitButtonPressed:(id)sender;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

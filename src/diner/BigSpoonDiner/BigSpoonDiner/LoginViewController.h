@@ -16,17 +16,12 @@
 #import "EAIntroView.h"
 
 @interface LoginViewController : UIViewController <NSURLConnectionDelegate,EAIntroDelegate>
-
-@property (strong, nonatomic) IBOutlet UIButton *submitButton;
-@property (strong, nonatomic) IBOutlet UITextField *emailLabel;
-@property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *fbButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
-@property (weak, nonatomic) IBOutlet UILabel *taglineLabel;
 @property (strong, nonatomic) EAIntroView *intro;
-
-- (IBAction)submitButtonPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *signupButton;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 - (IBAction)fbButtonPressed:(id)sender;
 
