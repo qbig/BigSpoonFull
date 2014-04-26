@@ -315,6 +315,7 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
 #pragma mark - Image Processing
 
 - (void)imageDownloadFailed:(NSNotification *)notification {
+    [[Mixpanel sharedInstance] track:@"Image loading failed"];
     NSDictionary *notif = notification.userInfo;
     NSURL *url = [notif objectForKey:NPRImageURLKey];
     

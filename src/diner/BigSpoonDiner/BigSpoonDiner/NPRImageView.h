@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Mixpanel.h"
 @class NPRImageView;
 @class NPRDiskCache;
 
