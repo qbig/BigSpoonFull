@@ -51,6 +51,9 @@ def install_requirements():
     print(yellow('Install requirements ...'))
     run(RUN_WITH_ENV+'pip install -r requirements.txt')
 
+def install_requirements_stage():
+    print(yellow('Install requirements ...'))
+    run(RUN_WITH_ENV+'pip install -r reqs/stage.txt')
 
 def create_db():
     print(yellow('Create new database ...'))
@@ -131,7 +134,7 @@ def stage_deploy(*args):
     with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
         run("git remote update && git reset --hard origin/master")
-        install_requirements()
+        install_requirements_stage()
         if args:
             if 'newdb' in args:
                 create_db()

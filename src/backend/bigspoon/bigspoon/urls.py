@@ -12,7 +12,6 @@ urlpatterns = patterns(
     # admin sites:
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
     url(r'^admin/', include(admin.site.urls)),
 
     # app sites:
@@ -32,3 +31,8 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
+else :
+    urlpatterns += patterns(
+        '',
+        (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
+        )

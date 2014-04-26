@@ -188,7 +188,6 @@ DJANGO_APPS = (
     'django.contrib.humanize',
 
     # Admin panel and documentation:
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.admindocs',
 )
