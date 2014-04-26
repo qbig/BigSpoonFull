@@ -402,7 +402,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         meal.status = Meal.ACTIVE
         if ('note' in request.DATA):
             note = request.DATA['note']
-            meal.note += "\r\n" + note
+            meal.note = note
         meal.save()
 
         notes = None
