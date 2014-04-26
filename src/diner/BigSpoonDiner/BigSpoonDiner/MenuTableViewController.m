@@ -600,6 +600,11 @@
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime]){
         [self.delegate dishOrdered:clickedDish];
         [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+        if (self.displayMethod == kMethodList){
+            [[Mixpanel sharedInstance] track:@"Added item in list menu"];
+        } else {
+            [[Mixpanel sharedInstance] track:@"Added item in picture menu"];
+        }
     } else {
         
         NSDate* startDate = [self neutrilizedDateFromTimeString:clickedDish.startTime];
