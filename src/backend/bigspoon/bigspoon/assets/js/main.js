@@ -168,6 +168,8 @@ $(document).ready(function() {
     };
     
     $('#pick-table select').on("change", filterTable);
+
+    $("img.lazy").Lazy();
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,
