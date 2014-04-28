@@ -169,9 +169,6 @@ $(document).ready(function() {
     
     $('#pick-table select').on("change", filterTable);
 
-    $("img.lazy").Lazy({
-        delay: 2000
-    });
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,
@@ -179,14 +176,17 @@ $(document).ready(function() {
 
         beforeActivate: function(event, ui) {
              // The accordion believes a panel is being opened
-             if (ui.newHeader[0]) {
+            if (ui.newHeader[0]) {
                 var currHeader  = ui.newHeader;
                 var currContent = currHeader.next('.ui-accordion-content');
-             // The accordion believes a panel is being closed
-         } else {
-            var currHeader  = ui.oldHeader;
-            var currContent = currHeader.next('.ui-accordion-content');
-        }
+                 $("img.lazy").Lazy({
+                    bind: "event"
+                });
+                 // The accordion believes a panel is being closed
+            } else {
+                var currHeader  = ui.oldHeader;
+                var currContent = currHeader.next('.ui-accordion-content');
+            }
              // Since we've changed the default behavior, this detects the actual status
              var isPanelSelected = currHeader.attr('aria-selected') == 'true';
 
