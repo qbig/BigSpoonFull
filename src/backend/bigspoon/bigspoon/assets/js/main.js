@@ -169,7 +169,9 @@ $(document).ready(function() {
     
     $('#pick-table select').on("change", filterTable);
 
-    $("img.lazy").Lazy();
+    $("img.lazy").Lazy({
+        delay: 2000
+    });
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,
