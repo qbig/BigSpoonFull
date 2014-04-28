@@ -180,7 +180,8 @@ $(document).ready(function() {
                 var currHeader  = ui.newHeader;
                 var currContent = currHeader.next('.ui-accordion-content');
                  $("img.lazy").Lazy({
-                    bind: "event"
+                    bind: "event",
+                    delay: 0
                 });
                  // The accordion believes a panel is being closed
             } else {
