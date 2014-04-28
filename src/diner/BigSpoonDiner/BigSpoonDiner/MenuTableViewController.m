@@ -186,10 +186,10 @@
         // !! placeholderImage CANNOT be nil
         [cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
         
-        CGRect frame = cell.imageView.frame;
-        frame.origin.x = 0;
-        frame.origin.y = 0;
-        cell.imageView.frame = frame;
+       // CGRect frame = cell.imageView.frame;
+       // frame.origin.x = 0;
+       // frame.origin.y = 0;
+       // cell.imageView.frame = frame;
         
         cell.ratingImageView.image = nil;//[self imageForRating:dish.ratings];
         
