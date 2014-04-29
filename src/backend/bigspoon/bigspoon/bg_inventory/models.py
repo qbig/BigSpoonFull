@@ -370,6 +370,10 @@ class Outlet(models.Model):
         related_name='from_outlet',
     )
 
+    is_by_default_photo_menu = models.BooleanField(
+        default=False,
+    )
+
     def __unicode__(self):
         """
         Returns the outlet name
