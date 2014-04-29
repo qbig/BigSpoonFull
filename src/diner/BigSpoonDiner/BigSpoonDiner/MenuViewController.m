@@ -291,6 +291,9 @@
                                  delegate:self
                                  cancelButtonTitle:@"Cancel"
                                  otherButtonTitles:@"Yes", nil];
+    
+    self.requestForWaiterAlertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [[self.requestForWaiterAlertView textFieldAtIndex:0] setPlaceholder:@"How could we help?"];
     [self.requestForWaiterAlertView show];
 }
 
@@ -575,7 +578,12 @@
         }
     } else if ([alertView isEqual:self.requestForWaiterAlertView]){
         if([title isEqualToString:@"Yes"]) {
-            [self requestWithType:@1 WithNote:@"Request For Waiter"];
+            if([alertView textFieldAtIndex:0].text.length != 0){
+                [self requestWithType:@1 WithNote:[NSString stringWithFormat: @"Request For Waiter: %@", [alertView textFieldAtIndex:0].text]];
+            } else {
+                [self requestWithType:@1 WithNote:@"Request For Waiter"];
+            }
+            
         }
     } else if ([alertView isEqual:self.inputTableIDAlertView]){
         if(![title isEqualToString:@"Cancel"]) {
