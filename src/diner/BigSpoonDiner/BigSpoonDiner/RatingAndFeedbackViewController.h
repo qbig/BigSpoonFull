@@ -20,7 +20,7 @@
 #import "ModalSegueDelegate.h"
 #import "SubmitRatingAndFeedbackSuccessDelegate.h"
 
-@interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
+@interface RatingAndFeedbackViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UITextViewDelegate>
 
 // Key: dishID; Value: rating between 0 to 5.
 @property (strong, nonatomic) NSMutableDictionary *ratings;
@@ -28,15 +28,12 @@
 @property (strong, nonatomic) Order* orderToRate;
 @property (nonatomic) int outletID;
 @property (strong, nonatomic) IBOutlet UITableView *ratingsTableView;
-@property (strong, nonatomic) IBOutlet UITextField *feedbackTextField;
 @property (nonatomic) float initialY;
 @property (weak, nonatomic) id <ModalSegueDelegate, SubmitRatingAndFeedbackSuccessDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextView *feedbackTextview;
 
 - (IBAction)ratingSubmitButtonPressed:(id)sender;
 - (IBAction)ratingCancelButtonPressed:(id)sender;
-
-- (IBAction)textFinishEditing:(id)sender;
-- (IBAction)textFieldDidBeginEditing:(id)sender;
 
 - (void) reloadDataWithOrder: (Order *) currentOrder andOutletID: (int) outletID;
 

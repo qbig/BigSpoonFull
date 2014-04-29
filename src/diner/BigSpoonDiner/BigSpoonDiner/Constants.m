@@ -95,7 +95,7 @@ int const ITEM_LIST_TABLE_ROW_HEIGHT = 46;
 int const ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED = 86;
 int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT = 44;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
-int const RATING_STAR_WIDTH = 80;
+int const RATING_STAR_WIDTH = 127;
 int const RATING_STAR_HEIGHT = 15;
 int const AVERAGE_PIXEL_PER_CHAR = 8;
 int const CATEGORY_BUTTON_OFFSET = 5;
@@ -164,6 +164,7 @@ NSString* const OUTLET_ID_PREFIX = @"outlet";
 NSString* const OUTLET_INFO_FOR_ID_PREFIX = @"outletWithId";
 NSString* const FB_SESSION_IS_OPEN = @"FBSessionIsOpen";
 NSString* const FB_TOKEN_VERIFIED = @"FBTokenIsVerified";
+NSString* const FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
 
 // Notification
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";

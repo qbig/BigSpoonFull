@@ -7,7 +7,7 @@
 //
 
 #import "RatingAndFeedbackViewController.h"
-
+#import <QuartzCore/QuartzCore.h>
 @interface RatingAndFeedbackViewController ()
 
 @end
@@ -36,6 +36,9 @@
     
     // Initial default value:
     self.initialY = -1000;
+    self.feedbackTextview.delegate = self;
+    self.feedbackTextview.clipsToBounds = YES;
+    self.feedbackTextview.layer.cornerRadius = 10.0f;
 }
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -269,7 +272,7 @@
 }
 
 - (void) performFeedbackSubmission{
-    NSString *feedback = self.feedbackTextField.text;
+    NSString *feedback = self.feedbackTextview.text;
     
     if ([feedback length] == 0) {
         return;
@@ -346,38 +349,58 @@
     [TestFlight passCheckpoint:@"CheckPoint:User Cancelled Rating popup"];
 }
 
+# pragma Textview Delegate
 
-- (IBAction)textFieldDidBeginEditing:(id)sender {
+- (void)textViewDidBeginEditing:(UITextView *)textView {
     [[Mixpanel sharedInstance] track:@"RatingView: user rate by writing review"];
+    if ([textView.text isEqualToString:FEEDBACK_TEXT_PLACEHOLDER]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
+    
     // If the initialY is not initialized (and hence with a value of -1000, set in viewDIdLoad)
     if (self.initialY == -1000) {
         self.initialY = self.view.frame.origin.y;
     }
     
-    if ([sender isEqual:self.feedbackTextField])
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y >= self.initialY)
     {
-        //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y >= self.initialY)
-        {
-            [self setViewMovedUp:YES];
-        }
+        [self setViewMovedUp:YES];
     }
 }
 
-- (IBAction)textFinishEditing:(id)sender {
-    
-    [sender resignFirstResponder];
-    
-    NSLog(@"Did finish editing %f %f", self.view.frame.origin.y, self.initialY);
-    
-    if ([sender isEqual:self.feedbackTextField])
-    {
-        //move the main view, so that the keyboard does not hide it.
-        if  (self.view.frame.origin.y < self.initialY)
-        {
-            [self setViewMovedUp:NO];
-        }
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = FEEDBACK_TEXT_PLACEHOLDER;
+        textView.textColor = [UIColor lightGrayColor];
     }
+    
+    [self.feedbackTextview resignFirstResponder];
+    
+    //move the main view, so that the keyboard does not hide it.
+    if  (self.view.frame.origin.y < self.initialY)
+    {
+        [self setViewMovedUp:NO];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSCharacterSet *doneButtonCharacterSet = [NSCharacterSet newlineCharacterSet];
+    NSRange replacementTextRange = [text rangeOfCharacterFromSet:doneButtonCharacterSet];
+    NSUInteger location = replacementTextRange.location;
+    
+    if (textView.text.length + text.length > 140){
+        if (location != NSNotFound){
+            [textView resignFirstResponder];
+        }
+        return NO;
+    }
+    else if (location != NSNotFound){
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 - (void) removeSelfFromParent{
