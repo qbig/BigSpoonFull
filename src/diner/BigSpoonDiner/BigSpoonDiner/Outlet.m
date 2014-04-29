@@ -23,7 +23,8 @@
               gstRate: (double) g
     serviceChargeRate: (double) s
              isActive:(BOOL)isA
-             isPhotoMenu:(BOOL)isP{
+             isPhotoMenu:(BOOL)isP
+isRequestForWaterEnabled: (BOOL)isWaterEnabled {
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -40,6 +41,7 @@
         self.serviceChargeRate = s;
         self.isActive = isA;
         self.isDefaultPhotoMenu = isP;
+        self.isWaterEnabled = isWaterEnabled;
     }
     return self;
 }

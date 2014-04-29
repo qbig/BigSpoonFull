@@ -244,6 +244,7 @@
                 double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
                 BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
                 BOOL isDefaultPhotoMenu = (BOOL)[[newOutlet objectForKey:@"is_by_default_photo_menu"] boolValue];
+                BOOL requestForWaterEnabled = (BOOL)[[newOutlet objectForKey:@"request_for_water_enabled"] boolValue];
                 if (!isActive) {
                     promotionalText = @"Coming Soon!";
                 }
@@ -263,7 +264,8 @@
                                                                 gstRate: gstRate
                                                       serviceChargeRate: serviceChargeRate
                                                                isActive: isActive
-                                                            isPhotoMenu: isDefaultPhotoMenu];
+                                                            isPhotoMenu: isDefaultPhotoMenu
+                                               isRequestForWaterEnabled: requestForWaterEnabled];
                 [self.outletsArray addObject:newOutletObject];
 
             }

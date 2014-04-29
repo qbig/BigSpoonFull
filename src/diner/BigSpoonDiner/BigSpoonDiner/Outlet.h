@@ -26,7 +26,7 @@
 @property (nonatomic) double serviceChargeRate;
 @property (nonatomic) BOOL isActive;
 @property (nonatomic) BOOL isDefaultPhotoMenu;
-
+@property (nonatomic) BOOL isWaterEnabled;
 - (id) initWithImgURL: (NSURL *) u
                  Name: (NSString *) n
               Address: (NSString *) a
@@ -40,6 +40,7 @@
               gstRate: (double) g
     serviceChargeRate: (double) s
              isActive: (BOOL) is
-             isPhotoMenu:(BOOL)isP;
+             isPhotoMenu:(BOOL)isP
+isRequestForWaterEnabled: (BOOL)isWaterEnabled ;
 
 @end
