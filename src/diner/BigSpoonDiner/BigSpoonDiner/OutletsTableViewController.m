@@ -242,7 +242,7 @@
                 double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
                 double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
                 BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
-                
+                BOOL isDefaultPhotoMenu = (BOOL)[[newOutlet objectForKey:@"is_by_default_photo_menu"] boolValue];
                 if (!isActive) {
                     promotionalText = @"Coming Soon!";
                 }
@@ -260,7 +260,8 @@
                                                         promotionalText: promotionalText
                                                                 gstRate: gstRate
                                                       serviceChargeRate: serviceChargeRate
-                                                               isActive: isActive];
+                                                               isActive: isActive
+                                                            isPhotoMenu: isDefaultPhotoMenu];
                 [self.outletsArray addObject:newOutletObject];
 
             }

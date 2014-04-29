@@ -46,7 +46,7 @@ DATABASES = {'default': dj_database_url.config()}
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         'LOCATION': '127.0.0.1:11211',
     }
 }

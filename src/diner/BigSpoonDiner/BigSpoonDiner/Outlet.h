@@ -24,6 +24,7 @@
 @property (nonatomic) double gstRate;
 @property (nonatomic) double serviceChargeRate;
 @property (nonatomic) BOOL isActive;
+@property (nonatomic) BOOL isDefaultPhotoMenu;
 
 - (id) initWithImgURL: (NSURL *) u
                  Name: (NSString *) n
@@ -36,6 +37,7 @@
       promotionalText: (NSString *) pro
               gstRate: (double) g
     serviceChargeRate: (double) s
-             isActive: (BOOL) is;
+             isActive: (BOOL) is
+             isPhotoMenu:(BOOL)isP;
 
 @end

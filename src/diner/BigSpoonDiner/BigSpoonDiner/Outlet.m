@@ -21,7 +21,8 @@
       promotionalText: (NSString *) pro
               gstRate: (double) g
     serviceChargeRate: (double) s
-             isActive:(BOOL)isA{
+             isActive:(BOOL)isA
+             isPhotoMenu:(BOOL)isP{
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -36,6 +37,7 @@
         self.gstRate = g;
         self.serviceChargeRate = s;
         self.isActive = isA;
+        self.isDefaultPhotoMenu = isP;
     }
     return self;
 }
