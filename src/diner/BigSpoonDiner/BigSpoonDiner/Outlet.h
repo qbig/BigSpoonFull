@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSString *operatingHours;
+@property (nonatomic, strong) NSString *defaultDishPhoto;
 @property (nonatomic) int outletID;
 @property (nonatomic) double lat;
 @property (nonatomic) double lon;
@@ -31,6 +32,7 @@
               Address: (NSString *) a
           PhoneNumber: (NSString *) phone
       OperationgHours: (NSString *) o
+     defaultDishPhoto:(NSString *)pho
              OutletID: (int) i
                   lat:(double)lat
                   lon:(double)lon

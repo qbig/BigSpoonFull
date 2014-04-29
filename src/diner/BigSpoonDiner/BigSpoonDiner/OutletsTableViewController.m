@@ -239,6 +239,7 @@
                 NSString* address = [newOutlet objectForKey:@"address"];
                 NSString* opening = [newOutlet objectForKey:@"opening"];
                 NSString* promotionalText = [newOutlet objectForKey:@"discount"];
+                NSString* defaultDishPhotoUrl = [newOutlet objectForKey:@"default_dish_photo"];
                 double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
                 double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
                 BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
@@ -254,6 +255,7 @@
                                                                 Address: address
                                                             PhoneNumber: phone
                                                         OperationgHours: opening
+                                                       defaultDishPhoto: defaultDishPhotoUrl
                                                                OutletID: ID
                                                                     lat: lat
                                                                     lon: lon

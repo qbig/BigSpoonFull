@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "420214096.189659"
+            timestampString = "420463690.787036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "648"
-            endingLineNumber = "648"
+            startingLineNumber = "650"
+            endingLineNumber = "650"
             landmarkName = "-dishCategoryButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -249,13 +249,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/OutletsTableViewController.m"
-            timestampString = "420452132.900476"
+            filePath = "BigSpoonDiner/MenuViewController.m"
+            timestampString = "420455150.554134"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "-connectionDidFinishLoading:"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -265,13 +265,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "420455150.554134"
+            filePath = "BigSpoonDiner/MenuTableViewController.m"
+            timestampString = "420463671.717456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "-viewDidAppear:"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "-parseFromJsonsToDishes:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

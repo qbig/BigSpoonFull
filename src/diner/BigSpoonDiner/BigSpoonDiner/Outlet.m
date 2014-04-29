@@ -15,6 +15,7 @@
               Address:(NSString *)a
           PhoneNumber:(NSString *)p
       OperationgHours:(NSString *)o
+     defaultDishPhoto:(NSString *)pho
              OutletID:(int)i
                   lat:(double)latitude
                   lon:(double)longitude
@@ -30,6 +31,7 @@
         self.address = a;
         self.phoneNumber = p;
         self.operatingHours = o;
+        self.defaultDishPhoto = pho;
         self.outletID = i;
         self.lat = latitude;
         self.lon = longitude;
