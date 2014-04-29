@@ -374,20 +374,6 @@ class Outlet(models.Model):
         default=False,
     )
 
-    default_dish_photo = ImageWithThumbsField(
-        upload_to=_image_upload_path,
-        blank=True,
-        null=True,
-        sizes=((640, 400), (320, 200)),
-        help_text=_('defaul dish photo')
-    )
-
-    def get_upload_path(self, filename):
-        fname, dot, end = filename.rpartition('.')
-        slug = slugify(self.name)
-        return 'restaurant/dishes/%s/%s/%s.%s' % (
-            self.name, self.id, slug, end)
-
     def __unicode__(self):
         """
         Returns the outlet name
