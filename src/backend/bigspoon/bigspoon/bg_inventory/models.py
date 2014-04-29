@@ -385,8 +385,8 @@ class Outlet(models.Model):
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
         slug = slugify(self.name)
-        return 'restaurant/default-dish-pic/%s/%s/%s.%s' % (
-            self.outlet.name, self.id, slug, end)
+        return 'restaurant/dishes/%s/%s/%s.%s' % (
+            self.name, self.id, slug, end)
 
     def __unicode__(self):
         """
