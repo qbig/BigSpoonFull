@@ -6,7 +6,7 @@ from os.path import join, normpath
 
 from common import *
 
-
+DEBUG = True
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 DEFAULT_FROM_EMAIL = 'no-reply@bigspoon.com'
