@@ -140,7 +140,7 @@ class OutletDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Outlet
-        fields = ('is_by_default_photo_menu')
+
 
 class RatingSerializer(serializers.ModelSerializer):
 
