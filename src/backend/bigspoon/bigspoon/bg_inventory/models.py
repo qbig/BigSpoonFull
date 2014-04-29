@@ -374,7 +374,7 @@ class Outlet(models.Model):
         default=False,
     )
 
-    photo = ImageWithThumbsField(
+    default_dish_photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
         blank=True,
         null=True,
