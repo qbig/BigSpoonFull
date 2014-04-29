@@ -297,13 +297,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "420096887.823684"
+            filePath = "BigSpoonDiner/User.m"
+            timestampString = "420216239.644448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
+            landmarkName = "-attemptToUpdateOrder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -313,13 +313,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/User.m"
-            timestampString = "420216239.644448"
+            filePath = "BigSpoonDiner/OutletsTableViewController.m"
+            timestampString = "420452132.900476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
-            landmarkName = "-attemptToUpdateOrder"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
