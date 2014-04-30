@@ -76,6 +76,12 @@
     request.HTTPBody = jsonData;
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    
+    // add "text/html" as acceptable return type
+    NSMutableSet *acceptableTypes = [[NSMutableSet alloc] initWithSet: operation.responseSerializer.acceptableContentTypes];
+    [acceptableTypes addObject:@"text/html"];
+    operation.responseSerializer.acceptableContentTypes = acceptableTypes;
+    
     [operation
      setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
          long responseCode = [operation.response statusCode];
