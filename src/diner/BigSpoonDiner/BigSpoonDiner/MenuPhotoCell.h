@@ -16,5 +16,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIImageView *overlayImageView;
 
 @end

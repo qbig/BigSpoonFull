@@ -52,8 +52,8 @@
 		03D48297190A980600851AC0 /* login_form.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D48296190A980600851AC0 /* login_form.png */; };
 		03D48299190CE70300851AC0 /* imnew.tif in Resources */ = {isa = PBXBuildFile; fileRef = 03D48298190CE70300851AC0 /* imnew.tif */; };
 		03D4829B190CE70B00851AC0 /* login2.tif in Resources */ = {isa = PBXBuildFile; fileRef = 03D4829A190CE70B00851AC0 /* login2.tif */; };
-		03D4829D190D09DE00851AC0 /* overlay_new.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D4829C190D09DE00851AC0 /* overlay_new.png */; };
 		03D4829F190D79C600851AC0 /* new_overlay2.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D4829E190D79C600851AC0 /* new_overlay2.png */; };
+		03D482A11910DC6D00851AC0 /* out_of_stock.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D482A01910DC6D00851AC0 /* out_of_stock.png */; };
 		03D9C6D818451063004110AA /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D9C6D518451063004110AA /* EAIntroPage.m */; };
 		03D9C6D918451063004110AA /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D9C6D718451063004110AA /* EAIntroView.m */; };
 		49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49044D1E180AD5AB0006F567 /* OutletCell.m */; };
@@ -213,8 +213,8 @@
 		03D48296190A980600851AC0 /* login_form.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_form.png; sourceTree = "<group>"; };
 		03D48298190CE70300851AC0 /* imnew.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = imnew.tif; sourceTree = "<group>"; };
 		03D4829A190CE70B00851AC0 /* login2.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = login2.tif; sourceTree = "<group>"; };
-		03D4829C190D09DE00851AC0 /* overlay_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay_new.png; sourceTree = "<group>"; };
 		03D4829E190D79C600851AC0 /* new_overlay2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_overlay2.png; sourceTree = "<group>"; };
+		03D482A01910DC6D00851AC0 /* out_of_stock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = out_of_stock.png; sourceTree = "<group>"; };
 		03D9C6D418451063004110AA /* EAIntroPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroPage.h; sourceTree = "<group>"; };
 		03D9C6D518451063004110AA /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
 		03D9C6D618451063004110AA /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
@@ -602,8 +602,8 @@
 			children = (
 				03D48298190CE70300851AC0 /* imnew.tif */,
 				03D4829A190CE70B00851AC0 /* login2.tif */,
+				03D482A01910DC6D00851AC0 /* out_of_stock.png */,
 				03D4829E190D79C600851AC0 /* new_overlay2.png */,
-				03D4829C190D09DE00851AC0 /* overlay_new.png */,
 				03D4828A190A8C0000851AC0 /* login_btn_new.png */,
 				03D48290190A8F3F00851AC0 /* new_fb_btn.png */,
 				03D48294190A969400851AC0 /* sign_up_form.png */,
@@ -884,7 +884,6 @@
 				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
 				49BF7FCC183B1CA500D286A6 /* logout_button.png in Resources */,
-				03D4829D190D09DE00851AC0 /* overlay_new.png in Resources */,
 				034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */,
 				E99E9A231821AF58002ECD29 /* HomeAndSettingsButtonView.xib in Resources */,
 				49164204180C590C00080B87 /* photo_icon.png in Resources */,
@@ -923,6 +922,7 @@
 				03D48293190A958200851AC0 /* new_signup_btn.png in Resources */,
 				49F107ED180886D600D2C8DD /* InfoPlist.strings in Resources */,
 				49048D17181F48DC00B480A3 /* 4StarsSmall@2x.png in Resources */,
+				03D482A11910DC6D00851AC0 /* out_of_stock.png in Resources */,
 				4972BBC018370FFD001DD817 /* button_add_no_circle.png in Resources */,
 				039731ED18F1701100E32FC1 /* intro_1.png in Resources */,
 				49F107F6180886D600D2C8DD /* Main.storyboard in Resources */,
