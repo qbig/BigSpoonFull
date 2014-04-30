@@ -174,7 +174,11 @@
         
         MenuPhotoCell *cell = (MenuPhotoCell *)[tableView
                                               dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
-        
+        if(dish.quantity == 0){
+            [cell.overlayImageView setImage:[UIImage imageNamed:DISH_OVERLAY_OUT_OF_STOCK]];
+        } else {
+            [cell.overlayImageView setImage:[UIImage imageNamed:DISH_OVERLAY_NORMAL]];
+        }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         // When the button is clicked, we know which one. :)
@@ -599,7 +603,7 @@
     
     Dish* clickedDish = [self getDishWithID: itemID];
     
-    if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime]){
+    if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
         [self.delegate dishOrdered:clickedDish];
         [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
         if (self.displayMethod == kMethodList){
@@ -607,6 +611,14 @@
         } else {
             [[Mixpanel sharedInstance] track:@"Added item in picture menu"];
         }
+    } else if (clickedDish.quantity <= 0){
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Sorry"
+                                  message: @"This is out of stock :("
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
     } else {
         
         NSDate* startDate = [self neutrilizedDateFromTimeString:clickedDish.startTime];

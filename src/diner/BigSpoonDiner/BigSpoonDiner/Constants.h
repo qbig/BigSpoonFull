@@ -102,6 +102,8 @@ extern NSString* const OUTLET_INFO_FOR_ID_PREFIX;
 extern NSString* const FB_SESSION_IS_OPEN;
 extern NSString* const FB_TOKEN_VERIFIED;
 extern NSString* const FEEDBACK_TEXT_PLACEHOLDER;
+extern NSString* const DISH_OVERLAY_NORMAL;
+extern NSString* const DISH_OVERLAY_OUT_OF_STOCK;
 
 // Notification Name
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;
