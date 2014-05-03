@@ -35,7 +35,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self.locationManager selector:@selector(startUpdatingLocation) name:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
     if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         // for instance access for geo-point
-        [self.locationManager startMonitoringSignificantLocationChanges];
+        //[self.locationManager startMonitoringSignificantLocationChanges];
+        [self startTrackingLocation];
     }
     // for more accurate update
     [self performSelector:@selector(startTrackingLocation) withObject:nil afterDelay:5.0];
@@ -54,7 +55,7 @@
 
 - (void)startTrackingLocation{
     if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-        [self.locationManager stopMonitoringSignificantLocationChanges];
+//        [self.locationManager stopMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
 }
@@ -103,16 +104,18 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [self beginBackgroundUpdateTask];
-            
-            [self initLocationManager];
-            [self.locationManager stopMonitoringSignificantLocationChanges];
-            [self startTrackingLocation];
-            [self endBackgroundUpdateTask];
-        });
-    }
+    [self initLocationManager];
+    [self startTrackingLocation];
+//    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            [self beginBackgroundUpdateTask];
+//            
+//            [self initLocationManager];
+//            [self.locationManager stopMonitoringSignificantLocationChanges];
+//            [self startTrackingLocation];
+//            [self endBackgroundUpdateTask];
+//        });
+//    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -252,25 +255,26 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self beginBackgroundUpdateTask];
-        
-        NSLog(@"%@ starting background task %lu", self, (unsigned long)self.bgTask);
-        [self initLocationManager];
-        [self.locationManager stopUpdatingLocation];
-        if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-            [self.locationManager startMonitoringSignificantLocationChanges];
-        }
-        [self.mixpanel track:@"Usage Ends" properties:@{@"time": [NSDate date]}];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:60 * 5
-                                                      target:self
-                                                    selector:@selector(startTrackingLocation)
-                                                    userInfo:nil
-                                                     repeats:YES];
-        NSLog(@"%@ ending background task %lu", self, (unsigned long)self.bgTask);
-
-        [self endBackgroundUpdateTask];
-    });
+    [self.locationManager stopUpdatingLocation];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [self beginBackgroundUpdateTask];
+//        
+//        NSLog(@"%@ starting background task %lu", self, (unsigned long)self.bgTask);
+//        [self initLocationManager];
+//        [self.locationManager stopUpdatingLocation];
+//        if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+//            [self.locationManager startMonitoringSignificantLocationChanges];
+//        }
+//        [self.mixpanel track:@"Usage Ends" properties:@{@"time": [NSDate date]}];
+//        self.timer = [NSTimer scheduledTimerWithTimeInterval:60 * 5
+//                                                      target:self
+//                                                    selector:@selector(startTrackingLocation)
+//                                                    userInfo:nil
+//                                                     repeats:YES];
+//        NSLog(@"%@ ending background task %lu", self, (unsigned long)self.bgTask);
+//
+//        [self endBackgroundUpdateTask];
+//    });
     
     NSLog(@"%@ dispatched background task %lu", self, (unsigned long)self.bgTask);
 }
