@@ -36,10 +36,7 @@
         int quantity = [self getQuantityOfDishByDish:dish];
         [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: index];
         
-    }
-    
-    // If it's new, add it:
-    else{
+    } else {
         [self.dishes addObject: dish];
         [self.quantity addObject: [NSNumber numberWithInt:1]];
     }

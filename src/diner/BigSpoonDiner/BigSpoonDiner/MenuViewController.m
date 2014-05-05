@@ -64,13 +64,15 @@
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
     // If the ordered items are null, init them.
     // If not, update the badge.
-    if ([self.userInfo.currentOrder getTotalQuantity] + [self.userInfo.pastOrder getTotalQuantity] == 0) {
+    if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
         self.userInfo.currentOrder = [[Order alloc]init];
-        self.userInfo.pastOrder = [[Order alloc]init];
-    } else{
+    } else {
         [self updateItemQuantityBadge];
     }
-    
+    if ([self.userInfo.pastOrder getTotalQuantity] == 0){
+        self.userInfo.pastOrder = [[Order alloc]init];
+    }
+
     [self loadControlPanels];
 }
 
@@ -622,7 +624,10 @@
 }
 
 - (void) dishOrdered:(Dish *)dish{
+    int initialQuantity = [self.userInfo.currentOrder getTotalQuantity];
     [self.userInfo.currentOrder addDish:dish];
+    int updatedQuantity = [self.userInfo.currentOrder getTotalQuantity];
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"increasing order from %d to %d", initialQuantity, updatedQuantity]];
     [self updateItemQuantityBadge];
 }
 
@@ -634,7 +639,6 @@
 - (void) updateItemQuantityBadge{
     
     int totalQuantity = [self.userInfo.currentOrder getTotalQuantity];
-    
     if (totalQuantity == 0) {
         [self.itemQuantityLabel setHidden:YES];
         [self.itemQuantityLabelBackgroundImageView setHidden:YES];

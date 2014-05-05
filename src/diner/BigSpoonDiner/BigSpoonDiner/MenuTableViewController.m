@@ -598,12 +598,10 @@
 - (IBAction)addNewItemButtonClicked:(id)sender {
     UIButton *btn = (UIButton *)sender;
     int itemID = btn.tag;
-    
-//    NSLog(@"New item added to order list with ID: %d", itemID);
-    
     Dish* clickedDish = [self getDishWithID: itemID];
     
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed.-> Legal", clickedDish.name]];
         [self.delegate dishOrdered:clickedDish];
         [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
         if (self.displayMethod == kMethodList){
@@ -612,6 +610,7 @@
             [[Mixpanel sharedInstance] track:@"Added item in picture menu"];
         }
     } else if (clickedDish.quantity <= 0){
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed. -> Out of stock", clickedDish.name]];
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Sorry"
                                   message: @"This is out of stock :("
@@ -620,7 +619,7 @@
                                   otherButtonTitles:nil];
         [alertView show];
     } else {
-        
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed. -> Wrong time", clickedDish.name]];
         NSDate* startDate = [self neutrilizedDateFromTimeString:clickedDish.startTime];
         NSDate* endDate = [self neutrilizedDateFromTimeString:clickedDish.endTime];
         

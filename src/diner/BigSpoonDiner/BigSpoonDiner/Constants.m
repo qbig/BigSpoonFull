@@ -11,7 +11,7 @@
 @implementation Constants
 
 // Request URLs:
-//#define DEV  0;
+#define DEV  0;
 #ifdef DEV
 NSString* const BASE_URL = @"http://54.255.17.69/";
 NSString* const USER_SIGNUP = @"http://54.255.17.69/api/v1/user";
