@@ -353,6 +353,14 @@
     NSMutableDictionary *allCategoriesForCurrentOutlet = [[NSMutableDictionary alloc] init];
     self.dishCategoryArray = [[NSMutableArray alloc] init];
     for (NSDictionary *newDish in dishes) {
+        NSError *error;
+        NSDictionary *customOrderInfo;
+        BOOL canBeCustomized = [[newDish objectForKey:@"can_be_customized"] boolValue];
+        if (canBeCustomized){
+            customOrderInfo = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[[newDish objectForKey:@"custom_order_json"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+        } else {
+            customOrderInfo = nil;
+        }
         
         NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
         NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
@@ -410,6 +418,9 @@
                                               startTime:startTime
                                                 endTime:endTime
                                                quantity:quantity
+                                        canBeCustomized:canBeCustomized
+                                        customOrderInfo:customOrderInfo
+                               
                                ];
         if ([categories count] > 0) {
             [resultingDishes insertObject:newDishObject atIndex:0];

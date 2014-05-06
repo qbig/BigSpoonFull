@@ -56,14 +56,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Record the frame of badge
     oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
     self.userInfo = [User sharedInstance];
+    
     // Set the Outlet Name to be the title
     [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-    // If the ordered items are null, init them.
-    // If not, update the badge.
+
+    // update the badge.
     if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
         self.userInfo.currentOrder = [[Order alloc]init];
     } else {

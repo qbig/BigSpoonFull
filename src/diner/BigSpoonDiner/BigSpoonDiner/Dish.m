@@ -20,7 +20,9 @@
                 pos: (int) po
           startTime: (NSString *)sta
             endTime: (NSString *)end
-           quantity: (int) qu{
+           quantity: (int) qu
+    canBeCustomized: (BOOL) canBe
+    customOrderInfo: (NSDictionary*) cusInfo{
     
     self = [super init];
     if (self) {
@@ -36,6 +38,8 @@
         self.startTime = sta;
         self.endTime = end;
         self.quantity = qu;
+        self.canBeCustomized = canBe;
+        self.customOrderInfo = cusInfo;
     }
     return self;
 }
