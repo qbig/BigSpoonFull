@@ -133,7 +133,7 @@ def stage_deploy(*args):
     print(cyan('->  Connected to server'))
     with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
-        run("git remote update && git reset --hard origin/master")
+        run("git remote update && git reset --hard origin/develop")
         install_requirements_stage()
         if args:
             if 'newdb' in args:
