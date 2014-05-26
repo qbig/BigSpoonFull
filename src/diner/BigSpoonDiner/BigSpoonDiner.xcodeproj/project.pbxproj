@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033F92031933990C0013A42D /* DishModifierItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F92021933990C0013A42D /* DishModifierItem.m */; };
+		033F920619339D030013A42D /* DishModifierSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920519339D030013A42D /* DishModifierSection.m */; };
 		034C6D601846D4BA008D42C4 /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */; };
 		034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C6D651846DA83008D42C4 /* OrderItemView.m */; };
 		034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034C6D671846DA96008D42C4 /* OrderItemView.xib */; };
@@ -25,6 +27,7 @@
 		039731EF18F1701100E32FC1 /* intro_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 039731EA18F1701100E32FC1 /* intro_3.png */; };
 		039731F018F1701100E32FC1 /* intro_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 039731EB18F1701100E32FC1 /* intro_4.png */; };
 		039731F118F1701100E32FC1 /* intro_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 039731EC18F1701100E32FC1 /* intro_5.png */; };
+		039FF00819334D990034EA3F /* DishModifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FF00719334D990034EA3F /* DishModifier.m */; };
 		03A4634118CB06B200B40D34 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A4633B18CB06B200B40D34 /* libTestFlight.a */; };
 		03A4634218CB06B200B40D34 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 03A4633C18CB06B200B40D34 /* README.md */; };
 		03A4634318CB06B200B40D34 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 03A4633D18CB06B200B40D34 /* release_notes.md */; };
@@ -153,6 +156,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033F92011933990C0013A42D /* DishModifierItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierItem.h; sourceTree = "<group>"; };
+		033F92021933990C0013A42D /* DishModifierItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierItem.m; sourceTree = "<group>"; };
+		033F920419339D030013A42D /* DishModifierSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierSection.h; sourceTree = "<group>"; };
+		033F920519339D030013A42D /* DishModifierSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierSection.m; sourceTree = "<group>"; };
 		034C6D5E1846D4BA008D42C4 /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		034C6D641846DA83008D42C4 /* OrderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemView.h; sourceTree = "<group>"; };
@@ -175,6 +182,8 @@
 		039731EA18F1701100E32FC1 /* intro_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_3.png; sourceTree = "<group>"; };
 		039731EB18F1701100E32FC1 /* intro_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_4.png; sourceTree = "<group>"; };
 		039731EC18F1701100E32FC1 /* intro_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = intro_5.png; sourceTree = "<group>"; };
+		039FF00619334D990034EA3F /* DishModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifier.h; sourceTree = "<group>"; };
+		039FF00719334D990034EA3F /* DishModifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifier.m; sourceTree = "<group>"; };
 		03A4633B18CB06B200B40D34 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
 		03A4633C18CB06B200B40D34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		03A4633D18CB06B200B40D34 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
@@ -593,6 +602,12 @@
 				49048D28182001C900B480A3 /* Order.m */,
 				494AD9701836B69800843B3D /* DishCategory.h */,
 				494AD9711836B69800843B3D /* DishCategory.m */,
+				033F920419339D030013A42D /* DishModifierSection.h */,
+				033F920519339D030013A42D /* DishModifierSection.m */,
+				033F92011933990C0013A42D /* DishModifierItem.h */,
+				033F92021933990C0013A42D /* DishModifierItem.m */,
+				039FF00619334D990034EA3F /* DishModifier.h */,
+				039FF00719334D990034EA3F /* DishModifier.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -983,6 +998,7 @@
 				49669B18180CED2D00089254 /* User.m in Sources */,
 				49669B15180CED1D00089254 /* Dish.m in Sources */,
 				49CB7970180C68C500F530C5 /* SignUpViewController.m in Sources */,
+				033F920619339D030013A42D /* DishModifierSection.m in Sources */,
 				49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */,
 				E951D784180EE285002BE045 /* OrderHistoryViewController.m in Sources */,
 				49937D5A186017F700DDD8F9 /* Toast+UIView.m in Sources */,
@@ -1003,10 +1019,12 @@
 				49048D29182001C900B480A3 /* Order.m in Sources */,
 				49BBB70118350FCE007546E8 /* RatingCell.m in Sources */,
 				03D9C6D818451063004110AA /* EAIntroPage.m in Sources */,
+				039FF00819334D990034EA3F /* DishModifier.m in Sources */,
 				034C6D601846D4BA008D42C4 /* CustomIOS7AlertView.m in Sources */,
 				49320E4018166CAE00F5C190 /* Constants.m in Sources */,
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				4988FFE0183A08AA00AB5CAD /* base64.c in Sources */,
+				033F92031933990C0013A42D /* DishModifierItem.m in Sources */,
 				4988FFE1183A08AA00AB5CAD /* NSData+SRB64Additions.m in Sources */,
 				4988FFCC183A067700AB5CAD /* SocketIOTransportXHR.m in Sources */,
 				E9CD90D7181D088000139FEC /* ProfileViewController.m in Sources */,
