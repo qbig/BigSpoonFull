@@ -316,7 +316,7 @@
     CLLocationDistance distanceFromBusStop = [userLocation distanceFromLocation:pgpBusStopLocation];
     CLLocationDistance distanceFromPgp5 = [userLocation distanceFromLocation:pgp5Location];
     User *user = [User sharedInstance];
-    if (distanceFromBusStop <= radius && distanceFromPgp5 <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
+    if ((distanceFromBusStop <= radius && distanceFromPgp5 <= radius && [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"]) || [user.email isEqualToString:@"jay.tjk@gmail.com"]) {
         [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (dist from pgp bus stop: %g, dist from pgp 5: %g)",distanceFromBusStop, distanceFromPgp5]];
         [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
         return true;
