@@ -294,8 +294,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="leB-4Q-EHN" userLabel="outletImage">
-                                            <rect key="frame" x="20" y="6" width="90" height="90"/>
+                                        <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="leB-4Q-EHN" userLabel="outletImage" customClass="NPRImageView">
+                                            <rect key="frame" x="21" y="6" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ns4-8H-dZ6">
@@ -338,7 +338,7 @@
                                     <outlet property="address" destination="Qz0-dS-ywe" id="Ry6-eh-xTx"/>
                                     <outlet property="name" destination="ns4-8H-dZ6" id="cVg-5S-uel"/>
                                     <outlet property="operatingHours" destination="ttJ-YK-cDL" id="c5B-Rj-P38"/>
-                                    <outlet property="outletPhoto" destination="leB-4Q-EHN" id="riu-w9-Kjq"/>
+                                    <outlet property="outletPhoto" destination="leB-4Q-EHN" id="N10-6b-eXJ"/>
                                     <outlet property="phoneNumber" destination="oSa-MY-BB2" id="dbv-hl-Rcv"/>
                                     <outlet property="promotionTextLabel" destination="5BL-lu-BuV" id="YQp-0o-DUL"/>
                                 </connections>
@@ -1597,6 +1597,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
         <segue reference="TRy-SG-Bfr"/>
-        <segue reference="Zu8-We-sOe"/>
+        <segue reference="wm5-2H-ViG"/>
     </inferredMetricsTieBreakers>
 </document>
