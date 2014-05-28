@@ -10,6 +10,6 @@
 
 @interface DishModifierItem : NSObject
 @property (nonatomic, strong) NSString *itemName;
-@property (nonatomic) double *itemPrice;
-@property (nonatomic) int *itemCount;
+@property (nonatomic) double itemPrice;
+@property (nonatomic) int itemCount;
 @end

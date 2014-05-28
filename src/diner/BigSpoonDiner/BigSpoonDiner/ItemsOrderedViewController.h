@@ -17,6 +17,7 @@
 #import "UIViewController+KeyboardEvents.h"
 #import "TestFlight.h"
 #import "User.h"
+#import "DishModifierSegueDelegate.h"
 #import <Mixpanel.h>
 
 @class ItemsOrderedViewController;
@@ -32,7 +33,7 @@
 
 @end
 
-@interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DishModifierSegueDelegate>
 
 @property (nonatomic, weak) id <PlaceOrderDelegate> delegate;
 

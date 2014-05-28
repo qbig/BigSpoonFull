@@ -10,4 +10,38 @@
 
 @implementation DishModifier
 
+
+
+- (DishModifier *) initWithJsonDictionary: (NSDictionary *) dict{
+    self = [super init];
+//    {
+//        "backgroundColor" : "434851",
+//        "itemTitleColor" : "E29B5C",
+//        "itemTextColor" : "FFFFFF",
+//        "sections" : [
+//                      {"itemTitle" : "Butter",
+//                          "itemTitleDescription": "2nd butter onwards $0.50/ea",
+//                          "type" : "count",
+//                          "threshold" : 0.5,
+//                          "items" : {
+//                              "Salted" : 0.5 , 
+//                              "Unsalted" : 0.5, 
+//                              "Garlic + Herbs" : 0.5, 
+//                              "Rum + Raisin" : 0.5
+//                          }
+//                      },
+//          ...
+//         ]
+//    }
+    self.backgroundColor = [dict objectForKey:@"backgroundColor"];
+    self.itemTitleColor = [dict objectForKey:@"itemTitleColor"];
+    self.itemTextColor = [dict objectForKey: @"itemTextColor"];
+    NSMutableArray *sectionsArr = [[NSMutableArray alloc] init];
+    for (NSDictionary* sectionDic in [dict objectForKey:@"sections"]){
+        DishModifierSection *modSection = [[DishModifierSection alloc] initWithSectionJsonDict: sectionDic];
+        [sectionsArr addObject:modSection];
+    }
+    self.modifierSections = sectionsArr;
+    return self;
+}
 @end

@@ -742,6 +742,44 @@
             </objects>
             <point key="canvasLocation" x="1930" y="1095"/>
         </scene>
+        <!--Dish Modifier Table View Controller - Dish Name-->
+        <scene sceneID="rDN-Xf-c81">
+            <objects>
+                <tableViewController modalTransitionStyle="flipHorizontal" id="Ph5-AW-ahp" customClass="DishModifierTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uUB-gM-xLc">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForModifierSectionHeader" id="T3I-MK-mIl">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T3I-MK-mIl" id="vIq-gm-p7U">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForModiferItem" id="ide-RJ-wjA">
+                                <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ide-RJ-wjA" id="6tD-VR-tQT">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ph5-AW-ahp" id="4hv-BB-Nmf"/>
+                            <outlet property="delegate" destination="Ph5-AW-ahp" id="Tzm-SS-kqL"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Dish Name" id="ceD-HB-7pN"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CvR-bP-A3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3332" y="86"/>
+        </scene>
         <!--Items Ordered View Controller-->
         <scene sceneID="SFB-2J-Y9e">
             <objects>
@@ -1093,6 +1131,7 @@
                         <outlet property="scrollView" destination="2an-2D-blm" id="AKb-S8-cQj"/>
                         <outlet property="viewContainerForAfterCurrentOrderTable" destination="s0s-2R-DKm" id="aeG-UH-uBP"/>
                         <outlet property="viewContainerForAfterPastOrderTable" destination="OG8-vw-bqU" id="n6l-MJ-L18"/>
+                        <segue destination="Ph5-AW-ahp" kind="custom" identifier="ToEditDishModifier" customClass="UIStoryboardPopoverSegue" id="Zu8-We-sOe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhP-Xs-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1166,6 +1205,7 @@
                                             <outlet property="descriptionLabel" destination="n1e-tN-Xub" id="BfM-lD-jNa"/>
                                             <outlet property="nameLabel" destination="qAF-xu-Uld" id="Nbj-uR-hxW"/>
                                             <outlet property="priceLabel" destination="t1W-aM-iIl" id="lGe-R5-KhQ"/>
+                                            <segue destination="Ph5-AW-ahp" kind="modal" identifier="SegueToAddDishModifier" modalTransitionStyle="coverVertical" id="wm5-2H-ViG"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MenuPhotoCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="256" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
@@ -1555,7 +1595,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="qnZ-wN-VZu"/>
-        <segue reference="BRr-gL-kHC"/>
+        <segue reference="ew3-Pm-EPj"/>
+        <segue reference="TRy-SG-Bfr"/>
+        <segue reference="Zu8-We-sOe"/>
     </inferredMetricsTieBreakers>
 </document>

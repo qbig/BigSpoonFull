@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DishModifierItem.h"
 @interface DishModifierSection : NSObject
+@property (nonatomic, strong) NSString *itemTitle;
+@property (nonatomic, strong) NSString *itemTitleDescription;
+@property (nonatomic, strong) NSString *type;
+@property (nonatomic) double threshold;
+@property (nonatomic, strong) NSArray *items;
 
+- (DishModifierSection *) initWithSectionJsonDict: (NSDictionary *) dict;
 @end

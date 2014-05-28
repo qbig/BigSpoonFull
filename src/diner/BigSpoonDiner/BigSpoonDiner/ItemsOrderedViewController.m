@@ -451,5 +451,13 @@
     
 }
 
+#pragma mark - DishModifierSegueDelegate 
 
+- (void) dishModifierPopupDidSaveWithUpdatedModifier:(DishModifier *)newMod {
+    
+}
+
+- (void) DishModifierPopupDidCancel{
+    
+}
 @end

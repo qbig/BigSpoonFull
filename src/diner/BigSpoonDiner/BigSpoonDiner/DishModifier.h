@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DishModifierSection.h"
 
 @interface DishModifier : NSObject
 @property (nonatomic, strong) NSString *backgroundColor;
@@ -14,5 +15,5 @@
 @property (nonatomic, strong) NSString *itemTextColor;
 @property (nonatomic, strong) NSArray *modifierSections;
 
-- (void) initWithJsonDictionary: (NSDictionary *) dict;
+- (DishModifier *) initWithJsonDictionary: (NSDictionary *) dict;
 @end

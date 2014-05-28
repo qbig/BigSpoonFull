@@ -13,7 +13,7 @@
     int statusCode;
 }
 @property NSMutableDictionary* dishesByCategory;
-
+@property Dish *chosenDish;
 @end
 
 @implementation MenuTableViewController
@@ -311,17 +311,22 @@
  }
  */
 
-/*
+
  #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
+
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"SegueToAddDishModifier"]) {
+         DishModifierTableViewController *modifierPopup = segue.destinationViewController;
+         modifierPopup.targetingDish = self.chosenDish;
+         modifierPopup.delegate = self;
+         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: nil action: nil];
+         [[self navigationItem] setBackBarButtonItem: newBackButton];
+         
+     } else{
+         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
+     }
  }
- 
- */
 
 - (UIImage *)imageForRating:(int)rating
 {
@@ -354,12 +359,12 @@
     self.dishCategoryArray = [[NSMutableArray alloc] init];
     for (NSDictionary *newDish in dishes) {
         NSError *error;
-        NSDictionary *customOrderInfo;
+        NSDictionary *customOrderInfoDic;
+        DishModifier *modifier;
         BOOL canBeCustomized = [[newDish objectForKey:@"can_be_customized"] boolValue];
         if (canBeCustomized){
-            customOrderInfo = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[[newDish objectForKey:@"custom_order_json"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
-        } else {
-            customOrderInfo = nil;
+            customOrderInfoDic = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[[newDish objectForKey:@"custom_order_json"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+            modifier = [[DishModifier alloc] initWithJsonDictionary:customOrderInfoDic];
         }
         
         NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
@@ -419,7 +424,7 @@
                                                 endTime:endTime
                                                quantity:quantity
                                         canBeCustomized:canBeCustomized
-                                        customOrderInfo:customOrderInfo
+                                        customOrderInfo:modifier
                                
                                ];
         if ([categories count] > 0) {
@@ -607,14 +612,19 @@
 #pragma mark - Event Listeners
 
 - (IBAction)addNewItemButtonClicked:(id)sender {
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     UIButton *btn = (UIButton *)sender;
     int itemID = btn.tag;
     Dish* clickedDish = [self getDishWithID: itemID];
     
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
+        if(clickedDish.canBeCustomized){
+            self.chosenDish = clickedDish;
+            [self performSegueWithIdentifier:@"SegueToAddDishModifier" sender:self];
+        } else {
+            [self.delegate dishOrdered:clickedDish];
+        }
         [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed.-> Legal", clickedDish.name]];
-        [self.delegate dishOrdered:clickedDish];
-        [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
         if (self.displayMethod == kMethodList){
             [[Mixpanel sharedInstance] track:@"Added item in list menu"];
         } else {
@@ -754,5 +764,14 @@
     return 0;
 }
 
+#pragma mark - DishModifierSegueDelegate
+
+- (void) dishModifierPopupDidSaveWithUpdatedModifier:(DishModifier *)newMod {
+    
+}
+
+- (void) DishModifierPopupDidCancel{
+    
+}
 
 @end

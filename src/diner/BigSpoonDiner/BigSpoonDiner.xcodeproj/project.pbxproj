@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		033F92031933990C0013A42D /* DishModifierItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F92021933990C0013A42D /* DishModifierItem.m */; };
 		033F920619339D030013A42D /* DishModifierSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920519339D030013A42D /* DishModifierSection.m */; };
+		033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920B1935C1810013A42D /* DishModifierTableViewController.m */; };
 		034C6D601846D4BA008D42C4 /* CustomIOS7AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */; };
 		034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 034C6D651846DA83008D42C4 /* OrderItemView.m */; };
 		034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034C6D671846DA96008D42C4 /* OrderItemView.xib */; };
@@ -160,6 +161,9 @@
 		033F92021933990C0013A42D /* DishModifierItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierItem.m; sourceTree = "<group>"; };
 		033F920419339D030013A42D /* DishModifierSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierSection.h; sourceTree = "<group>"; };
 		033F920519339D030013A42D /* DishModifierSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierSection.m; sourceTree = "<group>"; };
+		033F920A1935C1810013A42D /* DishModifierTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierTableViewController.h; sourceTree = "<group>"; };
+		033F920B1935C1810013A42D /* DishModifierTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierTableViewController.m; sourceTree = "<group>"; };
+		033F920D1935C9EA0013A42D /* DishModifierSegueDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DishModifierSegueDelegate.h; sourceTree = "<group>"; };
 		034C6D5E1846D4BA008D42C4 /* CustomIOS7AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOS7AlertView.h; sourceTree = "<group>"; };
 		034C6D5F1846D4BA008D42C4 /* CustomIOS7AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOS7AlertView.m; sourceTree = "<group>"; };
 		034C6D641846DA83008D42C4 /* OrderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItemView.h; sourceTree = "<group>"; };
@@ -545,6 +549,7 @@
 				491E68F41825F9E200616C90 /* ExitMenuListDelegate.h */,
 				4948C6CD18607663003EF882 /* ModalSegueDelegate.h */,
 				49C02545186D30DB00C581BA /* SubmitRatingAndFeedbackSuccessDelegate.h */,
+				033F920D1935C9EA0013A42D /* DishModifierSegueDelegate.h */,
 			);
 			name = DelegateProtocol;
 			sourceTree = "<group>";
@@ -561,6 +566,8 @@
 		4999A208180A4FCA00270B0B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				033F920A1935C1810013A42D /* DishModifierTableViewController.h */,
+				033F920B1935C1810013A42D /* DishModifierTableViewController.m */,
 				E9CFA589183B240300031773 /* PastOrderDetailViewController.h */,
 				E9CFA58A183B240300031773 /* PastOrderDetailViewController.m */,
 				E9CD90D5181D088000139FEC /* ProfileViewController.h */,
@@ -1036,6 +1043,7 @@
 				4988FFE2183A08AA00AB5CAD /* SRWebSocket.m in Sources */,
 				034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */,
 				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
+				033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */,
 				03B0CC23184E2E2A0044EB28 /* AFImageRequestOperation.m in Sources */,
 				49558BC4181D0BA800273090 /* SSKeychainQuery.m in Sources */,
 				4988FFCA183A067700AB5CAD /* SocketIOPacket.m in Sources */,

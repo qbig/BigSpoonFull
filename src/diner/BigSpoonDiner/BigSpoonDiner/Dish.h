@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DishModifier.h"
 @interface Dish : NSObject
 
 @property (nonatomic, strong) NSString *name;
@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSString* endTime;
 @property (nonatomic) int quantity;
 @property (nonatomic) BOOL canBeCustomized;
-@property (nonatomic, strong) NSDictionary *customOrderInfo;
+@property (nonatomic, strong) DishModifier* customOrderInfo;
 
 
 - (id) initWithName: (NSString *) name
@@ -38,6 +38,6 @@
             endTime: (NSString *)endTime
            quantity: (int) quantity
     canBeCustomized: (BOOL) canBeCustomized
-    customOrderInfo: (NSDictionary*) customOrderInfo;
+    customOrderInfo: (DishModifier*) customOrderInfo;
 
 @end

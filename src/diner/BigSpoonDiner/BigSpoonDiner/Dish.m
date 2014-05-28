@@ -22,7 +22,7 @@
             endTime: (NSString *)end
            quantity: (int) qu
     canBeCustomized: (BOOL) canBe
-    customOrderInfo: (NSDictionary*) cusInfo{
+    customOrderInfo: (DishModifier*) cusInfo{
     
     self = [super init];
     if (self) {
