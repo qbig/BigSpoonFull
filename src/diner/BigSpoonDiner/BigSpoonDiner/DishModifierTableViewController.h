@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "DishModifier.h"
+#import "DishModifierSection.h"
+#import "DishModifierItem.h"
 #import "DishModifierSegueDelegate.h"
 #import "Dish.h"
 

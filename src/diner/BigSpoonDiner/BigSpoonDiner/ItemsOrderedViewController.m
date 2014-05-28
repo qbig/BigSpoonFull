@@ -457,7 +457,7 @@
     
 }
 
-- (void) DishModifierPopupDidCancel{
+- (void) dishModifierPopupDidCancel{
     
 }
 @end

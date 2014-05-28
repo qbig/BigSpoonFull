@@ -11,5 +11,5 @@
 
 @protocol DishModifierSegueDelegate <NSObject>
 - (void) dishModifierPopupDidSaveWithUpdatedModifier: (DishModifier *) newMod;
-- (void) DishModifierPopupDidCancel;
+- (void) dishModifierPopupDidCancel;
 @end

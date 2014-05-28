@@ -770,7 +770,7 @@
     
 }
 
-- (void) DishModifierPopupDidCancel{
+- (void) dishModifierPopupDidCancel{
     
 }
 
