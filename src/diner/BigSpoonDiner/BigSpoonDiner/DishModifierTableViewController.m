@@ -32,6 +32,11 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.title = self.targetingDish.name;
+    self.navigationController.navigationBar.barTintColor = [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationItem.titleView setBackgroundColor:[self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]};
+    
     [self.tableView setBackgroundColor: [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
     [self.tableView setBackgroundView: nil];
     animals = @{@"B" : @[@"Bear", @"Black Swan", @"Buffalo"],
@@ -40,28 +45,8 @@
     
     animalSectionTitles = [[animals allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-   
     
-    NSMutableAttributedString *attString =
-    [[NSMutableAttributedString alloc]
-     initWithString: @"header!!!!!!!"];
-    
-    [attString addAttribute: NSForegroundColorAttributeName
-                      value: [UIColor blueColor]
-                      range: NSMakeRange(7,4)];
-    [attString addAttribute: NSForegroundColorAttributeName
-                      value: [UIColor redColor]
-                      range: NSMakeRange(0,6)];
-    
-    [attString addAttribute: NSFontAttributeName
-                      value:  [UIFont fontWithName:@"Helvetica" size:15]
-                      range: NSMakeRange(0,6)];
-    
-    [attString addAttribute: NSFontAttributeName
-                      value:  [UIFont fontWithName:@"Didot" size:24]
-                      range: NSMakeRange(7,4)];
-    //==========================================
-    
+    // Setting "Cancel" and "OK" buttons at the end of the list
     UIButton *cancelButton = [UIButton buttonWithType: UIButtonTypeCustom];
     cancelButton.frame = CGRectMake(135, 0, 130, 40);
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
@@ -84,11 +69,17 @@
 
 - (void) okButtonPressed {
     [self.delegate dishModifierPopupDidSaveWithUpdatedModifier:self.targetingDish.customOrderInfo];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) cancelButtonPressed {
     [self.delegate dishModifierPopupDidCancel];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -98,7 +89,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
 
 #pragma mark - Table view data source
 
@@ -112,11 +102,6 @@
 {
     // Return the number of rows in the section.
     return [((DishModifierSection *)[self.targetingDish.customOrderInfo.modifierSections objectAtIndex:section]).items count];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [animalSectionTitles objectAtIndex:section];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger) section
@@ -178,17 +163,6 @@
     cell.selectedBackgroundView = [UIView new];
     
     return cell;
-}
-
-//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-//{
-//  //  return animalSectionTitles;
-//    return animalIndexTitles;
-//}
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    return [animalSectionTitles indexOfObject:title];
 }
 
 - (UIColor *)colorFromHexString:(NSString *)hexString {
