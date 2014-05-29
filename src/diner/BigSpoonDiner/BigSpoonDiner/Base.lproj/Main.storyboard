@@ -759,13 +759,98 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForModiferItem" id="ide-RJ-wjA">
+                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForModiferItemCount" id="ide-RJ-wjA" customClass="DishModifierItemCellCount">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ide-RJ-wjA" id="6tD-VR-tQT">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eYd-qf-MG8">
+                                            <rect key="frame" x="20" y="11" width="207" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_minus_only_circle.png" id="pTw-nP-k2u">
+                                            <rect key="frame" x="262" y="10" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eKQ-Te-1AW">
+                                            <rect key="frame" x="267" y="12" width="16" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MNf-uh-Wwk">
+                                            <rect key="frame" x="235" y="13" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" image="button_minus_with_circle.png"/>
+                                            <state key="highlighted" image="add_icon.png">
+                                                <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="McC-Sh-cGs"/>
+                                                <action selector="minusButtonPressed:" destination="ide-RJ-wjA" eventType="touchUpInside" id="HDr-ku-YJ1"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="J3d-b1-sZc">
+                                            <rect key="frame" x="293" y="13" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" image="button_add_with_circle.png"/>
+                                            <state key="highlighted" image="add_icon.png">
+                                                <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="rYf-vP-GgD"/>
+                                                <action selector="plusButtonPressed:" destination="ide-RJ-wjA" eventType="touchUpInside" id="WuN-a5-L7J"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="itemCountLabel" destination="eKQ-Te-1AW" id="skb-pL-X1X"/>
+                                    <outlet property="itemNameLabel" destination="eYd-qf-MG8" id="WZs-bo-Xec"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell opaque="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellForModiferItemRadio" id="0W3-Q0-qKk" customClass="DishModifierItemCellRadio">
+                                <rect key="frame" x="0.0" y="110" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0W3-Q0-qKk" id="3vE-D0-oye">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YTc-8L-n8B">
+                                            <rect key="frame" x="20" y="11" width="207" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_minus_only_circle.png" id="40C-XX-QSK">
+                                            <rect key="frame" x="241" y="8" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X82-HH-wZB">
+                                            <rect key="frame" x="270" y="5" width="28" height="28"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" backgroundImage="add_minus_only_circle.png"/>
+                                            <state key="highlighted" image="add_icon.png">
+                                                <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="7pL-4p-BYE"/>
+                                                <action selector="radioButtonPressed:" destination="0W3-Q0-qKk" eventType="touchUpInside" id="1tu-57-cC8"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="itemNameLabel" destination="YTc-8L-n8B" id="9J9-13-Jfo"/>
+                                    <outlet property="selectedIndicatorImageview" destination="40C-XX-QSK" id="KFF-IU-0fm"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1566,11 +1651,13 @@
     <resources>
         <image name="add_button_with_circle.png" width="128" height="128"/>
         <image name="add_icon.png" width="256" height="256"/>
+        <image name="add_minus_only_circle.png" width="128" height="128"/>
         <image name="bg_logo.png" width="1241" height="520"/>
         <image name="bottom_buttons.png" width="1367" height="253"/>
         <image name="button_add_no_circle.png" width="128" height="128"/>
         <image name="button_add_with_circle.png" width="128" height="128"/>
         <image name="button_minus_no_circle.png" width="128" height="128"/>
+        <image name="button_minus_with_circle.png" width="128" height="128"/>
         <image name="gear.png" width="104" height="104"/>
         <image name="imnew.tif" width="235" height="64"/>
         <image name="list_icon.png" width="105" height="105"/>
@@ -1596,7 +1683,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ew3-Pm-EPj"/>
-        <segue reference="TRy-SG-Bfr"/>
-        <segue reference="Zu8-We-sOe"/>
+        <segue reference="qnZ-wN-VZu"/>
+        <segue reference="wm5-2H-ViG"/>
     </inferredMetricsTieBreakers>
 </document>

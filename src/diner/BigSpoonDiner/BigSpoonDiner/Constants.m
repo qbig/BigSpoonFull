@@ -134,6 +134,9 @@ NSString* const FB_TOKEN_VERIFIED = @"FBTokenIsVerified";
 NSString* const FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
 NSString* const DISH_OVERLAY_NORMAL = @"new_overlay2.png";
 NSString* const DISH_OVERLAY_OUT_OF_STOCK = @"out_of_stock.png";
+NSString* const DISH_MODIFIER_TYPE_COUNT = @"count";
+NSString* const DISH_MODIFIER_TYPE_RADIO = @"radio";
+
 
 // Notification
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";

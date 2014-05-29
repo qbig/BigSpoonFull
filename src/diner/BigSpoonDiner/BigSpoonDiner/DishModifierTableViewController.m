@@ -48,7 +48,7 @@
     
     // Setting "Cancel" and "OK" buttons at the end of the list
     UIButton *cancelButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    cancelButton.frame = CGRectMake(135, 0, 130, 40);
+    cancelButton.frame = CGRectMake(150, 0, 130, 40);
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     cancelButton.backgroundColor = [UIColor blackColor];
     [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -124,7 +124,7 @@
                           value: [self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]
                           range: NSMakeRange(currentSection.itemTitle.length, attString.length - currentSection.itemTitle.length)];
         [attString addAttribute: NSFontAttributeName
-                          value:  [UIFont fontWithName:@"Helvetica" size:10]
+                          value:  [UIFont fontWithName:@"Helvetica" size:14]
                           range: NSMakeRange(currentSection.itemTitle.length, attString.length - currentSection.itemTitle.length)];
 
     } else {
@@ -137,8 +137,8 @@
                       range: NSMakeRange(0, currentSection.itemTitle.length)];
     
     [attString addAttribute: NSFontAttributeName
-                      value:  [UIFont fontWithName:@"Helvetica" size:20]
-                      range: NSMakeRange(0,currentSection.itemTitle.length - 1)];
+                      value:  [UIFont fontWithName:@"Helvetica-Bold" size:16]
+                      range: NSMakeRange(0,currentSection.itemTitle.length)];
 
     cell.textLabel.attributedText = attString;
     return cell;
@@ -146,18 +146,31 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 100;
+    return 30;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItem" forIndexPath:indexPath];
+    DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:indexPath.section];
+    DishModifierItem *item = [currentSection.items objectAtIndex:indexPath.row];
+    UITableViewCell *cell;
+    DishModifierItemCellCount *cellCount;
+    DishModifierItemCellRadio *cellRadio;
+    if ([currentSection.type isEqualToString:DISH_MODIFIER_TYPE_COUNT]){
+        cellCount = (DishModifierItemCellCount *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemCount" forIndexPath:indexPath];
+        [cellCount.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
+        cellCount.itemNameLabel.text = item.itemName;
+        cellCount.itemCountLabel.text = [NSString stringWithFormat:@"%d",item.itemCount];
+        cellCount.item = item;
+        cell = cellCount;
+    } else {
+        cellRadio = (DishModifierItemCellRadio *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemRadio" forIndexPath:indexPath];
+        [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
+        cellRadio.itemNameLabel.text = item.itemName;
+        cellRadio.selectedIndicatorImageview.image = [cellRadio.selectedIndicatorImageview.image imageWithColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor]];
+        cell = cellRadio;
+    }
     
-    // Configure the cell...
-//    NSString *sectionTitle = [animalSectionTitles objectAtIndex:indexPath.section];
-//    NSArray *sectionAnimals = [animals objectForKey:sectionTitle];
-//    NSString *animal = [sectionAnimals objectAtIndex:indexPath.row];
-
     cell.backgroundColor = [UIColor clearColor];
     cell.backgroundView = [UIView new];
     cell.selectedBackgroundView = [UIView new];

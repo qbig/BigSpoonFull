@@ -104,6 +104,8 @@ extern NSString* const FB_TOKEN_VERIFIED;
 extern NSString* const FEEDBACK_TEXT_PLACEHOLDER;
 extern NSString* const DISH_OVERLAY_NORMAL;
 extern NSString* const DISH_OVERLAY_OUT_OF_STOCK;
+extern NSString* const DISH_MODIFIER_TYPE_COUNT;
+extern NSString* const DISH_MODIFIER_TYPE_RADIO;
 
 // Notification Name
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;

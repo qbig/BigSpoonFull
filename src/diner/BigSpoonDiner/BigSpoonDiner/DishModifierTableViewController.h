@@ -12,6 +12,10 @@
 #import "DishModifierItem.h"
 #import "DishModifierSegueDelegate.h"
 #import "Dish.h"
+#import "DishModifierItemCellCount.h"
+#import "DishModifierItemCellRadio.h"
+#import "Constants.h"
+#import "UIImage+Overlay.h"
 
 @interface DishModifierTableViewController : UITableViewController
 @property (nonatomic, strong) Dish* targetingDish;
