@@ -766,7 +766,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eYd-qf-MG8">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eYd-qf-MG8">
                                             <rect key="frame" x="20" y="11" width="207" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -822,34 +822,26 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YTc-8L-n8B">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YTc-8L-n8B">
                                             <rect key="frame" x="20" y="11" width="207" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_minus_only_circle.png" id="40C-XX-QSK">
-                                            <rect key="frame" x="241" y="8" width="22" height="22"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_minus_only_circle.png" id="f4G-fS-jOJ">
+                                            <rect key="frame" x="263" y="8" width="28" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X82-HH-wZB">
-                                            <rect key="frame" x="270" y="5" width="28" height="28"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" backgroundImage="add_minus_only_circle.png"/>
-                                            <state key="highlighted" image="add_icon.png">
-                                                <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="7pL-4p-BYE"/>
-                                                <action selector="radioButtonPressed:" destination="0W3-Q0-qKk" eventType="touchUpInside" id="1tu-57-cC8"/>
-                                            </connections>
-                                        </button>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_minus_only_circle.png" id="40C-XX-QSK">
+                                            <rect key="frame" x="266" y="11" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="itemNameLabel" destination="YTc-8L-n8B" id="9J9-13-Jfo"/>
                                     <outlet property="selectedIndicatorImageview" destination="40C-XX-QSK" id="KFF-IU-0fm"/>
+                                    <outlet property="tapTransitionsOverlay" destination="f4G-fS-jOJ" id="xg1-xc-gfa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1682,7 +1674,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ew3-Pm-EPj"/>
+        <segue reference="NcF-ES-z1f"/>
         <segue reference="qnZ-wN-VZu"/>
         <segue reference="wm5-2H-ViG"/>
     </inferredMetricsTieBreakers>

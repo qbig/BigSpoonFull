@@ -7,11 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DishModifierItem.h"
+#import "UIImage+Overlay.h"
+
+typedef enum
+{
+    Unchecked = 0,
+    Checked,
+} radioCellState;
 
 @interface DishModifierItemCellRadio : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *itemNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *selectedIndicatorImageview;
+@property (weak, nonatomic) DishModifierItem *item;
+@property (weak, nonatomic) IBOutlet UIView *tapTransitionsOverlay;
+@property (nonatomic) radioCellState cellState;
+@property (nonatomic, strong) UIColor *selectorColor;
 
-- (IBAction)radioButtonPressed:(id)sender;
+- (void) check;
+- (void) uncheck;
+- (radioCellState) toggle;
 
+- (void) tapTransition;
 @end

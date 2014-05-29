@@ -167,7 +167,7 @@
         cellRadio = (DishModifierItemCellRadio *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemRadio" forIndexPath:indexPath];
         [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellRadio.itemNameLabel.text = item.itemName;
-        cellRadio.selectedIndicatorImageview.image = [cellRadio.selectedIndicatorImageview.image imageWithColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor]];
+        cellRadio.item = item;
         cell = cellRadio;
     }
     
@@ -176,6 +176,23 @@
     cell.selectedBackgroundView = [UIView new];
     
     return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+    if(cell.selectionStyle == UITableViewCellSelectionStyleNone){
+        DishModifierItemCellRadio *cellRadio = (DishModifierItemCellRadio *) cell;
+        DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:indexPath.section];
+        DishModifierItem *item = [currentSection.items objectAtIndex: indexPath.row];
+        [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
+        cellRadio.itemNameLabel.text = item.itemName;
+        cellRadio.item = item;
+        cellRadio.selectorColor = [self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor];
+        [cellRadio toggle];
+        [cellRadio tapTransition];
+        return nil;
+    }
+    return indexPath;
 }
 
 - (UIColor *)colorFromHexString:(NSString *)hexString {
