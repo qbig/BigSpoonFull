@@ -29,10 +29,17 @@
     
     NSDictionary *itemsInfo = [dict objectForKey:@"items"];
     NSMutableArray *itemsArr = [[NSMutableArray alloc] init];
+    bool shouldSetDefaultAnsForRadio = [self.type isEqualToString:DISH_MODIFIER_TYPE_RADIO];
     for(id itemName in itemsInfo) {
         DishModifierItem *item = [[DishModifierItem alloc] init];
         item.itemName = itemName;
-        item.itemCount = 0;
+        if(shouldSetDefaultAnsForRadio){
+            item.itemCount = 1;
+            shouldSetDefaultAnsForRadio = NO;
+        } else {
+            item.itemCount = 0;
+        }
+        
         item.itemPrice = [[itemsInfo objectForKey:itemName] doubleValue];
         [itemsArr addObject: item];
     }

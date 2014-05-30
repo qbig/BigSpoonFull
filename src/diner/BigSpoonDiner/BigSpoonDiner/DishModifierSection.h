@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DishModifierItem.h"
+#import "Constants.h"
 @interface DishModifierSection : NSObject
 @property (nonatomic, strong) NSString *itemTitle;
 @property (nonatomic, strong) NSString *itemTitleDescription;

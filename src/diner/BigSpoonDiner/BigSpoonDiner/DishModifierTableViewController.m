@@ -183,15 +183,18 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     if(cell.selectionStyle == UITableViewCellSelectionStyleNone){
-        DishModifierItemCellRadio *cellRadio = (DishModifierItemCellRadio *) cell;
         DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:indexPath.section];
         DishModifierItem *item = [currentSection.items objectAtIndex: indexPath.row];
-        [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
-        cellRadio.itemNameLabel.text = item.itemName;
-        cellRadio.item = item;
-        cellRadio.selectorColor = [self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor];
-        [cellRadio toggle];
-        [cellRadio tapTransition];
+        if (item.itemCount == 0){
+            item.itemCount = 1;
+            for (DishModifierItem *otherItem in currentSection.items){
+                if(![otherItem.itemName isEqualToString:item.itemName]){
+                    otherItem.itemCount = 0;
+                }
+            }
+        }
+
+        [self.tableView reloadData];
         return nil;
     }
     return indexPath;
