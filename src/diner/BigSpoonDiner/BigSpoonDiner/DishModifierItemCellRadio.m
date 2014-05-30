@@ -54,6 +54,14 @@
     return self.cellState;
 }
 
+- (void) render{
+    if (self.item.itemCount == 0) {
+        [self uncheck];
+    } else {
+        [self check];
+    }
+}
+
 - (void) tapTransition
 {
     self.tapTransitionsOverlay.alpha = 0.0;

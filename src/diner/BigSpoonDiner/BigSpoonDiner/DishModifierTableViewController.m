@@ -168,6 +168,8 @@
         [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellRadio.itemNameLabel.text = item.itemName;
         cellRadio.item = item;
+        cellRadio.selectorColor = [self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor];
+        [cellRadio render];
         cell = cellRadio;
     }
     

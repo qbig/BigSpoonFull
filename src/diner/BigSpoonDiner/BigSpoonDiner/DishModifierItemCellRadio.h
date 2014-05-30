@@ -27,6 +27,7 @@ typedef enum
 - (void) check;
 - (void) uncheck;
 - (radioCellState) toggle;
+- (void) render;
 
 - (void) tapTransition;
 @end
