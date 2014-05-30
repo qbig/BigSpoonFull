@@ -1208,7 +1208,7 @@
                         <outlet property="scrollView" destination="2an-2D-blm" id="AKb-S8-cQj"/>
                         <outlet property="viewContainerForAfterCurrentOrderTable" destination="s0s-2R-DKm" id="aeG-UH-uBP"/>
                         <outlet property="viewContainerForAfterPastOrderTable" destination="OG8-vw-bqU" id="n6l-MJ-L18"/>
-                        <segue destination="Ph5-AW-ahp" kind="push" identifier="ToEditDishModifier" customClass="UIStoryboardPopoverSegue" id="Zu8-We-sOe"/>
+                        <segue destination="Ph5-AW-ahp" kind="push" identifier="SegueToEditDishModifier" customClass="UIStoryboardPopoverSegue" id="Zu8-We-sOe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhP-Xs-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1676,6 +1676,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="NcF-ES-z1f"/>
         <segue reference="qnZ-wN-VZu"/>
-        <segue reference="wm5-2H-ViG"/>
+        <segue reference="Zu8-We-sOe"/>
     </inferredMetricsTieBreakers>
 </document>

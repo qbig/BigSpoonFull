@@ -32,8 +32,9 @@
 
 - (void) addDish: (Dish *) dish;
 - (void) minusDish: (Dish *) dish;
-- (void) addNote: (NSString*) note forDish: (Dish*) dish;
-- (NSString*) getNoteForDish: (Dish*) dish;
+
+- (void) addNote: (NSString*) note forDishAtIndex: (int) dishIndex;
+- (NSString*) getNoteForDishAtIndex: (int) dishIndex;
 
 - (NSDictionary *) getModifierAnswerAtIndex: (int) index;
 - (void) setModifierAnswer:(NSDictionary *)modifierAnswer atIndex: (int) index;
@@ -49,6 +50,10 @@
 - (int) getNumberOfKindsOfDishes;
 - (void) incrementDishWithId: (int)dishId;
 - (void) decrementDishWithId: (int)dishId;
+
+- (void) incrementDishAtIndex: (int)dishIndex;
+- (void) decrementDishAtIndex: (int)dishIndex;
+
 - (void) decrementDishName: (NSString*) dishName;
 - (BOOL) containDessert;
 @end

@@ -766,8 +766,8 @@
 
 #pragma mark - DishModifierSegueDelegate
 
-- (void) dishModifierPopupDidSaveWithUpdatedModifier:(DishModifier *)newMod {
-    
+- (void) dishModifierPopupDidSaveWithUpdatedModifier:(Dish *)newDishWithModifier {
+    [self.delegate dishOrdered:newDishWithModifier];
 }
 
 - (void) dishModifierPopupDidCancel{

@@ -671,25 +671,32 @@
     [self toggleDisplayModeAndReloadData];
 }
 
-// PlaceOrderDelegate:
-- (Order *) addDishWithID: (int) dishID{
-    // require: in item page
+#pragma mac PlaceOrderDelegate:
+
+- (Order *) addDishWithIndex: (int) dishIndex {
+    // require: dish already in order
     
-    [self.userInfo.currentOrder incrementDishWithId:dishID];
+    [self.userInfo.currentOrder incrementDishAtIndex:dishIndex];
+    [self updateItemQuantityBadge];
+    return self.userInfo.currentOrder;
+}
+- (Order *) minusDishWithIndex: (int) dishIndex {
+    // require: dish already in order
+    
+    [self.userInfo.currentOrder decrementDishAtIndex:dishIndex];
     [self updateItemQuantityBadge];
     return self.userInfo.currentOrder;
 }
 
-- (Order *) minusDishWithID: (int) dishID{
-    // require: in item page
-    
-    [self.userInfo.currentOrder decrementDishWithId:dishID];
+-(Order *) addDish:(Dish *)dish {
+    [self.userInfo.currentOrder addDish:dish];
     [self updateItemQuantityBadge];
     return self.userInfo.currentOrder;
 }
 
-- (Order *) addNote: (NSString*)note toDish: (Dish *)dish {
-    [self.userInfo.currentOrder addNote:note forDish:dish];
+
+- (Order *) addNote: (NSString*)note toDishAtIndex: (int) dishIndex {
+    [self.userInfo.currentOrder addNote:note forDishAtIndex:dishIndex];
     return self.userInfo.currentOrder;
 }
 

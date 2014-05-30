@@ -30,16 +30,18 @@
 
 
 - (void) addDish: (Dish *) dish{
-    // If added before, just update its index:
-    if ([self containsDishWithDishID:dish.ID]) {
+    if (![self containsDishWithDishID:dish.ID] || dish.canBeCustomized) {
+        [self.dishes addObject: dish];
+        [self.quantity addObject: [NSNumber numberWithInt:1]];
         
+        if ( dish.canBeCustomized){
+            [self setModifierAnswer: [dish.customOrderInfo getAnswer] atIndex: [self.dishes count] - 1];
+        }
+    } else {
+        // If added before, just update its index:
         int index = [self getIndexOfDishByDish:dish];
         int quantity = [self getQuantityOfDishByDish:dish];
         [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: index];
-        
-    } else {
-        [self.dishes addObject: dish];
-        [self.quantity addObject: [NSNumber numberWithInt:1]];
     }
 }
 
@@ -56,6 +58,20 @@
         [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: index];
     } else if (quantity == 1){
         [self removeDishWithID:dishId];
+    }
+}
+
+- (void) incrementDishAtIndex: (int)dishIndex {
+    int quantity = [[self.quantity objectAtIndex:dishIndex] intValue];
+    [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: dishIndex];
+}
+
+- (void) decrementDishAtIndex: (int)dishIndex {
+    int quantity = [[self.quantity objectAtIndex:dishIndex] intValue];
+    if(quantity > 1){
+        [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: dishIndex];
+    } else if (quantity == 1){
+        [self removeDishAtIndex: dishIndex];
     }
 }
 
@@ -92,16 +108,16 @@
     }
 }
 
-- (void) addNote: (NSString*) note forDish: (Dish*) dish {
+- (void) addNote: (NSString*) note forDishAtIndex: (int) dishIndex {
     if ([note length] > 0) {
-        [self.notes setObject:note forKey:[NSString stringWithFormat:@"%d", dish.ID]];
+        [self.notes setObject:note forKey:[NSString stringWithFormat:@"%d", dishIndex]];
     } else {
-        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
+        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
     }    
 }
 
-- (NSString*) getNoteForDish: (Dish*) dish {
-    return [self.notes objectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
+- (NSString*) getNoteForDishAtIndex: (int) dishIndex {
+    return [self.notes objectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
 }
 
 - (NSDictionary *) getModifierAnswerAtIndex: (int) index{
@@ -113,9 +129,10 @@
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
+    // require: Dish is not customizable
+    
     if ([self containsDishWithDishID:dish.ID]) {
         NSNumber *quantity = [self getQuantityObjectOfDish:dish];
-        // NSLog(@"Getting quantity of dish ID: %d, quantity: %d", dish.ID, quantity.integerValue);
         return quantity.integerValue;
     } else{
         return 0;
@@ -123,8 +140,8 @@
 }
 
 - (int) getQuantityOfDishByID: (int) dishID{
+    // require: Dish is not customizable
     
-    // Iterate through the dishes:
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *dish = [self.dishes objectAtIndex:i];
         if (dish.ID == dishID) {
@@ -133,13 +150,11 @@
         }
     }
     
-    // The dishID not found:
     return 0;
 }
 
 - (int) getQuantityOfDishByName: (NSString*) dishName{
     
-    // Iterate through the dishes:
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *dish = [self.dishes objectAtIndex:i];
         if ([dish.name isEqualToString:dishName]) {
@@ -148,7 +163,6 @@
         }
     }
     
-    // The dishID not found:
     return 0;
 }
 
@@ -262,6 +276,12 @@
         }
     }
     return false;
+}
+
+- (void) removeDishAtIndex: (int) dishIndex {
+    [self.quantity removeObjectAtIndex:dishIndex];
+    [self.dishes removeObjectAtIndex:dishIndex];
+    [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
 }
 
 - (void) removeDishWithID: (int) newDishID{

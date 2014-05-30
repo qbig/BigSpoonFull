@@ -13,7 +13,8 @@
     double serviceChargeRate;
 }
 @property BOOL isAddingNotes;
-
+@property (nonatomic, strong) Dish* targetingDish;
+@property (nonatomic, strong) NSIndexPath* lastInteractiveCellIndex;
 @end
 
 @implementation ItemsOrderedViewController
@@ -125,11 +126,11 @@
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.currentOrder getQuantityOfDishByDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue]];
         
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
-        cell.orderNote.text = [self.userInfo.currentOrder getNoteForDish:dish];
+        cell.orderNote.text = [self.userInfo.currentOrder getNoteForDishAtIndex:indexPath.row];
         if (self.isAddingNotes){
             cell.orderNote.hidden = NO;
         } else {
@@ -144,7 +145,7 @@
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.pastOrder getQuantityOfDishByDish:dish]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue]];
        
         return cell;
     } else{
@@ -168,56 +169,22 @@
     }
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
+    if ([segue.identifier isEqualToString:@"SegueToEditDishModifier"]) {
+        DishModifierTableViewController *modifierPopup = segue.destinationViewController;
+        modifierPopup.targetingDish = self.targetingDish;
+        modifierPopup.delegate = self;
+        [modifierPopup.targetingDish.customOrderInfo setAnswer: [self.userInfo.currentOrder getModifierAnswerAtIndex:self.lastInteractiveCellIndex.row ]];
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
+        
+    } else{
+        NSLog(@"Segureee in the ItemsOrderedViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
+    }
 
- */
+}
 
 #pragma mark - Button event listeners
 - (IBAction)addNotesButtonPressed:(id)sender {
@@ -272,8 +239,7 @@
         }
     } else {
         NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
-        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
-        self.userInfo.currentOrder = [self.delegate addNote:sender.text toDish:dish];
+        self.userInfo.currentOrder = [self.delegate addNote:sender.text toDishAtIndex:indexPath.row];
     }
 }
 
@@ -285,17 +251,16 @@
     NSIndexPath * indexPath = [self.currentOrderTableView indexPathForRowAtPoint: location];
     
     int dishID = sender.tag;
-    
     NSLog(@"Added dish at row: %d with ID: %d", indexPath.row, dishID);
-
     
-    NewOrderCell *cell = (NewOrderCell *)[self.currentOrderTableView cellForRowAtIndexPath: indexPath];
-    
-    
-    self.userInfo.currentOrder = [self.delegate addDishWithID: dishID];
-    cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [self.userInfo.currentOrder getQuantityOfDishByID:dishID]];
-
-    [self updatePriceLabels];
+    self.targetingDish = (Dish *) [self.userInfo.currentOrder.dishes objectAtIndex: indexPath.row];
+    if( self.targetingDish.canBeCustomized) {
+        self.lastInteractiveCellIndex = indexPath;
+        [self performSegueWithIdentifier:@"SegueToEditDishModifier" sender:self];
+    } else {
+        self.userInfo.currentOrder = [self.delegate addDishWithIndex: indexPath.row];
+        [self updatePriceLabels];
+    }
 }
 
 - (IBAction)minusButtonPressed:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -307,7 +272,7 @@
     
     int dishID = sender.tag;
     NSLog(@"Minus dish at row: %d with ID: %d", indexPath.row, dishID);
-    self.userInfo.currentOrder = [self.delegate minusDishWithID: dishID];
+    self.userInfo.currentOrder = [self.delegate minusDishWithIndex: indexPath.row];
     
     [self updatePriceLabels];
 }
@@ -453,8 +418,8 @@
 
 #pragma mark - DishModifierSegueDelegate 
 
-- (void) dishModifierPopupDidSaveWithUpdatedModifier:(DishModifier *)newMod {
-    
+- (void) dishModifierPopupDidSaveWithUpdatedModifier:(Dish *)newDishWithModifier {
+    [self.delegate addDish:newDishWithModifier];
 }
 
 - (void) dishModifierPopupDidCancel{

@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DishModifier.h"
+#import "Dish.h"
 
 @protocol DishModifierSegueDelegate <NSObject>
-- (void) dishModifierPopupDidSaveWithUpdatedModifier: (DishModifier *) newMod;
+- (void) dishModifierPopupDidSaveWithUpdatedModifier: (Dish *) newDishWithModifier;
 - (void) dishModifierPopupDidCancel;
 @end

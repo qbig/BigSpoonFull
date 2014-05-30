@@ -32,6 +32,8 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.title = self.targetingDish.name;
+    
+    // Setting  background and text color
     self.navigationController.navigationBar.barTintColor = [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor];
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationItem.titleView setBackgroundColor:[self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
@@ -39,12 +41,6 @@
     
     [self.tableView setBackgroundColor: [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
     [self.tableView setBackgroundView: nil];
-    animals = @{@"B" : @[@"Bear", @"Black Swan", @"Buffalo"],
-                @"C" : @[@"Camel", @"Cockatoo"],
-                };
-    
-    animalSectionTitles = [[animals allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
     
     // Setting "Cancel" and "OK" buttons at the end of the list
     UIButton *cancelButton = [UIButton buttonWithType: UIButtonTypeCustom];
@@ -68,8 +64,10 @@
 }
 
 - (void) okButtonPressed {
-    [self.delegate dishModifierPopupDidSaveWithUpdatedModifier:self.targetingDish.customOrderInfo];
+    [self.delegate dishModifierPopupDidSaveWithUpdatedModifier:self.targetingDish];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    
+    // reset navigation title and dismiss modifier popup
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
     [self.navigationController popViewControllerAnimated:YES];
@@ -78,6 +76,8 @@
 - (void) cancelButtonPressed {
     [self.delegate dishModifierPopupDidCancel];
     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+
+    // reset navigation title and dismiss modifier popup
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
     [self.navigationController popViewControllerAnimated:YES];
@@ -86,7 +86,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -94,13 +93,11 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return [self.targetingDish.customOrderInfo.modifierSections count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [((DishModifierSection *)[self.targetingDish.customOrderInfo.modifierSections objectAtIndex:section]).items count];
 }
 
@@ -116,6 +113,7 @@
     
     DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:section];
     
+    // Setting text style and color of Section title
     NSMutableAttributedString *attString;
     if (currentSection.itemTitleDescription.length != 0){
         attString = [[NSMutableAttributedString alloc]
@@ -154,17 +152,16 @@
     DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:indexPath.section];
     DishModifierItem *item = [currentSection.items objectAtIndex:indexPath.row];
     UITableViewCell *cell;
-    DishModifierItemCellCount *cellCount;
-    DishModifierItemCellRadio *cellRadio;
+
     if ([currentSection.type isEqualToString:DISH_MODIFIER_TYPE_COUNT]){
-        cellCount = (DishModifierItemCellCount *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemCount" forIndexPath:indexPath];
+        DishModifierItemCellCount *cellCount = (DishModifierItemCellCount *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemCount" forIndexPath:indexPath];
         [cellCount.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellCount.itemNameLabel.text = item.itemName;
         cellCount.itemCountLabel.text = [NSString stringWithFormat:@"%d",item.itemCount];
         cellCount.item = item;
         cell = cellCount;
     } else {
-        cellRadio = (DishModifierItemCellRadio *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemRadio" forIndexPath:indexPath];
+        DishModifierItemCellRadio *cellRadio = (DishModifierItemCellRadio *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemRadio" forIndexPath:indexPath];
         [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellRadio.itemNameLabel.text = item.itemName;
         cellRadio.item = item;
@@ -185,6 +182,8 @@
     if(cell.selectionStyle == UITableViewCellSelectionStyleNone){
         DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:indexPath.section];
         DishModifierItem *item = [currentSection.items objectAtIndex: indexPath.row];
+        
+        // toggling radio selection
         if (item.itemCount == 0){
             item.itemCount = 1;
             for (DishModifierItem *otherItem in currentSection.items){
@@ -203,7 +202,9 @@
 - (UIColor *)colorFromHexString:(NSString *)hexString {
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
+    
+    // bypass '#' character
+    [scanner setScanLocation:1];
     [scanner scanHexInt:&rgbValue];
     return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
