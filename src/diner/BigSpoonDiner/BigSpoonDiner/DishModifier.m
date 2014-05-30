@@ -44,4 +44,36 @@
     self.modifierSections = sectionsArr;
     return self;
 }
+
+- (NSDictionary *) getAnswer{
+    NSMutableDictionary *answer = [[NSMutableDictionary alloc] init];
+    for ( DishModifierSection *section in self.modifierSections){
+        for(DishModifierItem *item in section.items){
+            if(item.itemCount != 0){
+                [answer setObject: [NSNumber numberWithInt:item.itemCount] forKey: [NSString stringWithFormat: @"%@ %@", section.itemTitle, item.itemName]];
+            }
+        }
+    }
+    return answer;
+}
+
+- (void) setAnswer:(NSDictionary *)answer {
+    for ( DishModifierSection *section in self.modifierSections){
+        for(DishModifierItem *item in section.items){
+            NSNumber *count = [answer objectForKey: [NSString stringWithFormat: @"%@%@", section.itemTitle, item.itemName]];
+            if(count){
+                item.itemCount = [count intValue];
+            }
+        }
+    }
+}
+
+- (double) getPriceChange {
+    double result = 0;
+    for ( DishModifierSection *section in self.modifierSections){
+        result += [section getSum];
+    }
+    return result;
+}
+
 @end

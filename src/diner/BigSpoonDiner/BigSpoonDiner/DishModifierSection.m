@@ -46,4 +46,21 @@
     self.items = itemsArr;
     return self;
 }
+
+- (double) getSum {
+    double result = 0;
+    for (DishModifierItem *item in self.items){
+        result += item.itemPrice * item.itemCount;
+    }
+    
+    
+    if (result < 0){
+        // downsize for price reduce
+        return result;
+    } else {
+        // addition
+        result -= self.threshold;
+        return result > 0 ? result : 0;
+    }
+}
 @end

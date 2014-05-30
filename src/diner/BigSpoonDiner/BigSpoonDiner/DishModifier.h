@@ -16,4 +16,9 @@
 @property (nonatomic, strong) NSArray *modifierSections;
 
 - (DishModifier *) initWithJsonDictionary: (NSDictionary *) dict;
+
+- (NSDictionary *) getAnswer;
+- (void) setAnswer:(NSDictionary *)answer;
+- (double) getPriceChange;
+
 @end

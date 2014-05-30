@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSMutableArray *dishes;
 @property (nonatomic, strong) NSMutableArray *quantity;
 @property (nonatomic, strong) NSMutableDictionary *notes;
+@property (nonatomic, strong) NSMutableDictionary *modifierAnswers;
 
 // Note:
 // In self.dishes, object equlity is NOT assumed, for example:
@@ -33,6 +34,9 @@
 - (void) minusDish: (Dish *) dish;
 - (void) addNote: (NSString*) note forDish: (Dish*) dish;
 - (NSString*) getNoteForDish: (Dish*) dish;
+
+- (NSDictionary *) getModifierAnswerAtIndex: (int) index;
+- (void) setModifierAnswer:(NSDictionary *)modifierAnswer atIndex: (int) index;
 
 - (int) getQuantityOfDishByDish: (Dish *) dish;
 - (int) getQuantityOfDishByID: (int) dishID;

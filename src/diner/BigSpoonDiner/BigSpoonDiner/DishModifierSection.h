@@ -17,4 +17,5 @@
 @property (nonatomic, strong) NSArray *items;
 
 - (DishModifierSection *) initWithSectionJsonDict: (NSDictionary *) dict;
+- (double) getSum;
 @end

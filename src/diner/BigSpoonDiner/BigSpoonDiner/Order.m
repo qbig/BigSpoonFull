@@ -23,6 +23,7 @@
         self.dishes = [[NSMutableArray alloc] init];
         self.quantity = [[NSMutableArray alloc] init];
         self.notes = [[NSMutableDictionary alloc] init];
+        self.modifierAnswers = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -101,6 +102,14 @@
 
 - (NSString*) getNoteForDish: (Dish*) dish {
     return [self.notes objectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
+}
+
+- (NSDictionary *) getModifierAnswerAtIndex: (int) index{
+    return [self.modifierAnswers objectForKey: [NSString stringWithFormat: @"%d", index]];
+}
+
+- (void) setModifierAnswer:(NSDictionary *)modifierAnswer atIndex: (int) index{
+    [self.modifierAnswers setObject:modifierAnswer forKey: [NSString stringWithFormat:@"%d", index]];
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
