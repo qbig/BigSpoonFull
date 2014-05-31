@@ -57,7 +57,17 @@
     return answer;
 }
 
+- (void) cleanUp {
+    for ( DishModifierSection *section in self.modifierSections){
+        for(int i = 0; i < [section.items count]; i++){
+            DishModifierItem *item = [section.items objectAtIndex: i];
+            item.itemCount = 0;
+        }
+    }
+}
+
 - (void) setAnswer:(NSDictionary *)answer {
+    [self cleanUp];
     for ( DishModifierSection *section in self.modifierSections){
         for(DishModifierItem *item in section.items){
             NSNumber *count = [answer objectForKey: [NSString stringWithFormat: @"%@-%@", section.itemTitle, item.itemName]];
@@ -76,4 +86,20 @@
     return result;
 }
 
+- (NSString *) getDetailsText{
+    NSString *result = @"";
+    for ( DishModifierSection *section in self.modifierSections){
+        for(DishModifierItem *item in section.items){
+            if (item.itemCount > 0){
+                if ([section.type isEqualToString: DISH_MODIFIER_TYPE_RADIO]){
+                    result = [result stringByAppendingString: [NSString stringWithFormat: @"%@: %@\n", section.itemTitle, item.itemName]];
+                } else {
+                    result = [result stringByAppendingString: [NSString stringWithFormat: @"%@ x %d\n", item.itemName, item.itemCount]];
+                }
+            }
+        }
+    }
+    
+    return result;
+}
 @end

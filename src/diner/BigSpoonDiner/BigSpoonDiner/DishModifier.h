@@ -20,5 +20,6 @@
 - (NSDictionary *) getAnswer;
 - (void) setAnswer:(NSDictionary *)answer;
 - (double) getPriceChange;
+- (NSString *) getDetailsText;
 
 @end

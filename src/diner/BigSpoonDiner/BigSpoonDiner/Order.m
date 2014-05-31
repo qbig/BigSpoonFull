@@ -75,6 +75,17 @@
     }
 }
 
+- (NSString *) getModifierDetailsTextAtIndex: (int) dishIndex{
+    Dish *targetingDish = (Dish *) [self.dishes objectAtIndex: dishIndex];
+    if (! targetingDish.canBeCustomized){
+        return @"";
+    } else {
+        DishModifier *modifierForDish = targetingDish.customOrderInfo;
+        [modifierForDish setAnswer: [self getModifierAnswerAtIndex:dishIndex]];
+        return [modifierForDish getDetailsText];
+    }
+}
+
 - (void) decrementDishName: (NSString*) dishName{
     int index = [self getIndexOfDishByDishName:dishName];
     int quantity = [self getQuantityOfDishByName:dishName];

@@ -54,6 +54,8 @@
 - (void) incrementDishAtIndex: (int)dishIndex;
 - (void) decrementDishAtIndex: (int)dishIndex;
 
+- (NSString *) getModifierDetailsTextAtIndex: (int) dishIndex;
+
 - (void) decrementDishName: (NSString*) dishName;
 - (BOOL) containDessert;
 @end

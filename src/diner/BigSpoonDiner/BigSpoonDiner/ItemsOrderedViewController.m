@@ -15,6 +15,8 @@
 @property BOOL isAddingNotes;
 @property (nonatomic, strong) Dish* targetingDish;
 @property (nonatomic, strong) NSIndexPath* lastInteractiveCellIndex;
+@property (nonatomic, strong) NewOrderCell* cellPrototype;
+@property (nonatomic, strong) NSMutableDictionary* dicForRowHeight;
 @end
 
 @implementation ItemsOrderedViewController
@@ -39,14 +41,11 @@
                                            action:@selector(dismissKeyboard)];
     self.isAddingNotes = NO;
     [self.view addGestureRecognizer:tapGestureToDismissKeyboard];
-
-    //self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT);
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    static NSString *CellIdentifier = @"NewOrderCell";
+    self.cellPrototype = [self.currentOrderTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    self.dicForRowHeight = [[NSMutableDictionary alloc] init];
     [TestFlight passCheckpoint:@"CheckPoint:User at Items Page"];
 }
 
@@ -70,13 +69,6 @@
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-// This was for a fix of the bug
-//- (void) viewDidAppear:(BOOL)animated{
-//    [super viewDidAppear:animated];
-//    
-//    [self.scrollView setContentOffset:CGPointZero animated:NO];
-//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -123,18 +115,24 @@
         [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(hideNote) name:HIDE_NOTE object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(displayNote) name:SHOW_NOTE object:nil];
         Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
-        
-        cell.nameLabel.text = dish.name;
-        cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue]];
-        
-        cell.plusButton.tag = dish.ID;
-        cell.minusButton.tag = dish.ID;
-        cell.orderNote.text = [self.userInfo.currentOrder getNoteForDishAtIndex:indexPath.row];
+
         if (self.isAddingNotes){
             cell.orderNote.hidden = NO;
         } else {
             cell.orderNote.hidden = YES;
+        }
+        cell.nameLabel.text = dish.name;
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue]];
+        cell.plusButton.tag = dish.ID;
+        cell.minusButton.tag = dish.ID;
+        cell.orderNote.text = [self.userInfo.currentOrder getNoteForDishAtIndex:indexPath.row];
+
+        if(dish.canBeCustomized){
+            cell.modifierDetailsLabel.text = [self.userInfo.currentOrder getModifierDetailsTextAtIndex:indexPath.row];
+            cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price + [dish.customOrderInfo getPriceChange]];
+        } else {
+            cell.modifierDetailsLabel.text = @"";
+            cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
         }
         return cell;
     } else if ([tableView isEqual:self.pastOrderTableView]){
@@ -156,19 +154,50 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:self.currentOrderTableView]) {
-        if (self.isAddingNotes){
-            return ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED;
+        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
+        double rowHeightForCurrentOrder;
+        if (dish.canBeCustomized){
+            @try
+            {
+                self.cellPrototype.modifierDetailsLabel.text = [self.userInfo.currentOrder getModifierDetailsTextAtIndex: indexPath.row];
+                [self.cellPrototype layoutSubviews];
+                if (self.isAddingNotes){
+                    rowHeightForCurrentOrder = self.cellPrototype.requiredCellHeight + ITEM_LIST_ADD_NOTE_TEXT_FIELD_HEIGHT;
+
+                } else {
+                    rowHeightForCurrentOrder = self.cellPrototype.requiredCellHeight;
+                }
+            }
+            @catch (NSException *e)
+            {
+                NSLog(@"Exception: %@", e);
+                rowHeightForCurrentOrder = ITEM_LIST_TABLE_ROW_HEIGHT;
+            }
         } else {
-            return ITEM_LIST_TABLE_ROW_HEIGHT;
+            if (self.isAddingNotes){
+                rowHeightForCurrentOrder = ITEM_LIST_TABLE_ROW_HEIGHT + ITEM_LIST_ADD_NOTE_TEXT_FIELD_HEIGHT;
+            } else {
+                rowHeightForCurrentOrder = ITEM_LIST_TABLE_ROW_HEIGHT;
+            }
         }
+        [self.dicForRowHeight setObject:[NSNumber numberWithDouble: rowHeightForCurrentOrder]forKey: [NSString stringWithFormat: @"%d", indexPath.row]];
+        return rowHeightForCurrentOrder;
     } else if ([tableView isEqual:self.pastOrderTableView]){
         return ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT;
     } else{
         NSLog(@"Unrecognized tableView is calling delegate method");
-        return 1;
+        return ITEM_LIST_TABLE_ROW_HEIGHT;
     }
 }
 
+- (double) getSectionHeightUntilRow: (int) rowNum {
+    // for current orders
+    double result = 0;
+    for(int i = 0 ; i < rowNum; i++){
+        result += [[self.dicForRowHeight objectForKey:[NSString stringWithFormat: @"%d", i]] doubleValue];
+    }
+    return result;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -222,7 +251,7 @@
         }
     } else {
         NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
-        [self.scrollView setContentOffset:CGPointMake(0, indexPath.row * ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED)  animated:YES];
+        [self.scrollView setContentOffset:CGPointMake(0, [self getSectionHeightUntilRow: indexPath.row])  animated:YES];
     }
 }
 
@@ -365,11 +394,11 @@
     int currentOrderTableHeight, oldOrderTableHeight;
     int numOfCurrentOrder = [self.userInfo.currentOrder getNumberOfKindsOfDishes];
     if (self.isAddingNotes){
-        currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED * numOfCurrentOrder;
+        currentOrderTableHeight =  [self getSectionHeightUntilRow: numOfCurrentOrder];
         oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * numOfCurrentOrder;
     } else {
-        currentOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * numOfCurrentOrder;
-        oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED * numOfCurrentOrder;
+        currentOrderTableHeight = [self getSectionHeightUntilRow: numOfCurrentOrder];
+        oldOrderTableHeight = ITEM_LIST_TABLE_ROW_HEIGHT * numOfCurrentOrder;
     }
     
     if (shouldUpdateViewPoint) {
