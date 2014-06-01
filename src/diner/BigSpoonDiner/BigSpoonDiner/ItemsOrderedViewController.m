@@ -143,7 +143,7 @@
         
         cell.nameLabel.text = dish.name;
         cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.pastOrder.quantity objectAtIndex:indexPath.row] intValue]];
        
         return cell;
     } else{
