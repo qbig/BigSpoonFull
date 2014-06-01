@@ -64,9 +64,7 @@
                                     {% endif %}
                                 </li>
                                     {% if order.note %}
-                                        {% autoescape on %}
-                                        <li>{{ order.note | linebreaksbr }}</li>
-                                        {% endautoescape %}
+                                        <li> note: {{order.note}}</li>
                                     {% endif%}
                                 {% endif %}
                             {% endfor %}
