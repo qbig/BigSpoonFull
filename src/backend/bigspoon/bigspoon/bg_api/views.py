@@ -414,9 +414,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             dish = Dish.objects.get(id=int(dish_id))
             quantity = dish_pair.values()[0]
             if notes and str(idx) in notes:
-                note_str = notes.get(str(idx))
-                note_str = "<br />".join(note_str.split("\n")) 
-                Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=note_str)   
+                Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(str(idx)))   
             else : 
                 Order.objects.create(meal=meal, dish=dish, quantity=quantity)
             dish.quantity -= quantity
