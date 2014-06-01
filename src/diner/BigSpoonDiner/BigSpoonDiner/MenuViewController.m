@@ -825,7 +825,7 @@
     }
     
     if (self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) {
-        [parameters setObject:self.userInfo.currentOrder.notes forKey:@"notes"];
+        [parameters setObject:[self.userInfo.currentOrder getMergedTextForNotesAndModifier] forKey:@"notes"];
     }
 
     User *user = [User sharedInstance];

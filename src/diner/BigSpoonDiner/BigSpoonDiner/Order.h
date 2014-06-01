@@ -55,6 +55,7 @@
 - (void) decrementDishAtIndex: (int)dishIndex;
 
 - (NSString *) getModifierDetailsTextAtIndex: (int) dishIndex;
+- (NSDictionary *) getMergedTextForNotesAndModifier;
 
 - (void) decrementDishName: (NSString*) dishName;
 - (BOOL) containDessert;

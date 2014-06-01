@@ -86,6 +86,27 @@
     }
 }
 
+- (NSDictionary *) getMergedTextForNotesAndModifier {
+    NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
+    for(NSString *key in self.notes){
+        [result setObject:self.notes[key] forKey: key];
+    }
+    
+    for(NSString *key in self.modifierAnswers){
+        int dishIndex = [key integerValue];
+        Dish *dish = [self.dishes objectAtIndex:dishIndex];
+        [dish.customOrderInfo setAnswer: self.modifierAnswers[key]];
+        NSString *answerText = [dish.customOrderInfo getDetailsText];
+        if (self.notes[key]){
+            [result setObject:[NSString stringWithFormat: @"%@\nnote:%@", answerText, self.notes[key]] forKey:key];
+        } else {
+            result[key] = answerText;
+        }
+    }
+    
+    return  result;
+}
+
 - (void) decrementDishName: (NSString*) dishName{
     int index = [self getIndexOfDishByDishName:dishName];
     int quantity = [self getQuantityOfDishByName:dishName];
