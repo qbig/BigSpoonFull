@@ -213,8 +213,13 @@
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *newDish = (Dish *)[self.dishes objectAtIndex:i];
         int quantity = [self getQuantityOfDishByDish:newDish];
+        if(newDish.canBeCustomized){
+            [newDish.customOrderInfo setAnswer: [self getModifierAnswerAtIndex:i]];
+            totalPrice += [newDish.customOrderInfo getPriceChange] + newDish.price;
+        } else {
+            totalPrice += newDish.price * quantity;
+        }
         
-        totalPrice += newDish.price * quantity;
     }
     return totalPrice;
 }
