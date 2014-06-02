@@ -76,11 +76,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrder) name:NOTIF_ORDER_UPDATE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDish) name:NOTIF_ORDER_UPDATE object:nil];
     [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
+    if ([User sharedInstance].updatePending) {
+        [self updateDish];
+        [User sharedInstance].updatePending = NO;
+    }
     [super viewDidAppear:animated];
 }
 

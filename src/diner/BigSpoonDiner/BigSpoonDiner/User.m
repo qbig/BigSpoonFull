@@ -385,19 +385,26 @@
         tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
         tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
         int quantity = [[dict objectForKey:@"quantity"] integerValue];
-        NSError* error;
-        NSDictionary *modifierAnswer = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[[dict objectForKey:@"modifier_json"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
         
         [updatedOrder.dishes addObject:tmpDish];
         [updatedOrder.quantity addObject:[NSNumber numberWithInt: quantity]];
-        int dishIndex = [updatedOrder.dishes count] - 1;
-        Dish *existingPastOrderDish = (Dish *) [self.pastOrder.dishes objectAtIndex:dishIndex];
-        if(existingPastOrderDish.ID != tmpDish.ID || existingPastOrderDish.quantity != tmpDish.quantity){
+        int dishIndex = [updatedOrder.dishes count] - 1 ;
+        Dish *existingPastOrderDish;
+        if(dishIndex <= [self.pastOrder.dishes count] - 1 && [self.pastOrder.dishes count] != 0){
+            existingPastOrderDish = (Dish *) [self.pastOrder.dishes objectAtIndex:dishIndex];
+        } else {
             self.updatePending = YES;
         }
         
-        if ([modifierAnswer count] > 0){
-            [updatedOrder setModifierAnswer:modifierAnswer atIndex: [updatedOrder.dishes count] - 1];
+        if(existingPastOrderDish != nil && (existingPastOrderDish.ID != tmpDish.ID || existingPastOrderDish.quantity != tmpDish.quantity)){
+            self.updatePending = YES;
+        }
+        
+        NSString *modifierStr = [dict objectForKey:@"modifier_json"];
+        if ( ! (modifierStr == (id)[NSNull null] || modifierStr.length == 0 )){
+            NSError* error;
+            NSDictionary *modifierAnswer = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[modifierStr dataUsingEncoding:NSUTF8StringEncoding ]options:0 error:&error];
+            [updatedOrder setModifierAnswer:modifierAnswer atIndex: dishIndex];
         }
     }
 

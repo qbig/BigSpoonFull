@@ -76,6 +76,7 @@
     }
 
     [self loadControlPanels];
+
 }
 
 -(void) viewWillAppear:(BOOL)animated {
