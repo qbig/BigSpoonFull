@@ -12,5 +12,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *quantityLabel;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *modifierDetailsLabel;
 
+@property (nonatomic) float requiredCellHeight;
 @end

@@ -1085,9 +1085,17 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="modifier" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bok-CZ-9gy">
+                                                                    <rect key="frame" x="86" y="44" width="167" height="0.0"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                         </tableViewCellContentView>
                                                         <connections>
+                                                            <outlet property="modifierDetailsLabel" destination="bok-CZ-9gy" id="Fhq-21-hyk"/>
                                                             <outlet property="nameLabel" destination="JTN-uy-bRb" id="a7R-fg-OVX"/>
                                                             <outlet property="priceLabel" destination="RlT-vQ-Lyf" id="t9N-Ki-4Dj"/>
                                                             <outlet property="quantityLabel" destination="KEr-3j-VdB" id="08v-B3-7Yw"/>

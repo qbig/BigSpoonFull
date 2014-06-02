@@ -219,36 +219,31 @@
     return totalPrice;
 }
 
-- (int) getNumberOfKindsOfDishes{
-    return [self.dishes count];
-}
-
-
 - (void) mergeWithAnotherOrder: (Order *)newOrder{
     
-    for (int i = 0; i < [newOrder getNumberOfKindsOfDishes]; i++) {
+    for (int i = 0; i < [newOrder.dishes count]; i++) {
         
         Dish *newDish = (Dish *)[newOrder.dishes objectAtIndex:i];
-        
         int newQuantity = [newOrder getQuantityOfDishByDish:newDish];
         
-        if ([self containsDishWithDishID: newDish.ID]) {
+        if (newDish.canBeCustomized){
             
+            [self.dishes addObject:newDish];
+            [self.quantity addObject: [NSNumber numberWithInt:1]];
+            [self setModifierAnswer: [newOrder getModifierAnswerAtIndex:i] atIndex: [self.dishes count] - 1];
+            
+        } else if ([self containsDishWithDishID: newDish.ID]) {
+
             int selfQuantity = [self getQuantityOfDishByDish:newDish];
             int index = [self getIndexOfDishByDish:newDish];
-            
             NSNumber *numObject = [NSNumber numberWithInt: newQuantity + selfQuantity];
             [self.quantity setObject: numObject atIndexedSubscript:index];
-            
-            // NSLog(@"Meging dish... Existing Dish: %d, has new quantity: %d", newDish.ID, newQuantity + selfQuantity);
             
         } else{
             
             [self.dishes addObject:newDish];
             NSNumber *newQuantityObject = [NSNumber numberWithInt:newQuantity];
             [self.quantity addObject:newQuantityObject];
-            
-            // NSLog(@"Meging dish... New Dish: %d, has new quantity: %d", newDish.ID, [newQuantityObject integerValue]);
             
         }
     }
