@@ -76,6 +76,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrder) name:NOTIF_ORDER_UPDATE object:nil];
     [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
@@ -713,6 +714,13 @@
         return 0;
     } else {
         return self.categoryButtonsHolderView.contentSize.width - 320;
+    }
+}
+
+- (void) updateDish {
+    for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
+        Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
+        [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
     }
 }
 

@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic, strong) NSString *authToken;
 @property (nonatomic) int tableID;
+@property (nonatomic) BOOL updatePending;
 
 @property (nonatomic, strong) Outlet *currentOutlet;
 @property (nonatomic) NSDictionary *validTableIDs;

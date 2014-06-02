@@ -374,7 +374,7 @@
 }
 
 - (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
-    BOOL changed = FALSE;
+    self.updatePending = NO;
     NSDictionary *ordersDict = [json objectForKey:@"orders"];
     User *user = [User sharedInstance];
     Order *updatedOrder = [[Order alloc] init];
@@ -385,20 +385,26 @@
         tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
         tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
         int quantity = [[dict objectForKey:@"quantity"] integerValue];
-        for(int i = 0; i < quantity ;i ++){
-            [updatedOrder addDish:tmpDish];
+        NSError* error;
+        NSDictionary *modifierAnswer = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[[dict objectForKey:@"modifier_json"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+        
+        [updatedOrder.dishes addObject:tmpDish];
+        [updatedOrder.quantity addObject:[NSNumber numberWithInt: quantity]];
+        int dishIndex = [updatedOrder.dishes count] - 1;
+        Dish *existingPastOrderDish = (Dish *) [self.pastOrder.dishes objectAtIndex:dishIndex];
+        if(existingPastOrderDish.ID != tmpDish.ID || existingPastOrderDish.quantity != tmpDish.quantity){
+            self.updatePending = YES;
         }
-        if ([user.pastOrder getQuantityOfDishByID:tmpDish.ID] != quantity){
-            changed = TRUE;
+        
+        if ([modifierAnswer count] > 0){
+            [updatedOrder setModifierAnswer:modifierAnswer atIndex: [updatedOrder.dishes count] - 1];
         }
     }
-    if([updatedOrder getTotalPrice] != [user.pastOrder getTotalPrice] || [updatedOrder getTotalQuantity] != [user.pastOrder getTotalQuantity]){
-        changed = TRUE;
-    }
-    if(changed){
+
+    if(self.updatePending){
         user.pastOrder = updatedOrder;
     }
-    return changed;
+    return self.updatePending;
 }
 
 - (void) closeCurrentSession{
