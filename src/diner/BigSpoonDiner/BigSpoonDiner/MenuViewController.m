@@ -824,7 +824,7 @@
         [parameters setObject:generalNote forKey:@"note"];
     }
     
-    if (self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) {
+    if ((self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) || [self.userInfo.currentOrder.modifierAnswers count] > 0) {
         [parameters setObject:[self.userInfo.currentOrder getMergedTextForNotesAndModifier] forKey:@"notes"];
     }
     
