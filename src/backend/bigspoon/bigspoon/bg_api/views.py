@@ -409,14 +409,25 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         if ('notes' in request.DATA):
             notes = request.DATA['notes']
 
+        modifiers = None
+        if ('modifiers' in request.DATA):
+            modifiers = request.DATA['modifiers']
+
         for idx, dish_pair in enumerate(dishes):
             dish_id = dish_pair.keys()[0]
             dish = Dish.objects.get(id=int(dish_id))
             quantity = dish_pair.values()[0]
-            if notes and str(idx) in notes:
-                Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(str(idx)))   
+            new_order = None
+            index_str = str(idx)
+            if notes and index_str in notes:
+                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(index_str))   
             else : 
-                Order.objects.create(meal=meal, dish=dish, quantity=quantity)
+                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity)
+
+            if modifiers and index_str in modifiers: 
+                new_order.modifier_json = modifiers.get(index_str)
+                new_order.save()
+
             dish.quantity -= quantity
             dish.save()
 

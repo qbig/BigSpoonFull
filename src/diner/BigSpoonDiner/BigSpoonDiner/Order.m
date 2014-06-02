@@ -219,7 +219,6 @@
         } else {
             totalPrice += newDish.price * quantity;
         }
-        
     }
     return totalPrice;
 }
