@@ -44,14 +44,14 @@
     
     // Setting "Cancel" and "OK" buttons at the end of the list
     UIButton *cancelButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    cancelButton.frame = CGRectMake(150, 0, 130, 40);
+    cancelButton.frame = CGRectMake(0, 0, 130, 40);
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     cancelButton.backgroundColor = [UIColor blackColor];
     [cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *okButton = [UIButton buttonWithType: UIButtonTypeCustom];
-    okButton.frame = CGRectMake(0, 0, 130, 40);
+    okButton.frame = CGRectMake(150, 0, 130, 40);
     [okButton setTitle:@"OK" forState:UIControlStateNormal];
     okButton.backgroundColor = [self colorFromHexString:@"#8BCC6F"];
     [okButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

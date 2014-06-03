@@ -417,7 +417,6 @@
 - (void) closeCurrentSession{
     [User sharedInstance].tableID = -1;
     [User sharedInstance].pastOrder = [[Order alloc] init];
-    [User sharedInstance].currentOrder = [[Order alloc] init];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
 }
 
