@@ -23,22 +23,25 @@
         self.dishes = [[NSMutableArray alloc] init];
         self.quantity = [[NSMutableArray alloc] init];
         self.notes = [[NSMutableDictionary alloc] init];
+        self.modifierAnswers = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 
 - (void) addDish: (Dish *) dish{
-    // If added before, just update its index:
-    if ([self containsDishWithDishID:dish.ID]) {
+    if (![self containsDishWithDishID:dish.ID] || dish.canBeCustomized) {
+        [self.dishes addObject: dish];
+        [self.quantity addObject: [NSNumber numberWithInt:1]];
         
+        if ( dish.canBeCustomized){
+            [self setModifierAnswer: [dish.customOrderInfo getAnswer] atIndex: [self.dishes count] - 1];
+        }
+    } else {
+        // If added before, just update its index:
         int index = [self getIndexOfDishByDish:dish];
         int quantity = [self getQuantityOfDishByDish:dish];
         [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: index];
-        
-    } else {
-        [self.dishes addObject: dish];
-        [self.quantity addObject: [NSNumber numberWithInt:1]];
     }
 }
 
@@ -56,6 +59,52 @@
     } else if (quantity == 1){
         [self removeDishWithID:dishId];
     }
+}
+
+- (void) incrementDishAtIndex: (int)dishIndex {
+    int quantity = [[self.quantity objectAtIndex:dishIndex] intValue];
+    [self.quantity setObject:[NSNumber numberWithInt: quantity + 1] atIndexedSubscript: dishIndex];
+}
+
+- (void) decrementDishAtIndex: (int)dishIndex {
+    int quantity = [[self.quantity objectAtIndex:dishIndex] intValue];
+    if(quantity > 1){
+        [self.quantity setObject:[NSNumber numberWithInt: quantity - 1] atIndexedSubscript: dishIndex];
+    } else if (quantity == 1){
+        [self removeDishAtIndex: dishIndex];
+    }
+}
+
+- (NSString *) getModifierDetailsTextAtIndex: (int) dishIndex{
+    Dish *targetingDish = (Dish *) [self.dishes objectAtIndex: dishIndex];
+    if (! targetingDish.canBeCustomized){
+        return @"";
+    } else {
+        DishModifier *modifierForDish = targetingDish.customOrderInfo;
+        [modifierForDish setAnswer: [self getModifierAnswerAtIndex:dishIndex]];
+        return [modifierForDish getDetailsText];
+    }
+}
+
+- (NSDictionary *) getMergedTextForNotesAndModifier {
+    NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
+    for(NSString *key in self.notes){
+        [result setObject:self.notes[key] forKey: key];
+    }
+    
+    for(NSString *key in self.modifierAnswers){
+        int dishIndex = [key integerValue];
+        Dish *dish = [self.dishes objectAtIndex:dishIndex];
+        [dish.customOrderInfo setAnswer: self.modifierAnswers[key]];
+        NSString *answerText = [dish.customOrderInfo getDetailsText];
+        if (self.notes[key]){
+            [result setObject:[NSString stringWithFormat: @"%@\nnote:%@", answerText, self.notes[key]] forKey:key];
+        } else {
+            result[key] = answerText;
+        }
+    }
+    
+    return  result;
 }
 
 - (void) decrementDishName: (NSString*) dishName{
@@ -91,22 +140,31 @@
     }
 }
 
-- (void) addNote: (NSString*) note forDish: (Dish*) dish {
+- (void) addNote: (NSString*) note forDishAtIndex: (int) dishIndex {
     if ([note length] > 0) {
-        [self.notes setObject:note forKey:[NSString stringWithFormat:@"%d", dish.ID]];
+        [self.notes setObject:note forKey:[NSString stringWithFormat:@"%d", dishIndex]];
     } else {
-        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
+        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
     }    
 }
 
-- (NSString*) getNoteForDish: (Dish*) dish {
-    return [self.notes objectForKey:[NSString stringWithFormat:@"%d", dish.ID]];
+- (NSString*) getNoteForDishAtIndex: (int) dishIndex {
+    return [self.notes objectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
+}
+
+- (NSDictionary *) getModifierAnswerAtIndex: (int) index{
+    return [self.modifierAnswers objectForKey: [NSString stringWithFormat: @"%d", index]];
+}
+
+- (void) setModifierAnswer:(NSDictionary *)modifierAnswer atIndex: (int) index{
+    [self.modifierAnswers setObject:modifierAnswer forKey: [NSString stringWithFormat:@"%d", index]];
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
+    // require: Dish is not customizable
+    
     if ([self containsDishWithDishID:dish.ID]) {
         NSNumber *quantity = [self getQuantityObjectOfDish:dish];
-        // NSLog(@"Getting quantity of dish ID: %d, quantity: %d", dish.ID, quantity.integerValue);
         return quantity.integerValue;
     } else{
         return 0;
@@ -114,8 +172,8 @@
 }
 
 - (int) getQuantityOfDishByID: (int) dishID{
+    // require: Dish is not customizable
     
-    // Iterate through the dishes:
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *dish = [self.dishes objectAtIndex:i];
         if (dish.ID == dishID) {
@@ -124,13 +182,11 @@
         }
     }
     
-    // The dishID not found:
     return 0;
 }
 
 - (int) getQuantityOfDishByName: (NSString*) dishName{
     
-    // Iterate through the dishes:
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *dish = [self.dishes objectAtIndex:i];
         if ([dish.name isEqualToString:dishName]) {
@@ -139,7 +195,6 @@
         }
     }
     
-    // The dishID not found:
     return 0;
 }
 
@@ -158,42 +213,41 @@
     for (int i = 0; i < [self.dishes count]; i++) {
         Dish *newDish = (Dish *)[self.dishes objectAtIndex:i];
         int quantity = [self getQuantityOfDishByDish:newDish];
-        
-        totalPrice += newDish.price * quantity;
+        if(newDish.canBeCustomized){
+            [newDish.customOrderInfo setAnswer: [self getModifierAnswerAtIndex:i]];
+            totalPrice += [newDish.customOrderInfo getPriceChange] + newDish.price;
+        } else {
+            totalPrice += newDish.price * quantity;
+        }
     }
     return totalPrice;
 }
 
-- (int) getNumberOfKindsOfDishes{
-    return [self.dishes count];
-}
-
-
 - (void) mergeWithAnotherOrder: (Order *)newOrder{
     
-    for (int i = 0; i < [newOrder getNumberOfKindsOfDishes]; i++) {
+    for (int i = 0; i < [newOrder.dishes count]; i++) {
         
         Dish *newDish = (Dish *)[newOrder.dishes objectAtIndex:i];
-        
         int newQuantity = [newOrder getQuantityOfDishByDish:newDish];
         
-        if ([self containsDishWithDishID: newDish.ID]) {
+        if (newDish.canBeCustomized){
             
+            [self.dishes addObject:newDish];
+            [self.quantity addObject: [NSNumber numberWithInt:1]];
+            [self setModifierAnswer: [newOrder getModifierAnswerAtIndex:i] atIndex: [self.dishes count] - 1];
+            
+        } else if ([self containsDishWithDishID: newDish.ID]) {
+
             int selfQuantity = [self getQuantityOfDishByDish:newDish];
             int index = [self getIndexOfDishByDish:newDish];
-            
             NSNumber *numObject = [NSNumber numberWithInt: newQuantity + selfQuantity];
             [self.quantity setObject: numObject atIndexedSubscript:index];
-            
-            // NSLog(@"Meging dish... Existing Dish: %d, has new quantity: %d", newDish.ID, newQuantity + selfQuantity);
             
         } else{
             
             [self.dishes addObject:newDish];
             NSNumber *newQuantityObject = [NSNumber numberWithInt:newQuantity];
             [self.quantity addObject:newQuantityObject];
-            
-            // NSLog(@"Meging dish... New Dish: %d, has new quantity: %d", newDish.ID, [newQuantityObject integerValue]);
             
         }
     }
@@ -253,6 +307,12 @@
         }
     }
     return false;
+}
+
+- (void) removeDishAtIndex: (int) dishIndex {
+    [self.quantity removeObjectAtIndex:dishIndex];
+    [self.dishes removeObjectAtIndex:dishIndex];
+    [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
 }
 
 - (void) removeDishWithID: (int) newDishID{

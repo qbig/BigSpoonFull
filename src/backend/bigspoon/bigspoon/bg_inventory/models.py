@@ -9,6 +9,8 @@ from guardian.shortcuts import get_objects_for_user
 from cache_utils.decorators import cached
 from bg_inventory.managers import UserManager
 
+from jsonfield import JSONField
+
 import urllib
 import hashlib
 
@@ -501,6 +503,14 @@ class Dish(models.Model):
         blank=True,
         help_text=_('belong to category'),
         related_name='dishes',
+    )
+
+    custom_order_json = JSONField(
+        blank=True,
+        null=True,)
+
+    can_be_customized = models.BooleanField(
+        default=False,
     )
 
     def get_upload_path(self, filename):
