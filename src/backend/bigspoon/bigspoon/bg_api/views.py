@@ -475,7 +475,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
         outlet = Outlet.objects.get(id=int(outlet_id))
         
         return Meal.objects.filter(
-            table__in=outlet.tables,
+            table__outlet=outlet,
             is_paid=False
         )
         
