@@ -457,18 +457,25 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
     model = Meal
 
     def post(self, request, *args, **kwargs):
-        outlet_id = request.DATA['outlet_id']
+        order_ids = request.DATA['order_ids']
         try:
-            outlet = Outlet.objects.get(id=int(outlet_id))
-        except Table.DoesNotExist:
-            return Response({"error": "Unknown outlet id " + str(outlet_id)},
+            for o_id in order_ids:
+                order = Order.objects.get(id = int(o_id))
+                order.is_finished = True
+                order.has_been_sent_to_POS = True
+                order.meal.status = 1
+                order.save()
+
+        except Order.DoesNotExist:
+            return Response({"error": "Unknown order id " + str(o_id)},
                             status=status.HTTP_400_BAD_REQUEST)
 
+        outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
         send_socketio_message(
-            [table.outlet.id],
+            [outlet_id],
             ['refresh', 'meal', 'new']
         )
-        return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
+        return Response({"success": 1, }, status=status.HTTP_201_CREATED)
     
     def get_queryset(self):
         outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
