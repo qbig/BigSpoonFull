@@ -124,7 +124,7 @@
         double quantity = [[meal objectForKey:@"quantity"] doubleValue];
         int dishID = [[[meal objectForKey:@"dish"] objectForKey:@"id"] integerValue];
         double price = [[[meal objectForKey:@"dish"] objectForKey:@"price"] doubleValue];
-        Dish* pastOrderDish = [[Dish alloc] initWithName:[NSString stringWithFormat:@"%@", [[meal objectForKey:@"dish"] objectForKey:@"name"]] Description:[[NSString alloc] init] Price:price Ratings:-1 ID:dishID categories:nil imgURL:nil pos:-1 startTime:nil endTime:nil quantity:-1];
+        Dish* pastOrderDish = [[Dish alloc] initWithName:[NSString stringWithFormat:@"%@", [[meal objectForKey:@"dish"] objectForKey:@"name"]] Description:[[NSString alloc] init] Price:price Ratings:-1 ID:dishID categories:nil imgURL:nil pos:-1 startTime:nil endTime:nil quantity:-1 canBeCustomized:false customOrderInfo:nil];
         Order* orderContainingThisMeal = [[Order alloc] init];
         for (int i = 0; i < quantity; i++) {
             [orderContainingThisMeal addDish:pastOrderDish];

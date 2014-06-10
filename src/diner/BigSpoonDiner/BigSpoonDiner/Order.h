@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSMutableArray *dishes;
 @property (nonatomic, strong) NSMutableArray *quantity;
 @property (nonatomic, strong) NSMutableDictionary *notes;
+@property (nonatomic, strong) NSMutableDictionary *modifierAnswers;
 
 // Note:
 // In self.dishes, object equlity is NOT assumed, for example:
@@ -31,8 +32,12 @@
 
 - (void) addDish: (Dish *) dish;
 - (void) minusDish: (Dish *) dish;
-- (void) addNote: (NSString*) note forDish: (Dish*) dish;
-- (NSString*) getNoteForDish: (Dish*) dish;
+
+- (void) addNote: (NSString*) note forDishAtIndex: (int) dishIndex;
+- (NSString*) getNoteForDishAtIndex: (int) dishIndex;
+
+- (NSDictionary *) getModifierAnswerAtIndex: (int) index;
+- (void) setModifierAnswer:(NSDictionary *)modifierAnswer atIndex: (int) index;
 
 - (int) getQuantityOfDishByDish: (Dish *) dish;
 - (int) getQuantityOfDishByID: (int) dishID;
@@ -42,9 +47,15 @@
 
 - (void) mergeWithAnotherOrder: (Order *)newOrder;
 
-- (int) getNumberOfKindsOfDishes;
 - (void) incrementDishWithId: (int)dishId;
 - (void) decrementDishWithId: (int)dishId;
+
+- (void) incrementDishAtIndex: (int)dishIndex;
+- (void) decrementDishAtIndex: (int)dishIndex;
+
+- (NSString *) getModifierDetailsTextAtIndex: (int) dishIndex;
+- (NSDictionary *) getMergedTextForNotesAndModifier;
+
 - (void) decrementDishName: (NSString*) dishName;
 - (BOOL) containDessert;
 @end

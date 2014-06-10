@@ -17,22 +17,25 @@
 #import "UIViewController+KeyboardEvents.h"
 #import "TestFlight.h"
 #import "User.h"
+#import "DishModifierSegueDelegate.h"
 #import <Mixpanel.h>
+#import "DishModifierTableViewController.h"
 
 @class ItemsOrderedViewController;
 
 @protocol PlaceOrderDelegate <NSObject>
 
-- (Order *) addDishWithID: (int) dishID;
-- (Order *) minusDishWithID: (int) dishID;
-- (Order *) addNote: (NSString*)note toDish: (Dish *)dish;
+- (Order *) addDishWithIndex: (int) dishIndex;
+- (Order *) minusDishWithIndex: (int) dishIndex;
+- (Order *) addDish: (Dish*) dish;
+- (Order *) addNote: (NSString*)note toDishAtIndex: (int) dishIndex;
 - (void) placeOrderWithNotes: (NSString*)notes;
 - (Order *) getCurrentOrder;
 - (Order *) getPastOrder;
 
 @end
 
-@interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface ItemsOrderedViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, DishModifierSegueDelegate>
 
 @property (nonatomic, weak) id <PlaceOrderDelegate> delegate;
 

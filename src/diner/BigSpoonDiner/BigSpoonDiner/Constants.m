@@ -11,7 +11,7 @@
 @implementation Constants
 
 // Request URLs:
-//#define DEV  0;
+#define DEV  0;
 #ifdef DEV
 NSString* const BASE_URL = @"http://54.255.17.69/";
 NSString* const USER_SIGNUP = @"http://54.255.17.69/api/v1/user";
@@ -27,22 +27,9 @@ NSString* const FEEDBACK_URL = @"http://54.255.17.69/api/v1/review";
 NSString* const DISH_CATEGORY_URL = @"http://54.255.17.69/api/v1/categories";
 NSString* const ORDER_HISTORY_URL = @"http://54.255.17.69/api/v1/mealhistory";
 NSString* const SOCKET_URL = @"54.255.17.69";
+
 #else
-//NSString* const BASE_URL = @"http://54.255.0.38/";
-//NSString* const USER_SIGNUP = @"http://54.255.0.38/api/v1/user";
-//NSString* const USER_LOGIN = @"http://54.255.0.38/api/v1/login";
-//NSString* const USER_LOGIN_WITH_FB = @"http://54.255.0.38/api/v1/fblogin";
-//NSString* const LIST_OUTLETS = @"http://54.255.0.38/api/v1/outlets";
-//NSString* const REQUEST_URL = @"http://54.255.0.38/api/v1/request";
-//NSString* const PROFILE_URL = @"http://54.255.0.38/api/v1/profile";
-//NSString* const ORDER_URL = @"http://54.255.0.38/api/v1/meal";
-//NSString* const BILL_URL = @"http://54.255.0.38/api/v1/askbill";
-//NSString* const RATING_URL = @"http://54.255.0.38/api/v1/rating";
-//NSString* const FEEDBACK_URL = @"http://54.255.0.38/api/v1/review";
-//NSString* const DISH_CATEGORY_URL = @"http://54.255.0.38/api/v1/categories";
-//NSString* const ORDER_HISTORY_URL = @"http://54.255.0.38/api/v1/mealhistory";
-//NSString* const SOCKET_URL = @"54.255.0.38";
-NSString* const BASE_URL = @"http://bigspoon.biz/";
+NSString* const BASE_URL = @"http://bigspoon.biz/"; //NSString* const BASE_URL = @"http://54.255.0.38/";
 NSString* const USER_SIGNUP = @"http://bigspoon.biz/api/v1/user";
 NSString* const USER_LOGIN = @"http://bigspoon.biz/api/v1/login";
 NSString* const USER_LOGIN_WITH_FB = @"http://bigspoon.biz/api/v1/fblogin";
@@ -59,26 +46,6 @@ NSString* const SOCKET_URL = @"bigspoon.biz";
 
 #endif
 
-//#define PROD @"54.255.0.38/"
-//#define DEV @"54.255.17.69/"
-//#define LOCAL @"127.0.0.1/"
-//#define kBASE_URL DEV
-//
-//NSString* const BASE_URL = @"http://" kBASE_URL;
-//NSString* const USER_SIGNUP = @"http://" kBASE_URL @"api/v1/user";
-//NSString* const USER_LOGIN = @"http://" kBASE_URL @"api/v1/login";
-//NSString* const USER_LOGIN_WITH_FB = @"http://" kBASE_URL @"api/v1/fblogin";
-//NSString* const LIST_OUTLETS = @"http://" kBASE_URL @"api/v1/outlets";
-//NSString* const REQUEST_URL = @"http://" kBASE_URL @"api/v1/request";
-//NSString* const PROFILE_URL = @"http://" kBASE_URL @"api/v1/profile";
-//NSString* const ORDER_URL = @"http://" kBASE_URL @"api/v1/meal";
-//NSString* const BILL_URL = @"http://" kBASE_URL @"api/v1/askbill";
-//NSString* const RATING_URL = @"http://" kBASE_URL @"api/v1/rating";
-//NSString* const FEEDBACK_URL = @"http://" kBASE_URL @"api/v1/review";
-//NSString* const DISH_CATEGORY_URL = @"http://" kBASE_URL @"api/v1/categories";
-//NSString* const ORDER_HISTORY_URL = @"http://" kBASE_URL @"api/v1/mealhistory";
-//NSString* const SOCKET_URL = kBASE_URL; // without 'http://' !!
-
 
 NSString* const KEY_FOR_SHOW_TUT_DEFAULT = @"hasShownTutorial";
 int const SOCKET_PORT = 8000;
@@ -92,7 +59,7 @@ int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 900;
 int const CATEGORY_BUTTON_SCROLL_WIDTH = 20;
 int const ITEM_LIST_TABLE_ROW_HEIGHT = 46;
-int const ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED = 86;
+int const ITEM_LIST_ADD_NOTE_TEXT_FIELD_HEIGHT = 40;
 int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT = 44;
 int const ITEM_LIST_TABLE_INITIAL_HEIGHT = 192;
 int const RATING_STAR_WIDTH = 127;
@@ -167,6 +134,9 @@ NSString* const FB_TOKEN_VERIFIED = @"FBTokenIsVerified";
 NSString* const FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
 NSString* const DISH_OVERLAY_NORMAL = @"new_overlay2.png";
 NSString* const DISH_OVERLAY_OUT_OF_STOCK = @"out_of_stock.png";
+NSString* const DISH_MODIFIER_TYPE_COUNT = @"count";
+NSString* const DISH_MODIFIER_TYPE_RADIO = @"radio";
+
 
 // Notification
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";

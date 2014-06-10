@@ -186,7 +186,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("quantity", "dish", "id", "is_finished")
+        fields = ("quantity", "dish", "id", "is_finished", "modifier_json")
 
 
 class MealHistorySerializer(serializers.ModelSerializer):

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Outlet.h"
-#import "URLImageView.h"
 #import "OutletCell.h"
 #import "User.h"
 #import "Constants.h"
@@ -16,7 +15,6 @@
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
 #import "AppDelegate.h"
-#import "ImageCache.h"
 #import "SSKeychain.h"
 #import <Mixpanel.h>
 

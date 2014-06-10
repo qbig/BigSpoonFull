@@ -13,7 +13,7 @@
     int statusCode;
 }
 @property NSMutableDictionary* dishesByCategory;
-
+@property Dish *chosenDish;
 @end
 
 @implementation MenuTableViewController
@@ -76,10 +76,15 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDish) name:NOTIF_ORDER_UPDATE object:nil];
     [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
+    if ([User sharedInstance].updatePending) {
+        [self updateDish];
+        [User sharedInstance].updatePending = NO;
+    }
     [super viewDidAppear:animated];
 }
 
@@ -311,17 +316,22 @@
  }
  */
 
-/*
+
  #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
+
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
  {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+     if ([segue.identifier isEqualToString:@"SegueToAddDishModifier"]) {
+         DishModifierTableViewController *modifierPopup = segue.destinationViewController;
+         modifierPopup.targetingDish = self.chosenDish;
+         modifierPopup.delegate = self;
+         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: nil action: nil];
+         [[self navigationItem] setBackBarButtonItem: newBackButton];
+         
+     } else{
+         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
+     }
  }
- 
- */
 
 - (UIImage *)imageForRating:(int)rating
 {
@@ -353,6 +363,14 @@
     NSMutableDictionary *allCategoriesForCurrentOutlet = [[NSMutableDictionary alloc] init];
     self.dishCategoryArray = [[NSMutableArray alloc] init];
     for (NSDictionary *newDish in dishes) {
+        NSError *error;
+        NSDictionary *customOrderInfoDic;
+        DishModifier *modifier;
+        BOOL canBeCustomized = [[newDish objectForKey:@"can_be_customized"] boolValue];
+        if (canBeCustomized){
+            customOrderInfoDic = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[[newDish objectForKey:@"custom_order_json"] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
+            modifier = [[DishModifier alloc] initWithJsonDictionary:customOrderInfoDic];
+        }
         
         NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
         NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
@@ -410,6 +428,9 @@
                                               startTime:startTime
                                                 endTime:endTime
                                                quantity:quantity
+                                        canBeCustomized:canBeCustomized
+                                        customOrderInfo:modifier
+                               
                                ];
         if ([categories count] > 0) {
             [resultingDishes insertObject:newDishObject atIndex:0];
@@ -596,22 +617,26 @@
 #pragma mark - Event Listeners
 
 - (IBAction)addNewItemButtonClicked:(id)sender {
+    [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     UIButton *btn = (UIButton *)sender;
     int itemID = btn.tag;
-    
-//    NSLog(@"New item added to order list with ID: %d", itemID);
-    
     Dish* clickedDish = [self getDishWithID: itemID];
     
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
-        [self.delegate dishOrdered:clickedDish];
-        [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
+        if(clickedDish.canBeCustomized){
+            self.chosenDish = clickedDish;
+            [self performSegueWithIdentifier:@"SegueToAddDishModifier" sender:self];
+        } else {
+            [self.delegate dishOrdered:clickedDish];
+        }
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed.-> Legal", clickedDish.name]];
         if (self.displayMethod == kMethodList){
             [[Mixpanel sharedInstance] track:@"Added item in list menu"];
         } else {
             [[Mixpanel sharedInstance] track:@"Added item in picture menu"];
         }
     } else if (clickedDish.quantity <= 0){
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed. -> Out of stock", clickedDish.name]];
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Sorry"
                                   message: @"This is out of stock :("
@@ -620,7 +645,7 @@
                                   otherButtonTitles:nil];
         [alertView show];
     } else {
-        
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed. -> Wrong time", clickedDish.name]];
         NSDate* startDate = [self neutrilizedDateFromTimeString:clickedDish.startTime];
         NSDate* endDate = [self neutrilizedDateFromTimeString:clickedDish.endTime];
         
@@ -696,6 +721,13 @@
     }
 }
 
+- (void) updateDish {
+    for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
+        Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
+        [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+    }
+}
+
 - (Dish *) getDishWithID: (int) itemID{
     for (Dish * dish in self.dishesArray) {
         if (dish.ID == itemID) {
@@ -744,5 +776,14 @@
     return 0;
 }
 
+#pragma mark - DishModifierSegueDelegate
+
+- (void) dishModifierPopupDidSaveWithUpdatedModifier:(Dish *)newDishWithModifier {
+    [self.delegate dishOrdered:newDishWithModifier];
+}
+
+- (void) dishModifierPopupDidCancel{
+    
+}
 
 @end

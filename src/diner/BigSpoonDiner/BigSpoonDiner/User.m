@@ -227,7 +227,7 @@
              case 200:
              case 201:{
                  NSDictionary* json = (NSDictionary*)responseObject;
-                 [[NSUserDefaults standardUserDefaults] setObject: json forKey: [NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
+                 //[[NSUserDefaults standardUserDefaults] setObject: json forKey: [NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_RETRIEVED object:json];
              }
                  break;
@@ -316,7 +316,7 @@
     CLLocationDistance distanceFromBusStop = [userLocation distanceFromLocation:pgpBusStopLocation];
     CLLocationDistance distanceFromPgp5 = [userLocation distanceFromLocation:pgp5Location];
     User *user = [User sharedInstance];
-    if (distanceFromBusStop <= radius && distanceFromPgp5 <= radius && ( [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"] || [user.email isEqualToString:@"jay.tjk@gmail.com"])) {
+    if ((distanceFromBusStop <= radius && distanceFromPgp5 <= radius && [user.email isEqualToString:@"qiaoliang89@yahoo.com.cn"]) || [user.email isEqualToString:@"jay.tjk@gmail.com"]) {
         [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Location Check Succeeded: In bound, (dist from pgp bus stop: %g, dist from pgp 5: %g)",distanceFromBusStop, distanceFromPgp5]];
         [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"Actual Postion:(lat: %g, long: %g)",userLocation.coordinate.latitude, userLocation.coordinate.longitude]];
         return true;
@@ -374,7 +374,7 @@
 }
 
 - (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
-    BOOL changed = FALSE;
+    self.updatePending = NO;
     NSDictionary *ordersDict = [json objectForKey:@"orders"];
     User *user = [User sharedInstance];
     Order *updatedOrder = [[Order alloc] init];
@@ -385,20 +385,33 @@
         tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
         tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
         int quantity = [[dict objectForKey:@"quantity"] integerValue];
-        for(int i = 0; i < quantity ;i ++){
-            [updatedOrder addDish:tmpDish];
+        
+        [updatedOrder.dishes addObject:tmpDish];
+        [updatedOrder.quantity addObject:[NSNumber numberWithInt: quantity]];
+        int dishIndex = [updatedOrder.dishes count] - 1 ;
+        Dish *existingPastOrderDish;
+        if(dishIndex <= [self.pastOrder.dishes count] - 1 && [self.pastOrder.dishes count] != 0){
+            existingPastOrderDish = (Dish *) [self.pastOrder.dishes objectAtIndex:dishIndex];
+        } else {
+            self.updatePending = YES;
         }
-        if ([user.pastOrder getQuantityOfDishByID:tmpDish.ID] != quantity){
-            changed = TRUE;
+        
+        if(existingPastOrderDish != nil && (existingPastOrderDish.ID != tmpDish.ID || existingPastOrderDish.quantity != tmpDish.quantity)){
+            self.updatePending = YES;
+        }
+        
+        NSString *modifierStr = [dict objectForKey:@"modifier_json"];
+        if ( ! (modifierStr == (id)[NSNull null] || modifierStr.length == 0 )){
+            NSError* error;
+            NSDictionary *modifierAnswer = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:[modifierStr dataUsingEncoding:NSUTF8StringEncoding ]options:0 error:&error];
+            [updatedOrder setModifierAnswer:modifierAnswer atIndex: dishIndex];
         }
     }
-    if([updatedOrder getTotalPrice] != [user.pastOrder getTotalPrice] || [updatedOrder getTotalQuantity] != [user.pastOrder getTotalQuantity]){
-        changed = TRUE;
-    }
-    if(changed){
+
+    if(self.updatePending){
         user.pastOrder = updatedOrder;
     }
-    return changed;
+    return self.updatePending;
 }
 
 - (void) closeCurrentSession{

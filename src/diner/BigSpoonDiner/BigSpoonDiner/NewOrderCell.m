@@ -35,4 +35,16 @@
     self.orderNote.hidden = NO;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGSize maxSize = CGSizeMake(167.0f, CGFLOAT_MAX);
+    CGSize requiredSize = [self.modifierDetailsLabel sizeThatFits:maxSize];
+    self.modifierDetailsLabel.frame = CGRectMake(self.modifierDetailsLabel.frame.origin.x, self.modifierDetailsLabel.frame.origin.y, requiredSize.width, requiredSize.height);
+    
+    self.requiredCellHeight = 15.0f + 3.0f + 7.0f + 30.0f;
+    self.requiredCellHeight += self.modifierDetailsLabel.frame.size.height;
+}
+
 @end

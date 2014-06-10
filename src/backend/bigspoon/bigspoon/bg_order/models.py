@@ -4,6 +4,8 @@ from django.utils import timezone
 
 from bg_inventory.models import User, Table, Dish
 
+from jsonfield import JSONField
+
 import time
 
 
@@ -209,6 +211,11 @@ class Order(models.Model):
     is_finished = models.BooleanField(
         default=False,
     )
+
+    modifier_json = JSONField(
+        blank=True,
+        null=True,)
+
     note = models.TextField(
         _('note'),
         blank=True,

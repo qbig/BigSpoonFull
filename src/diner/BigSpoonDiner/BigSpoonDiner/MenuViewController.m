@@ -56,22 +56,27 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Record the frame of badge
     oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
     self.userInfo = [User sharedInstance];
+    
     // Set the Outlet Name to be the title
     [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-    // If the ordered items are null, init them.
-    // If not, update the badge.
-    if ([self.userInfo.currentOrder getTotalQuantity] + [self.userInfo.pastOrder getTotalQuantity] == 0) {
+
+    // update the badge.
+    if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
         self.userInfo.currentOrder = [[Order alloc]init];
-        self.userInfo.pastOrder = [[Order alloc]init];
-    } else{
+    } else {
         [self updateItemQuantityBadge];
     }
-    
+    if ([self.userInfo.pastOrder getTotalQuantity] == 0){
+        self.userInfo.pastOrder = [[Order alloc]init];
+    }
+
     [self loadControlPanels];
+
 }
 
 -(void) viewWillAppear:(BOOL)animated {
@@ -622,7 +627,10 @@
 }
 
 - (void) dishOrdered:(Dish *)dish{
+    int initialQuantity = [self.userInfo.currentOrder getTotalQuantity];
     [self.userInfo.currentOrder addDish:dish];
+    int updatedQuantity = [self.userInfo.currentOrder getTotalQuantity];
+    [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"increasing order from %d to %d", initialQuantity, updatedQuantity]];
     [self updateItemQuantityBadge];
 }
 
@@ -634,7 +642,6 @@
 - (void) updateItemQuantityBadge{
     
     int totalQuantity = [self.userInfo.currentOrder getTotalQuantity];
-    
     if (totalQuantity == 0) {
         [self.itemQuantityLabel setHidden:YES];
         [self.itemQuantityLabelBackgroundImageView setHidden:YES];
@@ -665,25 +672,32 @@
     [self toggleDisplayModeAndReloadData];
 }
 
-// PlaceOrderDelegate:
-- (Order *) addDishWithID: (int) dishID{
-    // require: in item page
+#pragma mac PlaceOrderDelegate:
+
+- (Order *) addDishWithIndex: (int) dishIndex {
+    // require: dish already in order
     
-    [self.userInfo.currentOrder incrementDishWithId:dishID];
+    [self.userInfo.currentOrder incrementDishAtIndex:dishIndex];
+    [self updateItemQuantityBadge];
+    return self.userInfo.currentOrder;
+}
+- (Order *) minusDishWithIndex: (int) dishIndex {
+    // require: dish already in order
+    
+    [self.userInfo.currentOrder decrementDishAtIndex:dishIndex];
     [self updateItemQuantityBadge];
     return self.userInfo.currentOrder;
 }
 
-- (Order *) minusDishWithID: (int) dishID{
-    // require: in item page
-    
-    [self.userInfo.currentOrder decrementDishWithId:dishID];
+-(Order *) addDish:(Dish *)dish {
+    [self.userInfo.currentOrder addDish:dish];
     [self updateItemQuantityBadge];
     return self.userInfo.currentOrder;
 }
 
-- (Order *) addNote: (NSString*)note toDish: (Dish *)dish {
-    [self.userInfo.currentOrder addNote:note forDish:dish];
+
+- (Order *) addNote: (NSString*)note toDishAtIndex: (int) dishIndex {
+    [self.userInfo.currentOrder addNote:note forDishAtIndex:dishIndex];
     return self.userInfo.currentOrder;
 }
 
@@ -811,8 +825,12 @@
         [parameters setObject:generalNote forKey:@"note"];
     }
     
-    if (self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) {
-        [parameters setObject:self.userInfo.currentOrder.notes forKey:@"notes"];
+    if ((self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) || [self.userInfo.currentOrder.modifierAnswers count] > 0) {
+        [parameters setObject:[self.userInfo.currentOrder getMergedTextForNotesAndModifier] forKey:@"notes"];
+    }
+    
+    if (self.userInfo.currentOrder.modifierAnswers != nil && [self.userInfo.currentOrder.modifierAnswers count] != 0){
+        [parameters setObject:self.userInfo.currentOrder.modifierAnswers forKey:@"modifiers"];
     }
 
     User *user = [User sharedInstance];

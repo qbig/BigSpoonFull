@@ -125,32 +125,8 @@
     
 
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
-    // If the cells are not sub-classes, we can use tags to retrieve the element in the cell:
-	//UILabel *nameLabel = (UILabel *)[cell viewWithTag:101];
     
-    // For optimization purpose:
-    // URLImageView *imageView = [[URLImageView alloc] init];
-    // [imageView startLoading: [outlet.imgURL absoluteString]];
-    
-    UIImage *image;
-    
-    // Without cache: [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: [outlet.imgURL absoluteString]]]];
-    
-    if ([[ImageCache sharedImageCache] doesExist:outlet.imgURL] == true){
-        
-        image = [[ImageCache sharedImageCache] getImage:outlet.imgURL];
-    
-    } else {
-        
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL: outlet.imgURL];
-        image = [[UIImage alloc] initWithData:imageData];
-        
-        // Add the image to the cache
-        [[ImageCache sharedImageCache] addImageWithURL:outlet.imgURL andImage:image];
-    }
-
-    cell.outletPhoto.image = image;
-    
+    [cell.outletPhoto setImageWithContentsOfURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
 	cell.name.text = outlet.name;
     
 	cell.address.text = outlet.address;

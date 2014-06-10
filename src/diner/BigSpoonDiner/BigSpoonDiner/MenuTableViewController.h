@@ -18,6 +18,9 @@
 #import "User.h"
 #import "UILabel+Alignment.h"
 #import "TestFlight.h"
+#import "DishModifier.h"
+#import "DishModifierSegueDelegate.h"
+#import "DishModifierTableViewController.h"
 
 enum DishDisplayMethod : NSUInteger {
     kMethodList = 1,
@@ -35,7 +38,7 @@ enum DishDisplayMethod : NSUInteger {
 - (void)displayModeDidChange;
 @end
 
-@interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MenuTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DishModifierSegueDelegate>
 
 @property (nonatomic, strong) NSMutableArray *dishesArray;
 @property (nonatomic, strong) NSMutableArray *dishCategoryArray;

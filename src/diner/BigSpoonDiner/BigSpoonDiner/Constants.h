@@ -38,7 +38,7 @@ extern int const ITEM_LIST_SCROLL_WIDTH;
 extern int const ITEM_LIST_SCROLL_HEIGHT;
 extern int const CATEGORY_BUTTON_SCROLL_WIDTH;
 extern int const ITEM_LIST_TABLE_ROW_HEIGHT;
-extern int const ITEM_LIST_TABLE_ROW_HEIGHT_EXPANDED;
+extern int const ITEM_LIST_ADD_NOTE_TEXT_FIELD_HEIGHT;
 extern int const ORDERED_ITEM_LIST_TABLE_ROW_HEIGHT;
 extern int const ITEM_LIST_TABLE_INITIAL_HEIGHT;
 extern int const RATING_STAR_WIDTH;
@@ -104,6 +104,8 @@ extern NSString* const FB_TOKEN_VERIFIED;
 extern NSString* const FEEDBACK_TEXT_PLACEHOLDER;
 extern NSString* const DISH_OVERLAY_NORMAL;
 extern NSString* const DISH_OVERLAY_OUT_OF_STOCK;
+extern NSString* const DISH_MODIFIER_TYPE_COUNT;
+extern NSString* const DISH_MODIFIER_TYPE_RADIO;
 
 // Notification Name
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;
