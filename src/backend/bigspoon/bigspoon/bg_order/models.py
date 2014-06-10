@@ -208,7 +208,12 @@ class Order(models.Model):
         default=0,
         help_text=_('number of dishes ordered'),
     )
+
     is_finished = models.BooleanField(
+        default=False,
+    )
+
+    has_been_sent_to_POS = models.BooleanField(
         default=False,
     )
 

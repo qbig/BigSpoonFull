@@ -376,6 +376,10 @@ class Outlet(models.Model):
         default=False,
     )
 
+    is_auto_send_to_POS = models.BooleanField(
+        default=False,
+    )
+
     request_for_water_enabled = models.BooleanField(
         default=False,
     )
