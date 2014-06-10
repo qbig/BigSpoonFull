@@ -464,6 +464,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
                 order.is_finished = True
                 order.has_been_sent_to_POS = True
                 order.meal.status = 1
+                order.meal.save()
                 order.save()
 
         except Order.DoesNotExist:
@@ -472,7 +473,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
 
         outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
         send_socketio_message(
-            [outlet_id],
+            [int(outlet_id)],
             ['refresh', 'meal', 'new']
         )
         return Response({"success": 1, }, status=status.HTTP_201_CREATED)
