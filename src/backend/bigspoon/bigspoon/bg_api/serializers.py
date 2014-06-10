@@ -189,6 +189,35 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ("quantity", "dish", "id", "is_finished", "modifier_json")
 
 
+class CurrentMealSerializer(serializers.ModelSerializer):
+    orders = serializers.SerializerMethodField('get_orders')
+    outlet = serializers.SerializerMethodField('get_outlet')
+    order_time = serializers.SerializerMethodField('get_order_time')
+
+    def get_orders(self, obj):
+        if obj.table.outlet.is_auto_send_to_POS:
+            return OrderSerializer(obj.orders.filter(has_been_sent_to_POS=False), many=True).data
+        else :
+            return OrderSerializer(obj.orders.filter(has_been_sent_to_POS=False, is_finished=True), many=True).data
+
+    def get_order_time(self, obj):
+        now = timezone.now()
+        return "%s (%d days ago)" % (
+            obj.bill_time.date().strftime("%Y/%m/%d"),
+            (now.date() - obj.bill_time.date()).days)
+
+    def get_outlet(self, obj):
+        return {
+            "id": obj.table.outlet.id,
+            "name": obj.table.outlet.name,
+            "table_id": obj.table.id,
+            "table_name": obj.table.name,
+        }
+
+    class Meta:
+        model = Meal
+        fields = ("outlet", "order_time", "note", "orders")
+
 class MealHistorySerializer(serializers.ModelSerializer):
     orders = OrderSerializer(many=True)
     outlet = serializers.SerializerMethodField('get_outlet')

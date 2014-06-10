@@ -23,7 +23,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
     SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer, \
-    FBSerializer, OutletTableSerializer, OrderSerializer
+    FBSerializer, OutletTableSerializer, OrderSerializer, CurrentMealSerializer
 
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
@@ -271,7 +271,7 @@ class UpdateNewOrderForMeal(generics.CreateAPIView):
 
 class UpdateTableForMeal(generics.CreateAPIView):
     """
-    Modify table for a meal record
+    Swapping meals record of two tables
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -311,7 +311,7 @@ class UpdateTableForMeal(generics.CreateAPIView):
 
 class UpdateTableForMealForSingleDiner(generics.CreateAPIView):
     """
-    Modify table for a meal record
+    Modify table for a single meal record
     """
     authentication_classes = (SessionAuthentication, TokenAuthentication)
     permission_classes = (DjangoObjectPermissions,)
@@ -446,6 +446,39 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         except Meal.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+
+class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
+    """
+    Create new meal
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = CurrentMealSerializer
+    model = Meal
+
+    def post(self, request, *args, **kwargs):
+        outlet_id = request.DATA['outlet_id']
+        try:
+            outlet = Outlet.objects.get(id=int(outlet_id))
+        except Table.DoesNotExist:
+            return Response({"error": "Unknown outlet id " + str(outlet_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        send_socketio_message(
+            [table.outlet.id],
+            ['refresh', 'meal', 'new']
+        )
+        return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
+    
+    def get_queryset(self):
+        outlet_id = self.request.DATA['outlet_id']
+        outlet = Outlet.objects.get(id=int(outlet_id))
+        
+        return Meal.objects.filter(
+            table__in=outlet.tables,
+            is_paid=False
+        )
+        
 
 class MealDetail(generics.RetrieveAPIView):
     """
