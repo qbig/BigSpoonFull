@@ -471,7 +471,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
     
     def get_queryset(self):
-        outlet_id = self.request.DATA['outlet_id']
+        outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
         outlet = Outlet.objects.get(id=int(outlet_id))
         
         return Meal.objects.filter(
