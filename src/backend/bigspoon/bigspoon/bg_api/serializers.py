@@ -201,10 +201,8 @@ class CurrentMealSerializer(serializers.ModelSerializer):
             return OrderSerializer(obj.orders.filter(has_been_sent_to_POS=False, is_finished=True), many=True).data
 
     def get_order_time(self, obj):
-        now = timezone.now()
-        return "%s (%d days ago)" % (
-            obj.bill_time.date().strftime("%Y/%m/%d"),
-            (now.date() - obj.bill_time.date()).days)
+        return "%s " % (
+            obj.get_created())
 
     def get_outlet(self, obj):
         return {
