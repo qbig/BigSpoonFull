@@ -44,9 +44,6 @@
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate connectSocket];
     
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-    [self.view addSubview: self.activityIndicator];
-    self.activityIndicator.center = self.view.center;
     [self showLoadingIndicators];
     
     
@@ -58,18 +55,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
-
-- (void)initActivityIndicator
-{
-    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-    indicator.center = self.view.center;
-    [self.view addSubview:indicator];
-    [indicator bringSubviewToFront:self.view];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-}
-
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -428,16 +413,25 @@
 }
 
 #pragma mark Show and hide indicators
+- (void)initActivityIndicator
+{
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+}
 
 - (void) showLoadingIndicators{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    [self.activityIndicator startAnimating];
+    [indicator startAnimating];
     [self.tableView setUserInteractionEnabled:NO];
 }
 
 - (void) stopLoadingIndicators{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
-    [self.activityIndicator stopAnimating];
+    [indicator stopAnimating];
     [self.tableView setUserInteractionEnabled:YES];
 }
 

@@ -29,9 +29,6 @@
 @property (nonatomic) int outletIDOfPreviousSelection;
 @property (nonatomic) int tableIDOfPreviousSelection;
 
-
-
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 - (IBAction)logoutButtonPressed:(id)sender;
 
 

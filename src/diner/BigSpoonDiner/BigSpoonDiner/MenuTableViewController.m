@@ -11,6 +11,7 @@
 @interface MenuTableViewController (){
     NSMutableData *_responseData;
     int statusCode;
+    UIActivityIndicatorView *indicator;
 }
 @property NSMutableDictionary* dishesByCategory;
 @property Dish *chosenDish;
@@ -37,6 +38,7 @@
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
     // By default:
     self.displayMethod = kMethodPhoto;
+    [self initActivityIndicator];
     
     // Set the table view to be the same height as the screen:
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -65,18 +67,19 @@
                                           screenRect.size.height - IPHONE_35_INCH_TABLE_VIEW_OFFSET);
     }
     
-//    self.tableView.frame = CGRectMake(frame.origin.x,
-//                                      frame.origin.y,
-//                                      frame.size.width,
-//                                      screenRect.size.height - 130);
-
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDish) name:NOTIF_ORDER_UPDATE object:nil];
+    if(self.jsonForDishesTablesAndCategories){
+        [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDishAndCateLoading:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+        [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: self.outlet.outletID];
+        [self showLoadingIndicators];
+    }
+}
+
+- (void) handleDishAndCateLoading: (NSNotification*) notif{
+    [self stopLoadingIndicators];
+    self.jsonForDishesTablesAndCategories = (NSDictionary* )[notif object];
     [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
@@ -785,5 +788,29 @@
 - (void) dishModifierPopupDidCancel{
     
 }
+
+#pragma mark Show and hide indicators
+- (void)initActivityIndicator
+{
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+    indicator.center = self.view.center;
+    [self.view addSubview:indicator];
+    [indicator bringSubviewToFront:self.view];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+}
+
+- (void) showLoadingIndicators{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
+    [indicator startAnimating];
+    [self.tableView setUserInteractionEnabled:NO];
+}
+
+- (void) stopLoadingIndicators{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
+    [indicator stopAnimating];
+    [self.tableView setUserInteractionEnabled:YES];
+}
+
 
 @end
