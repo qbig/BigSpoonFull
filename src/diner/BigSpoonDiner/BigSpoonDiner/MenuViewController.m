@@ -146,16 +146,12 @@
             message = @"You have unorderd and unpaid items. You can come back later";
         }
         
-        // If the user has selected/ordered anything:
-        if (![message isEqualToString:@""]) {
-            
-            [self.delegate exitMenuListWithCurrentOrder:self.userInfo.currentOrder
-                                              PastOrder:self.userInfo.pastOrder
-                                               OutletID:self.outlet.outletID
-                                             andTableID:[User sharedInstance].tableID
-                                             andMessage:message];
-            
-        }
+        
+        [self.delegate exitMenuListWithCurrentOrder:self.userInfo.currentOrder
+                                          PastOrder:self.userInfo.pastOrder
+                                           OutletID:self.outlet.outletID
+                                         andTableID:[User sharedInstance].tableID
+                                         andMessage:message];   
     }
     
     [super viewWillDisappear:animated];
