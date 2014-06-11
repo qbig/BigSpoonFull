@@ -9,6 +9,10 @@ $(document).ready(function() {
     window.selected_userId;
     window.order_quant_before_change;
     window.is_in_popup = false;
+    
+
+    // ==========  behavior  ========= 
+    // if idle time is more than 2 mins, go back to "New Order" page
 
     window.idleTime = 0;
     window.timerIncrement = function () {
@@ -27,11 +31,17 @@ $(document).ready(function() {
         window.idleTime = 0;
     });
 
+    
+    // ==========  behavior  ========= 
+    // Stop opening a new page when using as a web app on ipad
     $(document).on("click", "a.main-nav, a.add", function(event){
         event.preventDefault();
         window.location = $(this).attr("href");
     });
 
+
+    // ==========  behavior  ========= 
+    // Reload page after sound file is loaded
     var sound = new Howl({
         urls: [media_url + 'sounds/notification.mp3']
     });
@@ -42,12 +52,17 @@ $(document).ready(function() {
         }
     });
 
+    // ==========  render  ========= 
+    // Red notification icon
     function getNotification(number){
         if(!number){
             return "<p class='notification'><span><i class='icon-bell'> New</i></span></p>";
         }
         return "<p class='notification'><span><i class='icon-bell'> " + number + "</i></span></p>";
     }
+
+    // ==========  behavior  ========= 
+    // Playing the alert sound every two minutes, when there is a notification icon
 
     function showNotification(number) {
         $("nav ul li:first-child a p").remove();
@@ -58,6 +73,8 @@ $(document).ready(function() {
         }, 120000);
     }
 
+    // ==========  behavior  ========= 
+    // After playing sound, reload the page
     function showNotificationReload(number) {
         $("nav ul li:first-child a p").remove();
         $("nav ul li:first-child a").append(getNotification(number));
@@ -67,36 +84,14 @@ $(document).ready(function() {
         }, 1500);
     }
 
-    function handleRefresh(data, path){        
-        if (data[1] == "request" || data[1] == "meal") {
-            if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
-                if (data[2] == "new" || data[2] == "askbill") {
-                    showNotificationReload();
-                } else {
-                    location.reload(true);
-                }
-            }
-            
-            if (data[2] == "new" || data[2] == "askbill") {
-                showNotification();
-            }
+    // ==========  behavior  ========= 
+    // Show notification if cards exist
+    if ( cards_num > 0) {
+        showNotification(cards_num);
+    }
 
-        } else if (data[1] == "menu") {
-            if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
-                location.reload(true);
-            }
-        } else {
-                        // other instructions
-                    }
-                    if (timeout_obj) {
-                        clearTimeout(timeout_obj);
-                    }
-                }
 
-                if ( cards_num > 0) {
-                    showNotification(cards_num);
-                }
-
+    // ==========  Menu page specific  ========= 
     // time picker
     $('input.ui-timepicker-input').timepicker({
         'timeFormat': 'H:i:s',
@@ -145,30 +140,6 @@ $(document).ready(function() {
         });
     });
 
-    var filterTable = function() {
-        var table = $(this).val();
-        if (table == "Occupied Tables"){
-            $('.table').hide()
-            .each(function() {
-                var currentTable = $(this);
-                if(currentTable.find('.active').size() >= 1) {
-                    currentTable.show();
-                }
-            });
-        } else if (table == "All Tables") {
-            $('.table').show();
-        } else {
-            $('.table').hide()
-            .each(function() {
-                if($(this).find('h3').text() == table) {
-                    $(this).show();
-                }
-            });
-        }
-    };
-    
-    $('#pick-table select').on("change", filterTable);
-
     // Menu update page collapsibles
     $('#accordion').accordion({
         collapsible:true,
@@ -205,11 +176,6 @@ $(document).ready(function() {
         }
     });
 
-    // Dismiss tutorial messages
-    $(".help").click(function(){
-        $(this).hide();
-    });
-
     // Toggle accordion icons
     $("#accordion h3").click(function(){
         var icon = $(this).find("i");
@@ -220,7 +186,40 @@ $(document).ready(function() {
         }
     });
 
-    // for socket io
+    // ==========  Table page specific  ========= 
+    var filterTable = function() {
+        var table = $(this).val();
+        if (table == "Occupied Tables"){
+            $('.table').hide()
+            .each(function() {
+                var currentTable = $(this);
+                if(currentTable.find('.active').size() >= 1) {
+                    currentTable.show();
+                }
+            });
+        } else if (table == "All Tables") {
+            $('.table').show();
+        } else {
+            $('.table').hide()
+            .each(function() {
+                if($(this).find('h3').text() == table) {
+                    $(this).show();
+                }
+            });
+        }
+    };
+
+    $('#pick-table select').on("change", filterTable);
+
+    // ==========  behavior  ========= 
+    // Dismiss tutorial messages
+    $(".help").click(function(){
+        $(this).hide();
+    });
+
+
+    // ==========  SocketIO  ========= 
+    // defining the affected pages of socketIo message
     var STAFF_MEAL_PAGES = {
         "new": ['/staff/main/'],
         "ack": ['/staff/main/', '/staff/history/', '/staff/tables/'],
@@ -228,6 +227,8 @@ $(document).ready(function() {
         "closebill": ['/staff/main/', '/staff/report/', '/staff/tables/', '/staff/history/'],
     };
     var STAFF_MENU_PAGES = ['/staff/menu/'];
+    
+    // init SocketIO connection
     var details = {
       'reconnect': true,
       'reconnection delay': 500,
@@ -235,11 +236,47 @@ $(document).ready(function() {
     };
     if (host.indexOf("8000") !== -1) {
         socket = io.connect(host, details);
-    }
-    else {
+    } else {
         socket = io.connect(host+":8000", details);
     }
 
+    // handle Socketio message, which could come in the following formats:
+    // ['refresh', 'meal', 'new']
+    // ['refresh', 'meal', 'askbill']
+    // ['refresh', 'meal', 'closebill']
+    // ['refresh', 'meal', 'ack']
+    // ['refresh', 'request', 'new']
+    // ['refresh', 'request', 'ack']
+    // ['refresh', 'menu', 'add']
+
+    function handleRefresh(data, path){        
+        if (data[1] == "request" || data[1] == "meal") {
+            if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
+                if (data[2] == "new" || data[2] == "askbill") {
+                    showNotificationReload();
+                } else {
+                    location.reload(true);
+                }
+            }
+            
+            if (data[2] == "new" || data[2] == "askbill") {
+                showNotification();
+            }
+
+        } else if (data[1] == "menu") {
+            if ($.inArray(path, STAFF_MENU_PAGES) != -1) {
+                location.reload(true);
+            }
+        } else {
+            // other instructions
+        }
+        
+        if (timeout_obj) {
+            clearTimeout(timeout_obj);
+        }
+    }
+
+    // bind socketIO message to handler
     socket.on("message", function(obj){
         if (obj.message.type == "message") {
             var data = eval(obj.message.data);
@@ -257,17 +294,38 @@ $(document).ready(function() {
         }
     });
 
+    // subsribe to socketIO channels
     if (outlet_ids !== null) {
         for (var i = 0, len = outlet_ids.length; i < len; i++) {
             socket.send("subscribe:" + outlet_ids[i]);
         }
     }
 
+    // ==========  behavior  ========= 
     // for masonry
     $("#main .wrapper").masonry({
         resizeable: true,
         itemSelector: '.item',
         columnWidth: 15,
+    });
+
+    // ==========  behavior  ========= 
+    // count down effects for cards
+    $('.countdown').each(function() {
+        var card = $(this);
+        var start_time = card.attr("start");
+        setInterval(function () {
+
+            var seconds_left = (new Date() - new Date(Number(start_time))) / 1000;
+
+            // console.log(seconds_left);
+            var minutes = parseInt(seconds_left / 60, 10);
+            var seconds = parseInt(seconds_left % 60, 10);
+
+            // format countdown string + set tag value
+            card.html('<i class="icon-time"></i> waited ' + minutes + " m, " + seconds + " s");
+
+        }, 1000);
     });
 
     // for request and order ack
@@ -286,6 +344,8 @@ $(document).ready(function() {
 
     window.csrftoken = $.cookie('csrftoken');
 
+    // ==========  behavior  ========= 
+    // in profile popup: save note
     window.saveNote = function(elem){
         var button = $(elem);
         var user = button.attr('user');
@@ -324,6 +384,7 @@ $(document).ready(function() {
         return errorMessage;
     }
 
+    // Menu page specific
     // Makes AJAX call to update dish API endpoint
     window.updateDish = function(event, elem){
         event.preventDefault();
@@ -371,6 +432,7 @@ $(document).ready(function() {
 
     };
 
+    // ==========  behavior  ========= 
     // after change table in bulk, need to bind the popup event again
     function bind_popup(){
         // for User profile pop up
@@ -418,6 +480,8 @@ $(document).ready(function() {
     }
     bind_popup();
 
+    // ==========  behavior  ========= 
+    // Ajax call for "acknowledge" cards
     $('.ack-button').each(function() {
         var button = $(this);
         var type = button.attr('rel');
@@ -440,35 +504,19 @@ $(document).ready(function() {
             });
     });
 
-
-    // for countdown
-    $('.countdown').each(function() {
-        var card = $(this);
-        var start_time = card.attr("start");
-        setInterval(function () {
-
-            var seconds_left = (new Date() - new Date(Number(start_time))) / 1000;
-
-            // console.log(seconds_left);
-            var minutes = parseInt(seconds_left / 60, 10);
-            var seconds = parseInt(seconds_left % 60, 10);
-
-            // format countdown string + set tag value
-            card.html('<i class="icon-time"></i> waited ' + minutes + " m, " + seconds + " s");
-
-        }, 1000);
-    });
-
+    // ==========  behavior  ========= 
+    // Changing tables
     $('.pageDropdownChangeTable').click(function(){
         is_in_popup = false;
     });
-
+    // Change table in page
     $('.tableDropdown').click(function(){
         var self = $(this);
         window.transfer_from_table = self.attr("data-tableId");
         console.log(transfer_from_table);
     });
 
+    // Change table in pop
     window.setOriginTable = function (object){
         var self = $(object);
         window.selected_userId = self.attr("data-userId");
@@ -476,6 +524,50 @@ $(document).ready(function() {
         window.transfer_from_table = table_title.attr("data-tableId");
     };
 
+    // Change table in pop
+    $('.targetTable').click(function() {
+        var self = $(this);
+        targetTableId = self.attr("data-toTableId");
+        var from_table_obj = $("#table-"+window.transfer_from_table);
+        var to_table_obj = $("#table-" + targetTableId);
+        var content_from_table = from_table_obj.html();
+        var content_target_table = to_table_obj.html();
+        var req_data = {
+            "csrfmiddlewaretoken":csrftoken,
+            "from_table" : window.transfer_from_table,
+            "to_table" : targetTableId,
+        };
+
+        if(!is_in_popup){
+            $.post(
+                STAFF_API_URLS["table"],
+                req_data
+            ).done(function(data) {
+                from_table_obj.html(content_target_table);
+                to_table_obj.html(content_from_table);
+                bind_popup();
+            }).fail(function(data) {
+                console.log("table transfer fail");
+            });
+        } else {
+            req_data["diner_id"] = window.selected_userId;
+            $.post(
+                STAFF_API_URLS["table-single"],
+                req_data
+            ).done(function(data) {
+                var card = $("#card-" + selected_userId);
+                var cur_table = $("#popup-table-" + selected_userId);
+                cur_table.html("Table " + $.trim(self.html()).substring(9));
+                cur_table.attr("data-tableId", targetTableId);
+                $(".user-"+selected_userId).html($.trim(self.html()).substring(9));
+                card.appendTo("#table-" + targetTableId);
+            }).fail(function(data) {
+                console.log("table transfer fail");
+            });
+        }
+    });
+
+    // Add new dish in popup
     window.startToSelectDishForNewOrder = function(object){
         var self = $(object);
         self.parent("div").find("input").toggle();
@@ -555,49 +647,7 @@ $(document).ready(function() {
         window.chosenDishId = chosenDish.attr("data-dishId");
     };
 
-    $('.targetTable').click(function() {
-        var self = $(this);
-        targetTableId = self.attr("data-toTableId");
-        var from_table_obj = $("#table-"+window.transfer_from_table);
-        var to_table_obj = $("#table-" + targetTableId);
-        var content_from_table = from_table_obj.html();
-        var content_target_table = to_table_obj.html();
-        var req_data = {
-            "csrfmiddlewaretoken":csrftoken,
-            "from_table" : window.transfer_from_table,
-            "to_table" : targetTableId,
-        };
-
-        if(!is_in_popup){
-            $.post(
-                STAFF_API_URLS["table"],
-                req_data
-            ).done(function(data) {
-                from_table_obj.html(content_target_table);
-                to_table_obj.html(content_from_table);
-                bind_popup();
-            }).fail(function(data) {
-                console.log("table transfer fail");
-            });
-        } else {
-            req_data["diner_id"] = window.selected_userId;
-            $.post(
-                STAFF_API_URLS["table-single"],
-                req_data
-            ).done(function(data) {
-                var card = $("#card-" + selected_userId);
-                var cur_table = $("#popup-table-" + selected_userId);
-                cur_table.html("Table " + $.trim(self.html()).substring(9));
-                cur_table.attr("data-tableId", targetTableId);
-                $(".user-"+selected_userId).html($.trim(self.html()).substring(9));
-                card.appendTo("#table-" + targetTableId);
-            }).fail(function(data) {
-                console.log("table transfer fail");
-            });
-        }
-    });
-
-    //for cancel an order 
+    //for cancel an order in popup
     window.incrementQuantityForOrder = function (object) {
         var plus_icon_clicked = $(object);
         var order_id = plus_icon_clicked.attr("data-orderId");
