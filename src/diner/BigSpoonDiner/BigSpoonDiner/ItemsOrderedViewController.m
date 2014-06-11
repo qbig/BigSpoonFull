@@ -411,11 +411,11 @@
     
     float serviceCharge = subTotal * serviceChargeRate;
     serviceChargeTitleLabel.text = [NSString stringWithFormat:@"Service Charge (%.0f%%):", serviceChargeRate * 100];
-    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceChargeRate];
+    serviceChargeLabel.text = [NSString stringWithFormat:@"$%.2f", serviceCharge];
  
     float GST = subTotal * GSTRate;
     GSTTitleLabel.text = [NSString stringWithFormat:@"GST (%.0f%%):", GSTRate * 100];
-    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GSTRate];
+    GSTLabel.text = [NSString stringWithFormat:@"$%.2f", GST];
     
     float total = subTotal + serviceCharge + GST;
     totalLabel.text = [NSString stringWithFormat:@"$%.2f", total];
