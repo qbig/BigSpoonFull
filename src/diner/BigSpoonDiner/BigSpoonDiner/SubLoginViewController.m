@@ -31,6 +31,10 @@
     [super viewDidLoad];
     [self.loginLabel setFont: [UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:20]];
     [self.backButton.titleLabel setFont:[UIFont fontWithName:@"copyfonts.com_segoe_ui_light" size:15]];
+    NSString *previousEmail = [[NSUserDefaults standardUserDefaults] objectForKey:PREVIOUS_LOGIN_EMAIL];
+    if (previousEmail != nil) {
+        self.emailTextField.text = previousEmail;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -189,7 +193,7 @@
                 
                 // 200 Okay
             case 200:{
-                
+                [[NSUserDefaults standardUserDefaults] setObject:self.emailTextField.text forKey:PREVIOUS_LOGIN_EMAIL];
                 [self setUserDataAndPrefsWithReturnedData:json];
                 
                 [self performSegueWithIdentifier:@"segueLoginWithEmail" sender:self];

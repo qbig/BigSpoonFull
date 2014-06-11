@@ -36,7 +36,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self populateUserDetails];
     
     // set background color
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -52,7 +51,6 @@
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateUserDetails) name:FB_SESSION_IS_OPEN object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
 }
 
@@ -296,25 +294,6 @@
 }
 
 #pragma mark fb
-
-- (void)populateUserDetails
-{
-    if (FBSession.activeSession.isOpen) {
-        [[Mixpanel sharedInstance] track:@"signup with fb"];
-        [[FBRequest requestForMe] startWithCompletionHandler:
-         ^(FBRequestConnection *connection,
-           NSDictionary<FBGraphUser> *user,
-           NSError *error) {
-             if (!error) {
-                 self.firstNameLabel.text = user.first_name;
-                 self.emailAddressLabel.text = [user objectForKey:@"email"];
-                 self.facebookUserName = user.username;
-             }
-         }];
-    } else{
-        NSLog(@"User is not logged in with Facebook");
-    }
-}
 
 - (void)proceedToOutletView{
     [self stopLoadingIndicators];

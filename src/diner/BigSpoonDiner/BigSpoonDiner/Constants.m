@@ -116,6 +116,7 @@ NSString* const EMAIL_USER_INFO_KEY = @"email";
 NSString* const FIRSTNAME_USER_INFO_KEY = @"firstName";
 NSString* const LASTNAME_USER_INFO_KEY = @"lastName";
 NSString* const PROFILE_PHOTO_URL_USER_INFO_KEY = @"profilePhotoURL";
+NSString* const PREVIOUS_LOGIN_EMAIL=@"previousLoginEmail";
 
 
 // SocketIO Message Token:

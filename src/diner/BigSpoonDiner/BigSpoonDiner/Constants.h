@@ -121,4 +121,5 @@ extern NSString* const EMAIL_USER_INFO_KEY;
 extern NSString* const FIRSTNAME_USER_INFO_KEY;
 extern NSString* const LASTNAME_USER_INFO_KEY;
 extern NSString* const PROFILE_PHOTO_URL_USER_INFO_KEY;
+extern NSString* const PREVIOUS_LOGIN_EMAIL;
 @end
