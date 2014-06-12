@@ -376,7 +376,9 @@
 - (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
     self.updatePending = NO;
     NSDictionary *ordersDict = [json objectForKey:@"orders"];
+    NSDictionary *outletInfo = [json objectForKey:@"outlet"];
     User *user = [User sharedInstance];
+    user.currentOutletID = [[outletInfo objectForKey:@"id"] intValue];
     Order *updatedOrder = [[Order alloc] init];
     for(NSDictionary * dict in ordersDict){
         NSDictionary* dishDic = [dict objectForKey:@"dish"];

@@ -84,10 +84,7 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    if ([User sharedInstance].updatePending && self) {
-        [self updateDish];
-        [User sharedInstance].updatePending = NO;
-    }
+    [self updateDish];
     [super viewDidAppear:animated];
 }
 
@@ -725,9 +722,13 @@
 }
 
 - (void) updateDish {
-    for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
-        Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
-        [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+    if ([User sharedInstance].updatePending && self.outlet.outletID == [User sharedInstance].currentOutletID) {
+        for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
+            Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
+            [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+        }
+        
+        [User sharedInstance].updatePending = NO;
     }
 }
 
