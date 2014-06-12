@@ -32,6 +32,7 @@ enum DishDisplayMethod : NSUInteger {
 @protocol OrderDishDelegate <NSObject>
 - (void)dishOrdered: (Dish *)dish;
 - (void)setValidTableIDs: (NSDictionary *)validTableIDs;
+- (void)updateCounter;
 @end
 
 @protocol MenuDisplayModeDelegate <NSObject>

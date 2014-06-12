@@ -59,11 +59,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 - (void) viewWillAppear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePriceLabels) name:NOTIF_ORDER_UPDATE object:nil];
     [super viewWillAppear:animated];
     self.userInfo = [User sharedInstance];
+    
     [self updatePriceLabels];
     
     return;

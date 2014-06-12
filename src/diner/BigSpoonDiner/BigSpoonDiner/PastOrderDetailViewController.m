@@ -137,7 +137,7 @@
 - (void)mergeSelectedPastOrderWithCurretOrder {
     Order *pastOrder = [self getFlattenedSelectedPastOrder];
     User *user = [User sharedInstance];
-    if (self.selectedPastOrderOutletId == user.currentOutlet.outletID){
+    if (self.selectedPastOrderOutletId == user.currentLoadedOutlet.outletID){
         [pastOrder mergeWithAnotherOrder:user.currentOrder];
         user.currentOrder = pastOrder;
     } else {

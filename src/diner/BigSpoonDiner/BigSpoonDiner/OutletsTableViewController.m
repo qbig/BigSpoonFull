@@ -341,7 +341,7 @@
 
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
-        [User sharedInstance].currentOutlet = outlet;
+        [User sharedInstance].currentLoadedOutlet = outlet;
         [indicator startAnimating];
     } else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
@@ -445,7 +445,7 @@
     User *user = [User sharedInstance];
     user.pastOrder = nil;
     user.currentOrder = nil;
-    user.currentOutlet = nil;
+    user.currentLoadedOutlet = nil;
     user.validTableIDs = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
     

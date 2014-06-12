@@ -10,7 +10,7 @@
 #import "SSKeychain.h"
 
 @implementation User
-@synthesize currentOutlet;
+@synthesize currentLoadedOutlet;
 @synthesize validTableIDs;
 
 + (User *)sharedInstance
@@ -25,6 +25,7 @@
         sharedInstance.lastName = [sharedInstance.userDefault objectForKey:@"last_name"];
         sharedInstance.authToken = [sharedInstance.userDefault objectForKey:@"auth_token"];
         sharedInstance.tableID = -1;
+        sharedInstance.currentVerifiedOutletID = -1;
         if(sharedInstance.currentOrder == nil ){
             sharedInstance.currentOrder = [[Order alloc] init];
         }
@@ -272,12 +273,12 @@
 
 - (BOOL) isUserOutsideRestaurant{
     
-    if([self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.currentOutlet.lat AndLongitude:self.currentOutlet.lon]){
+    if([self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.currentLoadedOutlet.lat AndLongitude:self.currentLoadedOutlet.lon]){
         [[Mixpanel sharedInstance] track:@"Action Success: Location Inbound"];
     } else {
         [[Mixpanel sharedInstance] track:@"Action Failed: Location Out of bound"];
     }
-    return ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.currentOutlet.lat AndLongitude:self.currentOutlet.lon];
+    return ![self isUserLocation:[User sharedInstance].userLocation WithinMeters:50 +[User sharedInstance].userLocation.horizontalAccuracy * 2 OfLatitude:self.currentLoadedOutlet.lat AndLongitude:self.currentLoadedOutlet.lon];
 }
 
 - (BOOL) isLocationServiceDisabled{
@@ -376,10 +377,9 @@
 - (BOOL) updateOrderWithJsonIfNecessary:(NSDictionary *)json {
     self.updatePending = NO;
     NSDictionary *ordersDict = [json objectForKey:@"orders"];
-    NSDictionary *outletInfo = [json objectForKey:@"outlet"];
     User *user = [User sharedInstance];
-    user.currentOutletID = [[outletInfo objectForKey:@"id"] intValue];
     Order *updatedOrder = [[Order alloc] init];
+
     for(NSDictionary * dict in ordersDict){
         NSDictionary* dishDic = [dict objectForKey:@"dish"];
         Dish *tmpDish = [[Dish alloc] init];
@@ -413,6 +413,13 @@
     if(self.updatePending){
         user.pastOrder = updatedOrder;
     }
+    
+    if([ordersDict count] > 0){
+        NSDictionary *outletInfo = [json objectForKey:@"outlet"];
+        user.currentVerifiedOutletID = [[outletInfo objectForKey:@"id"] intValue];
+        user.tableID = [[json objectForKey: @"table"] intValue];
+    }
+    
     return self.updatePending;
 }
 

@@ -25,8 +25,8 @@
 @property (nonatomic) int tableID;
 @property (nonatomic) BOOL updatePending;
 
-@property (nonatomic, strong) Outlet *currentOutlet;
-@property (nonatomic) int currentOutletID;
+@property (nonatomic, strong) Outlet *currentLoadedOutlet;
+@property (nonatomic) int currentVerifiedOutletID;
 @property (nonatomic) NSDictionary *validTableIDs;
 @property (nonatomic, strong) Order *currentOrder;
 @property (nonatomic, strong) Order *pastOrder;

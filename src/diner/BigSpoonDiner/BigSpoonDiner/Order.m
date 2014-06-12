@@ -310,10 +310,12 @@
 }
 
 - (void) removeDishAtIndex: (int) dishIndex {
-    [self.quantity removeObjectAtIndex:dishIndex];
-    [self.dishes removeObjectAtIndex:dishIndex];
-    [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
-    [self.modifierAnswers removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
+    if ([self.dishes count] - 1 >= dishIndex){
+        [self.quantity removeObjectAtIndex:dishIndex];
+        [self.dishes removeObjectAtIndex:dishIndex];
+        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
+        [self.modifierAnswers removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
+    }
 }
 
 - (void) removeDishWithID: (int) newDishID{

@@ -6,22 +6,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "424171521.194404"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1021"
-            endingLineNumber = "1021"
-            landmarkName = "-askForTableID"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -138,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "424235525.376436"
+            timestampString = "424285391.93188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "687"
-            endingLineNumber = "687"
+            startingLineNumber = "710"
+            endingLineNumber = "710"
             landmarkName = "-dishCategoryButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -240,22 +224,6 @@
             startingLineNumber = "303"
             endingLineNumber = "303"
             landmarkName = "-containDessert"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "424171521.194404"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1013"
-            endingLineNumber = "1013"
-            landmarkName = "-isTableIDKnown"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -550,15 +518,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/User.m"
-            timestampString = "424234593.150253"
+            timestampString = "424284433.022713"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "377"
-            endingLineNumber = "377"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "-updateOrderWithJsonIfNecessary:"
             landmarkType = "5">
          </BreakpointContent>
@@ -602,44 +570,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/User.m"
-            timestampString = "423747741.724542"
+            timestampString = "424284433.022713"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "-updateOrder"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "424171521.194404"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "805"
-            endingLineNumber = "805"
-            landmarkName = "-performPlaceOrderNetWorkRequest"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "424171521.194404"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "817"
-            endingLineNumber = "817"
-            landmarkName = "-performPlaceOrderNetWorkRequest"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -746,11 +682,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "424235525.376436"
+            timestampString = "424285391.93188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "741"
-            endingLineNumber = "741"
+            startingLineNumber = "764"
+            endingLineNumber = "764"
             landmarkName = "-getDishWithID:"
             landmarkType = "5">
          </BreakpointContent>
@@ -778,11 +714,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "424241593.234527"
+            timestampString = "424285391.93188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "628"
-            endingLineNumber = "628"
+            startingLineNumber = "651"
+            endingLineNumber = "651"
             landmarkName = "-addNewItemButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -794,11 +730,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "424241219.04918"
+            timestampString = "424285391.93188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -810,12 +746,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuTableViewController.m"
-            timestampString = "424241513.140392"
+            timestampString = "424285391.93188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
+            startingLineNumber = "347"
+            endingLineNumber = "347"
             landmarkName = "-prepareForSegue:sender:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/MenuViewController.m"
+            timestampString = "424248604.156785"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-requestWaterButtonPressed:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/MenuTableViewController.m"
+            timestampString = "424285391.93188"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

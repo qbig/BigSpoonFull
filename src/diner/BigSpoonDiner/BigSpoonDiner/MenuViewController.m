@@ -240,21 +240,21 @@
 - (IBAction)requestWaterButtonPressed:(id)sender {
     if(self.outlet.isWaterEnabled){
         [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaterButtonCoverView];
-        
-        if (![self isTableIDKnown]) {
-            [[Mixpanel sharedInstance] track:@"MenuView: Request for Water(Not verified)"];
-            [self askForTableID];
-            
-            __weak MenuViewController *weakSelf = self;
-            
-            self.taskAfterAskingForTableID = ^(void){
-                [weakSelf performRequestWaterSelectQuantityPopUp];
-            };
-        } else if(![self.userInfo isLocationServiceDisabled] && ![self.userInfo isUserOutsideRestaurant]){
-            [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
-            [self performRequestWaterSelectQuantityPopUp];
+        if ([self isLocationLegalAndShowAlertIfNot]){
+            if (![self isTableIDKnownAndLegal]) {
+                [[Mixpanel sharedInstance] track:@"MenuView: Request for Water(Not verified)"];
+                [self askForTableIDForCurrentRestaurant];
+                
+                __weak MenuViewController *weakSelf = self;
+                
+                self.taskAfterAskingForTableID = ^(void){
+                    [weakSelf performRequestWaterSelectQuantityPopUp];
+                };
+            } else {
+                [[Mixpanel sharedInstance] track:@"MenuView: Request for Water"];
+                [self performRequestWaterSelectQuantityPopUp];
+            }
         }
-   
     } else {
         NSLog(@"requestWaterButtonPressed");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
@@ -273,20 +273,22 @@
 - (IBAction)requestWaiterButtonPressed:(id)sender {
     [BigSpoonAnimationController animateRequestButtonWhenClicked:self.requestWaiterButtonCoverView];
     NSLog(@"callWaiterButtonPressed");
-    
-    if (![self isTableIDKnown]) {
-        [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters(Not verified) "];
-        [self askForTableID];
-        
-        __weak MenuViewController *weakSelf = self;
-        
-        self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performRequestWaiterConfirmationPopUp];
-        };
-    } else if(![self.userInfo isLocationServiceDisabled] && ! [self.userInfo isUserOutsideRestaurant]){
-        [self performRequestWaiterConfirmationPopUp];
-        [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters"];
+    if ([self isLocationLegalAndShowAlertIfNot]) {
+        if (![self isTableIDKnownAndLegal]) {
+            [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters(Not verified) "];
+            [self askForTableIDForCurrentRestaurant];
+            
+            __weak MenuViewController *weakSelf = self;
+            
+            self.taskAfterAskingForTableID = ^(void){
+                [weakSelf performRequestWaiterConfirmationPopUp];
+            };
+        } else {
+            [self performRequestWaiterConfirmationPopUp];
+            [[Mixpanel sharedInstance] track:@"MenuView: Request for Staff Waiters"];
+        }
     }
+
     [TestFlight passCheckpoint:@"CheckPoint:User Asking for Waiters"];
 }
 
@@ -319,19 +321,20 @@
         
         return;
     }
-    
-    if (![self isTableIDKnown]) {
-        [self askForTableID];
-        [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill(Not verified)"];
-        __weak MenuViewController *weakSelf = self;
-        
-        self.taskAfterAskingForTableID = ^(void){
-            [weakSelf performRequestBillConfirmationPopUp];
-        };
-    } else if(![self.userInfo isLocationServiceDisabled] && ! [self.userInfo isUserOutsideRestaurant]){
-        [self performRequestBillConfirmationPopUp];
-        [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill"];
-        [[Mixpanel sharedInstance].people increment:@"Number of Bill" by:[NSNumber numberWithInt:1]];
+    if ([self isLocationLegalAndShowAlertIfNot]){
+        if (![self isTableIDKnownAndLegal]) {
+            [self askForTableIDForCurrentRestaurant];
+            [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill(Not verified)"];
+            __weak MenuViewController *weakSelf = self;
+            
+            self.taskAfterAskingForTableID = ^(void){
+                [weakSelf performRequestBillConfirmationPopUp];
+            };
+        } else {
+            [self performRequestBillConfirmationPopUp];
+            [[Mixpanel sharedInstance] track:@"MenuView: Request for Bill"];
+            [[Mixpanel sharedInstance].people increment:@"Number of Bill" by:[NSNumber numberWithInt:1]];
+        }
     }
     
     [TestFlight passCheckpoint:@"CheckPoint:User Asked For Bill"];
@@ -601,6 +604,7 @@
                 if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
                     NSLog(@"The table ID is valid");
                     [User sharedInstance].tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
+                    [User sharedInstance].currentVerifiedOutletID = self.outlet.outletID;
                     self.taskAfterAskingForTableID();
                     [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
                     return;
@@ -621,6 +625,8 @@
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
 }
+
+#pragma OrderDishDelegate
 
 - (void) dishOrdered:(Dish *)dish{
     int initialQuantity = [self.userInfo.currentOrder getTotalQuantity];
@@ -650,6 +656,10 @@
        [BigSpoonAnimationController animateBadgeAfterUpdate: self.itemQuantityLabelBackgroundImageView
                                           withOriginalFrame: oldFrameItemBadge];
     }
+}
+
+- (void) updateCounter {
+    [self updateItemQuantityBadge];
 }
 
 - (void)setValidTableIDs: (NSDictionary *)vIDs{
@@ -715,18 +725,19 @@
     NSLog(@"Placing order");
     
     generalNote = notes;
-    
-    if (![self isTableIDKnown]) {
-        [self askForTableID];
-         [[Mixpanel sharedInstance] track:@"MenuView: Order placed(Not verified)"];
-        __weak MenuViewController *weakSelf = self;
-        
-        self.taskAfterAskingForTableID = ^(void){
-            [weakSelf showPlaceOrderConfirmationPopUp];
-        };
-    } else if(![self.userInfo isLocationServiceDisabled] && ! [self.userInfo isUserOutsideRestaurant]){
-        [[Mixpanel sharedInstance] track:@"MenuView: Order placed"];
-        [self showPlaceOrderConfirmationPopUp];
+    if([self isLocationLegalAndShowAlertIfNot]) {
+        if (![self isTableIDKnownAndLegal] ) {
+            [self askForTableIDForCurrentRestaurant];
+            [[Mixpanel sharedInstance] track:@"MenuView: Order placed(Not verified)"];
+            __weak MenuViewController *weakSelf = self;
+            
+            self.taskAfterAskingForTableID = ^(void){
+                [weakSelf showPlaceOrderConfirmationPopUp];
+            };
+        } else {
+            [[Mixpanel sharedInstance] track:@"MenuView: Order placed"];
+            [self showPlaceOrderConfirmationPopUp];
+        }
     }
 }
 
@@ -1006,31 +1017,44 @@
 
 #pragma mark - Dealing with table number
 
-- (BOOL) isTableIDKnown{
+- (BOOL) isTableIDKnownAndLegal{
     NSLog(@"Current table ID: %d", [User sharedInstance].tableID);
     // If tableID is 0 or -1, we conclude that the tableID is not known from the user.
-    return [User sharedInstance].tableID > 0;
+    if ([User sharedInstance].tableID <= 0) {
+        return false;
+    } else {
+        for(id tableCode in self.validTableIDs){
+            if( [[self.validTableIDs objectForKey:tableCode] intValue] == [User sharedInstance].tableID){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
-- (void) askForTableID{
+- (BOOL) isLocationLegalAndShowAlertIfNot {
+    BOOL result = true;
     if ([self.userInfo isLocationServiceDisabled]){
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:ENABLE_LOCATION_ALERT_TITLE message: ENABLE_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];
         [[Mixpanel sharedInstance] track:@"Action Failed: Location disabled"];
         [TestFlight passCheckpoint:@"CheckPoint:User Location not enabled"];
-        return;
-    }
-    
-    if ([self.userInfo isUserOutsideRestaurant]) {
+        result = false;
+    } else if ([self.userInfo isUserOutsideRestaurant]) {
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle: CANNOT_DETECT_LOCATION_ALERT_TITLE message:CANNOT_DETECT_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [[Mixpanel sharedInstance] track:@"Action Failed: detected as outside"];
         [TestFlight passCheckpoint:@"CheckPoint:User Action outside restaurant"];
         [errorAlert show];
-    } else {
-        [[Mixpanel sharedInstance] track:@"Action Success: Asking for table code"];
-        [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
-        [TestFlight passCheckpoint:@"CheckPoint:User Action inside restaurant"];
+        result = false;
     }
+
+    return result;
+}
+
+- (void) askForTableIDForCurrentRestaurant{
+    [[Mixpanel sharedInstance] track:@"Action Success: Asking for table code"];
+    [self askForTableIDWithTitle: @"Please enter your table ID located on the BigSpoon table stand"];
+    [TestFlight passCheckpoint:@"CheckPoint:User Action inside restaurant"];
 }
 
 - (void) askForTableIDWithTitle: (NSString *)title{

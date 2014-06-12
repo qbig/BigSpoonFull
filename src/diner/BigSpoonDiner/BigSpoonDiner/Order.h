@@ -53,6 +53,8 @@
 - (void) incrementDishAtIndex: (int)dishIndex;
 - (void) decrementDishAtIndex: (int)dishIndex;
 
+- (void) removeDishAtIndex: (int) dishIndex;
+
 - (NSString *) getModifierDetailsTextAtIndex: (int) dishIndex;
 - (NSDictionary *) getMergedTextForNotesAndModifier;
 

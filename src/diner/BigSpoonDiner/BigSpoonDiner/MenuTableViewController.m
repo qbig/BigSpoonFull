@@ -83,7 +83,30 @@
     [self handleJsonWithDishesAndTableInfos: self.jsonForDishesTablesAndCategories];
 }
 
+- (void)removeOrdersOtherThanCurrentOutletOrders {
+    // remote other dishes other than verified outlet
+    for(int i = [[User sharedInstance].currentOrder.dishes count] - 1; i >= 0 ; i--){
+        Dish *dish = (Dish *)[[User sharedInstance].currentOrder.dishes objectAtIndex:i];
+        if([self getDishWithID: dish.ID] == nil){
+            [[User sharedInstance].currentOrder removeDishAtIndex:i];
+        }
+    }
+    [self.delegate updateCounter];
+}
+
 - (void) viewDidAppear:(BOOL)animated{
+    // Check order integrity (cannot mix orders from different outlet)
+    // - if user.currentVerifiedOutletID is set: only keep dishes for that outlet
+    // - otherwise: only keep dishes from current outlet
+    User *userInfo = [User sharedInstance];
+    if (userInfo.currentVerifiedOutletID >= 0 ){
+        if (userInfo.currentLoadedOutlet.outletID == userInfo.currentVerifiedOutletID){
+            [self removeOrdersOtherThanCurrentOutletOrders];
+        }
+    } else {
+        [self removeOrdersOtherThanCurrentOutletOrders];
+    }
+
     [self updateDish];
     [super viewDidAppear:animated];
 }
@@ -722,7 +745,7 @@
 }
 
 - (void) updateDish {
-    if ([User sharedInstance].updatePending && self.outlet.outletID == [User sharedInstance].currentOutletID) {
+    if ([User sharedInstance].updatePending && self.outlet.outletID == [User sharedInstance].currentVerifiedOutletID) {
         for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
             Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
             [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
