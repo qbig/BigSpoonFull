@@ -240,6 +240,13 @@ class MealHistorySerializer(serializers.ModelSerializer):
 
 class MealSerializer(serializers.ModelSerializer):
     orders = OrderSerializer(many=True)
+    outlet = serializers.SerializerMethodField('get_outlet')
+    
+    def get_outlet(self, obj):
+        return {
+            "id": obj.table.outlet.id,
+            "name": obj.table.outlet.name
+        }
 
     class Meta:
         model = Meal

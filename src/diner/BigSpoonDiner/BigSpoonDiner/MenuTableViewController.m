@@ -84,7 +84,7 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    if ([User sharedInstance].updatePending) {
+    if ([User sharedInstance].updatePending && self) {
         [self updateDish];
         [User sharedInstance].updatePending = NO;
     }
