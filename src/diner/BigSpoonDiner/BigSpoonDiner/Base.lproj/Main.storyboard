@@ -1277,7 +1277,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" image="button_add_with_circle.png"/>
-                                                    <state key="highlighted" image="add_icon.png">
+                                                    <state key="highlighted">
                                                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -1297,7 +1297,6 @@
                                             <outlet property="descriptionLabel" destination="n1e-tN-Xub" id="BfM-lD-jNa"/>
                                             <outlet property="nameLabel" destination="qAF-xu-Uld" id="Nbj-uR-hxW"/>
                                             <outlet property="priceLabel" destination="t1W-aM-iIl" id="lGe-R5-KhQ"/>
-                                            <segue destination="Ph5-AW-ahp" kind="push" identifier="SegueToAddDishModifier" customClass="UIStoryboardPopoverSegue" id="wm5-2H-ViG"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MenuPhotoCell" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuPhotoCell" rowHeight="256" id="HiF-Sy-gJL" customClass="MenuPhotoCell">
@@ -1375,11 +1374,12 @@
                     <connections>
                         <outlet property="categoryButtonsHolderView" destination="x23-h5-Wa5" id="SiT-RW-m7m"/>
                         <outlet property="tableView" destination="Yfv-po-KGo" id="doJ-t1-Pxl"/>
+                        <segue destination="Ph5-AW-ahp" kind="push" identifier="SegueToAddDishModifier" id="OcS-Bs-eAE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HXR-33-yFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2774" y="627"/>
+            <point key="canvasLocation" x="2762" y="631"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BJp-09-s70">
@@ -1657,7 +1657,6 @@
     </scenes>
     <resources>
         <image name="add_button_with_circle.png" width="128" height="128"/>
-        <image name="add_icon.png" width="256" height="256"/>
         <image name="add_minus_only_circle.png" width="128" height="128"/>
         <image name="bg_logo.png" width="1241" height="520"/>
         <image name="bottom_buttons.png" width="1367" height="253"/>
@@ -1690,7 +1689,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="NcF-ES-z1f"/>
-        <segue reference="qnZ-wN-VZu"/>
-        <segue reference="Zu8-We-sOe"/>
+        <segue reference="TRy-SG-Bfr"/>
+        <segue reference="OcS-Bs-eAE"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,11 +9,6 @@
 #import "DishModifierTableViewController.h"
 
 @interface DishModifierTableViewController ()
-{
-    NSDictionary *animals;
-    NSArray *animalSectionTitles;
-    NSArray *animalIndexTitles;
-}
 @end
 
 @implementation DishModifierTableViewController
