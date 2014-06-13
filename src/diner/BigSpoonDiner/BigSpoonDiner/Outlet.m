@@ -24,7 +24,8 @@
     serviceChargeRate: (double) s
              isActive:(BOOL)isA
              isPhotoMenu:(BOOL)isP
-isRequestForWaterEnabled: (BOOL)isWaterEnabled {
+isRequestForWaterEnabled: (BOOL)isWaterEnabled
+            waterText: (NSString*) wt{
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -42,6 +43,7 @@ isRequestForWaterEnabled: (BOOL)isWaterEnabled {
         self.isActive = isA;
         self.isDefaultPhotoMenu = isP;
         self.isWaterEnabled = isWaterEnabled;
+        self.waterText = wt;
     }
     return self;
 }

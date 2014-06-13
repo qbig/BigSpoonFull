@@ -258,7 +258,7 @@
     } else {
         NSLog(@"requestWaterButtonPressed");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"To ensure speedy service for all customers, please help yourself with the water at the counter."
+                                                        message: self.outlet.waterText
                                                        delegate:self
                                               cancelButtonTitle:@"Thank you!"
                                               otherButtonTitles:nil];

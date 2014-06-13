@@ -27,6 +27,7 @@
 @property (nonatomic) BOOL isActive;
 @property (nonatomic) BOOL isDefaultPhotoMenu;
 @property (nonatomic) BOOL isWaterEnabled;
+@property (nonatomic, strong) NSString *waterText;
 - (id) initWithImgURL: (NSURL *) u
                  Name: (NSString *) n
               Address: (NSString *) a
@@ -41,6 +42,7 @@
     serviceChargeRate: (double) s
              isActive: (BOOL) is
              isPhotoMenu:(BOOL)isP
-isRequestForWaterEnabled: (BOOL)isWaterEnabled ;
+isRequestForWaterEnabled: (BOOL)isWaterEnabled
+                waterText: (NSString*) wt;
 
 @end
