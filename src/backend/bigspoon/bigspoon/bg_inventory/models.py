@@ -384,6 +384,11 @@ class Outlet(models.Model):
         default=False,
     )
 
+    address = models.TextField(
+        _('water text'),
+        help_text=_('water text')
+    )
+
     default_dish_photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
         blank=True,
