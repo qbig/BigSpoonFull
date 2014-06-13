@@ -23,7 +23,10 @@
 @property (nonatomic, strong) UIAlertView *whenToServeDessertAlertView;
 
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
+@property (nonatomic, copy) void (^nextTask)(void);
 @property (nonatomic) BOOL hasInit;
+@property (nonatomic, strong) NSArray *theData;
+@property (nonatomic, strong) UIAlertView *timePickerPopup;
 @end
 
 @implementation MenuViewController
@@ -571,8 +574,34 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    
-    if ([alertView isEqual:self.requestForBillAlertView]) {
+    if ([alertView isEqual:self.timePickerPopup]){
+        if ([title isEqual:@"Okay"]) {
+            self.nextTask();
+        } else {
+            [self.timePickerPopup textFieldAtIndex:0].text = @"";
+        }
+    } else if ([alertView isEqual:self.inputTableIDAlertView]){
+        if(![title isEqualToString:@"Cancel"]) {
+            
+            NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
+            
+            for (NSString *validTableCode in [self.validTableIDs allKeys]) {
+                NSLog(@"%@", validTableCode);
+                if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
+                    NSLog(@"The table ID is valid");
+                    [User sharedInstance].tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
+                    [User sharedInstance].currentVerifiedOutletID = self.outlet.outletID;
+                    self.taskAfterAskingForTableID();
+                    [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
+                    return;
+                }
+            }
+            [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
+        }
+    } else if ([self.userInfo isOrderingTakeaway]) {
+        // if for taking away
+        return ;
+    } else if ([alertView isEqual:self.requestForBillAlertView]) {
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Bill");
@@ -594,25 +623,7 @@
             }
             
         }
-    } else if ([alertView isEqual:self.inputTableIDAlertView]){
-        if(![title isEqualToString:@"Cancel"]) {
-
-            NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
-            
-            for (NSString *validTableCode in [self.validTableIDs allKeys]) {
-                NSLog(@"%@", validTableCode);
-                if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
-                    NSLog(@"The table ID is valid");
-                    [User sharedInstance].tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
-                    [User sharedInstance].currentVerifiedOutletID = self.outlet.outletID;
-                    self.taskAfterAskingForTableID();
-                    [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
-                    return;
-                }
-            }
-            [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
-        }
-    } else if ([alertView isEqual:self.whenToServeDessertAlertView]){
+    }  else if ([alertView isEqual:self.whenToServeDessertAlertView]){
         if ([title isEqualToString:@"Now"]){
             generalNote = @"Serve dessert now";
         } else {
@@ -741,8 +752,46 @@
     }
 }
 
+- (void) showTimePickerPopup {
+    
+    self.timePickerPopup = [[UIAlertView alloc]
+                            initWithTitle: @"Pick a time:)"
+                            message: @"Choose the time you would like to pick up"
+                            delegate:self
+                            cancelButtonTitle:@"Cancel"
+                            otherButtonTitles:@"Okay", nil];
+    
+    self.timePickerPopup.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UIDatePicker *picker = [[UIDatePicker alloc] init];
+    picker.datePickerMode = UIDatePickerModeTime;
+    
+    [picker addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:picker];
+    [self.timePickerPopup textFieldAtIndex:0].inputView = picker;
+    [self.timePickerPopup show];
+}
+
+- (void)changeDate:(UIDatePicker *)sender {
+    // God forgive me for writing this shit
+    [self.timePickerPopup textFieldAtIndex:0].text = [[[sender.date descriptionWithLocale:[NSLocale currentLocale]] componentsSeparatedByString:@" at "][1] componentsSeparatedByString:@"Singapore"][0];
+}
 
 - (void) showPlaceOrderConfirmationPopUp {
+    
+    if ([self.userInfo isOrderingTakeaway] && [self.timePickerPopup textFieldAtIndex:0].text.length == 0) {
+        __weak MenuViewController *weakSelf = self;
+        
+        self.nextTask = ^(void){
+            [weakSelf showPlaceOrderConfirmationPopUp];
+        };
+        [self showTimePickerPopup];
+        return;
+    }
+    if([self.userInfo isOrderingTakeaway]) {
+        generalNote = [NSString stringWithFormat:@"Takeaway: %@",[self.timePickerPopup textFieldAtIndex:0].text ];
+        [self.timePickerPopup textFieldAtIndex:0].text = @"";
+    }
+
     // Here we need to pass a full frame
     CustomIOS7AlertView *alertView = [[CustomIOS7AlertView alloc] init];
     

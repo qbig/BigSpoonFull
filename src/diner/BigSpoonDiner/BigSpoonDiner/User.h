@@ -33,6 +33,7 @@
 @property (nonatomic, strong) CLLocation* userLocation;
 @property (nonatomic) BOOL isLoggedIn;
 @property (nonatomic, strong) NSUserDefaults *userDefault;
+@property (nonatomic, strong) NSMutableDictionary* tableCodesForTakeAway;
 
 + (User *)sharedInstance;
 - (void) attemptToLoginToFB;
@@ -46,6 +47,7 @@
 - (BOOL) isUserOutsideRestaurant;
 - (BOOL) isLocationServiceDisabled;
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon;
+- (BOOL) isOrderingTakeaway;
 - (void) updateOrder;
 - (void) closeCurrentSession;
 - (void) attemptToUpdateOrder;

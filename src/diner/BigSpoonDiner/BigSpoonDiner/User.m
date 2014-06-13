@@ -24,6 +24,7 @@
         sharedInstance.firstName = [sharedInstance.userDefault objectForKey:@"first_name"];
         sharedInstance.lastName = [sharedInstance.userDefault objectForKey:@"last_name"];
         sharedInstance.authToken = [sharedInstance.userDefault objectForKey:@"auth_token"];
+        sharedInstance.tableCodesForTakeAway = [[NSMutableDictionary alloc] init];
         sharedInstance.tableID = -1;
         sharedInstance.currentVerifiedOutletID = -1;
         if(sharedInstance.currentOrder == nil ){
@@ -283,6 +284,10 @@
 
 - (BOOL) isLocationServiceDisabled{
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+}
+
+- (BOOL) isOrderingTakeaway {
+    return [self.tableCodesForTakeAway objectForKey: [NSString stringWithFormat: @"%d", self.tableID]] != nil;
 }
 
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon

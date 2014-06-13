@@ -476,6 +476,10 @@
     for (NSDictionary *newTable in tables) {
         NSNumber *tableID = (NSNumber *)[newTable objectForKey: @"id" ];
         NSString *tableCode = [[newTable objectForKey: @"code"] lowercaseString];
+        BOOL isForTakeAway = [[newTable objectForKey: @"is_for_take_away"] boolValue];
+        if (isForTakeAway) {
+            [[User sharedInstance].tableCodesForTakeAway setObject: tableCode forKey: [tableID stringValue]];
+        }
         [validTableIDs setObject:tableID  forKey:tableCode];
     }
     return validTableIDs;

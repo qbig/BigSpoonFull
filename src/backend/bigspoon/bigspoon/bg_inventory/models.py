@@ -347,6 +347,14 @@ class Outlet(models.Model):
         default=10,
         help_text=_('service time threshold'),
     )
+
+    location_diameter = models.DecimalField(
+        _('location checking diameter'),
+        max_digits=4,
+        decimal_places=0,
+        default="50",
+        help_text=_('location diameter checking'),
+    )
     is_active = models.BooleanField(
         default=False,
     )
@@ -437,7 +445,7 @@ class Table(models.Model):
     )
 
     is_for_take_away = models.BooleanField(
-        _('for take away or note'),
+        _('for take away or not'),
         default=False,
         help_text=_('Designates whether the table \
                     is a dummy one for takeaway only.')
