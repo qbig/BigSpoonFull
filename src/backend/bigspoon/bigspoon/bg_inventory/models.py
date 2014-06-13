@@ -384,7 +384,7 @@ class Outlet(models.Model):
         default=False,
     )
 
-    address = models.TextField(
+    water_popup_text = models.TextField(
         _('water text'),
         help_text=_('water text')
     )
