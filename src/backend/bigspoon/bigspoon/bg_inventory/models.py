@@ -436,6 +436,13 @@ class Table(models.Model):
         help_text=_('table code')
     )
 
+    is_for_take_away = models.BooleanField(
+        _('for take away or note'),
+        default=False,
+        help_text=_('Designates whether the table \
+                    is a dummy one for takeaway only.')
+    )
+
     def __unicode__(self):
         """
         Returns the outlet and table name
