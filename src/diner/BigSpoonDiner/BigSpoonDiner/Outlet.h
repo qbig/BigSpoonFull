@@ -28,6 +28,7 @@
 @property (nonatomic) BOOL isDefaultPhotoMenu;
 @property (nonatomic) BOOL isWaterEnabled;
 @property (nonatomic, strong) NSString *waterText;
+@property (nonatomic) double locationThreshold;
 
 - (id) initWithImgURL: (NSURL *) u
                  Name: (NSString *) n
@@ -44,6 +45,7 @@
              isActive: (BOOL) is
              isPhotoMenu:(BOOL)isP
 isRequestForWaterEnabled: (BOOL)isWaterEnabled
-                waterText: (NSString*) wt;
+                waterText: (NSString*) wt
+    locationThreshold: (double) lt;
 
 @end

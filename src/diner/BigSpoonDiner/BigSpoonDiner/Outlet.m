@@ -25,7 +25,8 @@
              isActive:(BOOL)isA
              isPhotoMenu:(BOOL)isP
 isRequestForWaterEnabled: (BOOL)isWaterEnabled
-            waterText: (NSString*) wt{
+            waterText: (NSString*) wt
+    locationThreshold: (double) lt{
     self = [super init];
     if (self) {
         self.imgURL = u;
@@ -44,6 +45,7 @@ isRequestForWaterEnabled: (BOOL)isWaterEnabled
         self.isDefaultPhotoMenu = isP;
         self.isWaterEnabled = isWaterEnabled;
         self.waterText = wt;
+        self.locationThreshold = lt;
     }
     return self;
 }
