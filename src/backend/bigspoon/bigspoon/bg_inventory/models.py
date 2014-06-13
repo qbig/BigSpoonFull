@@ -386,7 +386,8 @@ class Outlet(models.Model):
 
     water_popup_text = models.TextField(
         _('water text'),
-        help_text=_('water text')
+        help_text=_('water text'),
+        blank=True
     )
 
     default_dish_photo = ImageWithThumbsField(
