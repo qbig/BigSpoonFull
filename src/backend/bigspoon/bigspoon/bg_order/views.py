@@ -203,7 +203,7 @@ class MenuView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(MenuView, self).get_context_data(**kwargs)
-        context['categories'] = self.for_outlet.categories
+        context['categories'] = self.for_outlet.categories.all()
         context["cards_num"] = self.request.session.get("cards_num")
         return context
 
