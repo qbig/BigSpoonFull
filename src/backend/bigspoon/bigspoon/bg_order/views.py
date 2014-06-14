@@ -100,9 +100,17 @@ class TableView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(TableView, self).get_context_data(**kwargs)
+        outlets = get_objects_for_user(
+            self.request.user,
+            "change_outlet",
+            Outlet.objects.all()
+        )
+        if (outlets.count() == 0):
+            raise PermissionDenied
+        current_outlet = outlets[0]
         context["cards_num"] = self.request.session.get("cards_num")
-        context['categories'] = list(context['table_list'][0].outlet.categories.all())
-        dishes = list(context['table_list'][0].outlet.dishes.prefetch_related("categories").all())
+        context['categories'] = list(current_outlet.categories.all())
+        dishes = list(current_outlet.dishes.prefetch_related("categories").all())
         dic = {}
         for dish in dishes:
             try:
