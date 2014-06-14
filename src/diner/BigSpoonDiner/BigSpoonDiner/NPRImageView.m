@@ -24,7 +24,7 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
 
 + (NSCache *)processedImageCache;
 + (void)printOperations;
-
+@property int retryAttemptsCount;
 @end
 
 @interface NSOperationQueueObserver : NSObject
@@ -142,12 +142,13 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
     [self setBuiltInTapGestureRecognizerEnabled:YES];
     
     self.crossFade = YES;
+    self.retryAttemptsCount = 0;
 }
 
 #pragma mark - Gesture
 
-- (void)imageViewTapped:(UITapGestureRecognizer *)gesture {
-    NSLog(@"Tapped");
+- (void)reloadImage {
+    self.retryAttemptsCount++;
     if ([[NPRFailDownloadArray array] contains:self.imageContentURL.absoluteString]) {
         [self.indicatorView startAnimating];
         [self.indicatorView setHidden:NO];
@@ -155,6 +156,11 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
         [self setNeedsLayout];
         [self performSelector:@selector(queueImageForProcessingForURLString:) withObject:self.imageContentURL.absoluteString afterDelay:1];
     }
+}
+
+- (void)imageViewTapped:(UITapGestureRecognizer *)gesture {
+    NSLog(@"Tapped");
+    [self reloadImage];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -325,7 +331,7 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
         if (self.shouldHideErrorMessage) {
             [self.messageLabel setHidden:YES];
         } else {
-            [self.messageLabel setText:NSLocalizedString(@"Image cannot be downloaded. Tap to reload.", nil)];
+            [self.messageLabel setText:NSLocalizedString(@"Image not cooked. Tap to reload.", nil)];
             [self.messageLabel setHidden:NO];
         }
         
@@ -333,6 +339,11 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
         [self.progressView setHidden:YES];
         [self setNeedsLayout];
         [self setProcessedImageOnMainThread:@[[NSNull null], url.absoluteString, url.absoluteString]];
+        
+        //retry 3 times
+        if (self.retryAttemptsCount < 3){
+            [self reloadImage];
+        }
     }
 }
 
