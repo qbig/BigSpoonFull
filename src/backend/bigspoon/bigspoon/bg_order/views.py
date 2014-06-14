@@ -186,7 +186,7 @@ class HistoryView(TemplateView):
 class MenuView(ListView):
     model = Dish
     template_name = "bg_inventory/menu.html"
-
+    for_outlet = None
     def get_queryset(self):
         #filter queryset based on user's permitted outlet
         outlets = get_objects_for_user(
@@ -196,13 +196,14 @@ class MenuView(ListView):
         )
         if (outlets.count() == 0):
             raise PermissionDenied
+        self.for_outlet = outlets[0]
         return super(MenuView, self).get_queryset()\
             .prefetch_related('outlet', 'categories')\
             .filter(outlet__in=outlets)
 
     def get_context_data(self, **kwargs):
         context = super(MenuView, self).get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = self.for_outlet.categories
         context["cards_num"] = self.request.session.get("cards_num")
         return context
 
