@@ -154,7 +154,7 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
         [self.indicatorView setHidden:NO];
         [self.messageLabel setHidden:YES];
         [self setNeedsLayout];
-        [self performSelector:@selector(queueImageForProcessingForURLString:) withObject:self.imageContentURL.absoluteString afterDelay:1];
+        [self performSelector:@selector(queueImageForProcessingForURLString:) withObject:self.imageContentURL.absoluteString afterDelay:1.5];
     }
 }
 
@@ -341,7 +341,7 @@ NSString * const NPRDidSetImageNotification = @"nicnocquee.NPRImageView.didSetIm
         [self setProcessedImageOnMainThread:@[[NSNull null], url.absoluteString, url.absoluteString]];
         
         //retry 3 times
-        if (self.retryAttemptsCount < 3){
+        if (self.retryAttemptsCount < 10){
             [self reloadImage];
         }
     }
