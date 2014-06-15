@@ -67,6 +67,7 @@ class CategoryAdmin(GuardedModelAdmin):
     search_fields = list(search_fields_of["common"])
 
 class CategorySequenceAdmin(GuardedModelAdmin):
+    raw_id_fields = ('outlet', 'for_category')
     search_fields = ['order_index', 'outlet', 'for_category']     
     list_display = ('order_index', 'outlet', 'for_category')
 
