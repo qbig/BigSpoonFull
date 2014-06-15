@@ -423,6 +423,28 @@ class Outlet(models.Model):
         verbose_name_plural = _('outlets')
 
 
+class CategorySequence(models.Model):
+    """
+    Store sequence information of a category for a outlet
+    """
+    order_index = models.PositiveIntegerField(
+        default=(lambda: Category.objects.count() + 1),
+        help_text="The order you want this category to appear."
+    )
+
+    outlet = models.ForeignKey(
+        Outlet,
+        help_text=_('belong to outlet'),
+        related_name='category_orders',
+    )
+
+    for_category = models.ForeignKey(
+        Category,
+        help_text=_('for category'),
+        related_name='occur_sequences'
+    )
+
+    
 class Table(models.Model):
     """
     Stores outlet table information
