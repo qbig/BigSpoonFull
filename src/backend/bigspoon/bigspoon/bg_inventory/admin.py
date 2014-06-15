@@ -68,7 +68,7 @@ class CategoryAdmin(GuardedModelAdmin):
 
 class CategorySequenceAdmin(GuardedModelAdmin):
     raw_id_fields = ('outlet', 'for_category')
-    search_fields = ['order_index', 'outlet', 'for_category']     
+    search_fields = ['order_index', 'outlet__name', 'for_category__name']     
     list_display = ('order_index', 'outlet', 'for_category')
 
 class RatingAdmin(GuardedModelAdmin):
