@@ -461,11 +461,25 @@
             [resultingDishes addObject:newDishObject];
         }
     }
+    
+    NSArray *categorySequences = (NSArray *)[json objectForKey:@"categories_order"];
+    for( NSDictionary *sequence in categorySequences){
+        int categoryId = [[sequence objectForKey:@"category_id"] intValue];
+        int index = [[sequence objectForKey:@"order_index"] intValue];
+        for(DishCategory *cat in self.dishCategoryArray){
+            if (cat.ID == categoryId){
+                cat.orderIndex = index;
+            }
+        }
+    }
+    
+    
     self.dishCategoryArray = [[self.dishCategoryArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        int first = [(DishCategory*)a ID];
-        int second = [(DishCategory*)b ID];
+        int first = [(DishCategory*)a orderIndex];
+        int second = [(DishCategory*)b orderIndex];
         return first >= second;
     }] mutableCopy];
+    
     return resultingDishes;
 }
 
@@ -800,8 +814,9 @@
 
 - (int) getPositionForCategoryWithId: (int)categoryId{
     for(int i = 0 ; i< [self.dishCategoryArray count]; i ++){
-        if (((DishCategory*)[self.dishCategoryArray objectAtIndex:i]).ID == categoryId){
-            return i;
+        DishCategory *cat = ((DishCategory*)[self.dishCategoryArray objectAtIndex:i]);
+        if (cat.ID == categoryId){
+            return cat.orderIndex;
         }
     }
     return 0;

@@ -13,6 +13,7 @@
 @property (nonatomic) int ID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *description;
+@property (nonatomic) int orderIndex;
 
 - (id) initWithID: (int) i name: (NSString*) n andDescription: (NSString*) d;
 
