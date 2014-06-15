@@ -417,10 +417,10 @@
             NSString *name = [newCategory objectForKey:@"name"];
             NSString *description = [newCategory objectForKey:@"desc"];
             
-            DishCategory *newObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
+            DishCategory *newCatObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
                                                                name:name
                                                      andDescription:description];
-            [self.dishCategoryArray addObject:newObj];
+            [self.dishCategoryArray addObject:newCatObj];
         }
       
         

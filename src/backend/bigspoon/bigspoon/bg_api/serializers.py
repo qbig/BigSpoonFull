@@ -8,7 +8,7 @@ from rest_framework import serializers
 from rest_framework.relations import RelatedField
 
 from bg_inventory.models import Restaurant, Outlet, Table,\
-    Category, Dish, Rating, Review, Note, Profile
+    Category, Dish, Rating, Review, Note, Profile, CategorySequence
 from bg_order.models import Meal, Order, Request
 
 
@@ -128,7 +128,7 @@ class OutletDetailSerializer(serializers.ModelSerializer):
     dishes = serializers.SerializerMethodField('get_dishes')
     tables = OutletTableSerializer(many=True)
     categories = CategorySerializer(many=True)
-
+    categories_order = serializers.SerializerMethodField('get_categories_order')
     def get_dishes(self, obj):
         # now = timezone.now().time()
         # current = obj.dishes.filter(
@@ -138,6 +138,11 @@ class OutletDetailSerializer(serializers.ModelSerializer):
         current = obj.dishes.all()
         return DishSerializer(current).data
 
+    def get_categories_order(self, obj):
+        return [{
+            "order_index": od.order_index,
+            "category_id": od.for_category.id
+        } for od in obj.category_orders.all()]
     class Meta:
         model = Outlet
 
