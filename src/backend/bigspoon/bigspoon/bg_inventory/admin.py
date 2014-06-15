@@ -8,7 +8,7 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 User = get_user_model()
 
 from bg_inventory.models import Restaurant, Outlet, Table,\
-    Category, Dish, Rating, Review, Note, Profile
+    Category, Dish, Rating, Review, Note, Profile, CategorySequence
 from bg_inventory.forms import BGUserCreationForm
 from bg_inventory.utils import import_dish_csv
 from import_export.admin import ImportExportModelAdmin
@@ -66,6 +66,9 @@ class TableAdmin(GuardedModelAdmin):
 class CategoryAdmin(GuardedModelAdmin):
     search_fields = list(search_fields_of["common"])
 
+class CategorySequenceAdmin(GuardedModelAdmin):
+    search_fields = list(search_fields_of["common"])    
+
 
 class RatingAdmin(GuardedModelAdmin):
     raw_id_fields = ('dish', 'user')
@@ -106,6 +109,7 @@ admin.site.register(Restaurant, RestaurantAdmin)
 admin.site.register(Outlet, OutletAdmin)
 admin.site.register(Table, TableAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(CategorySequence, CategorySequenceAdmin)
 admin.site.register(Dish, DishAdmin)
 admin.site.register(Rating, RatingAdmin)
 admin.site.register(Review, ReviewAdmin)
