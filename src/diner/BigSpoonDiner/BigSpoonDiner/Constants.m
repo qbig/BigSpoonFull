@@ -49,7 +49,7 @@ NSString* const SOCKET_URL = @"bigspoon.biz";
 
 NSString* const KEY_FOR_SHOW_TUT_DEFAULT = @"hasShownTutorial";
 int const SOCKET_PORT = 8000;
-
+NSString * const BG_DEFAULT_DISH_PHOTO_URL = @"media/restaurant/dishes/default.jpg";
 // Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 69;

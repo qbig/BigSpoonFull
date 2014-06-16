@@ -29,6 +29,8 @@ extern NSString* const SOCKET_URL;
 extern NSString* const KEY_FOR_SHOW_TUT_DEFAULT;
 extern int const SOCKET_PORT;
 
+extern NSString* const BG_DEFAULT_DISH_PHOTO_URL;
+
 // Dimentions (length, height, etc..):
 
 extern int const ROW_HEIGHT_LIST_MENU;
