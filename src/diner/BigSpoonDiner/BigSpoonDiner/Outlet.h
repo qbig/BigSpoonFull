@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <CoreLocation/CoreLocation.h>
 @interface Outlet : NSObject
 
 @property (nonatomic, strong) NSURL *imgURL;
@@ -47,5 +47,7 @@
 isRequestForWaterEnabled: (BOOL)isWaterEnabled
                 waterText: (NSString*) wt
     locationThreshold: (double) lt;
+
+- (double) distanceFrom: (CLLocation*) userLocation;
 
 @end

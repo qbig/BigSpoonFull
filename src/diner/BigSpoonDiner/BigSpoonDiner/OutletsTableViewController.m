@@ -71,6 +71,7 @@
                     position:[NSValue valueWithCGPoint:CGPointMake(screenWidth / 2, screenHeight - 110)]
                        title:nil];
     }
+    [self reorderOutletListBasedOnLocation];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -235,6 +236,7 @@
 
             }
             
+            [self reorderOutletListBasedOnLocation];
             [self.tableView reloadData];
             [self stopLoadingIndicators];
             
@@ -258,6 +260,16 @@
             
             break;
         }
+    }
+}
+
+- (void) reorderOutletListBasedOnLocation {
+    if(self.outletsArray && [User sharedInstance].userLocation){
+        self.outletsArray = [[self.outletsArray sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            double firstDist = [(Outlet*)a distanceFrom: [User sharedInstance].userLocation];
+            double secondDist = [(Outlet*)b distanceFrom: [User sharedInstance].userLocation];
+            return firstDist >= secondDist;
+        }] mutableCopy];
     }
 }
 

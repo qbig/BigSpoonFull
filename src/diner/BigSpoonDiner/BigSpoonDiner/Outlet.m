@@ -50,4 +50,7 @@ isRequestForWaterEnabled: (BOOL)isWaterEnabled
     return self;
 }
 
+- (double) distanceFrom: (CLLocation*) userLocation{
+    return  [userLocation distanceFromLocation: [[CLLocation alloc] initWithLatitude:self.lat longitude:self.lon]];
+}
 @end
