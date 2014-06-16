@@ -143,6 +143,7 @@ NSString* const USER_FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
 // Notification
 NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED = @"RetrievedNewDishesAndTableInfo";
 NSString* const NOTIF_NEW_DISH_INFO_FAILED = @"DishAndTableRequestNetworkFailure";
+NSString* const NOTIF_FB_LOGIN_FAILED = @"fbLoginFailed";
 NSString* const NOTIF_ORDER_UPDATE = @"OrderUpdated";
 NSString* const NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT = @"ShouldAskLocationPermitNow";
 NSString* const SHOW_NOTE = @"showNote";

@@ -47,7 +47,7 @@
     gradient.frame = self.mainView.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
     [self.mainView.layer insertSublayer:gradient atIndex:0];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLoginFailureHandler) name:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLoginFailureHandler) name:NOTIF_FB_LOGIN_FAILED object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,12 +105,12 @@
 
 - (void) fbLoginFailureHandler{
     [self stopLoadingIndicators];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"This is embarrassing"
-                                                        message:@"Facebook login failed. Please try again."
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
-    [alertView show];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"This is embarrassing"
+//                                                        message:@"Facebook login failed. Please try again."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles: nil];
+//    [alertView show];
 }
 
 - (void)proceedToOutletView{

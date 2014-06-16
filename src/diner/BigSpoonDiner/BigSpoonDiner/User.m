@@ -178,13 +178,8 @@
     }
     
     if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
+        NSLog(@"%@", error.localizedDescription);
+        [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"%@", error.localizedDescription]];
     }
 }
 
@@ -206,7 +201,10 @@
              [[NSNotificationCenter defaultCenter] postNotificationName:FB_SESSION_IS_OPEN object:self];
              [[Mixpanel sharedInstance] track:@"FB Login: Session open, notification sent. Start Token Validation"];
              [self checkTokenValidity];
+         } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled){
+             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_FB_LOGIN_FAILED object:nil];
          }
+
      }];
 }
 
