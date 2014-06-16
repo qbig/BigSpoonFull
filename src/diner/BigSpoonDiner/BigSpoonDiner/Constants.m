@@ -137,6 +137,7 @@ NSString* const DISH_OVERLAY_NORMAL = @"new_overlay2.png";
 NSString* const DISH_OVERLAY_OUT_OF_STOCK = @"out_of_stock.png";
 NSString* const DISH_MODIFIER_TYPE_COUNT = @"count";
 NSString* const DISH_MODIFIER_TYPE_RADIO = @"radio";
+NSString* const USER_FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
 
 
 // Notification

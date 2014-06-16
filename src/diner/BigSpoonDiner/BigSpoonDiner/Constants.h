@@ -106,6 +106,7 @@ extern NSString* const DISH_OVERLAY_NORMAL;
 extern NSString* const DISH_OVERLAY_OUT_OF_STOCK;
 extern NSString* const DISH_MODIFIER_TYPE_COUNT;
 extern NSString* const DISH_MODIFIER_TYPE_RADIO;
+extern NSString* const USER_FEEDBACK_TEXT_PLACEHOLDER;
 
 // Notification Name
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;

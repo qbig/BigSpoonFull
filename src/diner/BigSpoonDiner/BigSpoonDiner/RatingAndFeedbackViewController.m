@@ -274,7 +274,7 @@
 - (void) performFeedbackSubmission{
     NSString *feedback = self.feedbackTextview.text;
     
-    if ([feedback length] == 0) {
+    if ([feedback length] == 0 || [feedback isEqualToString:FEEDBACK_TEXT_PLACEHOLDER]) {
         return;
     }
     
