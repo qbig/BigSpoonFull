@@ -598,9 +598,6 @@
             }
             [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
         }
-    } else if ([self.userInfo isOrderingTakeaway]) {
-        // if for taking away
-        return ;
     } else if ([alertView isEqual:self.requestForBillAlertView]) {
         if([title isEqualToString:@"Yes"])
         {
