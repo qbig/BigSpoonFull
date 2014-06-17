@@ -72,6 +72,7 @@
                        title:nil];
     }
     [self reorderOutletListBasedOnLocation];
+    [self.tableView reloadData];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
