@@ -40,7 +40,7 @@
 
 - (User* ) init {
     
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attemptToUpdateOrder) name:FB_TOKEN_VERIFIED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attemptToUpdateOrder) name:FB_TOKEN_VERIFIED object:nil];
     return  [super init];
 }
 

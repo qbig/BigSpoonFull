@@ -38,14 +38,11 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidLoad {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLoginFailureHandler) name:NOTIF_FB_LOGIN_FAILED object:nil];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLoginFailureHandler) name:NOTIF_FB_LOGIN_FAILED object:nil];
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         [self showIntroWithCustomView];
