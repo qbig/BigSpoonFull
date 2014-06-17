@@ -551,7 +551,9 @@
     }
     
     self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths + CATEGORY_BUTTON_SCROLL_WIDTH, buttonHeight);
-    [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
+    if( [self.categoryButtonsArray count] > 0){
+        [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
+    }
 }
 
 - (void) displayErrorInfo: (NSString *) info{

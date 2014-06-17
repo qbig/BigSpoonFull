@@ -212,6 +212,7 @@
             user.firstName = firstName;
             user.lastName = lastName;
             user.email = email;
+            [[NSUserDefaults standardUserDefaults] setObject:email forKey:PREVIOUS_LOGIN_EMAIL];
             user.authToken = auth_token;
             user.profileImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: profilePhotoURL]]];
             

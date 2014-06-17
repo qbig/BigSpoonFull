@@ -26,43 +26,33 @@
 @synthesize mainView;
 @synthesize connectionForCheckingFBToken;
 @synthesize intro;
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)viewDidLoad {
-    //set background color
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = self.mainView.bounds;
-    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:172 green:234 blue:241 alpha:0] CGColor], (id)[[UIColor whiteColor] CGColor], nil];
-    [self.mainView.layer insertSublayer:gradient atIndex:0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbLoginFailureHandler) name:NOTIF_FB_LOGIN_FAILED object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(proceedToOutletView) name:FB_TOKEN_VERIFIED object:nil];
-    [super viewWillAppear:animated];
-    NSUserDefaults* userDefault = [NSUserDefaults standardUserDefaults];
-    if(![userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         [self showIntroWithCustomView];
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -89,7 +79,6 @@
     }
     
     self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:pagesToAdd];
-    
     [self.intro setDelegate:self];
     [self.intro showInView:self.view animateDuration:0.3];
 }
@@ -105,15 +94,10 @@
 
 - (void) fbLoginFailureHandler{
     [self stopLoadingIndicators];
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"This is embarrassing"
-//                                                        message:@"Facebook login failed. Please try again."
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles: nil];
-//    [alertView show];
+
 }
 
-- (void)proceedToOutletView{
+- (void)proceedToOutletView {
     [self stopLoadingIndicators];
     [self performSegueWithIdentifier:@"SegueOnSuccessfulLogin" sender:self];
     [User sharedInstance].isLoggedIn = YES;
@@ -123,46 +107,17 @@
 
 }
 
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    NSLog(@"NSURLCoonection encounters error at logging in.");
-    
-    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
-                                                        message:@"Failed to log in. Please check your network"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Okay"
-                                              otherButtonTitles: nil];
-    [alertView show];
-}
-
-
 #pragma mark Show and hide indicators
 
-- (void) showLoadingIndicators{
+- (void) showLoadingIndicators {
     [self.fbButton setEnabled:NO];
     [self.signupButton setEnabled:NO];
     [self.loginButton setEnabled:NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
-    
-    CGRect frame = activityIndicator.frame;
-    activityIndicator.frame = CGRectMake(screenWidth / 2, screenHeight / 2, frame.size.width, frame.size.height);
-    
     [activityIndicator startAnimating];
 }
 
-- (void) stopLoadingIndicators{
+- (void) stopLoadingIndicators {
     [self.fbButton setEnabled:YES];
     [self.signupButton setEnabled:YES];
     [self.loginButton setEnabled:YES];

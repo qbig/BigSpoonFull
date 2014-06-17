@@ -15,13 +15,14 @@
 #import <Mixpanel.h>
 #import "EAIntroView.h"
 
-@interface LoginViewController : UIViewController <NSURLConnectionDelegate,EAIntroDelegate>
+@interface LoginViewController : UIViewController <EAIntroDelegate>
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) IBOutlet UIButton *fbButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
-@property (strong, nonatomic) EAIntroView *intro;
 @property (weak, nonatomic) IBOutlet UIButton *signupButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+
+@property (strong, nonatomic) EAIntroView *intro;
 
 - (IBAction)fbButtonPressed:(id)sender;
 

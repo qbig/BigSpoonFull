@@ -203,6 +203,7 @@
              [self checkTokenValidity];
          } else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled){
              [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_FB_LOGIN_FAILED object:nil];
+             [[Mixpanel sharedInstance] track:@"FB Login failed: User canceled authorization"];
          }
 
      }];
