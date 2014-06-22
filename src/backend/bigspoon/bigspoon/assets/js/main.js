@@ -70,7 +70,7 @@ $(document).ready(function() {
         sound.play();
         setInterval(function() {
             sound.play();
-        }, 120000);
+        }, 30000);
     }
 
     // ==========  behavior  ========= 
