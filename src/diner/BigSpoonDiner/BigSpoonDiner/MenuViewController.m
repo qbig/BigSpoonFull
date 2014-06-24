@@ -579,6 +579,7 @@
             self.nextTask();
         } else {
             [self.timePickerPopup textFieldAtIndex:0].text = @"";
+            [self.timePickerPopup textFieldAtIndex:1].text = @"";
         }
     } else if ([alertView isEqual:self.inputTableIDAlertView]){
         if(![title isEqualToString:@"Cancel"]) {
@@ -622,9 +623,9 @@
         }
     }  else if ([alertView isEqual:self.whenToServeDessertAlertView]){
         if ([title isEqualToString:@"Now"]){
-            generalNote = @"Serve dessert now";
+            generalNote = [generalNote stringByAppendingString: @"Serve dessert now"];
         } else {
-            generalNote = @"Serve dessert later";
+            generalNote = [generalNote stringByAppendingString: @"Serve dessert later"];
         }
         [self performPlaceOrderNetWorkRequest];
     } else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
@@ -753,18 +754,24 @@
     
     self.timePickerPopup = [[UIAlertView alloc]
                             initWithTitle: @"Pick a time:)"
-                            message: @"Choose the time you would like to pick up"
+                            message: @"and leave your phone number"
                             delegate:self
                             cancelButtonTitle:@"Cancel"
                             otherButtonTitles:@"Okay", nil];
     
-    self.timePickerPopup.alertViewStyle = UIAlertViewStylePlainTextInput;
+    self.timePickerPopup.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+    [[self.timePickerPopup textFieldAtIndex:1] setSecureTextEntry:NO];
+    [[self.timePickerPopup textFieldAtIndex:0] setPlaceholder:@"Time to pick up"];
+    [[self.timePickerPopup textFieldAtIndex:1] setPlaceholder:@"Your phone number"];
+    
     UIDatePicker *picker = [[UIDatePicker alloc] init];
     picker.datePickerMode = UIDatePickerModeTime;
-    
     [picker addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:picker];
     [self.timePickerPopup textFieldAtIndex:0].inputView = picker;
+    
+    [[self.timePickerPopup textFieldAtIndex:1] setKeyboardType:UIKeyboardTypePhonePad];
+    
     [self.timePickerPopup show];
 }
 
@@ -775,7 +782,8 @@
 
 - (void) showPlaceOrderConfirmationPopUp {
     
-    if ([self.userInfo isOrderingTakeaway] && [self.timePickerPopup textFieldAtIndex:0].text.length == 0) {
+    if ([self.userInfo isOrderingTakeaway] && ([self.timePickerPopup textFieldAtIndex:0].text.length == 0 ||
+                                               [self.timePickerPopup textFieldAtIndex:1].text.length != 8)) {
         __weak MenuViewController *weakSelf = self;
         
         self.nextTask = ^(void){
@@ -785,8 +793,9 @@
         return;
     }
     if([self.userInfo isOrderingTakeaway]) {
-        generalNote = [NSString stringWithFormat:@"Takeaway: %@",[self.timePickerPopup textFieldAtIndex:0].text ];
+        generalNote = [NSString stringWithFormat:@"Takeaway: %@, phone: %@",[self.timePickerPopup textFieldAtIndex:0].text, [self.timePickerPopup textFieldAtIndex:1].text ];
         [self.timePickerPopup textFieldAtIndex:0].text = @"";
+        [self.timePickerPopup textFieldAtIndex:1].text = @"";
     }
 
     // Here we need to pass a full frame
@@ -926,7 +935,7 @@
 - (void) processAfterSuccessfulPlacedOrder{
     [self.userInfo.pastOrder mergeWithAnotherOrder:self.userInfo.currentOrder];
     self.userInfo.currentOrder = [[Order alloc] init];
-    
+    generalNote = @"";
     User *user = [User sharedInstance];
     user.pastOrder = self.userInfo.pastOrder;
     user.currentOrder = self.userInfo.currentOrder;
