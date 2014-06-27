@@ -58,6 +58,7 @@ CACHES = {
 INSTALLED_APPS += (
     'storages',
     'grappelli',
+    'raven.contrib.django.raven_compat',
 )
 
 # Not save media files on S3
@@ -105,6 +106,11 @@ COMPRESS_JS_FILTERS += [
     'compressor.filters.jsmin.JSMinFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
+
+# Set your DSN value
+RAVEN_CONFIG = {
+    'dsn': 'https://e7d457d2b7374b298956b7b80c721786:97483dac32dd41fca95439a7fd7d70ee@app.getsentry.com/25559',
+}
 
 
 ########## SECRET CONFIGURATION

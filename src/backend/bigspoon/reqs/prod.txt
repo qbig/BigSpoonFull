@@ -20,3 +20,5 @@ jsmin>=2.0.3,<2.1
 gunicorn==0.16.1 #due to socketio part
 # Cache
 python-memcached>=1.53,<2.0
+# Raven
+raven>=5.0.0
