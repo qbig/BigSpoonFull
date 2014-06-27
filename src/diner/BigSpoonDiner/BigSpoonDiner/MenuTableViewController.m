@@ -94,7 +94,7 @@
     [self.delegate updateCounter];
 }
 
-- (void) viewDidAppear:(BOOL)animated{
+- (void)ensureDishOutletIntegrity {
     // Check order integrity (cannot mix orders from different outlet)
     // - if user.currentVerifiedOutletID is set: only keep dishes for that outlet
     // - otherwise: only keep dishes from current outlet
@@ -106,8 +106,11 @@
     } else {
         [self removeOrdersOtherThanCurrentOutletOrders];
     }
-
+    
     [self updateDish];
+}
+
+- (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
 
@@ -506,6 +509,7 @@
 
 - (void)handleJsonWithDishesAndTableInfos: (NSDictionary *)json{
     self.dishesArray = [self parseFromJsonsToDishes:json];
+    [self ensureDishOutletIntegrity];
     [self renderCategoryButtons];
     [self.tableView reloadData];
     
