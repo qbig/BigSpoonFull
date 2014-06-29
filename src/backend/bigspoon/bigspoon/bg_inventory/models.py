@@ -570,6 +570,10 @@ class Dish(models.Model):
         default=False,
     )
 
+    is_active = models.BooleanField(
+        default=True,
+    )
+
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
         slug = slugify(self.name)
