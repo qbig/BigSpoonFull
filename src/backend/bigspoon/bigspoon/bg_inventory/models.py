@@ -389,7 +389,7 @@ class Outlet(models.Model):
     )
 
     request_for_water_enabled = models.BooleanField(
-        default=False,
+        default=True,
     )
 
     water_popup_text = models.TextField(
@@ -399,7 +399,7 @@ class Outlet(models.Model):
     )
 
     ask_for_bill_enabled = models.BooleanField(
-        default=False,
+        default=True,
     )
 
     bill_popup_text = models.TextField(
