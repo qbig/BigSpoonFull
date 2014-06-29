@@ -398,6 +398,16 @@ class Outlet(models.Model):
         blank=True
     )
 
+    ask_for_bill_enabled = models.BooleanField(
+        default=False,
+    )
+
+    bill_popup_text = models.TextField(
+        _('bill text'),
+        help_text=_('Bill popup text'),
+        blank=True
+    )
+
     default_dish_photo = ImageWithThumbsField(
         upload_to=_image_upload_path,
         blank=True,
