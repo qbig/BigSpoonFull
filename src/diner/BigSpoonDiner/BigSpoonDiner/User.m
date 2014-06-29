@@ -64,6 +64,7 @@
 
     if(self.authToken != nil && [[self userDefault] boolForKey: self.authToken]){
         [[NSNotificationCenter defaultCenter] postNotificationName:FB_TOKEN_VERIFIED object:self];
+        return;
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: USER_LOGIN_WITH_FB]];
     request.HTTPMethod = @"POST";
@@ -76,21 +77,16 @@
                                                        options:NSJSONWritingPrettyPrinted error:&error];
     
     request.HTTPBody = jsonData;
-    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    
-    // add "text/html" as acceptable return type
-    NSMutableSet *acceptableTypes = [[NSMutableSet alloc] initWithSet: operation.responseSerializer.acceptableContentTypes];
-    [acceptableTypes addObject:@"text/html"];
-    operation.responseSerializer.acceptableContentTypes = acceptableTypes;
     
     [operation
      setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
          long responseCode = [operation.response statusCode];
+         NSDictionary* json = (NSDictionary*)responseObject;
          switch (responseCode) {
              case 200:
              case 201:{
-                 NSDictionary* json = (NSDictionary*)responseObject;
+
                  NSString* email =[json objectForKey:@"email"];
                  NSString* firstName = [json objectForKey:@"first_name"];
                  NSString* lastName = [json objectForKey:@"last_name"];
@@ -128,19 +124,21 @@
                  break;
              case 403:
              default:{
-                 [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"FB Login: TokenVerifying failed with code %ld", responseCode]];
-                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+                 [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"FB Login: TokenVerifying failed with code %ld", responseCode] properties:json];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_FB_LOGIN_FAILED object:nil];
              }
          }
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          if (error != nil){
-             [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"FB Login: TokenVerifying failed(operation failed), Error: %@", [error description]]];
+             NSDictionary *userInfo = [error userInfo];
+             NSString *errorString = [[userInfo objectForKey:NSUnderlyingErrorKey] localizedDescription];
+             [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"FB Login: TokenVerifying failed(operation failed), Error: %@", errorString] properties:userInfo];
          } else {
              [[Mixpanel sharedInstance] track: @"FB Login: TokenVerifying failed(operation failed)"];
          }
          
-         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_FB_LOGIN_FAILED object:nil];
      }];
     [operation start];
 }

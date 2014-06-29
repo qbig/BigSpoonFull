@@ -105,7 +105,7 @@ class LoginUser(APIView):
                 'avatar_url': u.avatar_url,
                 'avatar_url_large': u.avatar_url_large
             })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class FBLogin(APIView):
@@ -135,7 +135,7 @@ class FBLogin(APIView):
                 'avatar_url': u.avatar_url,
                 'avatar_url_large': u.avatar_url_large
             })
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserProfile(generics.RetrieveAPIView, generics.UpdateAPIView):
