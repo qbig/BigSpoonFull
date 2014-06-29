@@ -28,6 +28,8 @@
 @property (nonatomic) BOOL isDefaultPhotoMenu;
 @property (nonatomic) BOOL isWaterEnabled;
 @property (nonatomic, strong) NSString *waterText;
+@property (nonatomic) BOOL  isBillEnabled;
+@property (nonatomic, strong) NSString *billText;
 @property (nonatomic) double locationThreshold;
 
 - (id) initWithImgURL: (NSURL *) u
@@ -43,9 +45,11 @@
               gstRate: (double) g
     serviceChargeRate: (double) s
              isActive: (BOOL) is
-             isPhotoMenu:(BOOL)isP
+          isPhotoMenu:(BOOL)isP
 isRequestForWaterEnabled: (BOOL)isWaterEnabled
-                waterText: (NSString*) wt
+            waterText: (NSString*) wt
+isRequestForBillEnabled: (BOOL)isBillEnabled
+             billText: (NSString*)bt
     locationThreshold: (double) lt;
 
 - (double) distanceFrom: (CLLocation*) userLocation;

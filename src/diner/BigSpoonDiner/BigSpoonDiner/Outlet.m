@@ -26,6 +26,8 @@
              isPhotoMenu:(BOOL)isP
 isRequestForWaterEnabled: (BOOL)isWaterEnabled
             waterText: (NSString*) wt
+isRequestForBillEnabled: (BOOL)isBillEnabled
+             billText: (NSString*)bt
     locationThreshold: (double) lt{
     self = [super init];
     if (self) {
@@ -45,6 +47,8 @@ isRequestForWaterEnabled: (BOOL)isWaterEnabled
         self.isDefaultPhotoMenu = isP;
         self.isWaterEnabled = isWaterEnabled;
         self.waterText = wt;
+        self.isBillEnabled = isBillEnabled;
+        self.billText = bt;
         self.locationThreshold = lt;
     }
     return self;

@@ -209,6 +209,8 @@
                 BOOL isDefaultPhotoMenu = (BOOL)[[newOutlet objectForKey:@"is_by_default_photo_menu"] boolValue];
                 BOOL requestForWaterEnabled = (BOOL)[[newOutlet objectForKey:@"request_for_water_enabled"] boolValue];
                 NSString *waterText = [newOutlet objectForKey:@"water_popup_text"];
+                BOOL isRequestForBillEnabled = (BOOL)[[newOutlet objectForKey:@"ask_for_bill_enabled"] boolValue];
+                NSString *billText = [newOutlet objectForKey:@"bill_popup_text"];
                 double locationDiameter = [[newOutlet objectForKey: @"location_diameter"] doubleValue];
                 if (!isActive) {
                     promotionalText = @"Coming Soon!";
@@ -232,6 +234,8 @@
                                                             isPhotoMenu: isDefaultPhotoMenu
                                                isRequestForWaterEnabled: requestForWaterEnabled
                                                               waterText: waterText
+                                                isRequestForBillEnabled: isRequestForBillEnabled
+                                                               billText: billText
                                                       locationThreshold: locationDiameter];
                 [self.outletsArray addObject:newOutletObject];
 

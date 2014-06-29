@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIAlertView *inputTableIDAlertView;
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
 @property (nonatomic, strong) UIAlertView *whenToServeDessertAlertView;
+@property (nonatomic, strong) UIAlertView *requestForBillDisabledTextAlert;
 
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 @property (nonatomic, copy) void (^nextTask)(void);
@@ -404,7 +405,17 @@
             case 200:
             case 201:{
                 NSLog(@"Request Bill Success");
-                [self afterSuccessfulRequestBill];
+                if (outlet.isBillEnabled) {
+                    [self afterSuccessfulRequestBill];
+                } else {
+                    self.requestForBillDisabledTextAlert = [[UIAlertView alloc] initWithTitle:nil
+                                                                                 message: self.outlet.billText
+                                                                                delegate:self
+                                                                       cancelButtonTitle:@"Okay"
+                                                                       otherButtonTitles:nil];
+                    [self.requestForBillDisabledTextAlert show];
+                }
+                
             }
                 break;
             case 403:
@@ -603,7 +614,6 @@
         if([title isEqualToString:@"Yes"])
         {
             NSLog(@"Request For Bill");
-            // TODO Make HTTP request for this.
             [self performRequestBillNetWorkRequest];
         }
         else if([title isEqualToString:@"Cancel"])
@@ -630,6 +640,8 @@
         [self performPlaceOrderNetWorkRequest];
     } else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
         [self.navigationController popViewControllerAnimated:NO];
+    } else if ([alertView isEqual:self.requestForBillDisabledTextAlert]){
+        [self afterSuccessfulRequestBill];
     } else{
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
