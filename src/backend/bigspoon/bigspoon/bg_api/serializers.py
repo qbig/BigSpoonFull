@@ -135,7 +135,7 @@ class OutletDetailSerializer(serializers.ModelSerializer):
         #     start_time__lte=now,
         #     end_time__gte=now
         # )
-        current = obj.dishes.all()
+        current = obj.dishes.filter(is_active=True)
         return DishSerializer(current).data
 
     def get_categories_order(self, obj):
