@@ -344,9 +344,11 @@ class FBSerializer(serializers.Serializer):
                 result = None
             if result:
                 try:
-                    if 'email' in result :
+                    if 'email' in result:
                         user = User.objects.get(email=result['email'])
-                    else :
+                    else if 'username' in result:
+                        user = User.objects.get(email=result['username'])
+                    else:
                         user = None
                 except User.DoesNotExist:
                     user = None
