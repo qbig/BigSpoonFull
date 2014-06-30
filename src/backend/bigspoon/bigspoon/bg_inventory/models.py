@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         _('username'),
         max_length=30,
-        unique=True,
+        blank=True,
         help_text=_('facebook username or facebook id'),
     )
     first_name = models.CharField(
