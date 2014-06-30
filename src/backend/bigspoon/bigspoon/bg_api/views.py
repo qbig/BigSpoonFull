@@ -53,8 +53,8 @@ class CreateUser(generics.CreateAPIView, generics.RetrieveAPIView):
     def pre_save(self, obj):
         obj.set_password(obj.password)
         obj.is_active = True
-        obj.username = obj.email
         
+
     def post_save(self, obj, created=False):
         # add to normal user group
         g = Group.objects.get(name='normaluser')
