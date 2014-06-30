@@ -120,11 +120,6 @@
     [info setObject: self.passwordLabel.text forKey: @"password"];
     [info setObject: self.emailAddressLabel.text forKey: @"email"];
     
-    if (self.facebookUserName != nil && ![self.facebookUserName isEqualToString:@""]) {
-        [info setObject:self.facebookUserName forKey:@"username"];
-        NSLog(@"User signed up through Facebook. Username: %@", self.facebookUserName);
-    } 
-    
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                        options:NSJSONWritingPrettyPrinted error:&error];
     
