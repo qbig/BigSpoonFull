@@ -38,7 +38,7 @@ class UserAdmin(AuthUserAdmin, ImportExportModelAdmin):
             'last_login', 'date_joined')}),
     )
     list_display = ('email', 'username', 'is_staff', 'is_superuser',
-                    'is_active')
+                    'is_active', 'date_joined')
     search_fields = search_fields_of["user"]
     readonly_fields = ['last_login', 'date_joined']
 

@@ -361,10 +361,10 @@ class FBSerializer(serializers.Serializer):
                     user.is_active = True
                     user.set_password(access_token)
                     try: 
-                        user.email = result['email']
                         user.username = result['username']
                         user.first_name = result['first_name']
                         user.last_name = result['last_name']
+                        user.email = result['email']                
                     except:
                         logger.error('Failed for retrieve fb fields')
                     user.save()
