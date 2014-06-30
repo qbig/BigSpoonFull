@@ -12,6 +12,13 @@ from bg_inventory.models import Restaurant, Outlet, Table,\
 from bg_order.models import Meal, Order, Request
 
 
+# import the logging library
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
+
+
 User = get_user_model()
 
 
@@ -337,7 +344,10 @@ class FBSerializer(serializers.Serializer):
                 result = None
             if result:
                 try:
-                    user = User.objects.get(email=result['email'])
+                    if 'email' in result :
+                        user = User.objects.get(email=result['email'])
+                    else :
+                        user = None
                 except User.DoesNotExist:
                     user = None
                 if user:
@@ -350,12 +360,14 @@ class FBSerializer(serializers.Serializer):
                     user = User()
                     user.is_active = True
                     user.set_password(access_token)
-                    user.email = result['email']
-                    user.username = result['username']
-                    user.first_name = result['first_name']
-                    user.last_name = result['last_name']
+                    try: 
+                        user.email = result['email']
+                        user.username = result['username']
+                        user.first_name = result['first_name']
+                        user.last_name = result['last_name']
+                    except:
+                        logger.error('Failed for retrieve fb fields')
                     user.save()
-
                     g = Group.objects.get(name='normaluser')
                     g.user_set.add(user)
                     g.save()
