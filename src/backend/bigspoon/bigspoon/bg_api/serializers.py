@@ -369,7 +369,7 @@ class FBSerializer(serializers.Serializer):
                         user.email = result['email']                
                     except:
                         logger.error('Failed for retrieve fb fields')
-                        user.email = result['username'] + "facebook.com"
+                        user.email = result['username'] + "@facebook.com"
                     user.save()
                     g = Group.objects.get(name='normaluser')
                     g.user_set.add(user)
