@@ -23,7 +23,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *submitButton;
 @property (strong, nonatomic) IBOutlet UIView *mainView;
 
-@property (strong, nonatomic) NSString * facebookUserName;
 @property (weak, nonatomic) IBOutlet UILabel *signupLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
