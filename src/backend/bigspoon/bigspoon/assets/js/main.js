@@ -407,6 +407,7 @@ $(document).ready(function() {
         console.log("Update dish " + id);
 
         var req_data = {
+            "id":id,
             "csrfmiddlewaretoken":csrftoken,
             "name":name,
             "price":price,
