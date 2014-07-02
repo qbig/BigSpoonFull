@@ -422,11 +422,10 @@ $(document).ready(function() {
             "categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
         };
 console.log(req_data);
-        $.ajax({
-                type:"PUT",
-                url: STAFF_API_URLS["dish"] + "/" + id,
-                data: req_data
-            }).done(function(data) {
+        $.post(
+            STAFF_API_URLS["dish"] + "/" + id,
+            req_data
+            ).done(function(data) {
                 var notice_id = '#notice-' + id;
                 $(notice_id).empty();
                 $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
