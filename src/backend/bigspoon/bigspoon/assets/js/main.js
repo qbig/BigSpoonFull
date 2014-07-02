@@ -402,7 +402,7 @@ $(document).ready(function() {
         var quantity = form.find('.quantity select option:selected').val();
         var start_time = form.find('.start_time input').val();
         var end_time = form.find('.end_time input').val();
-        var is_active = form.find('input[name="isActiveCheckbox"]:checked').length > 0;
+        var is_active = form.find('input[name="isActiveCheckbox"]:checked').length > 0 ?  1 : 0;
         var photo = form.find('.photo input').val();
         console.log("Update dish " + id);
 

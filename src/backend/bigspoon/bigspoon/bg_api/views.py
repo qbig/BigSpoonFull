@@ -778,7 +778,7 @@ class UpdateDish(generics.GenericAPIView):
         dish.start_time = req.DATA['start_time']
         dish.end_time = req.DATA['end_time']
         dish.quantity = int(req.DATA['quantity'])
-        dish.is_active = bool(req.DATA['is_active'])
+        dish.is_active = bool(int(req.DATA['is_active']))
         dish.save()
         return Response(DishSerializer(dish).data,
                         status=status.HTTP_200_OK)
