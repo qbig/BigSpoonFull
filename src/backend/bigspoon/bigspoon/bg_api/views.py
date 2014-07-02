@@ -763,9 +763,11 @@ class UpdateDish(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
     permission_classes = (IsAuthenticated,)
     model = Dish
+    parser_classes = (parsers.FileUploadParser,)
 
-    def post(self, req, *args, **kwargs):
-        id = int(kwargs['pk'])
+    def put(self, req, *args, **kwargs):
+        id = int(req.DATA['name'])
+        #id = int(kwargs['pk'])
         # serializer = DishSerializer(data=req.DATA, files=req.FILES)
         # if serializer.is_valid():
         #     serializer.save()

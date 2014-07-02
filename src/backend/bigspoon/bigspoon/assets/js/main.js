@@ -422,7 +422,7 @@ $(document).ready(function() {
             "categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
         };
 console.log(req_data);
-        $.post(
+        $.put(
             STAFF_API_URLS["dish"] + "/" + id,
             req_data
             ).done(function(data) {
