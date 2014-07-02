@@ -419,7 +419,8 @@ $(document).ready(function() {
             "is_active":is_active,
             "photo": photo,
             "outlet": outlet_ids[0],
-            "categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
+            "categories": [category_id]
+            //"categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
         };
 console.log(req_data);
         $.post(
