@@ -786,7 +786,7 @@ class UpdateDish(generics.GenericAPIView):
         dish.quantity = int(req.DATA['quantity'])
         dish.is_active = bool(req.DATA['is_active'])
         dish.save()
-        return Response(req.DATA['photo'], status=status.HTTP_200_OK)
+        return Response(req.FILES.keys(), status=status.HTTP_200_OK)
         # return Response(DishSerializer(dish).data,
         #                 status=status.HTTP_200_OK)
 
