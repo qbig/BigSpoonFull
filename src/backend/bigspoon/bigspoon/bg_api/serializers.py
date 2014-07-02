@@ -94,7 +94,7 @@ class OrderDishSerializer(serializers.ModelSerializer):
 
 
 class DishSerializer(serializers.ModelSerializer):
-    photo = serializers.SerializerMethodField('get_photo')
+    photo_link = serializers.SerializerMethodField('get_photo')
     categories = CategorySerializer(many=True)
     average_rating = serializers.SerializerMethodField('get_average_rating')
 
