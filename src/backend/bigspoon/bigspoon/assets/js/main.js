@@ -418,7 +418,7 @@ $(document).ready(function() {
             "outlet": outlet_ids[0],
             "categories":[category_id]
         };
-
+console.log(req_data);
         $.post(
             STAFF_API_URLS["dish"] + "/" + id,
             req_data
