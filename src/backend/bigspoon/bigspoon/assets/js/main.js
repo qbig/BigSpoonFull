@@ -430,6 +430,7 @@ console.log(req_data);
                 $(notice_id).empty();
                 $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
                 console.log("POST success!");
+                console.log(data);
             }).fail(function(data) {
                 var notice_id = '#notice-' + id;
                 $(notice_id).empty();
