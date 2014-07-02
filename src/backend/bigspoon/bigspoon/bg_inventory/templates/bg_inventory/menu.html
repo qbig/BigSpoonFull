@@ -28,7 +28,7 @@
 
         <div id="accordion">
             {% for dish in dish_list %}
-            <h3 class= "accordion-heading"><input type="hidden" value="{{dish.categories.0}}" /> {{ dish.name }} <i class="icon-collapse"></i></h3>
+            <h3 class= "accordion-heading"><input type="hidden" value="{{dish.categories.all.0}}" /> {{ dish.name }} <i class="icon-collapse"></i></h3>
             <div>
                 <div class="menu-item">
                     <img class="lazy" data-src="{{ dish.photo.url_640x400 }}" src = ""/>
@@ -54,7 +54,7 @@
 
                         <p><label>Active </label> <input type="checkbox" name="isActiveCheckbox" value="isActive" {% if dish.is_active %}checked{% endif %}>
                          <p class="photo"><i class="icon-camera"></i> <input name="photo" type="file"></p>
-                        </p><a href="#" class="add" dish-id="{{dish.id}}" cate-id="{{dish.categories.0.id}}" onclick="updateDish(event, this)"><i class="icon-save"></i> Save</a></p>
+                        </p><a href="#" class="add" dish-id="{{dish.id}}" cate-id="{{dish.categories.all.0.id}}" onclick="updateDish(event, this)"><i class="icon-save"></i> Save</a></p>
                     </span>
                     <span id="notice-{{dish.id}}" class="notifications">
                     </span>
