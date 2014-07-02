@@ -392,6 +392,7 @@ $(document).ready(function() {
         var form = button.parent();
 
         var id = button.attr('dish-id');
+        var category_id = button.attr('cate-id');
         var name = form.find('.name input').val();
         var price = form.find('.price input').val();
         var pos = form.find('.pos input').val();
@@ -413,8 +414,9 @@ $(document).ready(function() {
             "start_time":start_time,
             "end_time":end_time,
             "is_active":is_active,
-            "photo": photo
-            // "categories":categories
+            "photo": photo,
+            "outlet": outlet_ids[0],
+            "categories":[category_id]
         };
 
         $.post(
