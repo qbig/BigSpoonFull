@@ -416,7 +416,7 @@ $(document).ready(function() {
             "is_active":is_active,
             "photo": photo,
             "outlet": outlet_ids[0],
-            "categories":[category_id]
+            "categories":JSON.stringify([category_id])
         };
 console.log(req_data);
         $.post(
