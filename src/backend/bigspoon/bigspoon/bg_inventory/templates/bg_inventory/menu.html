@@ -29,7 +29,7 @@
         <div id="accordion">
             {% for dish in dish_list %}
             <h3 class= "accordion-heading"><input type="hidden" value="{{dish.categories.all}}" /> {{ dish.name }} <i class="icon-collapse"></i></h3>
-            <div>
+            <form>
                 <div class="menu-item">
                     <img class="lazy" data-src="{{ dish.photo.url_640x400 }}" src = ""/>
                     <span class="form">
@@ -59,7 +59,7 @@
                     <span id="notice-{{dish.id}}" class="notifications">
                     </span>
                 </div>
-            </div>
+            </form>
             {% endfor %}
         </div>
     </div>
