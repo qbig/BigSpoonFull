@@ -54,7 +54,7 @@
 
                         <p><label>Active </label> <input type="checkbox" name="isActiveCheckbox" value="isActive" {% if dish.is_active %}checked{% endif %}>
                          <p class="photo"><i class="icon-camera"></i> <input name="photo" type="file"></p>
-                        </p><a href="#" class="add" dish-id="{{dish.id}}" cate-id="{{dish.categories.all}}" onclick="updateDish(event, this)"><i class="icon-save"></i> Save</a></p>
+                        </p><a href="#" class="add" dish-id="{{dish.id}}" cate-id="{{dish.categories.all.0.name}}" onclick="updateDish(event, this)"><i class="icon-save"></i> Save</a></p>
                     </span>
                     <span id="notice-{{dish.id}}" class="notifications">
                     </span>
