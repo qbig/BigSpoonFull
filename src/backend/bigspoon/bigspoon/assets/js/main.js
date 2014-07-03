@@ -419,14 +419,17 @@ $(document).ready(function() {
             "is_active":is_active,
             "photo": photo,
             "outlet": outlet_ids[0],
-            "categories": [category_id]
-            //"categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
+            //"categories": [category_id]
+            "categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
         };
 console.log(req_data);
-        $.post(
-            STAFF_API_URLS["dish"] + "/" + id,
-            req_data
-            ).done(function(data) {
+        $.ajax({
+            url : STAFF_API_URLS["dish"] + "/" + id,
+            data: new FormData(req_data),
+            enctype: 'multipart/form-data',
+            contentType: false,
+            processData: false
+            }).done(function(data) {
                 var notice_id = '#notice-' + id;
                 $(notice_id).empty();
                 $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
