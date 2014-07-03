@@ -11,6 +11,10 @@ $(document).ready(function() {
     window.is_in_popup = false;
     
 
+    $.ajaxSetup({
+        headers: { "X-CSRFToken": $.cookie('csrftoken') }
+    });
+
     // ==========  behavior  ========= 
     // if idle time is more than 2 mins, go back to "New Order" page
 
