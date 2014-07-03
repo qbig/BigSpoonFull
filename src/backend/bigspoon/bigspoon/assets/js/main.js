@@ -407,7 +407,7 @@ $(document).ready(function() {
         var start_time = form.find('.start_time input').val();
         var end_time = form.find('.end_time input').val();
         var is_active = form.find('input[name="isActiveCheckbox"]:checked').length > 0 ?  1 : 0;
-        var photo = form.find('.photo input').val();
+        var photo = form.find('.photo input');
         console.log("Update dish " + id);
 
         var req_data = {
