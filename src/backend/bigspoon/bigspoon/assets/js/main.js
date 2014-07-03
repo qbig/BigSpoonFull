@@ -424,6 +424,7 @@ $(document).ready(function() {
         };
 console.log(req_data);
         $.ajax({
+            type: "POST",
             url : STAFF_API_URLS["dish"] + "/" + id,
             data: new FormData(req_data),
             enctype: 'multipart/form-data',
