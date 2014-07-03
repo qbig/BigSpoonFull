@@ -433,7 +433,7 @@ console.log(req_data);
         $.ajax({
             type: "POST",
             url : STAFF_API_URLS["dish"] + "/" + id,
-            data: new FormData(req_data),
+            data: new FormData(form),
             enctype: 'multipart/form-data',
             contentType: false,
             processData: false

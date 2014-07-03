@@ -29,7 +29,7 @@
         <div id="accordion">
             {% for dish in dish_list %}
             <h3 class= "accordion-heading"><input type="hidden" value="{{dish.categories.all}}" /> {{ dish.name }} <i class="icon-collapse"></i></h3>
-            <form>
+            <form enctype="multipart/form-data">
                 <div class="menu-item">
                     <img class="lazy" data-src="{{ dish.photo.url_640x400 }}" src = ""/>
                     <span class="form">
