@@ -264,7 +264,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message: self.outlet.waterText
                                                        delegate:self
-                                              cancelButtonTitle:@"Thank you!"
+                                              cancelButtonTitle:@"Okay"
                                               otherButtonTitles:nil];
         [alert show];
     }
