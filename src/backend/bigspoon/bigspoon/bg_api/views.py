@@ -766,28 +766,22 @@ class UpdateDish(generics.GenericAPIView):
 
     def post(self, req, *args, **kwargs):
         id = int(kwargs['pk'])
-
+        
         try:
             dish = Dish.objects.get(id=id)
         except Dish.DoesNotExist:
             raise Http404
-        serializer = DishSerializer(dish, data=req.DATA, files=req.FILES)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(req.FILES.keys(), status=status.HTTP_200_OK)
-        else :
-            return Response(req.FILES.keys(), status=status.HTTP_400_BAD_REQUEST)
-        # dish.name = req.DATA['name']
-        # dish.price = Decimal(str(req.DATA['price']))
-        # dish.pos = req.DATA['pos']
-        # dish.desc = req.DATA['desc']
-        # dish.start_time = req.DATA['start_time']
-        # dish.end_time = req.DATA['end_time']
-        # dish.quantity = int(req.DATA['quantity'])
-        # dish.is_active = bool(int(req.DATA['is_active']))
-        # dish.save()
-        # return Response(DishSerializer(dish).data,
-        #                 status=status.HTTP_200_OK)
+        dish.name = req.DATA['name']
+        dish.price = Decimal(str(req.DATA['price']))
+        dish.pos = req.DATA['pos']
+        dish.desc = req.DATA['desc']
+        dish.start_time = req.DATA['start_time']
+        dish.end_time = req.DATA['end_time']
+        dish.quantity = int(req.DATA['quantity'])
+        dish.is_active = bool(int(req.DATA['is_active']))
+        dish.save()
+        return Response(DishSerializer(dish).data,
+                        status=status.HTTP_200_OK)
 
 
 #NOTE: Use serializer to check and get post data here

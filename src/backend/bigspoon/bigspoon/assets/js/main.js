@@ -10,10 +10,10 @@ $(document).ready(function() {
     window.order_quant_before_change;
     window.is_in_popup = false;
     
-
-    $.ajaxSetup({
-        headers: { "X-CSRFToken": $.cookie('csrftoken') }
+      $.ajaxSetup({
+        headers: { "X-CSRFToken": $.cookie('csrftoken'); }
     });
+
 
     // ==========  behavior  ========= 
     // if idle time is more than 2 mins, go back to "New Order" page
@@ -407,12 +407,9 @@ $(document).ready(function() {
         var start_time = form.find('.start_time input').val();
         var end_time = form.find('.end_time input').val();
         var is_active = form.find('input[name="isActiveCheckbox"]:checked').length > 0 ?  1 : 0;
-        var photo = form.find('.photo input');
+        var photo = form.find('.photo input').val();
         console.log("Update dish " + id);
-         if (window.FormData) {
-        console.log(new FormData());
-        console.log("formData available");
-    }
+
         var req_data = {
             "id":id,
             "csrfmiddlewaretoken":csrftoken,
@@ -427,17 +424,13 @@ $(document).ready(function() {
             "photo": photo,
             "outlet": outlet_ids[0],
             //"categories": [category_id]
-            "categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
+            //"categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
         };
 console.log(req_data);
-        $.ajax({
-            type: "POST",
-            url : STAFF_API_URLS["dish"] + "/" + id,
-            data: new FormData(form),
-            enctype: 'multipart/form-data',
-            contentType: false,
-            processData: false
-            }).done(function(data) {
+        $.post(
+            STAFF_API_URLS["dish"] + "/" + id,
+            req_data
+            ).done(function(data) {
                 var notice_id = '#notice-' + id;
                 $(notice_id).empty();
                 $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
