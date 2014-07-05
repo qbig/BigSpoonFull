@@ -47,6 +47,7 @@
     if(![[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         [self showIntroWithCustomView];
     }
+    [self stopLoadingIndicators];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

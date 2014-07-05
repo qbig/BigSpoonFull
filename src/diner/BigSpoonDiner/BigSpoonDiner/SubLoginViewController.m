@@ -94,8 +94,8 @@
                  break;
              }
              default:{
-                 [[Mixpanel sharedInstance] track:@"Log in with email failure" properties:@{@"email": self.emailTextField.text, @"password": self.passwordTextField.text}];
-                 UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Unable to login with provided credentials." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                 [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"Log in with email fail with response code %ld", responseCode] properties:@{@"email": self.emailTextField.text, @"password": self.passwordTextField.text}];
+                 UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Incorrect email or password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
                  [message show];
                  
                  break;
@@ -103,7 +103,10 @@
          }
      }
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-          [self stopLoadingIndicators];
+         [self stopLoadingIndicators];
+         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message: @"Incorrect email or password" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+         [message show];
+         [[Mixpanel sharedInstance] track:@"Log in with email ends in failure block" properties:@{@"email": self.emailTextField.text, @"password": self.passwordTextField.text}];
      }];
     
     if ([self isTableValid]){
