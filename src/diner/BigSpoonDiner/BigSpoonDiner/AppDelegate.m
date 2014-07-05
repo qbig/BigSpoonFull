@@ -106,16 +106,6 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [self initLocationManager];
     [self startTrackingLocation];
-//    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//            [self beginBackgroundUpdateTask];
-//            
-//            [self initLocationManager];
-//            [self.locationManager stopMonitoringSignificantLocationChanges];
-//            [self startTrackingLocation];
-//            [self endBackgroundUpdateTask];
-//        });
-//    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -256,53 +246,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [self.locationManager stopUpdatingLocation];
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        [self beginBackgroundUpdateTask];
-//        
-//        NSLog(@"%@ starting background task %lu", self, (unsigned long)self.bgTask);
-//        [self initLocationManager];
-//        [self.locationManager stopUpdatingLocation];
-//        if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
-//            [self.locationManager startMonitoringSignificantLocationChanges];
-//        }
-//        [self.mixpanel track:@"Usage Ends" properties:@{@"time": [NSDate date]}];
-//        self.timer = [NSTimer scheduledTimerWithTimeInterval:60 * 5
-//                                                      target:self
-//                                                    selector:@selector(startTrackingLocation)
-//                                                    userInfo:nil
-//                                                     repeats:YES];
-//        NSLog(@"%@ ending background task %lu", self, (unsigned long)self.bgTask);
-//
-//        [self endBackgroundUpdateTask];
-//    });
-    
     NSLog(@"%@ dispatched background task %lu", self, (unsigned long)self.bgTask);
 }
-
-#pragma mark - Push notifications
-
-//- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken {
-//    [self.mixpanel.people addPushDeviceToken:devToken];
-//}
-//
-//- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
-//#if TARGET_IPHONE_SIMULATOR
-//    NSLog(@"%@ push registration error is expected on simulator", self);
-//#else
-//    NSLog(@"%@ push registration error: %@", self, err);
-//#endif
-//}
-//
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-//{
-//    // Show alert for push notifications recevied while the app is running
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-//                                                    message:userInfo[@"aps"][@"alert"]
-//                                                   delegate:nil
-//                                          cancelButtonTitle:@"OK"
-//                                          otherButtonTitles:nil];
-//    [alert show];
-//}
-
-
 @end

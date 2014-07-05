@@ -380,29 +380,21 @@
     [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
 }
 
-// In a story board-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
 		MenuViewController *menuViewController = segue.destinationViewController;
         NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
-        Outlet *outlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
-        menuViewController.outlet = outlet;
+        Outlet *selectedOutlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
+        menuViewController.outlet = selectedOutlet;
         menuViewController.delegate = self;
         menuViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
-        if (outlet.outletID == self.outletIDOfPreviousSelection) {
+        if (selectedOutlet.outletID == self.outletIDOfPreviousSelection) {
             
             NSLog(@"In outlets list: going back to a previous page with selected items");
             
             // Assign the history to the outlet:
-
             [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
-            
-            // Erase self data. If the user exits from the outlet, these info will be set by delegate.
-            // self.currentOrder = nil;
-            // self.pastOrder = nil;
             self.tableIDOfPreviousSelection = -1;
             self.outletIDOfPreviousSelection = -1;
             

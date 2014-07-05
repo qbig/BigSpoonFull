@@ -361,7 +361,9 @@
             }
                 break;
             case 404:
-                [self closeCurrentSession];
+                if([self isUserOutsideRestaurant]){
+                    [self closeCurrentSession];
+                }
                 break;
             case 403:
             default:{
