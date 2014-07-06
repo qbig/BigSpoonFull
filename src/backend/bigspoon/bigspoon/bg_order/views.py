@@ -2,11 +2,11 @@ from itertools import chain
 
 from django.contrib import messages
 from django.views.generic import ListView, TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.contrib.auth import get_user_model
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from guardian.shortcuts import get_objects_for_user
@@ -14,9 +14,12 @@ from guardian.shortcuts import get_objects_for_user
 from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
 from bg_order.models import Meal, Request
 
-from bg_inventory.forms import DishCreateForm
+from bg_inventory.forms import DishCreateForm, DishPhotoUpdateForm
 from utils import send_socketio_message, today_limit
 
+import re
+from .response import JSONResponse, response_mimetype
+import json
 User = get_user_model()
 
 
@@ -211,6 +214,51 @@ class MenuView(ListView):
         result = super(MenuView, self).get(request, *args, **kwargs)
         return result
 
+def order_name(name):
+    """order_name -- Limit a text to 20 chars length, if necessary strips the
+    middle of the text and substitute it for an ellipsis.
+
+    name -- text to be limited.
+
+    """
+    name = re.sub(r'^.*/', '', name)
+    if len(name) <= 20:
+        return name
+    return name[:10] + "..." + name[-7:]
+
+
+def serialize(instance, file_attr='photo'):
+    """serialize -- Serialize a Picture instance into a dict.
+
+    instance -- Picture instance
+    file_attr -- attribute name that contains the FileField or ImageField
+
+    """
+    obj = getattr(instance, file_attr)
+    return {
+        'url': obj.url,
+        'name': order_name(obj.name),
+        'thumbnailUrl': obj.url_640x400,
+        'size': obj.size,
+    }
+
+
+
+class DishPhotoUpdateView(UpdateView):
+    model = Dish
+    form_class = DishPhotoUpdateForm
+
+    def form_valid(self, form):
+        self.object = form.save()
+        files = [serialize(self.object)]
+        data = {'files': files}
+        response = JSONResponse(data, mimetype=response_mimetype(self.request))
+        response['Content-Disposition'] = 'inline; filename=files.json'
+        return response
+
+    def form_invalid(self, form):
+        data = json.dumps(form.errors)
+        return HttpResponse(content=data, status=400, content_type='application/json')
 
 class MenuAddView(CreateView):
     form_class = DishCreateForm

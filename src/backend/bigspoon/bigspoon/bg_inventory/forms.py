@@ -47,6 +47,12 @@ class DishCreateForm(forms.ModelForm):
             'end_time': forms.TimeInput(attrs={'format': '%H:%M:%S'}),
         }
 
+class DishPhotoUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Dish
+        fields = ('id', 'photo')
+
 
 class DishCSVForm(forms.Form):
     csv_file = forms.FileField(
