@@ -214,20 +214,8 @@ class MenuView(ListView):
         result = super(MenuView, self).get(request, *args, **kwargs)
         return result
 
-def order_name(name):
-    """order_name -- Limit a text to 20 chars length, if necessary strips the
-    middle of the text and substitute it for an ellipsis.
 
-    name -- text to be limited.
-
-    """
-    name = re.sub(r'^.*/', '', name)
-    if len(name) <= 20:
-        return name
-    return name[:10] + "..." + name[-7:]
-
-
-def serialize(instance, file_attr='photo'):
+def serialize_dish_photo(instance, file_attr='photo'):
     """serialize -- Serialize a Picture instance into a dict.
 
     instance -- Picture instance
@@ -237,7 +225,6 @@ def serialize(instance, file_attr='photo'):
     obj = getattr(instance, file_attr)
     return {
         'url': obj.url,
-        'name': order_name(obj.name),
         'thumbnailUrl': obj.url_640x400,
         'size': obj.size,
     }
@@ -250,7 +237,7 @@ class DishPhotoUpdateView(UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        files = [serialize(self.object)]
+        files = [serialize_dish_photo(self.object)]
         data = {'files': files}
         response = JSONResponse(data, mimetype=response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
