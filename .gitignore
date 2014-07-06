@@ -114,6 +114,7 @@ src/backend/bigspoon/bigspoon/media/
 bg_dev.db
 
 # for django-compressor
-# src/backend/bigspoon/bigspoon/static/
+src/backend/bigspoon/bigspoon/static/CACHE
+src/backend/bigspoon/bigspoon/static/admin
 
 src/testf/djn
