@@ -190,11 +190,10 @@
 			
 			<ul class = "order">
 				
-				<!-- meal note or dish note, clarify it!
-				{{#if meal.note}}	
-				<li>{{meal.note}}</li>
-				{{/if}}
-				-->
+				{{#ifCond meal_note '!==' ''}}	
+					<li>{{meal_note}}</li>
+				{{/ifCond}}
+				
 				{{#each orders}}
 			
 					<li id="page-order-container-{{orders.order_id}}">
@@ -202,6 +201,12 @@
 						<p> {{dish_name}} </p>
 						<em class='pos'>{{dish_pos}}</em>
 					</li>
+					
+					{{#ifCond dish_note '!==' ''}}
+						<li>{{dish_note}}</li>
+					{{/ifCond}}
+
+					
 				{{/each}}
 				
 				<li class="end">

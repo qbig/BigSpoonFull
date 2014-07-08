@@ -9,6 +9,7 @@
             "min":3,
             "second":30
          },
+         "meal_note":"",
          "orders":[
             {
                "order_id":789,
@@ -50,6 +51,7 @@
             "min":2,
             "second":23
          },
+         "meal_note":"fast",
          "orders":[
             {
                "order_id":734,
