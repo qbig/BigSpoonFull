@@ -11,7 +11,7 @@ $(document).ready(function() {
     window.is_in_popup = false;
     
       $.ajaxSetup({
-        headers: { "X-CSRFToken": $.cookie('csrftoken'); }
+        headers: { "X-CSRFToken": $.cookie('csrftoken')}
     });
 
 
