@@ -765,8 +765,8 @@
 - (void) showTimePickerPopup {
     
     self.timePickerPopup = [[UIAlertView alloc]
-                            initWithTitle: @"Pick a time:)"
-                            message: @"and leave your phone number"
+                            initWithTitle: @"Choose pick up time"
+                            message: @"We take time (30mins) to prepare your food with love"
                             delegate:self
                             cancelButtonTitle:@"Cancel"
                             otherButtonTitles:@"Okay", nil];
@@ -788,8 +788,11 @@
 }
 
 - (void)changeDate:(UIDatePicker *)sender {
-    // God forgive me for writing this shit
-    [self.timePickerPopup textFieldAtIndex:0].text = [[[sender.date descriptionWithLocale:[NSLocale currentLocale]] componentsSeparatedByString:@" at "][1] componentsSeparatedByString:@"Singapore"][0];
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [timeFormatter setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
+    [timeFormatter setLocale:[NSLocale currentLocale]];
+    
+    [self.timePickerPopup textFieldAtIndex:0].text = [timeFormatter stringFromDate: sender.date];
 }
 
 - (void) showPlaceOrderConfirmationPopUp {
