@@ -41,45 +41,29 @@
                "allergies":"peanut"
             }
          }
-      },
+      }
+   ],
+   
+   "requests":[
       {
-         "meal_id":124,
-         "meal_start_time":"1.404269983e+12",
-         "meal_status":0,
-         "meal_table_name":"B1",
-         "meal_wait_time":{
-            "min":2,
-            "second":23
+         "request_id":23,
+         "request_start_time":"1.404269983e+12",
+         "request_table_name":"A1",
+         "request_type":0,
+         "request_wait_time":{
+            "min":1,
+            "second":20
          },
-         "meal_note":"fast",
-         "orders":[
-            {
-               "order_id":734,
-               "dish_id":24,
-               "dish_pos":57,
-               "dish_name":"milk tea",
-               "dish_quantity":1,
-               "dish_note":"more sugar"
-            },
-            {
-               "order_id":792,
-               "dish_id":22,
-               "dish_pos":55,
-               "dish_name":"looooooooooon white bread",
-               "dish_quantity":4,
-               "dish_note":""
-            }
-         ],
+         "request_note":"hot",
          "dinerInfo":{
-            "diner_id":2,
-            "diner_name":"Bob",
-            "diner_visits":1,
+            "diner_id":1,
+            "diner_name":"amy",
+            "diner_visits":2,
             "diner_total_spend":60,
-            "diner_average_spend":60,
-            "diner_avatar_url":"xxx",
+            "diner_average_spend":30,
             "diner_profile":{
-               "is_vegetarian":"F",
-               "is_muslim":"Y",
+               "is_vegetarian":"Y",
+               "is_muslim":"F",
                "allergies":""
             }
          }
