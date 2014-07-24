@@ -371,18 +371,6 @@
 
 - (void) performRequestBillNetWorkRequest{
     
-    NSMutableArray *dishesArray = [[NSMutableArray alloc] init];
-    
-    // For every dish that is currently in the order, we add it to the dishes dictionary:
-    for (int i = 0; i < [self.userInfo.currentOrder.dishes count]; i++) {
-        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:i];
-        NSNumber * quantity = [NSNumber numberWithInt:[self.userInfo.currentOrder getQuantityOfDishByDish: dish]];
-        NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
-        
-        NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
-        [dishesArray addObject:newPair];
-    }
-    
     NSDictionary *parameters = @{
                                  @"table": [NSNumber numberWithInt: [User sharedInstance].tableID],
                                  };
