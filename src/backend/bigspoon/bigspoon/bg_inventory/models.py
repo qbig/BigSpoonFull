@@ -467,6 +467,7 @@ class Table(models.Model):
     name = models.CharField(
         _('name'),
         max_length=255,
+        unique=False,
         help_text=_('table name')
     )
     code = models.CharField(
