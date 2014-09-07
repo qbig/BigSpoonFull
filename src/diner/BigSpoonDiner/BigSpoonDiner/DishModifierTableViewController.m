@@ -134,6 +134,8 @@
                       range: NSMakeRange(0,currentSection.itemTitle.length)];
 
     cell.textLabel.attributedText = attString;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.textLabel.numberOfLines = 0;
     return cell;
 }
 
@@ -147,18 +149,22 @@
     DishModifierSection *currentSection = [self.targetingDish.customOrderInfo.modifierSections objectAtIndex:indexPath.section];
     DishModifierItem *item = [currentSection.items objectAtIndex:indexPath.row];
     UITableViewCell *cell;
-
+    
     if ([currentSection.type isEqualToString:DISH_MODIFIER_TYPE_COUNT]){
         DishModifierItemCellCount *cellCount = (DishModifierItemCellCount *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemCount" forIndexPath:indexPath];
         [cellCount.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellCount.itemNameLabel.text = item.itemName;
         cellCount.itemCountLabel.text = [NSString stringWithFormat:@"%d",item.itemCount];
+        cellCount.itemNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cellCount.itemNameLabel.numberOfLines = 2;
         cellCount.item = item;
         cell = cellCount;
     } else {
         DishModifierItemCellRadio *cellRadio = (DishModifierItemCellRadio *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemRadio" forIndexPath:indexPath];
         [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellRadio.itemNameLabel.text = item.itemName;
+        cellRadio.itemNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cellRadio.itemNameLabel.numberOfLines = 2;
         cellRadio.item = item;
         cellRadio.selectorColor = [self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor];
         [cellRadio render];

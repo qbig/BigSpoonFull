@@ -132,8 +132,9 @@
      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
          if (error != nil){
              NSDictionary *userInfo = [error userInfo];
-             NSString *errorString = [[userInfo objectForKey:NSUnderlyingErrorKey] localizedDescription];
-             [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"FB Login: TokenVerifying failed(operation failed), Error: %@", errorString] properties:userInfo];
+             NSString *errorString = [userInfo description];
+             [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"FB Login: TokenVerifying failed(operation failed), Error: %@", errorString]];
+             NSLog(@"%@", errorString);
          } else {
              [[Mixpanel sharedInstance] track: @"FB Login: TokenVerifying failed(operation failed)"];
          }

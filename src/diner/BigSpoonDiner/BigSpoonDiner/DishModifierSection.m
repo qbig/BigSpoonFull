@@ -28,20 +28,27 @@
     self.threshold = [[dict objectForKey:@"threshold"] doubleValue];
     
     NSDictionary *itemsInfo = [dict objectForKey:@"items"];
+    NSDictionary *itemsSequences = [dict objectForKey:@"item-sequences"];
     NSMutableArray *itemsArr = [[NSMutableArray alloc] init];
-    bool shouldSetDefaultAnsForRadio = [self.type isEqualToString:DISH_MODIFIER_TYPE_RADIO];
+
     for(id itemName in itemsInfo) {
         DishModifierItem *item = [[DishModifierItem alloc] init];
         item.itemName = itemName;
-        if(shouldSetDefaultAnsForRadio){
-            item.itemCount = 1;
-            shouldSetDefaultAnsForRadio = NO;
-        } else {
-            item.itemCount = 0;
-        }
-        
+        item.itemCount = 0;
         item.itemPrice = [[itemsInfo objectForKey:itemName] doubleValue];
         [itemsArr addObject: item];
+    }
+    
+    itemsArr = [[itemsArr sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+        int first = [[itemsSequences objectForKey: ((DishModifierItem*)a).itemName] integerValue];
+        int second = [[itemsSequences objectForKey: ((DishModifierItem*)b).itemName] integerValue];
+
+        return first >= second;
+    }] mutableCopy];
+    
+    if ([self.type isEqualToString:DISH_MODIFIER_TYPE_RADIO]) {
+        // set default radio option
+        ((DishModifierItem*)[itemsArr objectAtIndex:0]).itemCount = 1;
     }
     self.items = itemsArr;
     return self;
