@@ -20,39 +20,9 @@
                 <h4>{{ meal.diner.get_full_name }}</h4>
         </span>
         <span class="user-summary">
-        <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
-        <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
         <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
         </span>
         {% endcache %}
-
-
-<!--         {% if meal.is_paid %}
-            <p class="paid">Paid</p>
-        {% else %}
-            <p class="unpaid">Unpaid</p>
-        {% endif %} -->
-
-        <ul class="order">
-            {% if meal.note %}
-                <li>
-                    {{meal.note}}
-                </li>
-            {% endif %}
-            {% if meal.orders.count > 0 %}
-                {% for order in meal.orders.select_related %}
-                <li>
-                    <em class='quantity'>{{order.quantity}}x</em>
-                    <p>{{order.dish.name}}</p>
-                    {% if order.dish.pos %}
-                    <em class='pos'>{{order.dish.pos}}</em>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            {% else %}
-                <li>No orders yet.</li>
-            {% endif %}
-        </ul>
 
     </div>
     {% endfor %}
@@ -66,8 +36,6 @@
         </span>
 
         <span class="user-summary">
-        <p class='profile-tab'>{{ request.diner.meals.count }} visits</p>
-        <p class='profile-tab'>${{ request.diner.get_average_spending }} ave</p>
         <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
         </span>
 
