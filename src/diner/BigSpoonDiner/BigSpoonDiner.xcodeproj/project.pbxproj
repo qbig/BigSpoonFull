@@ -45,6 +45,7 @@
 		03B0CC23184E2E2A0044EB28 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B0CC22184E2E2A0044EB28 /* AFImageRequestOperation.m */; };
 		03B0CC27184E2E730044EB28 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B0CC25184E2E730044EB28 /* EXTScope.m */; };
 		03B0CC30184E300D0044EB28 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 034C6DAB18499ED9008D42C4 /* libz.dylib */; };
+		03BAD1CE19CF33A100470695 /* new_bottom_buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 03BAD1CD19CF33A100470695 /* new_bottom_buttons.png */; };
 		03D411F51842085500ED4F46 /* bg_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F41842085500ED4F46 /* bg_logo.png */; };
 		03D411F71842091000ED4F46 /* login_box_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F61842091000ED4F46 /* login_box_bg.png */; };
 		03D411F91842091800ED4F46 /* or_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D411F81842091800ED4F46 /* or_separator.png */; };
@@ -218,6 +219,7 @@
 		03B0CC24184E2E730044EB28 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTScope.h; path = BigSpoonDiner/EXTScope.h; sourceTree = "<group>"; };
 		03B0CC25184E2E730044EB28 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EXTScope.m; path = BigSpoonDiner/EXTScope.m; sourceTree = "<group>"; };
 		03B0CC26184E2E730044EB28 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = BigSpoonDiner/metamacros.h; sourceTree = "<group>"; };
+		03BAD1CD19CF33A100470695 /* new_bottom_buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_bottom_buttons.png; sourceTree = "<group>"; };
 		03D411F41842085500ED4F46 /* bg_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_logo.png; sourceTree = "<group>"; };
 		03D411F61842091000ED4F46 /* login_box_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_box_bg.png; sourceTree = "<group>"; };
 		03D411F81842091800ED4F46 /* or_separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = or_separator.png; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 				49048D10181F489C00B480A3 /* 5StarsSmall@2x.png */,
 				49048D0A181F463A00B480A3 /* photo_cell_gradient.png */,
 				49CB7971180C6C4000F530C5 /* icon_256px_unfilled.png */,
+				03BAD1CD19CF33A100470695 /* new_bottom_buttons.png */,
 				497DD71B180C5B8600316138 /* bottom_buttons.png */,
 				49164201180C590C00080B87 /* list_icon.png */,
 				49164202180C590C00080B87 /* photo_icon.png */,
@@ -920,6 +923,7 @@
 				03D48295190A969400851AC0 /* sign_up_form.png in Resources */,
 				039731F018F1701100E32FC1 /* intro_4.png in Resources */,
 				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,
+				03BAD1CE19CF33A100470695 /* new_bottom_buttons.png in Resources */,
 				491641FF180C58BB00080B87 /* gear.png in Resources */,
 				49BF7FCC183B1CA500D286A6 /* logout_button.png in Resources */,
 				034C6D681846DA96008D42C4 /* OrderItemView.xib in Resources */,

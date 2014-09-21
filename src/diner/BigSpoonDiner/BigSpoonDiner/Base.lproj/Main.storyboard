@@ -609,27 +609,22 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </containerView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bottom_buttons.png" id="rzZ-R2-gh1">
-                                <rect key="frame" x="-5" y="514" width="326" height="61"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="new_bottom_buttons.png" id="rzZ-R2-gh1">
+                                <rect key="frame" x="-5" y="514" width="326" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
-                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="yyO-yx-G8U" userLabel="Cover view for requesWater">
-                                <rect key="frame" x="0.0" y="515" width="80" height="88"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
                             <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="PyR-ZX-A9A" userLabel="Cover view for requestWaiter">
-                                <rect key="frame" x="80" y="515" width="79" height="53"/>
+                                <rect key="frame" x="1" y="515" width="102" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="DPP-Ww-pJ9" userLabel="Cover view for requestBill">
-                                <rect key="frame" x="160" y="515" width="76" height="53"/>
+                                <rect key="frame" x="107" y="515" width="106" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" id="Hew-HO-lva" userLabel="Cover view for itemsButton">
-                                <rect key="frame" x="240" y="515" width="73" height="53"/>
+                                <rect key="frame" x="215" y="515" width="98" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -674,18 +669,8 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zcg-9t-cNy">
-                                <rect key="frame" x="-1" y="512" width="80" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="requestWaterButtonPressed:" destination="fn9-OW-D18" eventType="touchUpInside" id="OJs-uD-178"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="erQ-iJ-I5k">
-                                <rect key="frame" x="80" y="511" width="80" height="56"/>
+                                <rect key="frame" x="1" y="511" width="102" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -695,7 +680,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iMM-Ee-kIu">
-                                <rect key="frame" x="160" y="511" width="80" height="56"/>
+                                <rect key="frame" x="107" y="511" width="106" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -705,7 +690,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5xQ-kW-wVi">
-                                <rect key="frame" x="239" y="511" width="80" height="56"/>
+                                <rect key="frame" x="215" y="511" width="104" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -727,7 +712,6 @@
                         <outlet property="navigationItem" destination="8dV-wS-J2x" id="vCK-AL-3zP"/>
                         <outlet property="requestBillButtonCoverView" destination="DPP-Ww-pJ9" id="OPS-o5-iXc"/>
                         <outlet property="requestWaiterButtonCoverView" destination="PyR-ZX-A9A" id="cTR-wm-5oH"/>
-                        <outlet property="requestWaterButtonCoverView" destination="yyO-yx-G8U" id="LKy-7j-n7V"/>
                         <outlet property="settingsBarButton" destination="y9B-8i-1fw" id="NFH-rw-YGu"/>
                         <outlet property="settingsButton" destination="Ly9-TU-y8l" id="hfo-LG-PeR"/>
                         <outlet property="viewModeBarButton" destination="uqC-gj-MFU" id="usO-YW-MOx"/>
@@ -1659,7 +1643,6 @@
         <image name="add_button_with_circle.png" width="128" height="128"/>
         <image name="add_minus_only_circle.png" width="128" height="128"/>
         <image name="bg_logo.png" width="1241" height="520"/>
-        <image name="bottom_buttons.png" width="1367" height="253"/>
         <image name="button_add_no_circle.png" width="128" height="128"/>
         <image name="button_add_with_circle.png" width="128" height="128"/>
         <image name="button_minus_no_circle.png" width="128" height="128"/>
@@ -1671,6 +1654,7 @@
         <image name="login_bt.png" width="843" height="150"/>
         <image name="login_form.png" width="524" height="201"/>
         <image name="logout_button.png" width="132" height="46"/>
+        <image name="new_bottom_buttons.png" width="1345" height="241"/>
         <image name="new_entry_background.png" width="360" height="540.50701904296875"/>
         <image name="new_fb_btn.png" width="578" height="96"/>
         <image name="new_overlay2.png" width="586" height="307"/>
@@ -1689,7 +1673,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="X3y-Ki-Wim"/>
-        <segue reference="TRy-SG-Bfr"/>
+        <segue reference="qnZ-wN-VZu"/>
         <segue reference="OcS-Bs-eAE"/>
     </inferredMetricsTieBreakers>
 </document>
