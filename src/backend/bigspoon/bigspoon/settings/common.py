@@ -216,6 +216,9 @@ THIRD_PARTY_APPS = (
 
     # Django import & export util
     'import_export',
+    
+    # Django util commands
+    'django_extensions',
 )
 
 LOCAL_APPS = (
