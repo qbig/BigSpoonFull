@@ -10,29 +10,29 @@
 	<string>BigSpoonDiner</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>251356AE-6F93-4EBF-9743-E1B427F8C884</key>
+		<key>C5F4D03D1A0C73E5545EBA337CA6B30EF3106987</key>
 		<string>https://github.com/CS3216/2013-final-project-7.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>src/diner/BigSpoonDiner/BigSpoonDiner.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>251356AE-6F93-4EBF-9743-E1B427F8C884</key>
+		<key>C5F4D03D1A0C73E5545EBA337CA6B30EF3106987</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/CS3216/2013-final-project-7.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>251356AE-6F93-4EBF-9743-E1B427F8C884</string>
+	<string>C5F4D03D1A0C73E5545EBA337CA6B30EF3106987</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>251356AE-6F93-4EBF-9743-E1B427F8C884</string>
+			<string>C5F4D03D1A0C73E5545EBA337CA6B30EF3106987</string>
 			<key>IDESourceControlWCCName</key>
 			<string>2013-final-project-7</string>
 		</dict>
