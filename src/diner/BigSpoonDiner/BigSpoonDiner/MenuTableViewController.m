@@ -400,16 +400,16 @@
         
         NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
         NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
-        if (thumbnail == nil || thumbnail.length == 0){
+        if (thumbnail == nil || thumbnail.length == 0 || [thumbnail containsString:@"default.jpg"]){
             if(self.outlet.defaultDishPhoto != nil) {
-                thumbnail = [NSString stringWithFormat:@"media/%@", self.outlet.defaultDishPhoto ];
+                thumbnail = [[NSString stringWithFormat:@"media/%@", self.outlet.defaultDishPhoto] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
             } else {
                 thumbnail = BG_DEFAULT_DISH_PHOTO_URL;
             }
             
         }
-        NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
         
+        NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
         NSArray *categories = (NSArray *)[newDish objectForKey:@"categories"];
         NSMutableArray *categoryIDs = [[NSMutableArray alloc]init];
         
