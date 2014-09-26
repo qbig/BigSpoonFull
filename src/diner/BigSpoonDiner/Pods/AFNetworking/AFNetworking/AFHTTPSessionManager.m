@@ -47,6 +47,7 @@
 @end
 
 @implementation AFHTTPSessionManager
+@synthesize reachabilityManager;
 
 + (instancetype)manager {
     return [[AFHTTPSessionManager alloc] initWithBaseURL:nil];

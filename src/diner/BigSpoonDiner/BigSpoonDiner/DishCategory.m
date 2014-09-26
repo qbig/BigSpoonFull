@@ -8,7 +8,9 @@
 
 #import "DishCategory.h"
 
+
 @implementation DishCategory
+@synthesize description = _description;
 
 - (id) initWithID: (int) i name: (NSString*) n andDescription: (NSString*) d {
     self = [super init];

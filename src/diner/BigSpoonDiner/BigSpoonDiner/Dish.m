@@ -9,6 +9,7 @@
 #import "Dish.h"
 
 @implementation Dish
+@synthesize description;
 
 - (id) initWithName: (NSString *) n
         Description: (NSString *) d
