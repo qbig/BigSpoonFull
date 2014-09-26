@@ -48,7 +48,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        read_only_fields = ('name', 'desc')
+        read_only_fields = ('name', 'desc', 'is_list_view_only')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
