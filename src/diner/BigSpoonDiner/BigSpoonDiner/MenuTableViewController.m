@@ -7,7 +7,6 @@
 //
 
 #import "MenuTableViewController.h"
-
 @interface MenuTableViewController (){
     NSMutableData *_responseData;
     int statusCode;

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate{
     // Load outlets when we load the app
@@ -24,13 +25,13 @@
     NSString *auth_token = [SSKeychain passwordForService:@"BigSpoon" account:email];
     [User sharedInstance].authToken = auth_token;
 
-    [TestFlight takeOff:@"069657b9-d915-4404-bad9-9aa6bb1968dc"];
+//    [TestFlight takeOff:@"069657b9-d915-4404-bad9-9aa6bb1968dc"];
     
-    self.mixpanel = [Mixpanel sharedInstanceWithToken:@"cd299a9c637a72d3d95d6cec378ad91e"];
-    [self.mixpanel identify:self.mixpanel.distinctId];
-    self.mixpanel.checkForSurveysOnActive = YES;
-    self.mixpanel.showSurveyOnActive = YES;
-    self.mixpanel.flushInterval = 60;
+//    self.mixpanel = [Mixpanel sharedInstanceWithToken:@"cd299a9c637a72d3d95d6cec378ad91e"];
+//    [self.mixpanel identify:self.mixpanel.distinctId];
+ //   self.mixpanel.checkForSurveysOnActive = YES;
+//    self.mixpanel.showSurveyOnActive = YES;
+//    self.mixpanel.flushInterval = 60;
     [self initLocationManager];
     [[NSNotificationCenter defaultCenter] addObserver:self.locationManager selector:@selector(startUpdatingLocation) name:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
     if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
@@ -40,6 +41,8 @@
     }
     // for more accurate update
     [self performSelector:@selector(startTrackingLocation) withObject:nil afterDelay:5.0];
+    [Crashlytics startWithAPIKey:@"5e0d63d5b12c89cf3ff015e07958d5a94a75722a"];
+
     return YES;
 }
 

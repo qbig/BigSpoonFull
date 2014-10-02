@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03284FDD19DD95ED00DB710C /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03284FDC19DD95ED00DB710C /* Crashlytics.framework */; };
 		033F92031933990C0013A42D /* DishModifierItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F92021933990C0013A42D /* DishModifierItem.m */; };
 		033F920619339D030013A42D /* DishModifierSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920519339D030013A42D /* DishModifierSection.m */; };
 		033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920B1935C1810013A42D /* DishModifierTableViewController.m */; };
@@ -160,6 +161,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03284FDC19DD95ED00DB710C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		033F92011933990C0013A42D /* DishModifierItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierItem.h; sourceTree = "<group>"; };
 		033F92021933990C0013A42D /* DishModifierItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierItem.m; sourceTree = "<group>"; };
 		033F920419339D030013A42D /* DishModifierSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierSection.h; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				4988FFE6183A098500AB5CAD /* CFNetwork.framework in Frameworks */,
 				03A4634118CB06B200B40D34 /* libTestFlight.a in Frameworks */,
 				4988FFE4183A097A00AB5CAD /* libicucore.dylib in Frameworks */,
+				03284FDD19DD95ED00DB710C /* Crashlytics.framework in Frameworks */,
 				E972A39B1832D21C00976CA1 /* CoreLocation.framework in Frameworks */,
 				49558BBE181D0B3F00273090 /* Security.framework in Frameworks */,
 				49F107E5180886D600D2C8DD /* CoreGraphics.framework in Frameworks */,
@@ -441,6 +444,7 @@
 		034C6DAA18499E59008D42C4 /* 3rdPartyLib */ = {
 			isa = PBXGroup;
 			children = (
+				03284FDC19DD95ED00DB710C /* Crashlytics.framework */,
 				033F9217193712590013A42D /* UIImage+ChangeColor */,
 				039436E818E5D74B00865D32 /* Reachability */,
 				49937D57186017D600DDD8F9 /* ToastUI */,
@@ -842,6 +846,7 @@
 				49F107DC180886D600D2C8DD /* Frameworks */,
 				49F107DD180886D600D2C8DD /* Resources */,
 				F390271660774F868E7FD84C /* Copy Pods Resources */,
+				03284FDB19DD94C700DB710C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -985,6 +990,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		03284FDB19DD94C700DB710C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 5e0d63d5b12c89cf3ff015e07958d5a94a75722a 5c42c72aca631a8f25be3ed4b7eff8630f76b9d6f772a8f75f0bb9805d05e51f";
+		};
 		BA73475D86914D449D8C93AE /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1214,6 +1232,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					$SRCROOT/,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
@@ -1248,6 +1267,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					$SRCROOT/,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BigSpoonDiner/BigSpoonDiner-Prefix.pch";
