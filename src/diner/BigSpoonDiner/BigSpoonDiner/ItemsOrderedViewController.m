@@ -133,6 +133,11 @@
 
         if(dish.canBeCustomized){
             cell.modifierDetailsLabel.text = [self.userInfo.currentOrder getModifierDetailsTextAtIndex:indexPath.row];
+            CGRect modifierFrame = cell.modifierDetailsLabel.frame;
+            modifierFrame.origin.x = 86;
+            modifierFrame.origin.y = 45;
+            cell.modifierDetailsLabel.frame = modifierFrame;
+            
             cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price + [dish.customOrderInfo getPriceChange]];
         } else {
             cell.modifierDetailsLabel.text = @"";
@@ -150,6 +155,12 @@
 
         if(dish.canBeCustomized){
             cell.modifierDetailsLabel.text = [self.userInfo.pastOrder getModifierDetailsTextAtIndex:indexPath.row];
+            
+            CGRect modifierFrame = cell.modifierDetailsLabel.frame;
+            modifierFrame.origin.x = 86;
+            modifierFrame.origin.y = 45;
+            cell.modifierDetailsLabel.frame = modifierFrame;
+            
             cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price + [dish.customOrderInfo getPriceChange]];
         } else {
             cell.modifierDetailsLabel.text = @"";

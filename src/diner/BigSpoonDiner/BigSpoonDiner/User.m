@@ -291,13 +291,15 @@
 
 - (BOOL) isUserLocation:(CLLocation *)userLocation WithinMeters:(double)radius OfLatitude:(double)lat AndLongitude:(double)lon
 {
-    if (userLocation == nil){
-        [[Mixpanel sharedInstance] track:@"Location Check Failed: No location available"];
-        return false;
-    }
+    
     if ([self meAtPgpBusStop:userLocation WithinMeters:1500]){
         [[Mixpanel sharedInstance] track:@"Location Check Success(Admin): Admin condition met"];
         return true;
+    }
+    
+    if (userLocation == nil){
+        [[Mixpanel sharedInstance] track:@"Location Check Failed: No location available"];
+        return false;
     }
     
     CLLocation *outletLocation = [[CLLocation alloc] initWithLatitude:lat longitude:lon];
