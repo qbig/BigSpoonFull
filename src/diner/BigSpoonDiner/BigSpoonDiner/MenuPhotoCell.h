@@ -18,4 +18,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UIImageView *overlayImageView;
 
+- (UIImage *)takeSnapshot;
+
 @end

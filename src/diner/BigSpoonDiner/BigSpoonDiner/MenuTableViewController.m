@@ -7,6 +7,8 @@
 //
 
 #import "MenuTableViewController.h"
+#import "Toast+UIView.h"
+
 @interface MenuTableViewController (){
     NSMutableData *_responseData;
     int statusCode;
@@ -15,12 +17,16 @@
 @property NSMutableDictionary* dishesByCategory;
 @property Dish *chosenDish;
 @property bool isCategoryBarAnimating;
+@property UITableViewCell* selectedCell;
+@property bool hasShownToastForItemPage;
 @end
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
 @synthesize jsonForDishesTablesAndCategories;
 @synthesize isCategoryBarAnimating;
+@synthesize selectedCell;
+@synthesize hasShownToastForItemPage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +42,7 @@
     [super viewDidLoad];
     self.displayCategoryID = -1;
     self.isCategoryBarAnimating = NO;
+    self.hasShownToastForItemPage = NO;
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
     // By default:
@@ -724,11 +731,43 @@
 
 #pragma mark - Event Listeners
 
+- (void)animateDishCellAdded:(CGRect)originalFrame withImage:(UIImage*)snapshowImage {
+
+    UIImageView* snapshotView = [[UIImageView alloc] initWithFrame: originalFrame];
+    [snapshotView setImage: snapshowImage];
+    [self.tableView addSubview: snapshotView];
+    
+    CGRect frameCorner = snapshotView.frame;
+    frameCorner.origin.x += self.view.frame.size.width;
+    frameCorner.origin.y += self.view.frame.size.height;
+    
+    [UIView animateWithDuration:1
+                          delay:0.3
+                        options: UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         snapshotView.frame = frameCorner;
+                         snapshotView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+                         snapshotView.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         if (!self.hasShownToastForItemPage){
+                             [self.view makeToast:@"Saved as 'Unsent'. Click 'Orders' to View."
+                                         duration:TOAST_VIEW_DURATION_SHORT
+                                         position:@"center"
+                                            title:nil];
+                             self.hasShownToastForItemPage = YES;
+                         }
+                         
+                         NSLog(@"Done!");
+                     }];
+}
+
 - (IBAction)addNewItemButtonClicked:(id)sender {
     [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     UIButton *btn = (UIButton *)sender;
     int itemID = btn.tag;
     Dish* clickedDish = [self getDishWithID: itemID];
+    self.selectedCell = (UITableViewCell*) btn.superview.superview;
     
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
         if(clickedDish.canBeCustomized){
@@ -736,6 +775,14 @@
             [self performSegueWithIdentifier:@"SegueToAddDishModifier" sender:self];
         } else {
             [self.delegate dishOrdered:clickedDish];
+            
+            if (self.displayMethod == kMethodList) {
+                MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
+                [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+            } else {
+                MenuListCell* clickedCell = (MenuListCell*) self.selectedCell;
+                [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+            }
         }
         [[Mixpanel sharedInstance] track:[NSString stringWithFormat: @"addNewItem button for %@ pressed.-> Legal", clickedDish.name]];
         if (self.displayMethod == kMethodList){
@@ -893,6 +940,13 @@
 
 - (void) dishModifierPopupDidSaveWithUpdatedModifier:(Dish *)newDishWithModifier {
     [self.delegate dishOrdered:newDishWithModifier];
+    if (self.displayMethod == kMethodList) {
+        MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
+        [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+    } else {
+        MenuListCell* clickedCell = (MenuListCell*) self.selectedCell;
+        [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+    }
 }
 
 - (void) dishModifierPopupDidCancel{

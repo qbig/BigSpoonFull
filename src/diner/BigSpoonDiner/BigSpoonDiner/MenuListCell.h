@@ -14,4 +14,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIButton *addButton;
 
+- (UIImage *)takeSnapshot;
+
 @end

@@ -96,6 +96,7 @@ double const BUTTON_CLICK_ANIMATION_DURATION = 0.15;
 double const BUTTON_CLICK_ANIMATION_ALPHA = 0.45;
 double const KEYBOARD_APPEARING_DURATION = 0.3;
 double const TOAST_VIEW_DURATION = 5;
+double const TOAST_VIEW_DURATION_SHORT = 2;
 
 
 // Fonts:

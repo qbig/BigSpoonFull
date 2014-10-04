@@ -76,6 +76,7 @@ extern double const BUTTON_CLICK_ANIMATION_DURATION;
 extern double const BUTTON_CLICK_ANIMATION_ALPHA;
 extern double const KEYBOARD_APPEARING_DURATION;
 extern double const TOAST_VIEW_DURATION;
+extern double const TOAST_VIEW_DURATION_SHORT;
 
 // Fonts:
 
