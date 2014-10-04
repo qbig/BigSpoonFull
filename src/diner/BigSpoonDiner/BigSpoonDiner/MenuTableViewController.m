@@ -757,7 +757,7 @@
                                             title:nil];
                              self.hasShownToastForItemPage = YES;
                          }
-                         
+                         [snapshotView removeFromSuperview];
                          NSLog(@"Done!");
                      }];
 }
