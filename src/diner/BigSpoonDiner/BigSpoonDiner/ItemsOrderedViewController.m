@@ -125,8 +125,9 @@
         } else {
             cell.orderNote.hidden = YES;
         }
+        int dishQuantity = [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue];
         cell.nameLabel.text = dish.name;
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", dishQuantity];
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
         cell.orderNote.text = [self.userInfo.currentOrder getNoteForDishAtIndex:indexPath.row];
@@ -141,7 +142,7 @@
             cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price + [dish.customOrderInfo getPriceChange]];
         } else {
             cell.modifierDetailsLabel.text = @"";
-            cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
+            cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price * dishQuantity];
         }
         return cell;
     } else if ([tableView isEqual:self.pastOrderTableView]){
@@ -149,9 +150,9 @@
                                               dequeueReusableCellWithIdentifier:@"PastOrderCell"];
         
         Dish *dish = [self.userInfo.pastOrder.dishes objectAtIndex:indexPath.row];
-        
+        int dishQuantity = [[self.userInfo.pastOrder.quantity objectAtIndex:indexPath.row] intValue];
         cell.nameLabel.text = dish.name;
-        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", [[self.userInfo.pastOrder.quantity objectAtIndex:indexPath.row] intValue]];
+        cell.quantityLabel.text = [NSString stringWithFormat:@"%d", dishQuantity];
 
         if(dish.canBeCustomized){
             cell.modifierDetailsLabel.text = [self.userInfo.pastOrder getModifierDetailsTextAtIndex:indexPath.row];
@@ -164,7 +165,7 @@
             cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price + [dish.customOrderInfo getPriceChange]];
         } else {
             cell.modifierDetailsLabel.text = @"";
-            cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price];
+            cell.priceLabel.text = [NSString stringWithFormat:@"$%.1f", dish.price * dishQuantity];
         }
         
         return cell;
