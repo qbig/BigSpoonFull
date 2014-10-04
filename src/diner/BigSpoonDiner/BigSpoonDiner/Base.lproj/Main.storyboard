@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="gGf-qz-hrh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--Login View Controller - Login-->
+        <!--Login-->
         <scene sceneID="9iQ-tN-iBt">
             <objects>
                 <viewController title="Login" id="a1i-Wr-CeU" customClass="LoginViewController" sceneMemberID="viewController">
@@ -170,7 +170,7 @@
             </objects>
             <point key="canvasLocation" x="-329" y="743"/>
         </scene>
-        <!--Sign Up View Controller - AuthViewController-->
+        <!--AuthViewController-->
         <scene sceneID="tYF-wl-YaS">
             <objects>
                 <viewController title="AuthViewController" id="ffF-mi-uHH" customClass="SignUpViewController" sceneMemberID="viewController">
@@ -278,7 +278,7 @@
             </objects>
             <point key="canvasLocation" x="-173" y="21"/>
         </scene>
-        <!--Outlets Table View Controller - Outlets-->
+        <!--Outlets-->
         <scene sceneID="Aj7-bl-XUx">
             <objects>
                 <tableViewController storyboardIdentifier="outletViewControllerID" title="Outlets" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SaX-nl-uiI" customClass="OutletsTableViewController" sceneMemberID="viewController">
@@ -386,7 +386,7 @@
             </objects>
             <point key="canvasLocation" x="1240" y="1083"/>
         </scene>
-        <!--Profile View Controller - Profile-->
+        <!--Profile-->
         <scene sceneID="8sa-iJ-CvT">
             <objects>
                 <viewController title="Profile" id="ZEN-AN-JUy" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -596,7 +596,7 @@
             </objects>
             <point key="canvasLocation" x="2774" y="1369"/>
         </scene>
-        <!--Menu View Controller - Outlet Name-->
+        <!--Outlet Name-->
         <scene sceneID="FoD-uc-8wx">
             <objects>
                 <viewController storyboardIdentifier="MENU_VIEW_CONTROLLER" id="fn9-OW-D18" customClass="MenuViewController" sceneMemberID="viewController">
@@ -726,7 +726,7 @@
             </objects>
             <point key="canvasLocation" x="1930" y="1095"/>
         </scene>
-        <!--Dish Modifier Table View Controller - Dish Name-->
+        <!--Dish Name-->
         <scene sceneID="rDN-Xf-c81">
             <objects>
                 <tableViewController modalTransitionStyle="flipHorizontal" id="Ph5-AW-ahp" customClass="DishModifierTableViewController" sceneMemberID="viewController">
@@ -918,7 +918,6 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="modifier" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="66N-lP-PZt">
-                                                            <rect key="frame" x="86" y="44" width="167" height="0.0"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <nil key="highlightedColor"/>
@@ -1010,7 +1009,6 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add notes (e.g. no peanuts)..." minimumFontSize="17" clearButtonMode="unlessEditing" id="sus-Pe-AR7">
-                                                <rect key="frame" x="21" y="53" width="0.0" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -1070,7 +1068,6 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="modifier" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bok-CZ-9gy">
-                                                                    <rect key="frame" x="86" y="44" width="167" height="0.0"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1207,7 +1204,7 @@
                         <outlet property="scrollView" destination="2an-2D-blm" id="AKb-S8-cQj"/>
                         <outlet property="viewContainerForAfterCurrentOrderTable" destination="s0s-2R-DKm" id="aeG-UH-uBP"/>
                         <outlet property="viewContainerForAfterPastOrderTable" destination="OG8-vw-bqU" id="n6l-MJ-L18"/>
-                        <segue destination="Ph5-AW-ahp" kind="push" identifier="SegueToEditDishModifier" customClass="UIStoryboardPopoverSegue" id="Zu8-We-sOe"/>
+                        <segue destination="Ph5-AW-ahp" kind="push" identifier="SegueToEditDishModifier" id="Zu8-We-sOe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DhP-Xs-xSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1223,7 +1220,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="KYR-OW-siR" userLabel="dummy Scroll View">
-                                <rect key="frame" x="0.0" y="-56" width="586" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" id="x23-h5-Wa5">
@@ -1556,7 +1552,7 @@
             </objects>
             <point key="canvasLocation" x="1636" y="2174"/>
         </scene>
-        <!--Order History View Controller - Settings-->
+        <!--Settings-->
         <scene sceneID="ze2-eJ-tgg">
             <objects>
                 <viewController id="bPu-xR-NBc" customClass="OrderHistoryViewController" sceneMemberID="viewController">

@@ -14,11 +14,13 @@
 }
 @property NSMutableDictionary* dishesByCategory;
 @property Dish *chosenDish;
+@property bool isCategoryBarAnimating;
 @end
 
 @implementation MenuTableViewController
 @synthesize dishesByCategory;
 @synthesize jsonForDishesTablesAndCategories;
+@synthesize isCategoryBarAnimating;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +35,7 @@
 {
     [super viewDidLoad];
     self.displayCategoryID = -1;
+    self.isCategoryBarAnimating = NO;
     self.categoryButtonsArray = [[NSMutableArray alloc] init];
     self.dishesByCategory = [[NSMutableDictionary alloc] init];
     // By default:
@@ -46,14 +49,14 @@
     
     if (fabsf(screenRect.size.height - IPHONE_35_INCH_HEIGHT) < 0.001) {
         NSLog(@"Iphone 3.5 inch screen");
-
+        
         self.tableView.frame = CGRectMake(frame.origin.x,
                                           frame.origin.y,
                                           frame.size.width,
                                           screenRect.size.height - IPHONE_35_INCH_TABLE_VIEW_OFFSET);
     } else if (fabsf(screenRect.size.height - IPHONE_4_INCH_HEIGHT) < 0.001){
         NSLog(@"Iphone 4 inch screen");
-
+        
         self.tableView.frame = CGRectMake(frame.origin.x,
                                           frame.origin.y,
                                           frame.size.width,
@@ -128,7 +131,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-
+    
     return 1;
 }
 
@@ -169,22 +172,22 @@
             return cell;
         }
     }
-
+    
     Dish *dish = [[self getDishWithCategory:self.displayCategoryID] objectAtIndex:indexPath.row];
     
     if (self.displayMethod == kMethodList) {
         
         MenuListCell *cell = (MenuListCell *)[tableView
-                                      dequeueReusableCellWithIdentifier:@"MenuListCell"];
+                                              dequeueReusableCellWithIdentifier:@"MenuListCell"];
         
         cell.nameLabel.text = dish.name;
         // [cell.nameLabel alignBottom];
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
-    
+        
         cell.priceLabel.text = [NSString stringWithFormat:@"%.1f", dish.price];
-    
+        
         cell.descriptionLabel.text = dish.description;
         //[cell.descriptionLabel alignTop];
         if (dish.price < 0.01){
@@ -197,13 +200,13 @@
             [cell.nameLabel setFont:[UIFont boldSystemFontOfSize:14]];
         }
         return cell;
-
+        
     }
     
     else {
         
         MenuPhotoCell *cell = (MenuPhotoCell *)[tableView
-                                              dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
+                                                dequeueReusableCellWithIdentifier:@"MenuPhotoCell"];
         if(dish.quantity == 0){
             [cell.overlayImageView setImage:[UIImage imageNamed:DISH_OVERLAY_OUT_OF_STOCK]];
         } else {
@@ -213,17 +216,17 @@
         
         // When the button is clicked, we know which one. :)
         cell.addButton.tag = dish.ID;
-
+        
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFill];
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
         // !! placeholderImage CANNOT be nil
         [cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
         
-       // CGRect frame = cell.imageView.frame;
-       // frame.origin.x = 0;
-       // frame.origin.y = 0;
-       // cell.imageView.frame = frame;
+        // CGRect frame = cell.imageView.frame;
+        // frame.origin.x = 0;
+        // frame.origin.y = 0;
+        // cell.imageView.frame = frame;
         
         cell.ratingImageView.image = nil;//[self imageForRating:dish.ratings];
         
@@ -243,7 +246,7 @@
             cell.priceLabel.hidden = NO;
         }
         return cell;
-
+        
     }
     
 }
@@ -251,37 +254,37 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     // Code for dynamically determine the height for cell. Not used
-//    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
-//    Dish *dish;
-//    
-//    if ([dishes count] == 0) {
-//        return 0;
-//    } else if(indexPath.row == [dishes count]){
-//        dish = [dishes objectAtIndex:0];
-//    } else{
-//        dish = [dishes objectAtIndex:indexPath.row];
-//    }
-//    
-//    if (self.displayMethod == kMethodList) {
-//        
-//        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
-//            return ROW_HEIGHT_LIST_MENU + LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
-//        }else{
-//            return ROW_HEIGHT_LIST_MENU;
-//        }
-//        
-//    } else if (self.displayMethod == kMethodPhoto){
-//        
-//        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
-//            return ROW_HEIGHT_PHOTO_MENU + LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
-//        } else{
-//            return ROW_HEIGHT_PHOTO_MENU;
-//        }
-//        
-//    } else{
-//        NSLog(@"Invalid display method");
-//        return 100;
-//    }
+    //    NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
+    //    Dish *dish;
+    //
+    //    if ([dishes count] == 0) {
+    //        return 0;
+    //    } else if(indexPath.row == [dishes count]){
+    //        dish = [dishes objectAtIndex:0];
+    //    } else{
+    //        dish = [dishes objectAtIndex:indexPath.row];
+    //    }
+    //
+    //    if (self.displayMethod == kMethodList) {
+    //
+    //        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
+    //            return ROW_HEIGHT_LIST_MENU + LINE_HEIGHT_IN_NAME_LABEL_LIST_MENU;
+    //        }else{
+    //            return ROW_HEIGHT_LIST_MENU;
+    //        }
+    //
+    //    } else if (self.displayMethod == kMethodPhoto){
+    //
+    //        if ([dish.name length] > MAX_CHARS_IN_NAME_LABEL_LIST_MENU) {
+    //            return ROW_HEIGHT_PHOTO_MENU + LINE_HEIGHT_IN_NAME_LABEL_PHOTO_MENU;
+    //        } else{
+    //            return ROW_HEIGHT_PHOTO_MENU;
+    //        }
+    //
+    //    } else{
+    //        NSLog(@"Invalid display method");
+    //        return 100;
+    //    }
     
     NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
     if ([indexPath row] == [dishes count]) {
@@ -289,13 +292,13 @@
     }
     
     if (self.displayMethod == kMethodList) {
-
-            return ROW_HEIGHT_LIST_MENU;
-    
+        
+        return ROW_HEIGHT_LIST_MENU;
+        
     } else if (self.displayMethod == kMethodPhoto){
         
-            return ROW_HEIGHT_PHOTO_MENU;
-    
+        return ROW_HEIGHT_PHOTO_MENU;
+        
     } else{
         NSLog(@"Invalid display method");
         return 0;
@@ -342,33 +345,33 @@
  */
 
 
- #pragma mark - Navigation
+#pragma mark - Navigation
 
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
-     if ([segue.identifier isEqualToString:@"SegueToAddDishModifier"]) {
-         DishModifierTableViewController *modifierPopup = segue.destinationViewController;
-         modifierPopup.targetingDish = self.chosenDish;
-         modifierPopup.delegate = self;
-         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: nil action: nil];
-         [[self navigationItem] setBackBarButtonItem: newBackButton];
-         
-     } else{
-         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
-     }
- }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"SegueToAddDishModifier"]) {
+        DishModifierTableViewController *modifierPopup = segue.destinationViewController;
+        modifierPopup.targetingDish = self.chosenDish;
+        modifierPopup.delegate = self;
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
+        
+    } else{
+        NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
+    }
+}
 
 - (UIImage *)imageForRating:(int)rating
 {
-	switch (rating)
-	{
-		case 1: return [UIImage imageNamed:@"1StarSmall@2x.png"];
-		case 2: return [UIImage imageNamed:@"2StarsSmall@2x.png"];
-		case 3: return [UIImage imageNamed:@"3StarsSmall@2x.png"];
-		case 4: return [UIImage imageNamed:@"4StarsSmall@2x.png"];
-		case 5: return [UIImage imageNamed:@"5StarsSmall@2x.png"];
-	}
-	return nil;
+    switch (rating)
+    {
+        case 1: return [UIImage imageNamed:@"1StarSmall@2x.png"];
+        case 2: return [UIImage imageNamed:@"2StarsSmall@2x.png"];
+        case 3: return [UIImage imageNamed:@"3StarsSmall@2x.png"];
+        case 4: return [UIImage imageNamed:@"4StarsSmall@2x.png"];
+        case 5: return [UIImage imageNamed:@"5StarsSmall@2x.png"];
+    }
+    return nil;
 }
 
 #pragma mark - Table view Delegate
@@ -425,11 +428,11 @@
             NSString *description = [newCategory objectForKey:@"desc"];
             
             DishCategory *newCatObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
-                                                               name:name
-                                                     andDescription:description];
+                                                                  name:name
+                                                        andDescription:description];
             [self.dishCategoryArray addObject:newCatObj];
         }
-      
+        
         
         int ID = [[newDish objectForKey:@"id"] intValue];
         NSString* name = [newDish objectForKey:@"name"];
@@ -559,6 +562,60 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (! self.isCategoryBarAnimating) {
+        if (self.tableView.contentOffset.y > self.categoryButtonsHolderView.frame.size.height &&
+            ! self.categoryButtonsHolderView.hidden
+            ) {
+            
+            self.isCategoryBarAnimating = YES;
+            CGRect tableViewFrame = self.tableView.frame;
+            CGRect categoryFrame = self.categoryButtonsHolderView.frame;
+            tableViewFrame.origin.y -= categoryFrame.size.height;
+            tableViewFrame.size.height += categoryFrame.size.height;
+            categoryFrame.origin.y -= categoryFrame.size.height;
+            
+            [UIView animateWithDuration:0.3
+                                  delay:0
+                                options: UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                                 self.tableView.frame = tableViewFrame;
+                                 self.categoryButtonsHolderView.frame = categoryFrame;
+                             }
+                             completion:^(BOOL finished){
+                                 NSLog(@"Done!");
+                                 
+                                 self.isCategoryBarAnimating = NO;
+                                 self.categoryButtonsHolderView.hidden = YES;
+                             }];
+        } else if (self.tableView.contentOffset.y <= self.categoryButtonsHolderView.frame.size.height &&
+                   self.categoryButtonsHolderView.hidden){
+            
+            self.isCategoryBarAnimating = YES;
+            CGRect tableViewFrame = self.tableView.frame;
+            CGRect categoryFrame = self.categoryButtonsHolderView.frame;
+            tableViewFrame.origin.y += categoryFrame.size.height;
+            tableViewFrame.size.height -= categoryFrame.size.height;
+            categoryFrame.origin.y += categoryFrame.size.height;
+            [UIView animateWithDuration:0.2
+                                  delay:0
+                                options: UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 self.categoryButtonsHolderView.hidden = NO;
+                                 self.tableView.frame = tableViewFrame;
+                                 self.categoryButtonsHolderView.frame = categoryFrame;
+                             }
+                             completion:^(BOOL finished){
+                                 NSLog(@"Done!");
+                                 self.isCategoryBarAnimating = NO;
+                             }];
+            
+            
+        }
+    }
+}
+
 - (void) displayErrorInfo: (NSString *) info{
     NSLog(@"Error: %@", info);
     UIAlertView *alertView = [[UIAlertView alloc]
@@ -579,11 +636,11 @@
     
     return;
     
-	[self.dishesArray addObject:dish];
+    [self.dishesArray addObject:dish];
     
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.dishesArray count] - 1 inSection: 0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.dishesArray count] - 1 inSection: 0];
     
-	[self.tableView insertRowsAtIndexPaths:
+    [self.tableView insertRowsAtIndexPaths:
      [NSArray arrayWithObject:indexPath]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -592,7 +649,7 @@
 
 - (NSDate *)dateByNeutralizingDateComponentsOfDate:(NSDate *)originalDate {
     NSCalendar *gregorian = [[NSCalendar alloc]
-                              initWithCalendarIdentifier:NSGregorianCalendar];
+                             initWithCalendarIdentifier:NSGregorianCalendar];
     
     // Get the components for this date
     NSDateComponents *components = [gregorian components:  (NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate: originalDate];
