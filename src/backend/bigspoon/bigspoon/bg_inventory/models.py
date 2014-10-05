@@ -175,9 +175,9 @@ class Category(models.Model):
         help_text=_('category description')
     )
 
-    is_list_view_only = models.BooleanField(
-        default=False,
-    )
+    #is_list_view_only = models.BooleanField(
+    #    default=False,
+    #)
 
     def __unicode__(self):
         """
