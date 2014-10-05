@@ -21,6 +21,7 @@
 		034C6D9C1847AA17008D42C4 /* copyfonts.com_segoe_ui_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 034C6D9B1847AA17008D42C4 /* copyfonts.com_segoe_ui_light.ttf */; };
 		034C6DB01849B93B008D42C4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 034C6DAF1849B93B008D42C4 /* MessageUI.framework */; };
 		03503998183E666400F26A72 /* button_minus_no_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 03503997183E666400F26A72 /* button_minus_no_circle.png */; };
+		038852BA19E1AD5B0076F842 /* DraggingButtonScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 038852B919E1AD5B0076F842 /* DraggingButtonScrollView.m */; };
 		039436E418E5CFE900865D32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039436E318E5CFE900865D32 /* SystemConfiguration.framework */; };
 		039436E718E5D74400865D32 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 039436E618E5D74400865D32 /* Reachability.m */; };
 		039731E318F16F9300E32FC1 /* intro_1_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 039731DE18F16F9300E32FC1 /* intro_1_long.png */; };
@@ -185,6 +186,8 @@
 		034C6DAB18499ED9008D42C4 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		034C6DAF1849B93B008D42C4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		03503997183E666400F26A72 /* button_minus_no_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_minus_no_circle.png; sourceTree = "<group>"; };
+		038852B819E1AD5B0076F842 /* DraggingButtonScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggingButtonScrollView.h; sourceTree = "<group>"; };
+		038852B919E1AD5B0076F842 /* DraggingButtonScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggingButtonScrollView.m; sourceTree = "<group>"; };
 		039436E318E5CFE900865D32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		039436E518E5D74400865D32 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		039436E618E5D74400865D32 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -830,6 +833,8 @@
 				033F92111936F9300013A42D /* DishModifierItemCellCount.m */,
 				033F92131936F9430013A42D /* DishModifierItemCellRadio.h */,
 				033F92141936F9430013A42D /* DishModifierItemCellRadio.m */,
+				038852B819E1AD5B0076F842 /* DraggingButtonScrollView.h */,
+				038852B919E1AD5B0076F842 /* DraggingButtonScrollView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1070,6 +1075,7 @@
 				49F107F3180886D600D2C8DD /* AppDelegate.m in Sources */,
 				4988FFE0183A08AA00AB5CAD /* base64.c in Sources */,
 				033F92031933990C0013A42D /* DishModifierItem.m in Sources */,
+				038852BA19E1AD5B0076F842 /* DraggingButtonScrollView.m in Sources */,
 				4988FFE1183A08AA00AB5CAD /* NSData+SRB64Additions.m in Sources */,
 				4988FFCC183A067700AB5CAD /* SocketIOTransportXHR.m in Sources */,
 				E9CD90D7181D088000139FEC /* ProfileViewController.m in Sources */,
