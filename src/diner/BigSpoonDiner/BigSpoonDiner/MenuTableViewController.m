@@ -427,7 +427,7 @@
             [categoryIDs addObject: [[NSNumber alloc] initWithInt: integerValue]];
         }
         
-        if( [categories count] > 0 && [[[categories objectAtIndex:0] allKeys] count] == 3 && ![[allCategoriesForCurrentOutlet allKeys] containsObject: [[categories objectAtIndex:0] objectForKey:@"name"]]) {
+        if( [categories count] > 0 && [[[categories objectAtIndex:0] allKeys] count] >= 3 && ![[allCategoriesForCurrentOutlet allKeys] containsObject: [[categories objectAtIndex:0] objectForKey:@"name"]]) {
             NSDictionary *newCategory = [categories objectAtIndex:0];
             [allCategoriesForCurrentOutlet setObject:newCategory forKey: [newCategory objectForKey:@"name"]];
             NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
