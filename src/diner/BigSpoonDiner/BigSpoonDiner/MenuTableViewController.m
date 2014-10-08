@@ -572,53 +572,61 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (! self.isCategoryBarAnimating) {
-        if (self.tableView.contentOffset.y > self.categoryButtonsHolderView.frame.size.height &&
-            ! self.categoryButtonsHolderView.hidden
+        if (self.tableView.contentOffset.y > self.navigationController.navigationBar.frame.size.height &&
+            ! self.navigationController.navigationBarHidden
             ) {
             
             self.isCategoryBarAnimating = YES;
             CGRect tableViewFrame = self.tableView.frame;
-            CGRect categoryFrame = self.categoryButtonsHolderView.frame;
-            tableViewFrame.origin.y -= categoryFrame.size.height;
-            tableViewFrame.size.height += categoryFrame.size.height;
-            categoryFrame.origin.y -= categoryFrame.size.height;
-            
+            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
+            CGRect categoryFrameStart = self.categoryButtonsHolderView.frame;
+            CGRect navbarFrame = self.navigationController.navigationBar.frame;
+            tableViewFrame.origin.y = 0;
+            tableViewFrame.size.height += navbarFrame.size.height;
+            categoryFrameEnd.origin.y = 25;
+            categoryFrameStart.origin.y -= categoryFrameStart.size.height;
             [UIView animateWithDuration:0.3
                                   delay:0
                                 options: UIViewAnimationOptionCurveEaseOut
                              animations:^{
                                  self.tableView.frame = tableViewFrame;
-                                 self.categoryButtonsHolderView.frame = categoryFrame;
+                                 self.categoryButtonsHolderView.frame = categoryFrameStart;
                              }
                              completion:^(BOOL finished){
                                  NSLog(@"Done!");
-                                 
                                  self.isCategoryBarAnimating = NO;
-                                 self.categoryButtonsHolderView.hidden = YES;
+                                 self.categoryButtonsHolderView.frame = categoryFrameEnd;
+                                 [self.navigationController.view addSubview:self.categoryButtonsHolderView];
+                                 self.navigationController.navigationBarHidden = YES;
                              }];
-        } else if (self.tableView.contentOffset.y <= self.categoryButtonsHolderView.frame.size.height &&
-                   self.categoryButtonsHolderView.hidden){
+        } else if (self.tableView.contentOffset.y <= self.navigationController.navigationBar.frame.size.height  &&
+                   self.navigationController.navigationBarHidden){
             
             self.isCategoryBarAnimating = YES;
             CGRect tableViewFrame = self.tableView.frame;
-            CGRect categoryFrame = self.categoryButtonsHolderView.frame;
-            tableViewFrame.origin.y += categoryFrame.size.height;
-            tableViewFrame.size.height -= categoryFrame.size.height;
-            categoryFrame.origin.y += categoryFrame.size.height;
+            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
+            CGRect categoryFrameStart = self.categoryButtonsHolderView.frame;
+            CGRect navbarFrame = self.navigationController.navigationBar.frame;
+
+            tableViewFrame.origin.y = 50;
+            tableViewFrame.size.height -= navbarFrame.size.height;
+            categoryFrameEnd.origin.y = 7;
+            categoryFrameStart.origin.y += categoryFrameStart.size.height;
             [UIView animateWithDuration:0.2
                                   delay:0
                                 options: UIViewAnimationOptionCurveEaseIn
                              animations:^{
-                                 self.categoryButtonsHolderView.hidden = NO;
                                  self.tableView.frame = tableViewFrame;
-                                 self.categoryButtonsHolderView.frame = categoryFrame;
+                                 self.categoryButtonsHolderView.frame = categoryFrameStart;
                              }
                              completion:^(BOOL finished){
                                  NSLog(@"Done!");
                                  self.isCategoryBarAnimating = NO;
+                                 [self.categoryButtonsHolderView removeFromSuperview];
+                                 self.categoryButtonsHolderView.frame = categoryFrameEnd;
+                                 [self.view addSubview: self.categoryButtonsHolderView];
+                                 self.navigationController.navigationBarHidden = NO;
                              }];
-            
-            
         }
     }
 }
