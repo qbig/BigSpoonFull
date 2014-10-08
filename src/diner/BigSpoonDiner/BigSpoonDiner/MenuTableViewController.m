@@ -121,10 +121,15 @@
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    [self scrollViewDidScroll:self.tableView];
 }
 
-- (void) viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+- (void) viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (self.navigationController.navigationBarHidden) {
+        self.navigationController.navigationBarHidden = NO;
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
