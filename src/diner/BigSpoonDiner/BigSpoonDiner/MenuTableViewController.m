@@ -588,7 +588,7 @@
             CGRect navbarFrame = self.navigationController.navigationBar.frame;
             tableViewFrame.origin.y = 0;
             tableViewFrame.size.height += navbarFrame.size.height;
-            categoryFrameEnd.origin.y = 25;
+            categoryFrameEnd.origin.y = 24;
             categoryFrameStart.origin.y -= categoryFrameStart.size.height;
             [UIView animateWithDuration:0.3
                                   delay:0
