@@ -1,5 +1,7 @@
 {% extends "staff.html" %}
-
+<script type="text/javascript">
+    var REFRESH_INTEVAL_CAP = {{ outlet.refresh_interval }};
+</script>
 {% load staticfiles %}
 {% load compress %}
 {% load cache %}

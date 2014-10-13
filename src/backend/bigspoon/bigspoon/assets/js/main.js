@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var page_start_time_in_seconds = new Date().getTime()/1000;
-    var REFRESH_INTEVAL_CAP = 30;
+    //var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var timeout_obj;
     window.transfer_from_table;

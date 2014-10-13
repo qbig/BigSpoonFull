@@ -50,6 +50,7 @@ class MainView(TemplateView):
         context["cards"] = sorted(chain(meals, requests),
                                   key=lambda card: card.count_down_start)
         context["cards_num"] = meals.count() + requests.count()
+        context["outlet"] = outlets[0]
         context["table_list"] = list(outlets[0].tables.all())
         self.request.session["cards_num"] = context["cards_num"]
 

@@ -346,10 +346,17 @@ class Outlet(models.Model):
         _('open hours'),
         help_text=_('outlet opening hours')
     )
+
     threshold = models.IntegerField(
         _('threshold'),
         default=10,
         help_text=_('service time threshold'),
+    )
+
+    refresh_interval = models.IntegerField(
+        _('refresh interval'),
+        default=30,
+        help_text=_('refresh interval for dashboard'),
     )
 
     location_diameter = models.DecimalField(
