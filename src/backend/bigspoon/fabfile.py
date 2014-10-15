@@ -45,7 +45,7 @@ def restart_nginx():
 def restart_supervisord():
     print(yellow('Restart Supervisor ...'))
     sudo("service supervisord restart")
-    sudo("supervisorctl restart gunicorn")
+    sudo("supervisorctl restart bigspoon")
 
 
 def install_requirements():
