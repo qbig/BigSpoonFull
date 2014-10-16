@@ -98,8 +98,8 @@ class TableView(ListView):
                               'meals__diner__meals',
                               'meals', 'meals__orders')\
             .filter(outlet__in=outlets).order_by("name")
-        return tables
-        #return sorted(tables, key=lambda t: natural_sort_key(t.name))
+        
+        return sorted(tables, key=lambda tb : natural_sort_key(tb.name))
 
     def get_context_data(self, **kwargs):
         context = super(TableView, self).get_context_data(**kwargs)
