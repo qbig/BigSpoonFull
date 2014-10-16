@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var page_start_time_in_seconds = new Date().getTime()/1000;
-    //var REFRESH_INTEVAL_CAP = 30;
+    var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var timeout_obj;
     window.transfer_from_table;
@@ -10,7 +10,7 @@ $(document).ready(function() {
     window.order_quant_before_change;
     window.is_in_popup = false;
     
-      $.ajaxSetup({
+    $.ajaxSetup({
         headers: { "X-CSRFToken": $.cookie('csrftoken')}
     });
 
@@ -445,6 +445,35 @@ console.log(req_data);
         });
 
     };
+
+    
+    
+    $('.fileupload').each(function(){
+        var self = $(this);
+        var dishUrl = '/staff/menu/dish/' + self.attr('dish-id');
+        var img = self.parent().parent().parent().find('.lazy');
+        self.fileupload({
+            url: dishUrl,
+            crossDomain: false,
+            beforeSend: function(xhr, settings) {
+                
+            },
+            dataType: 'json',
+            done: function (e, data) {
+                img.attr("src",data.result.files[0].thumbnailUrl);
+            },
+            progressall: function (e, data) {
+                // var progress = parseInt(data.loaded / data.total * 100, 10);
+                // $('#progress .progress-bar').css(
+                //     'width',
+                //     progress + '%'
+                // );
+            }
+        }).prop('disabled', !$.support.fileInput)
+          .parent()
+          .addClass($.support.fileInput ? undefined : 'disabled');
+    });
+
 
     // ==========  behavior  ========= 
     // after change table in bulk, need to bind the popup event again

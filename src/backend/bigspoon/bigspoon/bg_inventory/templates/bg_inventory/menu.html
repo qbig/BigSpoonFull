@@ -88,7 +88,7 @@
                         </p>
 
                         <p><label>Active </label> <input type="checkbox" name="isActiveCheckbox" value="isActive" {% if dish.is_active %}checked{% endif %}>
-                        <!-- <p class="photo"><i class="icon-camera"></i> <input name="photo" type="file"></p> -->
+                        <p class="photo"><i class="icon-camera"></i> <input name="photo" type="file"></p>
                         </p><a href="#" class="add" dish-id="{{dish.id}}" cate-id="{{dish.categories.all.0.id}}" cate-name="{{dish.categories.all.0.name}}" cate-desc="{{dish.categories.all.0.desc}}" onclick="updateDish(event, this)"><i class="icon-save"></i> Save</a>
                     </span>
                     <span id="notice-{{dish.id}}" class="notifications">
