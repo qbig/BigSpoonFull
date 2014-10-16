@@ -101,7 +101,7 @@ class TableView(ListView):
             .filter(outlet__in=outlets).all()
         #return tables
         tbs = Outlet.objects.get(id=1).tables.all()
-        return natsort.natsorted(tbs, key=lambda t: t.name)
+        return tbs
 
     def get_context_data(self, **kwargs):
         context = super(TableView, self).get_context_data(**kwargs)
