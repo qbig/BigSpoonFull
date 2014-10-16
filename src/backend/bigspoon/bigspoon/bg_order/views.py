@@ -15,7 +15,8 @@ from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
-from utils import send_socketio_message, today_limit, natural_sort_key
+from utils import send_socketio_message, today_limit
+import natsort
 
 User = get_user_model()
 
@@ -99,7 +100,7 @@ class TableView(ListView):
                               'meals', 'meals__orders')\
             .filter(outlet__in=outlets).all()
         #return tables
-        return sorted(tables, key=lambda tb : natural_sort_key(tb.name))
+        return natsort.natsorted(tables, key=lambda t: t.name)
 
     def get_context_data(self, **kwargs):
         context = super(TableView, self).get_context_data(**kwargs)
