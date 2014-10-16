@@ -16,7 +16,6 @@ from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm
 from utils import send_socketio_message, today_limit
-import natsort
 
 User = get_user_model()
 
@@ -99,9 +98,7 @@ class TableView(ListView):
                               'meals__diner__meals',
                               'meals', 'meals__orders')\
             .filter(outlet__in=outlets).all()
-        #return tables
-        tbs = Outlet.objects.get(id=1).tables.all()
-        return tbs
+        return tables
 
     def get_context_data(self, **kwargs):
         context = super(TableView, self).get_context_data(**kwargs)
