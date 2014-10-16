@@ -97,7 +97,7 @@ class TableView(ListView):
             .prefetch_related('meals__diner',
                               'meals__diner__meals',
                               'meals', 'meals__orders')\
-            .filter(outlet__in=outlets).order_by("name")
+            .filter(outlet__in=outlets).all()
         
         return sorted(tables, key=lambda tb : natural_sort_key(tb.name))
 
