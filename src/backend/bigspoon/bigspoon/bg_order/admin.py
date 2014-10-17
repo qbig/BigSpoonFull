@@ -37,7 +37,7 @@ class MealAdmin(GuardedModelAdmin, ImportExportModelAdmin):
                     'created', 'modified', 'bill_time', 'meanls_count']
 
     def meanls_count(self, obj):
-        return obj.meals.count()
+        return obj.diner.meals.count()
     meanls_count.short_description = 'Total Visits'
 
     list_display_links = ('diner', 'table',)
