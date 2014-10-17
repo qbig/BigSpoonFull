@@ -34,7 +34,12 @@ class MealAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     resource_class = MealResource
     raw_id_fields = ('diner', 'table')
     list_display = ['id','email', 'diner', 'table', 'status', 'is_paid',
-                    'created', 'modified', 'bill_time', 'diner_meanls__count']
+                    'created', 'modified', 'bill_time', 'meanls_count']
+
+    def meanls_count(self, obj):
+        return obj.meals.count()
+    meanls_count.short_description = 'Total Visits'
+
     list_display_links = ('diner', 'table',)
     def email(self, obj):
         return obj.diner.email
