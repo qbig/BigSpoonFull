@@ -328,7 +328,7 @@ nav a.logo img {
 .history {
     /*border-bottom: 2px dashed #ddd;*/
     margin-bottom: 10px;
-    height: 270px; !important;
+    height: 100px; !important;
 }
 
 span.time {
