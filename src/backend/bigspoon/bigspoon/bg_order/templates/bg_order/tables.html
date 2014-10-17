@@ -52,8 +52,8 @@
                     </span>
                     {% cache 300 "diner-table"|add:meal.diner_id %}
                     <span class="user-summary">
-                    <p class='profile-tab'>{{ meal.diner.meals.count }} visits</p>
-                    <p class='profile-tab'>${{ meal.diner.get_average_spending }} ave</p>
+                    <p class='profile-tab'>{{ meal.diner.get_num_of_visits_for_recent_outlet }} visits</p>
+                    <p class='profile-tab'>${{ meal.diner.get_spending_for_recent_outlet }} ave</p>
                     <a href="/staff/user/{{meal.diner.id}}" class='view-profile full'><i class="icon-user"></i> Profile</a>
                     </span>
                     {% endcache %}

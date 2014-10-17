@@ -15,9 +15,9 @@
             {% elif diner.profile.gender == 'F' %}
             <p class='visits'><i class="icon-female"></i></p>
             {% endif %}
-            <p class='visits'><i class="icon-user"></i> {{diner.meals.count}} visits</p>
-            <p class='spent'><i class="icon-dollar"></i> {{diner.get_total_spending}} spent</p>
-            <p class='spent'><i class="icon-dollar"></i> {{diner.get_average_spending}} average spent</p>
+            <p class='visits'><i class="icon-user"></i> {{diner.get_num_of_visits_for_recent_outlet}} visits</p>
+            <p class='spent'><i class="icon-dollar"></i> {{diner.get_spending_for_recent_outlet}} spent</p>
+            <p class='spent'><i class="icon-dollar"></i> {{diner.get_average_spending_for_recent_outlet}} average spent</p>
         </span>
 
         {% if diner.profile %}
@@ -122,7 +122,7 @@
 
             {% if diner.meals.count > 0 %}
 
-                {% for meal in diner.meals.all reversed %}
+                {% for meal in diner.get_recent_outlet_meals reversed %}
                 {% if  meal.is_paid%}                                    
                 <h5>{{meal.get_created}}</h5>
                 <ul class="order">

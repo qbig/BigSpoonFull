@@ -95,6 +95,54 @@ class User(AbstractBaseUser, PermissionsMixin):
         for meal in self.meals.all():
             total_spending += meal.get_meal_spending()
         return total_spending
+    
+    @cached(60*5)
+    def get_recent_outlet_meals(self):
+        """
+        Returns meals from the most recent outlet.
+        """
+        if self.meals.count() > 0:
+            tables = self.meals.latest('created').table.outlet.tables.all()
+            return self.meals.filter(table__in=tables)
+        else:
+            return []
+
+    @cached(60*5)
+    def get_spending_for_recent_outlet(self):
+        """
+        Returns sum of all orders of meals for given outlet.
+        """
+        total_spending = 0
+        recent_meals = self.get_recent_outlet_meals()
+
+        if not recent_meals:
+            return total_spending
+        
+        for meal in recent_meals:
+            total_spending += meal.get_meal_spending()
+        return total_spending
+
+    @cached(60*5)
+    def get_num_of_visits_for_recent_outlet(self):
+        """
+        Returns num of visits for given outlet.
+        """
+        recent_meals = self.get_recent_outlet_meals()
+        if not recent_meals:
+            return 0
+        else:
+            return recent_meals.count()
+
+    @cached(60*5)
+    def get_average_spending_for_recent_outlet(self):
+        total_spending = self.get_spending_for_recent_outlet()
+        num_of_visits = self.get_num_of_visits_for_recent_outlet()
+        if num_of_visits != 0:
+            return "{0:.2f}".format(total_spending / num_of_visits)
+        else:
+            return 0
+
+
     @cached(60*60*2)
     def get_average_spending(self):
         """
@@ -175,9 +223,11 @@ class Category(models.Model):
         help_text=_('category description')
     )
 
-    #is_list_view_only = models.BooleanField(
-    #    default=False,
-    #)
+    # is_list_view_only = models.BooleanField(
+    #     _('list view only'),
+    #     default=False,
+    #     help_text=_('In bigspoon app, only show this category as list view')
+    # )
 
     def __unicode__(self):
         """
@@ -346,7 +396,6 @@ class Outlet(models.Model):
         _('open hours'),
         help_text=_('outlet opening hours')
     )
-
     threshold = models.IntegerField(
         _('threshold'),
         default=10,
