@@ -34,7 +34,7 @@ class MealAdmin(GuardedModelAdmin, ImportExportModelAdmin):
     resource_class = MealResource
     raw_id_fields = ('diner', 'table')
     list_display = ['id','email', 'diner', 'table', 'status', 'is_paid',
-                    'created', 'modified', 'bill_time']
+                    'created', 'modified', 'bill_time', 'diner_meanls__count']
     list_display_links = ('diner', 'table',)
     def email(self, obj):
         return obj.diner.email
