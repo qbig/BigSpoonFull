@@ -37,7 +37,10 @@ class BGUserCreationForm(forms.ModelForm):
 
 
 class DishCreateForm(forms.ModelForm):
-
+    def __init__(self, outlet, *args, **kwargs):
+        super(DishCreateForm, self).__init__(*args, **kwargs)
+        self.fields['categories'] = forms.ModelMultipleChoiceField(queryset=outlet.categories.all())
+    
     class Meta:
         model = Dish
         fields = ['outlet', 'name', 'pos', 'start_time', 'end_time', 'desc',

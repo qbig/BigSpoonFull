@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.contrib.auth import get_user_model
 from django.http import Http404, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django import forms
 from guardian.shortcuts import get_objects_for_user
 
 from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
@@ -17,7 +17,6 @@ from bg_order.models import Meal, Request
 from bg_inventory.forms import DishCreateForm, DishPhotoUpdateForm
 from utils import send_socketio_message, today_limit
 
-import re
 from .response import JSONResponse, response_mimetype
 import json
 User = get_user_model()
@@ -249,9 +248,10 @@ class DishPhotoUpdateView(UpdateView):
         return HttpResponse(content=data, status=400, content_type='application/json')
 
 class MenuAddView(CreateView):
-    form_class = DishCreateForm
+    
     template_name = "bg_inventory/dish_form.html"
     success_url = "/staff/menu/"
+    model=Dish
 
     def get(self, request, *args, **kwargs):
         outlets = get_objects_for_user(
@@ -259,10 +259,14 @@ class MenuAddView(CreateView):
             "change_outlet",
             Outlet.objects.all()
         )
+
         if (outlets.count() == 0):
             raise PermissionDenied
+
         req = super(MenuAddView, self).get(request, *args, **kwargs)
+        req.context_data['form'] = DishCreateForm(outlets[0])        
         req.context_data['form']['outlet'].field.initial = outlets[0]
+        req.context_data['form']['categories'].queryset=outlets[0].categories.all()
         return req
 
     def post(self, request, *args, **kwargs):
