@@ -1,6 +1,5 @@
 $(document).ready(function() {
     var page_start_time_in_seconds = new Date().getTime()/1000;
-    var REFRESH_INTEVAL_CAP = 30;
     var host = "http://"+location.host;
     var timeout_obj;
     window.transfer_from_table;
@@ -9,6 +8,10 @@ $(document).ready(function() {
     window.selected_userId;
     window.order_quant_before_change;
     window.is_in_popup = false;
+
+    if (window.REFRESH_INTEVAL_CAP === undefined) {
+        window.REFRESH_INTEVAL_CAP = 30;
+    }
     
     $.ajaxSetup({
         headers: { "X-CSRFToken": $.cookie('csrftoken')}
