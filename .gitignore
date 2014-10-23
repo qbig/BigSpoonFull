@@ -117,3 +117,5 @@ bg_dev.db
 src/backend/bigspoon/bigspoon/static/
 
 src/testf/djn
+
+src/diner/BigSpoonDiner/Crashlytics.framework/

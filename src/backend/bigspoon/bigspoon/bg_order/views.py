@@ -111,6 +111,7 @@ class TableView(ListView):
         if (outlets.count() == 0):
             raise PermissionDenied
         current_outlet = outlets[0]
+        context["outlet"] = current_outlet
         context["cards_num"] = self.request.session.get("cards_num")
         context['categories'] = list(current_outlet.categories.all())
         dishes = list(current_outlet.dishes.prefetch_related("categories").all())
@@ -172,6 +173,7 @@ class HistoryView(TemplateView):
             raise PermissionDenied
         limit = today_limit()
         context = super(HistoryView, self).get_context_data(**kwargs)
+        context["outlet"] = outlets[0]
         context['meal_cards'] = Meal.objects\
             .prefetch_related('diner', 'diner__meals', 'table')\
             .filter(table__outlet__in=outlets)\
@@ -206,6 +208,7 @@ class MenuView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(MenuView, self).get_context_data(**kwargs)
+        context["outlet"] = self.for_outlet
         context['categories'] = self.for_outlet.categories.all()
         context["cards_num"] = self.request.session.get("cards_num")
         return context
@@ -264,6 +267,7 @@ class MenuAddView(CreateView):
             raise PermissionDenied
 
         req = super(MenuAddView, self).get(request, *args, **kwargs)
+        req.context_data["outlet"] = outlets[0]
         req.context_data['form'] = DishCreateForm(outlets[0])        
         req.context_data['form']['outlet'].field.initial = outlets[0]
         req.context_data['form']['categories'].queryset=outlets[0].categories.all()
@@ -280,9 +284,12 @@ class MenuAddView(CreateView):
 
 class ReportView(ListView):
     model = Meal
+    for_outlet = None    
     template_name = "bg_order/report.html"
+    
     def get_context_data(self, **kwargs):
         context = super(ReportView, self).get_context_data(**kwargs)
+        context["outlet"] = self.for_outlet
         context["cards_num"] = self.request.session.get("cards_num")
         return context
 
@@ -295,6 +302,7 @@ class ReportView(ListView):
         )
         if (outlets.count() == 0):
             raise PermissionDenied
+        self.for_outlet = outlets[0]
         return super(ReportView, self).get_queryset()\
             .prefetch_related('diner', 'orders', 'orders__dish', 'table')\
             .filter(table__outlet__in=outlets, is_paid=True)
