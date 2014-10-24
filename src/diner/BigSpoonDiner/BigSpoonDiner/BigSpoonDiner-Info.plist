@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.89</string>
+	<string>1.0.90</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -30,13 +30,19 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.89</string>
+	<string>1.0.90</string>
 	<key>FacebookAppID</key>
 	<string>617139018336855</string>
 	<key>FacebookDisplayName</key>
 	<string>BigSpoon</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>BigSpoon needs to know where you are:)</string>
+	<key>NSLocationUsageDescription</key>
+	<string>BigSpoon needs to know where you are:)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>BigSpoon needs to know where you are:)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>copyfonts.com_segoe_ui_light.ttf</string>
@@ -66,11 +72,5 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
-    <key>NSLocationUsageDescription</key>
-    <string>BigSpoon needs to know where you are:)</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>BigSpoon needs to know where you are:)</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>BigSpoon needs to know where you are:)</string>
 </dict>
 </plist>
