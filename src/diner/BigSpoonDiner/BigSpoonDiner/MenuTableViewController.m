@@ -808,7 +808,11 @@
     UIButton *btn = (UIButton *)sender;
     int itemID = btn.tag;
     Dish* clickedDish = [self getDishWithID: itemID];
-    self.selectedCell = (UITableViewCell*) btn.superview.superview;
+    if (IS_OS_8_OR_LATER) {
+        self.selectedCell = (UITableViewCell*) btn.superview.superview;
+    } else {
+        self.selectedCell = (UITableViewCell*) btn.superview.superview.superview;
+    }
     
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
         if(clickedDish.canBeCustomized){

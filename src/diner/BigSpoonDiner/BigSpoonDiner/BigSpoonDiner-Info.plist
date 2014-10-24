@@ -66,5 +66,11 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+    <key>NSLocationUsageDescription</key>
+    <string>BigSpoon needs to know where you are:)</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>BigSpoon needs to know where you are:)</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>BigSpoon needs to know where you are:)</string>
 </dict>
 </plist>

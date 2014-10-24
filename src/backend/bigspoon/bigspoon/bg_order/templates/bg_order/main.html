@@ -140,6 +140,8 @@
         <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
     </div>
     {% endif %}
+
+    {% cache 600 dropdown %}
     <div id="dropdown-for-page" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for table in table_list %}
@@ -171,4 +173,5 @@
         </ul>
     </div>                    
     {% endfor %}
+    {% endcache %}
 {% endblock content %}

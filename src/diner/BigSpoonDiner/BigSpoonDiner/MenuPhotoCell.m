@@ -7,7 +7,7 @@
 //
 
 #import "MenuPhotoCell.h"
-
+#import "Constants.h"
 @implementation MenuPhotoCell
 @synthesize imageView;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -28,7 +28,12 @@
 
 - (UIImage *)takeSnapshot {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
-    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    if (IS_OS_8_OR_LATER) {
+        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    } else {
+        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
+    }
+    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;

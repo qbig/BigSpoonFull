@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Constants : NSObject
-
+#define IS_OS_8_OR_LATER ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) 
 // Request URLs:
 
 extern NSString* const BASE_URL;
