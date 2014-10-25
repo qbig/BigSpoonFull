@@ -13,7 +13,7 @@ from fabric.colors import cyan, yellow, green, white, red
 WORK_HOME = '/home/ec2-user/webapps/2013-final-project-7/src/backend/bigspoon/'
 ENV_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/env/'
 RUN_WITH_ENV = 'source ' + ENV_PATH + 'bin/activate && '
-AWS_IP_STAGE = '54.255.17.69'
+AWS_IP_STAGE = '54.254.12.170'
 AWS_IP_PROD = '54.255.0.38'
 DEV_SERVER = [AWS_IP_PROD]
 STAGE_SERVER = [AWS_IP_STAGE]
@@ -103,8 +103,8 @@ def stage_deploy(*args):
     print(cyan('->  Connected to server'))
     with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
-        run("git remote update && git reset --hard origin/develop")
-        install_requirements_stage()
+        run("git remote update && git reset --hard origin/master")
+        install_requirements()
         if args:
             if 'newdb' in args:
                 create_db()
