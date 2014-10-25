@@ -46,11 +46,15 @@ DATABASES = {'default': dj_database_url.config()}
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
     }
 }
 ########## END CACHE CONFIGURATION
+
+INSTALLED_APPS += (
+    'raven.contrib.django.raven_compat',
+)
 
 ########## STORAGE CONFIGURATION
 # Not save media files on S3
@@ -74,6 +78,10 @@ COMPRESS_JS_FILTERS += [
 ]
 ########## END COMPRESSION CONFIGURATION
 
+# Set your DSN value
+RAVEN_CONFIG = {
+    'dsn': 'https://e7d457d2b7374b298956b7b80c721786:97483dac32dd41fca95439a7fd7d70ee@app.getsentry.com/25559',
+}
 
 
 ########## SECRET CONFIGURATION
