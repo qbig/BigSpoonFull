@@ -90,7 +90,7 @@ def prod_deploy(*args):
             if 'nginx' in args:
                 restart_nginx()
         sanity_check_status = sanity_check(
-            'http://'+AWS_IP_DEV,
+            'http://'+AWS_IP_PROD,
             ['/admin', '/staff/main', '/staff/menu']
         )
         if sanity_check_status == 1:
