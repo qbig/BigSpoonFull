@@ -57,7 +57,6 @@ CACHES = {
 # See: http://django-storages.readthedocs.org/en/latest/index.html
 INSTALLED_APPS += (
     'storages',
-    'grappelli',
     'raven.contrib.django.raven_compat',
 )
 

@@ -1,6 +1,4 @@
 -r common.txt
-# grappli !!
-django-grappelli==2.4.7
 #PIL
 PIL>=1.1.6,<1.2
 # Database
