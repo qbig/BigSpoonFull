@@ -11,7 +11,7 @@
 @implementation Constants
 
 // Request URLs:
-#define DEV  0;
+//#define DEV  0;
 #ifdef DEV
 NSString* const BASE_URL = @"http://54.255.17.69/";
 NSString* const USER_SIGNUP = @"http://54.255.17.69/api/v1/user";
@@ -129,6 +129,7 @@ int const NUM_OF_RATINGS = 5;
 int const MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM = 15;
 double const LOCATION_CHECKING_DIAMETER = 300;
 double const LONGEST_NETWORK_WAITING_TIME = 3.0;
+double const LOCATION_FILTER_DISTANCE_100KM = 100000;
 NSString* const OUTLET_ID_PREFIX = @"outlet";
 NSString* const OUTLET_INFO_FOR_ID_PREFIX = @"outletWithId";
 NSString* const FB_SESSION_IS_OPEN = @"FBSessionIsOpen";

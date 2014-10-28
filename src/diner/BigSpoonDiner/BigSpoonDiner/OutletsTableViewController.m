@@ -71,6 +71,7 @@
                     position:[NSValue valueWithCGPoint:CGPointMake(screenWidth / 2, screenHeight - 110)]
                        title:nil];
     }
+    [self filterOutletListBasedOnLocation];
     [self reorderOutletListBasedOnLocation];
     [self.tableView reloadData];
 }
@@ -241,6 +242,7 @@
 
             }
             
+            [self filterOutletListBasedOnLocation];
             [self reorderOutletListBasedOnLocation];
             [self.tableView reloadData];
             [self stopLoadingIndicators];
@@ -275,6 +277,14 @@
             double secondDist = [(Outlet*)b distanceFrom: [User sharedInstance].userLocation];
             return firstDist >= secondDist;
         }] mutableCopy];
+    }
+}
+
+- (void) filterOutletListBasedOnLocation {
+    if(self.outletsArray && [User sharedInstance].userLocation){
+        self.outletsArray = [[self.outletsArray filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
+            return [(Outlet*) object distanceFrom: [User sharedInstance].userLocation] <= LOCATION_FILTER_DISTANCE_100KM ;
+        }]] mutableCopy];
     }
 }
 
