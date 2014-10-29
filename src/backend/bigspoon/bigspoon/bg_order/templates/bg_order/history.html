@@ -13,7 +13,7 @@
     {% for meal in meal_cards %}
     <div class="item history">
         <span class="passed time"><i class="icon-time"></i> responded in {{meal.used_time.0}} mins {{meal.used_time.1}} seconds</span>
-        {% cache 300 "diner"|add:meal.diner_id %}
+        {% cache 300 "diner" meal.diner_id %}
         <h3>{{ meal.table.name }}</h3>
         <span class='user'>
                 <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
