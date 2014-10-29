@@ -141,7 +141,7 @@
     </div>
     {% endif %}
 
-    {% cache 600 dropdown %}
+    {% cache 600 "dropdown" outlet.id %}
     <div id="dropdown-for-page" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for table in table_list %}
@@ -165,7 +165,7 @@
     {% for category in categories %}
     <div id="dropdown-for-dish-category-{{category.id}}" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">     
-        {% for dish in dishes|key:category.id %}               
+        {% for dish in dishes|key:category.id %}
             <li><a data-dishId="{{dish.id}}" class="targetDish" onclick="chooseDish(this);">
             {{dish.name|capfirst}}
             </a></li>                    

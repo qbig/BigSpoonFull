@@ -97,7 +97,8 @@
         </div> <!-- end of <div class="table"> -->
         {% endfor %}
     </div> <!-- end of <div class="wrapper"> -->
-
+    
+    {% cache 600 "dropdown" outlet.id %}
     <div id="dropdown-for-page" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for table in table_list %}
@@ -107,6 +108,7 @@
             {% endfor %}
         </ul>
     </div>
+
     <div id="dropdown-for-categories" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">
             {% for category in categories %}
@@ -121,7 +123,6 @@
     <div id="dropdown-for-dish-category-{{category.id}}" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">     
         {% for dish in dishes|key:category.id %}
-               
             <li><a data-dishId="{{dish.id}}" class="targetDish" onclick="chooseDish(this);">
             {{dish.name|capfirst}}
             </a></li>                    
@@ -129,7 +130,8 @@
         </ul>
     </div>                    
     {% endfor %}
-    
+    {% endcache %}
+
     <div id="test-modal" class="mfp-hide wrapper-no-bg white-popup">
         <h1>Modify this order?</h1>
         <p>You are going to reduce the quantity of this dish by 1 from this order.</p>
