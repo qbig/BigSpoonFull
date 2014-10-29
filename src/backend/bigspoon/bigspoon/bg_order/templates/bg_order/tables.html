@@ -46,11 +46,11 @@
                     {% endif %}
                         <i class="icon-time"></i> waited {{meal.wait_time.0}}m, {{meal.wait_time.1}}s
                     </span>
+                    {% cache 300 "diner" meal.diner_id %}
                     <span class='user'>
                         <a class="user-profile-link" href="/staff/user/{{meal.diner.id}}"><img src="{{meal.diner.avatar_url}}" /></a>
                         <h4>{{ meal.diner.get_full_name }}</h4>
                     </span>
-                    {% cache 300 "diner-table"|add:meal.diner_id %}
                     <span class="user-summary">
                     <p class='profile-tab'>{{ meal.diner.get_num_of_visits_for_recent_outlet }} visits</p>
                     <p class='profile-tab'>${{ meal.diner.get_spending_for_recent_outlet }} ave</p>
