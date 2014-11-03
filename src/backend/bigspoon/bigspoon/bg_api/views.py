@@ -28,7 +28,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
-from utils import send_socketio_message, send_user_feedback, today_limit
+from utils import send_socketio_message, send_socketio_message_asyn, send_user_feedback, send_user_feedback_asyn, today_limit
 
 from decimal import Decimal
 
@@ -658,11 +658,11 @@ class CloseBill(generics.GenericAPIView):
         meal.is_paid = True
         meal.bill_time = timezone.now()
         meal.save()
-        send_user_feedback(
+        send_user_feedback_asyn(
                 "u_%s" % meal.diner.auth_token.key,
                 'Your bill has been closed by waiter.'
             )
-        send_socketio_message(
+        send_socketio_message_asyn(
                 request.user.outlet_ids,
                 ['refresh', 'meal', 'closebill']
             )
