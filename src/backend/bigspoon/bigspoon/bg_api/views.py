@@ -195,7 +195,7 @@ class MealHistory(generics.ListAPIView):
         return Meal.objects.filter(
             diner=self.request.user,
             is_paid=True
-        )
+        ).all()[:14]
 
 class UpdateOrder(generics.CreateAPIView):
     """
