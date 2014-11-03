@@ -431,7 +431,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             dish.quantity -= quantity
             dish.save()
 
-        send_socketio_message(
+        send_socketio_message_asyn(
             [table.outlet.id],
             ['refresh', 'meal', 'new']
         )
@@ -472,7 +472,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
-        send_socketio_message(
+        send_socketio_message_asyn(
             [int(outlet_id)],
             ['refresh', 'meal', 'new']
         )
@@ -517,7 +517,7 @@ class CreateRequest(generics.CreateAPIView):
                                                    is_paid=False, status=Meal.INACTIVE)
 
     def post_save(self, obj, created=False):
-        send_socketio_message(
+        send_socketio_message_asyn(
             [obj.table.outlet.id],
             ['refresh', 'request', 'new']
         )
@@ -540,7 +540,7 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            send_socketio_message(
+            send_socketio_message_asyn(
                 [table.outlet.id],
                 ['refresh', 'meal', 'askbill']
             )
@@ -573,7 +573,7 @@ class CreateRating(generics.GenericAPIView):
             )
             rating.score = Decimal(str(dish_pair.values()[0]))
             rating.save()
-            send_socketio_message(
+            send_socketio_message_asyn(
                 [rating.dish.outlet.id],
                 ['refresh', 'rating']
             )
@@ -604,7 +604,7 @@ class CreateReview(generics.CreateAPIView):
             review.save()
             serializer.data['user'] = review.user.id
             headers = self.get_success_headers(serializer.data)
-            send_socketio_message(
+            send_socketio_message_asyn(
                 [review.outlet.id],
                 ['refresh', 'review']
             )
@@ -691,7 +691,7 @@ class AckOrder(generics.GenericAPIView):
             order.is_finished = True
             order.save()
         meal.save()
-        send_socketio_message(
+        send_socketio_message_asyn(
             request.user.outlet_ids,
             ['refresh', 'meal', 'ack']
         )
@@ -721,7 +721,7 @@ class AckRequest(generics.GenericAPIView):
         req.is_active = False
         req.finished = timezone.now()
         req.save()
-        send_socketio_message(
+        send_socketio_message_asyn(
             request.user.outlet_ids,
             ['refresh', 'request', 'ack']
         )

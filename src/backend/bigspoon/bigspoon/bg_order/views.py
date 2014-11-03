@@ -15,7 +15,7 @@ from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm, DishPhotoUpdateForm
-from utils import send_socketio_message, today_limit
+from utils import send_socketio_message_asyn, today_limit
 
 from .response import JSONResponse, response_mimetype
 import json
@@ -276,7 +276,7 @@ class MenuAddView(CreateView):
     def post(self, request, *args, **kwargs):
         result = super(MenuAddView, self).post(request, *args, **kwargs)
         messages.success(self.request, 'Dish added')
-        send_socketio_message(
+        send_socketio_message_asyn(
             request.user.outlet_ids,
             ['refresh', 'menu', 'add'])
         return result
