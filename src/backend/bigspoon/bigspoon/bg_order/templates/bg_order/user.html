@@ -122,7 +122,7 @@
 
             {% if diner.meals.count > 0 %}
 
-                {% for meal in diner.get_recent_outlet_meals reversed %}
+                {% for meal in diner.get_recent_outlet_meals|slice:":14" reversed %}
                 {% if  meal.is_paid%}                                    
                 <h5>{{meal.get_created}}</h5>
                 <ul class="order">

@@ -927,7 +927,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "435"
             endingLineNumber = "435"
-            landmarkName = "-isLocation:SameAsLocation:"
+            landmarkName = "-closeCurrentSession"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
