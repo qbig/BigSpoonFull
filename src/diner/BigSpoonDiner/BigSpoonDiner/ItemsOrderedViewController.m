@@ -354,15 +354,8 @@
 
 - (IBAction)placeOrderButtonPressed:(id)sender {
     NSLog(@"%@", [self.navigationController viewControllers]);
-    [self dismissKeyboard];
-    
     NSLog(@"%@", [self.delegate getCurrentOrder].notes);
-    [[Mixpanel sharedInstance] track:@"ItemView: Order placed"];
-    [[Mixpanel sharedInstance].people increment:@"Number of Order placed" by:[NSNumber numberWithInt:1]];
-    [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"ItemView: Spent %@",self.pastTotalLabel.text]];
-    [[Mixpanel sharedInstance].people increment:@"Total Spending" by: [NSNumber numberWithDouble: self.pastTotalLabel.text.doubleValue]];
-    [[Mixpanel sharedInstance].people increment:@"Number of Dish" by: [NSNumber numberWithInt: [[User sharedInstance].pastOrder getTotalQuantity]]];
-    
+    [self dismissKeyboard];
     [self.delegate placeOrderWithNotes:self.addNotesTextField.text];
     
     // Erase the existing text.
@@ -370,7 +363,6 @@
     
     // Put away the keyboard
     [self.addNotesTextField resignFirstResponder];
-    
 }
 
 - (void) setGSTRate: (double) g andServiceChargeRate: (double) s{

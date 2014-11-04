@@ -626,6 +626,7 @@
             generalNote = [generalNote stringByAppendingString: @"Serve dessert later"];
         }
         [self performPlaceOrderNetWorkRequest];
+        [self processAfterSuccessfulPlacedOrder];
     } else if ([alertView isEqual:self.goBackButtonPressedAlertView]){
         [self.navigationController popViewControllerAnimated:NO];
     } else if ([alertView isEqual:self.requestForBillDisabledTextAlert]){
@@ -715,6 +716,7 @@
     [self.userInfo.currentOrder addNote:note forDishAtIndex:dishIndex];
     return self.userInfo.currentOrder;
 }
+
 
 - (void) placeOrderWithNotes:(NSString *)notes{
     
@@ -824,6 +826,7 @@
                 [self.whenToServeDessertAlertView show];
             } else {
                 [self performPlaceOrderNetWorkRequest];
+                [self processAfterSuccessfulPlacedOrder];
             }
         }
         [alertView close];
@@ -916,7 +919,6 @@
             case 200:
             case 201:{
                 NSLog(@"Place Order Success");
-                [self processAfterSuccessfulPlacedOrder];
             }
                 break;
             case 403:
@@ -951,6 +953,13 @@
                    title:nil];
     
     [self updateItemQuantityBadge];
+    
+    [[Mixpanel sharedInstance] track:@"ItemView: Order placed"];
+    [[Mixpanel sharedInstance].people increment:@"Number of Order placed" by:[NSNumber numberWithInt:1]];
+    [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"ItemView: Spent $%.2f",[[User sharedInstance].pastOrder getTotalPrice]]];
+    [[Mixpanel sharedInstance].people increment:@"Total Spending" by: [NSNumber numberWithDouble: [[User sharedInstance].pastOrder getTotalPrice]]];
+    [[Mixpanel sharedInstance].people increment:@"Number of Dish" by: [NSNumber numberWithInt: [[User sharedInstance].pastOrder getTotalQuantity]]];
+    
 }
 
 - (Order *) getCurrentOrder{
