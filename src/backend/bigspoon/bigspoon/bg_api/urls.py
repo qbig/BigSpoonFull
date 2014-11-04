@@ -30,8 +30,8 @@ urlpatterns = patterns(
     # profile
     url(r'^profile$', views.UserProfile.as_view()),
     # outlet
-    url(r'^outlets$', views.ListOutlet.as_view()),
-    url(r'^outlets/(?P<pk>[0-9]+)$', views.OutletDetail.as_view()),
+    url(r'^outlets$', cache_page(60 * 15)(views.ListOutlet.as_view())),
+    url(r'^outlets/(?P<pk>[0-9]+)$', cache_page(60 * 15)(views.OutletDetail.as_view())),
     # category
     url(r'^categories$', views.ListCategory.as_view()),
     # search outlet by dish
