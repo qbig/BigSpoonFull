@@ -162,8 +162,8 @@
 
 - (void)introDidFinish {
     [self.intro removeFromSuperview];
-    [self askForLocationPermit];
     [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
+    [self askForLocationPermit];
     [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
 }
 @end

@@ -38,8 +38,7 @@
         // for instance access for geo-point
         [self startTrackingLocation];
     }
-    // for more accurate update
-    [self performSelector:@selector(startTrackingLocation) withObject:nil afterDelay:5.0];
+    
     [Crashlytics startWithAPIKey:@"5e0d63d5b12c89cf3ff015e07958d5a94a75722a"];
 
     return YES;
@@ -108,16 +107,15 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    [self initLocationManager];
-    [self startTrackingLocation];
+    if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self initLocationManager];
+        [self startTrackingLocation];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self connectSocket];
-
     [[User sharedInstance] attemptToUpdateOrder];
     self.bgUsageStart = [NSDate date];
     [self.mixpanel track:@"Usage Starts" properties:@{@"time": self.bgUsageStart}];
