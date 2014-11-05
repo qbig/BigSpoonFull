@@ -102,7 +102,7 @@
                                                      @"Email" : email
                                                      }];
                  [mixpanel.people set:@"$email" to:email];
-                 
+                 [mixpanel.people increment:@"fb-login-count" by:[NSNumber numberWithInt:1]];
                  User *user = [User sharedInstance];
                  user.firstName = firstName;
                  user.lastName = lastName;

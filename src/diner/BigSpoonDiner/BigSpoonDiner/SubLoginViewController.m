@@ -164,6 +164,7 @@
                                         @"Email" : email
                                         }];
     [mixpanel.people set:@"$email" to:email];
+    [mixpanel.people increment:@"email-login-count" by:[NSNumber numberWithInt:1]];
     
     User *user = [User sharedInstance];
     user.firstName = firstName;
