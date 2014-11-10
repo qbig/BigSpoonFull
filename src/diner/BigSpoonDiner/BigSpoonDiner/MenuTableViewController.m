@@ -260,10 +260,20 @@
             cell.addButton.hidden = NO;
             cell.priceLabel.hidden = NO;
         }
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dishImageTapped:)];
+        singleTap.numberOfTapsRequired = 1;
+        
+        [cell setUserInteractionEnabled:YES];
+        [cell addGestureRecognizer:singleTap];
+        
         return cell;
         
     }
     
+}
+
+-(void)dishImageTapped: (UITapGestureRecognizer *) sender{
+    [self addNewItemButtonClicked: ((MenuPhotoCell*) sender.view).addButton];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
