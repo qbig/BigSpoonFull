@@ -298,7 +298,7 @@ class ReportView(ListView):
         outlets = get_objects_for_user(
             self.request.user,
             "change_outlet",
-            Outlet.objects.all()[:30]
+            Outlet.objects.all()
         )
         if (outlets.count() == 0):
             raise PermissionDenied
