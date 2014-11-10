@@ -540,7 +540,7 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            send_socketio_message_asyn(
+            send_socketio_message(
                 [table.outlet.id],
                 ['refresh', 'meal', 'askbill']
             )
