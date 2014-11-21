@@ -99,7 +99,7 @@ def prod_deploy(*args):
             print(green('\n-> Deployment succesful! wgx731 :)'))
 
 @hosts(AWS_IP_BIG)
-def prod_deploy(*args):
+def big_deploy(*args):
     print(cyan('->  Connected to server'))
     with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
