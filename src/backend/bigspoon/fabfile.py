@@ -15,7 +15,7 @@ ENV_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/env/'
 RUN_WITH_ENV = 'source ' + ENV_PATH + 'bin/activate && '
 AWS_IP_STAGE = '54.254.12.170'
 AWS_IP_PROD = '54.255.0.38'
-DEV_SERVER = [AWS_IP_PROD]
+AWS_IP_BIG = '175.41.151.219'
 STAGE_SERVER = [AWS_IP_STAGE]
 env.user = 'ec2-user'
 env.key_filename = '~/.ssh/bigspoon.pem'
@@ -91,6 +91,33 @@ def prod_deploy(*args):
                 restart_nginx()
         sanity_check_status = sanity_check(
             'http://'+AWS_IP_PROD,
+            ['/admin', '/staff/main', '/staff/menu']
+        )
+        if sanity_check_status == 1:
+            print(red('\n-> Deployment error! wgx731 :('))
+        else:
+            print(green('\n-> Deployment succesful! wgx731 :)'))
+
+@hosts(AWS_IP_BIG)
+def prod_deploy(*args):
+    print(cyan('->  Connected to server'))
+    with cd('%s' % WORK_HOME):
+        print(yellow('Check out latest code ...'))
+        run("git remote update && git reset --hard origin/master")
+        install_requirements()
+        if args:
+            if 'newdb' in args:
+                create_db()
+            if 'migrate' in args:
+                migrate_db()
+            if 'assets' in args:
+                collect_assets()
+        restart_supervisord()
+        if args:
+            if 'nginx' in args:
+                restart_nginx()
+        sanity_check_status = sanity_check(
+            'http://'+AWS_IP_BIG,
             ['/admin', '/staff/main', '/staff/menu']
         )
         if sanity_check_status == 1:
