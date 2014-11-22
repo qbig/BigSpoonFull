@@ -236,8 +236,8 @@ class MealHistorySerializer(serializers.ModelSerializer):
     def get_order_time(self, obj):
         now = timezone.now()
         return "%s (%d days ago)" % (
-            obj.bill_time.date().strftime("%Y/%m/%d"),
-            (now.date() - obj.bill_time.date()).days)
+            obj.created.date().strftime("%Y/%m/%d"),
+            (now.date() - obj.created.date()).days)
 
     def get_outlet(self, obj):
         return {
