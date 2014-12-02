@@ -124,6 +124,13 @@
 	cell.operatingHours.text = outlet.operatingHours;
     
     cell.promotionTextLabel.text = outlet.promotionalText;
+    
+    if (indexPath.row == 0){
+        cell.layer.borderColor = [UIColor colorWithRed:0 green:183/255.0 blue:174/255.0 alpha:1].CGColor;
+        cell.layer.borderWidth = 3.0f;
+    } else {
+        cell.layer.borderWidth = 0;
+    }
 
     return cell;
 }
