@@ -96,64 +96,80 @@ class User(AbstractBaseUser, PermissionsMixin):
             total_spending += meal.get_meal_spending()
         return total_spending
     
-    @cached(60*5)
+    
     def get_recent_outlet_meals(self):
         """
         Returns meals from the most recent outlet.
         """
-        if self.meals.count() > 0:
-            tables = self.meals.latest('created').table.outlet.tables.all()
-            return self.meals.filter(table__in=tables)
-        else:
-            return []
+        @cached(60*5)
+        def get_meals(pk):
+            if self.meals.count() > 0:
+                tables = self.meals.latest('created').table.outlet.tables.all()
+                return self.meals.filter(table__in=tables)
+            else:
+                return []
+        return get_meals(self.pk)
 
-    @cached(60*5)
+    
     def get_spending_for_recent_outlet(self):
         """
         Returns sum of all orders of meals for given outlet.
         """
-        total_spending = 0
-        recent_meals = self.get_recent_outlet_meals()
+        @cached(60*5)
+        def get_spending(pk):
+            total_spending = 0
+            recent_meals = self.get_recent_outlet_meals()
 
-        if not recent_meals:
-            return total_spending
+            if not recent_meals:
+                return total_spending
         
-        for meal in recent_meals:
-            total_spending += meal.get_meal_spending()
-        return total_spending
+            for meal in recent_meals:
+                total_spending += meal.get_meal_spending()
+            return total_spending
+        return get_spending(self.pk)
 
-    @cached(60*5)
+    
     def get_num_of_visits_for_recent_outlet(self):
         """
         Returns num of visits for given outlet.
         """
-        recent_meals = self.get_recent_outlet_meals()
-        if not recent_meals:
-            return 0
-        else:
-            return recent_meals.count()
+        @cached(60*5)
+        def get_visits_num(pk):
+            recent_meals = self.get_recent_outlet_meals()
+            if not recent_meals:
+                return 0
+            else:
+                return recent_meals.count()
+        return get_visits_num(self.pk)
 
     @cached(60*5)
     def get_average_spending_for_recent_outlet(self):
-        total_spending = self.get_spending_for_recent_outlet()
-        num_of_visits = self.get_num_of_visits_for_recent_outlet()
-        if num_of_visits != 0:
-            return "{0:.2f}".format(total_spending / num_of_visits)
-        else:
-            return 0
+
+        @cached(60*5)
+        def get_avg_spending(pk):
+            total_spending = self.get_spending_for_recent_outlet()
+            num_of_visits = self.get_num_of_visits_for_recent_outlet()
+            if num_of_visits != 0:
+                return "{0:.2f}".format(total_spending / num_of_visits)
+            else:
+                return 0
+        return get_average_spending(self.pk)
 
 
-    @cached(60*60*2)
+    
     def get_average_spending(self):
         """
         Returns average of all orders of all meals of this user.
         """
-        num_meals = self.meals.count()
-        if num_meals == 0:
-            return 0
-        total_spending = self.get_total_spending()
-        #round to two decimal places
-        return int(total_spending / num_meals * 100) / 100.0
+        @cached(60*60*2)
+        def get_avg(pk):
+            num_meals = self.meals.count()
+            if num_meals == 0:
+                return 0
+                total_spending = self.get_total_spending()
+                #round to two decimal places
+            return int(total_spending / num_meals * 100) / 100.0
+        return get_avg(self.pk)
 
     def get_short_name(self):
         """
