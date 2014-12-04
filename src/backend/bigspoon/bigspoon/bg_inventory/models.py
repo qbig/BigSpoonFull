@@ -142,7 +142,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return recent_meals.count()
         return get_visits_num(self.pk)
 
-    @cached(60*5)
+    
     def get_average_spending_for_recent_outlet(self):
 
         @cached(60*5)
