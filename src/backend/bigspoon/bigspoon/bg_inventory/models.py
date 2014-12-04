@@ -153,7 +153,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return "{0:.2f}".format(total_spending / num_of_visits)
             else:
                 return 0
-        return get_average_spending(self.pk)
+        return get_avg_spending(self.pk)
 
 
     
