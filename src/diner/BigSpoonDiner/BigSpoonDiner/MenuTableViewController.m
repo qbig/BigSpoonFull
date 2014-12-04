@@ -237,7 +237,8 @@
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
         // !! placeholderImage CANNOT be nil
-        [cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
+        //[cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
+        [cell.imageView setImageWithURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         
         // CGRect frame = cell.imageView.frame;
         // frame.origin.x = 0;

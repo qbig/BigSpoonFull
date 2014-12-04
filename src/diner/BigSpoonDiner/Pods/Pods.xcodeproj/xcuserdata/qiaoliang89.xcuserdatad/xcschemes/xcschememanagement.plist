@@ -8,37 +8,31 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>Pods-Mixpanel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3D6DEC4EEF224310ABFDD8AC</key>
+		<key>04C4D4A2CADC4B6BAD0B3B80</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54EF889FF4C149CDA8D51E0E</key>
+		<key>52B4B7DD81E74DE7B5B7CDC9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>80739175608544CC807C8CB7</key>
+		<key>8C30C48ADD5B4CF884325D04</key>
 		<dict>
 			<key>primary</key>
 			<true/>

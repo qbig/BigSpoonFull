@@ -114,7 +114,8 @@
 
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     
-    [cell.outletPhoto setImageWithContentsOfURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
+//    [cell.outletPhoto setImageWithContentsOfURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
+    [cell.outletPhoto setImageWithURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	cell.name.text = outlet.name;
     
 	cell.address.text = outlet.address;

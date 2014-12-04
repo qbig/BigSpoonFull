@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NPRImageView.h"
+#import "UIImageView+WebCache.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 
 @interface OutletCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet NPRImageView *outletPhoto;
+@property (nonatomic, strong) IBOutlet UIImageView *outletPhoto;
 @property (nonatomic, strong) IBOutlet UILabel *name;
 @property (nonatomic, strong) IBOutlet UILabel *address;
 @property (nonatomic, strong) IBOutlet UILabel *phoneNumber;

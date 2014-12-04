@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "NPRImageView.h"
-
+#import "UIImageView+WebCache.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 @interface MenuPhotoCell : UITableViewCell
-@property (strong, nonatomic) IBOutlet NPRImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *ratingImageView;
 @property (strong, nonatomic) IBOutlet UILabel *priceLabel;
