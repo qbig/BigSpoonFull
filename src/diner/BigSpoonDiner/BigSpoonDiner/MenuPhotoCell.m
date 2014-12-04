@@ -28,12 +28,7 @@
 
 - (UIImage *)takeSnapshot {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
-    if (IS_OS_8_OR_LATER) {
-        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
-    } else {
-        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
-    }
-    
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
