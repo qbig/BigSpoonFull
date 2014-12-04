@@ -20,6 +20,7 @@
 @property bool isCategoryBarAnimating;
 @property UITableViewCell* selectedCell;
 @property bool hasShownToastForItemPage;
+@property bool openningModifierPopup;
 @end
 
 @implementation MenuTableViewController
@@ -28,6 +29,7 @@
 @synthesize isCategoryBarAnimating;
 @synthesize selectedCell;
 @synthesize hasShownToastForItemPage;
+@synthesize openningModifierPopup;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -120,20 +122,24 @@
     [self updateDish];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.openningModifierPopup = NO;
+    self.categoryButtonsHolderView.hidden = NO;
+}
+
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    self.categoryButtonsHolderView.hidden = NO;
 }
 
 - (void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (self.navigationController.navigationBarHidden) {
+    if (self.navigationController.navigationBarHidden && !self.openningModifierPopup) {
         [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
         [self setCategoryBarPositionWithAnimation: NO];
         self.navigationController.navigationBarHidden = NO;
         self.categoryButtonsHolderView.hidden = YES;
     }
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -237,14 +243,7 @@
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
         // !! placeholderImage CANNOT be nil
-        //[cell.imageView setImageWithContentsOfURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"]];
         [cell.imageView setImageWithURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        
-        // CGRect frame = cell.imageView.frame;
-        // frame.origin.x = 0;
-        // frame.origin.y = 0;
-        // cell.imageView.frame = frame;
-        
         cell.ratingImageView.image = nil;//[self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;
@@ -828,6 +827,8 @@
     
     if ([self isCurrentTimeBetweenStartDate:clickedDish.startTime andEndDate: clickedDish.endTime] && clickedDish.quantity > 0){
         if(clickedDish.canBeCustomized){
+            self.openningModifierPopup = YES;
+            self.categoryButtonsHolderView.hidden = YES;
             self.chosenDish = clickedDish;
             [self performSegueWithIdentifier:@"SegueToAddDishModifier" sender:self];
         } else {
