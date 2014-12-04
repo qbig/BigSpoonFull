@@ -71,6 +71,7 @@
 		03DE2A781A306FD200E712BF /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A701A306FD200E712BF /* SocketIOPacket.m */; };
 		03DE2A791A306FD200E712BF /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A731A306FD200E712BF /* SocketIOTransportWebsocket.m */; };
 		03DE2A7A1A306FD200E712BF /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A751A306FD200E712BF /* SocketIOTransportXHR.m */; };
+		03DE2A7E1A30732900E712BF /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A7D1A30732900E712BF /* SRWebSocket.m */; };
 		49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49044D1E180AD5AB0006F567 /* OutletCell.m */; };
 		49048D0B181F463A00B480A3 /* photo_cell_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D0A181F463A00B480A3 /* photo_cell_gradient.png */; };
 		49048D11181F489C00B480A3 /* 1StarSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D0C181F489C00B480A3 /* 1StarSmall@2x.png */; };
@@ -108,7 +109,6 @@
 		497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 497DD71B180C5B8600316138 /* bottom_buttons.png */; };
 		4988FFE0183A08AA00AB5CAD /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFD9183A08AA00AB5CAD /* base64.c */; };
 		4988FFE1183A08AA00AB5CAD /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFDC183A08AA00AB5CAD /* NSData+SRB64Additions.m */; };
-		4988FFE2183A08AA00AB5CAD /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFDF183A08AA00AB5CAD /* SRWebSocket.m */; };
 		4988FFE4183A097A00AB5CAD /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4988FFE3183A097A00AB5CAD /* libicucore.dylib */; };
 		4988FFE6183A098500AB5CAD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4988FFE5183A098500AB5CAD /* CFNetwork.framework */; };
 		4989729F180C8C9F0090DA75 /* MenuListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4989729E180C8C9F0090DA75 /* MenuListCell.m */; };
@@ -257,6 +257,9 @@
 		03DE2A731A306FD200E712BF /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
 		03DE2A741A306FD200E712BF /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
 		03DE2A751A306FD200E712BF /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
+		03DE2A7B1A30732900E712BF /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		03DE2A7C1A30732900E712BF /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		03DE2A7D1A30732900E712BF /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		2F63AF821F7C4274ACFCBE67 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49044D1D180AD5AB0006F567 /* OutletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletCell.h; sourceTree = "<group>"; };
 		49044D1E180AD5AB0006F567 /* OutletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletCell.m; sourceTree = "<group>"; };
@@ -314,9 +317,6 @@
 		4988FFDA183A08AA00AB5CAD /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		4988FFDB183A08AA00AB5CAD /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
 		4988FFDC183A08AA00AB5CAD /* NSData+SRB64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SRB64Additions.m"; sourceTree = "<group>"; };
-		4988FFDD183A08AA00AB5CAD /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
-		4988FFDE183A08AA00AB5CAD /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
-		4988FFDF183A08AA00AB5CAD /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		4988FFE3183A097A00AB5CAD /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		4988FFE5183A098500AB5CAD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4989729D180C8C9F0090DA75 /* MenuListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuListCell.h; sourceTree = "<group>"; };
@@ -557,11 +557,11 @@
 			children = (
 				4988FFD9183A08AA00AB5CAD /* base64.c */,
 				4988FFDA183A08AA00AB5CAD /* base64.h */,
+				03DE2A7B1A30732900E712BF /* SocketRocket-Prefix.pch */,
+				03DE2A7C1A30732900E712BF /* SRWebSocket.h */,
+				03DE2A7D1A30732900E712BF /* SRWebSocket.m */,
 				4988FFDB183A08AA00AB5CAD /* NSData+SRB64Additions.h */,
 				4988FFDC183A08AA00AB5CAD /* NSData+SRB64Additions.m */,
-				4988FFDD183A08AA00AB5CAD /* SocketRocket-Prefix.pch */,
-				4988FFDE183A08AA00AB5CAD /* SRWebSocket.h */,
-				4988FFDF183A08AA00AB5CAD /* SRWebSocket.m */,
 			);
 			name = SocketRocket;
 			path = BigSpoonDiner;
@@ -1083,7 +1083,6 @@
 				49BCF571183AFCAC0061821A /* UILabel+Alignment.m in Sources */,
 				E99E9A261821B464002ECD29 /* HomeAndSettingsButtonView.m in Sources */,
 				49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */,
-				4988FFE2183A08AA00AB5CAD /* SRWebSocket.m in Sources */,
 				034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */,
 				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
 				03DE2A761A306FD200E712BF /* SocketIO.m in Sources */,
@@ -1106,6 +1105,7 @@
 				494AD9721836B69800843B3D /* DishCategory.m in Sources */,
 				033F921A193713030013A42D /* UIImage+Overlay.m in Sources */,
 				49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */,
+				03DE2A7E1A30732900E712BF /* SRWebSocket.m in Sources */,
 				496DD1B518202672001EBA6D /* PastOrderCell.m in Sources */,
 				496DD1B218202633001EBA6D /* NewOrderCell.m in Sources */,
 			);
