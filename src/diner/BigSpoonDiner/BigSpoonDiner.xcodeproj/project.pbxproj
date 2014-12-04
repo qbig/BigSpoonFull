@@ -66,6 +66,11 @@
 		03D482A11910DC6D00851AC0 /* out_of_stock.png in Resources */ = {isa = PBXBuildFile; fileRef = 03D482A01910DC6D00851AC0 /* out_of_stock.png */; };
 		03D9C6D818451063004110AA /* EAIntroPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D9C6D518451063004110AA /* EAIntroPage.m */; };
 		03D9C6D918451063004110AA /* EAIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D9C6D718451063004110AA /* EAIntroView.m */; };
+		03DE2A761A306FD200E712BF /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A6C1A306FD200E712BF /* SocketIO.m */; };
+		03DE2A771A306FD200E712BF /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A6E1A306FD200E712BF /* SocketIOJSONSerialization.m */; };
+		03DE2A781A306FD200E712BF /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A701A306FD200E712BF /* SocketIOPacket.m */; };
+		03DE2A791A306FD200E712BF /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A731A306FD200E712BF /* SocketIOTransportWebsocket.m */; };
+		03DE2A7A1A306FD200E712BF /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DE2A751A306FD200E712BF /* SocketIOTransportXHR.m */; };
 		49044D1F180AD5AB0006F567 /* OutletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49044D1E180AD5AB0006F567 /* OutletCell.m */; };
 		49048D0B181F463A00B480A3 /* photo_cell_gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D0A181F463A00B480A3 /* photo_cell_gradient.png */; };
 		49048D11181F489C00B480A3 /* 1StarSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49048D0C181F489C00B480A3 /* 1StarSmall@2x.png */; };
@@ -101,11 +106,6 @@
 		4972BBBD18370F61001DD817 /* button_minus_with_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4972BBBB18370F61001DD817 /* button_minus_with_circle.png */; };
 		4972BBC018370FFD001DD817 /* button_add_no_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 4972BBBE18370FFD001DD817 /* button_add_no_circle.png */; };
 		497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 497DD71B180C5B8600316138 /* bottom_buttons.png */; };
-		4988FFC8183A067700AB5CAD /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFBE183A067700AB5CAD /* SocketIO.m */; };
-		4988FFC9183A067700AB5CAD /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFC0183A067700AB5CAD /* SocketIOJSONSerialization.m */; };
-		4988FFCA183A067700AB5CAD /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFC2183A067700AB5CAD /* SocketIOPacket.m */; };
-		4988FFCB183A067700AB5CAD /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFC5183A067700AB5CAD /* SocketIOTransportWebsocket.m */; };
-		4988FFCC183A067700AB5CAD /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFC7183A067700AB5CAD /* SocketIOTransportXHR.m */; };
 		4988FFE0183A08AA00AB5CAD /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFD9183A08AA00AB5CAD /* base64.c */; };
 		4988FFE1183A08AA00AB5CAD /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFDC183A08AA00AB5CAD /* NSData+SRB64Additions.m */; };
 		4988FFE2183A08AA00AB5CAD /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4988FFDF183A08AA00AB5CAD /* SRWebSocket.m */; };
@@ -246,6 +246,17 @@
 		03D9C6D518451063004110AA /* EAIntroPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroPage.m; sourceTree = "<group>"; };
 		03D9C6D618451063004110AA /* EAIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EAIntroView.h; sourceTree = "<group>"; };
 		03D9C6D718451063004110AA /* EAIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EAIntroView.m; sourceTree = "<group>"; };
+		03DE2A6B1A306FD200E712BF /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
+		03DE2A6C1A306FD200E712BF /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
+		03DE2A6D1A306FD200E712BF /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
+		03DE2A6E1A306FD200E712BF /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
+		03DE2A6F1A306FD200E712BF /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
+		03DE2A701A306FD200E712BF /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
+		03DE2A711A306FD200E712BF /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
+		03DE2A721A306FD200E712BF /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
+		03DE2A731A306FD200E712BF /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
+		03DE2A741A306FD200E712BF /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
+		03DE2A751A306FD200E712BF /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
 		2F63AF821F7C4274ACFCBE67 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49044D1D180AD5AB0006F567 /* OutletCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutletCell.h; sourceTree = "<group>"; };
 		49044D1E180AD5AB0006F567 /* OutletCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutletCell.m; sourceTree = "<group>"; };
@@ -299,17 +310,6 @@
 		4972BBBB18370F61001DD817 /* button_minus_with_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_minus_with_circle.png; sourceTree = "<group>"; };
 		4972BBBE18370FFD001DD817 /* button_add_no_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_add_no_circle.png; sourceTree = "<group>"; };
 		497DD71B180C5B8600316138 /* bottom_buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_buttons.png; sourceTree = "<group>"; };
-		4988FFBD183A067700AB5CAD /* SocketIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIO.h; sourceTree = "<group>"; };
-		4988FFBE183A067700AB5CAD /* SocketIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIO.m; sourceTree = "<group>"; };
-		4988FFBF183A067700AB5CAD /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = "<group>"; };
-		4988FFC0183A067700AB5CAD /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = "<group>"; };
-		4988FFC1183A067700AB5CAD /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = "<group>"; };
-		4988FFC2183A067700AB5CAD /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = "<group>"; };
-		4988FFC3183A067700AB5CAD /* SocketIOTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = "<group>"; };
-		4988FFC4183A067700AB5CAD /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
-		4988FFC5183A067700AB5CAD /* SocketIOTransportWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportWebsocket.m; sourceTree = "<group>"; };
-		4988FFC6183A067700AB5CAD /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = "<group>"; };
-		4988FFC7183A067700AB5CAD /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = "<group>"; };
 		4988FFD9183A08AA00AB5CAD /* base64.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base64.c; sourceTree = "<group>"; };
 		4988FFDA183A08AA00AB5CAD /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		4988FFDB183A08AA00AB5CAD /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
@@ -536,17 +536,17 @@
 		4988FFBC183A05C100AB5CAD /* Socket */ = {
 			isa = PBXGroup;
 			children = (
-				4988FFBD183A067700AB5CAD /* SocketIO.h */,
-				4988FFBE183A067700AB5CAD /* SocketIO.m */,
-				4988FFBF183A067700AB5CAD /* SocketIOJSONSerialization.h */,
-				4988FFC0183A067700AB5CAD /* SocketIOJSONSerialization.m */,
-				4988FFC1183A067700AB5CAD /* SocketIOPacket.h */,
-				4988FFC2183A067700AB5CAD /* SocketIOPacket.m */,
-				4988FFC3183A067700AB5CAD /* SocketIOTransport.h */,
-				4988FFC4183A067700AB5CAD /* SocketIOTransportWebsocket.h */,
-				4988FFC5183A067700AB5CAD /* SocketIOTransportWebsocket.m */,
-				4988FFC6183A067700AB5CAD /* SocketIOTransportXHR.h */,
-				4988FFC7183A067700AB5CAD /* SocketIOTransportXHR.m */,
+				03DE2A6B1A306FD200E712BF /* SocketIO.h */,
+				03DE2A6C1A306FD200E712BF /* SocketIO.m */,
+				03DE2A6D1A306FD200E712BF /* SocketIOJSONSerialization.h */,
+				03DE2A6E1A306FD200E712BF /* SocketIOJSONSerialization.m */,
+				03DE2A6F1A306FD200E712BF /* SocketIOPacket.h */,
+				03DE2A701A306FD200E712BF /* SocketIOPacket.m */,
+				03DE2A711A306FD200E712BF /* SocketIOTransport.h */,
+				03DE2A721A306FD200E712BF /* SocketIOTransportWebsocket.h */,
+				03DE2A731A306FD200E712BF /* SocketIOTransportWebsocket.m */,
+				03DE2A741A306FD200E712BF /* SocketIOTransportXHR.h */,
+				03DE2A751A306FD200E712BF /* SocketIOTransportXHR.m */,
 			);
 			name = Socket;
 			path = BigSpoonDiner;
@@ -1054,10 +1054,8 @@
 				E951D784180EE285002BE045 /* OrderHistoryViewController.m in Sources */,
 				49937D5A186017F700DDD8F9 /* Toast+UIView.m in Sources */,
 				49558BC3181D0BA800273090 /* SSKeychain.m in Sources */,
-				4988FFC8183A067700AB5CAD /* SocketIO.m in Sources */,
 				49091B9E1834CFEF006AC7FE /* BigSpoonAnimationController.m in Sources */,
 				039436E718E5D74400865D32 /* Reachability.m in Sources */,
-				4988FFCB183A067700AB5CAD /* SocketIOTransportWebsocket.m in Sources */,
 				03B0CC27184E2E730044EB28 /* EXTScope.m in Sources */,
 				E9B7A29E180D3CA0009B6BD1 /* PastOrderView.m in Sources */,
 				4999A212180A50EC00270B0B /* Outlet.m in Sources */,
@@ -1067,6 +1065,7 @@
 				4999A20E180A506100270B0B /* OutletsTableViewController.m in Sources */,
 				03D9C6D918451063004110AA /* EAIntroView.m in Sources */,
 				49048D29182001C900B480A3 /* Order.m in Sources */,
+				03DE2A791A306FD200E712BF /* SocketIOTransportWebsocket.m in Sources */,
 				49BBB70118350FCE007546E8 /* RatingCell.m in Sources */,
 				03D9C6D818451063004110AA /* EAIntroPage.m in Sources */,
 				039FF00819334D990034EA3F /* DishModifier.m in Sources */,
@@ -1077,24 +1076,26 @@
 				033F92031933990C0013A42D /* DishModifierItem.m in Sources */,
 				038852BA19E1AD5B0076F842 /* DraggingButtonScrollView.m in Sources */,
 				4988FFE1183A08AA00AB5CAD /* NSData+SRB64Additions.m in Sources */,
-				4988FFCC183A067700AB5CAD /* SocketIOTransportXHR.m in Sources */,
 				E9CD90D7181D088000139FEC /* ProfileViewController.m in Sources */,
 				49669B1B180CF2A000089254 /* MenuPhotoCell.m in Sources */,
 				03B0CBEB184CBB730044EB28 /* NPRImageOperationQueue.m in Sources */,
+				03DE2A781A306FD200E712BF /* SocketIOPacket.m in Sources */,
 				49BCF571183AFCAC0061821A /* UILabel+Alignment.m in Sources */,
 				E99E9A261821B464002ECD29 /* HomeAndSettingsButtonView.m in Sources */,
 				49CB7975180C6D9400F530C5 /* LoginViewController.m in Sources */,
 				4988FFE2183A08AA00AB5CAD /* SRWebSocket.m in Sources */,
 				034C6D661846DA83008D42C4 /* OrderItemView.m in Sources */,
 				49CB796D180C631300F530C5 /* MenuViewController.m in Sources */,
+				03DE2A761A306FD200E712BF /* SocketIO.m in Sources */,
 				033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */,
 				03B0CC23184E2E2A0044EB28 /* AFImageRequestOperation.m in Sources */,
+				03DE2A7A1A306FD200E712BF /* SocketIOTransportXHR.m in Sources */,
 				49558BC4181D0BA800273090 /* SSKeychainQuery.m in Sources */,
-				4988FFCA183A067700AB5CAD /* SocketIOPacket.m in Sources */,
 				033F92121936F9300013A42D /* DishModifierItemCellCount.m in Sources */,
 				03B0CBEC184CBB730044EB28 /* NPRImageView.m in Sources */,
 				03B0CBEA184CBB730044EB28 /* NPRDiskCache.m in Sources */,
 				49048D1E181F9E5500B480A3 /* MultiContainerViewSegue.m in Sources */,
+				03DE2A771A306FD200E712BF /* SocketIOJSONSerialization.m in Sources */,
 				49558BC7181D14CD00273090 /* AuthViewController.m in Sources */,
 				E9CFA58B183B240300031773 /* PastOrderDetailViewController.m in Sources */,
 				033F92151936F9430013A42D /* DishModifierItemCellRadio.m in Sources */,
@@ -1103,7 +1104,6 @@
 				03B0CBED184CBB730044EB28 /* UIImage+FX.m in Sources */,
 				49F107EF180886D600D2C8DD /* main.m in Sources */,
 				494AD9721836B69800843B3D /* DishCategory.m in Sources */,
-				4988FFC9183A067700AB5CAD /* SocketIOJSONSerialization.m in Sources */,
 				033F921A193713030013A42D /* UIImage+Overlay.m in Sources */,
 				49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */,
 				496DD1B518202672001EBA6D /* PastOrderCell.m in Sources */,

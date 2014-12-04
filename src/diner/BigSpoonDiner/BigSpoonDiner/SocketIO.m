@@ -1,35 +1,34 @@
 //
 //  SocketIO.m
-//  v0.4.1 ARC
+//  v0.5.1
 //
-//  based on
+//  based on 
 //  socketio-cocoa https://github.com/fpotter/socketio-cocoa
 //  by Fred Potter <fpotter@pieceable.com>
 //
 //  using
 //  https://github.com/square/SocketRocket
-//  https://github.com/stig/json-framework/
 //
 //  reusing some parts of
 //  /socket.io/socket.io.js
 //
 //  Created by Philipp Kyeck http://beta-interactive.de
 //
-//  Updated by
-//    samlown   https://github.com/samlown
-//    kayleg    https://github.com/kayleg
-//    taiyangc  https://github.com/taiyangc
+//  With help from
+//    https://github.com/pkyeck/socket.IO-objc/blob/master/CONTRIBUTORS.md
 //
 
 #import "SocketIO.h"
 #import "SocketIOPacket.h"
 #import "SocketIOJSONSerialization.h"
 
-#import "SocketIOTransportWebsocket.h"
-#import "SocketIOTransportXHR.h"
-
+#ifdef DEBUG
 #define DEBUG_LOGS 1
 #define DEBUG_CERTIFICATE 1
+#else
+#define DEBUG_LOGS 0
+#define DEBUG_CERTIFICATE 0
+#endif
 
 #if DEBUG_LOGS
 #define DEBUGLOG(...) NSLog(__VA_ARGS__)
@@ -74,12 +73,13 @@ NSString* const SocketIOException = @"SocketIOException";
 
 @implementation SocketIO
 
-@synthesize isConnected = _isConnected,
-isConnecting = _isConnecting,
-useSecure = _useSecure,
-delegate = _delegate,
-heartbeatTimeout = _heartbeatTimeout,
-returnAllDataFromAck = _returnAllDataFromAck;
+@synthesize isConnected = _isConnected, 
+            isConnecting = _isConnecting, 
+            useSecure = _useSecure,
+            cookies = _cookies,
+            delegate = _delegate,
+            heartbeatTimeout = _heartbeatTimeout,
+            returnAllDataFromAck = _returnAllDataFromAck;
 
 - (id) initWithDelegate:(id<SocketIODelegate>)delegate
 {
@@ -142,9 +142,17 @@ returnAllDataFromAck = _returnAllDataFromAck;
         query = nil;
         
         // make a request
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:handshakeUrl]
-                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:handshakeUrl]
+                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData 
                                              timeoutInterval:connectionTimeout];
+        
+        if (_cookies != nil) {
+            DEBUGLOG(@"Adding cookie(s): %@", [_cookies description]);
+            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:_cookies];
+            [request setAllHTTPHeaderFields:headers];
+        }
+        
+        [request setHTTPShouldHandleCookies:YES];
         
         _handshake = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
         [_handshake scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
@@ -226,7 +234,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
 - (void) sendEvent:(NSString *)eventName withData:(id)data andAcknowledge:(SocketIOCallback)function
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:eventName forKey:@"name"];
-    
+
     // do not require arguments
     if (data != nil) {
         [dict setObject:[NSArray arrayWithObject:data] forKey:@"args"];
@@ -241,13 +249,13 @@ returnAllDataFromAck = _returnAllDataFromAck;
     [self send:packet];
 }
 
-- (void) sendAcknowledgement:(NSString *)pId withArgs:(NSArray *)data
+- (void) sendAcknowledgement:(NSString *)pId withArgs:(NSArray *)data 
 {
     SocketIOPacket *packet = [[SocketIOPacket alloc] initWithType:@"ack"];
     packet.data = [SocketIOJSONSerialization JSONStringFromObject:data error:nil];
     packet.pId = pId;
     packet.ack = @"data";
-    
+
     [self send:packet];
 }
 
@@ -302,7 +310,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
     // an ACK, heartbeat, or disconnect packet
     if ([type intValue] != 6 && [type intValue] != 2 && [type intValue] != 0) {
         [encoded addObject:_endpoint];
-    }
+    } 
     else {
         [encoded addObject:@""];
     }
@@ -320,7 +328,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
     if (![_transport isReady]) {
         DEBUGLOG(@"queue >>> %@", req);
         [_queue addObject:packet];
-    }
+    } 
     else {
         DEBUGLOG(@"send() >>> %@", req);
         [_transport send:req];
@@ -331,7 +339,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
     }
 }
 
-- (void) doQueue
+- (void) doQueue 
 {
     DEBUGLOG(@"doQueue() >> %lu", (unsigned long)[_queue count]);
     
@@ -348,7 +356,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
     DEBUGLOG(@"onConnect()");
     
     _isConnected = YES;
-    
+
     // Send the connected packet so the server knows what it's dealing with.
     // Only required when endpoint/namespace is present
     if ([_endpoint length] > 0) {
@@ -394,7 +402,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
 # pragma mark -
 # pragma mark Heartbeat methods
 
-- (void) onTimeout
+- (void) onTimeout 
 {
     if (_timeout) {
         dispatch_source_cancel(_timeout);
@@ -407,7 +415,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
                                        userInfo:nil]];
 }
 
-- (void) setTimeout
+- (void) setTimeout 
 {
     DEBUGLOG(@"start/reset timeout");
     if (_timeout) {
@@ -451,7 +459,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
             NSString *nsmatchStr = nil;
             if (range.location != NSNotFound && NSMaxRange(range) <= [data length]) {
                 nsmatchStr = [data substringWithRange:[nsmatchTest rangeAtIndex:i]];
-            }
+            } 
             else {
                 nsmatchStr = @"";
             }
@@ -640,7 +648,7 @@ returnAllDataFromAck = _returnAllDataFromAck;
 
 # pragma mark -
 # pragma mark Handshake callbacks (NSURLConnectionDataDelegate)
-- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response 
 {
     // check for server status code (http://gigliwood.com/weblog/Cocoa/Q__When_is_an_conne.html)
     if ([response respondsToSelector:@selector(statusCode)]) {
@@ -664,14 +672,16 @@ returnAllDataFromAck = _returnAllDataFromAck;
     [_httpRequestData setLength:0];
 }
 
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data 
 {
-    [_httpRequestData appendData:data];
+    [_httpRequestData appendData:data]; 
 }
 
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error 
 {
     NSLog(@"ERROR: handshake failed ... %@", [error localizedDescription]);
+    
+    int errorCode = [error code] == 403 ? SocketIOUnauthorized : SocketIOHandshakeFailed;
     
     _isConnected = NO;
     _isConnecting = NO;
@@ -681,24 +691,17 @@ returnAllDataFromAck = _returnAllDataFromAck;
                                                                       forKey:NSUnderlyingErrorKey] mutableCopy];
         
         NSError *err = [NSError errorWithDomain:SocketIOError
-                                           code:SocketIOHandshakeFailed
+                                           code:errorCode
                                        userInfo:errorInfo];
         
         [_delegate socketIO:self onError:err];
     }
-    // TODO: deprecated - to be removed
-    else if ([_delegate respondsToSelector:@selector(socketIOHandshakeFailed:)]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        [_delegate socketIOHandshakeFailed:self];
-#pragma clang diagnostic pop
-    }
 }
 
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection
-{
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection 
+{ 	
  	NSString *responseString = [[NSString alloc] initWithData:_httpRequestData encoding:NSASCIIStringEncoding];
-    
+
     DEBUGLOG(@"connectionDidFinishLoading() %@", responseString);
     NSArray *data = [responseString componentsSeparatedByString:@":"];
     // should be SID : heartbeat timeout : connection timeout : supported transports
@@ -741,13 +744,23 @@ returnAllDataFromAck = _returnAllDataFromAck;
         NSArray *transports = [t componentsSeparatedByString:@","];
         DEBUGLOG(@"transports: %@", transports);
         
-        if ([transports indexOfObject:@"websocket"] != NSNotFound) {
-            DEBUGLOG(@"websocket supported -> using it now");
-            _transport = [[SocketIOTransportWebsocket alloc] initWithDelegate:self];
+        static Class webSocketTransportClass;
+        static Class xhrTransportClass;
+        
+        if (webSocketTransportClass == nil) {
+            webSocketTransportClass = NSClassFromString(@"SocketIOTransportWebsocket");
         }
-        else if ([transports indexOfObject:@"xhr-polling"] != NSNotFound) {
+        if (xhrTransportClass == nil) {
+            xhrTransportClass = NSClassFromString(@"SocketIOTransportXHR");
+        }
+        
+        if (webSocketTransportClass != nil && [transports indexOfObject:@"websocket"] != NSNotFound) {
+            DEBUGLOG(@"websocket supported -> using it now");
+            _transport = [[webSocketTransportClass alloc] initWithDelegate:self];
+        }
+        else if (xhrTransportClass != nil && [transports indexOfObject:@"xhr-polling"] != NSNotFound) {
             DEBUGLOG(@"xhr polling supported -> using it now");
-            _transport = [[SocketIOTransportXHR alloc] initWithDelegate:self];
+            _transport = [[xhrTransportClass alloc] initWithDelegate:self];
         }
         else {
             DEBUGLOG(@"no transport found that is supported :( -> fail");
@@ -766,16 +779,9 @@ returnAllDataFromAck = _returnAllDataFromAck;
                                         code:SocketIOServerRespondedWithInvalidConnectionData
                                     userInfo:nil];
         }
-        
+
         if ([_delegate respondsToSelector:@selector(socketIO:onError:)]) {
             [_delegate socketIO:self onError:error];
-        }
-        // TODO: deprecated - to be removed
-        else if ([_delegate respondsToSelector:@selector(socketIO:failedToConnectWithError:)]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            [_delegate socketIO:self failedToConnectWithError:error];
-#pragma clang diagnostic pop
         }
         
         // make sure to do call all cleanup code
@@ -820,7 +826,7 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 {
     [_handshake cancel];
     _handshake = nil;
-    
+
     _host = nil;
     _sid = nil;
     _endpoint = nil;
