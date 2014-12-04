@@ -7,7 +7,7 @@
 //
 
 #import "Order.h"
-
+#import <Crashlytics/Crashlytics.h>
 @interface Order ()
 
 @end
@@ -161,9 +161,7 @@
         [self.modifierAnswers setObject:modifierAnswer forKey: [NSString stringWithFormat:@"%d", index]];
     }
     @catch (NSException *exception) {
-        @catch (NSException *exception) {
-            CLS_LOG(@"Updating dish issue: %@", exception);
-        }
+        CLS_LOG(@"Updating modifier answer: %@", exception);
     }
 }
 
