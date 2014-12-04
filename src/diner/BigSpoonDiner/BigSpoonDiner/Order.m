@@ -157,7 +157,14 @@
 }
 
 - (void) setModifierAnswer:(NSDictionary *)modifierAnswer atIndex: (int) index{
-    [self.modifierAnswers setObject:modifierAnswer forKey: [NSString stringWithFormat:@"%d", index]];
+    @try {
+        [self.modifierAnswers setObject:modifierAnswer forKey: [NSString stringWithFormat:@"%d", index]];
+    }
+    @catch (NSException *exception) {
+        @catch (NSException *exception) {
+            CLS_LOG(@"Updating dish issue: %@", exception);
+        }
+    }
 }
 
 - (int) getQuantityOfDishByDish: (Dish *) dish{
