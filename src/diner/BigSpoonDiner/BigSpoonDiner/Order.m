@@ -310,11 +310,25 @@
 }
 
 - (void) removeDishAtIndex: (int) dishIndex {
+    NSString* dishIndexAsKey = [NSString stringWithFormat:@"%d", dishIndex];
     if ([self.dishes count] - 1 >= dishIndex){
+        [self.modifierAnswers removeObjectForKey:dishIndexAsKey];
+        [self.notes removeObjectForKey:dishIndexAsKey];
+        // shift index after the one being removed, by 1
+        for (int i = dishIndex + 1; i < [self.dishes count]; i ++) {
+            if ([self.notes objectForKey:[NSString stringWithFormat:@"%d", i]]){
+                [self.notes setObject:[self.notes objectForKey:[NSString stringWithFormat:@"%d", i]] forKey: [NSString stringWithFormat:@"%d", i - 1]];
+                [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", i]];
+            }
+            
+            if ([self.modifierAnswers objectForKey:[NSString stringWithFormat:@"%d", i]]){
+                [self.modifierAnswers setObject:[self.modifierAnswers objectForKey:[NSString stringWithFormat:@"%d", i]] forKey:[NSString stringWithFormat:@"%d", i - 1]];
+                [self.modifierAnswers removeObjectForKey:[NSString stringWithFormat:@"%d", i]];
+            }
+        }
+        
         [self.quantity removeObjectAtIndex:dishIndex];
         [self.dishes removeObjectAtIndex:dishIndex];
-        [self.notes removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
-        [self.modifierAnswers removeObjectForKey:[NSString stringWithFormat:@"%d", dishIndex]];
     }
 }
 
