@@ -8,6 +8,7 @@
 
 #import "MenuTableViewController.h"
 #import "Toast+UIView.h"
+#import <Crashlytics/Crashlytics.h>
 
 @interface MenuTableViewController (){
     NSMutableData *_responseData;
@@ -933,11 +934,15 @@
 
 - (void) updateDish {
     if ([User sharedInstance].updatePending && self.outlet.outletID == [User sharedInstance].currentVerifiedOutletID) {
-        for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
-            Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
-            [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+        @try {
+            for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
+                Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
+                [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+            }
         }
-        
+        @catch (NSException *exception) {
+            CLS_LOG(@"Updating dish issue: %@", exception);
+        }
         [User sharedInstance].updatePending = NO;
     }
 }
