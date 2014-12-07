@@ -452,6 +452,7 @@ p.note {
     list-style-type: none;
     word-wrap: break-word;
     text-align: left;
+    font-weight: bold;
 }
 
 .order li p {
@@ -459,6 +460,7 @@ p.note {
     margin: 0px;
     width: 195px;
     text-align: left;
+    font-weight: lighter;
 }
 
 .order li em.quantity {
@@ -806,6 +808,12 @@ background-color: #468847;
 }
 
 
+input[type="checkbox"] { 
+    transform: scale(1.5); 
+    -webkit-transform: scale(1.5); 
+    margin: 20px 0 0 10px; 
+}
+
 /* Menu update error/success messages */
 p.error {
     display: inline;
@@ -850,6 +858,7 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
 
 .menu-item p.description textarea{
     width: 360px;
+    height: 50px;
 }
 
 .menu-item p.photo{
