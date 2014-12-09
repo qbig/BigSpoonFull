@@ -54,6 +54,7 @@ CACHES = {
 
 INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
+    'djcelery',
 )
 
 ########## STORAGE CONFIGURATION
@@ -105,3 +106,13 @@ ALLOWED_HOSTS = [
 
 ########## REST FRAMEWORK CONFIGURATION
 ########## END REST FRAMEWORK CONFIGURATION
+BROKER_URL = 'amqp://guest:guest@localhost//'
+
+from __future__ import absolute_import 
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Singapore'
