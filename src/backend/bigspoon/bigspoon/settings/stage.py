@@ -1,5 +1,5 @@
 """Production settings and globals."""
-
+from __future__ import absolute_import 
 
 from os import environ
 from os.path import join, normpath
@@ -106,9 +106,7 @@ ALLOWED_HOSTS = [
 
 ########## REST FRAMEWORK CONFIGURATION
 ########## END REST FRAMEWORK CONFIGURATION
-BROKER_URL = 'amqp://guest:guest@localhost//'
-
-from __future__ import absolute_import 
+BROKER_URL = 'amqp://bigspoon:bigspoon@localhost:5672/bghost'
 
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend'
