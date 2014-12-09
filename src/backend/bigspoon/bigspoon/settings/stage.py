@@ -108,8 +108,10 @@ ALLOWED_HOSTS = [
 BROKER_URL = 'amqp://bigspoon:bigspoon@localhost:5672/bghost'
 
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
-CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend'
+CELERY_RESULT_BACKEND = 'redis://'
+CELERY_TASK_RESULT_EXPIRES = 18000 
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Singapore'
+CELERY_ANNOTATIONS = {'*': {'rate_limit': '10/s'}}
