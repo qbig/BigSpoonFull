@@ -98,6 +98,21 @@ def prod_deploy(*args):
         else:
             print(green('\n-> Deployment succesful! wgx731 :)'))
 
+@hosts(AWS_IP_PROD)
+def prod_restart(*args):
+    restart_supervisord()
+    restart_nginx()
+    sanity_check_status = sanity_check(
+            'http://'+AWS_IP_PROD,
+            ['/admin', '/staff/main', '/staff/menu']
+        )
+    if sanity_check_status == 1:
+        print(red('\n-> Deployment error! wgx731 :('))
+    else:
+        print(green('\n-> Deployment succesful! wgx731 :)'))
+
+
+
 @hosts(AWS_IP_BIG)
 def big_deploy(*args):
     print(cyan('->  Connected to server'))
@@ -125,6 +140,19 @@ def big_deploy(*args):
         else:
             print(green('\n-> Deployment succesful! wgx731 :)'))
 
+@hosts(AWS_IP_BIG)
+def big_restart(*args):
+    restart_supervisord()
+    restart_nginx()
+    sanity_check_status = sanity_check(
+            'http://'+AWS_IP_BIG,
+            ['/admin', '/staff/main', '/staff/menu']
+        )
+    if sanity_check_status == 1:
+        print(red('\n-> Deployment error! wgx731 :('))
+    else:
+        print(green('\n-> Deployment succesful! wgx731 :)'))
+
 @hosts(STAGE_SERVER)
 def stage_deploy(*args):
     print(cyan('->  Connected to server'))
@@ -151,3 +179,16 @@ def stage_deploy(*args):
             print(red('\n-> Deployment error! wgx731 :('))
         else:
             print(green('\n-> Deployment succesful! wgx731 :)'))
+
+@hosts(STAGE_SERVER)
+def stage_restart(*args):
+    restart_supervisord()
+    restart_nginx()
+    sanity_check_status = sanity_check(
+            'http://'+AWS_IP_STAGE,
+            ['/admin', '/staff/main', '/staff/menu']
+        )
+    if sanity_check_status == 1:
+        print(red('\n-> Deployment error! wgx731 :('))
+    else:
+        print(green('\n-> Deployment succesful! wgx731 :)'))

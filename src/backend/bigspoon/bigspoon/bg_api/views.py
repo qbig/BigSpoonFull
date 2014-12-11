@@ -28,6 +28,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
+from bg_order.tasks import get_printing_task
 from utils import send_socketio_message, send_socketio_message_asyn, send_user_feedback, send_user_feedback_asyn, today_limit
 
 from decimal import Decimal
@@ -428,6 +429,13 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
                 new_order.modifier_json = modifiers.get(index_str)
                 new_order.save()
 
+            # send to printer if configured
+        
+            if get_printing_task(table.outlet.id):
+                get_printing_task(table.outlet.id).delay(table.outlet, table, new_order)
+                #get_printing_task(table.outlet.id)(table.outlet, table, new_order)
+                
+            # send done
             dish.quantity -= quantity
             dish.save()
 

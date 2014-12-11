@@ -21,10 +21,10 @@ $(document).ready(function() {
     // ==========  behavior  ========= 
     // if idle time is more than 2 mins, go back to "New Order" page
 
-    window.idleTime = 0;
+    window.idleTimeMinutes = 0;
     window.timerIncrement = function () {
-        window.idleTime = window.idleTime + 1;
-        if (window.idleTime >= 2) { // 2 minutes
+        window.idleTimeMinutes = window.idleTimeMinutes + 1;
+        if (window.idleTimeMinutes >= 2) { // 2 minutes
             window.location = "/staff/main/";
         }
     };
@@ -32,10 +32,10 @@ $(document).ready(function() {
 
     //Zero the idle timer on mouse movement.
     $(this).mousemove(function (e) {
-        window.idleTime = 0;
+        window.idleTimeMinutes = 0;
     });
     $(this).mouseup(function (e) {
-        window.idleTime = 0;
+        window.idleTimeMinutes = 0;
     });
 
     
