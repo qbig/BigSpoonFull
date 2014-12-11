@@ -431,8 +431,8 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
 
             # send to printer if configured
         
-            #if get_printing_task(table.outlet.id):
-                #get_printing_task(table.outlet.id).delay(table.outlet, table, new_order)
+            if get_printing_task(table.outlet.id):
+                get_printing_task(table.outlet.id).delay(table.outlet.id, table.id, new_order.id)
                 #get_printing_task(table.outlet.id)(table.outlet, table, new_order)
                 
             # send done

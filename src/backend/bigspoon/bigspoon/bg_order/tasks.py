@@ -2,7 +2,8 @@ from __future__ import absolute_import
 
 from celery import shared_task, task
 import requests
-
+from bg_inventory.models import Outlet, Table
+from bg_order.models import Order
 
 
 @shared_task
@@ -10,7 +11,10 @@ def add(x, y):
     return x + y
 
 @task(bind=True, max_retries=10)
-def print_amax(self, outlet, table, new_order):
+def print_amax(self, outlet_id, table_id, new_order_id):
+	outlet_id = Outlet.objects.get(id=outlet_id)
+	table = Table.objects.get(id=table_id)
+	new_order = Order.objects.get(id=new_order_id)
 	url = 'http://greendotpls.serveftp.com:8811/ppc/ordering.asmx/AddiPadOrderNew'
 	TableName = table.name
 	pos_id = '10101'#str(new_order.dish.pos) !!! must match
