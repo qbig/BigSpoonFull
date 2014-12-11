@@ -143,7 +143,6 @@ def big_deploy(*args):
 @hosts(AWS_IP_BIG)
 def big_restart(*args):
     restart_supervisord()
-    restart_nginx()
     sanity_check_status = sanity_check(
             'http://'+AWS_IP_BIG,
             ['/admin', '/staff/main', '/staff/menu']
