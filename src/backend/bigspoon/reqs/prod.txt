@@ -24,3 +24,6 @@ raven>=5.0.0
 celery==3.1.16
 django-celery==3.1.16
 celerymon==1.0.3
+
+#debug tool bar
+django-debug-toolbar>=0.9.4,<1.0
