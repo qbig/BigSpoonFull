@@ -12,7 +12,7 @@ def add(x, y):
 
 @task(bind=True, max_retries=10)
 def print_amax(self, outlet_id, table_id, new_order_id):
-	outlet_id = Outlet.objects.get(id=outlet_id)
+	outlet = Outlet.objects.get(id=outlet_id)
 	table = Table.objects.get(id=table_id)
 	new_order = Order.objects.get(id=new_order_id)
 	url = 'http://greendotpls.serveftp.com:8811/ppc/ordering.asmx/AddiPadOrderNew'
