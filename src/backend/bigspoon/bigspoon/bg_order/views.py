@@ -15,7 +15,7 @@ from bg_inventory.models import Dish, Outlet, Table, Review, Note, Category
 from bg_order.models import Meal, Request
 
 from bg_inventory.forms import DishCreateForm, DishPhotoUpdateForm
-from utils import send_socketio_message_asyn, today_limit
+from utils import send_socketio_message, send_user_feedback, today_limit
 
 from .response import JSONResponse, response_mimetype
 import json
