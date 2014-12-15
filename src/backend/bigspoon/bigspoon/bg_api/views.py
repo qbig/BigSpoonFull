@@ -29,7 +29,7 @@ from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
 from bg_order.tasks import get_printing_task
-from utils import send_socketio_message, today_limit
+from utils import send_socketio_message, send_user_feedback, today_limit
 
 from decimal import Decimal
 
