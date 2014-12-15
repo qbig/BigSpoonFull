@@ -430,11 +430,8 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
                 new_order.save()
 
             # send to printer if configured
-        
-            if get_printing_task(table.outlet.id):
+            if table.outlet.is_auto_send_to_POS and get_printing_task(table.outlet.id):
                 get_printing_task(table.outlet.id).delay(table.outlet.id, table.id, new_order.id)
-                #get_printing_task(table.outlet.id)(table.outlet, table, new_order)
-                
             # send done
             dish.quantity -= quantity
             dish.save()
