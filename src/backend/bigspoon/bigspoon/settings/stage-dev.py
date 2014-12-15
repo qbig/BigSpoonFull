@@ -54,6 +54,7 @@ CACHES = {
 INSTALLED_APPS += (
     'raven.contrib.django.raven_compat',
     'djcelery',
+    'debug_toolbar',
 )
 
 ########## STORAGE CONFIGURATION
@@ -124,9 +125,6 @@ TEMPLATE_DEBUG = DEBUG
 
 ########## TOOLBAR CONFIGURATION
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
-INSTALLED_APPS += (
-    'debug_toolbar',
-)
 
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INTERNAL_IPS = ('127.0.0.1', 'localhost')
