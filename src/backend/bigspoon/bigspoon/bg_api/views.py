@@ -548,10 +548,10 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            send_socketio_message(
-                [table.outlet.id],
-                ['refresh', 'meal', 'askbill']
-            )
+            # send_socketio_message(
+            #     [table.outlet.id],
+            #     ['refresh', 'meal', 'askbill']
+            # )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
         return Response({"error": "No unpaid meal for this user", },
