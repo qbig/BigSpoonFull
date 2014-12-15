@@ -13,7 +13,7 @@ from fabric.colors import cyan, yellow, green, white, red
 WORK_HOME = '/home/ec2-user/webapps/2013-final-project-7/src/backend/bigspoon/'
 ENV_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/env/'
 RUN_WITH_ENV = 'source ' + ENV_PATH + 'bin/activate && '
-AWS_IP_STAGE = '54.254.12.170'
+AWS_IP_STAGE = '46.137.234.248'
 AWS_IP_PROD = '54.255.0.38'
 AWS_IP_BIG = '175.41.151.219'
 STAGE_SERVER = [AWS_IP_STAGE]
