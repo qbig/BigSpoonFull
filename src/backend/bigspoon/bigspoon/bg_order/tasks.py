@@ -48,7 +48,7 @@ def print_amax(self, outlet_id, table_id, new_order_id):
 
 ############################
 task_config = {
-	1 : print_amax
+	#1 : print_amax
 }
 ############################
 
