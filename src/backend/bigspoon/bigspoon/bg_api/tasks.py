@@ -5,7 +5,8 @@ from utils import send_socketio_message, send_user_feedback
 
 @task
 def send_socketio_message_async(chan_list, message_data):
-	send_socketio_message([int(i) for i in chan_list.split("||")], [str(s) for s in message_data.split("||")])
+	#[int(i) for i in chan_list.split("||")], [str(s) for s in message_data.split("||")]
+	send_socketio_message([1,], ['refresh', 'meal', 'new'])
 
 @task
 def send_user_feedback_async(user, message_data):
