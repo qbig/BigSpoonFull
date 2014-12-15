@@ -29,7 +29,7 @@ from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
 from bg_order.tasks import get_printing_task
-from utils import send_socketio_message, send_socketio_message_asyn, send_user_feedback, send_user_feedback_asyn, today_limit
+from utils import send_socketio_message, today_limit
 
 from decimal import Decimal
 
@@ -548,10 +548,10 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            # send_socketio_message(
-            #     [table.outlet.id],
-            #     ['refresh', 'meal', 'askbill']
-            # )
+            send_socketio_message(
+                [table.outlet.id],
+                ['refresh', 'meal', 'askbill']
+            )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
         return Response({"error": "No unpaid meal for this user", },

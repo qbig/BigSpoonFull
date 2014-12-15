@@ -1,23 +1,19 @@
 from django.conf import settings
 from django.utils import timezone
 from datetime import datetime, timedelta, time
+from celery import shared_task, task
 import gevent
 import redis
 
 REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 
 
-def send_socketio_message_asyn(chan_list, message_data):
-    gevent.spawn(send_socketio_message, chan_list, message_data)
-
+@task
 def send_socketio_message(chan_list, message_data):
     red = redis.StrictRedis(REDIS_HOST)
     for c_id in chan_list:
         red.publish('%d' % c_id, message_data)
-
-def send_user_feedback_asyn(user, message_data):
-    gevent.spawn(send_user_feedback, user, message_data)
-
+@task
 def send_user_feedback(user, message_data):
     red = redis.StrictRedis(REDIS_HOST)
     red.publish(user, message_data)
