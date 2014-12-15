@@ -1,0 +1,12 @@
+from __future__ import absolute_import
+
+from celery import task
+from utils import send_socketio_message, send_user_feedback
+
+@task
+def send_socketio_message_aync(chan_list, message_data):
+	send_socketio_message(chan_list, message_data)
+
+@task
+def send_user_feedback_aync(user, message_data):
+	send_user_feedback(user, message_data)
