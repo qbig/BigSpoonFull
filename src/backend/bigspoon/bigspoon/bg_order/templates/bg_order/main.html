@@ -25,9 +25,9 @@
                             <h4>{{ meal.diner.get_full_name }}</h4>
                     </span>
                     <span class="user-summary">
-                    <p class='profile-tab'>{{ meal.diner.get_num_of_visits_for_recent_outlet }} visits</p>
+<!--                     <p class='profile-tab'>{{ meal.diner.get_num_of_visits_for_recent_outlet }} visits</p>
                     <p class='profile-tab'>${{ meal.diner.get_average_spending_for_recent_outlet }} ave</p>
-                    <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+ -->                    <a href="/staff/user/{{meal.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
                     </span>
                     {% endcache %}
                     {% if meal.diner.profile.is_vegetarian == 'Y' and meal.diner.profile.is_muslim == 'Y' %}
@@ -103,8 +103,8 @@
                             <h4>{{ request.diner.get_full_name }}</h4>
                         </span>
                         <span class="user-summary">
-                            <p class='profile-tab'>{{ request.diner.get_num_of_visits_for_recent_outlet }} visits</p>
-                            <p class='profile-tab'>${{ request.diner.get_average_spending_for_recent_outlet }} ave</p>
+                            <!-- <p class='profile-tab'>{{ request.diner.get_num_of_visits_for_recent_outlet }} visits</p>
+                            <p class='profile-tab'>${{ request.diner.get_average_spending_for_recent_outlet }} ave</p> -->
                             <a href="/staff/user/{{request.diner.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
                         </span>
                         {% endcache %}
