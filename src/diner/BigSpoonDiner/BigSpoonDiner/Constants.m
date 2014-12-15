@@ -13,23 +13,23 @@
 // Request URLs:
 #define DEV  0;
 #ifdef DEV
-NSString* const BASE_URL = @"http://54.255.0.38/";
-NSString* const USER_SIGNUP = @"http://54.255.0.38/api/v1/user";
-NSString* const USER_LOGIN = @"http://54.255.0.38/api/v1/login";
-NSString* const USER_LOGIN_WITH_FB = @"http://54.255.0.38/api/v1/fblogin";
-NSString* const LIST_OUTLETS = @"http://54.255.0.38/api/v1/outlets";
-NSString* const REQUEST_URL = @"http://54.255.0.38/api/v1/request";
-NSString* const PROFILE_URL = @"http://54.255.0.38/api/v1/profile";
-NSString* const ORDER_URL = @"http://54.255.0.38/api/v1/meal";
-NSString* const BILL_URL = @"http://54.255.0.38/api/v1/askbill";
-NSString* const RATING_URL = @"http://54.255.0.38/api/v1/rating";
-NSString* const FEEDBACK_URL = @"http://54.255.0.38/api/v1/review";
-NSString* const DISH_CATEGORY_URL = @"http://54.255.0.38/api/v1/categories";
-NSString* const ORDER_HISTORY_URL = @"http://54.255.0.38/api/v1/mealhistory";
-NSString* const SOCKET_URL = @"54.255.0.38";
+NSString* const BASE_URL = @"http://46.137.234.248/";
+NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
+NSString* const USER_LOGIN = @"http://46.137.234.248/api/v1/login";
+NSString* const USER_LOGIN_WITH_FB = @"http://46.137.234.248/api/v1/fblogin";
+NSString* const LIST_OUTLETS = @"http://46.137.234.248/api/v1/outlets";
+NSString* const REQUEST_URL = @"http://46.137.234.248/api/v1/request";
+NSString* const PROFILE_URL = @"http://46.137.234.248/api/v1/profile";
+NSString* const ORDER_URL = @"http://46.137.234.248/api/v1/meal";
+NSString* const BILL_URL = @"http://46.137.234.248/api/v1/askbill";
+NSString* const RATING_URL = @"http://46.137.234.248/api/v1/rating";
+NSString* const FEEDBACK_URL = @"http://46.137.234.248/api/v1/review";
+NSString* const DISH_CATEGORY_URL = @"http://46.137.234.248/api/v1/categories";
+NSString* const ORDER_HISTORY_URL = @"http://46.137.234.248/api/v1/mealhistory";
+NSString* const SOCKET_URL = @"46.137.234.248";
 
 #else
-NSString* const BASE_URL = @"http://bigspoon.biz/"; //NSString* const BASE_URL = @"http://54.255.0.38/";
+NSString* const BASE_URL = @"http://bigspoon.biz/"; //NSString* const BASE_URL = @"http://46.137.234.248/";
 NSString* const USER_SIGNUP = @"http://bigspoon.biz/api/v1/user";
 NSString* const USER_LOGIN = @"http://bigspoon.biz/api/v1/login";
 NSString* const USER_LOGIN_WITH_FB = @"http://bigspoon.biz/api/v1/fblogin";
