@@ -666,7 +666,7 @@ class CloseBill(generics.GenericAPIView):
         meal.is_paid = True
         meal.bill_time = timezone.now()
         meal.save()
-        send_user_feedback_asyn(
+        send_user_feedback(
                 "u_%s" % meal.diner.auth_token.key,
                 'Your bill has been closed by waiter.'
             )
