@@ -437,7 +437,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             dish.save()
 
         send_socketio_message_async.delay(
-            "||".join([table.outlet.id]),
+            "||".join([str(table.outlet.id)]),
             "||".join(['refresh', 'meal', 'new'])
         )
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
@@ -478,7 +478,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
 
         outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
         send_socketio_message_async.delay(
-            "||".join([int(outlet_id)]),
+            "||".join([str(outlet_id)]),
             "||".join(['refresh', 'meal', 'new'])
         )
         return Response({"success": 1, }, status=status.HTTP_201_CREATED)
@@ -523,7 +523,7 @@ class CreateRequest(generics.CreateAPIView):
 
     def post_save(self, obj, created=False):
         send_socketio_message_async.delay(
-            "||".join([obj.table.outlet.id]),
+            "||".join([str(obj.table.outlet.id)]),
             "||".join(['refresh', 'request', 'new'])
         )
 
@@ -546,7 +546,7 @@ class AskForBill(generics.GenericAPIView):
             meal.modified = timezone.now()
             meal.save()
             send_socketio_message_async.delay(
-                "||".join([table.outlet.id]),
+                "||".join([str(table.outlet.id)]),
                 "||".join(['refresh', 'meal', 'askbill'])
             )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
@@ -579,7 +579,7 @@ class CreateRating(generics.GenericAPIView):
             rating.score = Decimal(str(dish_pair.values()[0]))
             rating.save()
             send_socketio_message_async.delay(
-                "||".join([rating.dish.outlet.id]),
+                "||".join([str(rating.dish.outlet.id)]),
                 "||".join(['refresh', 'rating'])
             )
         return Response("ratings created", status=status.HTTP_200_OK)
@@ -610,7 +610,7 @@ class CreateReview(generics.CreateAPIView):
             serializer.data['user'] = review.user.id
             headers = self.get_success_headers(serializer.data)
             send_socketio_message_async.delay(
-                "||".join([review.outlet.id]),
+                "||".join([str(review.outlet.id)]),
                 "||".join(['refresh', 'review'])
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED,
@@ -668,7 +668,7 @@ class CloseBill(generics.GenericAPIView):
                 'Your bill has been closed by waiter.'
             )
         send_socketio_message_async.delay(
-                "||".join(request.user.outlet_ids),
+                "||".join([str(s) for s in request.user.outlet_ids]),
                 "||".join(['refresh', 'meal', 'closebill'])
             )
         return Response(MealDetailSerializer(meal).data,
@@ -697,7 +697,7 @@ class AckOrder(generics.GenericAPIView):
             order.save()
         meal.save()
         send_socketio_message_async.delay(
-            "||".join(request.user.outlet_ids),
+            "||".join([str(s) for s in request.user.outlet_ids]),
             "||".join(['refresh', 'meal', 'ack'])
         )
         send_user_feedback_async.delay(
@@ -727,7 +727,7 @@ class AckRequest(generics.GenericAPIView):
         req.finished = timezone.now()
         req.save()
         send_socketio_message_async.delay(
-            "||".join(request.user.outlet_ids),
+            "||".join([str(s) for s in request.user.outlet_ids]),
             "||".join(['refresh', 'request', 'ack'])
         )
         if (req.request_type == Request.WATER):
