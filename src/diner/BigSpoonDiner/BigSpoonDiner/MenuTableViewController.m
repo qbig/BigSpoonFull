@@ -21,6 +21,7 @@
 @property UITableViewCell* selectedCell;
 @property bool hasShownToastForItemPage;
 @property bool openningModifierPopup;
+@property UIView *statusBarUnderLay;
 @end
 
 @implementation MenuTableViewController
@@ -588,11 +589,20 @@
     }
 }
 
+//http://stackoverflow.com/questions/21107841/how-do-i-change-the-colour-of-the-status-bar-when-the-navigation-bar-is-hidden-i
+- (CGRect)statusBarFrameViewRect:(UIView*)view
+{
+    CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+    CGRect statusBarWindowRect = [view.window convertRect:statusBarFrame fromWindow: nil];
+    CGRect statusBarViewRect = [view convertRect:statusBarWindowRect fromView: nil];
+    return statusBarViewRect;
+}
+
 - (void)setCategoryBarPositionWithAnimation: (BOOL) withAnimation
 {
     if (! self.isCategoryBarAnimating) {
         if (self.tableView.contentOffset.y > self.navigationController.navigationBar.frame.size.height &&
-            ! self.navigationController.navigationBarHidden
+            ! self.navigationController.navigationBarHidden && [[self getDishWithCategory:self.displayCategoryID] count] > 2
             ) {
             
             
@@ -602,7 +612,7 @@
             CGRect navbarFrame = self.navigationController.navigationBar.frame;
             tableViewFrame.origin.y = 0;
             tableViewFrame.size.height += navbarFrame.size.height;
-            categoryFrameEnd.origin.y = 24;
+            categoryFrameEnd.origin.y = 20;
             categoryFrameStart.origin.y -= categoryFrameStart.size.height;
             if (withAnimation) {
                 self.isCategoryBarAnimating = YES;
@@ -619,12 +629,18 @@
                                      self.categoryButtonsHolderView.frame = categoryFrameEnd;
                                      [self.navigationController.view addSubview:self.categoryButtonsHolderView];
                                      self.navigationController.navigationBarHidden = YES;
+                                     self.statusBarUnderLay = [[UIView alloc] initWithFrame:[self statusBarFrameViewRect:self.view]];
+                                     [self.statusBarUnderLay setBackgroundColor:[UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1]];
+                                     self.statusBarUnderLay.hidden = NO;
+                                     [self.view addSubview:self.statusBarUnderLay];
                                  }];
             } else {
                 self.tableView.frame = tableViewFrame;
                 self.categoryButtonsHolderView.frame = categoryFrameEnd;
                 [self.navigationController.view addSubview:self.categoryButtonsHolderView];
                 self.navigationController.navigationBarHidden = YES;
+                self.statusBarUnderLay.hidden = NO;
+                [self.view addSubview:self.statusBarUnderLay];
             }
             
         } else if (self.tableView.contentOffset.y <= self.navigationController.navigationBar.frame.size.height  &&
@@ -657,6 +673,9 @@
                                      self.categoryButtonsHolderView.frame = categoryFrameEnd;
                                      [self.view addSubview: self.categoryButtonsHolderView];
                                      self.navigationController.navigationBarHidden = NO;
+                                     [self.statusBarUnderLay removeFromSuperview];
+                                     self.statusBarUnderLay.hidden = YES;
+
                                  }];
             } else {
                 self.tableView.frame = tableViewFrame;
@@ -664,6 +683,8 @@
                 self.categoryButtonsHolderView.frame = categoryFrameEnd;
                 [self.view addSubview: self.categoryButtonsHolderView];
                 self.navigationController.navigationBarHidden = NO;
+                [self.statusBarUnderLay removeFromSuperview];
+                self.statusBarUnderLay.hidden = YES;
             }
             
         }

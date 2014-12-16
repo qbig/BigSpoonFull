@@ -138,7 +138,7 @@
     cell.promotionTextLabel.text = outlet.promotionalText;
     
     if (indexPath.row == 0){
-        cell.layer.borderColor = [UIColor colorWithRed:158/255.0 green:225/255.0 blue:222/255.0 alpha:1].CGColor;
+        cell.layer.borderColor = [UIColor colorWithRed:118/255.0 green:225/255.0 blue:222/255.0 alpha:1].CGColor;
         cell.layer.borderWidth = 3.0f;
     } else {
         cell.layer.borderWidth = 0;

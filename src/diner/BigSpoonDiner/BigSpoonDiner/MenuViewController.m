@@ -12,7 +12,6 @@
     void (^taskAfterAskingForTableID)(void);
     NSMutableDictionary *_viewControllersByIdentifier;
     NSString *generalNote;
-    CGRect oldFrameItemBadge;
     NSDictionary *_validTableIDs;
 }
 
@@ -60,9 +59,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Record the frame of badge
-    oldFrameItemBadge = self.itemQuantityLabelBackgroundImageView.frame;
     self.userInfo = [User sharedInstance];
     
     // Set the Outlet Name to be the title
@@ -664,7 +660,7 @@
         
         // Animation of the red badge:
        [BigSpoonAnimationController animateBadgeAfterUpdate: self.itemQuantityLabelBackgroundImageView
-                                          withOriginalFrame: oldFrameItemBadge];
+                                          withOriginalFrame: self.itemQuantityLabelBackgroundImageView.frame];
     }
 }
 

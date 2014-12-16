@@ -58,23 +58,29 @@
     self.tableView.tableFooterView = footerView;
 }
 
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    UIColor *bigSpoonBlue = [UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1];
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // iOS 6.1 or earlier
+        self.navigationController.navigationBar.tintColor = bigSpoonBlue;
+    } else {
+        // iOS 7.0 or later
+        self.navigationController.navigationBar.barTintColor = bigSpoonBlue;
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.translucent = NO;
+    }
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+
+}
+
 - (void) okButtonPressed {
     [self.delegate dishModifierPopupDidSaveWithUpdatedModifier:self.targetingDish];
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    
-    // reset navigation title and dismiss modifier popup
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) cancelButtonPressed {
     [self.delegate dishModifierPopupDidCancel];
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-
-    // reset navigation title and dismiss modifier popup
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor blackColor]};
     [self.navigationController popViewControllerAnimated:YES];
 }
 
