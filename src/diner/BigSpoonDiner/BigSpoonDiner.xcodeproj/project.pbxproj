@@ -37,6 +37,7 @@
 		037058321A401FE9005A0007 /* new-intro-1_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 037058281A401FE9005A0007 /* new-intro-1_long.png */; };
 		037058331A401FE9005A0007 /* new-intro-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 037058291A401FE9005A0007 /* new-intro-0.png */; };
 		037058341A401FE9005A0007 /* new-intro-0_long.png in Resources */ = {isa = PBXBuildFile; fileRef = 0370582A1A401FE9005A0007 /* new-intro-0_long.png */; };
+		037058361A402BCA005A0007 /* white-menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 037058351A402BCA005A0007 /* white-menu-icon.png */; };
 		038852BA19E1AD5B0076F842 /* DraggingButtonScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 038852B919E1AD5B0076F842 /* DraggingButtonScrollView.m */; };
 		039436E418E5CFE900865D32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039436E318E5CFE900865D32 /* SystemConfiguration.framework */; };
 		039436E718E5D74400865D32 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 039436E618E5D74400865D32 /* Reachability.m */; };
@@ -220,6 +221,7 @@
 		037058281A401FE9005A0007 /* new-intro-1_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-intro-1_long.png"; sourceTree = "<group>"; };
 		037058291A401FE9005A0007 /* new-intro-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-intro-0.png"; sourceTree = "<group>"; };
 		0370582A1A401FE9005A0007 /* new-intro-0_long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-intro-0_long.png"; sourceTree = "<group>"; };
+		037058351A402BCA005A0007 /* white-menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-menu-icon.png"; sourceTree = "<group>"; };
 		038852B819E1AD5B0076F842 /* DraggingButtonScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggingButtonScrollView.h; sourceTree = "<group>"; };
 		038852B919E1AD5B0076F842 /* DraggingButtonScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggingButtonScrollView.m; sourceTree = "<group>"; };
 		039436E318E5CFE900865D32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -700,6 +702,7 @@
 				0322239B1A4000C50080EF90 /* new-background-fat.png */,
 				03D48298190CE70300851AC0 /* imnew.tif */,
 				03D4829A190CE70B00851AC0 /* login2.tif */,
+				037058351A402BCA005A0007 /* white-menu-icon.png */,
 				03D482A01910DC6D00851AC0 /* out_of_stock.png */,
 				03D4829E190D79C600851AC0 /* new_overlay2.png */,
 				03D4828A190A8C0000851AC0 /* login_btn_new.png */,
@@ -986,6 +989,7 @@
 				497DD71C180C5B8600316138 /* bottom_buttons.png in Resources */,
 				03B0CBF9184CD6C60044EB28 /* white315_203.gif in Resources */,
 				49164203180C590C00080B87 /* list_icon.png in Resources */,
+				037058361A402BCA005A0007 /* white-menu-icon.png in Resources */,
 				03D4829F190D79C600851AC0 /* new_overlay2.png in Resources */,
 				03D48295190A969400851AC0 /* sign_up_form.png in Resources */,
 				4962305E18279AA700B3F07A /* home_with_arrow.png in Resources */,

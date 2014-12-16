@@ -54,6 +54,17 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIColor *bigSpoonBlue = [UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1];
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // iOS 6.1 or earlier
+        self.navigationController.navigationBar.tintColor = bigSpoonBlue;
+    } else {
+        // iOS 7.0 or later
+        self.navigationController.navigationBar.barTintColor = bigSpoonBlue;
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        self.navigationController.navigationBar.translucent = NO;
+    }
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -127,7 +138,7 @@
     cell.promotionTextLabel.text = outlet.promotionalText;
     
     if (indexPath.row == 0){
-        cell.layer.borderColor = [UIColor colorWithRed:0 green:183/255.0 blue:174/255.0 alpha:1].CGColor;
+        cell.layer.borderColor = [UIColor colorWithRed:158/255.0 green:225/255.0 blue:222/255.0 alpha:1].CGColor;
         cell.layer.borderWidth = 3.0f;
     } else {
         cell.layer.borderWidth = 0;
