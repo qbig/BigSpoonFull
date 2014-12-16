@@ -11,7 +11,7 @@
 @implementation Constants
 
 // Request URLs:
-#define DEV  0;
+//#define DEV  0;
 #ifdef DEV
 NSString* const BASE_URL = @"http://46.137.234.248/";
 NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
@@ -68,7 +68,7 @@ int const AVERAGE_PIXEL_PER_CHAR = 8;
 int const CATEGORY_BUTTON_OFFSET = 5;
 int const CATEGORY_BUTTON_BORDER_WIDTH = 1;
 int const OFFSET_FOR_KEYBOARD = 152;
-int const OFFSET_FOR_KEYBOARD_SIGN_UP = 80;
+int const OFFSET_FOR_KEYBOARD_SIGN_UP = 240;
 int const HEIGHT_REQUEST_BAR = 60;
 int const HEIGHT_NAVIGATION_BAR = 0;
 float const IPHONE_4_INCH_HEIGHT = 568.0;

@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "Reachability.h"
+#import "Constants.h"
 #import <Crashlytics/Crashlytics.h>
 @interface LoginViewController (){
     NSMutableData *_responseData;
@@ -19,8 +20,6 @@
 @end
 
 @implementation LoginViewController
-
-#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 
 @synthesize activityIndicator;
 @synthesize mainView;
@@ -62,16 +61,16 @@
     NSMutableArray *pagesToAdd = [[NSMutableArray alloc] init];
     int numOfPagesInTutorial = 5;
     NSString *imageNameformat;
-    if( IS_IPHONE_5 ){
-        imageNameformat = @"intro_%d_long.png";
+    if( IS_IPHONE_5_OR_LARGER ){
+        imageNameformat = @"new-intro-%d_long.png";
     } else {
-        imageNameformat = @"intro_%d.png";
+        imageNameformat = @"new-intro-%d.png";
     }
     
     for(int i = 0; i < numOfPagesInTutorial; i++){
         UIImageView *viewForPage = [[UIImageView alloc] initWithImage:
-                                    [UIImage imageNamed: [NSString stringWithFormat:imageNameformat, (i+1)]]
-                                   ];
+                                    [UIImage imageNamed: [NSString stringWithFormat:imageNameformat, i]]
+                                    ];
         viewForPage.frame = self.view.frame;
         [pagesToAdd addObject:[EAIntroPage pageWithCustomView:viewForPage]];
     }

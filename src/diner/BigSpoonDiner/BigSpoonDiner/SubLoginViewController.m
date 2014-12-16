@@ -7,7 +7,7 @@
 //
 
 #import "SubLoginViewController.h"
-
+#import "Constants.h"
 @interface SubLoginViewController ()
 @property NSURLConnection* connectionForLogin;
 @property NSMutableData * responseData;
@@ -35,16 +35,53 @@
     if (previousEmail != nil) {
         self.emailTextField.text = previousEmail;
     }
+
+    if (!IS_IPHONE_5_OR_LARGER) {
+        [self.backgroundImage setImage:[UIImage imageNamed:@"new-background-fat.png"]];
+        self.backgroundImage.frame = self.view.frame;
+    }
+}
+
+
+- (void)showIntroWithCustomView {
+    [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    NSMutableArray *pagesToAdd = [[NSMutableArray alloc] init];
+    int numOfPagesInTutorial = 5;
+    NSString *imageNameformat;
+    if( IS_IPHONE_5_OR_LARGER ){
+        imageNameformat = @"new-intro-%d_long.png";
+    } else {
+        imageNameformat = @"new-intro-%d.png";
+    }
+    
+    for(int i = 0; i < numOfPagesInTutorial; i++){
+        UIImageView *viewForPage = [[UIImageView alloc] initWithImage:
+                                    [UIImage imageNamed: [NSString stringWithFormat:imageNameformat, i]]
+                                    ];
+        viewForPage.frame = self.view.frame;
+        [pagesToAdd addObject:[EAIntroPage pageWithCustomView:viewForPage]];
+    }
+    
+    self.intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:pagesToAdd];
+    [self.intro setDelegate:self];
+    [self.intro showInView:self.view animateDuration:0.3];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
+        [self showIntroWithCustomView];
+    }
+    [self stopLoadingIndicators];
+
 }
 
 - (IBAction)textFieldDidBeginEditing:(id)sender {
     //move the main view, so that the keyboard does not hide it.
+    [sender becomeFirstResponder];
     if  (self.view.frame.origin.y >= 0){
         [self setViewMovedUp:YES withDistance:OFFSET_FOR_KEYBOARD_SIGN_UP];
     }
@@ -71,7 +108,7 @@
     NSDictionary* info = [NSDictionary dictionaryWithObjectsAndKeys:
                           self.emailTextField.text,
                           @"email",
-                          self.passwordTextField.text,
+                          @"bigspoon",
                           @"password",
                           nil];
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info options:NSJSONWritingPrettyPrinted error:&error];
@@ -127,13 +164,13 @@
         
     }
     
-    if ([self.passwordTextField.text length] == 0) {
-        errorMessage = @"Password is required.";
-    }
-    
-    if ([self.emailTextField.text length] == 0 && [self.passwordTextField.text length] == 0) {
-        errorMessage = @"Email and Password is required.";
-    }
+//    if ([self.passwordTextField.text length] == 0) {
+//        errorMessage = @"Password is required.";
+//    }
+//    
+//    if ([self.emailTextField.text length] == 0 && [self.passwordTextField.text length] == 0) {
+//        errorMessage = @"Email and Password is required.";
+//    }
     
     if ([errorMessage isEqualToString:@""]) {
         
@@ -188,6 +225,11 @@
     [SSKeychain setPassword:auth_token forService:@"BigSpoon" account:email];
 }
 
+- (void) askForLocationPermit{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_SHOULD_ASK_LOCATION_PERMIT_NOT object:nil];
+    NSLog(@"location bt clicked");
+}
+
 
 #pragma mark Show and hide indicators
 
@@ -203,5 +245,15 @@
     [activityIndicator stopAnimating];
 }
 
+
+
+#pragma mark - Intro
+
+- (void)introDidFinish {
+    [self.intro removeFromSuperview];
+    [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
+    [self askForLocationPermit];
+    [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
+}
 
 @end
