@@ -5,14 +5,21 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="copyfonts.com_segoe_ui_light.ttf">
+        <mutableArray key="segoeuib.ttf">
+            <string>SegoeUI-Bold</string>
+            <string>SegoeUI-Bold</string>
+        </mutableArray>
+        <mutableArray key="segoeuil.ttf">
             <string>SegoeUI-Light</string>
             <string>SegoeUI-Light</string>
             <string>SegoeUI-Light</string>
             <string>SegoeUI-Light</string>
         </mutableArray>
-        <mutableArray key="segoeuib.ttf">
-            <string>SegoeUI-Bold</string>
+        <mutableArray key="segoeuisl.ttf">
+            <string>SegoeUI-Semilight</string>
+            <string>SegoeUI-Semilight</string>
+            <string>SegoeUI-Semilight</string>
+            <string>SegoeUI-Semilight</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -155,21 +162,21 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I’m so hungry I could eat a horse. Yee Hah!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FKF-nz-IiZ">
                                 <rect key="frame" x="12" y="134" width="304" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Ordering," lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4ek-JT-9t1">
                                 <rect key="frame" x="39" y="521" width="114" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Om nom nom" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mw1-rb-4zg">
                                 <rect key="frame" x="156" y="521" width="105" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="17"/>
                                 <color key="textColor" red="0.34509803919999998" green="0.80392156859999997" blue="0.84717153280000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -333,34 +340,34 @@
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="ns4-8H-dZ6">
                                             <rect key="frame" x="128" y="3" width="172" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qz0-dS-ywe">
                                             <rect key="frame" x="128" y="28" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="12"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cell Phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oSa-MY-BB2">
                                             <rect key="frame" x="128" y="44" width="172" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="11"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Operating Hours" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ttJ-YK-cDL">
                                             <rect key="frame" x="128" y="61" width="185" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="11"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotional Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5BL-lu-BuV">
                                             <rect key="frame" x="116" y="92" width="197" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
+                                            <fontDescription key="fontDescription" name="SegoeUI-Bold" family="Segoe UI" pointSize="13"/>
                                             <color key="textColor" white="0.19996008211678831" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -400,7 +407,7 @@
                                 <rect key="frame" x="279" y="9" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Button" image="gear.png">
+                                <state key="normal" title="Button" image="white-gear.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -691,7 +698,7 @@
                                         <button key="customView" hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ly9-TU-y8l">
                                             <rect key="frame" x="56" y="7" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <state key="normal" title="Gear" image="gear.png">
+                                            <state key="normal" title="Gear" image="white-gear.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -1675,7 +1682,6 @@
         <image name="button_minus_no_circle.png" width="128" height="128"/>
         <image name="button_minus_with_circle.png" width="128" height="128"/>
         <image name="email-icon.png" width="83" height="83"/>
-        <image name="gear.png" width="104" height="104"/>
         <image name="imnew.tif" width="235" height="64"/>
         <image name="list_icon.png" width="105" height="105"/>
         <image name="login2.tif" width="203" height="63"/>
@@ -1693,6 +1699,7 @@
         <image name="start-order-border.png" width="668" height="88"/>
         <image name="tell_us_bt.png" width="330" height="102"/>
         <image name="white-background.png" width="666" height="86"/>
+        <image name="white-gear.png" width="62" height="61"/>
         <image name="white-menu-icon.png" width="54" height="35"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1703,7 +1710,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="p4l-nj-CSu"/>
         <segue reference="X3y-Ki-Wim"/>
-        <segue reference="qnZ-wN-VZu"/>
-        <segue reference="Zu8-We-sOe"/>
+        <segue reference="TRy-SG-Bfr"/>
+        <segue reference="OcS-Bs-eAE"/>
     </inferredMetricsTieBreakers>
 </document>

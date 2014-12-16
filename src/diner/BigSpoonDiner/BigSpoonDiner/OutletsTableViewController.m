@@ -433,7 +433,7 @@
             
         }
         
-        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Home" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
         [[self navigationItem] setBackBarButtonItem: newBackButton];
         
 	} else{

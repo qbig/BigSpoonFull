@@ -121,7 +121,7 @@
         [self.settingsButton setHidden:NO];
         
         // Put back the "gear" button. Otherwise the "gear" button will be located at the top-left corner.
-        [self changeBackButtonTo:@"back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
+        [self changeBackButtonTo:@"white-back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
 
     } else{
         [self.viewModeButton setHidden:NO];
@@ -225,7 +225,7 @@
         [self changeViewModeButtonIconTo:@"photo_icon.png"];
     }
     
-    [self changeBackButtonTo:@"home_with_arrow.png" withAction:@selector(popTopViewControllerInNavigationStack)];
+    [self changeBackButtonTo:@"white-back.png" withAction:@selector(popTopViewControllerInNavigationStack)];
     
     [self.viewModeButton setHidden:NO];
     
@@ -455,7 +455,7 @@
 
     [button setImage:buttonImage forState:UIControlStateNormal];
     
-    button.frame = CGRectMake(0, 0, 23 * SCALE_OF_BUTTON, 23); // Ratio: 128 * 46
+    button.frame = CGRectMake(0, 0, 32 , 32);
     
     [button addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
     
@@ -528,7 +528,7 @@
         if([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
             
             // Make a new goBackButton
-            [self changeBackButtonTo:@"back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
+            [self changeBackButtonTo:@"white-back.png" withAction:@selector(viewModeButtonPressedAtOrderPage:)];
             
             // Change the function of button to: Go Back.
             [self.viewModeButton setHidden:YES];
