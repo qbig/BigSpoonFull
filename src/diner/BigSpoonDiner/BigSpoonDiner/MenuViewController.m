@@ -644,7 +644,7 @@
     int updatedQuantity = [self.userInfo.currentOrder getTotalQuantity];
     [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"increasing order from %d to %d", initialQuantity, updatedQuantity]];
     [self updateItemQuantityBadge];
-    if ([self.userInfo.currentOrder getTotalQuantity] == 3) {
+    if (updatedQuantity > initialQuantity && (updatedQuantity == 3 || updatedQuantity == 1)) {
         [self showSendItemsReminder];
     }
 }
