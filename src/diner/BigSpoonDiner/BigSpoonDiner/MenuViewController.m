@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIAlertView *goBackButtonPressedAlertView;
 @property (nonatomic, strong) UIAlertView *whenToServeDessertAlertView;
 @property (nonatomic, strong) UIAlertView *requestForBillDisabledTextAlert;
+@property (nonatomic, strong) UIAlertView *sendItemsReminderAlertView;
 
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 @property (nonatomic, copy) void (^nextTask)(void);
@@ -627,7 +628,11 @@
         [self.navigationController popViewControllerAnimated:NO];
     } else if ([alertView isEqual:self.requestForBillDisabledTextAlert]){
         [self afterSuccessfulRequestBill];
-    } else{
+    } else if ([alertView isEqual:self.sendItemsReminderAlertView]){
+        if ([title isEqualToString:@"Send Orders"]) {
+            [self performSegueWithIdentifier:@"SegueFromMenuToItems" sender:self];
+        }
+    }else{
         NSLog(@"In alertView delegateion method: No alertview found.");
     }
 }
@@ -640,6 +645,9 @@
     int updatedQuantity = [self.userInfo.currentOrder getTotalQuantity];
     [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"increasing order from %d to %d", initialQuantity, updatedQuantity]];
     [self updateItemQuantityBadge];
+    if ([self.userInfo.currentOrder getTotalQuantity] == 3) {
+        [self showSendItemsReminder];
+    }
 }
 
 - (void) orderQuantityHasChanged:(Order *)order{
@@ -771,6 +779,17 @@
     [[self.timePickerPopup textFieldAtIndex:1] setKeyboardType:UIKeyboardTypePhonePad];
     
     [self.timePickerPopup show];
+}
+
+- (void) showSendItemsReminder {
+    self.sendItemsReminderAlertView = [[UIAlertView alloc]
+                                       initWithTitle: @"Done Choosing?"
+                                       message: @"Send Order To Kitchen Now"
+                                       delegate:self
+                                       cancelButtonTitle:@"Keep Browsing"
+                                       otherButtonTitles:@"Send Orders", nil];
+    
+    [self.sendItemsReminderAlertView show];
 }
 
 - (void)changeDate:(UIDatePicker *)sender {
