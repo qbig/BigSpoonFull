@@ -59,13 +59,22 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)updateCurrentOrderOffset {
+    CGRect rect = self.view.frame;
+    if ([self.userInfo.currentOrder.dishes count] == 0){
+        rect.origin.y -= ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET;
+    } else {
+        rect.origin.y = 0;
+    }
+    self.view.frame = rect;
+}
+
 - (void) viewWillAppear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePriceLabels) name:NOTIF_ORDER_UPDATE object:nil];
     [super viewWillAppear:animated];
     self.userInfo = [User sharedInstance];
-    
     [self updatePriceLabels];
-    
+    [self updateCurrentOrderOffset];
     return;
 }
 
@@ -350,6 +359,7 @@
     self.userInfo.currentOrder = [self.delegate minusDishWithIndex: indexPath.row];
     
     [self updatePriceLabels];
+    [self updateCurrentOrderOffset];
 }
 
 - (IBAction)placeOrderButtonPressed:(id)sender {
@@ -378,6 +388,7 @@
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
+    [self updateCurrentOrderOffset];
 }
 
 - (void) updatePriceLabels{

@@ -55,6 +55,7 @@
 - (void) reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder;
 - (IBAction) textFinishEditing:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *addNotesTextField;
+@property (weak, nonatomic) IBOutlet UIImageView *sentOrderBackgrountImageView;
 
 // Price tags:
 
