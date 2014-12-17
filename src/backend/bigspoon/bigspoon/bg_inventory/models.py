@@ -603,6 +603,11 @@ class Dish(models.Model):
         db_index=True,
         help_text=_('outlet pos system dish id')
     )
+    position_index = models.IntegerField(
+        _('index'),
+        default=0,
+        help_text=_('used to sort dish in menu'),
+    )
     desc = models.TextField(
         _('description'),
         help_text=_('outlet dish description')
