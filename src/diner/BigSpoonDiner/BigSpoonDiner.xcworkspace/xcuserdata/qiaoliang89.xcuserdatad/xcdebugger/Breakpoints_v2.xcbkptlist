@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "-viewWillDisappear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -506,11 +506,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440493225.204141"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -618,11 +618,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "-requestWaterButtonPressed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -666,11 +666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
+            startingLineNumber = "699"
+            endingLineNumber = "699"
             landmarkName = "-displayModeDidChange"
             landmarkType = "5">
          </BreakpointContent>
@@ -698,11 +698,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "771"
-            endingLineNumber = "771"
+            startingLineNumber = "780"
+            endingLineNumber = "780"
             landmarkName = "-showTimePickerPopup"
             landmarkType = "5">
          </BreakpointContent>
@@ -826,11 +826,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "403"
+            endingLineNumber = "403"
             landmarkName = "-performRequestBillNetWorkRequest"
             landmarkType = "5">
          </BreakpointContent>
@@ -842,11 +842,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "937"
-            endingLineNumber = "937"
+            startingLineNumber = "946"
+            endingLineNumber = "946"
             landmarkName = "-performPlaceOrderNetWorkRequest"
             landmarkType = "5">
          </BreakpointContent>
@@ -858,11 +858,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "-viewWillAppear:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1066,11 +1066,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "737"
-            endingLineNumber = "737"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
             landmarkName = "-placeOrderWithNotes:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1082,11 +1082,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1117"
-            endingLineNumber = "1117"
+            startingLineNumber = "1126"
+            endingLineNumber = "1126"
             landmarkName = "-isLocationLegalAndShowAlertIfNot"
             landmarkType = "5">
          </BreakpointContent>
@@ -1368,11 +1368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "954"
-            endingLineNumber = "954"
+            startingLineNumber = "963"
+            endingLineNumber = "963"
             landmarkName = "-processAfterSuccessfulPlacedOrder"
             landmarkType = "5">
          </BreakpointContent>
@@ -1416,11 +1416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
             landmarkName = "-afterSuccessfulRequestBill"
             landmarkType = "5">
          </BreakpointContent>
@@ -1432,11 +1432,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
+            startingLineNumber = "387"
+            endingLineNumber = "387"
             landmarkName = "-performRequestBillNetWorkRequest"
             landmarkType = "5">
          </BreakpointContent>
@@ -1544,11 +1544,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "413"
-            endingLineNumber = "413"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "-performRequestBillNetWorkRequest"
             landmarkType = "5">
          </BreakpointContent>
@@ -1560,11 +1560,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "406"
-            endingLineNumber = "406"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "-performRequestBillNetWorkRequest"
             landmarkType = "5">
          </BreakpointContent>
@@ -1576,11 +1576,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1069"
-            endingLineNumber = "1069"
+            startingLineNumber = "1078"
+            endingLineNumber = "1078"
             landmarkName = "-displayErrorInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1588,16 +1588,92 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/MenuViewController.m"
-            timestampString = "440496103.232831"
+            timestampString = "440506952.819676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "657"
-            endingLineNumber = "657"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
             landmarkName = "-updateItemQuantityBadge"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/MenuTableViewController.m"
+            timestampString = "440499472.571577"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "856"
+            endingLineNumber = "856"
+            landmarkName = "-addNewItemButtonClicked:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MenuTableViewController addNewItemButtonClicked:]"
+                  moduleName = "BigSpoonDiner"
+                  urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/MenuTableViewController.m"
+                  timestampString = "440499472.702201"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "857"
+                  endingLineNumber = "857"
+                  offsetFromSymbolStart = "1379">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MenuTableViewController addNewItemButtonClicked:]"
+                  moduleName = "BigSpoonDiner"
+                  urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/MenuTableViewController.m"
+                  timestampString = "440499472.702404"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "857"
+                  endingLineNumber = "857"
+                  offsetFromSymbolStart = "1658">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[MenuTableViewController addNewItemButtonClicked:]"
+                  moduleName = "BigSpoonDiner"
+                  urlString = "file:///Users/qiaoliang89/Documents/2013-final-project-7/src/diner/BigSpoonDiner/BigSpoonDiner/MenuTableViewController.m"
+                  timestampString = "440499472.702555"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "857"
+                  endingLineNumber = "857"
+                  offsetFromSymbolStart = "2399">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSpoonDiner/MenuTableViewController.m"
+            timestampString = "440499528.497122"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "859"
+            endingLineNumber = "859"
+            landmarkName = "-addNewItemButtonClicked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

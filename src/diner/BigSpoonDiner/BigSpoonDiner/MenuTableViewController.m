@@ -855,8 +855,8 @@
             [self.delegate dishOrdered:clickedDish];
             
             if (self.displayMethod == kMethodList) {
-                MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
-                [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+//                MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
+//                [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
             } else {
                 MenuListCell* clickedCell = (MenuListCell*) self.selectedCell;
                 [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];

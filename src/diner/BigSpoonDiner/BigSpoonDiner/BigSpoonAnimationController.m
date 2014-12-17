@@ -10,7 +10,6 @@
 #import "BigSpoonAnimationController.h"
 
 @implementation BigSpoonAnimationController
-
 #pragma makr Animation
 
 + (void) animateTransitionOfUIView: (UIView *)view willShow: (BOOL) willShow{

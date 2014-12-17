@@ -26,6 +26,7 @@
 @property (nonatomic, copy) void (^taskAfterAskingForTableID)(void);
 @property (nonatomic, copy) void (^nextTask)(void);
 @property (nonatomic) BOOL hasInit;
+@property (nonatomic) BOOL isAnimating;
 @property (nonatomic, strong) NSArray *theData;
 @property (nonatomic, strong) UIAlertView *timePickerPopup;
 @end
@@ -665,9 +666,17 @@
         self.itemQuantityLabel.text = [NSString stringWithFormat:@"%d", totalQuantity];
         
         // Animation of the red badge:
-       [BigSpoonAnimationController animateBadgeAfterUpdate: self.itemQuantityLabelBackgroundImageView
-                                          withOriginalFrame: self.itemQuantityLabelBackgroundImageView.frame];
+        if (! self.isAnimating) {
+            self.isAnimating = YES;
+            [self performSelector:@selector(updateCounterAnimatingFlag) withObject:self afterDelay:BADGE_ANMINATION_DURATION + 0.1];
+            [BigSpoonAnimationController animateBadgeAfterUpdate: self.itemQuantityLabelBackgroundImageView
+                                               withOriginalFrame: self.itemQuantityLabelBackgroundImageView.frame];
+        }
     }
+}
+
+- (void) updateCounterAnimatingFlag {
+    self.isAnimating = NO;
 }
 
 - (void) updateCounter {
