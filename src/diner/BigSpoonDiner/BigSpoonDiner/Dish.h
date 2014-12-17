@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSArray * categories;
 @property (nonatomic, strong) NSURL * imgURL;
 @property (nonatomic) int pos;
+@property (nonatomic) int index;
 @property (nonatomic, strong) NSString* startTime;
 @property (nonatomic, strong) NSString* endTime;
 @property (nonatomic) int quantity;
@@ -34,6 +35,7 @@
          categories: (NSArray *) categories
              imgURL: (NSURL *) imgURL
                 pos: (int) pos
+              index: (int) index
           startTime: (NSString *)startTime
             endTime: (NSString *)endTime
            quantity: (int) quantity

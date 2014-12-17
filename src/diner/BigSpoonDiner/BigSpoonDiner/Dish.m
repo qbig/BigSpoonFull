@@ -19,6 +19,7 @@
          categories: (NSArray *) c
              imgURL: (NSURL *) img
                 pos: (int) po
+              index: (int) index
           startTime: (NSString *)sta
             endTime: (NSString *)end
            quantity: (int) qu
@@ -31,11 +32,11 @@
         self.description = d;
         self.price = p;
         self.ratings = r;
-        
         self.ID = I;
         self.categories = c;
         self.imgURL = img;
         self.pos = po;
+        self.index = index;
         self.startTime = sta;
         self.endTime = end;
         self.quantity = qu;

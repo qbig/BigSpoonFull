@@ -463,6 +463,7 @@
         int ID = [[newDish objectForKey:@"id"] intValue];
         NSString* name = [newDish objectForKey:@"name"];
         int pos = [[newDish objectForKey:@"pos"] intValue];
+        int index = [[newDish objectForKey:@"position_index"] intValue];
         NSString* desc = [newDish objectForKey:@"desc"];
         
         NSString* startTime = [newDish objectForKey:@"start_time"];
@@ -484,6 +485,7 @@
                                              categories:categoryIDs
                                                  imgURL:imgURL
                                                     pos:pos
+                                                  index:index
                                               startTime:startTime
                                                 endTime:endTime
                                                quantity:quantity
@@ -997,8 +999,10 @@
     
     // sort according to pos number
     NSArray *sortedArray = [result sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        int first = [(Dish*)a pos];
-        int second = [(Dish*)b pos];
+        Dish* dishA = (Dish*)a;
+        Dish* dishB = (Dish*)b;
+        int first = dishA.pos > dishA.index ? dishA.pos : dishA.index;
+        int second = dishB.pos > dishB.index ? dishB.pos : dishB.index;
         return first >= second;
     }];
     if ( [sortedArray count] > 0){
