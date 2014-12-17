@@ -54,12 +54,14 @@
     
     [UIView animateWithDuration:BADGE_ANMINATION_DURATION / 2
                           delay:0
-                        options: UIViewAnimationOptionAutoreverse
+                        options: UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          badgeView.frame = newFrame;
                      }
                      completion:^(BOOL finished){
-                         badgeView.frame = oldFrameItemBadge;
+                         [UIView animateWithDuration:BADGE_ANMINATION_DURATION / 2 animations:^{
+                             badgeView.frame = oldFrameItemBadge;
+                         }];
                      }];
 
 }

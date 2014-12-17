@@ -104,7 +104,6 @@
             [[User sharedInstance].currentOrder removeDishAtIndex:i];
         }
     }
-    [self.delegate updateCounter];
 }
 
 - (void)ensureDishOutletIntegrity {
@@ -541,7 +540,7 @@
     [self ensureDishOutletIntegrity];
     [self renderCategoryButtons];
     [self.tableView reloadData];
-    
+//    [self.delegate updateCounter];
     NSMutableDictionary *validTableIDs = [self parseFromJsonToValidTableIDs:json];
     [self.delegate setValidTableIDs:validTableIDs];
 }

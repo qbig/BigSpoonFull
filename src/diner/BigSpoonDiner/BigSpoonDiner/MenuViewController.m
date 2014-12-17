@@ -69,8 +69,6 @@
     // update the badge.
     if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
         self.userInfo.currentOrder = [[Order alloc]init];
-    } else {
-        [self updateItemQuantityBadge];
     }
     if ([self.userInfo.pastOrder getTotalQuantity] == 0){
         self.userInfo.pastOrder = [[Order alloc]init];
@@ -98,7 +96,7 @@
     [self.viewModeButton setHidden:YES];
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    
+    [self updateItemQuantityBadge];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
