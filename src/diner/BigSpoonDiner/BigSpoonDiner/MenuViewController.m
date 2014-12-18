@@ -7,6 +7,7 @@
 //
 
 #import "MenuViewController.h"
+#import <Crashlytics/Crashlytics.h>
 
 @interface MenuViewController (){
     void (^taskAfterAskingForTableID)(void);
@@ -389,17 +390,6 @@
             case 200:
             case 201:{
                 NSLog(@"Request Bill Success");
-                if (outlet.isBillEnabled) {
-                    [self afterSuccessfulRequestBill];
-                } else {
-                    self.requestForBillDisabledTextAlert = [[UIAlertView alloc] initWithTitle:nil
-                                                                                 message: self.outlet.billText
-                                                                                delegate:self
-                                                                       cancelButtonTitle:@"Okay"
-                                                                       otherButtonTitles:nil];
-                    [self.requestForBillDisabledTextAlert show];
-                }
-                
             }
                 break;
             case 403:
@@ -415,6 +405,16 @@
                                       }];
     
     [operation start];
+    if (outlet.isBillEnabled) {
+        [self afterSuccessfulRequestBill];
+    } else {
+        self.requestForBillDisabledTextAlert = [[UIAlertView alloc] initWithTitle:nil
+                                                                          message: self.outlet.billText
+                                                                         delegate:self
+                                                                cancelButtonTitle:@"Okay"
+                                                                otherButtonTitles:nil];
+        [self.requestForBillDisabledTextAlert show];
+    }
 }
 
 - (void) afterSuccessfulRequestBill{
@@ -1069,6 +1069,7 @@
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self displayErrorInfo:operation.responseObject];
+                                          CLS_LOG(@"Updating modifier answer: %@", [error localizedDescription]);
                                       }];
     [operation start];
 }
@@ -1084,14 +1085,15 @@
     for (NSString * errorInfo in errorInfoArray) {
         [message appendString:errorInfo];
     }
-
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:@"Oops"
-                              message: message
-                              delegate:nil
-                              cancelButtonTitle:@"Okay"
-                              otherButtonTitles:nil];
-    [alertView show];
+    if (! message) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Oops"
+                                  message: message
+                                  delegate:nil
+                                  cancelButtonTitle:@"Okay"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
 }
 
 - (IBAction)requestWaterCancelButtonPressed:(id)sender {
