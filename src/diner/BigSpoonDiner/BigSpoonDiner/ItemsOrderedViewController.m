@@ -472,21 +472,21 @@
                                                  pasrOrderFrame.size.width,
                                                  pastOrderTableHeight)];
     
-    CGRect viewAfterframe = self.viewContainerForAfterCurrentOrderTable.frame;
+    CGRect viewAfterCurrentframe = self.viewContainerForAfterCurrentOrderTable.frame;
     [UIView animateWithDuration:0.25 animations:^{
-        [self.viewContainerForAfterCurrentOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+        [self.viewContainerForAfterCurrentOrderTable setFrame:CGRectMake(viewAfterCurrentframe.origin.x,
                                                                          currentOrderFrame.origin.y + currentOrderTableHeight,
-                                                                         viewAfterframe.size.width,
-                                                                         viewAfterframe.size.height)];
+                                                                         viewAfterCurrentframe.size.width,
+                                                                         viewAfterCurrentframe.size.height)];
     }];
     
-    viewAfterframe = self.viewContainerForAfterPastOrderTable.frame;
-    [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterframe.origin.x,
+    CGRect viewAfterPastframe = self.viewContainerForAfterPastOrderTable.frame;
+    [self.viewContainerForAfterPastOrderTable setFrame:CGRectMake(viewAfterPastframe.origin.x,
                                                                   pasrOrderFrame.origin.y + pastOrderTableHeight,
-                                                                  viewAfterframe.size.width,
-                                                                  viewAfterframe.size.height)];
-    if ([self.userInfo.currentOrder.dishes count] == 0){
-        pastOrderTableHeight += ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET;
+                                                                  viewAfterPastframe.size.width,
+                                                                  viewAfterPastframe.size.height)];
+    if ([self.userInfo.currentOrder.dishes count] == 0 && pastOrderTableHeight < ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET){
+        pastOrderTableHeight = ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET;
     }
     // hack for 3.5 and 4 screen size
     if (fabsf([[UIScreen mainScreen] bounds].size.height - IPHONE_35_INCH_HEIGHT) < 0.001) {
