@@ -64,6 +64,8 @@ class BigSpoonNamespace(BaseNamespace):
 
     def recv_disconnect(self):
         logger.info("disconnect!")
+        for gls in self.greenlets:
+            gls.kill()
         if self.pubsub:    
             logger.info("pubsub closed!")
             self.pubsub.close()
