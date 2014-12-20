@@ -60,7 +60,7 @@ class BigSpoonNamespace(BaseNamespace):
         logger.info("connected - action %s pk %s" % (action, pk))
 
         if action == 'subscribe':
-            self.spawn(self.listener, pk)
+            self.greenlets.append(self.spawn(self.listener, pk))
 
     def recv_disconnect(self):
         logger.info("disconnect!")
