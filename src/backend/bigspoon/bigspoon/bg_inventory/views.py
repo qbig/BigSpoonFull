@@ -13,13 +13,14 @@ logger = logging.getLogger('')
 
 
 class BigSpoonNamespace(BaseNamespace):
-    def listener(self, chan):
-        red = redis.StrictRedis(REDIS_HOST)
-        red = red.pubsub()
-        red.subscribe(chan)
-        self.pubsub = red
+    def initialize(self):
+        self.redis_pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
+        self.greenlets = []
+
+    def _listen(self, chan):
+        self.redis_pubsub.subscribe(chan)
         while True:
-            for i in red.listen():
+            for i in self.pubsub.listen():
                 self.send({'message': i}, json=True)
 
     def recv_message(self, message):
@@ -27,35 +28,15 @@ class BigSpoonNamespace(BaseNamespace):
         logger.info("connected - action %s pk %s" % (action, pk))
 
         if action == 'subscribe':
-            self.spawn(self.listener, pk)
-
-
-    # red = None
-    # pubsub = None
-    # def recv_connect(self):
-    #     self.red = redis.StrictRedis(REDIS_HOST) 
-
-    # def listener(self, chan):
-    #     if self.red is None:
-    #         self.red = redis.StrictRedis(REDIS_HOST)
-    #     self.pubsub = self.red.pubsub()
-    #     self.pubsub.subscribe(chan)
-    #     while True:
-    #         for i in self.pubsub.listen():
-    #             self.send({'message': i}, json=True)
-
-    # def recv_message(self, message):
-    #     action, pk = message.split(':')
-    #     logger.info("connected - action %s pk %s" % (action, pk))
-
-    #     if action == 'subscribe':
-    #         self.spawn(self.listener, pk)
+            self.greenlets.append(self.spawn(self._listen, pk))
 
     def recv_disconnect(self):
         logger.info("disconnect!")
-        if self.pubsub:    
+        if self.redis_pubsub:    
             logger.info("pubsub closed!")
-            self.pubsub.close()
+            self.redis_pubsub.close()
+        for gls in self.greenlets:
+            gls.kill()
         self.disconnect(silent=True)
         super(BigSpoonNamespace, self).recv_disconnect()
 
