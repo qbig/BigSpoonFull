@@ -60,13 +60,13 @@
 }
 
 - (void)updateCurrentOrderOffset {
-    CGRect rect = self.view.frame;
     if ([self.userInfo.currentOrder.dishes count] == 0){
-        rect.origin.y -= ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET;
+        [self.scrollView setContentOffset:
+         CGPointMake(0, -self.scrollView.contentInset.top + ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET) animated:YES];
     } else {
-        rect.origin.y = 0;
+        [self.scrollView setContentOffset:
+         CGPointMake(0, -self.scrollView.contentInset.top) animated:YES];
     }
-    self.view.frame = rect;
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -485,8 +485,9 @@
                                                                   pasrOrderFrame.origin.y + pastOrderTableHeight,
                                                                   viewAfterframe.size.width,
                                                                   viewAfterframe.size.height)];
-    self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + 100 + currentOrderTableHeight + pastOrderTableHeight);
-    
+    if ([self.userInfo.currentOrder.dishes count] == 0){
+        pastOrderTableHeight += ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET;
+    }
     // hack for 3.5 and 4 screen size
     if (fabsf([[UIScreen mainScreen] bounds].size.height - IPHONE_35_INCH_HEIGHT) < 0.001) {
        self.scrollView.contentSize =CGSizeMake(ITEM_LIST_SCROLL_WIDTH, ITEM_LIST_SCROLL_HEIGHT + 100 + currentOrderTableHeight + pastOrderTableHeight);
