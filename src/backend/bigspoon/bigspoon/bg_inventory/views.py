@@ -46,14 +46,10 @@ class BigSpoonNamespace(BaseNamespace):
 
 class BigSpoonNamespace(BaseNamespace):
     def initialize(self):
-        self.redis_pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
+        self.pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
         self.greenlets = []
 
     def listener(self, chan):
-        #red = redis.StrictRedis(REDIS_HOST)
-        #red = red.pubsub()
-        #red.subscribe(chan)
-        self.pubsub = self.redis_pubsub
         self.pubsub.subscribe(chan)
         while True:
             for i in self.pubsub.listen():
