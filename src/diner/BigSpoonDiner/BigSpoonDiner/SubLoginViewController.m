@@ -47,12 +47,12 @@
     [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     NSMutableArray *pagesToAdd = [[NSMutableArray alloc] init];
-    int numOfPagesInTutorial = 5;
+    int numOfPagesInTutorial = 3;
     NSString *imageNameformat;
     if( IS_IPHONE_5_OR_LARGER ){
-        imageNameformat = @"new-intro-%d_long.png";
+        imageNameformat = @"intro%d_long.png";
     } else {
-        imageNameformat = @"new-intro-%d.png";
+        imageNameformat = @"intro%d.png";
     }
     
     for(int i = 0; i < numOfPagesInTutorial; i++){
