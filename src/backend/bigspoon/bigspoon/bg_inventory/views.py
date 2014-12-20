@@ -18,7 +18,9 @@ class BigSpoonNamespace(BaseNamespace):
         self.greenlets = []
 
     def _listen(self, chan):
+        logger.info("started to listen: %s" % chan)
         self.redis_pubsub.subscribe(chan)
+        logger.info("subscribed to: %s" % chan)
         while True:
             for i in self.pubsub.listen():
                 self.send({'message': i}, json=True)
@@ -32,11 +34,12 @@ class BigSpoonNamespace(BaseNamespace):
 
     def recv_disconnect(self):
         logger.info("disconnect!")
+        for gls in self.greenlets:
+            gls.kill()
         if self.redis_pubsub:    
             logger.info("pubsub closed!")
             self.redis_pubsub.close()
-        for gls in self.greenlets:
-            gls.kill()
+
         self.disconnect(silent=True)
         super(BigSpoonNamespace, self).recv_disconnect()
 
