@@ -13,20 +13,35 @@
 // Request URLs:
 #define DEV  0;
 #ifdef DEV
-NSString* const BASE_URL = @"http://46.137.234.248/";
-NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
-NSString* const USER_LOGIN = @"http://46.137.234.248/api/v1/login";
-NSString* const USER_LOGIN_WITH_FB = @"http://46.137.234.248/api/v1/fblogin";
-NSString* const LIST_OUTLETS = @"http://46.137.234.248/api/v1/outlets";
-NSString* const REQUEST_URL = @"http://46.137.234.248/api/v1/request";
-NSString* const PROFILE_URL = @"http://46.137.234.248/api/v1/profile";
-NSString* const ORDER_URL = @"http://46.137.234.248/api/v1/meal";
-NSString* const BILL_URL = @"http://46.137.234.248/api/v1/askbill";
-NSString* const RATING_URL = @"http://46.137.234.248/api/v1/rating";
-NSString* const FEEDBACK_URL = @"http://46.137.234.248/api/v1/review";
-NSString* const DISH_CATEGORY_URL = @"http://46.137.234.248/api/v1/categories";
-NSString* const ORDER_HISTORY_URL = @"http://46.137.234.248/api/v1/mealhistory";
-NSString* const SOCKET_URL = @"46.137.234.248";
+//NSString* const BASE_URL = @"http://46.137.234.248/";
+//NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
+//NSString* const USER_LOGIN = @"http://46.137.234.248/api/v1/login";
+//NSString* const USER_LOGIN_WITH_FB = @"http://46.137.234.248/api/v1/fblogin";
+//NSString* const LIST_OUTLETS = @"http://46.137.234.248/api/v1/outlets";
+//NSString* const REQUEST_URL = @"http://46.137.234.248/api/v1/request";
+//NSString* const PROFILE_URL = @"http://46.137.234.248/api/v1/profile";
+//NSString* const ORDER_URL = @"http://46.137.234.248/api/v1/meal";
+//NSString* const BILL_URL = @"http://46.137.234.248/api/v1/askbill";
+//NSString* const RATING_URL = @"http://46.137.234.248/api/v1/rating";
+//NSString* const FEEDBACK_URL = @"http://46.137.234.248/api/v1/review";
+//NSString* const DISH_CATEGORY_URL = @"http://46.137.234.248/api/v1/categories";
+//NSString* const ORDER_HISTORY_URL = @"http://46.137.234.248/api/v1/mealhistory";
+//NSString* const SOCKET_URL = @"46.137.234.248";
+
+NSString* const BASE_URL = @"http://175.41.178.102/";
+NSString* const USER_SIGNUP = @"http://175.41.178.102/api/v1/user";
+NSString* const USER_LOGIN = @"http://175.41.178.102/api/v1/login";
+NSString* const USER_LOGIN_WITH_FB = @"http://175.41.178.102/api/v1/fblogin";
+NSString* const LIST_OUTLETS = @"http://175.41.178.102/api/v1/outlets";
+NSString* const REQUEST_URL = @"http://175.41.178.102/api/v1/request";
+NSString* const PROFILE_URL = @"http://175.41.178.102/api/v1/profile";
+NSString* const ORDER_URL = @"http://175.41.178.102/api/v1/meal";
+NSString* const BILL_URL = @"http://175.41.178.102/api/v1/askbill";
+NSString* const RATING_URL = @"http://175.41.178.102/api/v1/rating";
+NSString* const FEEDBACK_URL = @"http://175.41.178.102/api/v1/review";
+NSString* const DISH_CATEGORY_URL = @"http://175.41.178.102/api/v1/categories";
+NSString* const ORDER_HISTORY_URL = @"http://175.41.178.102/api/v1/mealhistory";
+NSString* const SOCKET_URL = @"175.41.178.102";
 
 #else
 NSString* const BASE_URL = @"http://bigspoon.biz/"; //NSString* const BASE_URL = @"http://46.137.234.248/";
