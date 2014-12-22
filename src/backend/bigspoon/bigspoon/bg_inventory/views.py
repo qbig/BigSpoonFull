@@ -41,11 +41,11 @@ class BigSpoonNamespace(BaseNamespace):
 
 
 def socketio(request):
-    # logger.info("Connecting start")
-    # socketio_manage(
-    #     request.environ,
-    #     {'': BigSpoonNamespace, },
-    #     request=request
-    # )
-    # logger.info("Connecting finish")
+    logger.info("Connecting start")
+    socketio_manage(
+        request.environ,
+        {'': BigSpoonNamespace, },
+        request=request
+    )
+    logger.info("Connecting finish")
     return HttpResponse()
