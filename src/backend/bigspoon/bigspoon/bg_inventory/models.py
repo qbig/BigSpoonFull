@@ -105,7 +105,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         def get_meals(pk):
             if self.meals.count() > 0:
                 tables = self.meals.latest('created').table.outlet.tables.all()
-                return list(self.meals.filter(table__in=tables).prefetch_related("orders__dish"))
+                return list(self.meals.filter(table__in=tables).all().prefetch_related("orders__dish"))
             else:
                 return []
         return get_meals(self.pk)
