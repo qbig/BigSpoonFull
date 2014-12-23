@@ -127,7 +127,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                 spending_for_meal = 0
                 for order in meal.orders:
                     spending_for_meal += order.quantity * order.dish.price
-                total_spending += spending_for_meal#meal.get_meal_spending()
+                total_spending += spending_for_meal
             return total_spending
         return get_spending(self.pk)
 
@@ -142,7 +142,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             if not recent_meals:
                 return 0
             else:
-                return recent_meals.count()
+                return len(recent_meals)
         return get_visits_num(self.pk)
 
     
