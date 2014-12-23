@@ -31,11 +31,8 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT
     )
-else :
-    try:
-        urlpatterns += patterns(
-            '',
-            (r'^grappelli/', include('grappelli.urls')), # grappelli URLS
-            )
-    except:
-        pass
+    
+    import debug_toolbar
+    urlpatterns += patterns('',
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    )

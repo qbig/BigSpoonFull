@@ -5,7 +5,7 @@ from os.path import join, normpath
 
 from common import *
 
-
+DEBUG = True
 ########## EMAIL CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 DEFAULT_FROM_EMAIL = 'no-reply@bigspoon.com'
@@ -117,7 +117,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Singapore'
 CELERY_ANNOTATIONS = {'*': {'rate_limit': '10/s'}}
 
-DEBUG = True
+
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
 TEMPLATE_DEBUG = DEBUG
@@ -125,7 +125,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ########## TOOLBAR CONFIGURATION
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
-
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
 # See: https://github.com/django-debug-toolbar/django-debug-toolbar#installation
 INTERNAL_IPS = ('127.0.0.1', 'localhost')
 
