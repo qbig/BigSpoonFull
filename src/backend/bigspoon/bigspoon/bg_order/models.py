@@ -112,6 +112,7 @@ class Meal(models.Model):
     )
     table = models.ForeignKey(
         Table,
+        db_index=True,
         help_text=_('table diner is sitting at when create meal'),
         related_name="meals"
     )

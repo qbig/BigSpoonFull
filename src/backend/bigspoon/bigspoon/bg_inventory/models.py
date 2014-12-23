@@ -540,6 +540,7 @@ class Table(models.Model):
     """
     outlet = models.ForeignKey(
         Outlet,
+        db_index=True,
         help_text=_('belong to outlet'),
         related_name='tables',
     )
