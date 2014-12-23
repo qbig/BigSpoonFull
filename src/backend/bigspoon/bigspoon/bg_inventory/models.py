@@ -105,7 +105,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         def get_meals(pk):
             if self.meals.count() > 0:
                 tables = self.meals.latest('created').table.outlet.tables.all()
-                return self.meals.filter(table__in=tables)
+                return list(self.meals.filter(table__in=tables).prefetch_related("orders__dish"))
             else:
                 return []
         return get_meals(self.pk)
@@ -124,7 +124,10 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return total_spending
         
             for meal in recent_meals:
-                total_spending += meal.get_meal_spending()
+                spending_for_meal = 0
+                for order in meal.orders:
+                    spending_for_meal += order.quantity * order.dish.price
+                total_spending += spending_for_meal#meal.get_meal_spending()
             return total_spending
         return get_spending(self.pk)
 
