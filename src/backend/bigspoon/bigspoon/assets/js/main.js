@@ -247,6 +247,7 @@ $(document).ready(function() {
         socket = io.connect(host+":8000", details);
     }
 
+    $(window).on('beforeunload',function(){socket.disconnect();});
     // handle Socketio message, which could come in the following formats:
     // ['refresh', 'meal', 'new']
     // ['refresh', 'meal', 'askbill']
