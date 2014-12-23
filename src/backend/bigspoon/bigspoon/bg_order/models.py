@@ -168,7 +168,7 @@ class Meal(models.Model):
 
     def get_meal_spending(self):
         meal_spending = 0
-        for order in self.orders.select_related():
+        for order in self.orders.select_related("dish__price").all():
             meal_spending += order.dish.price * order.quantity
         return meal_spending
 
