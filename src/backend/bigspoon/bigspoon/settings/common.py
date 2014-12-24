@@ -63,7 +63,7 @@ DATABASES = {
 TIME_ZONE = 'Asia/Singapore'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
-LANGUAGE_CODE = 'en-us'
+
 
 
 LOCALES = (
