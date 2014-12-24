@@ -10,7 +10,7 @@ from utils import send_socketio_message
 def add(x, y):
     return x + y
 
-@task(bind=True, max_retries=10)
+@task(bind=True, max_retries=3)
 def print_amax(self, table_id, new_order_id):
 	table = Table.objects.get(id=table_id)
 	new_order = Order.objects.get(id=new_order_id)
