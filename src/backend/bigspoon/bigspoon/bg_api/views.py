@@ -426,13 +426,9 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             new_order = None
             index_str = str(idx)
             if notes and index_str in notes:
-                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(index_str))   
+                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(index_str), is_finished=table.outlet.is_auto_send_to_POS)   
             else : 
-                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity)
-
-            # do not show order normally if sent to kitchen
-            if table.outlet.is_auto_send_to_POS:
-                new_order.is_finished = True
+                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, is_finished=table.outlet.is_auto_send_to_POS)
 
             if modifiers and index_str in modifiers: 
                 new_order.modifier_json = modifiers.get(index_str)

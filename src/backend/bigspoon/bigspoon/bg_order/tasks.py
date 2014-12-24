@@ -52,7 +52,7 @@ def print_amax(self, table_id, new_order_id):
 			new_order.meal.save()
 			new_order.save()
 			send_socketio_message(
-				[str(table.outlet.id)],
+				[table.outlet.id],
             	['refresh', 'meal', 'new']
 			)
 		else:
