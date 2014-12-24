@@ -47,7 +47,7 @@ class MealAdmin(GuardedModelAdmin, ImportExportModelAdmin):
 class OrderAdmin(GuardedModelAdmin):
     raw_id_fields = ('dish', 'meal')
     list_display = ['id', 'meal', 'get_diner', 'dish',
-                    'quantity']
+                    'quantity','is_finished','has_been_sent_to_POS']
     list_display_links = ('meal', 'dish', 'get_diner')
 
     def get_diner(self, obj):

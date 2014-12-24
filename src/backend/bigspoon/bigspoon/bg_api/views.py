@@ -387,7 +387,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
                              + out_of_stock_str},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        diner = request.user
+        diner = request.user    
         #meal, created = Meal.objects.get_or_create(table=table, diner=diner,
         #                                           is_paid=False)
         # Note: here there may exist a discrepency between the table_id sent from user and the table id 
@@ -400,7 +400,12 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             meal = Meal.objects.create(table=table, diner=diner,
                                                    is_paid=False)
         meal.modified = timezone.now()
-        meal.status = Meal.ACTIVE
+        
+        if table.outlet.is_auto_send_to_POS:
+            meal.status = Meal.INACTIVE    
+        else :
+            meal.status = Meal.ACTIVE
+
         if ('note' in request.DATA):
             note = request.DATA['note']
             meal.note = note
@@ -425,21 +430,25 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             else : 
                 new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity)
 
+            # do not show order normally if sent to kitchen
+            if table.outlet.is_auto_send_to_POS:
+                new_order.is_finished = True
+
             if modifiers and index_str in modifiers: 
                 new_order.modifier_json = modifiers.get(index_str)
                 new_order.save()
 
             # send to printer if configured
             if table.outlet.is_auto_send_to_POS and get_printing_task(table.outlet.id):
-                get_printing_task(table.outlet.id).delay(table.outlet.id, table.id, new_order.id)
+                get_printing_task(table.outlet.id).delay(table.id, new_order.id)
             # send done
             dish.quantity -= quantity
             dish.save()
-
-        send_socketio_message_async.delay(
-            "||".join([str(table.outlet.id)]),
-            "||".join(['refresh', 'meal', 'new'])
-        )
+        if not table.outlet.is_auto_send_to_POS:             
+            send_socketio_message_async.delay(
+                "||".join([str(table.outlet.id)]),
+                "||".join(['refresh', 'meal', 'new'])
+            )
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
     def get(self, request):
@@ -693,6 +702,11 @@ class AckOrder(generics.GenericAPIView):
         meal.status = Meal.INACTIVE
         meal.modified = timezone.now()
         for order in meal.orders.all():
+            # if not integrated, alway set as true
+            # if integrated, and finished(default state), do not touch
+            # if integrated, and not finished(printing failed), set it as printed(waiter manually)
+            if not meal.table.outlet.is_auto_send_to_POS or not order.is_finished:
+                order.has_been_sent_to_POS = True
             order.is_finished = True
             order.save()
         meal.save()
