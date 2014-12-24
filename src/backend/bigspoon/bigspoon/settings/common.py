@@ -64,22 +64,17 @@ TIME_ZONE = 'Asia/Singapore'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 
+# Available languages
 
+from django.utils.translation import ugettext_lazy as _
 
-LOCALES = (
-    #English
-    ('en', u'English'),
-
-    #Simplified Chinese
-    ('zh-cn', u'简体中文'),
-
-    #Traditional Chinese
-    ('zh-tw', u'繁體中文'),
-
-    #Japanese
-    ('ja', u'日本語'),
+LANGUAGES = (
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('nl', _('Dutch')),
+    ('es', _('Spanish')),
+    ('zh-cn', _('Simplified Chinese')),
 )
-
 
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
