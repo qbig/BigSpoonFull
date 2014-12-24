@@ -64,6 +64,23 @@ TIME_ZONE = 'Asia/Singapore'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
 
+
+LOCALES = (
+    #English
+    ('en', u'English'),
+
+    #Simplified Chinese
+    ('zh-cn', u'简体中文'),
+
+    #Traditional Chinese
+    ('zh-tw', u'繁體中文'),
+
+    #Japanese
+    ('ja', u'日本語'),
+)
+
+
+
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#site-id
 # sites:
 # 1. 122.248.199.242 (main)
