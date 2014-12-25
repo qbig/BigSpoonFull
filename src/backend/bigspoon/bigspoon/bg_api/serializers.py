@@ -364,8 +364,10 @@ class TokenSerializer(serializers.Serializer):
                     try:
                         user = User.objects.get(email=email)
                     except User.DoesNotExist:
-                        user = User.objects.create(username=email, password=password, first_name=random.choice(first_names), last_name=random.choice(last_names))
-                    
+                        user = User.objects.create(is_active=True, email=email, username=email, password=password, first_name=random.choice(first_names), last_name=random.choice(last_names))
+                        g = Group.objects.get(name='normaluser')
+                        g.user_set.add(user)
+                        g.save()
                     attrs['user'] = user
                     return attrs       
                 raise serializers.ValidationError(
