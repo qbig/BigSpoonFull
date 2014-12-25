@@ -59,12 +59,38 @@ DATABASES = {
 
 
 ########## GENERAL CONFIGURATION
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
+USE_I18N = True
+
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
+USE_L10N = True
+
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
 TIME_ZONE = 'Asia/Singapore'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 
 # Available languages
+LANGUAGE_CODE = 'en'
+LOCALES = (
+    #English
+    ('en', u'English'),
+
+    #Norwegian
+    ('no', u'Norsk'),
+
+    #Finish
+    ('fi', u'Suomi'),
+
+    #Simplified Chinese
+    ('zh-cn', u'简体中文'),
+
+    #Traditional Chinese
+    ('zh-tw', u'繁體中文'),
+
+    #Japanese
+    ('ja', u'日本語'),
+)
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -84,11 +110,7 @@ LANGUAGES = (
 # 3. 127.0.0.1:8924 (test)
 SITE_ID = 1
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-i18n
-USE_I18N = True
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
-USE_L10N = True
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True

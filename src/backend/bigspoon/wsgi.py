@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# coding: utf-8
+import os
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 """
 WSGI config for bigspoon project.
 
@@ -22,7 +30,6 @@ try:
 except ImportError:
     pass
 
-import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bigspoon.settings.dev")
 
 # This application object is used by any WSGI server configured to use this
