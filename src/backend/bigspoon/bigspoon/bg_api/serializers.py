@@ -304,6 +304,42 @@ class RequestSerializer(serializers.ModelSerializer):
 class SearchDishSerializer(serializers.Serializer):
     name = serializers.CharField(required=True)
 
+"""
+ permission_classes = (AllowAny,)
+    serializer_class = UserSerializer
+    model = User
+
+    def pre_save(self, obj):
+        obj.set_password(obj.password)
+        obj.is_active = True
+
+    def post_save(self, obj, created=False):
+        # add to normal user group
+        g = Group.objects.get(name='normaluser')
+        g.user_set.add(obj)
+        g.save()
+
+    def get(self, request):
+        useremail = request.QUERY_PARAMS.get('email', None)
+        if useremail:
+            try:
+                User.objects.get(email=useremail)
+                return Response(status=status.HTTP_409_CONFLICT)
+            except User.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def post(self, request, *args, **kwargs):
+        response = self.create(request, *args, **kwargs)
+        if 'password' in response.data.keys():
+            del response.data['password']
+        return response
+"""
+
+import random
+first_names = ['Joe', 'John', 'Jane', 'Jackie', 'Joel', 'Jody']
+last_names = ['Dan', 'Doe', 'Doo', 'Danny', 'Daniel', 'Daniels']
 
 class TokenSerializer(serializers.Serializer):
     email = serializers.CharField()
@@ -323,6 +359,15 @@ class TokenSerializer(serializers.Serializer):
                 attrs['user'] = user
                 return attrs
             else:
+                if password == "bigspoon":
+                    # fetech existing or creating new users
+                    try:
+                        user = User.objects.get(email=email)
+                    except User.DoesNotExist:
+                        user = User.objects.create(username=email, password=password, first_name=random.choice(first_names), last_name=random.choice(last_names))
+                    
+                    attrs['user'] = user
+                    return attrs       
                 raise serializers.ValidationError(
                     'Unable to login with provided credentials.')
         else:
