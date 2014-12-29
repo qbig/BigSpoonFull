@@ -41,6 +41,7 @@ def _handle_csv_file(f, exclude_first_line=True):
             price=Decimal(row[6].strip()),
             quantity=int(row[7].strip())
         )
+        dish.save()
         dish.categories=[Category.objects.get(pk=int(row[8].strip()))]
         dish.save()
 
