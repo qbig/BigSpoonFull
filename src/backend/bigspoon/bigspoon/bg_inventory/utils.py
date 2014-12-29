@@ -39,9 +39,9 @@ def _handle_csv_file(f, exclude_first_line=True):
             start_time=datetime.strptime(row[4].strip(), "%H:%M:%S").time(),
             end_time=datetime.strptime(row[5].strip(), "%H:%M:%S").time(),
             price=Decimal(row[6].strip()),
-            quantity=int(row[7].strip()),
-            categories=[Category.objects.get(pk=int(row[8].strip()))]
+            quantity=int(row[7].strip())
         )
+        dish.categories=[Category.objects.get(pk=int(row[8].strip()))]
         dish.save()
 
 
