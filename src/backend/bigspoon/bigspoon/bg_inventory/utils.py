@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render
 
-from bg_inventory.models import Outlet, Dish
+from bg_inventory.models import Outlet, Dish, Category
 from bg_inventory.forms import DishCSVForm
 
 from datetime import datetime
@@ -25,7 +25,7 @@ def _handle_csv_file(f, exclude_first_line=True):
 
     # Create the banklog object
     for row in uploaded_csv:
-        if len(row) < 8:
+        if len(row) < 9:
             raise Exception("number of columns wrong.")
         try:
             o = Outlet.objects.get(pk=int(row[0].strip()))
@@ -41,6 +41,8 @@ def _handle_csv_file(f, exclude_first_line=True):
             price=Decimal(row[6].strip()),
             quantity=int(row[7].strip())
         )
+        dish.save()
+        dish.categories=[Category.objects.get(pk=int(row[8].strip()))]
         dish.save()
 
 
