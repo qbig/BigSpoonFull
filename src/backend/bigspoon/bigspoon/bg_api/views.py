@@ -394,7 +394,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         #       from meal, as it could be edited by staff to avoid confusion after diner change their table        
         
         try:
-            meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
+            meal = Meal.objects.filter(created__range=today_limit(), diner=diner, is_paid=False).latest('created')
             table = meal.table
         except Meal.DoesNotExist:
             meal = Meal.objects.create(table=table, diner=diner,
