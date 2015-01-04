@@ -178,6 +178,7 @@ class OutletItemsView(generics.RetrieveAPIView):
     List current active orders and requests for for current outlet
     """
     permission_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
     serializer_class = OutletDetailSerializer
     model = Outlet
 
