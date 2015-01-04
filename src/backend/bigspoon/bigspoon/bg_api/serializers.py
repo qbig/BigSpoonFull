@@ -381,11 +381,11 @@ class RequestAPISerializer(serializers.ModelSerializer):
 
     def get_start_time(self, obj):
         return int(obj.created.strftime("%s")) * 1000 
-        
+
     class Meta:
         model = Request
         fields = ('id','table', 'note', 'request_type', 'is_active',
-                  'finished', 'diner')
+                  'finished', 'diner', 'dinerInfo', 'request_wait_time', 'request_start_time', 'request_table_name')
         read_only_fields = ('is_active', 'finished', 'diner')    
 
 class SearchDishSerializer(serializers.Serializer):
