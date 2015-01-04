@@ -18,7 +18,7 @@ from rest_framework import renderers
 from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
+    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer,MealAPISerializer, \
     MealSerializer, RequestSerializer, RequestAPISerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
@@ -507,6 +507,15 @@ class MealDetail(generics.RetrieveAPIView):
     serializer_class = MealDetailSerializer
     model = Meal
 
+
+class MealDetailAPIView(generics.RetrieveAPIView):
+    """
+    Show meal details for dashboard
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealAPISerializer
+    model = Meal
 
 class RequestDetailAPIView(generics.RetrieveAPIView):
     """

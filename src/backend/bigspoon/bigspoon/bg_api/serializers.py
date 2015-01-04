@@ -235,6 +235,22 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ("quantity", "dish", "id", "is_finished", "note", "modifier_json")
 
 
+class OrderDetails(serializers.ModelSerializer):
+
+    dish_pos = serializers.SerializerMethodField('get_pos')
+    dish_name = serializers.SerializerMethodField('get_name')
+
+    def get_pos(self, obj):
+        return obj.dish.pos
+
+    def get_name(self, obj):
+        return obj.dish.name
+
+    class Meta:
+        model = Order
+        fields = ("quantity", "dish", "dish_pos","dish_name", "id", "is_finished", "note", "modifier_json")
+
+
 class CurrentMealSerializer(serializers.ModelSerializer):
     orders = serializers.SerializerMethodField('get_orders')
     outlet = serializers.SerializerMethodField('get_outlet')
@@ -319,6 +335,36 @@ class MealSpendingSerializer(serializers.ModelSerializer):
         model = Meal
         fields = ("spending", "date")
 
+class MealAPISerializer(serializers.ModelSerializer):
+    dinerInfo = serializers.SerializerMethodField('get_diner_info')
+    meal_start_time = serializers.SerializerMethodField('get_start_time')
+    meal_table_name = serializers.SerializerMethodField('get_table_name')
+    meal_wait_time = serializers.SerializerMethodField('get_wait_time') 
+    orders = serializers.SerializerMethodField('get_orders') 
+    
+    def get_diner_info(self, obj):
+        return DinerInfoSerializer(obj.diner).data
+
+    def get_start_time(self, obj):
+        return int(obj.created.strftime("%s")) * 1000 
+
+    def get_table_name(self, obj):
+        return obj.table.name
+
+    def get_wait_time(self, obj):
+        diff = timezone.now() - obj.created
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return {
+            "min":diffmod[0],
+            "second":diffmod[1]
+        }
+
+    def get_orders(self, obj):
+        return OrderDetails(obj.orders, many=True).data
+
+    class Meta:
+        model = Meal
+        fields = ('id', 'dinerInfo', 'meal_start_time', 'meal_table_name', 'note', 'status', 'orders')
 
 class SpendingRequestSerializer(serializers.Serializer):
     from_date = serializers.DateField(required=True)
