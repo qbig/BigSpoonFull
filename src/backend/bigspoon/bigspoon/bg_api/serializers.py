@@ -360,7 +360,7 @@ class MealAPISerializer(serializers.ModelSerializer):
         }
 
     def get_orders(self, obj):
-        return OrderDetails(obj.orders, many=True).data
+        return OrderDetails(obj.orders.all(), many=True).data
 
     class Meta:
         model = Meal
