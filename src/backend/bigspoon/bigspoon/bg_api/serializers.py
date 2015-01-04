@@ -365,7 +365,7 @@ class RequestAPISerializer(serializers.ModelSerializer):
     request_start_time = serializers.SerializerMethodField('get_start_time')
     request_table_name = serializers.SerializerMethodField('get_table_name')
 
-    def get_user_info(self, obj):
+    def get_diner_info(self, obj):
         return DinerInfoSerializer(obj.diner).data
 
     def get_table_name(self, obj):
