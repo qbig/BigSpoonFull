@@ -173,6 +173,35 @@ class OutletDetail(generics.RetrieveAPIView):
     serializer_class = OutletDetailSerializer
     model = Outlet
 
+class OutletItemsView(generics.RetrieveAPIView):
+    """
+    List current active orders and requests for for current outlet
+    """
+    permission_classes = (SessionAuthentication, TokenAuthentication)
+    serializer_class = OutletDetailSerializer
+    model = Outlet
+
+    def get(self, request, *args, **kwargs):
+        outlet_id = int(kwargs['pk'])
+        outlet = Outlet.objects.get(id=outlet_id)
+        items_data = {
+            "meals": MealAPISerializer(Meal.objects\
+            .prefetch_related('diner', 'orders',
+                              'table', 'table__outlet')\
+            .filter(table__outlet__in=outlets)\
+            .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL)), many=True).data,
+            "requests": RetrieveAPIView(requests = Request.objects\
+            .prefetch_related('diner', 'table', 'diner__meals',
+                              'diner__meals__orders',
+                              'table__outlet')\
+            .filter(table__outlet__in=outlets)\
+            .filter(is_active=True), many=True).data
+        }
+        try:
+            return Response(items_data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 class ListCategory(generics.ListAPIView):
     """

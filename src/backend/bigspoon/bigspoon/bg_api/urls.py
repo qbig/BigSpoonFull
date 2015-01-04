@@ -25,6 +25,7 @@ urlpatterns = patterns(
     url(r'^request/(?P<pk>[0-9]+)$', views.RequestDetailAPIView.as_view()),
     url(r'^spending$', views.GetSpendingData.as_view()),
     url(r'^note$', views.CreateNote.as_view()),
+    url(r'^outlet-items/(?P<pk>[0-9]+)$', views.OutletItemsView.as_view()),
     # rating
     url(r'^rating$', views.CreateRating.as_view()),
     # review
