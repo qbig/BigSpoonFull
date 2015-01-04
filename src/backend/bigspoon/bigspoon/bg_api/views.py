@@ -19,7 +19,7 @@ from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
     OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
-    MealSerializer, RequestSerializer, TokenSerializer, \
+    MealSerializer, RequestSerializer, RequestAPISerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
     SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer, \
@@ -507,6 +507,15 @@ class MealDetail(generics.RetrieveAPIView):
     serializer_class = MealDetailSerializer
     model = Meal
 
+
+class RequestDetailAPIView(generics.RetrieveAPIView):
+    """
+    Show request details
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = RequestAPISerializer
+    model = Request
 
 class CreateRequest(generics.CreateAPIView):
     """
