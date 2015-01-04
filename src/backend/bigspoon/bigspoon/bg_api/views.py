@@ -189,13 +189,13 @@ class OutletItemsView(generics.RetrieveAPIView):
             "meals": MealAPISerializer(Meal.objects\
             .prefetch_related('diner', 'orders',
                               'table', 'table__outlet')\
-            .filter(table__outlet__in=outlets)\
+            .filter(table__outlet=outlet)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL)), many=True).data,
-            "requests": RetrieveAPIView(requests = Request.objects\
+            "requests": RequestAPISerializer(requests = Request.objects\
             .prefetch_related('diner', 'table', 'diner__meals',
                               'diner__meals__orders',
                               'table__outlet')\
-            .filter(table__outlet__in=outlets)\
+            .filter(table__outlet=outlet)\
             .filter(is_active=True), many=True).data
         }
         try:
