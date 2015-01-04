@@ -361,7 +361,7 @@ class RequestAPISerializer(serializers.ModelSerializer):
     }
     """
     dinerInfo = serializers.SerializerMethodField('get_diner_info')
-    request_wait_time = serializers.SerializerMethodField('request_wait_time')
+    request_wait_time = serializers.SerializerMethodField('get_wait_time')
     request_start_time = serializers.SerializerMethodField('get_start_time')
     request_table_name = serializers.SerializerMethodField('get_table_name')
 
@@ -371,7 +371,7 @@ class RequestAPISerializer(serializers.ModelSerializer):
     def get_table_name(self, obj):
         return obj.table.name
  
-    def request_wait_time(self, obj):
+    def get_wait_time(self, obj):
         diff = timezone.now() - obj.created
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return {
