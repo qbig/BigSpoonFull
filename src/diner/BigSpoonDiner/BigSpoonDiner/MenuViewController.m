@@ -780,7 +780,7 @@
     UIDatePicker *picker = [[UIDatePicker alloc] init];
     picker.datePickerMode = UIDatePickerModeTime;
     [picker addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:picker];
+
     [self.timePickerPopup textFieldAtIndex:0].inputView = picker;
     
     [[self.timePickerPopup textFieldAtIndex:1] setKeyboardType:UIKeyboardTypePhonePad];
