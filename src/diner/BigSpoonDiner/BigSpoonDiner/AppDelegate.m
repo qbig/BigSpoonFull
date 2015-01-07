@@ -179,7 +179,7 @@
 - (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error{
     NSLog(@"In App Delegate: socketIODidDisconnect disconnectedWithError");
     self.isSocketConnected = NO;
-    [self connectSocket];
+    [self performSelector:@selector(connectSocket) withObject:self afterDelay:1];
 }
 
 - (void) socketIO:(SocketIO *)socket didReceiveMessage:(SocketIOPacket *)packet{
@@ -227,7 +227,7 @@
 - (void) socketIO:(SocketIO *)socket onError:(NSError *)error{
     NSLog(@"In App Delegate: socketIO onError");
     self.isSocketConnected = NO;
-    [self connectSocket];
+    [self performSelector:@selector(connectSocket) withObject:self afterDelay:1];
 }
 
 
