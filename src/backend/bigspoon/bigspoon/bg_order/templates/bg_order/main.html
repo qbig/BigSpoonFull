@@ -5,8 +5,7 @@
 {% load menufilters %}
 {% block content %}
     <div class="wrapper">
-    {% verbatim %}
-    <!--
+    
     {% if cards %}
         {% for card in cards %}
             {% if card.orders %}
@@ -142,7 +141,141 @@
         <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
     </div>
     {% endif %}
-    -->
+    
+       {% verbatim %} 
+        <! handlebar for order template->
+        <script id="card-template-order" type="text/x-handlebars-template">
+            <!--based on the time, determine whether it is urgent or not, different in appearance-->                    
+            {{#ifCond meal_wait_time.min '>=' 3}}
+                <span class = "urgent time countdown" start = {{meal_start_time}}>
+            {{else}}
+                <span class = "early time countdown" start= {{meal_start_time}} >
+            {{/ifCond}}
+            
+                <i class = "icon-time"></i>waited {{meal_wait_time.min}}m, {{meal_wait_time.second}}s
+                </span>
+        
+            <h3 class = "user-{{dinerInfo.id}}">{{meal_table_name}}</h3>
+            <span class = 'user'>
+                <a class="user-profile-link" href="/staff/user/{{dinerInfo.id}}"><img src="{{dinerInfo.diner_avatar_rul}}" /></a>
+                <h4>{{ dinerInfo.diner_name}}</h4>
+            </span>
+            
+            <span class = "user-summary">
+                <p class = 'profile-tab'>{{dinerInfo.diner_visits}} visits</p>
+                <p class = 'profile-tab'>{{dinerInfo.diner_average_spend}} ave</p>
+                <a href="/staff/user/{{dinerInfo.id}}" class = 'view-profile'><i class="icon-user"></i>Profile</a>
+            </span>
+            
+                <!--
+                <p class="notice"><i class="icon-warning-sign"></i> Vegetarian & Muslim</p>
+                -->
+                {{#ifCond status "===" 0 }}
+                    {{#ifCond dinerInfo.diner_profile.is_vegetarian '==' 'Y'}}
+                        <p class="notice"><i class="icon-warning-sign"></i> Vegetarian</p>
+                    {{/ifCond}}
+                    
+                    {{#ifCond dinerInfo.diner_profile.is_muslim '==' 'Y'}}
+                         <p class="notice"><i class="icon-warning-sign"></i> Muslim</p>
+                    {{/ifCond}}
+                    
+                    {{#ifCond dinerInfo.diner_profile.allergies '!==' ''}}
+                    <p class="notice">
+                        Allergic to: {{dinerInfo.diner_profile.allergies}}
+                    </p>
+                    {{/ifCond}} 
+                {{/ifCond}} 
+            
+                <!--
+                <img class="icon bill" src="img/bill.png"/>
+                --> 
+            
+            {{#ifCond status "===" 0 }}
+                <ul class = "order">
+                    
+                    {{#ifCond  note '!==' ''}}  
+                        <li>{{note}}</li>
+                    {{/ifCond}}
+                    
+                    {{#each orders}}
+                
+                        <li id="page-order-container-{{orders.id}}">
+                            <em class ='quantity'>{{quantity}}x</em>
+                            <p> {{dish_name}} </p>
+                            <em class='pos'>{{dish_pos}}</em>
+                        </li>
+                        
+                        {{#ifCond note '!==' ''}}
+                            <li>{{note}}</li>
+                        {{/ifCond}}
+
+                        
+                    {{/each}}
+                    
+                    <li class="end">
+                        ---end---
+                    </li>
+                    
+                </ul>
+            {{/ifCond}}
+            
+            {{#ifCond status "===" 0 }}
+                <a class="acknowledge ack-button" rel="order" model="meal" id="{{id}}"><i class="icon-check-sign"></i> Acknowledge</a>
+            {{/ifCond}}
+            
+            {{#ifCond status "===" 1 }}
+                <img class="icon" src="img/bill.png"/>
+                <a class="closebill ack-button" rel="bill" model="meal" id="meal-{{id}}"><i class="icon-money"></i> Close Bill</a>
+            {{/ifCond}}
+                                
+        
+        </script>
+        
+        <! handlebar template for request card>
+        <script id="card-template-request" type="text/x-handlebars-template">
+            
+
+            {{#ifCond request_wait_time.min '>=' 1 }}
+                <span class = "urgent time countdown" start = {{request_start_time}}>
+            {{else}}
+                <sapn class = "early time countdown" start={{request_start_time}}>
+            {{/ifCond}}
+            
+                <i class = "icon-time"></i>waited {{request_wait_time.min}}m, {{request_wait_time.second}}s
+                </span>
+                
+            <h3 class="user-{{meal.diner.id}}">{{request_table_name }}</h3>
+            
+            <span class='user'>
+                <a class="user-profile-link" href="/staff/user/{{dinerInfo.id}}"><img src="{{dinerInfo.diner_avatar_url}}" /></a>
+                <h4>{{dinerInfo.diner_name}}</h4>
+            </span>
+            
+            <span class="user-summary">
+                <p class='profile-tab'> {{dinerInfo.diner_visits}} visits</p>
+                <p class='profile-tab'>${{dinerInfo.diner_average_spend}} ave</p>
+                <a href="/staff/user/{{dinerInfo.id}}" class='view-profile'><i class="icon-user"></i> Profile</a>
+            </span>
+                        
+            {{#ifCond request.note '!==' ""}}
+            <p class="note">
+                {{note}}
+            </p>
+            {{/ifCond}}                     
+            
+            {{#ifCond request_type '==' 0}}
+                <img class="icon" src="img/water.png"/>
+            {{/ifCond}}
+            
+            {{#ifCond request_type '==' 1}}
+                <img class="icon" src="img/waiter.png"/>
+            {{/ifCond}}
+            
+            <a class="respond ack-button" rel="req" model="request" id=request-{{request_id}}><i class="icon-check-sign"></i> Acknowledge</a>
+            
+            
+        </script>
+
 {% endverbatim %}
     {% cache 600 "dropdown" outlet.id %}
     <div id="dropdown-for-page" class="dropdown dropdown-tip">
