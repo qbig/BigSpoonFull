@@ -5,6 +5,8 @@
 {% load menufilters %}
 {% block content %}
     <div class="wrapper">
+    {% verbatim %}
+    <!--
     {% if cards %}
         {% for card in cards %}
             {% if card.orders %}
@@ -140,7 +142,8 @@
         <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
     </div>
     {% endif %}
-
+    -->
+{% endverbatim %}
     {% cache 600 "dropdown" outlet.id %}
     <div id="dropdown-for-page" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">

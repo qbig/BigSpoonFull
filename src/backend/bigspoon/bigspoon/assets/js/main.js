@@ -93,9 +93,9 @@ $(document).ready(function() {
 
     // ==========  behavior  ========= 
     // Show notification if cards exist
-    if ( cards_num > 0) {
-        showNotification(cards_num);
-    }
+    // if ( cards_num > 0) {
+    //     showNotification(cards_num);
+    // }
 
 
     // ==========  Menu page specific  ========= 
@@ -246,7 +246,6 @@ $(document).ready(function() {
     } else {
         socket = io.connect(host+":8000", details);
     }
-
     $(window).on('beforeunload',function(){socket.disconnect();});
     // handle Socketio message, which could come in the following formats:
     // ['refresh', 'meal', 'new']
