@@ -119,7 +119,6 @@
 					
 					allDataParsed.requests.forEach( function (request) {
 						that.items.requests.push(request);
-						console.log(request)
 					});
 					document.dispatchEvent(new Event("allItemsAdded"));
 					that.checkNumCards();

@@ -93,7 +93,7 @@
 		removeRequest: function(id,callback){
 			var len = this.items.requests.length;
 			for (var i = 0; i < len; i++) {
-				if(this.items.requests[i].id == parseInt(id)) {
+				if(this.items.requests[i].id === parseInt(id)) {
 					this.items.requests.splice(i,1);
 					this.checkNumCards();
 					callback();
@@ -119,7 +119,6 @@
 					
 					allDataParsed.requests.forEach( function (request) {
 						that.items.requests.push(request);
-						console.log(request)
 					});
 					document.dispatchEvent(new Event("allItemsAdded"));
 					that.checkNumCards();
