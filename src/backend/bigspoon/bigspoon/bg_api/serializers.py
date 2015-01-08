@@ -43,6 +43,40 @@ class UserSerializer(serializers.ModelSerializer):
                   'password', 'auth_token', 'avatar_url', 'avatar_url_large')
         read_only_fields = ('auth_token',)
 
+class DinerInfoSerializer(serializers.ModelSerializer):
+    diner_avatar_url = serializers.SerializerMethodField('get_avatar')
+    diner_name = serializers.SerializerMethodField('get_full_name')
+    diner_visits = serializers.SerializerMethodField('get_num_of_visit')
+    diner_total_spend = serializers.SerializerMethodField('get_total_spending')
+    diner_average_spend = serializers.SerializerMethodField('get_avg_spending')
+
+    def get_avatar(self, obj):
+        if hasattr(obj, 'email'):
+            return obj.avatar_url
+        return 'None'
+
+    def get_full_name(self, obj):
+        return obj.get_full_name()
+
+    def get_num_of_visit(self, obj):
+        return obj.get_num_of_visits_for_recent_outlet()
+
+    def get_total_spending(self, obj):
+        return obj.get_spending_for_recent_outlet()
+
+    def get_avg_spending(self, obj):
+        return obj.get_average_spending_for_recent_outlet()
+
+    class Meta:
+        model = User
+        fields = (
+                'id', 
+                'diner_name', 
+                'diner_visits', 
+                'diner_total_spend',
+                'diner_average_spend', 
+                'diner_avatar_url', 
+                )
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -201,6 +235,22 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ("quantity", "dish", "id", "is_finished", "note", "modifier_json")
 
 
+class OrderDetails(serializers.ModelSerializer):
+
+    dish_pos = serializers.SerializerMethodField('get_pos')
+    dish_name = serializers.SerializerMethodField('get_name')
+
+    def get_pos(self, obj):
+        return obj.dish.pos
+
+    def get_name(self, obj):
+        return obj.dish.name
+
+    class Meta:
+        model = Order
+        fields = ("quantity", "dish", "dish_pos","dish_name", "id", "is_finished", "note", "modifier_json")
+
+
 class CurrentMealSerializer(serializers.ModelSerializer):
     orders = serializers.SerializerMethodField('get_orders')
     outlet = serializers.SerializerMethodField('get_outlet')
@@ -266,10 +316,9 @@ class MealSerializer(serializers.ModelSerializer):
 
 
 class MealDetailSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = Meal
-
 
 class MealSpendingSerializer(serializers.ModelSerializer):
 
@@ -286,6 +335,36 @@ class MealSpendingSerializer(serializers.ModelSerializer):
         model = Meal
         fields = ("spending", "date")
 
+class MealAPISerializer(serializers.ModelSerializer):
+    dinerInfo = serializers.SerializerMethodField('get_diner_info')
+    meal_start_time = serializers.SerializerMethodField('get_start_time')
+    meal_table_name = serializers.SerializerMethodField('get_table_name')
+    meal_wait_time = serializers.SerializerMethodField('get_wait_time') 
+    orders = serializers.SerializerMethodField('get_orders') 
+    
+    def get_diner_info(self, obj):
+        return DinerInfoSerializer(obj.diner).data
+
+    def get_start_time(self, obj):
+        return int(obj.created.strftime("%s")) * 1000 
+
+    def get_table_name(self, obj):
+        return obj.table.name
+
+    def get_wait_time(self, obj):
+        diff = timezone.now() - obj.created
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return {
+            "min":diffmod[0],
+            "second":diffmod[1]
+        }
+
+    def get_orders(self, obj):
+        return OrderDetails(obj.orders.all(), many=True).data
+
+    class Meta:
+        model = Meal
+        fields = ('id', 'dinerInfo', 'meal_start_time', 'meal_table_name', 'note', 'status', 'orders')
 
 class SpendingRequestSerializer(serializers.Serializer):
     from_date = serializers.DateField(required=True)
@@ -300,6 +379,60 @@ class RequestSerializer(serializers.ModelSerializer):
                   'finished', 'diner')
         read_only_fields = ('is_active', 'finished', 'diner')
 
+class RequestAPISerializer(serializers.ModelSerializer):
+    
+    """
+    {
+       "request_id":24,
+       "request_start_time":"1.404269983e+12",
+       "request_table_name":"B1",
+       "request_type":1,
+       "request_wait_time":{
+          "min":2,
+          "second":39
+       },
+       "request_note":"hot",
+       "dinerInfo":{
+             "diner_id":3,
+             "diner_name":"Cathy",
+             "diner_visits":2,
+             "diner_total_spend":60,
+             "diner_average_spend":30,
+             "diner_profile":{
+                "is_vegetarian":"F",
+                "is_muslim":"F",
+                "allergies":""
+             }
+       }
+    }
+    """
+    dinerInfo = serializers.SerializerMethodField('get_diner_info')
+    request_wait_time = serializers.SerializerMethodField('get_wait_time')
+    request_start_time = serializers.SerializerMethodField('get_start_time')
+    request_table_name = serializers.SerializerMethodField('get_table_name')
+
+    def get_diner_info(self, obj):
+        return DinerInfoSerializer(obj.diner).data
+
+    def get_table_name(self, obj):
+        return obj.table.name
+ 
+    def get_wait_time(self, obj):
+        diff = timezone.now() - obj.created
+        diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
+        return {
+            "min":diffmod[0],
+            "second":diffmod[1]
+        }
+
+    def get_start_time(self, obj):
+        return int(obj.created.strftime("%s")) * 1000 
+
+    class Meta:
+        model = Request
+        fields = ('id','table', 'note', 'request_type', 'is_active',
+                  'finished', 'diner', 'dinerInfo', 'request_wait_time', 'request_start_time', 'request_table_name')
+        read_only_fields = ('is_active', 'finished', 'diner')    
 
 class SearchDishSerializer(serializers.Serializer):
     name = serializers.CharField(required=True)
