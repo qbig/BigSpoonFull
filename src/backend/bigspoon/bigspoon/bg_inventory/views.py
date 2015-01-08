@@ -12,14 +12,12 @@ REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 logger = logging.getLogger('')
 
 class BigSpoonNamespace(BaseNamespace):
-    def initialize(self):
-        self.pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
-        self.greenlets = []
-
+    
     def listener(self, chan):
-        self.pubsub.subscribe(chan)
+        pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
+        pubsub.subscribe(chan)
         while True:
-            for i in self.pubsub.listen():
+            for i in pubsub.listen():
                 self.send({'message': i}, json=True)
 
     def recv_message(self, message):
@@ -27,12 +25,10 @@ class BigSpoonNamespace(BaseNamespace):
         logger.info("connected - action %s pk %s" % (action, pk))
 
         if action == 'subscribe':
-            self.greenlets.append(self.spawn(self.listener, pk))
+            self.spawn(self.listener, pk)
 
     def recv_disconnect(self):
         logger.info("disconnect!")
-        for gls in self.greenlets:
-            gls.kill()
         if self.pubsub:    
             logger.info("pubsub closed!")
             self.pubsub.close()

@@ -18,8 +18,8 @@ from rest_framework import renderers
 from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, \
-    MealSerializer, RequestSerializer, TokenSerializer, \
+    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer,MealAPISerializer, \
+    MealSerializer, RequestSerializer, RequestAPISerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
     SearchDishSerializer, MealSpendingSerializer, SpendingRequestSerializer, \
@@ -172,6 +172,37 @@ class OutletDetail(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
     serializer_class = OutletDetailSerializer
     model = Outlet
+
+class OutletItemsView(generics.RetrieveAPIView):
+    """
+    List current active orders and requests for for current outlet
+    """
+    permission_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = OutletDetailSerializer
+    model = Outlet
+
+    def get(self, request, *args, **kwargs):
+        outlet_id = int(kwargs['pk'])
+        outlet = Outlet.objects.get(id=outlet_id)
+        items_data = {
+            "meals": MealAPISerializer(Meal.objects\
+                .prefetch_related('diner', 'orders',
+                              'table', 'table__outlet')\
+                .filter(table__outlet=outlet)\
+                .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL)), many=True).data,
+
+            "requests": RequestAPISerializer(Request.objects\
+                .prefetch_related('diner', 'table', 'diner__meals',
+                              'diner__meals__orders',
+                              'table__outlet')\
+                .filter(table__outlet=outlet)\
+                .filter(is_active=True), many=True).data
+        }
+        try:
+            return Response(items_data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class ListCategory(generics.ListAPIView):
@@ -394,7 +425,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         #       from meal, as it could be edited by staff to avoid confusion after diner change their table        
         
         try:
-            meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
+            meal = Meal.objects.filter(created__range=today_limit(), diner=diner, is_paid=False).latest('created')
             table = meal.table
         except Meal.DoesNotExist:
             meal = Meal.objects.create(table=table, diner=diner,
@@ -409,6 +440,10 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         if ('note' in request.DATA):
             note = request.DATA['note']
             meal.note = note
+
+        if table.is_for_take_away:
+            meal.note = table.outlet.name + " | " + meal.note
+
         meal.save()
 
         notes = None
@@ -507,6 +542,24 @@ class MealDetail(generics.RetrieveAPIView):
     serializer_class = MealDetailSerializer
     model = Meal
 
+
+class MealDetailAPIView(generics.RetrieveAPIView):
+    """
+    Show meal details for dashboard
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = MealAPISerializer
+    model = Meal
+
+class RequestDetailAPIView(generics.RetrieveAPIView):
+    """
+    Show request details
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = RequestAPISerializer
+    model = Request
 
 class CreateRequest(generics.CreateAPIView):
     """

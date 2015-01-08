@@ -43,6 +43,8 @@ class MainView(TemplateView):
                               'table', 'table__outlet')\
             .filter(table__outlet__in=outlets)\
             .filter(Q(status=Meal.ACTIVE) | Q(status=Meal.ASK_BILL))
+        if self.request.user.is_superuser:
+            meals.filter(table__is_for_take_away=True)
         requests = Request.objects\
             .prefetch_related('diner', 'table', 'diner__meals',
                               'diner__meals__orders',
