@@ -12,17 +12,20 @@ urlpatterns = patterns(
     # ordering
     url(r'^mealhistory$', views.MealHistory.as_view()),
     url(r'^meal$', views.CreateMeal.as_view()),
+    url(r'^meal/(?P<pk>[0-9]+)$', views.MealDetail.as_view()),
+    url(r'^meal-details/(?P<pk>[0-9]+)$', views.MealDetailAPIView.as_view()),
     url(r'^meal-update$', views.UpdateNewOrderForMeal.as_view()),
     url(r'^meal-pos-process$', views.ProcessMealForPOS.as_view()),
     url(r'^table$', views.UpdateTableForMeal.as_view()),
     url(r'^table-single-diner$', views.UpdateTableForMealForSingleDiner.as_view()),
     url(r'^order$', views.UpdateOrder.as_view()),
     url(r'^askbill$', views.AskForBill.as_view()),
-    url(r'^meal/(?P<pk>[0-9]+)$', views.MealDetail.as_view()),
     url(r'^dish/(?P<pk>[0-9]+)$', views.UpdateDish.as_view()),
     url(r'^request$', views.CreateRequest.as_view()),
+    url(r'^request/(?P<pk>[0-9]+)$', views.RequestDetailAPIView.as_view()),
     url(r'^spending$', views.GetSpendingData.as_view()),
     url(r'^note$', views.CreateNote.as_view()),
+    url(r'^outlet-items/(?P<pk>[0-9]+)$', views.OutletItemsView.as_view()),
     # rating
     url(r'^rating$', views.CreateRating.as_view()),
     # review
