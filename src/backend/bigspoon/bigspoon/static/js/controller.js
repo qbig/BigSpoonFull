@@ -89,8 +89,9 @@
 			var that = this
 			//ajax post to backend with card_id with a callback to remove card and data
 			that.model.postRemoveData(e.detail, function() {
-				that.model.removeData(e.detail);
-				that.view.removeCard(e.detail.parent_card);
+				that.model.removeData(e.detail, function() {
+					that.view.removeCard(e.detail.parent_card);
+				});
 			});
 		},
 
@@ -169,7 +170,7 @@
 			});
 		},
 		
-		addRequest : function(id) {
+		addRequest : function(e) {
 			var that = this;
 			that.model.addRequestCard(e.detail, function(requestObj) {
 				that.view.displayAddedRequestCard(requestObj);

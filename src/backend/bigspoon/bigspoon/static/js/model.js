@@ -21,9 +21,10 @@
 				success: function(mealData) {
 					var mealCardData = JSON.parse(mealData);
 					that.items.meals.push(mealCardData);
+					that.checkNumCards();
 					callback(mealCardData);
 					//document.dispatchEvent(new CustomEvent("cardAdded", {'detail': temp}));
-					this.checkNumCards(this.items.meals.length+this.items.requests.length);
+
 				}
 			});
 		},
@@ -65,39 +66,40 @@
 				success: function(requestData) {
 					var requestCardData = JSON.parse(requestData);
 					that.items.requests.push(requestCardData);
+					that.checkNumCards();
 					callback(requestCardData);
 					// document.dispatchEvent(new Event("requestAdded"));
-					this.checkNumCards(this.items.meals.length+this.items.requests.length);
 				}
 			});
 		},
 
 		//check through the model items and remove (using splice())the meal item corresponding to id
 		//ensure no multiple items with same id
-		removeMeal: function(id){
-			
+		removeMeal: function(id,callback){
 			var len = this.items.meals.length;
 			for(var i = 0; i < len; i++) {
-				if(this.items.meals[i] === id) {
+				if(this.items.meals[i].id === parseInt(id)) {
 					this.items.meals.splice(i,1);
+					this.checkNumCards();
+					callback();
 					break;
 				}
 			}
-			this.checkNumCards(this.items.meals.length+this.items.requests.length);
+
 		},
 
 		//check through the model items and remove (using splice())the request item corresponding to id
 		//ensure no multiple items with same id
-		removeRequest: function(id){
-			
+		removeRequest: function(id,callback){
 			var len = this.items.requests.length;
-			for(var i = 0 ; i < len;i++) {
-				if(this.items.requests[i] === id) {
+			for (var i = 0; i < len; i++) {
+				if(this.items.requests[i].id == parseInt(id)) {
 					this.items.requests.splice(i,1);
+					this.checkNumCards();
+					callback();
 					break;
 				}
 			}
-			this.checkNumCards(this.items.meals.length+this.items.requests.length);
 		},
 
 
@@ -117,10 +119,10 @@
 					
 					allDataParsed.requests.forEach( function (request) {
 						that.items.requests.push(request);
+						console.log(request)
 					});
 					document.dispatchEvent(new Event("allItemsAdded"));
-					console.log(that.items.meals.length+that.items.requests.length)
-					that.checkNumCards(that.items.meals.length+that.items.requests.length);
+					that.checkNumCards();
 				}
 			});
 		},
@@ -145,17 +147,21 @@
 		},
 
 		//check card type and remove accordingly
-		removeData: function(event) {
+		removeData: function(event,callback) {
 			if(event.model === 'request') {
-				this.removeRequest(event.card_id);
+				this.removeRequest(event.card_id, function() {
+					callback();
+				});
 			} else if (event.model === 'meal') {
-				this.removeMeal(event.card_id);
+				this.removeMeal(event.card_id, function() {
+					callback();
+				});
 			}
-			this.checkNumCards(this.items.meals.length+this.items.requests.length);
 		},
 
-		checkNumCards: function(numCards) {
-			document.dispatchEvent(new Event("checkNumCards"),  { "detail": numCards });
+		checkNumCards: function() {
+			var numCards = this.items.meals.length+this.items.requests.length
+			document.dispatchEvent(new CustomEvent("checkNumCards",  { 'detail': numCards }));
 		}
 	};
 

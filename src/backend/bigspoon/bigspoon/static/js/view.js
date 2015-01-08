@@ -51,7 +51,6 @@
 				that.handleRequestCard(allCards.requests[j]);
 				that.updateTime();
 			}
-			this.checkCardNum(mealLength+requestLength);
 		},
 
 		//function accepts a meal object as the parameter
@@ -124,8 +123,6 @@
 
 			//rearrange remaining cards
 			this.$mainWrapper.masonry();
-			
-			this.checkCardNum();
 
 			this.updateNotification('minus');
 		},
