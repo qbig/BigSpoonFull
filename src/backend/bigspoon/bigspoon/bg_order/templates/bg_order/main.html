@@ -141,14 +141,13 @@
         <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
     </div>
     {% endif %} -->
-    
+    {% if cards %}
        {% verbatim %} 
 
+        
         <! handlebar for order template->
         <script id="card-template-order" type="text/x-handlebars-template">
-        {{#ifCond cards '==' ""}}
-           <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
-        {{else}}
+
                 <!--based on the time, determine whether it is urgent or not, different in appearance-->                    
                 {{#ifCond meal_wait_time.min '>=' 3}}
                     <span class = "urgent time countdown" start = {{meal_start_time}}>
@@ -229,16 +228,13 @@
                     <img class="icon" src="/static/img/bill.png"/>
                     <a class="closebill ack-button" rel="bill" model="meal" id="meal-{{id}}"><i class="icon-money"></i> Close Bill</a>
                 {{/ifCond}}
-        {{/ifCond}}                          
+                        
             
         </script>
         
         <! handlebar template for request card>
         <script id="card-template-request" type="text/x-handlebars-template">
-            
-        {{#ifCond cards '==' ""}}
-           <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
-        {{else}}
+
                 {{#ifCond request_wait_time.min '>=' 1 }}
                     <span class = "urgent time countdown" start = {{request_start_time}}>
                 {{else}}
@@ -276,11 +272,17 @@
                 {{/ifCond}}
                 
                 <a class="respond ack-button" rel="req" model="request" id={{id}}><i class="icon-check-sign"></i> Acknowledge</a>
-        {{/ifCond}}
             
         </script>
+        {% endverbatim %}
+    {% else %}
+        <p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>
+    {% endif %} 
+    </div> 
 
-{% endverbatim %}
+
+
+
     {% cache 600 "dropdown" outlet.id %}
     <div id="dropdown-for-page" class="dropdown dropdown-tip">
         <ul class="dropdown-menu">

@@ -30,56 +30,9 @@
 		this.view.$mainWrapper.on('click',".item a.respond.ack-button",this.view.handleClick);
 		
 		//In progress
-		this.view.$mainWrapper.on('click',".view-profile",function(){
-			 alert('display profile pop up');
-
-		});
-		
-		function bind_popup(){
-		        // for User profile pop up
-		        $(".user-profile-link").magnificPopup({
-		            type: 'ajax',
-		            settings: {cache:false},
-		            alignTop: true,
-		            cache: false,
-		            closeBtnInside: true,
-		            overflowY: 'scroll',
-		            callbacks: {
-		                open: function() {
-		                    is_in_popup = true;
-		                    console.log(is_in_popup);
-		                }
-		            },
-		        });
-
-		        $(".view-profile").magnificPopup({
-		            type: 'ajax',
-		            settings: {cache:false},
-		            alignTop: true,
-		            cache: false,
-		            closeBtnInside: true,
-		            overflowY: 'scroll',
-		            callbacks: {
-		                open: function() {
-		                    is_in_popup = true;
-		                    console.log(is_in_popup);
-		                }
-		            },
-		        });
-
-		        $('.popup-modal').magnificPopup({
-		            type: 'inline',
-		            preloader: false,
-		            focus: '#username',
-		            modal: true
-		        });
-
-		        $('.cancel_order_icon_btn').click(function(){
-		            var icon_clicked = $(this);
-		            order_to_modify = icon_clicked.attr('data-orderId');
-		        });
-		    }
-		    bind_popup();
+		// this.view.$mainWrapper.on('click',".view-profile",function(){
+		// 	 alert('display profile pop up');
+		// });
 
 		 /*
 		  * bind event and function in the popup windows 

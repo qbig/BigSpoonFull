@@ -86,6 +86,8 @@
 			
 			//call masonry plugin to append and format the cards
 			this.$mainWrapper.append(elem).masonry('appended',elem);
+			//rearrange remaining cards
+			this.$mainWrapper.masonry();
 
 			this.updateNotification('plus');
 		},
@@ -106,12 +108,15 @@
 		
 			//call masonry plugin to append and format the cards
 			this.$mainWrapper.append(elem).masonry('appended',elem);
+			//rearrange remaining cards
+			this.$mainWrapper.masonry();
 
 			this.updateNotification('plus');
 		},
 		
 		//use masonry to remove the corresponding meal/request element
 		removeCard : function(elem) {
+			console.log('new code removing card')
 			this.$mainWrapper.masonry('remove', elem);
 
 			//rearrange remaining cards
@@ -145,7 +150,6 @@
 					var secondsPassed = (new Date()- new Date(Number(startTime))) / 1000;
 	            	var minutes = parseInt(secondsPassed / 60, 10);
 	            	var seconds = parseInt(secondsPassed % 60, 10);
-
 					//substitutes updated time to counter
 					timer.html('<i class="icon-time"></i> waited ' + minutes + "m, " + seconds + "s");			
 				},1000); //updates every second	
