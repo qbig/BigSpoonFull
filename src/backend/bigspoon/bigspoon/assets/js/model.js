@@ -23,6 +23,7 @@
 					that.items.meals.push(mealCardData);
 					callback(mealCardData);
 					//document.dispatchEvent(new CustomEvent("cardAdded", {'detail': temp}));
+					that.checkNumCards(that.items.meals.length+that.items.requests.length);
 				}
 			});
 		},
@@ -66,6 +67,7 @@
 					that.items.requests.push(requestCardData);
 					callback(requestCardData);
 					// document.dispatchEvent(new Event("requestAdded"));
+					that.checkNumCards(that.items.meals.length+that.items.requests.length);
 				}
 			});
 		},
@@ -81,6 +83,7 @@
 					break;
 				}
 			}
+			this.checkNumCards(this.items.meals.length+this.items.requests.length);
 		},
 
 		//check through the model items and remove (using splice())the request item corresponding to id
@@ -94,6 +97,7 @@
 					break;
 				}
 			}
+			this.checkNumCards(this.items.meals.length+this.items.requests.length);
 		},
 
 
@@ -115,6 +119,7 @@
 						that.items.requests.push(request);
 					});
 					document.dispatchEvent(new Event("allItemsAdded"));
+					that.checkNumCards(that.items.meals.length+that.items.requests.length);
 				}
 			});
 		},
@@ -145,6 +150,11 @@
 			} else if (event.model === 'meal') {
 				this.removeMeal(event.card_id);
 			}
+			this.checkNumCards(this.items.meals.length+this.items.requests.length);
+		},
+
+		checkNumCards: function(numCards) {
+			document.dispatchEvent(new Event("checkNumCards"),  { "detail": numCards });
 		}
 	};
 

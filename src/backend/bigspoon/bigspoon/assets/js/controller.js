@@ -69,11 +69,16 @@
 	   		document.addEventListener("requestAdded", this.addRequest.bind(this));
 	   		document.addEventListener('cardClicked', this.removeCard.bind(this));
 	   		document.addEventListener('alarm', this.playAlarm.bind(this));
+	   		document.addEventListener("checkNumCards", this.updateNumCards.bind(this));
 	   		this.model.addAllCard(outlet_id);
 	   		this.initSocketIO();
 	   		this.sound = new Howl ({
 			    url: [media_url + 'sounds/notification.mp3']
 			});
+		},
+
+		updateNumCards : function(e) {
+			this.view.checkCardNum(e.detail);
 		},
 
 		playAlarm : function() {
@@ -171,41 +176,43 @@
 			});
 		},
 		
-		/*
-		 * remove the elem in the view
-		 * get the id from elem's attribute
-		 * remove the data in model by given id
-		 */
-		ackMeal : function(elem) {
-			var mealIdAttr = elem.attr("id");
-			var mealId = mealIdAttr.replace( /[^\d]/g, '' );
-			var that = this;
-			this.model.removeMealItem(mealId,function() {
-				that.view.removeMeal(elem);
-			});
-			//in future add the card in the Table page
-		},
+		// /*
+		//  * remove the elem in the view
+		//  * get the id from elem's attribute
+		//  * remove the data in model by given id
+		//  */
+		// ackMeal : function(elem) {
+		// 	console.log('not suppose to be here')
+		// 	var mealIdAttr = elem.attr("id");
+		// 	var mealId = mealIdAttr.replace( /[^\d]/g, '' );
+		// 	var that = this;
+		// 	this.model.removeMealItem(mealId,function() {
+		// 		that.view.removeMeal(elem);
+		// 	});
+		// 	//in future add the card in the Table page
+		// },
 		
-		ackBill : function(elem) {
-			var mealIdAttr = elem.attr("id");
-			var mealId = mealIdAttr.replace( /[^\d]/g, '' );
-			var that = this;
-			this.model.removeMealItem(mealId, function() {
-				that.view.removeMeal(elem);
-			});
-			//in future add the card in the Table page
-		},
+		// ackBill : function(elem) {
+		// 	console.log('not suppose to be here')
+		// 	var mealIdAttr = elem.attr("id");
+		// 	var mealId = mealIdAttr.replace( /[^\d]/g, '' );
+		// 	var that = this;
+		// 	this.model.removeMealItem(mealId, function() {
+		// 		that.view.removeMeal(elem);
+		// 	});
+		// 	//in future add the card in the Table page
+		// },
 		
-		ackRequest : function(elem) {
-			console.log('not suppose to be here')
-			var requestIdAttr = elem.attr("id");
-			var requestId = requestIdAttr.replace( /[^\d]/g, '' );
-			var that = this;
-			this.model.removeRequestItem(requestId, function() {
-				that.view.removeRequest(elem);
-			});
-			//in future add the card in the Table page
-		},
+		// ackRequest : function(elem) {
+		// 	console.log('not suppose to be here')
+		// 	var requestIdAttr = elem.attr("id");
+		// 	var requestId = requestIdAttr.replace( /[^\d]/g, '' );
+		// 	var that = this;
+		// 	this.model.removeRequestItem(requestId, function() {
+		// 		that.view.removeRequest(elem);
+		// 	});
+		// 	//in future add the card in the Table page
+		// },
 
 		
 		

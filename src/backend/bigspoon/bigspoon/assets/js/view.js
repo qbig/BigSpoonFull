@@ -51,7 +51,7 @@
 				that.handleRequestCard(allCards.requests[j]);
 				that.updateTime();
 			}
-
+			this.checkCardNum(mealLength+requestLength);
 		},
 
 		//function accepts a meal object as the parameter
@@ -86,10 +86,12 @@
 			
 			//call masonry plugin to append and format the cards
 			this.$mainWrapper.append(elem).masonry('appended',elem);
+
 			//rearrange remaining cards
 			this.$mainWrapper.masonry();
 
 			this.updateNotification('plus');
+			bind_popup();
 		},
 	
 		//creates a new card and a new DOM element to insert the card to html file
@@ -108,19 +110,22 @@
 		
 			//call masonry plugin to append and format the cards
 			this.$mainWrapper.append(elem).masonry('appended',elem);
+
 			//rearrange remaining cards
 			this.$mainWrapper.masonry();
 
 			this.updateNotification('plus');
+			bind_popup();
 		},
 		
 		//use masonry to remove the corresponding meal/request element
 		removeCard : function(elem) {
-			console.log('new code removing card')
 			this.$mainWrapper.masonry('remove', elem);
 
 			//rearrange remaining cards
 			this.$mainWrapper.masonry();
+			
+			this.checkCardNum();
 
 			this.updateNotification('minus');
 		},
@@ -180,6 +185,15 @@
 				document.dispatchEvent(new Event("alarm"));
 			}, 30000);
 		},
+
+		checkCardNum : function (cardNum) {
+			if (cardNum === 0) {
+				this.$mainWrapper.append('<p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>');
+			} else if (this.$mainWrapper.find('.no-cards')) {
+				// remove no card notice if there are cards and the notice exists
+				this.$mainWrapper.remove('.no-cards');
+			}
+		}
 	}
 
 	//Export to window

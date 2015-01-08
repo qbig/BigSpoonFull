@@ -23,7 +23,6 @@ $(document).ready(function() {
 
     window.idleTimeMinutes = 0;
     window.timerIncrement = function () {
-    	console.log('1min')
         window.idleTimeMinutes = window.idleTimeMinutes + 1;
         if (window.idleTimeMinutes >= 2) { // 2 minutes
             window.location = "/staff/main/";
@@ -481,7 +480,7 @@ console.log(req_data);
 
     // ==========  behavior  ========= 
     // after change table in bulk, need to bind the popup event again
-  		function bind_popup(){
+  		window.bind_popup = function bind_popup(){
         // for User profile pop up
         $(".user-profile-link").magnificPopup({
             type: 'ajax',
