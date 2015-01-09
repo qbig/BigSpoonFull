@@ -158,7 +158,7 @@
             
                 <h3 class = "user-{{dinerInfo.id}}">{{meal_table_name}}</h3>
                 <span class = 'user'>
-                    <a class="user-profile-link" href="/staff/user/{{dinerInfo.id}}"><img src="{{dinerInfo.diner_avatar_rul}}" /></a>
+                    <a class="user-profile-link" href="/staff/user/{{dinerInfo.id}}"><img src="{{dinerInfo.diner_avatar_url}}" /></a>
                     <h4>{{ dinerInfo.diner_name}}</h4>
                 </span>
                 
@@ -219,12 +219,12 @@
                 {{/ifCond}}
                 
                 {{#ifCond status "===" 0 }}
-                    <a class="acknowledge ack-button" rel="order" model="meal" id="{{id}}"><i class="icon-check-sign"></i> Acknowledge</a>
+                <a class="acknowledge ack-button" rel="order" model="meal" id="{{id}}"><i class="icon-check-sign"></i> Acknowledge</a>
                 {{/ifCond}}
                 
                 {{#ifCond status "===" 2 }}
-                    <img class="icon" src="/static/img/bill.png"/>
-                    <a class="closebill ack-button" rel="bill" model="meal" id="{{id}}"><i class="icon-money"></i> Close Bill</a>
+                <img class="icon" src="/static/img/bill.png"/>
+                <a class="closebill ack-button" rel="bill" model="meal" id="{{id}}"><i class="icon-money"></i> Close Bill</a>
                 {{/ifCond}}
                         
             

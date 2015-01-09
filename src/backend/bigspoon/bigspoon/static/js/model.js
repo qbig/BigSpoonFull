@@ -11,21 +11,30 @@
 
 		addMealCard: function(meal_id, callback){
 			var that = this;
+			var duplicateData = false;
 			$.ajax({
 				//where data of all "meals" can be found
-				url: "http://127.0.0.1:8000/api/v1/meal-details/"+meal_id,
+				url: STAFF_API_URLS["meal"] + meal_id,
 				dataType: "text",
 				//data: "meal_id",
 				//when request is successful, backend responds with meal object that corresponds to meal_id
 				//object will be in the form of "data" and be pushed into items array in model
 				success: function(mealData) {
 					var mealCardData = JSON.parse(mealData);
+					//check to see if there is already another meal object with the same id
 					if(!(mealCardData.status === 1)) {
-					that.items.meals.push(mealCardData);
-					that.checkNumCards();
-					callback(mealCardData);
-					}	
-					//document.dispatchEvent(new CustomEvent("cardAdded", {'detail': temp}));
+						for(var i = 0, len = that.items.meals.length; i < len ; i++) {
+							if(that.items.meals[i].id === parseInt(meal_id)) {
+								duplicateData = true;
+								that.items.meals.splice(i,1);
+								console.log('replacing model data')
+								break;
+							}
+						}
+						that.items.meals.push(mealCardData);
+						that.checkNumCards();
+						callback(mealCardData,duplicateData);
+					}
 				}
 			});
 		},
@@ -35,7 +44,7 @@
 			var that = this;
 			$.ajax({
 				//where data of all "requests" can be found
-				url: "http://127.0.0.1:8000/api/v1/request/"+request_id,
+				url: STAFF_API_URLS["request"] + request_id,
 				dataType: "text",
 				//data: "request_id",
 				//when request is successful, backend responds with request object that corresponds to request_id
@@ -68,9 +77,7 @@
 					var requestCardData = JSON.parse(requestData);
 					that.items.requests.push(requestCardData);
 					that.checkNumCards();
-					callback(requestCardData);
-					// document.dispatchEvent(new Event("requestAdded"));
-				}
+					callback(requestCardData);				}
 			});
 		},
 
@@ -103,12 +110,11 @@
 			}
 		},
 
-
 		//acquire all unacnowledged cards from the backend, and add to the model
 		addAllCard: function(outlet_id){
 			var that = this;
 			$.ajax({
-				url: "http://127.0.0.1:8000/api/v1/outlet-items/"+outlet_id,
+				url: STAFF_API_URLS["outlet"] + outlet_id,
 				dataType: "text",
 				//upon successful request, backend response (alldata) will be passed to function
 				success: function(alldata) {
@@ -121,7 +127,7 @@
 					allDataParsed.requests.forEach( function (request) {
 						that.items.requests.push(request);
 					});
-					document.dispatchEvent(new Event("allItemsAdded"));
+					document.dispatchEvent(new CustomEvent("allItemsAdded"));
 					that.checkNumCards();
 				}
 			});

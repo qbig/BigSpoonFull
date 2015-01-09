@@ -102,9 +102,12 @@
 		    // ['refresh', 'meal', 'askbill', 'meal_id']
 		    // ['refresh', 'meal', 'closebill', 'meal_id']
 		    // ['refresh', 'request', 'new', 'request_id']
-		    // ['refresh', 'meal', 'ack']		(ignore for now)
-		    // ['refresh', 'request', 'ack'] 	(ignore for now)
-		    // ['refresh', 'menu', 'add']		(ignore for now)
+
+		    // Replies from socketIO when acknowledgement is made (to prompt other concurrent browsers to update)
+		    // not implemented yet
+		    // ['refresh', 'meal', 'ack']		(reply from socketIO when a meal card is acknowledged)
+		    // ['refresh', 'request', 'ack'] 	(reply from socketIO when a request card is acknowledged)
+		    // ['refresh', 'menu', 'add']		(reply from socketIO when a menu detail is changed)
 			var that = this;
 			var details = {
 		    	'reconnect': true,
@@ -175,8 +178,8 @@
 
 		addMeal : function(e) {
 			var that = this;
-			that.model.addMealCard(e.detail, function(mealObj) {
-				that.view.displayAddedMealCard(mealObj);
+			that.model.addMealCard(e.detail, function(mealObj,replace) {
+				that.view.displayAddedMealCard(mealObj,replace);
 			});
 		},
 		

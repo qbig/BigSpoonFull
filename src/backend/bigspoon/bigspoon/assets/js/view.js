@@ -56,7 +56,13 @@
 		//function accepts a meal object as the parameter
 		//append the rendered meal card to the HTML page by calling handleMealCard
 		//call updateTime function to be able to update time for added card
-		displayAddedMealCard : function(meal_obj) {
+		displayAddedMealCard : function(meal_obj,replace) {
+			//if required to replace (due to resubmission of meal id before card is acknowledged, remove existing card before displaying updated meal card)
+			if(replace) {
+				var id = meal_obj.id;
+				var parent_card = this.$mainWrapper.find("#"+id).parent();
+				this.removeCard(parent_card);
+			}
 			this.handleMealCard(meal_obj);
 			this.updateTime();
 		},
@@ -148,6 +154,7 @@
 
 				var timer = $(this);
 				var startTime = timer.attr("start");
+				//startTime is not accurate at the moment
 				setInterval(function () {
 					var secondsPassed = (new Date()- new Date(Number(startTime))) / 1000;
 	            	var minutes = parseInt(secondsPassed / 60, 10);
@@ -190,6 +197,11 @@
 				// remove no card notice if there are cards and the notice exists
 				$('.no-cards').remove();
 			}
+		},
+
+		replaceMealCard : function(id) {
+			var that = this;
+
 		}
 	}
 

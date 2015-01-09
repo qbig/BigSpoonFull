@@ -11,6 +11,7 @@
 
 		addMealCard: function(meal_id, callback){
 			var that = this;
+			var duplicateData = false;
 			$.ajax({
 				//where data of all "meals" can be found
 				url: STAFF_API_URLS["meal"] + meal_id,
@@ -20,12 +21,19 @@
 				//object will be in the form of "data" and be pushed into items array in model
 				success: function(mealData) {
 					var mealCardData = JSON.parse(mealData);
+					//check to see if there is already another meal object with the same id
 					if(!(mealCardData.status === 1)) {
-					that.items.meals.push(mealCardData);
-					that.checkNumCards();
-					callback(mealCardData);
-					}	
-					//document.dispatchEvent(new CustomEvent("cardAdded", {'detail': temp}));
+						for(var i = 0, len = that.items.meals.length; i < len ; i++) {
+							if(that.items.meals[i].id === parseInt(meal_id)) {
+								duplicateData = true;
+								that.items.meals.splice(i,1);
+								break;
+							}
+						}
+						that.items.meals.push(mealCardData);
+						that.checkNumCards();
+						callback(mealCardData,duplicateData);
+					}
 				}
 			});
 		},
@@ -68,9 +76,7 @@
 					var requestCardData = JSON.parse(requestData);
 					that.items.requests.push(requestCardData);
 					that.checkNumCards();
-					callback(requestCardData);
-					// document.dispatchEvent(new Event("requestAdded"));
-				}
+					callback(requestCardData);				}
 			});
 		},
 
@@ -103,7 +109,6 @@
 			}
 		},
 
-
 		//acquire all unacnowledged cards from the backend, and add to the model
 		addAllCard: function(outlet_id){
 			var that = this;
@@ -121,7 +126,7 @@
 					allDataParsed.requests.forEach( function (request) {
 						that.items.requests.push(request);
 					});
-					document.dispatchEvent(new Event("allItemsAdded"));
+					document.dispatchEvent(new CustomEvent("allItemsAdded"));
 					that.checkNumCards();
 				}
 			});

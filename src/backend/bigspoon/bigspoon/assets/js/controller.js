@@ -178,8 +178,8 @@
 
 		addMeal : function(e) {
 			var that = this;
-			that.model.addMealCard(e.detail, function(mealObj) {
-				that.view.displayAddedMealCard(mealObj);
+			that.model.addMealCard(e.detail, function(mealObj,replace) {
+				that.view.displayAddedMealCard(mealObj,replace);
 			});
 		},
 		
