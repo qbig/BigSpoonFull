@@ -146,7 +146,6 @@
         
         <! handlebar for order template->
         <script id="card-template-order" type="text/x-handlebars-template">
-
                 <!--based on the time, determine whether it is urgent or not, different in appearance-->                    
                 {{#ifCond meal_wait_time.min '>=' 3}}
                     <span class = "urgent time countdown" start = {{meal_start_time}}>
@@ -225,7 +224,7 @@
                 
                 {{#ifCond status "===" 2 }}
                     <img class="icon" src="/static/img/bill.png"/>
-                    <a class="closebill ack-button" rel="bill" model="meal" id="meal-{{id}}"><i class="icon-money"></i> Close Bill</a>
+                    <a class="closebill ack-button" rel="bill" model="meal" id="{{id}}"><i class="icon-money"></i> Close Bill</a>
                 {{/ifCond}}
                         
             

@@ -102,9 +102,12 @@
 		    // ['refresh', 'meal', 'askbill', 'meal_id']
 		    // ['refresh', 'meal', 'closebill', 'meal_id']
 		    // ['refresh', 'request', 'new', 'request_id']
-		    // ['refresh', 'meal', 'ack']		(ignore for now)
-		    // ['refresh', 'request', 'ack'] 	(ignore for now)
-		    // ['refresh', 'menu', 'add']		(ignore for now)
+
+		    // Replies from socketIO when acknowledgement is made (to prompt other concurrent browsers to update)
+		    // not implemented yet
+		    // ['refresh', 'meal', 'ack']		(reply from socketIO when a meal card is acknowledged)
+		    // ['refresh', 'request', 'ack'] 	(reply from socketIO when a request card is acknowledged)
+		    // ['refresh', 'menu', 'add']		(reply from socketIO when a menu detail is changed)
 			var that = this;
 			var details = {
 		    	'reconnect': true,
@@ -120,19 +123,19 @@
 
 		    socket.on("message", function(obj){
 		    	if (obj.message.type == "message") {
-		    		console.log(obj);
+		    		// console.log(obj);
 		    		var data = eval(obj.message.data);
 		    		var path = location.pathname;
 		    		if (data[0] == "refresh") {
-		    			console.log(1);
+		    			// console.log(1);
 		    			var seconds_since_page_load = new Date().getTime()/1000 - page_start_time_in_seconds;
 		    			if (seconds_since_page_load  < REFRESH_INTEVAL_CAP) {
-		    				console.log(2);
+		    				// console.log(2);
 		    				timeout_obj = setTimeout(function(){
 		    					that.handlePrompt(data, path);
 		    				}, (REFRESH_INTEVAL_CAP - seconds_since_page_load) * 1000);
 		    			} else {
-		    				console.log(3);
+		    				// console.log(3);
 		    				that.handlePrompt(data, path);
 		    			}
 		    		}
@@ -148,21 +151,21 @@
 		},
 
 		handlePrompt : function(data, path){        
-			console.log("4: in handlePrompt");
+			// console.log("4: in handlePrompt");
 			if (data[1] === 'request') {
-				console.log("data[1] === 'request'");
+				// console.log("data[1] === 'request'");
 				if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
 					if (data[2] == 'new') {
 						document.dispatchEvent(new CustomEvent("requestAdded", { 'detail': data[3] }));
 					}
 				}
 			} else if (data[1] === 'meal') {
-				console.log("data[1] === 'meal'")
-				console.log("path:" + path);
-				console.log(STAFF_MENU_PAGES);
+				// console.log("data[1] === 'meal'")
+				// console.log("path:" + path);
+				// console.log(STAFF_MENU_PAGES);
 				if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
 					if (data[2] === 'new' || data[2] === 'askbill' || data[2] === 'closebill') {
-						console.log("event fired")
+						// console.log("event fired")
 						document.dispatchEvent(new CustomEvent("mealAdded", { 'detail': data[3] }));
 					}
 				}
@@ -182,7 +185,6 @@
 		
 		addRequest : function(e) {
 			var that = this;
-			console.log("in addRequest: " + e.detail)
 			that.model.addRequestCard(e.detail, function(requestObj) {
 				that.view.displayAddedRequestCard(requestObj);
 			});

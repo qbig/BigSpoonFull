@@ -20,11 +20,12 @@
 				//object will be in the form of "data" and be pushed into items array in model
 				success: function(mealData) {
 					var mealCardData = JSON.parse(mealData);
+					if(!(mealCardData.status === 1)) {
 					that.items.meals.push(mealCardData);
 					that.checkNumCards();
 					callback(mealCardData);
+					}	
 					//document.dispatchEvent(new CustomEvent("cardAdded", {'detail': temp}));
-
 				}
 			});
 		},
@@ -32,7 +33,6 @@
 		//add a request card to the model
 		addRequestCard: function(request_id, callback){
 			var that = this;
-			console.log("request_id:" + request_id)
 			$.ajax({
 				//where data of all "requests" can be found
 				url: "http://127.0.0.1:8000/api/v1/request/"+request_id,

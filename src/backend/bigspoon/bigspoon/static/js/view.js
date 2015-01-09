@@ -188,7 +188,7 @@
 				this.$mainWrapper.append('<p class="no-cards"><i class="icon-smile"></i> You have no pending orders!</p>');
 			} else if (this.$mainWrapper.find('.no-cards')) {
 				// remove no card notice if there are cards and the notice exists
-				this.$mainWrapper.remove('.no-cards');
+				$('.no-cards').remove();
 			}
 		}
 	}
