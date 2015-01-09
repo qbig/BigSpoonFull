@@ -15,6 +15,10 @@ $(document).ready(function() {
 		"table" : host+"/api/v1/table",
 		"table-single" : host+"/api/v1/table-single-diner",
 		"order_update" : host+"/api/v1/order",
+		"outlet": host+"/api/v1/outlet-items/",
+		"meal": host+"/api/v1/meal-details/",
+		"request": host+"/api/v1/request/",
+
 	};
 	window.STAFF_MEAL_PAGES = {
 		"new": ['/staff/main/'],
