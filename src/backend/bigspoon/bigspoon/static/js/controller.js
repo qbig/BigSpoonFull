@@ -158,6 +158,8 @@
 				}
 			} else if (data[1] === 'meal') {
 				console.log("data[1] === 'meal'")
+				console.log("path:" + path);
+				console.log(STAFF_MENU_PAGES);
 				if ($.inArray(path, STAFF_MENU_PAGES[2]) != -1) {
 					if (data[2] === 'new' || data[2] === 'askbill' || data[2] === 'closebill') {
 						console.log("event fired")

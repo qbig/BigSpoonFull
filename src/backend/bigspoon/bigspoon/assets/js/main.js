@@ -24,7 +24,7 @@ $(document).ready(function() {
     window.idleTimeMinutes = 0;
     window.timerIncrement = function () {
         window.idleTimeMinutes = window.idleTimeMinutes + 1;
-        if (window.idleTimeMinutes >= 2) { // 2 minutes
+        if (window.idleTimeMinutes >= 2 && window.location.pathname !== "/staff/main/") { // 2 minutes and not already in main page
             window.location = "/staff/main/";
         }
     };
