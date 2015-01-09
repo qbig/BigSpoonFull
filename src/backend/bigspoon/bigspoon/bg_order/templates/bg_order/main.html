@@ -223,7 +223,7 @@
                     <a class="acknowledge ack-button" rel="order" model="meal" id="{{id}}"><i class="icon-check-sign"></i> Acknowledge</a>
                 {{/ifCond}}
                 
-                {{#ifCond status "===" 1 }}
+                {{#ifCond status "===" 2 }}
                     <img class="icon" src="/static/img/bill.png"/>
                     <a class="closebill ack-button" rel="bill" model="meal" id="meal-{{id}}"><i class="icon-money"></i> Close Bill</a>
                 {{/ifCond}}
@@ -274,7 +274,7 @@
             
         </script>
         {% endverbatim %}
-        
+
     </div> 
 
 

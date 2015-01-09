@@ -153,17 +153,17 @@
 				console.log("data[1] === 'request'");
 				if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
 					if (data[2] == 'new') {
-						document.dispatchEvent(new Event("requestAdded"), { 'detail': data[3] });
+						document.dispatchEvent(new CustomEvent("requestAdded", { 'detail': data[3] }));
 					}
 				}
 			} else if (data[1] === 'meal') {
 				console.log("data[1] === 'meal'")
 				console.log("path:" + path);
 				console.log(STAFF_MENU_PAGES);
-				if ($.inArray(path, STAFF_MENU_PAGES[2]) != -1) {
+				if ($.inArray(path, STAFF_MEAL_PAGES[data[2]]) != -1) {
 					if (data[2] === 'new' || data[2] === 'askbill' || data[2] === 'closebill') {
 						console.log("event fired")
-						document.dispatchEvent(new Event("mealAdded"), { 'detail': data[3] });
+						document.dispatchEvent(new CustomEvent("mealAdded", { 'detail': data[3] }));
 					}
 				}
 			}
@@ -182,6 +182,7 @@
 		
 		addRequest : function(e) {
 			var that = this;
+			console.log("in addRequest: " + e.detail)
 			that.model.addRequestCard(e.detail, function(requestObj) {
 				that.view.displayAddedRequestCard(requestObj);
 			});

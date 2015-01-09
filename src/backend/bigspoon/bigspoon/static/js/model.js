@@ -13,7 +13,7 @@
 			var that = this;
 			$.ajax({
 				//where data of all "meals" can be found
-				url: "http://127.0.0.1:8000/api/v1/outlet-items/meals/"+meal_id,
+				url: "http://127.0.0.1:8000/api/v1/meal-details/"+meal_id,
 				dataType: "text",
 				//data: "meal_id",
 				//when request is successful, backend responds with meal object that corresponds to meal_id
@@ -32,9 +32,10 @@
 		//add a request card to the model
 		addRequestCard: function(request_id, callback){
 			var that = this;
+			console.log("request_id:" + request_id)
 			$.ajax({
 				//where data of all "requests" can be found
-				url: "http://127.0.0.1:8000/api/v1/outlet-items/requests/"+request_id,
+				url: "http://127.0.0.1:8000/api/v1/request/"+request_id,
 				dataType: "text",
 				//data: "request_id",
 				//when request is successful, backend responds with request object that corresponds to request_id
