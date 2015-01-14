@@ -480,7 +480,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         if not table.outlet.is_auto_send_to_POS:             
             send_socketio_message_async.delay(
                 "||".join([str(table.outlet.id)]),
-                "||".join(['refresh', 'meal', 'new'])
+                "||".join(['refresh', 'meal', 'new', str(meal.id)])
             )
         return Response({"meal": meal.id, }, status=status.HTTP_201_CREATED)
 
@@ -584,7 +584,7 @@ class CreateRequest(generics.CreateAPIView):
     def post_save(self, obj, created=False):
         send_socketio_message_async.delay(
             "||".join([str(obj.table.outlet.id)]),
-            "||".join(['refresh', 'request', 'new'])
+            "||".join(['refresh', 'request', 'new', str(obj.id)])
         )
 
 
@@ -607,7 +607,7 @@ class AskForBill(generics.GenericAPIView):
             meal.save()
             send_socketio_message_async.delay(
                 "||".join([str(table.outlet.id)]),
-                "||".join(['refresh', 'meal', 'askbill'])
+                "||".join(['refresh', 'meal', 'askbill', str(meal.id)])
             )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
@@ -729,7 +729,7 @@ class CloseBill(generics.GenericAPIView):
             )
         send_socketio_message_async.delay(
                 "||".join([str(s) for s in request.user.outlet_ids]),
-                "||".join(['refresh', 'meal', 'closebill'])
+                "||".join(['refresh', 'meal', 'closebill', str(meal.id)])
             )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
