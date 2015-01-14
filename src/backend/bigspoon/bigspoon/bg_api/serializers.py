@@ -10,8 +10,8 @@ from rest_framework.relations import RelatedField
 from bg_inventory.models import Restaurant, Outlet, Table,\
     Category, Dish, Rating, Review, Note, Profile, CategorySequence
 from bg_order.models import Meal, Order, Request
-
-
+import pytz
+from django.conf import settings
 # import the logging library
 import logging
 
@@ -346,7 +346,9 @@ class MealAPISerializer(serializers.ModelSerializer):
         return DinerInfoSerializer(obj.diner).data
 
     def get_start_time(self, obj):
-        return int(obj.created.strftime("%s")) * 1000 
+        settings_time_zone = pytz.timezone(settings.TIME_ZONE)
+        sg_time = obj.created.astimezone(settings_time_zone)
+        return int(sg_time.strftime("%s")) * 1000 
 
     def get_table_name(self, obj):
         return obj.table.name
@@ -360,7 +362,7 @@ class MealAPISerializer(serializers.ModelSerializer):
         }
 
     def get_orders(self, obj):
-        return OrderDetails(obj.orders.all(), many=True).data
+        return OrderDetails(obj.orders.filter(is_finished=False), many=True).data
 
     class Meta:
         model = Meal
@@ -426,7 +428,10 @@ class RequestAPISerializer(serializers.ModelSerializer):
         }
 
     def get_start_time(self, obj):
-        return int(obj.created.strftime("%s")) * 1000 
+        settings_time_zone = pytz.timezone(settings.TIME_ZONE)
+        sg_time = obj.created.astimezone(settings_time_zone)
+        return int(sg_time.strftime("%s")) * 1000 
+        
 
     class Meta:
         model = Request
