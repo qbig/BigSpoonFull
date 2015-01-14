@@ -119,3 +119,4 @@ src/backend/bigspoon/bigspoon/static/
 src/testf/djn
 
 src/diner/BigSpoonDiner/Crashlytics.framework/
+node_modules/*

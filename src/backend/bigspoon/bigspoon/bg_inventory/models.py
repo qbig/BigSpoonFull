@@ -435,7 +435,14 @@ class Outlet(models.Model):
         help_text=_('location diameter checking'),
     )
     is_active = models.BooleanField(
+        _('able to access menu in app'),
         default=False,
+        help_text=_('able to access menu in app'),
+    )
+    is_removed = models.BooleanField(
+        _('remove from outlet list in app'),
+        default=False,
+        help_text=_('remove from outlet list in app'),
     )
     gst = models.DecimalField(
         _('gst'),
@@ -540,6 +547,7 @@ class Table(models.Model):
     """
     outlet = models.ForeignKey(
         Outlet,
+        db_index=True,
         help_text=_('belong to outlet'),
         related_name='tables',
     )
