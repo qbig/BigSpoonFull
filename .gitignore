@@ -118,6 +118,5 @@ src/backend/bigspoon/bigspoon/static/
 
 src/testf/djn
 
-src/diner/BigSpoonDiner/Crashlytics.framework/
-node_modules/*
-Crashlytics.framework/*
+src/diner/BigSpoonDiner/Crashlytics.framework/*
+src/backend/bigspoon/node_modules/*
