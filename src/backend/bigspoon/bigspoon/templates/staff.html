@@ -2,14 +2,14 @@
 {% block head %}
 {% if user.is_authenticated %}
 <script type="text/javascript">
-    var outlet_ids = {{ request.user.outlet_ids }};
+    var OUTLET_IDS = {{ request.user.outlet_ids }};
     var REFRESH_INTEVAL_CAP = {{ outlet.refresh_interval }};
     {% if cards_num > 0 %}
     	var cards_num = {{ cards_num }};
     {% else %}
     	var cards_num = 0;
     {% endif %}
-    
+
 </script>
 {% endif %}
 {% endblock head %}
