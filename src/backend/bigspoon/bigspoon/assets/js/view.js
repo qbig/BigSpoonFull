@@ -9,7 +9,7 @@
 			columWidth: 15,
 			gutter: 10
 		});
-	}
+	};
 
 	//Use handlebar for templating
 	Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
@@ -56,11 +56,11 @@
 		//function accepts a meal object as the parameter
 		//append the rendered meal card to the HTML page by calling handleMealCard
 		//call updateTime function to be able to update time for added card
-		displayAddedMealCard : function(meal_obj,replace) {
+		displayAddedMealCard : function(meal_obj, replace) {
 			//if required to replace (due to resubmission of meal id before card is acknowledged, remove existing card before displaying updated meal card)
 			if(replace) {
 				var id = meal_obj.id;
-				var parent_card = this.$mainWrapper.find("#"+id).parent();
+				var parent_card = this.$mainWrapper.find('#' + id).parent();
 				this.removeCard(parent_card);
 			}
 			this.handleMealCard(meal_obj);
@@ -77,7 +77,7 @@
 		
 		//creates a new card and a new DOM element to insert the card to html file
 		handleMealCard : function(obj) {
-			var templateSource = $("#card-template-order").html();
+			var templateSource = $('#card-template-order').html();
 			template = Handlebars.compile(templateSource);				
 			cardBodyHTML = template(obj);
 
@@ -86,11 +86,11 @@
 			
 			//add in the identifying attribute values of the div
 			elem.className = 'item';
-			elem.setAttribute("id", "card-"+obj.id);
+			elem.setAttribute('id', 'card-' + obj.id);
 			elem.innerHTML = cardBodyHTML;
 			
 			//call masonry plugin to append and format the cards
-			this.$mainWrapper.append(elem).masonry('appended',elem);
+			this.$mainWrapper.append(elem).masonry('appended', elem);
 
 			//rearrange remaining cards
 			this.$mainWrapper.masonry();
@@ -101,7 +101,7 @@
 	
 		//creates a new card and a new DOM element to insert the card to html file
 		handleRequestCard : function(obj) {
-			var templateSource = $("#card-template-request").html();
+			var templateSource = $('#card-template-request').html();
 			template = Handlebars.compile(templateSource);				
 			cardBodyHTML = template(obj);
 		
@@ -110,7 +110,7 @@
 		
 			//add in the identifying attribute values of the div
 			elem.className = 'item request';
-			elem.setAttribute("id", "card-"+obj.id);
+			elem.setAttribute('id', 'card-' + obj.id);
 			elem.innerHTML = cardBodyHTML;
 		
 			//call masonry plugin to append and format the cards
@@ -142,7 +142,7 @@
 					'parent_card': button.parent(), 
 					'card_id': button.attr('id'),
 					'button_type': button.attr('rel'),
-					'model': button.attr("model")
+					'model': button.attr('model')
 				} 
 			}));
 		},
@@ -153,14 +153,14 @@
 			$('.countdown').each(function(){
 
 				var timer = $(this);
-				var startTime = timer.attr("start");
+				var startTime = timer.attr('start');
 				//startTime is not accurate at the moment
 				setInterval(function () {
 					var secondsPassed = (new Date()- new Date(Number(startTime))) / 1000;
 	            	var minutes = parseInt(secondsPassed / 60, 10);
 	            	var seconds = parseInt(secondsPassed % 60, 10);
 					//substitutes updated time to counter
-					timer.html('<i class="icon-time"></i> waited ' + minutes + "m, " + seconds + "s");			
+					timer.html('<i class="icon-time"></i> waited ' + minutes + 'm, ' + seconds + 's');			
 				},1000); //updates every second	
 			});
 		},
@@ -168,19 +168,19 @@
 		//update and display number of notification
 		//play alert sound every two minutes if there is/are existing notification(s)
 		updateNotification : function(change) {
-			$("nav ul li:first-child a p").remove();
+			$('nav ul li:first-child a p').remove();
 			
 			//masonry only removes elem at end of function, hence need to remove one before to update correct notification number
 			if(change === 'minus') {
-				var number = $(".item").length-1;
+				var number = $('.item').length - 1;
 			} else if(change === 'plus') {
-				var number = $(".item").length;					
+				var number = $('.item').length;					
 			}
 
 			if(!number) {
-				$("nav ul li:first-child a").append("");
+				$('nav ul li:first-child a').append('');
 			} else {
-				$("nav ul li:first-child a").append("<p class='notification'><span><i class='icon-bell'> " + number + "</i></span></p>");
+				$('nav ul li:first-child a').append('<p class='notification'><span><i class='icon-bell'> ' + number + '</i></span></p>');
 			}
 			
 			document.dispatchEvent(new Event("alarm"));
