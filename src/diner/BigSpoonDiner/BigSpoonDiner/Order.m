@@ -7,7 +7,6 @@
 //
 
 #import "Order.h"
-#import <Crashlytics/Crashlytics.h>
 @interface Order ()
 
 @end

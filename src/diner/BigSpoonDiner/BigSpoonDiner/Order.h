@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Dish.h"
-
+#import <Crashlytics/Crashlytics.h>
 #warning refactor this
 
 @interface Order : NSObject

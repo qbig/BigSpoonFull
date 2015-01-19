@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate{
@@ -39,8 +40,7 @@
         [self startTrackingLocation];
     }
     
-    [Crashlytics startWithAPIKey:@"5e0d63d5b12c89cf3ff015e07958d5a94a75722a"];
-
+    [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 
