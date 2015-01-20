@@ -606,34 +606,31 @@
             ! self.navigationController.navigationBarHidden && [[self getDishWithCategory:self.displayCategoryID] count] > 2
             ) {
             
+            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
+            categoryFrameEnd.origin.y += 20;
             
             CGRect tableViewFrame = self.tableView.frame;
-            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
-            CGRect categoryFrameStart = self.categoryButtonsHolderView.frame;
-            CGRect navbarFrame = self.navigationController.navigationBar.frame;
-            tableViewFrame.origin.y = 0;
-            tableViewFrame.size.height += navbarFrame.size.height;
-            categoryFrameEnd.origin.y = 20;
-            categoryFrameStart.origin.y -= categoryFrameStart.size.height;
+            tableViewFrame.origin.y += 20;
+            tableViewFrame.size.height += self.navigationController.navigationBar.frame.size.height;
+
             if (withAnimation) {
                 self.isCategoryBarAnimating = YES;
+                [self.navigationController setNavigationBarHidden: YES animated:YES];
+                self.statusBarUnderLay = [[UIView alloc] initWithFrame:[self statusBarFrameViewRect:self.view]];
+                [self.statusBarUnderLay setBackgroundColor:[UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1]];
+                self.statusBarUnderLay.hidden = NO;
+                [self.view addSubview:self.statusBarUnderLay];
+
                 [UIView animateWithDuration:0.3
                                       delay:0
                                     options: UIViewAnimationOptionCurveEaseOut
                                  animations:^{
                                      self.tableView.frame = tableViewFrame;
-                                     self.categoryButtonsHolderView.frame = categoryFrameStart;
+                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
                                  }
                                  completion:^(BOOL finished){
                                      NSLog(@"Done!");
                                      self.isCategoryBarAnimating = NO;
-                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
-                                     [self.navigationController.view addSubview:self.categoryButtonsHolderView];
-                                     self.navigationController.navigationBarHidden = YES;
-                                     self.statusBarUnderLay = [[UIView alloc] initWithFrame:[self statusBarFrameViewRect:self.view]];
-                                     [self.statusBarUnderLay setBackgroundColor:[UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1]];
-                                     self.statusBarUnderLay.hidden = NO;
-                                     [self.view addSubview:self.statusBarUnderLay];
                                  }];
             } else {
                 self.tableView.frame = tableViewFrame;
@@ -646,37 +643,30 @@
             
         } else if (self.tableView.contentOffset.y <= self.navigationController.navigationBar.frame.size.height  &&
                    self.navigationController.navigationBarHidden){
-            
+
+            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
+            categoryFrameEnd.origin.y -= 20;
             
             CGRect tableViewFrame = self.tableView.frame;
-            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
-            CGRect categoryFrameStart = self.categoryButtonsHolderView.frame;
-            CGRect navbarFrame = self.navigationController.navigationBar.frame;
-            
-            tableViewFrame.origin.y = 50;
-            tableViewFrame.size.height -= navbarFrame.size.height;
-            categoryFrameEnd.origin.y = 7;
-            categoryFrameStart.origin.y += categoryFrameStart.size.height;
+            tableViewFrame.origin.y -= 20;
+            tableViewFrame.size.height -= self.navigationController.navigationBar.frame.size.height;
             
             if (withAnimation) {
                 self.isCategoryBarAnimating = YES;
-                [UIView animateWithDuration:0.2
+                [self.navigationController setNavigationBarHidden: NO animated:YES];
+                [self.statusBarUnderLay removeFromSuperview];
+                self.statusBarUnderLay.hidden = YES;
+
+                [UIView animateWithDuration:0.3
                                       delay:0
                                     options: UIViewAnimationOptionCurveEaseIn
                                  animations:^{
                                      self.tableView.frame = tableViewFrame;
-                                     self.categoryButtonsHolderView.frame = categoryFrameStart;
+                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
                                  }
                                  completion:^(BOOL finished){
                                      NSLog(@"Done!");
                                      self.isCategoryBarAnimating = NO;
-                                     [self.categoryButtonsHolderView removeFromSuperview];
-                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
-                                     [self.view addSubview: self.categoryButtonsHolderView];
-                                     self.navigationController.navigationBarHidden = NO;
-                                     [self.statusBarUnderLay removeFromSuperview];
-                                     self.statusBarUnderLay.hidden = YES;
-
                                  }];
             } else {
                 self.tableView.frame = tableViewFrame;
