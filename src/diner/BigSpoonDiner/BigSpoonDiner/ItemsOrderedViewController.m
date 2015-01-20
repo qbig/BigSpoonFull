@@ -305,7 +305,13 @@
             [self setViewMovedUp:YES];
         }
     } else {
-        NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        NSIndexPath *indexPath;
+        if (IS_OS_8_OR_LATER) {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview)];
+        } else {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        }
+
         [self.scrollView setContentOffset:CGPointMake(0, [self getSectionHeightForCurrentOrdersUntilRow: indexPath.row])  animated:YES];
     }
 }
@@ -322,7 +328,13 @@
             [self setViewMovedUp:NO];
         }
     } else {
-        NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        NSIndexPath *indexPath;
+        if (IS_OS_8_OR_LATER) {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview)];
+        } else {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        }
+
         self.userInfo.currentOrder = [self.delegate addNote:sender.text toDishAtIndex:indexPath.row];
     }
 }
