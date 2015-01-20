@@ -9,9 +9,11 @@
 #import "DishModifierTableViewController.h"
 
 @interface DishModifierTableViewController ()
+@property bool isNavBarInitiallyHidden;
 @end
 
 @implementation DishModifierTableViewController
+@synthesize isNavBarInitiallyHidden;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,12 +29,13 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.title = self.targetingDish.name;
-    
+    self.isNavBarInitiallyHidden = self.navigationController.navigationBarHidden;
     // Setting  background and text color
     self.navigationController.navigationBar.barTintColor = [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor];
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationItem.titleView setBackgroundColor:[self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]};
+    self.navigationController.navigationBarHidden = NO;
     
     [self.tableView setBackgroundColor: [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
     [self.tableView setBackgroundView: nil];
@@ -60,6 +63,7 @@
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    self.navigationController.navigationBarHidden = self.isNavBarInitiallyHidden;
     UIColor *bigSpoonBlue = [UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1];
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         // iOS 6.1 or earlier
