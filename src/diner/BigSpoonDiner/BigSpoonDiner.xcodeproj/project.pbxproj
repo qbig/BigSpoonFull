@@ -13,6 +13,7 @@
 		031B7E601A3FEEBB00F734F9 /* white-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 031B7E5F1A3FEEBB00F734F9 /* white-background.png */; };
 		0322239C1A4000C50080EF90 /* new-background-fat.png in Resources */ = {isa = PBXBuildFile; fileRef = 0322239B1A4000C50080EF90 /* new-background-fat.png */; };
 		0322239E1A4002830080EF90 /* new-background-long.png in Resources */ = {isa = PBXBuildFile; fileRef = 0322239D1A4002830080EF90 /* new-background-long.png */; };
+		033893A11A6E84F200B614E2 /* DiningSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 033893A01A6E84F200B614E2 /* DiningSession.m */; };
 		033F92031933990C0013A42D /* DishModifierItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F92021933990C0013A42D /* DishModifierItem.m */; };
 		033F920619339D030013A42D /* DishModifierSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920519339D030013A42D /* DishModifierSection.m */; };
 		033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920B1935C1810013A42D /* DishModifierTableViewController.m */; };
@@ -194,6 +195,8 @@
 		0322239B1A4000C50080EF90 /* new-background-fat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-background-fat.png"; sourceTree = "<group>"; };
 		0322239D1A4002830080EF90 /* new-background-long.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new-background-long.png"; sourceTree = "<group>"; };
 		03284FDC19DD95ED00DB710C /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		0338939F1A6E84F200B614E2 /* DiningSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiningSession.h; sourceTree = "<group>"; };
+		033893A01A6E84F200B614E2 /* DiningSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiningSession.m; sourceTree = "<group>"; };
 		033F92011933990C0013A42D /* DishModifierItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierItem.h; sourceTree = "<group>"; };
 		033F92021933990C0013A42D /* DishModifierItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierItem.m; sourceTree = "<group>"; };
 		033F920419339D030013A42D /* DishModifierSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierSection.h; sourceTree = "<group>"; };
@@ -713,6 +716,8 @@
 				49669B16180CED2D00089254 /* User.h */,
 				49669B17180CED2D00089254 /* User.m */,
 				49048D27182001C900B480A3 /* Order.h */,
+				0338939F1A6E84F200B614E2 /* DiningSession.h */,
+				033893A01A6E84F200B614E2 /* DiningSession.m */,
 				49048D28182001C900B480A3 /* Order.m */,
 				494AD9701836B69800843B3D /* DishCategory.h */,
 				494AD9711836B69800843B3D /* DishCategory.m */,
@@ -1223,6 +1228,7 @@
 				494AD9721836B69800843B3D /* DishCategory.m in Sources */,
 				033F921A193713030013A42D /* UIImage+Overlay.m in Sources */,
 				49669B0F180CECE200089254 /* MenuTableViewController.m in Sources */,
+				033893A11A6E84F200B614E2 /* DiningSession.m in Sources */,
 				03DE2A7E1A30732900E712BF /* SRWebSocket.m in Sources */,
 				496DD1B518202672001EBA6D /* PastOrderCell.m in Sources */,
 				496DD1B218202633001EBA6D /* NewOrderCell.m in Sources */,

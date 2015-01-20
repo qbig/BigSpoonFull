@@ -392,6 +392,7 @@
         NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
         [User sharedInstance].currentLoadedOutlet = outlet;
+        [[User sharedInstance].currentSession switchToOutlet:outlet.name];
         [indicator startAnimating];
     } else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
@@ -485,8 +486,8 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"profilePhotoURL"];
     [SSKeychain deletePasswordForService:@"BigSpoon" account:[User sharedInstance].email];
     User *user = [User sharedInstance];
-    user.pastOrder = nil;
-    user.currentOrder = nil;
+    [user.currentSession clearCurrentOrder];
+    [user.currentSession clearPastOrder];
     user.currentLoadedOutlet = nil;
     user.validTableIDs = nil;
     [self dismissViewControllerAnimated:YES completion:nil];

@@ -98,10 +98,10 @@
 
 - (void)removeOrdersOtherThanCurrentOutletOrders {
     // remote other dishes other than verified outlet
-    for(int i = [[User sharedInstance].currentOrder.dishes count] - 1; i >= 0 ; i--){
-        Dish *dish = (Dish *)[[User sharedInstance].currentOrder.dishes objectAtIndex:i];
+    for(int i = [[[User sharedInstance].currentSession getCurrentOrder].dishes count] - 1; i >= 0 ; i--){
+        Dish *dish = (Dish *)[[[User sharedInstance].currentSession getCurrentOrder].dishes objectAtIndex:i];
         if([self getDishWithID: dish.ID] == nil){
-            [[User sharedInstance].currentOrder removeDishAtIndex:i];
+            [[[User sharedInstance].currentSession getCurrentOrder] removeDishAtIndex:i];
         }
     }
 }
@@ -949,9 +949,9 @@
 - (void) updateDish {
     if ([User sharedInstance].updatePending && self.outlet.outletID == [User sharedInstance].currentVerifiedOutletID) {
         @try {
-            for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
-                Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
-                [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+            for(int i = 0 ; i < [[[User sharedInstance].currentSession getPastOrder].dishes count] ; i++){
+                Dish *currentDish = [[[User sharedInstance].currentSession getPastOrder].dishes objectAtIndex: i];
+                [[[User sharedInstance].currentSession getPastOrder].dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
             }
         }
         @catch (NSException *exception) {

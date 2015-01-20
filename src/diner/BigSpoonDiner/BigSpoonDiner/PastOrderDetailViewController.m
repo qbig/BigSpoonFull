@@ -138,10 +138,10 @@
     Order *pastOrder = [self getFlattenedSelectedPastOrder];
     User *user = [User sharedInstance];
     if (self.selectedPastOrderOutletId == user.currentLoadedOutlet.outletID){
-        [pastOrder mergeWithAnotherOrder:user.currentOrder];
-        user.currentOrder = pastOrder;
+        [pastOrder mergeWithAnotherOrder:[user.currentSession getCurrentOrder]];
+        [user.currentSession setCurrentOrder: pastOrder];
     } else {
-        user.currentOrder = pastOrder;
+        [user.currentSession setCurrentOrder: pastOrder];
     }
 }
 

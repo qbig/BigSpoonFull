@@ -28,13 +28,9 @@
         sharedInstance.tableCodesForTakeAway = [[NSMutableDictionary alloc] init];
         sharedInstance.tableID = -1;
         sharedInstance.currentVerifiedOutletID = -1;
-        if(sharedInstance.currentOrder == nil ){
-            sharedInstance.currentOrder = [[Order alloc] init];
+        if(sharedInstance.currentSession == nil ){
+            sharedInstance.currentSession = [[DiningSession alloc] init];
         }
-        if(sharedInstance.pastOrder == nil) {
-            sharedInstance.pastOrder = [[Order alloc] init];
-        }
-       
     });
     return sharedInstance;
 }
@@ -387,7 +383,10 @@
     NSDictionary *ordersDict = [json objectForKey:@"orders"];
     User *user = [User sharedInstance];
     Order *updatedOrder = [[Order alloc] init];
-
+    NSDictionary *outletInfo = [json objectForKey:@"outlet"];
+    NSString *outletName = [outletInfo objectForKey:@"name"];
+    [self.currentSession setCurrentOutletName:outletName];
+    
     for(NSDictionary * dict in ordersDict){
         NSDictionary* dishDic = [dict objectForKey:@"dish"];
         Dish *tmpDish = [[Dish alloc] init];
@@ -400,8 +399,8 @@
         [updatedOrder.quantity addObject:[NSNumber numberWithInt: quantity]];
         int dishIndex = [updatedOrder.dishes count] - 1 ;
         Dish *existingPastOrderDish;
-        if(dishIndex <= [self.pastOrder.dishes count] - 1 && [self.pastOrder.dishes count] != 0){
-            existingPastOrderDish = (Dish *) [self.pastOrder.dishes objectAtIndex:dishIndex];
+        if([[self.currentSession getPastOrder].dishes count] != 0 && dishIndex <= [[self.currentSession getPastOrder].dishes count] - 1 ){
+            existingPastOrderDish = (Dish *) [[self.currentSession getPastOrder].dishes objectAtIndex:dishIndex];
         } else {
             self.updatePending = YES;
         }
@@ -419,11 +418,10 @@
     }
 
     if(self.updatePending){
-        user.pastOrder = updatedOrder;
+        [self.currentSession setPastOrder:updatedOrder];
     }
     
     if([ordersDict count] > 0){
-        NSDictionary *outletInfo = [json objectForKey:@"outlet"];
         user.currentVerifiedOutletID = [[outletInfo objectForKey:@"id"] intValue];
         user.tableID = [[json objectForKey: @"table"] intValue];
     }
@@ -433,7 +431,7 @@
 
 - (void) closeCurrentSession{
     [User sharedInstance].tableID = -1;
-    [User sharedInstance].pastOrder = [[Order alloc] init];
+    [[User sharedInstance].currentSession clearPastOrder];
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_ORDER_UPDATE object:nil];
 }
 
