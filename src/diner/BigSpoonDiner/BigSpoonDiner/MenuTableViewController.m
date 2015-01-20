@@ -542,7 +542,7 @@
     [self ensureDishOutletIntegrity];
     [self renderCategoryButtons];
     [self.tableView reloadData];
-//    [self.delegate updateCounter];
+    [self.delegate updateCounter];
     NSMutableDictionary *validTableIDs = [self parseFromJsonToValidTableIDs:json];
     [self.delegate setValidTableIDs:validTableIDs];
 }

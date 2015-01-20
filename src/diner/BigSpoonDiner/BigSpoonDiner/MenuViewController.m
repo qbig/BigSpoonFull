@@ -98,7 +98,6 @@
     [self.viewModeButton setHidden:YES];
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    [self updateItemQuantityBadge];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
