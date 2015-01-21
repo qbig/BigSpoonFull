@@ -444,6 +444,23 @@ class Outlet(models.Model):
         default=False,
         help_text=_('remove from outlet list in app'),
     )
+    is_on_promotion = models.BooleanField(
+        _('is_on_promotion'),
+        default=False,
+        help_text=_('BigSpoon users acquisition'),
+    )
+    promotion_amount = models.DecimalField(
+        _('promotion_amount'),
+        max_digits=3,
+        decimal_places=2,
+        default="0.00",
+        help_text=_('amount to give away per customer'),
+    )
+    promotion_quota = models.IntegerField(
+        _('promotion_quota'),
+        default=0,
+        help_text=_('promotion give away per day'),
+    )
     gst = models.DecimalField(
         _('gst'),
         max_digits=3,

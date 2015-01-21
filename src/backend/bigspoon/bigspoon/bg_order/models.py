@@ -112,6 +112,7 @@ class Meal(models.Model):
     )
     table = models.ForeignKey(
         Table,
+        db_index=True,
         help_text=_('table diner is sitting at when create meal'),
         related_name="meals"
     )
@@ -143,6 +144,11 @@ class Meal(models.Model):
         _('note'),
         blank=True,
         help_text=_('meal specific note')
+    )
+    promotion_note = models.TextField(
+        _('promotion_note'),
+        blank=True,
+        help_text=_('promotion info for waiters')
     )
 
     @property

@@ -33,6 +33,10 @@
                 {{#ifCond status "===" 0 }}
                     <ul class = "order">
 
+                        {{#ifCond  promotion_note '!==' ''}}
+                            <li style="color:red">{{promotion_note}}</li>
+                        {{/ifCond}}
+
                         {{#ifCond  note '!==' ''}}
                             <li>{{note}}</li>
                         {{/ifCond}}
@@ -62,6 +66,11 @@
                 {{/ifCond}}
 
                 {{#ifCond status "===" 2 }}
+                    {{#ifCond  promotion_note '!==' ''}}
+                        <ul>
+                            <li style="color:red">{{promotion_note}}</li>
+                        </ul>
+                    {{/ifCond}}
                 <img class="icon" src="/static/img/bill.png"/>
                 <a class="closebill ack-button" rel="bill" model="meal" id="{{id}}"><i class="icon-money"></i> Close Bill</a>
                 {{/ifCond}}

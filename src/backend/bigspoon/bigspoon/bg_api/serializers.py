@@ -339,16 +339,16 @@ class MealAPISerializer(serializers.ModelSerializer):
     dinerInfo = serializers.SerializerMethodField('get_diner_info')
     meal_start_time = serializers.SerializerMethodField('get_start_time')
     meal_table_name = serializers.SerializerMethodField('get_table_name')
-    meal_wait_time = serializers.SerializerMethodField('get_wait_time') 
-    orders = serializers.SerializerMethodField('get_orders') 
-    
+    meal_wait_time = serializers.SerializerMethodField('get_wait_time')
+    orders = serializers.SerializerMethodField('get_orders')
+
     def get_diner_info(self, obj):
         return DinerInfoSerializer(obj.diner).data
 
     def get_start_time(self, obj):
         settings_time_zone = pytz.timezone(settings.TIME_ZONE)
         sg_time = obj.created.astimezone(settings_time_zone)
-        return int(sg_time.strftime("%s")) * 1000 
+        return int(sg_time.strftime("%s")) * 1000
 
     def get_table_name(self, obj):
         return obj.table.name
@@ -366,7 +366,7 @@ class MealAPISerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
-        fields = ('id', 'dinerInfo', 'meal_start_time', 'meal_table_name', 'note', 'status', 'orders')
+        fields = ('id', 'dinerInfo', 'meal_start_time', 'meal_table_name', 'note', 'promotion_note', 'status', 'orders')
 
 class SpendingRequestSerializer(serializers.Serializer):
     from_date = serializers.DateField(required=True)
@@ -382,7 +382,7 @@ class RequestSerializer(serializers.ModelSerializer):
         read_only_fields = ('is_active', 'finished', 'diner')
 
 class RequestAPISerializer(serializers.ModelSerializer):
-    
+
     """
     {
        "request_id":24,
