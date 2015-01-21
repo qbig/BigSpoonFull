@@ -98,10 +98,10 @@
 
 - (void)removeOrdersOtherThanCurrentOutletOrders {
     // remote other dishes other than verified outlet
-    for(int i = [[User sharedInstance].currentOrder.dishes count] - 1; i >= 0 ; i--){
-        Dish *dish = (Dish *)[[User sharedInstance].currentOrder.dishes objectAtIndex:i];
+    for(int i = [[[User sharedInstance].currentSession getCurrentOrder].dishes count] - 1; i >= 0 ; i--){
+        Dish *dish = (Dish *)[[[User sharedInstance].currentSession getCurrentOrder].dishes objectAtIndex:i];
         if([self getDishWithID: dish.ID] == nil){
-            [[User sharedInstance].currentOrder removeDishAtIndex:i];
+            [[[User sharedInstance].currentSession getCurrentOrder] removeDishAtIndex:i];
         }
     }
 }
@@ -267,10 +267,21 @@
         [cell setUserInteractionEnabled:YES];
         [cell addGestureRecognizer:singleTap];
         
+        [self setFloorFadeShadow: cell.nameLabel];
+        [self setFloorFadeShadow: cell.priceLabel];
+        [self setFloorFadeShadow: cell.descriptionLabel];
+
         return cell;
         
     }
     
+}
+
+- (void) setFloorFadeShadow: (UILabel*) textView {
+    textView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    textView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    textView.layer.shadowOpacity = 1.0f;
+    textView.layer.shadowRadius = 1.0f;
 }
 
 -(void)dishImageTapped: (UITapGestureRecognizer *) sender{
@@ -542,7 +553,7 @@
     [self ensureDishOutletIntegrity];
     [self renderCategoryButtons];
     [self.tableView reloadData];
-//    [self.delegate updateCounter];
+    [self.delegate updateCounter];
     NSMutableDictionary *validTableIDs = [self parseFromJsonToValidTableIDs:json];
     [self.delegate setValidTableIDs:validTableIDs];
 }
@@ -606,34 +617,31 @@
             ! self.navigationController.navigationBarHidden && [[self getDishWithCategory:self.displayCategoryID] count] > 2
             ) {
             
+            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
+            categoryFrameEnd.origin.y += 20;
             
             CGRect tableViewFrame = self.tableView.frame;
-            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
-            CGRect categoryFrameStart = self.categoryButtonsHolderView.frame;
-            CGRect navbarFrame = self.navigationController.navigationBar.frame;
-            tableViewFrame.origin.y = 0;
-            tableViewFrame.size.height += navbarFrame.size.height;
-            categoryFrameEnd.origin.y = 20;
-            categoryFrameStart.origin.y -= categoryFrameStart.size.height;
+            tableViewFrame.origin.y += 20;
+            tableViewFrame.size.height += self.navigationController.navigationBar.frame.size.height;
+
             if (withAnimation) {
                 self.isCategoryBarAnimating = YES;
+                [self.navigationController setNavigationBarHidden: YES animated:YES];
+                self.statusBarUnderLay = [[UIView alloc] initWithFrame:[self statusBarFrameViewRect:self.view]];
+                [self.statusBarUnderLay setBackgroundColor:[UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1]];
+                self.statusBarUnderLay.hidden = NO;
+                [self.view addSubview:self.statusBarUnderLay];
+
                 [UIView animateWithDuration:0.3
                                       delay:0
                                     options: UIViewAnimationOptionCurveEaseOut
                                  animations:^{
                                      self.tableView.frame = tableViewFrame;
-                                     self.categoryButtonsHolderView.frame = categoryFrameStart;
+                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
                                  }
                                  completion:^(BOOL finished){
                                      NSLog(@"Done!");
                                      self.isCategoryBarAnimating = NO;
-                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
-                                     [self.navigationController.view addSubview:self.categoryButtonsHolderView];
-                                     self.navigationController.navigationBarHidden = YES;
-                                     self.statusBarUnderLay = [[UIView alloc] initWithFrame:[self statusBarFrameViewRect:self.view]];
-                                     [self.statusBarUnderLay setBackgroundColor:[UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1]];
-                                     self.statusBarUnderLay.hidden = NO;
-                                     [self.view addSubview:self.statusBarUnderLay];
                                  }];
             } else {
                 self.tableView.frame = tableViewFrame;
@@ -646,37 +654,30 @@
             
         } else if (self.tableView.contentOffset.y <= self.navigationController.navigationBar.frame.size.height  &&
                    self.navigationController.navigationBarHidden){
-            
+
+            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
+            categoryFrameEnd.origin.y -= 20;
             
             CGRect tableViewFrame = self.tableView.frame;
-            CGRect categoryFrameEnd = self.categoryButtonsHolderView.frame;
-            CGRect categoryFrameStart = self.categoryButtonsHolderView.frame;
-            CGRect navbarFrame = self.navigationController.navigationBar.frame;
-            
-            tableViewFrame.origin.y = 50;
-            tableViewFrame.size.height -= navbarFrame.size.height;
-            categoryFrameEnd.origin.y = 7;
-            categoryFrameStart.origin.y += categoryFrameStart.size.height;
+            tableViewFrame.origin.y -= 20;
+            tableViewFrame.size.height -= self.navigationController.navigationBar.frame.size.height;
             
             if (withAnimation) {
                 self.isCategoryBarAnimating = YES;
-                [UIView animateWithDuration:0.2
+                [self.navigationController setNavigationBarHidden: NO animated:YES];
+                [self.statusBarUnderLay removeFromSuperview];
+                self.statusBarUnderLay.hidden = YES;
+
+                [UIView animateWithDuration:0.3
                                       delay:0
                                     options: UIViewAnimationOptionCurveEaseIn
                                  animations:^{
                                      self.tableView.frame = tableViewFrame;
-                                     self.categoryButtonsHolderView.frame = categoryFrameStart;
+                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
                                  }
                                  completion:^(BOOL finished){
                                      NSLog(@"Done!");
                                      self.isCategoryBarAnimating = NO;
-                                     [self.categoryButtonsHolderView removeFromSuperview];
-                                     self.categoryButtonsHolderView.frame = categoryFrameEnd;
-                                     [self.view addSubview: self.categoryButtonsHolderView];
-                                     self.navigationController.navigationBarHidden = NO;
-                                     [self.statusBarUnderLay removeFromSuperview];
-                                     self.statusBarUnderLay.hidden = YES;
-
                                  }];
             } else {
                 self.tableView.frame = tableViewFrame;
@@ -857,8 +858,8 @@
             [self.delegate dishOrdered:clickedDish];
             
             if (self.displayMethod == kMethodList) {
-//                MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
-//                [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+                //MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
+                //[self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
             } else {
                 MenuListCell* clickedCell = (MenuListCell*) self.selectedCell;
                 [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
@@ -959,9 +960,9 @@
 - (void) updateDish {
     if ([User sharedInstance].updatePending && self.outlet.outletID == [User sharedInstance].currentVerifiedOutletID) {
         @try {
-            for(int i = 0 ; i < [[User sharedInstance].pastOrder.dishes count] ; i++){
-                Dish *currentDish = [[User sharedInstance].pastOrder.dishes objectAtIndex: i];
-                [[User sharedInstance].pastOrder.dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
+            for(int i = 0 ; i < [[[User sharedInstance].currentSession getPastOrder].dishes count] ; i++){
+                Dish *currentDish = [[[User sharedInstance].currentSession getPastOrder].dishes objectAtIndex: i];
+                [[[User sharedInstance].currentSession getPastOrder].dishes replaceObjectAtIndex:i withObject:[self getDishWithID:currentDish.ID]];
             }
         }
         @catch (NSException *exception) {

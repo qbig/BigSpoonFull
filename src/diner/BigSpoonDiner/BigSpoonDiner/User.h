@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "Outlet.h"
 #import "Order.h"
+#import "DiningSession.h"
 #import <Mixpanel.h>
 
 @interface User : NSObject
@@ -28,8 +29,7 @@
 @property (nonatomic, strong) Outlet *currentLoadedOutlet;
 @property (nonatomic) int currentVerifiedOutletID;
 @property (nonatomic) NSDictionary *validTableIDs;
-@property (nonatomic, strong) Order *currentOrder;
-@property (nonatomic, strong) Order *pastOrder;
+@property (nonatomic, strong) DiningSession *currentSession;
 @property (nonatomic, strong) CLLocation* userLocation;
 @property (nonatomic) BOOL isLoggedIn;
 @property (nonatomic, strong) NSUserDefaults *userDefault;

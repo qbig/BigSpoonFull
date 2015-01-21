@@ -100,6 +100,16 @@
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
+
+    if ([self.emailTextField isFirstResponder]) {
+        [self.emailTextField resignFirstResponder];
+    } else {
+        [self.emailTextField validateInput];
+    }
+    if (! self.emailTextField.isValid) {
+        return;
+    }
+
     NSError* error;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:USER_LOGIN]];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];

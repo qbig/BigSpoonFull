@@ -11,7 +11,7 @@
 @implementation Constants
 
 // Request URLs:
-//#define DEV  0;
+#define DEV  0;
 #ifdef DEV
 //NSString* const BASE_URL = @"http://46.137.234.248/";
 //NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
@@ -94,7 +94,7 @@ int const ORDER_ITEM_VIEW_HEIGHT = 21;
 int const ORDER_ITEM_VIEW_WIDTH = 280;
 int const ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT = 280;
 int const ORDER_CONFIRM_ALERT_TITLE_HEIGHT = 30;
-int const HISTORY_DETAIL_SCROLLING_EXTRA = 300;
+int const HISTORY_DETAIL_SCROLLING_EXTRA = 380;
 int const ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET = 310;
 
 // Colours
@@ -152,7 +152,7 @@ NSString* const FB_SESSION_IS_OPEN = @"FBSessionIsOpen";
 NSString* const FB_TOKEN_VERIFIED = @"FBTokenIsVerified";
 NSString* const EMAIL_LOGIN_SUCCESS = @"emailLoginSuccess";
 NSString* const FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
-NSString* const DISH_OVERLAY_NORMAL = @"new_overlay2.png";
+NSString* const DISH_OVERLAY_NORMAL = @"black-overlay.png";
 NSString* const DISH_OVERLAY_OUT_OF_STOCK = @"out_of_stock.png";
 NSString* const DISH_MODIFIER_TYPE_COUNT = @"count";
 NSString* const DISH_MODIFIER_TYPE_RADIO = @"radio";

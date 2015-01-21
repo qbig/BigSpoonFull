@@ -63,18 +63,8 @@
 {
     [super viewDidLoad];
     self.userInfo = [User sharedInstance];
-    
-    // Set the Outlet Name to be the title
     [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-
-    // update the badge.
-    if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
-        self.userInfo.currentOrder = [[Order alloc]init];
-    }
-    if ([self.userInfo.pastOrder getTotalQuantity] == 0){
-        self.userInfo.pastOrder = [[Order alloc]init];
-    }
 
     [self loadControlPanels];
 
@@ -98,7 +88,6 @@
     [self.viewModeButton setHidden:YES];
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
-    [self updateItemQuantityBadge];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -137,19 +126,19 @@
     if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
         
         NSString *message = @"";
-        if ([self.userInfo.currentOrder getTotalQuantity] != 0) {
+        if ([[self.userInfo.currentSession getCurrentOrder] getTotalQuantity] != 0) {
             message = @"You have selected some food but haven't placed the order. You can come back later to place the order";
         }
-        if ([self.userInfo.pastOrder getTotalQuantity] != 0){
+        if ([[self.userInfo.currentSession getPastOrder] getTotalQuantity] != 0){
             message = @"You have unpaid items. You can come back later to pay the bill";
         }
-        if ([self.userInfo.currentOrder getTotalQuantity] != 0 && [self.userInfo.pastOrder getTotalQuantity] != 0) {
+        if ([[self.userInfo.currentSession getCurrentOrder] getTotalQuantity] != 0 && [[self.userInfo.currentSession getPastOrder] getTotalQuantity] != 0) {
             message = @"You have unorderd and unpaid items. You can come back later";
         }
         
         
-        [self.delegate exitMenuListWithCurrentOrder:self.userInfo.currentOrder
-                                          PastOrder:self.userInfo.pastOrder
+        [self.delegate exitMenuListWithCurrentOrder:[self.userInfo.currentSession getCurrentOrder]
+                                          PastOrder:[self.userInfo.currentSession getPastOrder]
                                            OutletID:self.outlet.outletID
                                          andTableID:[User sharedInstance].tableID
                                          andMessage:message];   
@@ -311,7 +300,7 @@
 
     
     // If the user hasn't ordered anything:
-    if ([self.userInfo.pastOrder getTotalQuantity] == 0) {
+    if ([[self.userInfo.currentSession getPastOrder] getTotalQuantity] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                      initWithTitle:@"Request Bill"
                                      message:@"You haven't ordered anything."
@@ -346,7 +335,7 @@
     NSMutableString *message = [[NSMutableString alloc] init];
     
     // Append the price information to the message:
-//    float subtotal = [self.userInfo.pastOrder getTotalPrice];
+//    float subtotal = [[self.userInfo.currentSession getPastOrder] getTotalPrice];
 //    float gst = subtotal * self.outlet.gstRate;
 //    float serviceCharge = subtotal * self.outlet.serviceChargeRate;
 //    float totalPrice = subtotal + gst + serviceCharge;
@@ -423,8 +412,9 @@
     [self performSegueWithIdentifier:@"SegueFromMenuToRating" sender:self];
     
     // Set the order items to null
-    self.userInfo.currentOrder = [[Order alloc] init];
-    self.userInfo.pastOrder = [[Order alloc] init];
+    [self.userInfo.currentSession clearPastOrder];
+    [self.userInfo.currentSession clearCurrentOrder];
+
     [User sharedInstance].tableID = -1;
 }
 
@@ -531,13 +521,13 @@
             
             [self.itemsOrderedViewController setGSTRate: outlet.gstRate andServiceChargeRate:outlet.serviceChargeRate];
             
-            [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.userInfo.currentOrder andPastOrder:self.userInfo.pastOrder];
+            [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:[self.userInfo.currentSession getCurrentOrder] andPastOrder:[self.userInfo.currentSession getPastOrder]];
         }
         
     } else if ([segue.identifier isEqualToString:@"SegueFromMenuToRating"]){
         RatingAndFeedbackViewController* ratingAndFeedbackViewController = segue.destinationViewController;
         ratingAndFeedbackViewController.delegate = self;
-        ratingAndFeedbackViewController.orderToRate = self.userInfo.pastOrder;
+        ratingAndFeedbackViewController.orderToRate = [self.userInfo.currentSession getPastOrder];
         ratingAndFeedbackViewController.outletID = self.outlet.outletID;
     }
     
@@ -639,9 +629,9 @@
 #pragma OrderDishDelegate
 
 - (void) dishOrdered:(Dish *)dish{
-    int initialQuantity = [self.userInfo.currentOrder getTotalQuantity];
-    [self.userInfo.currentOrder addDish:dish];
-    int updatedQuantity = [self.userInfo.currentOrder getTotalQuantity];
+    int initialQuantity = [[self.userInfo.currentSession getCurrentOrder] getTotalQuantity];
+    [[self.userInfo.currentSession getCurrentOrder] addDish:dish];
+    int updatedQuantity = [[self.userInfo.currentSession getCurrentOrder] getTotalQuantity];
     [[Mixpanel sharedInstance] track:[NSString stringWithFormat:@"increasing order from %d to %d", initialQuantity, updatedQuantity]];
     [self updateItemQuantityBadge];
     if (updatedQuantity > initialQuantity && (updatedQuantity == 3 || updatedQuantity == 1)) {
@@ -656,7 +646,7 @@
 
 - (void) updateItemQuantityBadge{
     
-    int totalQuantity = [self.userInfo.currentOrder getTotalQuantity];
+    int totalQuantity = [[self.userInfo.currentSession getCurrentOrder] getTotalQuantity];
     if (totalQuantity == 0) {
         [self.itemQuantityLabel setHidden:YES];
         [self.itemQuantityLabelBackgroundImageView setHidden:YES];
@@ -704,35 +694,35 @@
 - (Order *) addDishWithIndex: (int) dishIndex {
     // require: dish already in order
     
-    [self.userInfo.currentOrder incrementDishAtIndex:dishIndex];
+    [[self.userInfo.currentSession getCurrentOrder] incrementDishAtIndex:dishIndex];
     [self updateItemQuantityBadge];
-    return self.userInfo.currentOrder;
+    return [self.userInfo.currentSession getCurrentOrder];
 }
 - (Order *) minusDishWithIndex: (int) dishIndex {
     // require: dish already in order
     
-    [self.userInfo.currentOrder decrementDishAtIndex:dishIndex];
+    [[self.userInfo.currentSession getCurrentOrder] decrementDishAtIndex:dishIndex];
     [self updateItemQuantityBadge];
-    return self.userInfo.currentOrder;
+    return [self.userInfo.currentSession getCurrentOrder];
 }
 
 -(Order *) addDish:(Dish *)dish {
-    [self.userInfo.currentOrder addDish:dish];
+    [[self.userInfo.currentSession getCurrentOrder] addDish:dish];
     [self updateItemQuantityBadge];
-    return self.userInfo.currentOrder;
+    return [self.userInfo.currentSession getCurrentOrder];
 }
 
 
 - (Order *) addNote: (NSString*)note toDishAtIndex: (int) dishIndex {
-    [self.userInfo.currentOrder addNote:note forDishAtIndex:dishIndex];
-    return self.userInfo.currentOrder;
+    [[self.userInfo.currentSession getCurrentOrder] addNote:note forDishAtIndex:dishIndex];
+    return [self.userInfo.currentSession getCurrentOrder];
 }
 
 
 - (void) placeOrderWithNotes:(NSString *)notes{
     
     // If the user hasn't ordered anything:
-    if ([self.userInfo.currentOrder getTotalQuantity] == 0) {
+    if ([[self.userInfo.currentSession getCurrentOrder] getTotalQuantity] == 0) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Place Order"
                                   message:@"You haven't selected anything."
@@ -838,7 +828,7 @@
     // You may use a Block, rather than a delegate.
     [alertView setOnButtonTouchUpInside:^(CustomIOS7AlertView *alertView, int buttonIndex) {
         if (buttonIndex == 1) {
-            if ([self.userInfo.currentOrder containDessert]){
+            if ([[self.userInfo.currentSession getCurrentOrder] containDessert]){
                 self.whenToServeDessertAlertView = [[UIAlertView alloc]
                                                 initWithTitle:@"Would you like your dessert to be served now?"
                                                 message:nil
@@ -876,16 +866,16 @@
     [titleLabel setFont: [UIFont boldSystemFontOfSize:17.0]];
     [scrollingViewContent addSubview:titleLabel];
     
-    for(int i = 0, len = [self.userInfo.currentOrder.dishes count]; i < len; i++){
+    for(int i = 0, len = [[self.userInfo.currentSession getCurrentOrder].dishes count]; i < len; i++){
         OrderItemView* itemView = [[OrderItemView alloc] initAtIndex:i];
-        Dish* dish = [self.userInfo.currentOrder.dishes objectAtIndex:i];
-        itemView.quantityLabel.text = [NSString stringWithFormat:@"%d",[self.userInfo.currentOrder getQuantityOfDishByDish: dish]];
+        Dish* dish = [[self.userInfo.currentSession getCurrentOrder].dishes objectAtIndex:i];
+        itemView.quantityLabel.text = [NSString stringWithFormat:@"%d",[[self.userInfo.currentSession getCurrentOrder] getQuantityOfDishByDish: dish]];
         itemView.dishNameLabel.text = dish.name;
         
         [scrollingViewContent addSubview:itemView];
     }
     
-    int currentScollingContentHeight = [self.userInfo.currentOrder.dishes count] * ORDER_ITEM_VIEW_HEIGHT + ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
+    int currentScollingContentHeight = [[self.userInfo.currentSession getCurrentOrder].dishes count] * ORDER_ITEM_VIEW_HEIGHT + ORDER_CONFIRM_ALERT_TITLE_HEIGHT;
     
     int alertViewHeight = ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT > currentScollingContentHeight ? currentScollingContentHeight + 20: ORDER_CONFIRM_ALERT_MAXIUM_HEIGHT;
     [scrollingViewContent setFrame:CGRectMake(0,0,scrollingViewContent.frame.size.width, alertViewHeight)];
@@ -899,9 +889,9 @@
     NSMutableArray *dishesArray = [[NSMutableArray alloc] init];
     
     // For every dish that is currently in the order, we add it to the dishes dictionary:
-    for (int i = 0; i < [self.userInfo.currentOrder.dishes count]; i++) {
-        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:i];
-        NSNumber * quantity = [NSNumber numberWithInt:[self.userInfo.currentOrder getQuantityOfDishByDish: dish]];
+    for (int i = 0; i < [[self.userInfo.currentSession getCurrentOrder].dishes count]; i++) {
+        Dish *dish = [[self.userInfo.currentSession getCurrentOrder].dishes objectAtIndex:i];
+        NSNumber * quantity = [NSNumber numberWithInt:[[self.userInfo.currentSession getCurrentOrder] getQuantityOfDishByDish: dish]];
         NSString * ID = [NSString stringWithFormat:@"%d", dish.ID];
         
         NSDictionary *newPair = [NSDictionary dictionaryWithObject:quantity forKey:ID];
@@ -915,12 +905,12 @@
         [parameters setObject:generalNote forKey:@"note"];
     }
     
-    if ((self.userInfo.currentOrder.notes != nil && [self.userInfo.currentOrder.notes count] > 0) || [self.userInfo.currentOrder.modifierAnswers count] > 0) {
-        [parameters setObject:[self.userInfo.currentOrder getMergedTextForNotesAndModifier] forKey:@"notes"];
+    if (([self.userInfo.currentSession getCurrentOrder].notes != nil && [[self.userInfo.currentSession getCurrentOrder].notes count] > 0) || [[self.userInfo.currentSession getCurrentOrder].modifierAnswers count] > 0) {
+        [parameters setObject:[[self.userInfo.currentSession getCurrentOrder] getMergedTextForNotesAndModifier] forKey:@"notes"];
     }
     
-    if (self.userInfo.currentOrder.modifierAnswers != nil && [self.userInfo.currentOrder.modifierAnswers count] != 0){
-        [parameters setObject:self.userInfo.currentOrder.modifierAnswers forKey:@"modifiers"];
+    if ([self.userInfo.currentSession getCurrentOrder].modifierAnswers != nil && [[self.userInfo.currentSession getCurrentOrder].modifierAnswers count] != 0){
+        [parameters setObject:[self.userInfo.currentSession getCurrentOrder].modifierAnswers forKey:@"modifiers"];
     }
 
     User *user = [User sharedInstance];
@@ -960,14 +950,11 @@
 }
 
 - (void) processAfterSuccessfulPlacedOrder{
-    [self.userInfo.pastOrder mergeWithAnotherOrder:self.userInfo.currentOrder];
-    self.userInfo.currentOrder = [[Order alloc] init];
+    [[self.userInfo.currentSession getPastOrder] mergeWithAnotherOrder:[self.userInfo.currentSession getCurrentOrder]];
+    [self.userInfo.currentSession clearCurrentOrder];
     generalNote = @"";
-    User *user = [User sharedInstance];
-    user.pastOrder = self.userInfo.pastOrder;
-    user.currentOrder = self.userInfo.currentOrder;
     
-    [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:self.userInfo.currentOrder andPastOrder:self.userInfo.pastOrder];
+    [self.itemsOrderedViewController reloadOrderTablesWithCurrentOrder:[self.userInfo.currentSession getCurrentOrder] andPastOrder:[self.userInfo.currentSession getPastOrder]];
     
     [self.view makeToast:@"Your order has been sent. Our food is prepared with love, thank you for being patient."
                 duration:TOAST_VIEW_DURATION
@@ -978,18 +965,18 @@
     
     [[Mixpanel sharedInstance] track:@"ItemView: Order placed"];
     [[Mixpanel sharedInstance].people increment:@"Number of Order placed" by:[NSNumber numberWithInt:1]];
-    [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"ItemView: Spent $%.2f",[[User sharedInstance].pastOrder getTotalPrice]]];
-    [[Mixpanel sharedInstance].people increment:@"Total Spending" by: [NSNumber numberWithDouble: [[User sharedInstance].pastOrder getTotalPrice]]];
-    [[Mixpanel sharedInstance].people increment:@"Number of Dish" by: [NSNumber numberWithInt: [[User sharedInstance].pastOrder getTotalQuantity]]];
+    [[Mixpanel sharedInstance] track: [NSString stringWithFormat:@"ItemView: Spent $%.2f",[[[User sharedInstance].currentSession getPastOrder] getTotalPrice]]];
+    [[Mixpanel sharedInstance].people increment:@"Total Spending" by: [NSNumber numberWithDouble: [[[User sharedInstance].currentSession getPastOrder] getTotalPrice]]];
+    [[Mixpanel sharedInstance].people increment:@"Number of Dish" by: [NSNumber numberWithInt: [[[User sharedInstance].currentSession getPastOrder] getTotalQuantity]]];
     
 }
 
 - (Order *) getCurrentOrder{
-    return self.userInfo.currentOrder;
+    return [self.userInfo.currentSession getCurrentOrder];
 }
 
 - (Order *) getPastOrder{
-    return self.userInfo.pastOrder;
+    return [self.userInfo.currentSession getPastOrder];
 }
 
 #pragma mark Request For Service (water and waiter)

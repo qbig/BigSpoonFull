@@ -60,7 +60,7 @@
 }
 
 - (void)updateCurrentOrderOffset {
-    if ([self.userInfo.currentOrder.dishes count] == 0){
+    if ([[self.userInfo.currentSession getCurrentOrder].dishes count] == 0){
         [self.scrollView setContentOffset:
          CGPointMake(0, -self.scrollView.contentInset.top + ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET) animated:YES];
     } else {
@@ -111,9 +111,9 @@
 {
     // Return the number of rows in the section.
     if ([tableView isEqual:self.currentOrderTableView]) {
-        return [self.userInfo.currentOrder.dishes count];
+        return [[self.userInfo.currentSession getCurrentOrder].dishes count];
     } else if ([tableView isEqual:self.pastOrderTableView]){
-        return [self.userInfo.pastOrder.dishes count];
+        return [[self.userInfo.currentSession getPastOrder].dishes count];
     } else{
         NSLog(@"Unrecognized tableView is calling delegate method");
         return 0;
@@ -127,22 +127,22 @@
                                               dequeueReusableCellWithIdentifier:@"NewOrderCell"];
         [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(hideNote) name:HIDE_NOTE object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(displayNote) name:SHOW_NOTE object:nil];
-        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
+        Dish *dish = [[self.userInfo.currentSession getCurrentOrder].dishes objectAtIndex:indexPath.row];
 
         if (self.isAddingNotes){
             cell.orderNote.hidden = NO;
         } else {
             cell.orderNote.hidden = YES;
         }
-        int dishQuantity = [[self.userInfo.currentOrder.quantity objectAtIndex:indexPath.row] intValue];
+        int dishQuantity = [[[self.userInfo.currentSession getCurrentOrder].quantity objectAtIndex:indexPath.row] intValue];
         cell.nameLabel.text = dish.name;
         cell.quantityLabel.text = [NSString stringWithFormat:@"%d", dishQuantity];
         cell.plusButton.tag = dish.ID;
         cell.minusButton.tag = dish.ID;
-        cell.orderNote.text = [self.userInfo.currentOrder getNoteForDishAtIndex:indexPath.row];
+        cell.orderNote.text = [[self.userInfo.currentSession getCurrentOrder] getNoteForDishAtIndex:indexPath.row];
 
         if(dish.canBeCustomized){
-            cell.modifierDetailsLabel.text = [self.userInfo.currentOrder getModifierDetailsTextAtIndex:indexPath.row];
+            cell.modifierDetailsLabel.text = [[self.userInfo.currentSession getCurrentOrder] getModifierDetailsTextAtIndex:indexPath.row];
             CGRect modifierFrame = cell.modifierDetailsLabel.frame;
             modifierFrame.origin.x = 86;
             modifierFrame.origin.y = 45;
@@ -158,13 +158,13 @@
         PastOrderCell *cell = (PastOrderCell *)[tableView
                                               dequeueReusableCellWithIdentifier:@"PastOrderCell"];
         
-        Dish *dish = [self.userInfo.pastOrder.dishes objectAtIndex:indexPath.row];
-        int dishQuantity = [[self.userInfo.pastOrder.quantity objectAtIndex:indexPath.row] intValue];
+        Dish *dish = [[self.userInfo.currentSession getPastOrder].dishes objectAtIndex:indexPath.row];
+        int dishQuantity = [[[self.userInfo.currentSession getPastOrder].quantity objectAtIndex:indexPath.row] intValue];
         cell.nameLabel.text = dish.name;
         cell.quantityLabel.text = [NSString stringWithFormat:@"%d", dishQuantity];
 
         if(dish.canBeCustomized){
-            cell.modifierDetailsLabel.text = [self.userInfo.pastOrder getModifierDetailsTextAtIndex:indexPath.row];
+            cell.modifierDetailsLabel.text = [[self.userInfo.currentSession getPastOrder] getModifierDetailsTextAtIndex:indexPath.row];
             
             CGRect modifierFrame = cell.modifierDetailsLabel.frame;
             modifierFrame.origin.x = 86;
@@ -187,11 +187,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     double rowHeightForCurrentOrder;
     if ([tableView isEqual:self.currentOrderTableView]) {
-        Dish *dish = [self.userInfo.currentOrder.dishes objectAtIndex:indexPath.row];
+        Dish *dish = [[self.userInfo.currentSession getCurrentOrder].dishes objectAtIndex:indexPath.row];
         if (dish.canBeCustomized){
             @try
             {
-                self.cellPrototypeForCurrentOrders.modifierDetailsLabel.text = [self.userInfo.currentOrder getModifierDetailsTextAtIndex: indexPath.row];
+                self.cellPrototypeForCurrentOrders.modifierDetailsLabel.text = [[self.userInfo.currentSession getCurrentOrder] getModifierDetailsTextAtIndex: indexPath.row];
                 [self.cellPrototypeForCurrentOrders layoutSubviews];
                 rowHeightForCurrentOrder = self.cellPrototypeForCurrentOrders.requiredCellHeight;
             }
@@ -211,11 +211,11 @@
             return rowHeightForCurrentOrder;
         }
     } else if ([tableView isEqual:self.pastOrderTableView]){
-        Dish *dish = [self.userInfo.pastOrder.dishes objectAtIndex:indexPath.row];
+        Dish *dish = [[self.userInfo.currentSession getPastOrder].dishes objectAtIndex:indexPath.row];
         if (dish.canBeCustomized){
             @try
             {
-                self.cellPrototypeForPastOrders.modifierDetailsLabel.text = [self.userInfo.pastOrder getModifierDetailsTextAtIndex: indexPath.row];
+                self.cellPrototypeForPastOrders.modifierDetailsLabel.text = [[self.userInfo.currentSession getPastOrder] getModifierDetailsTextAtIndex: indexPath.row];
                 [self.cellPrototypeForPastOrders layoutSubviews];
                 rowHeightForCurrentOrder = self.cellPrototypeForPastOrders.requiredCellHeight;
             }
@@ -260,7 +260,7 @@
         DishModifierTableViewController *modifierPopup = segue.destinationViewController;
         modifierPopup.targetingDish = self.targetingDish;
         modifierPopup.delegate = self;
-        [modifierPopup.targetingDish.customOrderInfo setAnswer: [self.userInfo.currentOrder getModifierAnswerAtIndex:self.lastInteractiveCellIndex.row ]];
+        [modifierPopup.targetingDish.customOrderInfo setAnswer: [[self.userInfo.currentSession getCurrentOrder] getModifierAnswerAtIndex:self.lastInteractiveCellIndex.row ]];
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel" style: UIBarButtonItemStyleBordered target: nil action: nil];
         [[self navigationItem] setBackBarButtonItem: newBackButton];
         
@@ -305,7 +305,13 @@
             [self setViewMovedUp:YES];
         }
     } else {
-        NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        NSIndexPath *indexPath;
+        if (IS_OS_8_OR_LATER) {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview)];
+        } else {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        }
+
         [self.scrollView setContentOffset:CGPointMake(0, [self getSectionHeightForCurrentOrdersUntilRow: indexPath.row])  animated:YES];
     }
 }
@@ -322,8 +328,14 @@
             [self setViewMovedUp:NO];
         }
     } else {
-        NSIndexPath *indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
-        self.userInfo.currentOrder = [self.delegate addNote:sender.text toDishAtIndex:indexPath.row];
+        NSIndexPath *indexPath;
+        if (IS_OS_8_OR_LATER) {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview)];
+        } else {
+            indexPath = [self.currentOrderTableView indexPathForCell: (NewOrderCell *)(sender.superview.superview.superview)];
+        }
+
+        [self.userInfo.currentSession setCurrentOrder: [self.delegate addNote:sender.text toDishAtIndex:indexPath.row]];
     }
 }
 
@@ -337,12 +349,12 @@
     int dishID = sender.tag;
     NSLog(@"Added dish at row: %d with ID: %d", indexPath.row, dishID);
     
-    self.targetingDish = (Dish *) [self.userInfo.currentOrder.dishes objectAtIndex: indexPath.row];
+    self.targetingDish = (Dish *) [[self.userInfo.currentSession getCurrentOrder].dishes objectAtIndex: indexPath.row];
     if( self.targetingDish.canBeCustomized) {
         self.lastInteractiveCellIndex = indexPath;
         [self performSegueWithIdentifier:@"SegueToEditDishModifier" sender:self];
     } else {
-        self.userInfo.currentOrder = [self.delegate addDishWithIndex: indexPath.row];
+        [self.userInfo.currentSession setCurrentOrder: [self.delegate addDishWithIndex: indexPath.row]];
         [self updatePriceLabels];
     }
 }
@@ -356,7 +368,7 @@
     
     int dishID = sender.tag;
     NSLog(@"Minus dish at row: %d with ID: %d", indexPath.row, dishID);
-    self.userInfo.currentOrder = [self.delegate minusDishWithIndex: indexPath.row];
+    [self.userInfo.currentSession setCurrentOrder: [self.delegate minusDishWithIndex: indexPath.row]];
     
     [self updatePriceLabels];
     [self updateCurrentOrderOffset];
@@ -383,8 +395,8 @@
 
 // This function is called when segue from menu list to here is performed
 - (void)reloadOrderTablesWithCurrentOrder:(Order*) currentOrder andPastOrder:(Order*) pastOrder{
-    self.userInfo.currentOrder = currentOrder;
-    self.userInfo.pastOrder = pastOrder;
+    [self.userInfo.currentSession setCurrentOrder: currentOrder];
+    [self.userInfo.currentSession setPastOrder: pastOrder];
     [self.currentOrderTableView reloadData];
     [self.pastOrderTableView reloadData];
     [self updatePriceLabels];
@@ -392,7 +404,7 @@
 }
 
 - (void) updatePriceLabels{
-    [self updatePriceLabelsWithCurrentORder:self.userInfo.currentOrder
+    [self updatePriceLabelsWithCurrentORder:[self.userInfo.currentSession getCurrentOrder]
                               SubtotalLabel:self.currentSubtotalLabel
                          ServiceChargeLabel:self.currentServiceChargeLabel
                     ServiceChargeTitleLabel:self.currentServiceChargeTitleLabel
@@ -400,7 +412,7 @@
                               GSTTitleLabel:self.currentGSTTitleLabel
                               andTotalLabel:self.currentTotalLabel];
     
-    [self updatePriceLabelsWithCurrentORder:self.userInfo.pastOrder
+    [self updatePriceLabelsWithCurrentORder:[self.userInfo.currentSession getPastOrder]
                               SubtotalLabel:self.pastSubtotalLabel
                          ServiceChargeLabel:self.pastServiceChargeLabel
                     ServiceChargeTitleLabel:self.pastServiceChargeTitleLabel
@@ -441,8 +453,8 @@
  */
 - (void) updateTablesAndScrollviewHeight: (BOOL) shouldUpdateViewPoint{
     int currentOrderTableHeight, oldCurrentOrderTableHeight;
-    int numOfCurrentOrder = [self.userInfo.currentOrder.dishes count];
-    int numOfPastOrder = [self.userInfo.pastOrder.dishes count];
+    int numOfCurrentOrder = [[self.userInfo.currentSession getCurrentOrder].dishes count];
+    int numOfPastOrder = [[self.userInfo.currentSession getPastOrder].dishes count];
     if (self.isAddingNotes){
         currentOrderTableHeight =  [self getSectionHeightForCurrentOrdersUntilRow: numOfCurrentOrder] + numOfCurrentOrder * ITEM_LIST_ADD_NOTE_TEXT_FIELD_HEIGHT;
         oldCurrentOrderTableHeight = [self getSectionHeightForCurrentOrdersUntilRow: numOfCurrentOrder];
@@ -485,7 +497,7 @@
                                                                   pasrOrderFrame.origin.y + pastOrderTableHeight,
                                                                   viewAfterPastframe.size.width,
                                                                   viewAfterPastframe.size.height)];
-    if ([self.userInfo.currentOrder.dishes count] == 0 && pastOrderTableHeight < ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET){
+    if ([[self.userInfo.currentSession getCurrentOrder].dishes count] == 0 && pastOrderTableHeight < ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET){
         pastOrderTableHeight = ITEM_PAGE_EMPTY_CURRENT_ORDER_OFFSET;
     }
     // hack for 3.5 and 4 screen size
