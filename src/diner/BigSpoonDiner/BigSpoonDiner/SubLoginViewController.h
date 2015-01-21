@@ -13,9 +13,10 @@
 #import "User.h"
 #import "SSKeychain.h"
 #import "EAIntroView.h"
+#import "SHEmailValidationTextField.h"
 
 @interface SubLoginViewController : UIViewController  <EAIntroDelegate>
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet SHEmailValidationTextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;

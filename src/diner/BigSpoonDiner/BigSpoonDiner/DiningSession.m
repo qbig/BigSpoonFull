@@ -54,11 +54,20 @@
 }
 
 - (void) setCurrentOrder:(Order *)currentOrder {
-    [self.dictForCurrentOrders setObject:currentOrder forKey:self.currentOutletName];
+    @try {
+        [self.dictForCurrentOrders setObject:currentOrder forKey:self.currentOutletName];
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+    }
+    
 }
 
 - (void) setPastOrder:(Order *)pastOrder {
-    [self.dictForPastOrders setObject:pastOrder forKey:self.currentOutletName];
+    @try {
+        [self.dictForPastOrders setObject:pastOrder forKey:self.currentOutletName];
+    } @catch (NSException *exception) {
+        NSLog(@"%@", exception.reason);
+    }
 }
 
 - (void) clearCurrentOrder {
