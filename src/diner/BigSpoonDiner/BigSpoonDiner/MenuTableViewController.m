@@ -267,10 +267,21 @@
         [cell setUserInteractionEnabled:YES];
         [cell addGestureRecognizer:singleTap];
         
+        [self setFloorFadeShadow: cell.nameLabel];
+        [self setFloorFadeShadow: cell.priceLabel];
+        [self setFloorFadeShadow: cell.descriptionLabel];
+
         return cell;
         
     }
     
+}
+
+- (void) setFloorFadeShadow: (UILabel*) textView {
+    textView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    textView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    textView.layer.shadowOpacity = 1.0f;
+    textView.layer.shadowRadius = 1.0f;
 }
 
 -(void)dishImageTapped: (UITapGestureRecognizer *) sender{
@@ -847,8 +858,8 @@
             [self.delegate dishOrdered:clickedDish];
             
             if (self.displayMethod == kMethodList) {
-//                MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
-//                [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
+                //MenuPhotoCell* clickedCell = (MenuPhotoCell*) self.selectedCell;
+                //[self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];
             } else {
                 MenuListCell* clickedCell = (MenuListCell*) self.selectedCell;
                 [self animateDishCellAdded: clickedCell.frame withImage: [clickedCell takeSnapshot]];

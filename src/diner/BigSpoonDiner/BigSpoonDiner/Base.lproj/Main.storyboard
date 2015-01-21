@@ -14,13 +14,13 @@
             <string>SegoeUI-Light</string>
             <string>SegoeUI-Light</string>
             <string>SegoeUI-Light</string>
-            <string>SegoeUI-Light</string>
         </mutableArray>
         <mutableArray key="segoeuib.ttf">
             <string>SegoeUI-Bold</string>
             <string>SegoeUI-Bold</string>
         </mutableArray>
         <mutableArray key="segoeuisl.ttf">
+            <string>SegoeUI-Semilight</string>
             <string>SegoeUI-Semilight</string>
             <string>SegoeUI-Semilight</string>
             <string>SegoeUI-Semilight</string>
@@ -1387,10 +1387,10 @@
                                                     <rect key="frame" x="243" y="156" width="74" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U1t-2X-sVO">
-                                                    <rect key="frame" x="7.5" y="183" width="308" height="40"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U1t-2X-sVO">
+                                                    <rect key="frame" x="8" y="177" width="308" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="9"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="9"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1398,13 +1398,6 @@
                                                     <rect key="frame" x="272" y="169" width="39" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="dhl-89-pKc">
-                                                    <rect key="frame" x="8" y="148" width="252" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="SegoeUI-Semibold" family="Segoe UI" pointSize="12"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1420,6 +1413,14 @@
                                                         <action selector="addNewItemButtonClicked:" destination="svy-28-WHp" eventType="touchUpInside" id="Jj2-yE-cb2"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="dhl-89-pKc">
+                                                    <rect key="frame" x="8" y="147" width="252" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="SegoeUI-Semibold" family="Segoe UI" pointSize="12"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
