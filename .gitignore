@@ -120,5 +120,3 @@ src/testf/djn
 
 src/diner/BigSpoonDiner/Crashlytics.framework/*
 src/backend/bigspoon/node_modules/*
-src/diner/BigSpoonDiner/Fabric.framework/*
-src/diner/BigSpoonDiner/Pods/*
