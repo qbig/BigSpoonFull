@@ -19,6 +19,7 @@
 		033893BF1A6F9C8700B614E2 /* SHEmailValidationTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 033893B81A6F9C8700B614E2 /* SHEmailValidationTextField.m */; };
 		033893C01A6F9C8700B614E2 /* SHEmailValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 033893BA1A6F9C8700B614E2 /* SHEmailValidator.m */; };
 		033893C11A6F9C8700B614E2 /* SHValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 033893BC1A6F9C8700B614E2 /* SHValidationResult.m */; };
+		033893C51A6FAC5600B614E2 /* black-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 033893C41A6FAC5600B614E2 /* black-overlay.png */; };
 		033F92031933990C0013A42D /* DishModifierItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F92021933990C0013A42D /* DishModifierItem.m */; };
 		033F920619339D030013A42D /* DishModifierSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920519339D030013A42D /* DishModifierSection.m */; };
 		033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920B1935C1810013A42D /* DishModifierTableViewController.m */; };
@@ -212,6 +213,7 @@
 		033893BA1A6F9C8700B614E2 /* SHEmailValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHEmailValidator.m; sourceTree = "<group>"; };
 		033893BB1A6F9C8700B614E2 /* SHValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHValidationResult.h; sourceTree = "<group>"; };
 		033893BC1A6F9C8700B614E2 /* SHValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHValidationResult.m; sourceTree = "<group>"; };
+		033893C41A6FAC5600B614E2 /* black-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-overlay.png"; sourceTree = "<group>"; };
 		033F92011933990C0013A42D /* DishModifierItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierItem.h; sourceTree = "<group>"; };
 		033F92021933990C0013A42D /* DishModifierItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierItem.m; sourceTree = "<group>"; };
 		033F920419339D030013A42D /* DishModifierSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierSection.h; sourceTree = "<group>"; };
@@ -787,6 +789,7 @@
 				031B7E5D1A3FEDD400F734F9 /* start-order-border.png */,
 				03D48292190A958200851AC0 /* new_signup_btn.png */,
 				031B7E591A3FE52B00F734F9 /* email-icon.png */,
+				033893C41A6FAC5600B614E2 /* black-overlay.png */,
 				03D48296190A980600851AC0 /* login_form.png */,
 				038C46B01A40603A00D6EC20 /* arrow-89-128.png */,
 				03D4828E190A8F2900851AC0 /* new_entry_background.png */,
@@ -1103,6 +1106,7 @@
 				49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */,
 				0322239C1A4000C50080EF90 /* new-background-fat.png in Resources */,
 				034C6D9C1847AA17008D42C4 /* copyfonts.com_segoe_ui_light.ttf in Resources */,
+				033893C51A6FAC5600B614E2 /* black-overlay.png in Resources */,
 				03A4634218CB06B200B40D34 /* README.md in Resources */,
 				031B7E5B1A3FE52B00F734F9 /* email-icon.png in Resources */,
 				03D411F91842091800ED4F46 /* or_separator.png in Resources */,
