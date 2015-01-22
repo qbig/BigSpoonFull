@@ -42,9 +42,14 @@ Controller.prototype = {
     },
     removeCard: function(e) {
         var that = this;
+        console.log('in remove card');
         //ajax post to backend with card_id with a callback to remove card and data
         that.model.postRemoveData(e.detail, function() {
+        	console.log(e.detail)
+        	console.log("that.model.postRemoveData is done");
             that.model.removeData(e.detail, function() {
+            	console.log(e.detail)
+            	console.log("that.model.removeData is done, next: that.view.removeCard(e.detail.parent_card)")
                 that.view.removeCard(e.detail.parent_card);
             });
         });

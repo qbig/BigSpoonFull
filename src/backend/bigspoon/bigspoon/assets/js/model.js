@@ -73,6 +73,7 @@ Model.prototype = {
     //check through the model items and remove (using splice())the meal item corresponding to id
     //ensure no multiple items with same id
     removeMeal: function(id, callback) {
+    	console.log("removing meal:" + id)
         var len = this.items.meals.length;
         for (var i = 0; i < len; i++) {
             if (this.items.meals[i].id === parseInt(id, 10)) {
