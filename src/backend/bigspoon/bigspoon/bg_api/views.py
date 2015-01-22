@@ -605,9 +605,9 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
-            send_socketio_message(
-                [table.outlet.id],
-                ['refresh', 'meal', 'askbill', str(meal.id)]
+            send_socketio_message_async.delay(
+                "||".join([str(table.outlet.id)]),
+                "||".join(['refresh', 'meal', 'askbill', str(meal.id)])
             )
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
