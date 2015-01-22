@@ -38,6 +38,7 @@ Model.prototype = {
         var duplicateData = false;
         $.ajax({
             url: this.STAFF_API_URLS["meal"] + meal_id,
+            cache: false,
             dataType: "text",
             success: function(mealData) {
             	console.log("new meal data:")
@@ -64,6 +65,7 @@ Model.prototype = {
         var that = this;
         $.ajax({
             url: this.STAFF_API_URLS["request"] + request_id,
+            cache: false,
             dataType: "text",
             success: function(requestData) {
                 var requestCardData = JSON.parse(requestData);
@@ -108,6 +110,7 @@ Model.prototype = {
         var that = this;
         $.ajax({
             url: this.STAFF_API_URLS["outlet"] + outlet_id,
+            cache: false,
             dataType: "text",
             //upon successful request, backend response (alldata) will be passed to function
             success: function(alldata) {
