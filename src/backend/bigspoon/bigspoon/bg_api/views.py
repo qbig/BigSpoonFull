@@ -727,10 +727,10 @@ class CloseBill(generics.GenericAPIView):
                 "u_%s" % meal.diner.auth_token.key,
                 'Your bill has been closed by waiter.'
             )
-        send_socketio_message(
-                request.user.outlet_ids,
-                ['refresh', 'meal', 'closebill', str(meal.id)]
-            )
+        # send_socketio_message(
+        #         request.user.outlet_ids,
+        #         ['refresh', 'meal', 'closebill', str(meal.id)]
+        #     )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
