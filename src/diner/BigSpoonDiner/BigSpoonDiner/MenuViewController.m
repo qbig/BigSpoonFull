@@ -779,14 +779,44 @@
 }
 
 - (void) showSendItemsReminder {
-    self.sendItemsReminderAlertView = [[UIAlertView alloc]
-                                       initWithTitle: @"Done Choosing?"
-                                       message: @"Send Order To Kitchen Now"
-                                       delegate:self
-                                       cancelButtonTitle:@"Keep Browsing"
-                                       otherButtonTitles:@"Send Orders", nil];
-    
-    [self.sendItemsReminderAlertView show];
+    if ([UIAlertController class]) {
+        MenuViewController * __weak mySelf = self;
+        
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:@"Done Choosing?"
+                                              message:@"Send Order To Kitchen Now"
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction
+                                       actionWithTitle:@"Keep Browsing"
+                                       style:UIAlertActionStyleCancel
+                                       handler:^(UIAlertAction *action)
+                                       {
+                                           [alertController dismissViewControllerAnimated:NO completion:nil];
+                                       }
+                                       ];
+        UIAlertAction *confirmAction = [UIAlertAction
+                                       actionWithTitle:@"Send Orders"
+                                       style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction *action)
+                                       {
+                                           [alertController dismissViewControllerAnimated:NO completion:nil];
+                                           [mySelf performSegueWithIdentifier:@"SegueFromMenuToItems" sender:nil];
+                                       }
+                                       ];
+        [alertController addAction:cancelAction];
+        [alertController addAction:confirmAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        self.sendItemsReminderAlertView = [[UIAlertView alloc]
+                                           initWithTitle: @"Done Choosing?"
+                                           message: @"Send Order To Kitchen Now"
+                                           delegate:self
+                                           cancelButtonTitle:@"Keep Browsing"
+                                           otherButtonTitles:@"Send Orders", nil];
+        
+        [self.sendItemsReminderAlertView show];
+    }
 }
 
 - (void)changeDate:(UIDatePicker *)sender {

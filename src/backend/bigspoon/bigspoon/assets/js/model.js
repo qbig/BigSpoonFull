@@ -41,8 +41,6 @@ Model.prototype = {
             cache: false,
             dataType: "text",
             success: function(mealData) {
-            	console.log("new meal data:")
-            	console.log(mealData)
                 var mealCardData = JSON.parse(mealData);
                 //check to see if there is already another meal object with the same id
                 if (mealCardData.status !== 1) {
@@ -78,8 +76,6 @@ Model.prototype = {
     //check through the model items and remove (using splice())the meal item corresponding to id
     //ensure no multiple items with same id
     removeMeal: function(id, callback) {
-    	console.log("removing meal:" + id)
-    	console.log(this.items.meals)
         var len = this.items.meals.length;
         for (var i = 0; i < len; i++) {
             if (this.items.meals[i].id === parseInt(id, 10)) {
@@ -89,8 +85,6 @@ Model.prototype = {
                 break;
             }
         }
-        console.log("done removing meal:" + id)
-        console.log(this.items.meals)
     },
     //check through the model items and remove (using splice())the request item corresponding to id
     //ensure no multiple items with same id

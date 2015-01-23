@@ -42,15 +42,9 @@ Controller.prototype = {
     },
     removeCard: function(e) {
         var that = this;
-        console.log('in remove card');
         //ajax post to backend with card_id with a callback to remove card and data
         that.model.postRemoveData(e.detail, function() {
-        	console.log(e.detail)
-        	console.log("that.model.postRemoveData is done");
             that.model.removeData(e.detail, function() {
-            	console.log(e.detail)
-            	console.log("that.model.removeData is done, next: that.view.removeCard(e.detail.parent_card)")
-            	console.log(page.model.items.meals)
                 that.view.removeCard(e.detail.parent_card);
             });
         });
@@ -79,8 +73,6 @@ Controller.prototype = {
         }
         socket.on("message", function(obj) {
             if (obj.message.type == "message") {
-            	console.log("new socketio MSG")
-            	console.log(obj)
                 var data = eval(obj.message.data);
                 var path = location.pathname;
                 if (data[0] == "refresh") {
