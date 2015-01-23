@@ -194,6 +194,20 @@
 /* Begin PBXFileReference section */
 		0306B1A11A309E89008C64BD /* UIImageView+UIActivityIndicatorForSDWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+UIActivityIndicatorForSDWebImage.h"; sourceTree = "<group>"; };
 		0306B1A21A309E89008C64BD /* UIImageView+UIActivityIndicatorForSDWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+UIActivityIndicatorForSDWebImage.m"; sourceTree = "<group>"; };
+		030F93001A7246FC00317264 /* Proxima Nova Black Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Black Italic.otf"; sourceTree = "<group>"; };
+		030F93011A7246FC00317264 /* Proxima Nova Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Black.otf"; sourceTree = "<group>"; };
+		030F93021A7246FC00317264 /* Proxima Nova Bold Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Bold Italic.otf"; sourceTree = "<group>"; };
+		030F93031A7246FC00317264 /* Proxima Nova Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Bold.otf"; sourceTree = "<group>"; };
+		030F93041A7246FC00317264 /* Proxima Nova Extra Bold Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Extra Bold Italic.otf"; sourceTree = "<group>"; };
+		030F93051A7246FC00317264 /* Proxima Nova Extra Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Extra Bold.otf"; sourceTree = "<group>"; };
+		030F93061A7246FC00317264 /* Proxima Nova Light Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Light Italic.otf"; sourceTree = "<group>"; };
+		030F93071A7246FC00317264 /* Proxima Nova Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Light.otf"; sourceTree = "<group>"; };
+		030F93081A7246FC00317264 /* Proxima Nova Regular Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular Italic.otf"; sourceTree = "<group>"; };
+		030F93091A7246FC00317264 /* Proxima Nova Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Regular.otf"; sourceTree = "<group>"; };
+		030F930A1A7246FC00317264 /* Proxima Nova Semibold Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Semibold Italic.otf"; sourceTree = "<group>"; };
+		030F930B1A7246FC00317264 /* Proxima Nova Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Semibold.otf"; sourceTree = "<group>"; };
+		030F930C1A7246FC00317264 /* Proxima Nova Thin Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin Italic.otf"; sourceTree = "<group>"; };
+		030F930D1A7246FC00317264 /* Proxima Nova Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin.otf"; sourceTree = "<group>"; };
 		031B7E591A3FE52B00F734F9 /* email-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email-icon.png"; sourceTree = "<group>"; };
 		031B7E5D1A3FEDD400F734F9 /* start-order-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-order-border.png"; sourceTree = "<group>"; };
 		031B7E5F1A3FEEBB00F734F9 /* white-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-background.png"; sourceTree = "<group>"; };
@@ -554,6 +568,20 @@
 				038C46AB1A40593600D6EC20 /* seguisb.ttf */,
 				038C46AC1A40593600D6EC20 /* seguisbi.ttf */,
 				038C46AD1A40593600D6EC20 /* seguisli.ttf */,
+				030F93001A7246FC00317264 /* Proxima Nova Black Italic.otf */,
+				030F93011A7246FC00317264 /* Proxima Nova Black.otf */,
+				030F93021A7246FC00317264 /* Proxima Nova Bold Italic.otf */,
+				030F93031A7246FC00317264 /* Proxima Nova Bold.otf */,
+				030F93041A7246FC00317264 /* Proxima Nova Extra Bold Italic.otf */,
+				030F93051A7246FC00317264 /* Proxima Nova Extra Bold.otf */,
+				030F93061A7246FC00317264 /* Proxima Nova Light Italic.otf */,
+				030F93071A7246FC00317264 /* Proxima Nova Light.otf */,
+				030F93081A7246FC00317264 /* Proxima Nova Regular Italic.otf */,
+				030F93091A7246FC00317264 /* Proxima Nova Regular.otf */,
+				030F930A1A7246FC00317264 /* Proxima Nova Semibold Italic.otf */,
+				030F930B1A7246FC00317264 /* Proxima Nova Semibold.otf */,
+				030F930C1A7246FC00317264 /* Proxima Nova Thin Italic.otf */,
+				030F930D1A7246FC00317264 /* Proxima Nova Thin.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
