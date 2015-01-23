@@ -456,7 +456,7 @@
         }
         
         NSDictionary *photo = (NSDictionary *)[newDish objectForKey:@"photo"];
-        NSString *thumbnail = (NSString *)[photo objectForKey:@"thumbnail_large"]; //original,thumbnail_large,thumbnail
+        NSString *thumbnail = (NSString *)[photo objectForKey:@"original"]; //original,thumbnail_large,thumbnail
         if (thumbnail == nil || thumbnail.length == 0 || [thumbnail rangeOfString:@"default.jpg"].location != NSNotFound ){
             if(self.outlet.defaultDishPhoto != nil) {
                 thumbnail = [[NSString stringWithFormat:@"media/%@", self.outlet.defaultDishPhoto] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
