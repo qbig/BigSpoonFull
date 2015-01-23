@@ -66,7 +66,7 @@
                                           frame.size.width,
                                           screenRect.size.height - IPHONE_35_INCH_TABLE_VIEW_OFFSET);
     } else if (fabsf(screenRect.size.height - IPHONE_4_INCH_HEIGHT) < 0.001){
-        NSLog(@"Iphone 4 inch screen");
+        NSLog(@"Iphone 4 inch screen"); // iphone 5,6
         
         self.tableView.frame = CGRectMake(frame.origin.x,
                                           frame.origin.y,
@@ -163,6 +163,24 @@
     NSArray *dishes = [self getDishWithCategory:self.displayCategoryID];
     // Add one at the bottom to avoid from hidden by the bar
     return [dishes count] + 1;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
