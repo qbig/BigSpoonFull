@@ -481,10 +481,10 @@
             NSNumber *categoryID = (NSNumber *)[newCategory objectForKey:@"id"];
             NSString *name = [newCategory objectForKey:@"name"];
             NSString *description = [newCategory objectForKey:@"desc"];
-            
+            BOOL isListOnly = [[newCategory objectForKey:@"is_list_view_only"] boolValue];
             DishCategory *newCatObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
                                                                   name:name
-                                                        andDescription:description];
+                                                        andDescription:description isListOnly:isListOnly];
             [self.dishCategoryArray addObject:newCatObj];
         }
         
@@ -567,7 +567,14 @@
 }
 
 - (void)handleJsonWithDishesAndTableInfos: (NSDictionary *)json{
-    self.dishesArray = [self parseFromJsonsToDishes:json];
+    @try {
+         self.dishesArray = [self parseFromJsonsToDishes:json];
+    }
+    @catch (NSException *exception) {
+        CLS_LOG(@"handleJsonWithDishesAndTableInfos issue: %@", exception);
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+
     [self ensureDishOutletIntegrity];
     [self renderCategoryButtons];
     [self.tableView reloadData];
@@ -833,10 +840,10 @@
     CGRect frameCorner = snapshotView.frame;
     frameCorner.origin.x += self.view.frame.size.width;
     frameCorner.origin.y += self.view.frame.size.height;
-    
     [UIView animateWithDuration:1
                           delay:0.3
                         options: UIViewAnimationOptionCurveEaseOut
+     
                      animations:^{
                          snapshotView.frame = frameCorner;
                          snapshotView.transform = CGAffineTransformMakeScale(0.1, 0.1);
@@ -937,10 +944,16 @@
             [newButton setTitleColor:buttonElementColour forState:UIControlStateNormal];
         }
     }
-    self.displayCategoryID = button.tag;
-    self.displayCategoryPosition = [self getPositionForCategoryWithId: button.tag];
+    self.displayCategoryID = (int) button.tag;
+    self.displayCategoryPosition = [self getPositionForCategoryWithId: self.displayCategoryID];
     [self moveCurrentCategoryButtonToCenter];
-    [self.tableView reloadData];
+    if (self.displayMethod == kMethodPhoto && [self isListOnlyForCategoryWithId:self.displayCategoryID]) {
+        [self.delegate displayModeDidChange];
+    } else if (self.displayMethod == kMethodList && ! [self isListOnlyForCategoryWithId:self.displayCategoryID]) {
+        [self.delegate displayModeDidChange];
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - Others
@@ -1039,6 +1052,16 @@
         }
     }
     return 0;
+}
+
+- (BOOL) isListOnlyForCategoryWithId: (int)categoryId{
+    for(int i = 0 ; i< [self.dishCategoryArray count]; i ++){
+        DishCategory *cat = ((DishCategory*)[self.dishCategoryArray objectAtIndex:i]);
+        if (cat.ID == categoryId){
+            return cat.isListOnly;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - DishModifierSegueDelegate
