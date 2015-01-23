@@ -107,13 +107,19 @@
             break;
         }
         default: {
-            NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
-            id firstKey = [[json allKeys] firstObject];
-            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
-            NSLog(@"Error occurred: %@", errorMessage);
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [message show];
-            break;
+            @try {
+                NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:orderHistoryDataFromServer options:kNilOptions error:&error];
+                id firstKey = [[json allKeys] firstObject];
+                NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
+                NSLog(@"Error occurred: %@", errorMessage);
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [message show];
+                break;
+            }
+            @catch (NSException *exception) {
+                CLS_LOG(@"Loading history issue: %@", exception);
+            }
+
         }
     }
 }

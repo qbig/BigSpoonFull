@@ -494,7 +494,7 @@
                                 <rect key="frame" x="22" y="452" width="280" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="Logout" backgroundImage="plain_purple_background.jpg">
+                                <state key="normal" title="Logout">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1666,7 +1666,7 @@
                                 <rect key="frame" x="20" y="552" width="280" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                <state key="normal" title="Profile" backgroundImage="plain_purple_background.jpg">
+                                <state key="normal" title="Profile">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1742,7 +1742,6 @@
         <image name="new_signup_btn.png" width="616" height="108"/>
         <image name="or_separator.png" width="798" height="97"/>
         <image name="photo_icon.png" width="64" height="64"/>
-        <image name="plain_purple_background.jpg" width="457" height="353"/>
         <image name="red-add-bt.png" width="126" height="57"/>
         <image name="red_circle.png" width="184" height="184"/>
         <image name="sign_up_form.png" width="616" height="293"/>
