@@ -16,7 +16,7 @@
     NSDictionary *jsonForMenuView;
     UIActivityIndicatorView *indicator;
 }
-
+@property (nonatomic,strong) UIColor *bigSpoonOrange;
 @end
 
 @implementation OutletsTableViewController
@@ -54,13 +54,14 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    UIColor *bigSpoonBlue = [UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1];
+    self.bigSpoonOrange = [self colorFromHexString:@"#FF6235"];
+
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         // iOS 6.1 or earlier
-        self.navigationController.navigationBar.tintColor = bigSpoonBlue;
+        self.navigationController.navigationBar.tintColor = self.bigSpoonOrange;
     } else {
         // iOS 7.0 or later
-        self.navigationController.navigationBar.barTintColor = bigSpoonBlue;
+        self.navigationController.navigationBar.barTintColor = self.bigSpoonOrange;
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         self.navigationController.navigationBar.translucent = NO;
     }
@@ -156,7 +157,7 @@
     cell.promotionTextLabel.text = outlet.promotionalText;
     
     if (indexPath.row == 0){
-        cell.layer.borderColor = [UIColor colorWithRed:118/255.0 green:225/255.0 blue:222/255.0 alpha:1].CGColor;
+        cell.layer.borderColor = self.bigSpoonOrange.CGColor;
         cell.layer.borderWidth = 3.0f;
     } else {
         cell.layer.borderWidth = 0;
@@ -515,6 +516,17 @@
     
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate disconnectSocket];
+}
+
+
+- (UIColor *)colorFromHexString:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    
+    // bypass '#' character
+    [scanner setScanLocation:1];
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
 @end
