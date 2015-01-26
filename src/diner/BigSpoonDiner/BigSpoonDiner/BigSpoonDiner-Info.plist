@@ -59,6 +59,9 @@
 	<string>BigSpoon helps you find the restaurants closest to you:)</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Proxima Nova Semibold.otf</string>
+		<string>Proxima Nova Regular.otf</string>
+		<string>Proxima Nova Bold.otf</string>
 		<string>copyfonts.com_segoe_ui_light.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>

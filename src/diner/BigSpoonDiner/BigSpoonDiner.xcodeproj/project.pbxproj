@@ -8,6 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		0306B1A31A309E89008C64BD /* UIImageView+UIActivityIndicatorForSDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0306B1A21A309E89008C64BD /* UIImageView+UIActivityIndicatorForSDWebImage.m */; };
+		03154F801A76399A0051D2F9 /* segoeuib.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 031B7E611A3FF17700F734F9 /* segoeuib.ttf */; };
+		03154F811A76399A0051D2F9 /* segoeuii.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46A61A40593600D6EC20 /* segoeuii.ttf */; };
+		03154F821A76399A0051D2F9 /* segoeuil.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46A71A40593600D6EC20 /* segoeuil.ttf */; };
+		03154F831A76399A0051D2F9 /* segoeuisl.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46A81A40593600D6EC20 /* segoeuisl.ttf */; };
+		03154F841A76399A0051D2F9 /* segoeuiz.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46A91A40593600D6EC20 /* segoeuiz.ttf */; };
+		03154F851A76399A0051D2F9 /* seguili.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46AA1A40593600D6EC20 /* seguili.ttf */; };
+		03154F861A76399A0051D2F9 /* seguisb.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46AB1A40593600D6EC20 /* seguisb.ttf */; };
+		03154F871A76399A0051D2F9 /* seguisbi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46AC1A40593600D6EC20 /* seguisbi.ttf */; };
+		03154F881A76399A0051D2F9 /* seguisli.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 038C46AD1A40593600D6EC20 /* seguisli.ttf */; };
+		03154F891A76399A0051D2F9 /* Proxima Nova Black Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93001A7246FC00317264 /* Proxima Nova Black Italic.otf */; };
+		03154F8A1A76399A0051D2F9 /* Proxima Nova Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93011A7246FC00317264 /* Proxima Nova Black.otf */; };
+		03154F8B1A76399A0051D2F9 /* Proxima Nova Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93021A7246FC00317264 /* Proxima Nova Bold Italic.otf */; };
+		03154F8C1A76399A0051D2F9 /* Proxima Nova Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93031A7246FC00317264 /* Proxima Nova Bold.otf */; };
+		03154F8D1A76399A0051D2F9 /* Proxima Nova Extra Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93041A7246FC00317264 /* Proxima Nova Extra Bold Italic.otf */; };
+		03154F8E1A76399A0051D2F9 /* Proxima Nova Extra Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93051A7246FC00317264 /* Proxima Nova Extra Bold.otf */; };
+		03154F8F1A76399A0051D2F9 /* Proxima Nova Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93061A7246FC00317264 /* Proxima Nova Light Italic.otf */; };
+		03154F901A76399A0051D2F9 /* Proxima Nova Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93071A7246FC00317264 /* Proxima Nova Light.otf */; };
+		03154F911A76399A0051D2F9 /* Proxima Nova Regular Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93081A7246FC00317264 /* Proxima Nova Regular Italic.otf */; };
+		03154F921A76399A0051D2F9 /* Proxima Nova Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F93091A7246FC00317264 /* Proxima Nova Regular.otf */; };
+		03154F931A76399A0051D2F9 /* Proxima Nova Semibold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F930A1A7246FC00317264 /* Proxima Nova Semibold Italic.otf */; };
+		03154F941A76399A0051D2F9 /* Proxima Nova Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F930B1A7246FC00317264 /* Proxima Nova Semibold.otf */; };
+		03154F951A76399A0051D2F9 /* Proxima Nova Thin Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F930C1A7246FC00317264 /* Proxima Nova Thin Italic.otf */; };
+		03154F961A76399A0051D2F9 /* Proxima Nova Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 030F930D1A7246FC00317264 /* Proxima Nova Thin.otf */; };
+		03154F981A763B130051D2F9 /* botton-action-bar-new.png in Resources */ = {isa = PBXBuildFile; fileRef = 03154F971A763B130051D2F9 /* botton-action-bar-new.png */; };
+		03154F9A1A763BC50051D2F9 /* orange-add-bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 03154F991A763BC50051D2F9 /* orange-add-bt.png */; };
 		031B7E5B1A3FE52B00F734F9 /* email-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 031B7E591A3FE52B00F734F9 /* email-icon.png */; };
 		031B7E5E1A3FEDD400F734F9 /* start-order-border.png in Resources */ = {isa = PBXBuildFile; fileRef = 031B7E5D1A3FEDD400F734F9 /* start-order-border.png */; };
 		031B7E601A3FEEBB00F734F9 /* white-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 031B7E5F1A3FEEBB00F734F9 /* white-background.png */; };
@@ -208,6 +233,8 @@
 		030F930B1A7246FC00317264 /* Proxima Nova Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Semibold.otf"; sourceTree = "<group>"; };
 		030F930C1A7246FC00317264 /* Proxima Nova Thin Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin Italic.otf"; sourceTree = "<group>"; };
 		030F930D1A7246FC00317264 /* Proxima Nova Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Thin.otf"; sourceTree = "<group>"; };
+		03154F971A763B130051D2F9 /* botton-action-bar-new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "botton-action-bar-new.png"; sourceTree = "<group>"; };
+		03154F991A763BC50051D2F9 /* orange-add-bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-add-bt.png"; sourceTree = "<group>"; };
 		031B7E591A3FE52B00F734F9 /* email-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "email-icon.png"; sourceTree = "<group>"; };
 		031B7E5D1A3FEDD400F734F9 /* start-order-border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-order-border.png"; sourceTree = "<group>"; };
 		031B7E5F1A3FEEBB00F734F9 /* white-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "white-background.png"; sourceTree = "<group>"; };
@@ -801,6 +828,7 @@
 				03D48298190CE70300851AC0 /* imnew.tif */,
 				03FE53541A412BD300206C15 /* red-add-bt.png */,
 				03F6A5571A469F9D00123667 /* intro0.png */,
+				03154F991A763BC50051D2F9 /* orange-add-bt.png */,
 				03F6A5581A469F9D00123667 /* intro0_long.png */,
 				03F6A5591A469F9D00123667 /* intro1.png */,
 				03F6A55A1A469F9D00123667 /* intro1_long.png */,
@@ -841,6 +869,7 @@
 				49048D0C181F489C00B480A3 /* 1StarSmall@2x.png */,
 				03503997183E666400F26A72 /* button_minus_no_circle.png */,
 				4962305D18279AA700B3F07A /* home_with_arrow.png */,
+				03154F971A763B130051D2F9 /* botton-action-bar-new.png */,
 				03FE53561A41329D00206C15 /* botton-action-bar.png */,
 				038C46A41A4055AA00D6EC20 /* gear-256.png */,
 				49048D0D181F489C00B480A3 /* 2StarsSmall@2x.png */,
@@ -1086,6 +1115,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03154F801A76399A0051D2F9 /* segoeuib.ttf in Resources */,
+				03154F811A76399A0051D2F9 /* segoeuii.ttf in Resources */,
+				03154F821A76399A0051D2F9 /* segoeuil.ttf in Resources */,
+				03154F831A76399A0051D2F9 /* segoeuisl.ttf in Resources */,
+				03154F841A76399A0051D2F9 /* segoeuiz.ttf in Resources */,
+				03154F851A76399A0051D2F9 /* seguili.ttf in Resources */,
+				03154F861A76399A0051D2F9 /* seguisb.ttf in Resources */,
+				03154F871A76399A0051D2F9 /* seguisbi.ttf in Resources */,
+				03154F881A76399A0051D2F9 /* seguisli.ttf in Resources */,
+				03154F891A76399A0051D2F9 /* Proxima Nova Black Italic.otf in Resources */,
+				03154F8A1A76399A0051D2F9 /* Proxima Nova Black.otf in Resources */,
+				03154F8B1A76399A0051D2F9 /* Proxima Nova Bold Italic.otf in Resources */,
+				03154F8C1A76399A0051D2F9 /* Proxima Nova Bold.otf in Resources */,
+				03154F8D1A76399A0051D2F9 /* Proxima Nova Extra Bold Italic.otf in Resources */,
+				03154F8E1A76399A0051D2F9 /* Proxima Nova Extra Bold.otf in Resources */,
+				03154F8F1A76399A0051D2F9 /* Proxima Nova Light Italic.otf in Resources */,
+				03154F901A76399A0051D2F9 /* Proxima Nova Light.otf in Resources */,
+				03154F911A76399A0051D2F9 /* Proxima Nova Regular Italic.otf in Resources */,
+				03154F921A76399A0051D2F9 /* Proxima Nova Regular.otf in Resources */,
+				03154F931A76399A0051D2F9 /* Proxima Nova Semibold Italic.otf in Resources */,
+				03154F941A76399A0051D2F9 /* Proxima Nova Semibold.otf in Resources */,
+				03154F951A76399A0051D2F9 /* Proxima Nova Thin Italic.otf in Resources */,
+				03154F961A76399A0051D2F9 /* Proxima Nova Thin.otf in Resources */,
 				496DD1AF18200BCC001EBA6D /* red_circle.png in Resources */,
 				03D48291190A8F3F00851AC0 /* new_fb_btn.png in Resources */,
 				03503998183E666400F26A72 /* button_minus_no_circle.png in Resources */,
@@ -1132,7 +1184,9 @@
 				49048D11181F489C00B480A3 /* 1StarSmall@2x.png in Resources */,
 				49048D26181FFA6000B480A3 /* back.png in Resources */,
 				49B8587818335F9700F32BB0 /* RequestWaterView.xib in Resources */,
+				03154F9A1A763BC50051D2F9 /* orange-add-bt.png in Resources */,
 				0322239C1A4000C50080EF90 /* new-background-fat.png in Resources */,
+				03154F981A763B130051D2F9 /* botton-action-bar-new.png in Resources */,
 				034C6D9C1847AA17008D42C4 /* copyfonts.com_segoe_ui_light.ttf in Resources */,
 				033893C71A720FAE00B614E2 /* black-overlay.png in Resources */,
 				03A4634218CB06B200B40D34 /* README.md in Resources */,
