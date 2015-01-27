@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="copyfonts.com_segoe_ui_light.ttf">
-            <string>SegoeUI-Light</string>
-            <string>SegoeUI-Light</string>
+        <mutableArray key="Proxima Nova Regular.otf">
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -26,14 +26,14 @@
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Food for Thought" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKN-RE-FeD">
                     <rect key="frame" x="13" y="3" width="255" height="32"/>
-                    <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="21"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="21"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="23/7/13 (7 days ago)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CM3-rf-7KV">
                     <rect key="frame" x="13" y="36" width="255" height="34"/>
-                    <fontDescription key="fontDescription" name="SegoeUI-Light" family="Segoe UI" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttn-6f-cQx">
@@ -41,7 +41,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.46274509803921571" green="0.88235294117647056" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.99215686270000003" green="0.59999999999999998" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <accessibility key="accessibilityConfiguration">
                 <bool key="isElement" value="YES"/>
             </accessibility>

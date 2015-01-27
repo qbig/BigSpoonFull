@@ -9,8 +9,17 @@
             <string>ProximaNova-Bold</string>
             <string>ProximaNova-Bold</string>
             <string>ProximaNova-Bold</string>
+            <string>ProximaNova-Bold</string>
         </mutableArray>
         <mutableArray key="Proxima Nova Regular.otf">
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
+            <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
             <string>ProximaNova-Regular</string>
@@ -46,6 +55,11 @@
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
+            <string>ProximaNova-Semibold</string>
         </mutableArray>
         <mutableArray key="segoeuib.ttf">
             <string>SegoeUI-Bold</string>
@@ -57,19 +71,8 @@
             <string>SegoeUI-Semilight</string>
             <string>SegoeUI-Semilight</string>
             <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
-            <string>SegoeUI-Semilight</string>
         </mutableArray>
         <mutableArray key="seguisb.ttf">
-            <string>SegoeUI-Semibold</string>
-            <string>SegoeUI-Semibold</string>
-            <string>SegoeUI-Semibold</string>
-            <string>SegoeUI-Semibold</string>
             <string>SegoeUI-Semibold</string>
             <string>SegoeUI-Semibold</string>
             <string>SegoeUI-Semibold</string>
@@ -387,7 +390,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="leB-4Q-EHN" userLabel="outletImage">
-                                            <rect key="frame" x="11.5" y="7" width="96.5" height="98.5"/>
+                                            <rect key="frame" x="11.5" y="7" width="96.5" height="99"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="ns4-8H-dZ6">
@@ -1355,7 +1358,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I3T-n9-13f">
-                                                    <rect key="frame" x="271" y="7" width="39" height="17"/>
+                                                    <rect key="frame" x="273.5" y="7" width="39" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" image="orange-add-bt.png"/>
@@ -1367,21 +1370,21 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qAF-xu-Uld">
-                                                    <rect key="frame" x="16" y="0.0" width="211" height="35"/>
+                                                    <rect key="frame" x="16.5" y="0.0" width="211" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="n1e-tN-Xub">
-                                                    <rect key="frame" x="16" y="28" width="264" height="38"/>
+                                                    <rect key="frame" x="16.5" y="28" width="264" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="11"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t1W-aM-iIl">
-                                                    <rect key="frame" x="232" y="5" width="47" height="21"/>
+                                                    <rect key="frame" x="234.5" y="5" width="47" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1413,7 +1416,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="IA3-5n-3yL" userLabel="Rating">
-                                                    <rect key="frame" x="258" y="156" width="74" height="14"/>
+                                                    <rect key="frame" x="261" y="156" width="74" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U1t-2X-sVO">
@@ -1431,7 +1434,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UbY-Ez-zJc">
-                                                    <rect key="frame" x="255" y="6" width="57" height="29"/>
+                                                    <rect key="frame" x="258" y="6" width="57" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                                     <state key="normal" image="orange-add-bt.png">
@@ -1561,19 +1564,22 @@
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="I54-vD-skM">
                                                             <rect key="frame" x="24" y="7" width="26" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="EQt-M2-vXH">
                                                             <rect key="frame" x="54" y="7" width="195" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="17"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="RQZ-Th-Blp">
                                                             <rect key="frame" x="247" y="7" width="53" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="13"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -1592,50 +1598,57 @@
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Bp5-az-ITm">
                                                 <rect key="frame" x="31" y="12" width="71" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semibold" family="Segoe UI" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill Total:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bVo-3T-ITM">
                                                 <rect key="frame" x="31" y="90" width="72" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semibold" family="Segoe UI" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="17"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xfn-Yn-mSJ">
                                                 <rect key="frame" x="190" y="90" width="110" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semibold" family="Segoe UI" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Charge (10%)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="if9-aa-vda">
                                                 <rect key="frame" x="31" y="36" width="154" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="15"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GST (7%)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yjr-Iv-Q20">
                                                 <rect key="frame" x="31" y="64" width="170" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="15"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="15"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h1R-Mp-EsL">
                                                 <rect key="frame" x="238" y="36" width="62" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ok8-Mb-qkB">
                                                 <rect key="frame" x="238" y="64" width="62" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semilight" family="Segoe UI" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NAB-hz-TpM">
                                                 <rect key="frame" x="57" y="150" width="206" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                                <color key="backgroundColor" red="0.90196078431372551" green="0.56862745098039214" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <color key="backgroundColor" red="0.99215686270000003" green="0.59999999999999998" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="25"/>
                                                 <state key="normal" title="Add to items list">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1647,7 +1660,8 @@
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F41-dp-hQp">
                                                 <rect key="frame" x="190" y="12" width="110" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="SegoeUI-Semibold" family="Segoe UI" pointSize="13"/>
+                                                <fontDescription key="fontDescription" name="ProximaNova-Semibold" family="Proxima Nova" pointSize="13"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -1686,7 +1700,7 @@
                                 <rect key="frame" x="88" y="0.0" width="144" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="SegoeUI-Bold" family="Segoe UI" pointSize="22"/>
-                                <color key="textColor" red="0.40392156862745099" green="0.71764705882352942" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.99215686270000003" green="0.59999999999999998" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" id="UCW-Ox-v3L">
@@ -1711,15 +1725,16 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have a suggestion?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mLg-nI-pnm">
                                 <rect key="frame" x="89" y="480" width="152" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="11"/>
                                 <color key="textColor" red="0.41176470588235292" green="0.41176470588235292" blue="0.41176470588235292" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iv6-6p-fFf">
                                 <rect key="frame" x="95" y="504" width="137" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" image="tell_us_bt.png"/>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.59999999999999998" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="20"/>
+                                <state key="normal" title="Tell Us"/>
                                 <connections>
                                     <action selector="showEmail:" destination="bPu-xR-NBc" eventType="touchUpInside" id="RK0-ME-3r6"/>
                                 </connections>
@@ -1777,7 +1792,6 @@
         <image name="red_circle.png" width="184" height="184"/>
         <image name="sign_up_form.png" width="616" height="293"/>
         <image name="start-order-border.png" width="668" height="88"/>
-        <image name="tell_us_bt.png" width="330" height="102"/>
         <image name="white-background.png" width="666" height="86"/>
         <image name="white-gear.png" width="62" height="61"/>
         <image name="white-menu-icon.png" width="54" height="35"/>

@@ -40,6 +40,12 @@
         [self.backgroundImage setImage:[UIImage imageNamed:@"new-background-fat.png"]];
         self.backgroundImage.frame = self.view.frame;
     }
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 

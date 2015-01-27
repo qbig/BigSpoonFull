@@ -81,6 +81,12 @@
     [titleBarAttributes setValue:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
     //[[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
     [self.navigationController.navigationBar setTitleTextAttributes: titleBarAttributes];
+    [self setNeedsStatusBarAppearanceUpdate];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void) viewWillAppear:(BOOL)animated{

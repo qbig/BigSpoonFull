@@ -88,7 +88,14 @@
     [self.viewModeButton setHidden:YES];
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
+    [self setNeedsStatusBarAppearanceUpdate];
 }
+
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
 
 -(void) viewDidAppear:(BOOL)animated {
     
