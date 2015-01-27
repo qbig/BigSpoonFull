@@ -37,23 +37,16 @@
 {
     [[Mixpanel sharedInstance] track:@"OutletView: User at Outlet View"];
     [[Mixpanel sharedInstance].people increment:@"Reach Outlet View" by: [NSNumber numberWithInt:1]];
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
     [super viewDidLoad];
     [self initActivityIndicator];
     [self loadOutletsFromServer];
     
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate connectSocket];
-    
+
     [self showLoadingIndicators];
-    
-    
-    [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
     self.outletsTableView.allowsSelection = YES;
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.bigSpoonOrange = [UIColor colorFromHexString:@"#FF6235"];
 
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
@@ -65,22 +58,13 @@
         self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
         self.navigationController.navigationBar.translucent = NO;
     }
-//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
-    NSArray *fontFamilies = [UIFont familyNames];
-    for (int i = 0; i < [fontFamilies count]; i++)
-    {
-        NSString *fontFamily = [fontFamilies objectAtIndex:i];
-        NSArray *fontNames = [UIFont fontNamesForFamilyName:[fontFamilies objectAtIndex:i]];
-        NSLog (@"%@: %@", fontFamily, fontNames);
-    }
-    
     
     NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
     [titleBarAttributes setValue:[UIFont fontWithName:@"ProximaNova-Bold" size:18] forKey:NSFontAttributeName];
     [titleBarAttributes setValue:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    //[[UINavigationBar appearance] setTitleTextAttributes:titleBarAttributes];
     [self.navigationController.navigationBar setTitleTextAttributes: titleBarAttributes];
+    
+    // set status bar text color
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
 }
