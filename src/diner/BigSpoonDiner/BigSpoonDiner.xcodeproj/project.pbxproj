@@ -45,6 +45,7 @@
 		033893C01A6F9C8700B614E2 /* SHEmailValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 033893BA1A6F9C8700B614E2 /* SHEmailValidator.m */; };
 		033893C11A6F9C8700B614E2 /* SHValidationResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 033893BC1A6F9C8700B614E2 /* SHValidationResult.m */; };
 		033893C71A720FAE00B614E2 /* black-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 033893C61A720FAE00B614E2 /* black-overlay.png */; };
+		033E5F161A772394006EBB03 /* UIColor+ColorFromHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 033E5F151A772394006EBB03 /* UIColor+ColorFromHex.m */; };
 		033F92031933990C0013A42D /* DishModifierItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F92021933990C0013A42D /* DishModifierItem.m */; };
 		033F920619339D030013A42D /* DishModifierSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920519339D030013A42D /* DishModifierSection.m */; };
 		033F920C1935C1810013A42D /* DishModifierTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 033F920B1935C1810013A42D /* DishModifierTableViewController.m */; };
@@ -255,6 +256,8 @@
 		033893BB1A6F9C8700B614E2 /* SHValidationResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHValidationResult.h; sourceTree = "<group>"; };
 		033893BC1A6F9C8700B614E2 /* SHValidationResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHValidationResult.m; sourceTree = "<group>"; };
 		033893C61A720FAE00B614E2 /* black-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-overlay.png"; sourceTree = "<group>"; };
+		033E5F141A772394006EBB03 /* UIColor+ColorFromHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorFromHex.h"; sourceTree = "<group>"; };
+		033E5F151A772394006EBB03 /* UIColor+ColorFromHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorFromHex.m"; sourceTree = "<group>"; };
 		033F92011933990C0013A42D /* DishModifierItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierItem.h; sourceTree = "<group>"; };
 		033F92021933990C0013A42D /* DishModifierItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DishModifierItem.m; sourceTree = "<group>"; };
 		033F920419339D030013A42D /* DishModifierSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DishModifierSection.h; sourceTree = "<group>"; };
@@ -956,6 +959,8 @@
 				E9CFA58D183B3F4400031773 /* UIKitCategories.m */,
 				49F107FD180886D600D2C8DD /* Images.xcassets */,
 				49F107E9180886D600D2C8DD /* Supporting Files */,
+				033E5F141A772394006EBB03 /* UIColor+ColorFromHex.h */,
+				033E5F151A772394006EBB03 /* UIColor+ColorFromHex.m */,
 				49BCF56F183AFCAC0061821A /* UILabel+Alignment.h */,
 				49BCF570183AFCAC0061821A /* UILabel+Alignment.m */,
 				49BF7FC8183B11C500D286A6 /* UIViewController+KeyboardEvents.h */,
@@ -1302,6 +1307,7 @@
 				49048D29182001C900B480A3 /* Order.m in Sources */,
 				033893BE1A6F9C8700B614E2 /* SHAutocorrectSuggestionView.m in Sources */,
 				03DE2AB01A3091B300E712BF /* UIImage+MultiFormat.m in Sources */,
+				033E5F161A772394006EBB03 /* UIColor+ColorFromHex.m in Sources */,
 				03DE2A791A306FD200E712BF /* SocketIOTransportWebsocket.m in Sources */,
 				49BBB70118350FCE007546E8 /* RatingCell.m in Sources */,
 				033893BF1A6F9C8700B614E2 /* SHEmailValidationTextField.m in Sources */,

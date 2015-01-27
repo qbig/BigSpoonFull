@@ -7,7 +7,7 @@
 //
 
 #import "OutletsTableViewController.h"
-
+#import "UIColor+ColorFromHex.h"
 @interface OutletsTableViewController (){
     NSMutableData *_responseData;
     int statusCode;
@@ -54,7 +54,7 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.bigSpoonOrange = [self colorFromHexString:@"#FF6235"];
+    self.bigSpoonOrange = [UIColor colorFromHexString:@"#FF6235"];
 
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         // iOS 6.1 or earlier
@@ -532,16 +532,4 @@
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate disconnectSocket];
 }
-
-
-- (UIColor *)colorFromHexString:(NSString *)hexString {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    
-    // bypass '#' character
-    [scanner setScanLocation:1];
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-}
-
 @end

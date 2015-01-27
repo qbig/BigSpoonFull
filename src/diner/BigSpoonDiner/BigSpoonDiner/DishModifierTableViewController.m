@@ -7,7 +7,7 @@
 //
 
 #import "DishModifierTableViewController.h"
-
+#import "UIColor+ColorFromHex.h"
 @interface DishModifierTableViewController ()
 @property bool isNavBarInitiallyHidden;
 @end
@@ -31,13 +31,13 @@
     self.navigationItem.title = self.targetingDish.name;
     self.isNavBarInitiallyHidden = self.navigationController.navigationBarHidden;
     // Setting  background and text color
-    self.navigationController.navigationBar.barTintColor = [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor];
     self.navigationController.navigationBar.translucent = NO;
-    [self.navigationItem.titleView setBackgroundColor:[self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]};
+    [self.navigationItem.titleView setBackgroundColor:[UIColor colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]};
     self.navigationController.navigationBarHidden = NO;
     
-    [self.tableView setBackgroundColor: [self colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
+    [self.tableView setBackgroundColor: [UIColor colorFromHexString: self.targetingDish.customOrderInfo.backgroundColor]];
     [self.tableView setBackgroundView: nil];
     
     // Setting "Cancel" and "OK" buttons at the end of the list
@@ -51,7 +51,7 @@
     UIButton *okButton = [UIButton buttonWithType: UIButtonTypeCustom];
     okButton.frame = CGRectMake(150, 0, 130, 40);
     [okButton setTitle:@"OK" forState:UIControlStateNormal];
-    okButton.backgroundColor = [self colorFromHexString:@"#8BCC6F"];
+    okButton.backgroundColor = [UIColor colorFromHexString:@"#8BCC6F"];
     [okButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [okButton addTarget:self action:@selector(okButtonPressed) forControlEvents:UIControlEventTouchUpInside];
     
@@ -64,7 +64,7 @@
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navigationController.navigationBarHidden = self.isNavBarInitiallyHidden;
-    UIColor *bigSpoonBlue = [UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1];
+    UIColor *bigSpoonBlue = [UIColor colorFromHexString:@"#FF6235"];
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         // iOS 6.1 or earlier
         self.navigationController.navigationBar.tintColor = bigSpoonBlue;
@@ -124,7 +124,7 @@
         attString = [[NSMutableAttributedString alloc]
          initWithString: [NSString stringWithFormat:@"%@( %@ )", currentSection.itemTitle, currentSection.itemTitleDescription]];
         [attString addAttribute: NSForegroundColorAttributeName
-                          value: [self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]
+                          value: [UIColor colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]
                           range: NSMakeRange(currentSection.itemTitle.length, attString.length - currentSection.itemTitle.length)];
         [attString addAttribute: NSFontAttributeName
                           value:  [UIFont fontWithName:@"Helvetica" size:14]
@@ -136,7 +136,7 @@
     }
     
     [attString addAttribute: NSForegroundColorAttributeName
-                      value: [self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor]
+                      value: [UIColor colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor]
                       range: NSMakeRange(0, currentSection.itemTitle.length)];
     
     [attString addAttribute: NSFontAttributeName
@@ -162,7 +162,7 @@
     
     if ([currentSection.type isEqualToString:DISH_MODIFIER_TYPE_COUNT]){
         DishModifierItemCellCount *cellCount = (DishModifierItemCellCount *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemCount" forIndexPath:indexPath];
-        [cellCount.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
+        [cellCount.itemNameLabel setTextColor:[UIColor colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellCount.itemNameLabel.text = item.itemName;
         cellCount.itemCountLabel.text = [NSString stringWithFormat:@"%d",item.itemCount];
         cellCount.itemNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -171,12 +171,12 @@
         cell = cellCount;
     } else {
         DishModifierItemCellRadio *cellRadio = (DishModifierItemCellRadio *) [tableView dequeueReusableCellWithIdentifier:@"cellForModiferItemRadio" forIndexPath:indexPath];
-        [cellRadio.itemNameLabel setTextColor:[self colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
+        [cellRadio.itemNameLabel setTextColor:[UIColor colorFromHexString:self.targetingDish.customOrderInfo.itemTextColor]];
         cellRadio.itemNameLabel.text = item.itemName;
         cellRadio.itemNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cellRadio.itemNameLabel.numberOfLines = 2;
         cellRadio.item = item;
-        cellRadio.selectorColor = [self colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor];
+        cellRadio.selectorColor = [UIColor colorFromHexString:self.targetingDish.customOrderInfo.itemTitleColor];
         [cellRadio render];
         cell = cellRadio;
     }
@@ -208,16 +208,6 @@
         return nil;
     }
     return indexPath;
-}
-
-- (UIColor *)colorFromHexString:(NSString *)hexString {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    
-    // bypass '#' character
-    [scanner setScanLocation:1];
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
 }
 
 @end

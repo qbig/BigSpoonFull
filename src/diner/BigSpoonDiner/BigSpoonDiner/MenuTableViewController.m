@@ -9,6 +9,7 @@
 #import "MenuTableViewController.h"
 #import "Toast+UIView.h"
 #import <Crashlytics/Crashlytics.h>
+#import "UIColor+ColorFromHex.h"
 
 @interface MenuTableViewController (){
     NSMutableData *_responseData;
@@ -586,11 +587,12 @@
 - (void)renderCategoryButtons {
     int sumOfCategoryButtonWidths = 0;
     int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
-    UIColor *buttonElementColour = [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
-                                                   green:CATEGORY_BUTTON_COLOR_GREEN
-                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
-                                                   alpha:1];
-    
+    UIColor *buttonElementColour = [UIColor colorFromHexString:@"#FF6235"];
+//    [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
+//                                                   green:CATEGORY_BUTTON_COLOR_GREEN
+//                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
+//                                                   alpha:1];
+//    
     for (DishCategory *newCategory in self.dishCategoryArray) {
         // Add one more category button
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -653,7 +655,7 @@
                 self.isCategoryBarAnimating = YES;
                 [self.navigationController setNavigationBarHidden: YES animated:YES];
                 self.statusBarUnderLay = [[UIView alloc] initWithFrame:[self statusBarFrameViewRect:self.view]];
-                [self.statusBarUnderLay setBackgroundColor:[UIColor colorWithRed:118.0f/255.0f green:225.0f/255.0f blue:222.0f/255.0f alpha:1]];
+                [self.statusBarUnderLay setBackgroundColor:[UIColor colorFromHexString:@"#FF6235"]];
                 self.statusBarUnderLay.hidden = NO;
                 [self.view addSubview:self.statusBarUnderLay];
 
