@@ -588,11 +588,7 @@
     int sumOfCategoryButtonWidths = 0;
     int buttonHeight = self.categoryButtonsHolderView.frame.size.height - CATEGORY_BUTTON_OFFSET;
     UIColor *buttonElementColour = [UIColor colorFromHexString:@"#FF6235"];
-//    [UIColor colorWithRed:CATEGORY_BUTTON_COLOR_RED
-//                                                   green:CATEGORY_BUTTON_COLOR_GREEN
-//                                                    blue:CATEGORY_BUTTON_COLOR_BLUE
-//                                                   alpha:1];
-//    
+    
     for (DishCategory *newCategory in self.dishCategoryArray) {
         // Add one more category button
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -601,7 +597,7 @@
         button.layer.borderWidth = CATEGORY_BUTTON_BORDER_WIDTH;
         
         [button setTitleColor:buttonElementColour forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont fontWithName:@"YanaR-Bold" size: CATEGORY_BUTTON_FONT];
+        button.titleLabel.font = [UIFont fontWithName:@"ProximaNova-Semibold" size: CATEGORY_BUTTON_FONT];
         
         [button addTarget:self
                    action:@selector(dishCategoryButtonPressed:)
