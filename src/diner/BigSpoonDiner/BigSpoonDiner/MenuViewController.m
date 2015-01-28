@@ -8,7 +8,7 @@
 
 #import "MenuViewController.h"
 #import <Crashlytics/Crashlytics.h>
-
+#import "NSString+Eclipsize.h"
 @interface MenuViewController (){
     void (^taskAfterAskingForTableID)(void);
     NSMutableDictionary *_viewControllersByIdentifier;
@@ -63,7 +63,7 @@
 {
     [super viewDidLoad];
     self.userInfo = [User sharedInstance];
-    [self.navigationItem setTitle: [self regulateLengthOfString: self.outlet.name]];
+    [self.navigationItem setTitle: [self.outlet.name eclipsizeWithLengthLimit:MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
 
     [self loadControlPanels];
@@ -168,15 +168,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (NSString *) regulateLengthOfString:(NSString *)String{
-    NSString *toReturn = String;
-    if ([String length] >= MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM) {
-        toReturn = [String substringToIndex: MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM - 3];
-        toReturn = [toReturn stringByAppendingString:@"..."];
-    }
-    return toReturn;
 }
 
 #pragma mark ButtonClick Event Listeners

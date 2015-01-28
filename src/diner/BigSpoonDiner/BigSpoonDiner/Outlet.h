@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "NSString+Eclipsize.h"
 @interface Outlet : NSObject
 
 @property (nonatomic, strong) NSURL *imgURL;

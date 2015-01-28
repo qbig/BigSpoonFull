@@ -442,12 +442,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/OutletsTableViewController.m"
-            timestampString = "444018639.327762"
+            timestampString = "444127200.902215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "-viewDidDisappear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1208,12 +1208,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/OutletsTableViewController.m"
-            timestampString = "444018639.327762"
+            timestampString = "444127200.902215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
-            landmarkName = "-filterOutletListBasedOnLocation"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "-connection:didFailWithError:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1256,12 +1256,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/OutletsTableViewController.m"
-            timestampString = "444018639.327762"
+            timestampString = "444127200.902215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "-viewDidAppear:"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-numberOfSectionsInTableView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1592,13 +1592,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/OutletsTableViewController.m"
-            timestampString = "444018639.327762"
+            timestampString = "444127200.902215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
-            landmarkName = "-logoutButtonPressed:"
-            landmarkType = "5">
+            startingLineNumber = "558"
+            endingLineNumber = "558">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

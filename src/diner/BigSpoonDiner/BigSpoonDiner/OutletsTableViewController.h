@@ -14,6 +14,7 @@
 #import "Order.h"
 #import "ExitMenuListDelegate.h"
 #import "MenuViewController.h"
+#import "CategoriesTableViewController.h"
 #import "AppDelegate.h"
 #import "SSKeychain.h"
 #import <Mixpanel.h>

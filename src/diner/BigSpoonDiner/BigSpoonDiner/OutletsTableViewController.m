@@ -95,7 +95,8 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToCategorieView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -434,6 +435,13 @@
     [self performSegueWithIdentifier:@"SegueFromOutletsToMenu" sender:self];
 }
 
+- (void) moveToCategorieView: (NSNotification*) notif{
+    [indicator stopAnimating];
+    jsonForMenuView = (NSDictionary* )[notif object];
+    [self performSegueWithIdentifier:@"SegueFromOutletsToCategories" sender:self];
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
@@ -461,7 +469,31 @@
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
         [[self navigationItem] setBackBarButtonItem: newBackButton];
         
-	} else{
+    } else if ([segue.identifier isEqualToString:@"SegueFromOutletsToCategories"]) {
+        CategoriesTableViewController *categoriesViewController = segue.destinationViewController;
+        NSIndexPath *selectedIndexPath = [self.tableView indexPathForSelectedRow];
+        Outlet *selectedOutlet = [self.outletsArray objectAtIndex:selectedIndexPath.row];
+        categoriesViewController.outlet = selectedOutlet;
+        categoriesViewController.delegate = self;
+        categoriesViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
+        if (selectedOutlet.outletID == self.outletIDOfPreviousSelection) {
+            
+            NSLog(@"In outlets list: going back to a previous page with selected items");
+            
+            // Assign the history to the outlet:
+            [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
+            self.tableIDOfPreviousSelection = -1;
+            self.outletIDOfPreviousSelection = -1;
+            
+        } else{
+            
+            NSLog(@"In outlets list: opening a new page with no selected items");
+            
+        }
+        
+        UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
+        [[self navigationItem] setBackBarButtonItem: newBackButton];
+    } else{
         NSLog(@"Segureee in the outletsViewController cannot assign delegate to its segue. Segue identifier: %@", segue.identifier);
     }
 }
