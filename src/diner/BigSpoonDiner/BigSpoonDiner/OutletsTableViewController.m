@@ -95,8 +95,8 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToCategorieView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToCategorieView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
 }
 
 - (void) viewDidDisappear:(BOOL)animated {

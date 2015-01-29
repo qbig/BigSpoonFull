@@ -216,6 +216,7 @@
         DishCategory *category = (DishCategory *) [self.dishCategoryArray objectAtIndex:selectedIndexPath.row - 1];
         menuViewController.selectedCategory = category;
         menuViewController.delegate = self.delegate;
+        menuViewController.outlet = self.outlet;
         menuViewController.jsonForDishesTablesAndCategories = self.jsonForDishesTablesAndCategories;
         
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];

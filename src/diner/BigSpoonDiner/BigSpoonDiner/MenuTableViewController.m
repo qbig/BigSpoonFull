@@ -37,7 +37,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.displayCategoryID = -1;
+        self.displayCategoryID = 0;
     }
     return self;
 }
@@ -88,6 +88,12 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDishAndCateLoading:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: self.outlet.outletID];
         [self showLoadingIndicators];
+    }
+    for (UIButton *bt in self.categoryButtonsArray){
+        if (self.displayCategoryID == bt.tag) {
+            [self dishCategoryButtonPressed:bt];
+            break;
+        }
     }
 }
 
@@ -577,9 +583,6 @@
     }
     
     self.categoryButtonsHolderView.contentSize =CGSizeMake(sumOfCategoryButtonWidths + CATEGORY_BUTTON_SCROLL_WIDTH, buttonHeight);
-    if( [self.categoryButtonsArray count] > 0){
-        [self dishCategoryButtonPressed:[self.categoryButtonsArray objectAtIndex:0]];
-    }
 }
 
 //http://stackoverflow.com/questions/21107841/how-do-i-change-the-colour-of-the-status-bar-when-the-navigation-bar-is-hidden-i
