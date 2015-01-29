@@ -30,6 +30,7 @@
 
 // Data:
 @property (nonatomic, strong) Outlet *outlet;
+@property (nonatomic, strong) DishCategory *selectedCategory;
 @property (nonatomic) NSDictionary *validTableIDs;
 @property (strong, nonatomic) User* userInfo;
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;

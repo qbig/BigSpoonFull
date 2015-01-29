@@ -10,10 +10,16 @@
 #import "ExitMenuListDelegate.h"
 #import "Outlet.h"
 #import "User.h"
+#import "DishCategory.h"
+#import "CategoriesHeaderCell.h"
+#import "CategoriesNormalCell.h"
 
 @interface CategoriesTableViewController : UITableViewController
 @property (nonatomic, weak) id <ExitMenuListDelegate> delegate;
 @property (nonatomic, strong) Outlet *outlet;
-@property (nonatomic, strong) NSDictionary *jsonForDishesTablesAndCategories;
 @property (nonatomic, strong) User *userInfo;
+
+@property (nonatomic, strong) NSDictionary *jsonForDishesTablesAndCategories;
+@property (nonatomic, strong) NSMutableArray *dishCategoryArray;
+@property (nonatomic, strong) NSMutableArray *dishesArray;
 @end

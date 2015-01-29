@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIImageView+WebCache.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 
 @interface CategoriesHeaderCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *restaurantIconImageView;

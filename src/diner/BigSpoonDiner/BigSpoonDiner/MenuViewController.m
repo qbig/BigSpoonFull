@@ -494,7 +494,7 @@
                 self.menuListViewController.outlet = self.outlet;
                 self.menuListViewController.delegate = self;
                 self.menuListViewController.jsonForDishesTablesAndCategories = self.jsonForDishesTablesAndCategories;
-                
+                self.menuListViewController.displayCategoryID = self.selectedCategory.ID;
             } else if ([segue.identifier isEqualToString:@"SegueFromMenuToItems"]){
                 
                 self.itemsOrderedViewController = (ItemsOrderedViewController *)segue.destinationViewController;
