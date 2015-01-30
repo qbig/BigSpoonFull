@@ -24,7 +24,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         pageViews = [[NSMutableArray alloc] init];
-        self.swipeToExit = YES;
+        self.swipeToExit = NO;
         self.hideOffscreenPages = YES;
         self.titleViewY = 20.0f;
         self.pageControlY = 60.0f;
@@ -118,7 +118,7 @@
     CGFloat contentXIndex = 0;
     for (int idx = 0; idx < _pages.count; idx++) {
         [pageViews addObject:[self viewForPage:_pages[idx] atXIndex:&contentXIndex]];
-        [self.scrollView addSubview:pageViews[idx]];
+              [self.scrollView addSubview:pageViews[idx]];
     }
     
     [self makePanelVisibleAtIndex:0];
@@ -240,6 +240,15 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     self.currentPageIndex = scrollView.contentOffset.x/self.scrollView.frame.size.width;
+    if (self.currentPageIndex == pageViews.count - 1) {
+        [self.scrollView setScrollEnabled:NO];
+
+            UITapGestureRecognizer * tapGestureToDismissKeyboard = [[UITapGestureRecognizer alloc]
+                                                                    initWithTarget:self
+                                                                    action:@selector(finishIntroductionAndRemoveSelf)];
+        [self.scrollView addGestureRecognizer:tapGestureToDismissKeyboard];
+
+    }
     
     if (self.currentPageIndex == (pageViews.count)) {
         [self finishIntroductionAndRemoveSelf];
@@ -269,7 +278,7 @@ float easeOutValue(float value) {
 }
 
 - (void)crossDissolveForOffset:(float)offset {
-    NSInteger page = (int)(offset);
+    int page = (int)(offset);
     float alphaValue = offset - (int)offset;
     
     if (alphaValue < 0 && self.currentPageIndex == 0){

@@ -53,7 +53,7 @@
     [[Mixpanel sharedInstance] track:@"OutletView: User start tutorial"];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     NSMutableArray *pagesToAdd = [[NSMutableArray alloc] init];
-    int numOfPagesInTutorial = 3;
+    int numOfPagesInTutorial = 4;
     NSString *imageNameformat;
     if( IS_IPHONE_5_OR_LARGER ){
         imageNameformat = @"intro%d_long.png";
@@ -267,7 +267,7 @@
 
 - (void)introDidFinish {
     [self.intro removeFromSuperview];
-    [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
+//    [[User sharedInstance].userDefault setBool:YES forKey:KEY_FOR_SHOW_TUT_DEFAULT];
     [self askForLocationPermit];
     [[Mixpanel sharedInstance] track:@"OutletView: User Finish Tutorial"];
 }
