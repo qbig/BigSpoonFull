@@ -451,8 +451,8 @@
          forControlEvents:UIControlEventTouchUpInside];
         
         // Add spaces before and after the title:
-        NSString *buttonTitle = [newCategory.name stringByAppendingString:@"  "];
-        buttonTitle = [@"  " stringByAppendingString:buttonTitle];
+        NSString *buttonTitle = [newCategory.name stringByAppendingString:@" "];
+        buttonTitle = [@" " stringByAppendingString:buttonTitle];
         [button setTitle:buttonTitle forState:UIControlStateNormal];
         
         [self.categoryButtonsHolderView addSubview:button];
