@@ -1896,11 +1896,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/EAIntroView.m"
-            timestampString = "444300570.432806"
+            timestampString = "444308245.884044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1912,11 +1912,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BigSpoonDiner/EAIntroView.m"
-            timestampString = "444300414.07889"
+            timestampString = "444308245.884044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>

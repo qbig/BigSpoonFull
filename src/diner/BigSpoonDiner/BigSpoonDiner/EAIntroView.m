@@ -60,7 +60,17 @@
         [self buildUIWithFrame:frame];
         [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     }
+    
+    UITapGestureRecognizer * tapToMoveToNext = [[UITapGestureRecognizer alloc]
+                                                            initWithTarget:self
+                                                            action:@selector(moveToNext)];
+    [self.scrollView addGestureRecognizer:tapToMoveToNext];
     return self;
+}
+
+- (void) moveToNext {
+    self.currentPageIndex += 1;
+    [self.scrollView setContentOffset:CGPointMake(self.currentPageIndex * 320, 0) animated:YES];
 }
 
 #pragma mark - UI building
@@ -243,10 +253,10 @@
     if (self.currentPageIndex == pageViews.count - 1) {
         [self.scrollView setScrollEnabled:NO];
 
-            UITapGestureRecognizer * tapGestureToDismissKeyboard = [[UITapGestureRecognizer alloc]
+            UITapGestureRecognizer * tapToConfirmLocation = [[UITapGestureRecognizer alloc]
                                                                     initWithTarget:self
                                                                     action:@selector(finishIntroductionAndRemoveSelf)];
-        [self.scrollView addGestureRecognizer:tapGestureToDismissKeyboard];
+        [self.scrollView addGestureRecognizer:tapToConfirmLocation];
 
     }
     
