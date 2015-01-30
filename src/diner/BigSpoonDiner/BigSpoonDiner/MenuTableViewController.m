@@ -105,7 +105,7 @@
 
 - (void)removeOrdersOtherThanCurrentOutletOrders {
     // remote other dishes other than verified outlet
-    for(int i = [[[User sharedInstance].currentSession getCurrentOrder].dishes count] - 1; i >= 0 ; i--){
+    for(int i = (int) [[[User sharedInstance].currentSession getCurrentOrder].dishes count] - 1; i >= 0 ; i--){
         Dish *dish = (Dish *)[[[User sharedInstance].currentSession getCurrentOrder].dishes objectAtIndex:i];
         if([self getDishWithID: dish.ID] == nil){
             [[[User sharedInstance].currentSession getCurrentOrder] removeDishAtIndex:i];
@@ -447,7 +447,7 @@
             NSString *name = [newCategory objectForKey:@"name"];
             NSString *description = [newCategory objectForKey:@"desc"];
             BOOL isListOnly = [[newCategory objectForKey:@"is_list_view_only"] boolValue];
-            DishCategory *newCatObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
+            DishCategory *newCatObj = [[DishCategory alloc] initWithID:(int)[categoryID integerValue]
                                                                   name:name
                                                         andDescription:description isListOnly:isListOnly];
             [self.dishCategoryArray addObject:newCatObj];
@@ -574,7 +574,7 @@
         
         [self.categoryButtonsHolderView addSubview:button];
         
-        int buttonWidth = [buttonTitle length] * AVERAGE_PIXEL_PER_CHAR;
+        int buttonWidth = (int)[buttonTitle length] * AVERAGE_PIXEL_PER_CHAR;
         button.frame = CGRectMake(sumOfCategoryButtonWidths, 0, buttonWidth, buttonHeight);
         // minus border width so that they will overlap at the border:
         sumOfCategoryButtonWidths += buttonWidth - CATEGORY_BUTTON_BORDER_WIDTH;
@@ -824,7 +824,7 @@
 - (IBAction)addNewItemButtonClicked:(id)sender {
     [BigSpoonAnimationController animateButtonWhenClicked:(UIView*)sender];
     UIButton *btn = (UIButton *)sender;
-    int itemID = btn.tag;
+    int itemID = (int) btn.tag;
     Dish* clickedDish = [self getDishWithID: itemID];
     if (IS_OS_8_OR_LATER) {
         self.selectedCell = (UITableViewCell*) btn.superview.superview;
@@ -928,7 +928,7 @@
     float sumOfButtonWidthOnTheLeft = 0;
     float sumOfButtonWidthOnTheRight = 0;
     float currentButtonWidth = 0;
-    for(int i = 0, len = self.categoryButtonsArray.count; i < len; i++ ){
+    for(int i = 0, len = (int) self.categoryButtonsArray.count; i < len; i++ ){
         if ( i < self.displayCategoryPosition) {
             sumOfButtonWidthOnTheLeft += ((UIButton *)[self.categoryButtonsArray objectAtIndex:i]).frame.size.width;
         } else if (i > self.displayCategoryPosition) {

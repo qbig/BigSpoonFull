@@ -210,7 +210,6 @@
     
     NSLog(@"Loading dishes from server...using AFNetworking..");
     NSString *requestURL = [NSString stringWithFormat:@"%@/%d", LIST_OUTLETS, outletID];
-    
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: requestURL]];
     [request setValue: [@"Token " stringByAppendingString:self.authToken] forHTTPHeaderField: @"Authorization"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -224,7 +223,6 @@
              case 200:
              case 201:{
                  NSDictionary* json = (NSDictionary*)responseObject;
-                 //[[NSUserDefaults standardUserDefaults] setObject: json forKey: [NSString stringWithFormat:@"%@%d",OUTLET_INFO_FOR_ID_PREFIX ,outletID]];
                  [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_RETRIEVED object:json];
              }
                  break;
@@ -347,7 +345,7 @@
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
     [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        int responseCode = [operation.response statusCode];
+        int responseCode = (int)[operation.response statusCode];
         switch (responseCode) {
             case 200:
             case 201:{
@@ -391,13 +389,13 @@
         NSDictionary* dishDic = [dict objectForKey:@"dish"];
         Dish *tmpDish = [[Dish alloc] init];
         tmpDish.name = [dishDic objectForKey:@"name"];
-        tmpDish.ID = [[dishDic objectForKey:@"id"] integerValue];
-        tmpDish.price = [[dishDic objectForKey:@"price"] doubleValue];
-        int quantity = [[dict objectForKey:@"quantity"] integerValue];
+        tmpDish.ID = (int)[[dishDic objectForKey:@"id"] integerValue];
+        tmpDish.price = (double)[[dishDic objectForKey:@"price"] doubleValue];
+        int quantity = (int)[[dict objectForKey:@"quantity"] integerValue];
         
         [updatedOrder.dishes addObject:tmpDish];
         [updatedOrder.quantity addObject:[NSNumber numberWithInt: quantity]];
-        int dishIndex = [updatedOrder.dishes count] - 1 ;
+        int dishIndex = (int)[updatedOrder.dishes count] - 1 ;
         Dish *existingPastOrderDish;
         if([[self.currentSession getPastOrder].dishes count] != 0 && dishIndex <= [[self.currentSession getPastOrder].dishes count] - 1 ){
             existingPastOrderDish = (Dish *) [[self.currentSession getPastOrder].dishes objectAtIndex:dishIndex];

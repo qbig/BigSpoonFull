@@ -33,22 +33,9 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)setNavbarColorAndFont
 {
-    [[Mixpanel sharedInstance] track:@"OutletView: User at Outlet View"];
-    [[Mixpanel sharedInstance].people increment:@"Reach Outlet View" by: [NSNumber numberWithInt:1]];
-    [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
-    [super viewDidLoad];
-    [self initActivityIndicator];
-    [self loadOutletsFromServer];
-    
-    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [delegate connectSocket];
-
-    [self showLoadingIndicators];
-    self.outletsTableView.allowsSelection = YES;
-    self.bigSpoonOrange = [UIColor colorFromHexString:@"#FF6235"];
-
+    // set navbar background color
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         // iOS 6.1 or earlier
         self.navigationController.navigationBar.tintColor = self.bigSpoonOrange;
@@ -59,6 +46,7 @@
         self.navigationController.navigationBar.translucent = NO;
     }
     
+    // set title font
     NSMutableDictionary *titleBarAttributes = [NSMutableDictionary dictionaryWithDictionary: [[UINavigationBar appearance] titleTextAttributes]];
     [titleBarAttributes setValue:[UIFont fontWithName:@"ProximaNova-Bold" size:18] forKey:NSFontAttributeName];
     [titleBarAttributes setValue:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
@@ -71,6 +59,34 @@
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
+}
+
+- (void)connectToSocket
+{
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate connectSocket];
+}
+
+- (void)setUpTracking
+{
+    [[Mixpanel sharedInstance] track:@"OutletView: User at Outlet View"];
+    [[Mixpanel sharedInstance].people increment:@"Reach Outlet View" by: [NSNumber numberWithInt:1]];
+    [TestFlight passCheckpoint:@"CheckPoint:User Checking Outlets list"];
+}
+
+#pragma mark - view life cycle
+
+- (void)viewDidLoad
+{
+    [self setUpTracking];
+    [super viewDidLoad];
+    [self initActivityIndicator];
+    [self showLoadingIndicators];
+    [self loadOutletsFromServer];
+    [self connectToSocket];
+    self.outletsTableView.allowsSelection = YES;
+    self.bigSpoonOrange = [UIColor colorFromHexString:@"#FF6235"];
+    [self setNavbarColorAndFont];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -95,7 +111,6 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToMenuView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moveToCategorieView:) name:NOTIF_NEW_DISH_INFO_RETRIEVED object:nil];
 }
 
@@ -113,16 +128,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
     return [self.outletsArray count];
 }
 
+// hack to set tableview separator
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Remove seperator inset
@@ -143,11 +157,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    OutletCell *cell = (OutletCell *)[tableView
-                             dequeueReusableCellWithIdentifier:@"OutletCell"];
-    
-
+    OutletCell *cell = (OutletCell *)[tableView dequeueReusableCellWithIdentifier:@"OutletCell"];
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     [cell.outletPhoto setImageWithURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	cell.name.text = outlet.name;
@@ -166,146 +176,92 @@
     return cell;
 }
 
+#warning refactor this with something like Mantle
+
 - (void) loadOutletsFromServer{
     
     NSLog(@"Loading outlets from server...");
-
-    self.outletsArray = [NSMutableArray arrayWithCapacity:30]; // Capacity will grow up when there're more elements
-    
-    // Make HTTP request to the server and get the list of outlets
-    // And call the HTTP callback: - (void)addOutlet:(Outlet *)Outlet
-    // We could use  [self.tableView reloadData] but it looks nicer to insert the new row with an animation. 
-    
-    // Create the request.
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:LIST_OUTLETS]];
-    request.HTTPMethod = @"GET";
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
-    // Create url connection and fire request
-    [NSURLConnection connectionWithRequest:request delegate:self];
-}
-
-#pragma mark NSURLConnection Delegate Methods
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)response {
-    // A response has been received, this is where we initialize the instance var you created
-    // so that we can append data to it in the didReceiveData method
-    // Furthermore, this method is called each time there is a redirect so reinitializing it
-    // also serves to clear it
+    request.HTTPMethod = @"GET";
     
-    statusCode = [response statusCode];
-    
-    //NSDictionary* headers = [response allHeaderFields];
-    
-    NSLog(@"response code: %d",  statusCode);
-    
-    _responseData = [[NSMutableData alloc] init];
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    // Append the new data to the instance variable you declared
-    [_responseData appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    //parse out the json data
-    
-    NSError* error;
-    NSArray* outletList = (NSArray*) [NSJSONSerialization JSONObjectWithData:_responseData
-                                                                     options:kNilOptions
-                                                                       error:&error];
-    //        for (id key in [json allKeys]){
-    //            NSString* obj =(NSString *) [json objectForKey: key];
-    //            NSLog(obj);
-    //        }
-    
-    switch (statusCode) {
-            
-        // 200 Okay
-        case 200:{
-            
-            for (NSDictionary *newOutlet in outletList) {
-                NSDictionary *restaurant = (NSDictionary *)[newOutlet objectForKey:@"restaurant"];
-                NSDictionary *icon = (NSDictionary *)[restaurant objectForKey:@"icon"];
-                NSString *thumbnail = (NSString *)[icon objectForKey:@"thumbnail"];
-                NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
-                
-                int ID = [[newOutlet objectForKey:@"id"] intValue];
-                double lat = [[newOutlet objectForKey:@"lat"] doubleValue];
-                double lon = [[newOutlet objectForKey:@"lng"] doubleValue];
-                NSString* name = [newOutlet objectForKey:@"name"];
-                NSString* phone = [newOutlet objectForKey:@"phone"];
-                NSString* address = [newOutlet objectForKey:@"address"];
-                NSString* opening = [newOutlet objectForKey:@"opening"];
-                NSString* promotionalText = [newOutlet objectForKey:@"discount"];
-                NSString* defaultDishPhotoUrl = [newOutlet objectForKey:@"default_dish_photo"];
-                double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
-                double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
-                BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
-                BOOL isDefaultPhotoMenu = (BOOL)[[newOutlet objectForKey:@"is_by_default_photo_menu"] boolValue];
-                BOOL requestForWaterEnabled = (BOOL)[[newOutlet objectForKey:@"request_for_water_enabled"] boolValue];
-                NSString *waterText = [newOutlet objectForKey:@"water_popup_text"];
-                BOOL isRequestForBillEnabled = (BOOL)[[newOutlet objectForKey:@"ask_for_bill_enabled"] boolValue];
-                NSString *billText = [newOutlet objectForKey:@"bill_popup_text"];
-                double locationDiameter = [[newOutlet objectForKey: @"location_diameter"] doubleValue];
-                if (!isActive) {
-                    promotionalText = @"Coming Soon!";
-                }
-                
-                NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
-                
-                Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
-                                                                   Name: name
-                                                                Address: address
-                                                            PhoneNumber: phone
-                                                        OperationgHours: opening
-                                                       defaultDishPhoto: defaultDishPhotoUrl
-                                                               OutletID: ID
-                                                                    lat: lat
-                                                                    lon: lon
-                                                        promotionalText: promotionalText
-                                                                gstRate: gstRate
-                                                      serviceChargeRate: serviceChargeRate
-                                                               isActive: isActive
-                                                            isPhotoMenu: isDefaultPhotoMenu
-                                               isRequestForWaterEnabled: requestForWaterEnabled
-                                                              waterText: waterText
-                                                isRequestForBillEnabled: isRequestForBillEnabled
-                                                               billText: billText
-                                                      locationThreshold: locationDiameter];
-                [self.outletsArray addObject:newOutletObject];
-
-            }
-            
-            [self filterOutletListBasedOnLocation];
-            [self reorderOutletListBasedOnLocation];
-            [self.tableView reloadData];
-            [self stopLoadingIndicators];
-            
-            break;
-        }
-            
-        default:{
-            
-            NSDictionary* json = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:_responseData
-                                                                             options:kNilOptions
-                                                                               error:&error];
-            
-            id firstKey = [[json allKeys] firstObject];
-            
-            NSString* errorMessage =[(NSArray *)[json objectForKey:firstKey] objectAtIndex:0];
-            
-            NSLog(@"Error occurred: %@", errorMessage);
-            
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Oops" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [message show];
-            
-            break;
-        }
-    }
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+    [operation
+     setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+         long responseCode = [operation.response statusCode];
+         switch (responseCode) {
+             case 200:
+             case 201:{
+                 NSArray* outletList = (NSArray*) responseObject;
+                 self.outletsArray = [[NSMutableArray alloc] initWithCapacity:[outletList count]];
+                 for (NSDictionary *newOutlet in outletList) {
+                     NSDictionary *restaurant = (NSDictionary *)[newOutlet objectForKey:@"restaurant"];
+                     NSDictionary *icon = (NSDictionary *)[restaurant objectForKey:@"icon"];
+                     NSString *thumbnail = (NSString *)[icon objectForKey:@"thumbnail"];
+                     NSURL *imgURL = [[NSURL alloc] initWithString:[BASE_URL stringByAppendingString:thumbnail]];
+                     
+                     int ID = [[newOutlet objectForKey:@"id"] intValue];
+                     double lat = [[newOutlet objectForKey:@"lat"] doubleValue];
+                     double lon = [[newOutlet objectForKey:@"lng"] doubleValue];
+                     NSString* name = [newOutlet objectForKey:@"name"];
+                     NSString* phone = [newOutlet objectForKey:@"phone"];
+                     NSString* address = [newOutlet objectForKey:@"address"];
+                     NSString* opening = [newOutlet objectForKey:@"opening"];
+                     NSString* promotionalText = [newOutlet objectForKey:@"discount"];
+                     NSString* defaultDishPhotoUrl = [newOutlet objectForKey:@"default_dish_photo"];
+                     double gstRate = [[newOutlet objectForKey:@"gst"] doubleValue];
+                     double serviceChargeRate = [[newOutlet objectForKey:@"scr"] doubleValue];
+                     BOOL isActive = (BOOL)[[newOutlet objectForKey:@"is_active"] boolValue];
+                     BOOL isDefaultPhotoMenu = (BOOL)[[newOutlet objectForKey:@"is_by_default_photo_menu"] boolValue];
+                     BOOL requestForWaterEnabled = (BOOL)[[newOutlet objectForKey:@"request_for_water_enabled"] boolValue];
+                     NSString *waterText = [newOutlet objectForKey:@"water_popup_text"];
+                     BOOL isRequestForBillEnabled = (BOOL)[[newOutlet objectForKey:@"ask_for_bill_enabled"] boolValue];
+                     NSString *billText = [newOutlet objectForKey:@"bill_popup_text"];
+                     double locationDiameter = [[newOutlet objectForKey: @"location_diameter"] doubleValue];
+                     if (!isActive) {
+                         promotionalText = @"Coming Soon!";
+                     }
+                     
+                     NSLog(@"Outlet id: %d, lat: %f, lon: %f", ID, lat, lon);
+                     
+                     Outlet *newOutletObject = [[Outlet alloc]initWithImgURL: imgURL
+                                                                        Name: name
+                                                                     Address: address
+                                                                 PhoneNumber: phone
+                                                             OperationgHours: opening
+                                                            defaultDishPhoto: defaultDishPhotoUrl
+                                                                    OutletID: ID
+                                                                         lat: lat
+                                                                         lon: lon
+                                                             promotionalText: promotionalText
+                                                                     gstRate: gstRate
+                                                           serviceChargeRate: serviceChargeRate
+                                                                    isActive: isActive
+                                                                 isPhotoMenu: isDefaultPhotoMenu
+                                                    isRequestForWaterEnabled: requestForWaterEnabled
+                                                                   waterText: waterText
+                                                     isRequestForBillEnabled: isRequestForBillEnabled
+                                                                    billText: billText
+                                                           locationThreshold: locationDiameter];
+                     [self.outletsArray addObject:newOutletObject];
+                 }
+                 
+                 [self filterOutletListBasedOnLocation];
+                 [self reorderOutletListBasedOnLocation];
+                 [self.tableView reloadData];
+                 [self stopLoadingIndicators];
+             }
+                 break;
+             case 403:
+             default:{
+                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+             }
+         }
+     }
+     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIF_NEW_DISH_INFO_FAILED object:nil];
+     }];
+    [operation start];
 }
 
 - (void) reorderOutletListBasedOnLocation {
@@ -326,68 +282,9 @@
     }
 }
 
-- (NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                  willCacheResponse:(NSCachedURLResponse*)cachedResponse {
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    // The request has failed for some reason!
-    // Check the error var
-    NSLog(@"NSURLCoonection encounters error at retrieving outlits.");
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops"
-                                                        message:@"Failed to load outlets. Please check your network"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Okay"
-                                              otherButtonTitles: nil];
-    [alertView show];
-}
-
 - (void)MenuViewControllerHomeButtonPressed: (MenuViewController *)controller{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark - Navigation
 
@@ -400,15 +297,12 @@
     }
     Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
     
-    // Deselect the row. Otherwise it will remain being selected.
-    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
     if ([indicator isAnimating]){
         return;
     }
     [[Mixpanel sharedInstance] track: [NSString stringWithFormat: @"OutletView: Clicked outlet: %@",outlet.name]];
     if (outlet.isActive) {
-
-        NSLog(@"Row: %d, ID: %d", indexPath.row, outlet.outletID);
+        NSLog(@"Row: %d, ID: %d", (int) indexPath.row, outlet.outletID);
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
         [User sharedInstance].currentLoadedOutlet = outlet;
         [[User sharedInstance].currentSession switchToOutlet:outlet.name];
@@ -435,7 +329,6 @@
     [self performSegueWithIdentifier:@"SegueFromOutletsToCategories" sender:self];
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"SegueFromOutletsToMenu"]) {
@@ -446,18 +339,14 @@
         menuViewController.delegate = self;
         menuViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
         if (selectedOutlet.outletID == self.outletIDOfPreviousSelection) {
-            
             NSLog(@"In outlets list: going back to a previous page with selected items");
-            
+
             // Assign the history to the outlet:
             [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
             self.tableIDOfPreviousSelection = -1;
             self.outletIDOfPreviousSelection = -1;
-            
         } else{
-            
             NSLog(@"In outlets list: opening a new page with no selected items");
-            
         }
         
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
@@ -471,18 +360,14 @@
         categoriesViewController.delegate = self;
         categoriesViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
         if (selectedOutlet.outletID == self.outletIDOfPreviousSelection) {
-            
             NSLog(@"In outlets list: going back to a previous page with selected items");
             
             // Assign the history to the outlet:
             [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
             self.tableIDOfPreviousSelection = -1;
             self.outletIDOfPreviousSelection = -1;
-            
         } else{
-            
             NSLog(@"In outlets list: opening a new page with no selected items");
-            
         }
         
         UIBarButtonItem *newBackButton = [[UIBarButtonItem alloc] initWithTitle: @"" style: UIBarButtonItemStyleBordered target: nil action: nil];
@@ -541,10 +426,8 @@
     user.currentLoadedOutlet = nil;
     user.validTableIDs = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    
-    // Disconnect the current socket with server. When the user loggs in and loads outlet page, the new user info will be registered and new socket will be established.
-    
+
+    // disconnect socket
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [delegate disconnectSocket];
 }

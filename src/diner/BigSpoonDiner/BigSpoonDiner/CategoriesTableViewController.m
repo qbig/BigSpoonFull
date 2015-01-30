@@ -73,7 +73,7 @@
             NSString *name = [newCategory objectForKey:@"name"];
             NSString *description = [newCategory objectForKey:@"desc"];
             BOOL isListOnly = [[newCategory objectForKey:@"is_list_view_only"] boolValue];
-            DishCategory *newCatObj = [[DishCategory alloc] initWithID:[categoryID integerValue]
+            DishCategory *newCatObj = [[DishCategory alloc] initWithID: (int) [categoryID integerValue]
                                                                   name:name
                                                         andDescription:description isListOnly:isListOnly];
             [self.dishCategoryArray addObject:newCatObj];
