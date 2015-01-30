@@ -492,6 +492,8 @@
                 
                 self.menuListViewController = segue.destinationViewController;
                 self.menuListViewController.outlet = self.outlet;
+                self.menuListViewController.dishesArray= self.dishesArray;
+                self.menuListViewController.dishCategoryArray = self.dishCategoryArray;
                 self.menuListViewController.delegate = self;
                 self.menuListViewController.jsonForDishesTablesAndCategories = self.jsonForDishesTablesAndCategories;
                 self.menuListViewController.displayCategoryID = self.selectedCategory.ID;

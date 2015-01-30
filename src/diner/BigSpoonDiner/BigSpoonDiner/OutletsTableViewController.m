@@ -121,7 +121,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -303,6 +302,7 @@
     [[Mixpanel sharedInstance] track: [NSString stringWithFormat: @"OutletView: Clicked outlet: %@",outlet.name]];
     if (outlet.isActive) {
         NSLog(@"Row: %d, ID: %d", (int) indexPath.row, outlet.outletID);
+        // load data for selected outlet
         [[User sharedInstance] loadDishesAndTableInfosFromServerForOutlet: outlet.outletID];
         [User sharedInstance].currentLoadedOutlet = outlet;
         [[User sharedInstance].currentSession switchToOutlet:outlet.name];
@@ -339,8 +339,6 @@
         menuViewController.delegate = self;
         menuViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
         if (selectedOutlet.outletID == self.outletIDOfPreviousSelection) {
-            NSLog(@"In outlets list: going back to a previous page with selected items");
-
             // Assign the history to the outlet:
             [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
             self.tableIDOfPreviousSelection = -1;
@@ -360,8 +358,6 @@
         categoriesViewController.delegate = self;
         categoriesViewController.jsonForDishesTablesAndCategories = jsonForMenuView;
         if (selectedOutlet.outletID == self.outletIDOfPreviousSelection) {
-            NSLog(@"In outlets list: going back to a previous page with selected items");
-            
             // Assign the history to the outlet:
             [User sharedInstance].tableID = self.tableIDOfPreviousSelection;
             self.tableIDOfPreviousSelection = -1;
