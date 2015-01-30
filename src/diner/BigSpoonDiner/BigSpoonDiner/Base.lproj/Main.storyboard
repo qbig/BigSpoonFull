@@ -64,11 +64,11 @@
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
         </mutableArray>
+        <mutableArray key="copyfonts.com_segoe_ui_light.ttf">
+            <string>SegoeUI-Light</string>
+        </mutableArray>
         <mutableArray key="segoeuib.ttf">
             <string>SegoeUI-Bold</string>
-        </mutableArray>
-        <mutableArray key="segoeuil.ttf">
-            <string>SegoeUI-Light</string>
         </mutableArray>
         <mutableArray key="segoeuisl.ttf">
             <string>SegoeUI-Semilight</string>
@@ -393,7 +393,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="leB-4Q-EHN" userLabel="outletImage">
-                                            <rect key="frame" x="11.5" y="7" width="96.5" height="101"/>
+                                            <rect key="frame" x="11.5" y="7" width="96.5" height="102"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" id="ns4-8H-dZ6">
@@ -712,26 +712,26 @@
                                             <rect key="frame" x="17" y="12" width="115" height="115"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.png" id="ZOA-9m-LNv" userLabel="phone icon">
-                                            <rect key="frame" x="153" y="12" width="30" height="30"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-small.png" id="ZOA-9m-LNv" userLabel="phone icon">
+                                            <rect key="frame" x="153" y="18" width="20" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eYf-8z-vJ9">
-                                            <rect key="frame" x="204" y="12" width="108" height="31"/>
+                                            <rect key="frame" x="187" y="12" width="125" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hours" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="rsc-Hx-zmn">
-                                            <rect key="frame" x="204" y="54" width="108" height="73"/>
+                                            <rect key="frame" x="187" y="54" width="125" height="73"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="12"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm.png" id="14U-2C-jiR" userLabel="alarm icon">
-                                            <rect key="frame" x="153" y="54" width="30" height="30"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm-small.png" id="14U-2C-jiR" userLabel="alarm icon">
+                                            <rect key="frame" x="153" y="54" width="20" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -1862,7 +1862,7 @@
     </scenes>
     <resources>
         <image name="add_minus_only_circle.png" width="128" height="128"/>
-        <image name="alarm.png" width="963" height="944"/>
+        <image name="alarm-small.png" width="102" height="100"/>
         <image name="bg_logo.png" width="1241" height="520"/>
         <image name="black-overlay.png" width="1514" height="1010"/>
         <image name="botton-action-bar-new.png" width="3858" height="689"/>
@@ -1878,7 +1878,7 @@
         <image name="new_signup_btn.png" width="616" height="108"/>
         <image name="or_separator.png" width="798" height="97"/>
         <image name="orange-add-bt.png" width="550" height="240"/>
-        <image name="phone.png" width="1001" height="985"/>
+        <image name="phone-small.png" width="102" height="100"/>
         <image name="photo_icon.png" width="64" height="64"/>
         <image name="red_circle.png" width="184" height="184"/>
         <image name="sign_up_form.png" width="616" height="293"/>
@@ -1895,8 +1895,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="p4l-nj-CSu"/>
         <segue reference="X3y-Ki-Wim"/>
-        <segue reference="h0Y-o3-BiD"/>
         <segue reference="TRy-SG-Bfr"/>
+        <segue reference="Ip7-SH-AIF"/>
         <segue reference="OcS-Bs-eAE"/>
     </inferredMetricsTieBreakers>
 </document>
