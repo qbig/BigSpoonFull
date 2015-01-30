@@ -68,7 +68,8 @@ NSString * const BG_DEFAULT_DISH_PHOTO_URL = @"media/restaurant/dishes/default.j
 // Dimensions:
 
 int const ROW_HEIGHT_LIST_MENU = 69;
-int const ROW_HEIGHT_PHOTO_MENU = 210;
+int const ROW_HEIGHT_PHOTO_MENU = 202
+;
 double const SCALE_OF_BUTTON = 2.85;
 int const ITEM_LIST_SCROLL_WIDTH = 320;
 int const ITEM_LIST_SCROLL_HEIGHT = 900;
