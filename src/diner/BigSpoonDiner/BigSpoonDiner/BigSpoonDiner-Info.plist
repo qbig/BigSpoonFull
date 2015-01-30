@@ -53,8 +53,6 @@
 	<string>BigSpoon</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>BigSpoon helps you find the restaurants closest to you:)</string>
 	<key>NSLocationUsageDescription</key>
 	<string>BigSpoon helps you find the restaurants closest to you:)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

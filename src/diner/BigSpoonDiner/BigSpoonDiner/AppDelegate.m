@@ -58,7 +58,6 @@
     if([[User sharedInstance].userDefault boolForKey:KEY_FOR_SHOW_TUT_DEFAULT]){
         if (IS_OS_8_OR_LATER) {
             [self.locationManager requestWhenInUseAuthorization];
-            [self.locationManager requestAlwaysAuthorization];
         }
         [self.locationManager startUpdatingLocation];
     }
