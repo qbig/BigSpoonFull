@@ -70,7 +70,18 @@
 
 - (void) moveToNext {
     self.currentPageIndex += 1;
+    LastPageIndex = self.pageControl.currentPage;
+    self.pageControl.currentPage = self.currentPageIndex;
     [self.scrollView setContentOffset:CGPointMake(self.currentPageIndex * 320, 0) animated:YES];
+    if (self.currentPageIndex == pageViews.count - 1) {
+        [self.scrollView setScrollEnabled:NO];
+        
+        UITapGestureRecognizer * tapToConfirmLocation = [[UITapGestureRecognizer alloc]
+                                                         initWithTarget:self
+                                                         action:@selector(finishIntroductionAndRemoveSelf)];
+        [self.scrollView addGestureRecognizer:tapToConfirmLocation];
+        
+    }
 }
 
 #pragma mark - UI building
