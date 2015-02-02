@@ -5,6 +5,7 @@ function Controller(model, view) {
     this.page_start_time_in_seconds = new Date().getTime() / 1000;
     this.view.$mainWrapper.on('click', ".item a.acknowledge.ack-button", this.view.handleClick);
     this.view.$mainWrapper.on('click', ".item a.closebill.ack-button", this.view.handleClick);
+    this.view.$mainWrapper.on('click', ".active a.closebill.ack-button", this.view.handleClick);
     this.view.$mainWrapper.on('click', ".item a.respond.ack-button", this.view.handleClick);
 }
 Controller.prototype = {
@@ -43,11 +44,19 @@ Controller.prototype = {
     removeCard: function(e) {
         var that = this;
         //ajax post to backend with card_id with a callback to remove card and data
-        that.model.postRemoveData(e.detail, function() {
-            that.model.removeData(e.detail, function() {
-                that.view.removeCard(e.detail.parent_card);
+        if (this.host.indexOf("table") !== -1) {
+            that.model.postRemoveData(e.detail, function() {
+                that.model.removeData(e.detail, function() {
+                    that.view.removeCard(e.detail.parent_card);
+                });
             });
-        });
+        } else {
+            that.model.postRemoveData(e.detail, function() {
+                that.model.removeData(e.detail, function() {
+                    e.detail.parent_card.remove();
+                });
+            });
+        }
     },
     initSocketIO: function() {
         // handle Socketio message, data may be in any of the following formats:
@@ -56,9 +65,9 @@ Controller.prototype = {
         // ['refresh', 'meal', 'closebill', 'meal_id']
         // ['refresh', 'request', 'new', 'request_id']
         // not implemented yet
-        // ['refresh', 'meal', 'ack']		(reply from socketIO when a meal card is acknowledged)
-        // ['refresh', 'request', 'ack']	(reply from socketIO when a request card is acknowledged)
-        // ['refresh', 'menu', 'add']		(reply from socketIO when a menu detail is changed)
+        // ['refresh', 'meal', 'ack']   (reply from socketIO when a meal card is acknowledged)
+        // ['refresh', 'request', 'ack']    (reply from socketIO when a request card is acknowledged)
+        // ['refresh', 'menu', 'add']   (reply from socketIO when a menu detail is changed)
         var that = this;
         var details = {
             'reconnect': true,
