@@ -281,11 +281,6 @@ static Mixpanel *sharedInstance = nil;
     if (carrier.carrierName.length) {
         [p setValue:carrier.carrierName forKey:@"$carrier"];
     }
-#ifndef MIXPANEL_NO_IFA
-    if (NSClassFromString(@"ASIdentifierManager")) {
-        [p setValue:[[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString] forKey:@"$ios_ifa"];
-    }
-#endif
     return p;
 }
 
@@ -400,9 +395,7 @@ static Mixpanel *sharedInstance = nil;
         distinctId = [[UIDevice currentDevice].identifierForVendor UUIDString];
     }
 #else
-    if (NSClassFromString(@"ASIdentifierManager")) {
-        distinctId = [[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString];
-    }
+
 #endif
 
     if (!distinctId) {
@@ -1367,11 +1360,7 @@ static Mixpanel *sharedInstance = nil;
     [p setValue:VERSION forKey:@"$ios_lib_version"];
     [p setValue:[[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"] forKey:@"$ios_app_version"];
     [p setValue:[[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] forKey:@"$ios_app_release"];
-#ifndef MIXPANEL_NO_IFA
-    if (NSClassFromString(@"ASIdentifierManager")) {
-        [p setValue:[[ASIdentifierManager sharedManager].advertisingIdentifier UUIDString] forKey:@"$ios_ifa"];
-    }
-#endif
+
     return [NSDictionary dictionaryWithDictionary:p];
 }
 
