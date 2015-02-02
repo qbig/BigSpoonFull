@@ -47,7 +47,7 @@ Controller.prototype = {
         console.log(e);
         console.log(this.host);
         //ajax post to backend with card_id with a callback to remove card and data
-        if (this.host.indexOf("table") !== -1) {
+        if (location.pathname.indexOf("tables") !== -1) {
             that.model.postRemoveData(e.detail, function() {
                 e.detail.parent_card.remove();
             });
