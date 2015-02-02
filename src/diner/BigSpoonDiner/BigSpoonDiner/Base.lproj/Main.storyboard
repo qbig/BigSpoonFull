@@ -1521,7 +1521,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="UbY-Ez-zJc">
-                                                    <rect key="frame" x="259" y="5" width="57" height="29"/>
+                                                    <rect key="frame" x="256" y="5" width="57" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                                                     <state key="normal" image="orange-add-bt.png">
@@ -1896,6 +1896,6 @@
         <segue reference="X3y-Ki-Wim"/>
         <segue reference="p4l-nj-CSu"/>
         <segue reference="Ip7-SH-AIF"/>
-        <segue reference="Zu8-We-sOe"/>
+        <segue reference="OcS-Bs-eAE"/>
     </inferredMetricsTieBreakers>
 </document>
