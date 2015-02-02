@@ -101,6 +101,8 @@ View.prototype = {
     //triggers acknowledgement event when button is clicked
     handleClick: function() {
         var button = $(this);
+        console.log("clicked");
+        console.log(button);
         document.dispatchEvent(new CustomEvent('cardClicked', {
             'detail': {
                 'button': button,

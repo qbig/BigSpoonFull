@@ -43,17 +43,18 @@ Controller.prototype = {
     },
     removeCard: function(e) {
         var that = this;
+        console.log("removing");
+        console.log(e);
+        console.log(this.host);
         //ajax post to backend with card_id with a callback to remove card and data
         if (this.host.indexOf("table") !== -1) {
             that.model.postRemoveData(e.detail, function() {
-                that.model.removeData(e.detail, function() {
-                    that.view.removeCard(e.detail.parent_card);
-                });
+                e.detail.parent_card.remove();
             });
         } else {
             that.model.postRemoveData(e.detail, function() {
                 that.model.removeData(e.detail, function() {
-                    e.detail.parent_card.remove();
+                    that.view.removeCard(e.detail.parent_card);
                 });
             });
         }
