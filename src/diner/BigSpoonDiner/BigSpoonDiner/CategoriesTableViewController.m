@@ -171,7 +171,7 @@
         CategoriesNormalCell *cell = (CategoriesNormalCell*) [tableView dequeueReusableCellWithIdentifier:@"CategoriesNormalCell" forIndexPath:indexPath];
         DishCategory *category = (DishCategory *) [self.dishCategoryArray objectAtIndex:indexPath.row - 1];
         cell.categoryNameLabel.text = category.name;
-        [cell.categoryIconImageView setImageWithURL:[self getCategoryImageURL:category.ID] placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [cell.categoryIconImageView setImageWithURL:[self getCategoryImageURL:category.ID] placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRetryFailed usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [self setFloorFadeShadow:cell.categoryIconImageView];
         return cell;
     }
