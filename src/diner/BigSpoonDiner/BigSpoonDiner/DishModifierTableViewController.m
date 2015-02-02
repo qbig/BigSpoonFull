@@ -79,13 +79,13 @@
 }
 
 - (void) okButtonPressed {
-    [self.delegate dishModifierPopupDidSaveWithUpdatedModifier:self.targetingDish];
     [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate dishModifierPopupDidSaveWithUpdatedModifier:self.targetingDish];
 }
 
 - (void) cancelButtonPressed {
-    [self.delegate dishModifierPopupDidCancel];
     [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate dishModifierPopupDidCancel];
 }
 
 - (void)didReceiveMemoryWarning
