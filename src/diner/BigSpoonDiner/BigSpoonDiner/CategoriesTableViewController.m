@@ -159,7 +159,7 @@
         cell.phoneNumLabel.text = self.outlet.phoneNumber;
         cell.openHoursLabel.text = self.outlet.operatingHours;
         [cell.openHoursLabel sizeToFit];
-        [cell.restaurantIconImageView setImageWithURL:self.outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [cell.restaurantIconImageView setImageWithURL:self.outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRetryFailed usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         cell.restaurantIconImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
         cell.restaurantIconImageView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
         cell.restaurantIconImageView.layer.shadowOpacity = 0.8f;

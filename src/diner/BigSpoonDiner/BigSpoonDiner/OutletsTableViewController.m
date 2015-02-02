@@ -8,6 +8,7 @@
 
 #import "OutletsTableViewController.h"
 #import "UIColor+ColorFromHex.h"
+
 @interface OutletsTableViewController (){
     NSMutableData *_responseData;
     int statusCode;
@@ -158,7 +159,7 @@
 {
     OutletCell *cell = (OutletCell *)[tableView dequeueReusableCellWithIdentifier:@"OutletCell"];
 	Outlet *outlet = [self.outletsArray objectAtIndex:indexPath.row];
-    [cell.outletPhoto setImageWithURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [cell.outletPhoto setImageWithURL:outlet.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRetryFailed usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 	cell.name.text = outlet.name;
 	cell.address.text = outlet.address;
 	cell.phoneNumber.text = outlet.phoneNumber;

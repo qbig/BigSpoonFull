@@ -265,7 +265,7 @@
         [cell.imageView setClipsToBounds:YES];
         cell.imageView.autoresizingMask = UIViewAutoresizingNone;
         // !! placeholderImage CANNOT be nil
-        [cell.imageView setImageWithURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRefreshCached usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [cell.imageView setImageWithURL:dish.imgURL placeholderImage:[UIImage imageNamed:@"white315_203.gif"] options:SDWebImageRetryFailed usingActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         cell.ratingImageView.image = nil;//[self imageForRating:dish.ratings];
         
         cell.nameLabel.text = dish.name;

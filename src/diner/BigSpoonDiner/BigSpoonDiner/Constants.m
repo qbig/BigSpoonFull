@@ -13,7 +13,7 @@
 // Request URLs:
 //#define DEV  0;
 #ifdef DEV
-//NSString* const BASE_URL = @"http://46.137.234.248/";
+//NSString* const BASE_URL = @"http://46.137.234.248";
 //NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
 //NSString* const USER_LOGIN = @"http://46.137.234.248/api/v1/login";
 //NSString* const USER_LOGIN_WITH_FB = @"http://46.137.234.248/api/v1/fblogin";
@@ -44,7 +44,7 @@ NSString* const ORDER_HISTORY_URL = @"http://175.41.178.102/api/v1/mealhistory";
 NSString* const SOCKET_URL = @"175.41.178.102";
 
 #else
-NSString* const BASE_URL = @"http://bigspoon.biz/"; //NSString* const BASE_URL = @"http://46.137.234.248/";
+NSString* const BASE_URL = @"http://bigspoon.biz"; //NSString* const BASE_URL = @"http://46.137.234.248/";
 NSString* const USER_SIGNUP = @"http://bigspoon.biz/api/v1/user";
 NSString* const USER_LOGIN = @"http://bigspoon.biz/api/v1/login";
 NSString* const USER_LOGIN_WITH_FB = @"http://bigspoon.biz/api/v1/fblogin";
