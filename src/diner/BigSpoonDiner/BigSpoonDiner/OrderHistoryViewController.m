@@ -117,7 +117,7 @@
                 break;
             }
             @catch (NSException *exception) {
-                CLS_LOG(@"Loading history issue: %@", exception);
+                //CLS_LOG(@"Loading history issue: %@", exception);
             }
 
         }

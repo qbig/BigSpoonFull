@@ -22,7 +22,7 @@
         self.dishesArray = [self parseFromJsonsToDishes:self.jsonForDishesTablesAndCategories];
     }
     @catch (NSException *exception) {
-        CLS_LOG(@"handleJsonWithDishesAndTableInfos issue: %@", exception);
+       // CLS_LOG(@"handleJsonWithDishesAndTableInfos issue: %@", exception);
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }

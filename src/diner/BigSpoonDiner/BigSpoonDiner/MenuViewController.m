@@ -7,7 +7,7 @@
 //
 
 #import "MenuViewController.h"
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 #import "NSString+Eclipsize.h"
 @interface MenuViewController (){
     void (^taskAfterAskingForTableID)(void);
@@ -1086,7 +1086,7 @@
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                           [self displayErrorInfo:operation.responseObject];
-                                          CLS_LOG(@"Updating modifier answer: %@", [error localizedDescription]);
+                                         // CLS_LOG(@"Updating modifier answer: %@", [error localizedDescription]);
                                       }];
     [operation start];
 }

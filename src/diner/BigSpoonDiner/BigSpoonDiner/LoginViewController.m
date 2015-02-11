@@ -9,7 +9,7 @@
 #import "LoginViewController.h"
 #import "Reachability.h"
 #import "Constants.h"
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 @interface LoginViewController (){
     NSMutableData *_responseData;
     Reachability *internetReachableFoo;

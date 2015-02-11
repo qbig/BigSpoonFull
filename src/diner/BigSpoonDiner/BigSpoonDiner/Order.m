@@ -160,7 +160,7 @@
         [self.modifierAnswers setObject:modifierAnswer forKey: [NSString stringWithFormat:@"%d", index]];
     }
     @catch (NSException *exception) {
-        CLS_LOG(@"Updating modifier answer: %@", exception);
+        //CLS_LOG(@"Updating modifier answer: %@", exception);
     }
 }
 

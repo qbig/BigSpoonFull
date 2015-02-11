@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
+//#import <Fabric/Fabric.h>
+//#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate{
     // Load outlets when we load the app
@@ -40,7 +40,7 @@
         [self startTrackingLocation];
     }
     
-    [Fabric with:@[CrashlyticsKit]];
+ //   [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 

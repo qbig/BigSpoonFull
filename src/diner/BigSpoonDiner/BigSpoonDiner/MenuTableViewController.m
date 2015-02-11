@@ -8,7 +8,7 @@
 
 #import "MenuTableViewController.h"
 #import "Toast+UIView.h"
-#import <Crashlytics/Crashlytics.h>
+//#import <Crashlytics/Crashlytics.h>
 #import "UIColor+ColorFromHex.h"
 
 @interface MenuTableViewController (){
@@ -839,7 +839,7 @@
             }
         }
         @catch (NSException *exception) {
-            CLS_LOG(@"Updating dish issue: %@", exception);
+           // CLS_LOG(@"Updating dish issue: %@", exception);
         }
         [User sharedInstance].updatePending = NO;
     }

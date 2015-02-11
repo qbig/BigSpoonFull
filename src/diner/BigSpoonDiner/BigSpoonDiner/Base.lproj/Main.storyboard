@@ -1892,10 +1892,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="TRy-SG-Bfr"/>
-        <segue reference="X3y-Ki-Wim"/>
-        <segue reference="p4l-nj-CSu"/>
         <segue reference="Ip7-SH-AIF"/>
+        <segue reference="NcF-ES-z1f"/>
+        <segue reference="p4l-nj-CSu"/>
+        <segue reference="TRy-SG-Bfr"/>
         <segue reference="OcS-Bs-eAE"/>
     </inferredMetricsTieBreakers>
 </document>
