@@ -753,7 +753,7 @@ class AckOrder(generics.GenericAPIView):
         meal.status = Meal.INACTIVE
         meal.modified = timezone.now()
         if meal.table.outlet.is_on_promotion and meal.promotion_note and meal.orders.filter(is_finished=True).count() == 0:
-            feedback_msg = 'Lucky you!\nEarly bird catches the worm,\nhere is ${amount} off your final receipt!'.format(amount=meal.table.outlet.Promotion_amount)
+            feedback_msg = 'Lucky you!\nEarly bird catches the worm,\nhere is ${amount} off your final receipt!'.format(amount=meal.table.outlet.promotion_amount)
         else :
             feedback_msg = 'Your order has been processed.'
 
