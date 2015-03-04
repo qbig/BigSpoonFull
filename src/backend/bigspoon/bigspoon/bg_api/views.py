@@ -746,12 +746,13 @@ class ClearBill(generics.GenericAPIView):
         except Table.DoesNotExist:
             return Response({"error": "Unknown table id " + str(table_id)},
                             status=status.HTTP_400_BAD_REQUEST)
-            for meal in table.meals.filter(is_paid=False):
-                meal.status = Meal.INACTIVE
-                meal.is_paid = True
-                meal.bill_time = timezone.now()
-                meal.save()
-            return Response("Success",
+
+        for meal in table.meals.filter(is_paid=False):
+            meal.status = Meal.INACTIVE
+            meal.is_paid = True
+            meal.bill_time = timezone.now()
+            meal.save()
+        return Response("Success",
                         status=status.HTTP_200_OK)
 #NOTE: Use serializer to check and get post data here
 class AckOrder(generics.GenericAPIView):
