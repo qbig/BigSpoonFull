@@ -718,7 +718,7 @@ class CloseBill(generics.GenericAPIView):
             return Response({
                 "details": "You do not have permission to perform this action."
             }, status=status.HTTP_403_FORBIDDEN)
-        
+
         meal.status = Meal.INACTIVE
         meal.is_paid = True
         meal.bill_time = timezone.now()
@@ -735,6 +735,24 @@ class CloseBill(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
+class ClearBill(generics.GenericAPIView):
+    authentication_classes = (TokenAuthentication,)
+    model = Meal
+
+    def post(self, request, *args, **kwargs):
+        try:
+            table_id = request.DATA['table']
+            table = Table.objects.get(id=int(table_id))
+        except Table.DoesNotExist:
+            return Response({"error": "Unknown table id " + str(table_id)},
+                            status=status.HTTP_400_BAD_REQUEST)
+            for meal in table.meals.filter(is_paid=False):
+                meal.status = Meal.INACTIVE
+                meal.is_paid = True
+                meal.bill_time = timezone.now()
+                meal.save()
+            return Response("Success",
+                        status=status.HTTP_200_OK)
 #NOTE: Use serializer to check and get post data here
 class AckOrder(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)

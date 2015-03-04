@@ -46,6 +46,7 @@ urlpatterns = patterns(
     url(r'^doc/', include('rest_framework_docs.urls')),
     # staff app API
     url(r'^closebill$', views.CloseBill.as_view()),
+    url(r'^clearbill$', views.ClearBill.as_view()),
     url(r'^ackorder$', views.AckOrder.as_view()),
     url(r'^ackreq$', views.AckRequest.as_view()),
 

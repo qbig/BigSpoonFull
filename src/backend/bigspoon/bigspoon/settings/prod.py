@@ -122,7 +122,7 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 ALLOWED_HOSTS = [
     '54.255.17.69',
     '54.255.3.255',
-    '54.255.0.38',
+    '54.255.66.101',
     '122.248.199.242',
     'bigspoon.biz',
     'www.bigspoon.biz',
