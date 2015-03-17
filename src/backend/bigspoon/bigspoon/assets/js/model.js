@@ -66,7 +66,7 @@ Model.prototype = {
                 if (mealObj.orders[i].dish === mealObj.orders[j].dish &&
                  mealObj.orders[i].note === mealObj.orders[j].note) {
                     console.log("same spotted here");
-                    mealObj.orders[j].quantity++;
+                    mealObj.orders[j].quantity+= mealObj.orders[i].quantity;
                     mealObj.orders.splice(i, 1);
                     break;
                 }
