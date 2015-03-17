@@ -62,9 +62,10 @@ Model.prototype = {
 
     mealDishDupCollapse: function (mealObj){
         for (var len = mealObj.orders.length, i = len - 1; i > 0; i--){
-            for (var j = i - 1; j > 0; j--){
+            for (var j = i - 1; j >= 0; j--){
                 if (mealObj.orders[i].dish === mealObj.orders[j].dish &&
                  mealObj.orders[i].note === mealObj.orders[j].note) {
+                    console.log("same spotted here");
                     mealObj.orders[j].quantity++;
                     mealObj.orders.splice(i, 1);
                     break;
