@@ -51,12 +51,26 @@ Model.prototype = {
                             break;
                         }
                     }
+                    that.mealDishDupCollapse(mealCardData);
                     that.items.meals.push(mealCardData);
                     that.checkNumCards();
                     callback(mealCardData, duplicateData);
                 }
             }
         });
+    },
+
+    mealDishDupCollapse: function (mealObj){
+        for (var len = mealObj.orders.length, i = len - 1; i > 0; i--){
+            for (var j = i - 1; j > 0; j--){
+                if (mealObj.orders[i].dish === mealObj.orders[j].dish &&
+                 mealObj.orders[i].note === mealObj.orders[j].note) {
+                    mealObj.orders[j].quantity++;
+                    mealObj.orders.splice(i, 1);
+                    break;
+                }
+            }
+        }
     },
     //add a request card to the model
     addRequestCard: function(request_id, callback) {
@@ -110,6 +124,7 @@ Model.prototype = {
             success: function(alldata) {
                 var allDataParsed = JSON.parse(alldata);
                 allDataParsed.meals.forEach(function(meal) {
+                    that.mealDishDupCollapse(meal);
                     that.items.meals.push(meal);
                 });
                 allDataParsed.requests.forEach(function(request) {
