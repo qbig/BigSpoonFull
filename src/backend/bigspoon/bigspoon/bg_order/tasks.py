@@ -10,6 +10,16 @@ from utils import send_socketio_message
 def add(x, y):
     return x + y
 
+"""
+TODO:
+API
+1. print_amax_normal
+-- same as the 'old' print_amax, just change the "'ToBePrintedInKitchen': 'true' ," -- > 'false'
+2. for TAKEAWAY
+-- send them to dashboard (no printing etc)
+-- call 'print_amax_normal' after ACK, that's it. no additional API required.
+"""
+
 @task(bind=True, max_retries=3)
 def print_amax(self, table_id, new_order_id):
 	table = Table.objects.get(id=table_id)
@@ -23,7 +33,7 @@ def print_amax(self, table_id, new_order_id):
 	item_note = new_order.note
 	item_sale_str = "||".join([pos_id, item_name, item_name + "*" + item_note, item_price, quantity]) + "|"
 	payload = {
-		'SalesItems': item_sale_str, 
+		'SalesItems': item_sale_str,
 		'TableName': tableName ,
 		'CounterCode': 'WEB' ,
 		'EmployeeCode': 'Web' ,
