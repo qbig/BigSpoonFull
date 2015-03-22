@@ -8,6 +8,7 @@ function Controller(model, view) {
     this.view.$mainWrapper.on('click', ".active a.closebill.ack-button", this.view.handleClick);
     this.view.$mainWrapper.on('click', ".item a.respond.ack-button", this.view.handleClick);
 }
+
 Controller.prototype = {
     // when open the page or refresh, if there are unacknowledged meal/request card, display them first
     // also add to the Model
@@ -18,6 +19,8 @@ Controller.prototype = {
         document.addEventListener('cardClicked', this.removeCard.bind(this));
         document.addEventListener('alarm', this.playAlarm.bind(this));
         document.addEventListener("checkNumCards", this.updateNumCards.bind(this));
+        document.addEventListener("requestRemoved", this.removeRequest.bind(this));
+        document.addEventListener("mealRemoved", this.removeMeal.bind(this));
         this.model.addAllCard(outlet_id);
         this.initSocketIO();
         this.sound = new Howl({
@@ -60,6 +63,24 @@ Controller.prototype = {
         }
     },
     initSocketIO: function() {
+        /*
+        AckRequest
+            send_socketio_message(
+                request.user.outlet_ids,
+                ['refresh', 'request', 'ack', str(req.id)]
+            )
+
+        AckOrder
+            send_socketio_message(
+                request.user.outlet_ids,
+                ['refresh', 'meal', 'ack', str(meal.id)]
+            )
+        CloseBill
+            send_socketio_message(
+                request.user.outlet_ids,
+                ['refresh', 'meal', 'closebill', str(meal.id)]
+            )
+        */
         // handle Socketio message, data may be in any of the following formats:
         // ['refresh', 'meal', 'new', 'meal_id']
         // ['refresh', 'meal', 'askbill', 'meal_id']
@@ -112,12 +133,20 @@ Controller.prototype = {
                     document.dispatchEvent(new CustomEvent("requestAdded", {
                         'detail': data[3]
                     }));
+                } else if (data[2] == 'ack'){
+                    document.dispatchEvent(new CustomEvent("requestRemoved", {
+                        'detail': data[3]
+                    }));
                 }
             }
         } else if (data[1] === 'meal') {
             if ($.inArray(path, this.model.STAFF_MEAL_PAGES[data[2]]) != -1) {
-                if (data[2] === 'new' || data[2] === 'askbill' || data[2] === 'closebill') {
+                if (data[2] === 'new' || data[2] === 'askbill') {
                     document.dispatchEvent(new CustomEvent("mealAdded", {
+                        'detail': data[3]
+                    }));
+                } else if (data[2] == 'ack' || data[2] === 'closebill'){
+                    document.dispatchEvent(new CustomEvent("mealRemoved", {
                         'detail': data[3]
                     }));
                 }
@@ -139,6 +168,19 @@ Controller.prototype = {
             that.view.displayAddedRequestCard(requestObj);
         });
     },
+
+    removeRequest : function(e) {
+        var that = this;
+        that.model.removeRequest(e.details, function(itemId){
+            that.view.removeCardWithId(itemId);
+        });
+    },
+    removeMeal : function(e) {
+        var that = this;
+        that.model.removeMeal(e.detail, function(itemId){
+            that.view.removeCardWithId(itemId);
+        });
+    }
 };
 window.app = window.app || {};
 window.app.Controller = Controller;

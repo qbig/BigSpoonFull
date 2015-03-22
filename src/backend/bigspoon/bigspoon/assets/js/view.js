@@ -98,6 +98,10 @@ View.prototype = {
         this.$mainWrapper.masonry();
         this.updateNotification('minus');
     },
+    removeCardWithId: function(itemId){
+        var elem = $('id-'+itemId);
+        this.removeCard(elem);
+    },
     //triggers acknowledgement event when button is clicked
     handleClick: function() {
         var button = $(this);

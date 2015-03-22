@@ -106,7 +106,7 @@ Model.prototype = {
     removeRequest: function(id, callback) {
         var len = this.items.requests.length;
         for (var i = 0; i < len; i++) {
-            if (this.items.requests[i].id === parseInt(id)) {
+            if (this.items.requests[i].id === parseInt(id, 10)) {
                 this.items.requests.splice(i, 1);
                 this.checkNumCards();
                 callback();

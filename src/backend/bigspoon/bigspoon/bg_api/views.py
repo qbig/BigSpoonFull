@@ -30,7 +30,7 @@ from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
 from bg_order.models import Meal, Request, Order
 from bg_order.tasks import get_printing_task
 from utils import send_socketio_message, send_user_feedback, today_limit
-from bg_api.tasks import send_socketio_message_async, send_user_feedback_async, send_socketio_message, send_user_feedback
+from bg_api.tasks import send_socketio_message_async, send_user_feedback_async
 from decimal import Decimal
 
 # import the logging library
@@ -702,7 +702,6 @@ class SearchOutletByDish(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# internal API for staff app only
 #NOTE: Use serializer to check and get post data here
 class CloseBill(generics.GenericAPIView):
     authentication_classes = (SessionAuthentication,)
@@ -727,15 +726,18 @@ class CloseBill(generics.GenericAPIView):
                 "u_%s" % meal.diner.auth_token.key,
                 'Your bill has been closed by waiter.'
             )
-        # send_socketio_message(
-        #         request.user.outlet_ids,
-        #         ['refresh', 'meal', 'closebill', str(meal.id)]
-        #     )
+        send_socketio_message(
+                request.user.outlet_ids,
+                ['refresh', 'meal', 'closebill', str(meal.id)]
+            )
         return Response(MealDetailSerializer(meal).data,
                         status=status.HTTP_200_OK)
 
 
 class ClearBill(generics.GenericAPIView):
+    """
+        Discontinue session, for phone on the table usage
+    """
     authentication_classes = (TokenAuthentication,)
     model = Meal
 
@@ -787,8 +789,9 @@ class AckOrder(generics.GenericAPIView):
         meal.save()
         send_socketio_message(
             request.user.outlet_ids,
-            ['refresh', 'meal', 'ack']
+            ['refresh', 'meal', 'ack', str(meal.id)]
         )
+
         send_user_feedback(
             "u_%s" % meal.diner.auth_token.key,
             feedback_msg
@@ -817,8 +820,9 @@ class AckRequest(generics.GenericAPIView):
         req.save()
         send_socketio_message(
             request.user.outlet_ids,
-            ['refresh', 'request', 'ack']
+            ['refresh', 'request', 'ack', str(req.id)]
         )
+
         if (req.request_type == Request.WATER):
             send_user_feedback(
                 "u_%s" % req.diner.auth_token.key,
@@ -831,7 +835,6 @@ class AckRequest(generics.GenericAPIView):
             )
         return Response(RequestSerializer(req).data,
                         status=status.HTTP_200_OK)
-
 
 #NOTE: Use serializer to check and get post data here
 class CreateNote(generics.GenericAPIView):
