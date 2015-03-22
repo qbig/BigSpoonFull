@@ -56,7 +56,10 @@ Controller.prototype = {
             });
         } else {
             that.model.postRemoveData(e.detail, function() {
+                console.log("postRemoveData success");
                 that.model.removeData(e.detail, function() {
+                    console.log("removeData success");
+                    console.log(e.details)
                     that.view.removeCard(e.detail.parent_card);
                 });
             });
@@ -127,6 +130,10 @@ Controller.prototype = {
         });
     },
     handlePrompt: function(data, path) {
+        console.log('in handlePrompt');
+        console.log("data : ");
+        console.log(data);
+
         if (data[1] === 'request') {
             if ($.inArray(path, this.model.STAFF_MEAL_PAGES[data[2]]) != -1) {
                 if (data[2] == 'new') {
