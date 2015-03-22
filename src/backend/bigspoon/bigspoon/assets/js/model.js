@@ -156,13 +156,17 @@ Model.prototype = {
         console.log("in removeData");
         console.log(event);
         if (event.model === 'request') {
+            console.log(event);
             this.removeRequest(event.card_id, function() {
                 callback();
             });
+            console.log("ends with request");
         } else if (event.model === 'meal') {
+            console.log(event);
             this.removeMeal(event.card_id, function() {
                 callback();
             });
+            console.log("ends with meal");
         }
     },
     checkNumCards: function() {
