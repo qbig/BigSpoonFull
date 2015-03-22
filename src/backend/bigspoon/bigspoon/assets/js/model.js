@@ -153,6 +153,8 @@ Model.prototype = {
     },
     //check card type and remove accordingly
     removeData: function(event, callback) {
+        console.log("in removeData");
+        console.log(event);
         if (event.model === 'request') {
             this.removeRequest(event.card_id, function() {
                 callback();

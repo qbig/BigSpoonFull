@@ -57,9 +57,10 @@ Controller.prototype = {
         } else {
             that.model.postRemoveData(e.detail, function() {
                 console.log("postRemoveData success");
+                console.log(e.detail)
                 that.model.removeData(e.detail, function() {
                     console.log("removeData success");
-                    console.log(e.details)
+                    console.log(e.details);
                     that.view.removeCard(e.detail.parent_card);
                 });
             });
