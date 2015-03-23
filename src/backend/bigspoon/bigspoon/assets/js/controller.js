@@ -46,9 +46,6 @@ Controller.prototype = {
     },
     removeCard: function(e) {
         var that = this;
-        console.log("removing");
-        console.log(e);
-        console.log(this.host);
         //ajax post to backend with card_id with a callback to remove card and data
         if (location.pathname.indexOf("tables") !== -1) {
             that.model.postRemoveData(e.detail, function() {
@@ -56,11 +53,7 @@ Controller.prototype = {
             });
         } else {
             that.model.postRemoveData(e.detail, function() {
-                console.log("postRemoveData success");
-                console.log(e.detail)
                 that.model.removeData(e.detail, function() {
-                    console.log("removeData success");
-                    console.log(e.details);
                     that.view.removeCard(e.detail.parent_card);
                 });
             });
@@ -131,10 +124,6 @@ Controller.prototype = {
         });
     },
     handlePrompt: function(data, path) {
-        console.log('in handlePrompt');
-        console.log("data : ");
-        console.log(data);
-
         if (data[1] === 'request') {
             if ($.inArray(path, this.model.STAFF_MEAL_PAGES[data[2]]) != -1) {
                 if (data[2] == 'new') {
@@ -179,11 +168,13 @@ Controller.prototype = {
 
     removeRequest : function(e) {
         var that = this;
-        that.model.removeRequest(e.details, function(itemId){
+        that.model.removeRequest(e.detail, function(itemId){
+
             that.view.removeCardWithId(itemId);
         });
     },
     removeMeal : function(e) {
+
         var that = this;
         that.model.removeMeal(e.detail, function(itemId){
             that.view.removeCardWithId(itemId);

@@ -33,7 +33,6 @@ function Model() {
 
 Model.prototype = {
     addMealCard: function(meal_id, callback) {
-    	console.log("addMealCard:meal_id:"+ meal_id);
         var that = this;
         var duplicateData = false;
         $.ajax({
@@ -65,7 +64,6 @@ Model.prototype = {
             for (var j = i - 1; j >= 0; j--){
                 if (mealObj.orders[i].dish === mealObj.orders[j].dish &&
                  mealObj.orders[i].note === mealObj.orders[j].note) {
-                    console.log("same spotted here");
                     mealObj.orders[j].quantity+= mealObj.orders[i].quantity;
                     mealObj.orders.splice(i, 1);
                     break;
@@ -96,7 +94,7 @@ Model.prototype = {
             if (this.items.meals[i].id === parseInt(id, 10)) {
                 this.items.meals.splice(i, 1);
                 this.checkNumCards();
-                callback();
+                callback(id);
                 break;
             }
         }
@@ -109,7 +107,7 @@ Model.prototype = {
             if (this.items.requests[i].id === parseInt(id, 10)) {
                 this.items.requests.splice(i, 1);
                 this.checkNumCards();
-                callback();
+                callback(id);
                 break;
             }
         }
@@ -153,20 +151,14 @@ Model.prototype = {
     },
     //check card type and remove accordingly
     removeData: function(event, callback) {
-        console.log("in removeData");
-        console.log(event);
         if (event.model === 'request') {
-            console.log(event);
-            this.removeRequest(event.card_id, function() {
+            this.removeRequest(parseInt(event.card_id, 10), function() {
                 callback();
             });
-            console.log("ends with request");
         } else if (event.model === 'meal') {
-            console.log(event);
-            this.removeMeal(event.card_id, function() {
+            this.removeMeal(parseInt(event.card_id, 10), function() {
                 callback();
             });
-            console.log("ends with meal");
         }
     },
     checkNumCards: function() {
