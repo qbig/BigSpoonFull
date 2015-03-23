@@ -99,7 +99,7 @@ View.prototype = {
         this.updateNotification('minus');
     },
     removeCardWithId: function(itemId){
-        var elem = $('id-'+itemId);
+        var elem = $('#card-'+itemId);
         this.removeCard(elem);
     },
     //triggers acknowledgement event when button is clicked
