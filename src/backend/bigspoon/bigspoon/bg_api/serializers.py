@@ -347,14 +347,14 @@ class MealAPISerializer(serializers.ModelSerializer):
 
     def get_start_time(self, obj):
         settings_time_zone = pytz.timezone(settings.TIME_ZONE)
-        sg_time = obj.created.astimezone(settings_time_zone)
+        sg_time = obj.modified.astimezone(settings_time_zone)
         return int(sg_time.strftime("%s")) * 1000
 
     def get_table_name(self, obj):
         return obj.table.name
 
     def get_wait_time(self, obj):
-        diff = timezone.now() - obj.created
+        diff = timezone.now() - obj.modified
         diffmod = divmod(diff.days * 86400 + diff.seconds, 60)
         return {
             "min":diffmod[0],

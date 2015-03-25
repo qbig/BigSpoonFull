@@ -84,8 +84,6 @@ Controller.prototype = {
         // ['refresh', 'meal', 'closebill', 'meal_id']
         // ['refresh', 'request', 'new', 'request_id']
         // not implemented yet
-        // ['refresh', 'meal', 'ack']   (reply from socketIO when a meal card is acknowledged)
-        // ['refresh', 'request', 'ack']    (reply from socketIO when a request card is acknowledged)
         // ['refresh', 'menu', 'add']   (reply from socketIO when a menu detail is changed)
         var that = this;
         var details = {
@@ -122,6 +120,14 @@ Controller.prototype = {
                 }
             }
         });
+        setInterval(function() {
+            if (!socket.socket.connected &&
+             !socket.socket.reconnecting &&
+             !socket.socket.connecting)
+            {
+                socket.socket.reconnect();
+            }
+        }, 30 * 1000);
     },
     handlePrompt: function(data, path) {
         if (data[1] === 'request') {

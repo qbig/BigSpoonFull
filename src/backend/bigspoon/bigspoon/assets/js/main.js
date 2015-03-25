@@ -165,7 +165,7 @@ $(document).ready(function() {
             "user": user,
             "content": content,
         };
-        $.post(STAFF_API_URLS["note"], req_data).done(function(data) {
+        $.post(window.page.model.STAFF_API_URLS["note"], req_data).done(function(data) {
             console.log("POST success!");
             button.parent().append("<p class='success'><i class='icon-ok-sign'></i> Note saved!</p>");
         }).fail(function(data) {
@@ -219,7 +219,7 @@ $(document).ready(function() {
             //"categories":[{'id': category_id, 'name': category_name, 'desc': category_desc}]
         };
         console.log(req_data);
-        $.post(STAFF_API_URLS["dish"] + "/" + id, req_data).done(function(data) {
+        $.post(window.page.model.STAFF_API_URLS["dish"] + "/" + id, req_data).done(function(data) {
             var notice_id = '#notice-' + id;
             $(notice_id).empty();
             $(notice_id).append(successMessage(name)).effect("highlight", {}, 3000);
@@ -335,7 +335,7 @@ $(document).ready(function() {
             "to_table": targetTableId,
         };
         if (!is_in_popup) {
-            $.post(STAFF_API_URLS["table"], req_data).done(function(data) {
+            $.post(window.page.model.STAFF_API_URLS["table"], req_data).done(function(data) {
                 from_table_obj.html(content_target_table);
                 to_table_obj.html(content_from_table);
                 bind_popup();
@@ -344,7 +344,7 @@ $(document).ready(function() {
             });
         } else {
             req_data["diner_id"] = window.selected_userId;
-            $.post(STAFF_API_URLS["table-single"], req_data).done(function(data) {
+            $.post(window.page.model.STAFF_API_URLS["table-single"], req_data).done(function(data) {
                 var card = $("#card-" + selected_userId);
                 var cur_table = $("#popup-table-" + selected_userId);
                 cur_table.html("Table " + $.trim(self.html()).substring(9));
@@ -377,7 +377,7 @@ $(document).ready(function() {
                     "diner_id": selected_userId,
                     "dish_id": chosenDishId
                 };
-                $.post(STAFF_API_URLS["newOrder"], req_data).done(function(data) {
+                $.post(window.page.model.STAFF_API_URLS["newOrder"], req_data).done(function(data) {
                     //{"quantity":1,"dish":
                     //{"price":"9.5","id":35,"name":"Crabbies Strawberry & Lime Ginger Beer"}}
                     var popup_order_container = $(".current-orders .order");
@@ -437,7 +437,7 @@ $(document).ready(function() {
             "order_id": order_id,
             "new_quant": quantity + 1
         };
-        $.post(STAFF_API_URLS["order_update"], req_data).done(function(data) {
+        $.post(window.page.model.STAFF_API_URLS["order_update"], req_data).done(function(data) {
             if (data.quantity >= 1) {
                 quantity_element.html(data.quantity + "x");
                 page_order_container.find(".quantity").html(data.quantity + "x");
@@ -461,7 +461,7 @@ $(document).ready(function() {
             "order_id": order_id,
             "new_quant": quantity - 1
         };
-        $.post(STAFF_API_URLS["order_update"], req_data).done(function(data) {
+        $.post(window.page.model.STAFF_API_URLS["order_update"], req_data).done(function(data) {
             if (data.quantity >= 1) {
                 quantity_element.html(data.quantity + "x");
                 page_order_container.find(".quantity").html(data.quantity + "x");
@@ -488,7 +488,7 @@ $(document).ready(function() {
             "order_id": order_to_modify,
             "new_quant": quantity - 1
         };
-        $.post(STAFF_API_URLS["order_update"], req_data).done(function(data) {
+        $.post(window.page.model.STAFF_API_URLS["order_update"], req_data).done(function(data) {
             if (data.quantity >= 1) {
                 order_li_num_obj.html(data.quantity + "x");
             } else {
