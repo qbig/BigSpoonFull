@@ -22,10 +22,10 @@ Controller.prototype = {
         document.addEventListener("requestRemoved", this.removeRequest.bind(this));
         document.addEventListener("mealRemoved", this.removeMeal.bind(this));
         this.model.addAllCard(outlet_id);
-        this.initSocketIO();
         this.sound = new Howl({
             urls: [media_url + 'sounds/notification.mp3']
         });
+        this.initSocketIO();
     },
     updateNumCards: function(e) {
         this.view.checkCardNum(e.detail);
