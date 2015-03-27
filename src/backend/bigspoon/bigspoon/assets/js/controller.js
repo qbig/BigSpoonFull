@@ -42,7 +42,16 @@ Controller.prototype = {
         }
     },
     playAlarm: function() {
-        this.sound.play();
+        if (this.sound._loaded) {
+            this.sound.play();
+        } else {
+            this.sound = new Howl({
+                urls: [media_url + 'sounds/notification.mp3'],
+                onload: function() {
+                    this.play();
+                }
+            });
+        }
     },
     removeCard: function(e) {
         var that = this;
