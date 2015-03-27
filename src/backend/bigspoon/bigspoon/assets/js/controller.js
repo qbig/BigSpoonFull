@@ -35,7 +35,7 @@ Controller.prototype = {
             }
             this.playAlarm();
             this.intervalId = setInterval(function() {
-                document.dispatchEvent(new Event("alarm"));
+                document.dispatchEvent(new CustomEvent("alarm"));
             }, 30000);
         } else {
             clearInterval(this.intervalId);
