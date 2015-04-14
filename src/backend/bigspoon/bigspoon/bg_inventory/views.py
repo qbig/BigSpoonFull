@@ -12,12 +12,15 @@ REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
 logger = logging.getLogger('')
 
 class BigSpoonNamespace(BaseNamespace):
-    
+
+    def __init__(self, *args, **kargs):
+        super(BigSpoonNamespace, self).__init__(*args, **kargs)
+        self.pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
+
     def listener(self, chan):
-        pubsub = redis.StrictRedis(REDIS_HOST).pubsub()
-        pubsub.subscribe(chan)
+        self.pubsub.subscribe(chan)
         while True:
-            for i in pubsub.listen():
+            for i in self.pubsub.listen():
                 self.send({'message': i}, json=True)
 
     def recv_message(self, message):
