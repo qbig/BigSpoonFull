@@ -93,7 +93,7 @@ SECRET_KEY = environ.get('SECRET_KEY', SECRET_KEY)
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = [
     '175.41.151.219',
-    '54.255.66.101',
+    '54.251.209.132',
     '175.41.178.102',
     '46.137.234.248',
     'bigspoon.biz',
