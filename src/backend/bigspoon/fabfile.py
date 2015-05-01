@@ -14,7 +14,7 @@ WORK_HOME = '/home/ec2-user/webapps/2013-final-project-7/src/backend/bigspoon/'
 ENV_PATH = '/home/ec2-user/webapps/2013-final-project-7/src/backend/env/'
 RUN_WITH_ENV = 'source ' + ENV_PATH + 'bin/activate && '
 AWS_IP_STAGE = '46.137.234.248'
-AWS_IP_PROD = '54.255.66.101'
+AWS_IP_PROD = '54.251.209.132'
 AWS_IP_BIG = '175.41.151.219'
 STAGE_SERVER = [AWS_IP_STAGE]
 env.user = 'ec2-user'
@@ -76,7 +76,7 @@ def prod_deploy(*args):
     print(cyan('->  Connected to server'))
     with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
-        run("git remote update && git reset --hard origin/master")
+        run("git remote update && git reset --hard origin/notif")
         install_requirements()
         if args:
             if 'newdb' in args:

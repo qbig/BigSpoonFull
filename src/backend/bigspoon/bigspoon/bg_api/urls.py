@@ -9,6 +9,7 @@ urlpatterns = patterns(
     url(r'^user$', views.CreateUser.as_view()),
     url(r'^login$', views.LoginUser.as_view()),
     url(r'^fblogin$', views.FBLogin.as_view()),
+    url(r'^push-user$', views.NotifyUser.as_view()),
     # ordering
     url(r'^mealhistory$', views.MealHistory.as_view()),
     url(r'^meal$', views.CreateMeal.as_view()),

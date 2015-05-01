@@ -29,10 +29,10 @@ from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
 from bg_order.tasks import get_printing_task
+from bg_api.tasks import push_to_device
 from utils import send_socketio_message, send_user_feedback, today_limit
 from bg_api.tasks import send_socketio_message_async, send_user_feedback_async
 from decimal import Decimal
-
 # import the logging library
 import logging
 
@@ -206,6 +206,23 @@ class OutletItemsView(generics.RetrieveAPIView):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+class NotifyUser(generics.CreateAPIView):
+    """
+    Modify order quantity for a meal record
+    """
+    authentication_classes = (SessionAuthentication, TokenAuthentication)
+    permission_classes = (DjangoObjectPermissions,)
+    serializer_class = UserSerializer
+    model = User
+    def post(self, req, *args, **kwargs):
+        try:
+            user_id = req.DATA['user_id']
+            # send call push API to user with email
+            push_to_device.delay("user_id", user_id)
+            return Response(status=status.HTTP_201_CREATED)
+        except:
+            return Response({"error": "Push failed"},
+                            status=status.HTTP_400_BAD_REQUEST)
 
 class ListCategory(generics.ListAPIView):
     """
@@ -416,7 +433,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             if (len(out_of_stock) > 1):
                 out_of_stock_str += " and "
             out_of_stock_str += out_of_stock[-1]
-            return Response({"error": "Sorry, we ran out of stock for "
+            return Response({"out_of_stock": "Sorry, we just ran out of stock for "
                              + out_of_stock_str},
                             status=status.HTTP_400_BAD_REQUEST)
 
@@ -438,9 +455,9 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
 
         meal.modified = timezone.now()
 
-        if table.outlet.is_auto_send_to_POS:
+        if table.outlet.is_auto_send_to_POS and not table.is_for_take_away:
             meal.status = Meal.INACTIVE
-        else :
+        else:
             meal.status = Meal.ACTIVE
 
         if ('note' in request.DATA):
@@ -464,20 +481,21 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             index_str = str(idx)
             if notes and index_str in notes:
                 new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(index_str), is_finished=table.outlet.is_auto_send_to_POS)   
-            else : 
+            else:
                 new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, is_finished=table.outlet.is_auto_send_to_POS)
 
-            if modifiers and index_str in modifiers: 
+            if modifiers and index_str in modifiers:
                 new_order.modifier_json = modifiers.get(index_str)
                 new_order.save()
 
             # send to printer if configured
-            if table.outlet.is_auto_send_to_POS and get_printing_task(table.outlet.id):
+            if table.outlet.is_auto_send_to_POS and get_printing_task(table.outlet.id) and not table.is_for_take_away:
                 get_printing_task(table.outlet.id).delay(table.id, new_order.id)
             # send done
             dish.quantity -= quantity
             dish.save()
-        if not table.outlet.is_auto_send_to_POS:             
+        if not table.outlet.is_auto_send_to_POS:
+            push_to_device.delay("outlet_id", str(table.outlet.id))
             send_socketio_message(
                 [table.outlet.id],
                 ['refresh', 'meal', 'new', str(meal.id)]
@@ -486,12 +504,16 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
 
     def get(self, request):
         diner = request.user
+        is_checking_new = request.QUERY_PARAMS.get('new', None)
         try:
             meal = Meal.objects.get(created__range=today_limit(), diner=diner, is_paid=False)
-            return Response(MealSerializer(meal).data,
-                        status=status.HTTP_200_OK)
+            if is_checking_new:
+                data = MealAPISerializer(meal).data
+            else:
+                data = MealSerializer(meal).data
+            return Response(data, status=status.HTTP_200_OK)
         except Meal.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response({"error": "Not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
@@ -507,7 +529,7 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
         order_ids = request.DATA['order_ids']
         try:
             for o_id in order_ids:
-                order = Order.objects.get(id = int(o_id))
+                order = Order.objects.get(id=int(o_id))
                 order.is_finished = True
                 order.has_been_sent_to_POS = True
                 order.meal.status = 1
@@ -524,16 +546,16 @@ class ProcessMealForPOS(generics.CreateAPIView, generics.ListAPIView):
             ['refresh', 'meal', 'new']
         )
         return Response({"success": 1, }, status=status.HTTP_201_CREATED)
-    
+
     def get_queryset(self):
         outlet_id = self.request.QUERY_PARAMS.get('outlet_id', None)
         outlet = Outlet.objects.get(id=int(outlet_id))
-        
+
         return Meal.objects.filter(
             table__outlet=outlet,
             is_paid=False
         )
-        
+
 
 class MealDetail(generics.RetrieveAPIView):
     """
@@ -582,6 +604,7 @@ class CreateRequest(generics.CreateAPIView):
                                                    is_paid=False, status=Meal.INACTIVE)
 
     def post_save(self, obj, created=False):
+        push_to_device.delay("outlet_id", str(obj.table.outlet.id))
         send_socketio_message(
             [obj.table.outlet.id],
             ['refresh', 'request', 'new', str(obj.id)]
@@ -605,6 +628,7 @@ class AskForBill(generics.GenericAPIView):
             meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
             meal.save()
+            push_to_device.delay("outlet_id", str(table.outlet.id))
             send_socketio_message_async.delay(
                 "||".join([str(table.outlet.id)]),
                 "||".join(['refresh', 'meal', 'askbill', str(meal.id)])
@@ -775,14 +799,18 @@ class AckOrder(generics.GenericAPIView):
         meal.modified = timezone.now()
         if meal.table.outlet.is_on_promotion and meal.promotion_note and meal.orders.filter(is_finished=True).count() == 0:
             feedback_msg = 'Lucky you!\nEarly bird catches the worm,\nhere is ${amount} off your final receipt!'.format(amount=meal.table.outlet.promotion_amount)
-        else :
+        else:
             feedback_msg = 'Your order has been processed.'
 
         for order in meal.orders.all():
+            if meal.table.outlet.is_auto_send_to_POS and meal.table.is_for_take_away:
+                get_printing_task(meal.table.outlet.id).delay(meal.table.id, order.id, print_bool=True)
+
             # if not integrated, alway set as true
             # if integrated, and finished(default state), do not touch
             # if integrated, and not finished(printing failed), set it as printed(waiter manually)
-            if not meal.table.outlet.is_auto_send_to_POS or not order.is_finished:
+            if not meal.table.is_for_take_away and \
+              (not meal.table.outlet.is_auto_send_to_POS or not order.is_finished):
                 order.has_been_sent_to_POS = True
             order.is_finished = True
             order.save()

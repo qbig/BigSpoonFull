@@ -8,7 +8,6 @@ from django.utils.text import slugify
 from guardian.shortcuts import get_objects_for_user
 from cache_utils.decorators import cached
 from bg_inventory.managers import UserManager
-
 from jsonfield import JSONField
 
 import urllib
@@ -110,7 +109,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return []
         return get_meals(self.pk)
 
-    
     def get_spending_for_recent_outlet(self):
         """
         Returns sum of all orders of meals for given outlet.
@@ -122,7 +120,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
             if not recent_meals:
                 return total_spending
-        
+
             for meal in recent_meals:
                 spending_for_meal = 0
                 for order in meal.orders.all():
@@ -131,7 +129,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             return total_spending
         return get_spending(self.pk)
 
-    
     def get_num_of_visits_for_recent_outlet(self):
         """
         Returns num of visits for given outlet.
@@ -145,7 +142,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return len(recent_meals)
         return get_visits_num(self.pk)
 
-    
     def get_average_spending_for_recent_outlet(self):
 
         @cached(60*5)
@@ -158,8 +154,6 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return 0
         return get_avg_spending(self.pk)
 
-
-    
     def get_average_spending(self):
         """
         Returns average of all orders of all meals of this user.
@@ -557,7 +551,7 @@ class CategorySequence(models.Model):
         related_name='occur_sequences'
     )
 
-    
+
 class Table(models.Model):
     """
     Stores outlet table information

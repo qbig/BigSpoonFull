@@ -209,19 +209,6 @@ textarea {
    BigSpoon styles
    ========================================================================== */
 
-/* Custom Fonts */
-@font-face {
-    font-weight: bold;
-    font-family: 'Ostrich Sans';
-    src: url("{{STATIC_URL}}fonts/ostrich-black.ttf");
-}
-
-@font-face {
-    font-family: 'Scholar';
-    src: url("{{STATIC_URL}}fonts/texgyreschola-regular.otf");
-}
-
-
 body {
     /*background: url("{{STATIC_URL}}img/bg.png");*/
     background: #606060;
@@ -258,7 +245,6 @@ nav h1, h1.logo{
     vertical-align: middle;
     font-weight: bold;
     font-size: 36px;
-    font-family: "Ostrich Sans";
 }
 
 nav ul {
@@ -272,7 +258,6 @@ nav ul li{
     color: #585858;
     list-style-type: none;
     font-size: 18px;
-    font-family: "Scholar";
     line-height:36px;
 }
 
@@ -901,7 +886,6 @@ input#filter , .login p input, .user-info input, .menu-item p input, .menu-item 
     color: #fff;
     font-weight: normal;
     font-size: 24px;
-    font-family: Scholar;
 }
 
 .accordion-heading:nth-of-type(odd){
@@ -1003,14 +987,12 @@ form.menu-add {
     padding-left:10px;
     color: rgb(85,85,85);
     font-size: 32px;
-    font-family: "Scholar";
     display:inline-block;
 }
 
 .table input {
     padding-left:10px;    
     font-size: 20px;
-    font-family: "Scholar";
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px; 
     border-radius: 5px;

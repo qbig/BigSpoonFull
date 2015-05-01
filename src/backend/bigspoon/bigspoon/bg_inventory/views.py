@@ -1,15 +1,14 @@
 import redis
 from django.http import HttpResponse
 from django.conf import settings
-from gevent.greenlet import Greenlet
 
 from socketio.namespace import BaseNamespace
 from socketio import socketio_manage
 import logging
 
 REDIS_HOST = getattr(settings, 'REDIS_HOST', '127.0.0.1')
-
 logger = logging.getLogger('')
+
 
 class BigSpoonNamespace(BaseNamespace):
 
@@ -32,7 +31,7 @@ class BigSpoonNamespace(BaseNamespace):
 
     def recv_disconnect(self):
         logger.info("disconnect!")
-        if self.pubsub:    
+        if self.pubsub:
             logger.info("pubsub closed!")
             self.pubsub.close()
         self.disconnect(silent=True)
