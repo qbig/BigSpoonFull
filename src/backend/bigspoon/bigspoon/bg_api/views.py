@@ -625,14 +625,18 @@ class AskForBill(generics.GenericAPIView):
                                     is_paid=False).order_by('-modified')
         if meals.count() >= 1:
             meal = meals[0]
-            meal.status = Meal.ASK_BILL
             meal.modified = timezone.now()
+            if meal.table.outlet.is_auto_send_to_POS:
+                meal.is_paid = True
+            else:
+                meal.status = Meal.ASK_BILL
+                push_to_device.delay("outlet_id", str(table.outlet.id))
+                send_socketio_message_async.delay(
+                    "||".join([str(table.outlet.id)]),
+                    "||".join(['refresh', 'meal', 'askbill', str(meal.id)])
+                )
             meal.save()
-            push_to_device.delay("outlet_id", str(table.outlet.id))
-            send_socketio_message_async.delay(
-                "||".join([str(table.outlet.id)]),
-                "||".join(['refresh', 'meal', 'askbill', str(meal.id)])
-            )
+
             return Response({"meal": meal.id, }, status=status.HTTP_200_OK)
 
         return Response({"error": "No unpaid meal for this user", },
