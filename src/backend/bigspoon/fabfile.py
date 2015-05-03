@@ -76,7 +76,7 @@ def prod_deploy(*args):
     print(cyan('->  Connected to server'))
     with cd('%s' % WORK_HOME):
         print(yellow('Check out latest code ...'))
-        run("git remote update && git reset --hard origin/notif")
+        run("git remote update && git reset --hard origin/master")
         install_requirements()
         if args:
             if 'newdb' in args:
