@@ -40,7 +40,7 @@ def send_to_amax_no_print(self, table_id, new_order_id, print_bool=False):
     item_price = str(new_order.get_order_spending())
     quantity = str(new_order.quantity)
     item_note = new_order.note
-    item_sale_str = "||".join([pos_id, item_name, item_name + "*" + item_note, item_price, quantity]) + "|"
+    item_sale_str = "||".join([pos_id, item_name, item_name + "*\n" + item_note, item_price, quantity]) + "|"
     payload = {
         'SalesItems': item_sale_str,
         'TableName': tableName,
