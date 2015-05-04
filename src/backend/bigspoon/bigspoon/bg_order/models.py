@@ -5,7 +5,7 @@ from django.utils import timezone
 from bg_inventory.models import User, Table, Dish
 
 from jsonfield import JSONField
-
+from decimal import Decimal
 import time
 
 
@@ -241,9 +241,9 @@ class Order(models.Model):
                     prices.update(dict([(sec['itemTitle']+'-'+k, v) for k, v in sec['items'].items()]))
                 else:
                     prices.update(sec['items'].copy())
-            return float(self.dish.price) + sum([prices[k]*v for k, v in self.modifier_json.items()])
+            return self.dish.price + Decimal(str(sum([prices[k]*v for k, v in self.modifier_json.items()])))
         else:
-            return float(self.dish.price * self.quantity)
+            return self.dish.price * self.quantity
 
     def __unicode__(self):
         return "(%s - %s) %s | %s x %s" % (
