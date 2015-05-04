@@ -238,7 +238,8 @@ class Order(models.Model):
             prices = {}
             for sec in self.dish.custom_order_json['sections']:
                 prices.update(sec['items'].copy())
-            return self.dish.price + sum([prices[k]*v for k, v in self.modifier_json.items()])
+            # find last occurence of '-', remove it and everything in front
+            return self.dish.price + sum([prices[k[k.rfind('-')+1:]]*v for k, v in self.modifier_json.items()])
         else:
             return self.dish.price * self.quantity
 
