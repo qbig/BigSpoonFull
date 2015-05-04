@@ -234,7 +234,13 @@ class Order(models.Model):
     )
 
     def get_order_spending(self):
-        return self.dish.price * self.quantity
+        if self.dish.can_be_customized:
+            prices = {}
+            for sec in self.dish.custom_order_json['sections']:
+                prices.update(sec['items'].copy())
+            return self.dish.price + sum([prices[k]*v for k, v in self.modifier_json.items()])
+        else:
+            return self.dish.price * self.quantity
 
     def __unicode__(self):
         return "(%s - %s) %s | %s x %s" % (
