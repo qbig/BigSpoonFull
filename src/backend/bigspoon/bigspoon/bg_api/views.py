@@ -28,8 +28,7 @@ from bg_api.serializers import UserSerializer, OutletListSerializer, \
 from bg_inventory.models import Outlet, Profile, Category, Table, Dish, Note,\
     Rating, Review
 from bg_order.models import Meal, Request, Order
-from bg_order.tasks import get_printing_task
-from bg_api.tasks import push_to_device
+from bg_api.tasks import push_to_device, get_printing_task
 from utils import send_socketio_message, send_user_feedback, today_limit
 from bg_api.tasks import send_socketio_message_async, send_user_feedback_async
 from decimal import Decimal
