@@ -241,7 +241,7 @@ class Order(models.Model):
                     prices.update(dict([(sec['itemTitle']+'-'+k, v) for k, v in sec['items'].items()]))
                 else:
                     prices.update(sec['items'].copy())
-            return self.dish.price + sum([prices[k]*v for k, v in self.modifier_json.items()])
+            return self.dish.price + float(sum([prices[k]*v for k, v in self.modifier_json.items()]))
         else:
             return self.dish.price * self.quantity
 
