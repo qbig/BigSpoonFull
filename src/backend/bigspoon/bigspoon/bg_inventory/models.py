@@ -421,6 +421,12 @@ class Outlet(models.Model):
         help_text=_('refresh interval for dashboard'),
     )
 
+    clear_sent_orders_interval = models.IntegerField(
+        _('clear_sent_orders_interval'),
+        default=600,
+        help_text=_('refresh interval for dashboard(seconds)'),
+    )
+
     location_diameter = models.DecimalField(
         _('location checking diameter'),
         max_digits=4,
