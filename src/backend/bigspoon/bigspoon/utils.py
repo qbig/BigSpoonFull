@@ -30,3 +30,9 @@ def make_time_zone_aware(to_update):
 
 def one_hour_ago():
     return timezone.now() - timedelta(hours=1)
+
+def five_mins_ago():
+    return (timezone.now() - timedelta(minutes=5), timezone.now())
+
+
+
