@@ -442,7 +442,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         # Note: here there may exist a discrepency between the table_id sent from user and the table id
         #       from meal, as it could be edited by staff to avoid confusion after diner change their table
         try:
-            meal = Meal.objects.filter(created__range=five_mins_ago(), diner=diner, is_paid=False).latest('created')
+            meal = Meal.objects.filter(created__range=today_limit(), diner=diner, is_paid=False).latest('created')
             table = meal.table
         except Meal.DoesNotExist:
             meal = Meal.objects.create(table=table, diner=diner,
@@ -505,7 +505,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         diner = request.user
         is_checking_new = request.QUERY_PARAMS.get('new', None)
         try:
-            meal = Meal.objects.get(modified__range=today_limit(), diner=diner, is_paid=False)
+            meal = Meal.objects.get(modified__range=five_mins_ago(), diner=diner, is_paid=False)
             if is_checking_new and not meal.table.outlet.is_auto_send_to_POS:
                 data = MealAPISerializer(meal).data  # finish=False
             else:
