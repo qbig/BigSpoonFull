@@ -1,17 +1,17 @@
 from __future__ import absolute_import
 
 from celery import task
+from celery.utils.log import get_task_logger
 from utils import send_socketio_message, send_user_feedback, today_limit
 from bg_order.models import Meal, Order, Meal
 from bg_inventory.models import User, Table
 import datetime
 import requests
-import json
-import logging
 from requests.auth import HTTPBasicAuth
+import json
 
-# Get an instance of a logger
-logger = logging.getLogger(__name__)
+
+logger = get_task_logger(__name__)
 
 
 @task
@@ -76,7 +76,7 @@ r = requests.get(url, auth=HTTPBasicAuth('Administrator', 'Greendot@111'))
 """
 
 
-@task(bind=True, max_retries=3)
+@task(bind=True, max_retries=10)
 def send_to_amax_no_print(self, table_id, new_order_id, print_bool=False):
     table = Table.objects.get(id=table_id)
     new_order = Order.objects.get(id=new_order_id)
@@ -106,13 +106,16 @@ def send_to_amax_no_print(self, table_id, new_order_id, print_bool=False):
         'sGUID': '',
         'iSalesPax': '1',
     }
+    logger.info("Table {0} sending {1} x {2} with node: {3}".format(tableName, item_name, quantity, item_note))
     try:
         r = requests.post(url, data=payload, auth=basic_auth)
         if r.status_code == 200:
             new_order.has_been_sent_to_POS = True
             new_order.save()
+        logger.info("Table {0} sending {1} x {2}, \n Code: {3}, Text: {4}".format(tableName, item_name, quantity, r.status_code, r.text))
         r.raise_for_status()
     except Exception as exc:
+        logger.info("Table {0} sending {1} x {2}, \n Exception: {3} \n Retrying: {4}".format(tableName, item_name, quantity, repr(exc), self.request.retries))
         if self.request.retries >= self.max_retries:
             new_order.is_finished = False
             new_order.meal.status = Meal.ACTIVE
@@ -124,7 +127,7 @@ def send_to_amax_no_print(self, table_id, new_order_id, print_bool=False):
                 ['refresh', 'meal', 'new', new_order.meal.id]
             )
         else:
-            self.retry(exc=exc, countdown=min(2 ** self.request.retries, 60))
+            self.retry(exc=exc, countdown=min(self.request.retries, 5))
 
 
 ############################

@@ -113,4 +113,4 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Singapore'
-CELERY_ANNOTATIONS = {'*': {'rate_limit': '10/s'}}
+CELERY_ANNOTATIONS = {'*': {'rate_limit': '100/s'}}
