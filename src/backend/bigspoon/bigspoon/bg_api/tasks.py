@@ -106,16 +106,16 @@ def send_to_amax_no_print(self, table_id, new_order_id, print_bool=False):
         'sGUID': '',
         'iSalesPax': '1',
     }
-    #logger.info("Table {0} sending {1} x {2} with node: {3}".format(tableName, item_name, quantity, item_note))
+    logger.info("Table {0} sending pos_id:{1} x {2}".format(tableName, pos_id, quantity))
     try:
         r = requests.post(url, data=payload, auth=basic_auth)
         if r.status_code == 200:
             new_order.has_been_sent_to_POS = True
             new_order.save()
-        #logger.info("Table {0} sending {1} x {2}, \n Code: {3}, Text: {4}".format(tableName, item_name, quantity, r.status_code, r.text))
+        logger.info("Table {0} sending pos_id:{1} x {2}, \n Code: {3}, Text: {4}".format(tableName, pos_id, quantity, r.status_code, r.text))
         r.raise_for_status()
     except Exception as exc:
-        #logger.info("Table {0} sending {1} x {2}, \n Exception: {3} \n Retrying: {4}".format(tableName, item_name, quantity, repr(exc), self.request.retries))
+        logger.info("Table {0} sending pos_id:{1} x {2}, \n Exception: {3} \n Retrying: {4}".format(tableName, pos_id, quantity, repr(exc), self.request.retries))
         if self.request.retries >= self.max_retries:
             new_order.is_finished = False
             new_order.meal.status = Meal.ACTIVE
