@@ -781,7 +781,7 @@ class ClearBill(generics.GenericAPIView):
             meal.is_paid = True
             meal.bill_time = timezone.now()
             meal.save()
-        return Response("Success",
+        return Response({"success": True},
                         status=status.HTTP_200_OK)
 #NOTE: Use serializer to check and get post data here
 class AckOrder(generics.GenericAPIView):
