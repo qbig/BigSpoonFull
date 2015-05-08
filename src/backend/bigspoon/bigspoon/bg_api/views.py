@@ -298,7 +298,7 @@ class UpdateNewOrderForMeal(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
         try:
             current_table_meal = Meal.objects.filter(table=target_table, diner_id=diner_id, is_paid=False).latest('created')
-        except Meal.DoesNotExist:            
+        except Meal.DoesNotExist:
             print "2"
             return Response({"error": "Cannot retrieve current meal for table " + str(table_id)},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -596,7 +596,7 @@ class CreateRequest(generics.CreateAPIView):
     def pre_save(self, obj):
         obj.diner = self.request.user
         try:
-            meal = Meal.objects.get(created__range=today_limit(), diner=self.request.user, is_paid=False)
+            meal = Meal.objects.filter(created__range=today_limit(), diner=self.request.user, is_paid=False).latest('modified')
             obj.table = meal.table
         except Meal.DoesNotExist:
             Meal.objects.create(table=obj.table, diner=obj.diner, modified=timezone.now(),
