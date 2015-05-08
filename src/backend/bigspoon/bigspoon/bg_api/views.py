@@ -505,7 +505,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         diner = request.user
         is_checking_new = request.QUERY_PARAMS.get('new', None)
         try:
-            meal = Meal.objects.get(modified__range=five_mins_ago(), diner=diner, is_paid=False)
+            meal = Meal.objects.filter(modified__range=five_mins_ago(), diner=diner, is_paid=False).latest('modified')
             if is_checking_new and not meal.table.outlet.is_auto_send_to_POS:
                 data = MealAPISerializer(meal).data  # finish=False
             else:
