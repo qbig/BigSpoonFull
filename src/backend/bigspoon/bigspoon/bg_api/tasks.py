@@ -77,16 +77,18 @@ r = requests.get(url, auth=HTTPBasicAuth('Administrator', 'Greendot@111'))
 
 
 @task(bind=True, max_retries=10)
-def send_to_amax_no_print(self, table_id, new_order_id, print_bool=False):
+def send_to_amax_no_print(self, table_id, new_order_id, price=True):
     table = Table.objects.get(id=table_id)
     new_order = Order.objects.get(id=new_order_id)
     url = 'http://greendot02-151617.ddns.net:53698/ppc/ordering.asmx/AddiPadOrderNew'
     basic_auth = HTTPBasicAuth('Administrator', 'Greendot@111')
     tableName = table.name
-    should_print = 'true' if print_bool else 'false'
     pos_id = str(new_order.dish.pos)  # !!! must match '10101'
     item_name = new_order.dish.name
-    item_price = str(new_order.get_order_spending() if new_order.dish.can_be_customized else new_order.dish.price)
+    if price:
+        item_price = str(new_order.get_order_spending() if new_order.dish.can_be_customized else new_order.dish.price)
+    else:
+        item_price = "0"
     quantity = str(new_order.quantity)
     item_note = new_order.note
     item_sale_str = "||".join([pos_id, item_name, item_name + "*\n" + item_note, item_price, quantity]) + "|"

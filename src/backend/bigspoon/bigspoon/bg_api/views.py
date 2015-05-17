@@ -389,10 +389,10 @@ class UpdateTableForMealForSingleDiner(generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         return Response("updated", status=status.HTTP_201_CREATED)
-       
 
 
 #NOTE: Use serializer to check and get post data here
+#TODO: Refactor this monster...
 class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
     """
     Create new meal
@@ -405,6 +405,14 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
     def post(self, request, *args, **kwargs):
         dishes = request.DATA['dishes']
         table_id = request.DATA['table']
+        notes = None
+        if ('notes' in request.DATA):
+            notes = request.DATA['notes']
+
+        modifiers = None
+        if ('modifiers' in request.DATA):
+            modifiers = request.DATA['modifiers']
+
         try:
             table = Table.objects.get(id=int(table_id))
         except Table.DoesNotExist:
@@ -413,10 +421,18 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
 
         # Check quantity
         out_of_stock = []
-        for dish_pair in dishes:
+        old_len = len(dishes)
+        idx = 0
+        while idx < len(dishes):
+            dish_pair = dishes[idx]
+            index_str = str(idx)  # key for modifier
             dish_id = dish_pair.keys()[0]
             try:
                 dish = Dish.objects.get(id=int(dish_id))
+                current_modifier_ans = modifiers.get(index_str) if modifiers and index_str in modifiers else None
+                current_modifier_match = dish.custom_order_json['itemIds'] if dish.custom_order_json and 'itemIds' in dish.custom_order_json else None
+                if current_modifier_ans and current_modifier_match:
+                    dishes += [dict([(current_modifier_match[k], v)]) for k, v in current_modifier_ans.items() if k in current_modifier_match]
             except Dish.DoesNotExist:
                 return Response({"error": "Unknown dish id " + str(dish_id)},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -445,10 +461,9 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             meal = Meal.objects.filter(created__range=today_limit(), diner=diner, is_paid=False).latest('created')
             table = meal.table
         except Meal.DoesNotExist:
-            meal = Meal.objects.create(table=table, diner=diner,
-                                                   is_paid=False)
+            meal = Meal.objects.create(table=table, diner=diner, is_paid=False)
             if table.outlet.is_on_promotion:
-                num_of_disconuts_today = Meal.objects.filter(created__range=today_limit(),table__outlet=table.outlet).count()
+                num_of_disconuts_today = Meal.objects.filter(created__range=today_limit(), table__outlet=table.outlet).count()
                 if num_of_disconuts_today <= table.outlet.promotion_quota:
                     meal.promotion_note = "${amount} off, customer {count}/{quota}".format(amount=table.outlet.promotion_amount, count=num_of_disconuts_today, quota=table.outlet.promotion_quota)
 
@@ -464,14 +479,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             meal.note = note
         meal.save()
 
-        notes = None
-        if ('notes' in request.DATA):
-            notes = request.DATA['notes']
-
-        modifiers = None
-        if ('modifiers' in request.DATA):
-            modifiers = request.DATA['modifiers']
-
+        # create/add order for current/new meal
         for idx, dish_pair in enumerate(dishes):
             dish_id = dish_pair.keys()[0]
             dish = Dish.objects.get(id=int(dish_id))
@@ -479,7 +487,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
             new_order = None
             index_str = str(idx)
             if notes and index_str in notes:
-                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(index_str), is_finished=table.outlet.is_auto_send_to_POS)   
+                new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, note=notes.get(index_str), is_finished=table.outlet.is_auto_send_to_POS)
             else:
                 new_order = Order.objects.create(meal=meal, dish=dish, quantity=quantity, is_finished=table.outlet.is_auto_send_to_POS)
 
@@ -489,7 +497,10 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
 
             # send to printer if configured
             if table.outlet.is_auto_send_to_POS and get_printing_task(table.outlet.id) and not table.is_for_take_away:
-                get_printing_task(table.outlet.id).delay(table.id, new_order.id)
+                if idx < old_len:
+                    get_printing_task(table.outlet.id).delay(table.id, new_order.id)
+                else:
+                    get_printing_task(table.outlet.id).delay(table.id, new_order.id, price=False)
             # send done
             dish.quantity -= quantity
             dish.save()
