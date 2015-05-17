@@ -424,7 +424,6 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
         old_len = len(dishes)
         idx = 0
         while idx < len(dishes):
-            idx += 1
             dish_pair = dishes[idx]
             index_str = str(idx)  # key for modifier
             dish_id = dish_pair.keys()[0]
@@ -442,6 +441,7 @@ class CreateMeal(generics.CreateAPIView, generics.RetrieveAPIView):
 
             if stock_quantity < quantity:
                 out_of_stock.append(dish.name)
+            idx += 1
 
         if(len(out_of_stock) > 0):
             #returns "" if there's only 1 element.
