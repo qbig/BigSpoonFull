@@ -9,27 +9,22 @@ from common import *
 
 
 ########## EMAIL CONFIGURATION
-
-MAILGUN_ACCESS_KEY = 'key-5hi52d2x6cuigjradbmlclrbcp2507g0'
-MAILGUN_SERVER_NAME = 'BigSpoon'
-
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-DEFAULT_FROM_EMAIL = 'no-reply@bigspoon.com.sg'
+DEFAULT_FROM_EMAIL = 'no-reply@bigspoon.com'
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-#EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = environ.get('EMAIL_HOST', 'smtp.gmail.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-password
-#EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_PASSWORD = environ.get('EMAIL_HOST_PASSWORD', '')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-host-user
-#EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'your_email@example.com')
+EMAIL_HOST_USER = environ.get('EMAIL_HOST_USER', 'your_email@example.com')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-#EMAIL_PORT = environ.get('EMAIL_PORT', 587)
+EMAIL_PORT = environ.get('EMAIL_PORT', 587)
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = '[%s] ' % SITE_NAME
