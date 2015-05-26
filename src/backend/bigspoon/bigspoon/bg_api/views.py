@@ -18,7 +18,7 @@ from rest_framework import renderers
 from rest_framework.authtoken.models import Token
 
 from bg_api.serializers import UserSerializer, OutletListSerializer, \
-    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer,MealAPISerializer, \
+    OutletDetailSerializer, ProfileSerializer, MealDetailSerializer, MealAPISerializer, \
     MealSerializer, RequestSerializer, RequestAPISerializer, TokenSerializer, \
     CategorySerializer, NoteSerializer, RatingSerializer, \
     ReviewSerializer, DishSerializer, MealHistorySerializer, \
