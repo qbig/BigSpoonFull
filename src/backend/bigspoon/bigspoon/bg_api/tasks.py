@@ -117,7 +117,9 @@ def send_to_amax_no_print(self, table_id, new_order_id, price=True):
         logger.info("Table {0} sending pos_id:{1} x {2}, \n Code: {3}, Text: {4}".format(tableName, pos_id, quantity, r.status_code, r.text))
         r.raise_for_status()
     except Exception as exc:
-        logger.info("Table {0} sending pos_id:{1} x {2}, \n Exception: {3} \n Retrying: {4}".format(tableName, pos_id, quantity, repr(exc), self.request.retries))
+        errors_msg = "Table {0} sending pos_id:{1} x {2}, \n Exception: {3} \n Retrying: {4}".format(tableName, pos_id, quantity, repr(exc), self.request.retries)
+        logger.info(errors_msg)
+        email(subject="!!!Printing Order Undelivered!!!", text=errors_msg)
         if self.request.retries >= self.max_retries:
             new_order.is_finished = False
             new_order.meal.status = Meal.ACTIVE
