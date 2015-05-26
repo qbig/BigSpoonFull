@@ -76,7 +76,7 @@ r = requests.get(url, auth=HTTPBasicAuth('Administrator', 'Greendot@111'))
 """
 
 
-@task(bind=True, max_retries=10)
+@task(bind=True, max_retries=3)
 def send_to_amax_no_print(self, table_id, new_order_id, price=True):
     table = Table.objects.get(id=table_id)
     new_order = Order.objects.get(id=new_order_id)
@@ -143,3 +143,16 @@ task_config = {
 #get_printing_task(table.outlet.id).delay(table.outlet, table, new_order)
 def get_printing_task(outlet_id):
     return task_config.get(outlet_id)
+
+
+@task(bind=True, max_retries=3)
+def email(self, from_name="BigSpoon", to="qiaoliang89@gmail.com", subject="Hello", text="Test"):
+    try:
+        r = requests.post(
+            "https://api.mailgun.net/v3/bigspoon.com.sg/messages",
+            auth=("api", "key-5hi52d2x6cuigjradbmlclrbcp2507g0"),
+            data={"from": from_name + " <mailgun@bigspoon.com.sg>", "to": [to], "subject": subject, "text": text})
+        r.raise_for_status()
+    except Exception as exc:
+        if self.request.retries < self.max_retries:
+            self.retry(exc=exc, countdown=min(self.request.retries, 5))
