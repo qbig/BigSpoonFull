@@ -110,7 +110,7 @@ def send_to_amax_no_print(self, table_id, new_order_id, price=True):
     }
     logger.info("Table {0} sending pos_id:{1} x {2}".format(tableName, pos_id, quantity))
     try:
-        r = requests.post(url, data=payload, auth=basic_auth, timeout=5)
+        r = requests.post(url, data=payload, auth=basic_auth, timeout=10)
         if r.status_code == 200:
             new_order.has_been_sent_to_POS = True
             new_order.save()
