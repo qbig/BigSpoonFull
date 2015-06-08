@@ -8,7 +8,7 @@ from bg_inventory.models import User, Table
 import datetime
 import requests
 from requests.auth import HTTPBasicAuth
-from requests.exceptions import Timeout
+from requests.exceptions import ReadTimeout
 import json
 
 
@@ -111,7 +111,7 @@ def send_to_amax_no_print(self, table_id, new_order_id, price=True):
     }
     logger.info("Table {0} sending pos_id:{1} x {2}".format(tableName, pos_id, quantity))
     try:
-        r = requests.post(url, data=payload, auth=basic_auth, timeout=15)
+        r = requests.post(url, data=payload, auth=basic_auth, timeout=10)
         if r.status_code == 200:
             new_order.has_been_sent_to_POS = True
             new_order.save()
@@ -121,7 +121,7 @@ def send_to_amax_no_print(self, table_id, new_order_id, price=True):
         errors_msg = "Table {0} sending pos_id:{1} x {2}, \n Exception: {3} \n Retrying: {4}".format(tableName, pos_id, quantity, repr(exc), self.request.retries)
         logger.info(errors_msg)
         email(subject="!!!Printing Order Undelivered!!!", text=errors_msg)
-        if isinstance(exc, Timeout):
+        if isinstance(exc, ReadTimeout):
             new_order.has_been_sent_to_POS = True
             new_order.save()
             return
