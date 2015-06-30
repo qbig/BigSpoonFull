@@ -94,8 +94,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         for meal in self.meals.all():
             total_spending += meal.get_meal_spending()
         return total_spending
-    
-    
+
     def get_recent_outlet_meals(self):
         """
         Returns meals from the most recent outlet.
@@ -363,6 +362,37 @@ class Restaurant(models.Model):
         verbose_name_plural = _('restaurants')
 
 
+class Story(models.Model):
+    """
+    Brand Story
+    """
+    photo = ImageWithThumbsField(
+        upload_to=_image_upload_path,
+        blank=True,
+        null=True,
+        sizes=((640, 400), (320, 200)),
+        help_text=_('story photo')
+    )
+
+    title = models.CharField(
+        _('title'),
+        max_length=255,
+        help_text=_('story title')
+    )
+
+    subtitle = models.CharField(
+        _('subtitle'),
+        max_length=255 * 2,
+        help_text=_('story subtitle')
+    )
+
+    url = models.CharField(
+        _('url'),
+        max_length=255 * 2,
+        help_text=_('story url')
+    )
+
+
 class Outlet(models.Model):
     """
     Stores outlet information
@@ -518,6 +548,10 @@ class Outlet(models.Model):
         sizes=((640, 400), (320, 200)),
         help_text=_('dish photo')
     )
+
+    story_json_array = JSONField(
+        blank=True,
+        null=True,)
 
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
