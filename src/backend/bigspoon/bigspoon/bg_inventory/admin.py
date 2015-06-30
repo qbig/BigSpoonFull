@@ -65,7 +65,7 @@ class TableAdmin(GuardedModelAdmin):
 
 class StoryAdmin(GuardedModelAdmin):
     search_fields = list(search_fields_of["common"])
-    list_display = ('id', 'name', 'outlet__name')
+    list_display = ('id', 'name', 'outlet')
 
 
 class CategoryAdmin(GuardedModelAdmin):
