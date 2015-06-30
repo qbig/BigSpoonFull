@@ -522,6 +522,12 @@ class Outlet(models.Model):
         blank=True,
         null=True,)
 
+    story_display_interval = models.IntegerField(
+        _('story_display_interval'),
+        default=600,
+        help_text=_('interval after order,(seconds)')
+    )
+
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
         slug = slugify(self.name)
