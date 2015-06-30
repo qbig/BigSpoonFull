@@ -558,7 +558,7 @@ class Story(models.Model):
         help_text=_('story photo')
     )
 
-    title = models.CharField(
+    name = models.CharField(
         _('title'),
         max_length=255,
         help_text=_('story title')
