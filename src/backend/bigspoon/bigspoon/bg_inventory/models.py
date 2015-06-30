@@ -582,6 +582,12 @@ class Story(models.Model):
         return 'restaurant/storys/%s/%s/%s.%s' % (
             self.outlet.name, self.id, slug, end)
 
+    def __unicode__(self):
+        """
+        Returns the category name
+        """
+        return self.name
+
 
 class CategorySequence(models.Model):
     """
