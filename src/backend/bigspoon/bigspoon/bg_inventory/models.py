@@ -547,7 +547,7 @@ class Story(models.Model):
     outlet = models.ForeignKey(
         Outlet,
         help_text=_('belong to outlet'),
-        related_name='outlet',
+        related_name='storys',
     )
 
     photo = ImageWithThumbsField(
