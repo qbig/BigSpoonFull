@@ -362,37 +362,6 @@ class Restaurant(models.Model):
         verbose_name_plural = _('restaurants')
 
 
-class Story(models.Model):
-    """
-    Brand Story
-    """
-    photo = ImageWithThumbsField(
-        upload_to=_image_upload_path,
-        blank=True,
-        null=True,
-        sizes=((640, 400), (320, 200)),
-        help_text=_('story photo')
-    )
-
-    title = models.CharField(
-        _('title'),
-        max_length=255,
-        help_text=_('story title')
-    )
-
-    subtitle = models.CharField(
-        _('subtitle'),
-        max_length=255 * 2,
-        help_text=_('story subtitle')
-    )
-
-    url = models.CharField(
-        _('url'),
-        max_length=255 * 2,
-        help_text=_('story url')
-    )
-
-
 class Outlet(models.Model):
     """
     Stores outlet information
@@ -568,6 +537,50 @@ class Outlet(models.Model):
     class Meta:
         verbose_name = _('outlet')
         verbose_name_plural = _('outlets')
+
+
+class Story(models.Model):
+    """
+    Brand Story
+    """
+
+    outlet = models.ForeignKey(
+        Outlet,
+        help_text=_('belong to outlet'),
+        related_name='outlet',
+    )
+
+    photo = ImageWithThumbsField(
+        upload_to=_image_upload_path,
+        blank=True,
+        null=True,
+        sizes=((640, 400), (320, 200)),
+        help_text=_('story photo')
+    )
+
+    title = models.CharField(
+        _('title'),
+        max_length=255,
+        help_text=_('story title')
+    )
+
+    subtitle = models.CharField(
+        _('subtitle'),
+        max_length=255 * 2,
+        help_text=_('story subtitle')
+    )
+
+    url = models.CharField(
+        _('url'),
+        max_length=255 * 2,
+        help_text=_('story url')
+    )
+
+    def get_upload_path(self, filename):
+        fname, dot, end = filename.rpartition('.')
+        slug = slugify(self.title)
+        return 'restaurant/storys/%s/%s/%s.%s' % (
+            self.outlet.name, self.id, slug, end)
 
 
 class CategorySequence(models.Model):
