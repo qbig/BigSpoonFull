@@ -559,7 +559,7 @@ class Story(models.Model):
     )
 
     name = models.CharField(
-        _('title'),
+        _('name'),
         max_length=255,
         help_text=_('story title')
     )
@@ -578,7 +578,7 @@ class Story(models.Model):
 
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
-        slug = slugify(self.title)
+        slug = slugify(self.name)
         return 'restaurant/storys/%s/%s/%s.%s' % (
             self.outlet.name, self.id, slug, end)
 
