@@ -166,6 +166,15 @@ class OutletTableSerializer(serializers.ModelSerializer):
 
 
 class OutletStorySerializer(serializers.ModelSerializer):
+    photo = serializers.SerializerMethodField('get_photo')
+
+    def get_photo(self, obj):
+        if obj.photo:
+            return {
+                'original': obj.photo.url,
+                'thumbnail': obj.photo.url_320x200,
+                'thumbnail_large': obj.photo.url_640x400,
+            }
 
     class Meta:
         model = Story
