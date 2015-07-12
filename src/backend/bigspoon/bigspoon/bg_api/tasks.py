@@ -77,7 +77,7 @@ r = requests.get(url, auth=HTTPBasicAuth('Administrator', 'Greendot@111'))
 """
 
 
-@task(bind=True, max_retries=10)
+@task(bind=True, max_retries=30)
 def send_to_amax_no_print(self, table_id, new_order_id, price=True):
     table = Table.objects.get(id=table_id)
     new_order = Order.objects.get(id=new_order_id)
@@ -111,7 +111,7 @@ def send_to_amax_no_print(self, table_id, new_order_id, price=True):
     }
     logger.info("Table {0} sending pos_id:{1} x {2}".format(tableName, pos_id, quantity))
     try:
-        r = requests.post(url, data=payload, auth=basic_auth, timeout=10)
+        r = requests.post(url, data=payload, auth=basic_auth, timeout=(3.05, 10))
         if r.status_code == 200:
             new_order.has_been_sent_to_POS = True
             new_order.save()
