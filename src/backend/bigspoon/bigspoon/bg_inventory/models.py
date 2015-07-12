@@ -94,8 +94,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         for meal in self.meals.all():
             total_spending += meal.get_meal_spending()
         return total_spending
-    
-    
+
     def get_recent_outlet_meals(self):
         """
         Returns meals from the most recent outlet.
@@ -519,6 +518,16 @@ class Outlet(models.Model):
         help_text=_('dish photo')
     )
 
+    story_json_array = JSONField(
+        blank=True,
+        null=True,)
+
+    story_display_interval = models.IntegerField(
+        _('story_display_interval'),
+        default=600,
+        help_text=_('interval after order,(seconds)')
+    )
+
     def get_upload_path(self, filename):
         fname, dot, end = filename.rpartition('.')
         slug = slugify(self.name)
@@ -534,6 +543,56 @@ class Outlet(models.Model):
     class Meta:
         verbose_name = _('outlet')
         verbose_name_plural = _('outlets')
+
+
+class Story(models.Model):
+    """
+    Brand Story
+    """
+
+    outlet = models.ForeignKey(
+        Outlet,
+        help_text=_('belong to outlet'),
+        related_name='storys',
+    )
+
+    photo = ImageWithThumbsField(
+        upload_to=_image_upload_path,
+        blank=True,
+        null=True,
+        sizes=((640, 400), (320, 200)),
+        help_text=_('story photo')
+    )
+
+    name = models.CharField(
+        _('name'),
+        max_length=255,
+        help_text=_('story title')
+    )
+
+    subtitle = models.CharField(
+        _('subtitle'),
+        max_length=255 * 2,
+        help_text=_('story subtitle')
+    )
+
+    url = models.CharField(
+        _('url'),
+        max_length=255 * 2,
+        help_text=_('story url')
+    )
+
+    def get_upload_path(self, filename):
+        fname, dot, end = filename.rpartition('.')
+        slug = slugify(self.name)
+        return 'restaurant/storys/%s/%s/%s.%s' % (
+            self.outlet.name, self.id, slug, end)
+
+    def __unicode__(self):
+        """
+        Returns the category name
+        """
+        return self.name
 
 
 class CategorySequence(models.Model):

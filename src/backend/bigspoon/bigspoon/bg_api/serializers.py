@@ -8,7 +8,7 @@ from rest_framework import serializers
 from rest_framework.relations import RelatedField
 
 from bg_inventory.models import Restaurant, Outlet, Table,\
-    Category, Dish, Rating, Review, Note, Profile, CategorySequence
+    Category, Dish, Rating, Review, Note, Profile, CategorySequence, Story
 from bg_order.models import Meal, Order, Request
 import pytz
 from django.conf import settings
@@ -165,11 +165,28 @@ class OutletTableSerializer(serializers.ModelSerializer):
         model = Table
 
 
+class OutletStorySerializer(serializers.ModelSerializer):
+    photo = serializers.SerializerMethodField('get_photo')
+
+    def get_photo(self, obj):
+        if obj.photo:
+            return {
+                'original': obj.photo.url,
+                'thumbnail': obj.photo.url_320x200,
+                'thumbnail_large': obj.photo.url_640x400,
+            }
+
+    class Meta:
+        model = Story
+
+
 class OutletDetailSerializer(serializers.ModelSerializer):
     dishes = serializers.SerializerMethodField('get_dishes')
     tables = OutletTableSerializer(many=True)
     categories = CategorySerializer(many=True)
+    storys = OutletStorySerializer(many=True)
     categories_order = serializers.SerializerMethodField('get_categories_order')
+
     def get_dishes(self, obj):
         # now = timezone.now().time()
         # current = obj.dishes.filter(
@@ -184,6 +201,7 @@ class OutletDetailSerializer(serializers.ModelSerializer):
             "order_index": od.order_index,
             "category_id": od.for_category.id
         } for od in obj.category_orders.all()]
+
     class Meta:
         model = Outlet
 
