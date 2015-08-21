@@ -127,6 +127,8 @@ extern NSString* const DISH_OVERLAY_OUT_OF_STOCK;
 extern NSString* const DISH_MODIFIER_TYPE_COUNT;
 extern NSString* const DISH_MODIFIER_TYPE_RADIO;
 extern NSString* const USER_FEEDBACK_TEXT_PLACEHOLDER;
+extern NSString* const TABLE_CODE_FOR_TAKEAWAY;
+extern NSString* const PHONE_NUMBER;
 
 // Notification Name
 extern NSString* const NOTIF_NEW_DISH_INFO_RETRIEVED;

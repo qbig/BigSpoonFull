@@ -67,11 +67,11 @@
             <string>ProximaNova-Semibold</string>
             <string>ProximaNova-Semibold</string>
         </mutableArray>
+        <mutableArray key="copyfonts.com_segoe_ui_light.ttf">
+            <string>SegoeUI-Light</string>
+        </mutableArray>
         <mutableArray key="segoeuib.ttf">
             <string>SegoeUI-Bold</string>
-        </mutableArray>
-        <mutableArray key="segoeuil.ttf">
-            <string>SegoeUI-Light</string>
         </mutableArray>
         <mutableArray key="seguisb.ttf">
             <string>SegoeUI-Semibold</string>
@@ -1896,7 +1896,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ip7-SH-AIF"/>
-        <segue reference="NcF-ES-z1f"/>
+        <segue reference="X3y-Ki-Wim"/>
         <segue reference="p4l-nj-CSu"/>
         <segue reference="TRy-SG-Bfr"/>
         <segue reference="OcS-Bs-eAE"/>

@@ -65,7 +65,7 @@
     self.userInfo = [User sharedInstance];
     [self.navigationItem setTitle: [self.outlet.name eclipsizeWithLengthLimit:MAX_NUM_OF_CHARS_IN_NAVIGATION_ITEM]];
     _viewControllersByIdentifier = [NSMutableDictionary dictionary];
-
+    
     [self loadControlPanels];
 
 }
@@ -89,6 +89,7 @@
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects: self.settingsBarButton, self.viewModeBarButton, nil];
     [self setNeedsStatusBarAppearanceUpdate];
+    [self setTableWithTalbeCode:TABLE_CODE_FOR_TAKEAWAY];
 }
 
 
@@ -556,6 +557,21 @@
                                 title:@"Thank you"];
 }
 
+- (BOOL)setTableWithTalbeCode:(NSString *)inputCodeFromDiner
+{
+    for (NSString *validTableCode in [self.validTableIDs allKeys]) {
+        NSLog(@"%@", validTableCode);
+        if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
+            NSLog(@"The table ID is valid");
+            [User sharedInstance].tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
+            [User sharedInstance].currentVerifiedOutletID = self.outlet.outletID;
+            [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
@@ -571,16 +587,9 @@
             
             NSString *inputCodeFromDiner = [alertView textFieldAtIndex:0].text;
             
-            for (NSString *validTableCode in [self.validTableIDs allKeys]) {
-                NSLog(@"%@", validTableCode);
-                if ([[inputCodeFromDiner lowercaseString] isEqualToString: validTableCode]) {
-                    NSLog(@"The table ID is valid");
-                    [User sharedInstance].tableID = [[self.validTableIDs objectForKey:validTableCode] integerValue];
-                    [User sharedInstance].currentVerifiedOutletID = self.outlet.outletID;
-                    self.taskAfterAskingForTableID();
-                    [[Mixpanel sharedInstance].people increment:@"Number of Visit(key in table code)" by:[NSNumber numberWithInt:1]];
-                    return;
-                }
+            if ([self setTableWithTalbeCode:inputCodeFromDiner]) {
+                self.taskAfterAskingForTableID();
+                return;
             }
             [self askForTableIDWithTitle:@"Table ID incorrect. Please enter your table ID or ask your friendly waiter for assistance"];
         }
@@ -769,10 +778,17 @@
     
     UIDatePicker *picker = [[UIDatePicker alloc] init];
     picker.datePickerMode = UIDatePickerModeTime;
+    NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+    [timeFormatter setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
+    [timeFormatter setLocale:[NSLocale currentLocale]];
+    
+    [self.timePickerPopup textFieldAtIndex:0].text = [timeFormatter stringFromDate: [[NSCalendar autoupdatingCurrentCalendar] dateBySettingHour:0 minute:10 second:0 ofDate: [[NSDate alloc] init]options:nil]];
+    
     [picker addTarget:self action:@selector(changeDate:) forControlEvents:UIControlEventValueChanged];
 
     [self.timePickerPopup textFieldAtIndex:0].inputView = picker;
     
+    [self.timePickerPopup textFieldAtIndex:1].text = [[[User sharedInstance].userDefault objectForKey:PHONE_NUMBER] stringValue];
     [[self.timePickerPopup textFieldAtIndex:1] setKeyboardType:UIKeyboardTypePhonePad];
     
     [self.timePickerPopup show];
@@ -841,7 +857,9 @@
     }
     if([self.userInfo isOrderingTakeaway]) {
         generalNote = [NSString stringWithFormat:@"Takeaway: %@, phone: %@",[self.timePickerPopup textFieldAtIndex:0].text, [self.timePickerPopup textFieldAtIndex:1].text ];
+        
         [self.timePickerPopup textFieldAtIndex:0].text = @"";
+        [[User sharedInstance].userDefault setValue:[self.timePickerPopup textFieldAtIndex:1].text forKey: PHONE_NUMBER];
         [self.timePickerPopup textFieldAtIndex:1].text = @"";
     }
 
@@ -1142,6 +1160,7 @@
 
 - (BOOL) isLocationLegalAndShowAlertIfNot {
     BOOL result = true;
+    return result;
     if ([self.userInfo isLocationServiceDisabled]){
         UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:ENABLE_LOCATION_ALERT_TITLE message: ENABLE_LOCATION_ALERT delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [errorAlert show];

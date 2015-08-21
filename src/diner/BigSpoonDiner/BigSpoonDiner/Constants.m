@@ -11,7 +11,7 @@
 @implementation Constants
 
 // Request URLs:
-#define DEV  0;
+// #define DEV  0;
 #ifdef DEV
 //NSString* const BASE_URL = @"http://46.137.234.248";
 //NSString* const USER_SIGNUP = @"http://46.137.234.248/api/v1/user";
@@ -158,6 +158,8 @@ NSString* const DISH_OVERLAY_OUT_OF_STOCK = @"out_of_stock.png";
 NSString* const DISH_MODIFIER_TYPE_COUNT = @"count";
 NSString* const DISH_MODIFIER_TYPE_RADIO = @"radio";
 NSString* const USER_FEEDBACK_TEXT_PLACEHOLDER = @"Your feedback here...";
+NSString* const TABLE_CODE_FOR_TAKEAWAY = @"takeaway";
+NSString* const PHONE_NUMBER = @"phoneNumber";
 
 
 // Notification
